@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1098,
+  "courseSignalCount": 43,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 26,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 17,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "Entrepreneurship One-Semester Course BUS231 or BUS232 Marketing One-Semester Course BUS281 or BUS282 Marketing One-Semester Course BUS281 or BUS282 Introduction to Business One-Semester Course BUS171 or BUS172 Entrepreneurial Tactics One-Semester Course BUS411 or BUS412 Business Applications and Technology 2 Semester 2 Course Only BUS142 Introduction to Business One-Semester Course BUS171 or BUS172 Accounting 1 Semester 1 Course Only BUS251 Accounting 2 Semester 2 Course Only BUS252 Business Law"
+}

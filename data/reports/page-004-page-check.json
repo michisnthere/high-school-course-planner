@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 6117,
+  "courseSignalCount": 0,
+  "policySignalCount": 17,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 5,
+    "requirement": 6,
+    "waiver": 3,
+    "physical_education": 1,
+    "drivers_ed": 2,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "ADLAI E. STEVENSON HIGH SCHOOL2 TABLE OF CONTENTS \u201c46th Credit\u201d Graduation Requirement ................................... 5 Academic Eligibility for Students in Co-Curriculars ............... 12 Academic Honors .................................................................... 10 ACT Graduation Requirement ................................................... 4 Administration Contact Information .................................... 116 Appendix\u2013Legal Notice ....................................."
+}

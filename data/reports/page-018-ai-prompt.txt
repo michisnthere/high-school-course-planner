@@ -1,0 +1,131 @@
+You are extracting structured academic data from one page of a high school coursebook.
+Return only valid JSON. Do not invent missing information.
+
+Extract any courses, course offerings, departments, graduation requirements, requirement rules,
+waivers, prerequisites, co-requisites, credits, grade levels, and notes visible on this page.
+
+Use this JSON shape:
+{
+  "sourcePage": 18,
+  "departments": [
+    {
+      "name": "string or null",
+      "description": "string or null"
+    }
+  ],
+  "courses": [
+    {
+      "title": "string",
+      "department": "string or null",
+      "description": "string or null",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "string or null",
+          "semesterLabel": "string or null",
+          "duration": "string or null",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["string"],
+          "corequisites": ["string"],
+          "creditType": "string or null",
+          "credits": null
+        }
+      ],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "graduationRequirements": [
+    {
+      "name": "string",
+      "category": "string or null",
+      "requirementType": "credits | semesters | completion | waiver | policy | unknown",
+      "requiredValue": "number or null",
+      "eligibleCourses": ["string"],
+      "waiverRules": ["string"],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "warnings": ["string"]
+}
+
+Page text:
+BUSINESS EDUCATION 
+IN EVERY FACET OF SOCIETY, BUSINESS PLAYS A VITAL 
+ROLE. THEREFORE, A THOROUGH BUSINESS EDUCATION 
+CAN PROVIDE A SOLID FOUNDATION FOR A SUCCESSFUL, 
+PROFESSIONAL LIFE. STEVENSON HIGH SCHOOL PROVIDES 
+THE SKILLS NECESSARY FOR STUDENTS TO BECOME 
+TOMORROW’S BUSINESS LEADERS.
+INTRODUCTION TO BUSINESS
+GPA WAIVER OPTION  
+BUS171–Semester 1 BUS172–Semester 2 
+Open to: 9-10 One Semester
+Prerequisite: None credit: College prep 
+Introduction to Business provides students with a 
+foundational understanding of the business world. This 
+course explores key topics including marketing, accounting, 
+international business and entrepreneurship, giving students 
+insight into how businesses operate locally and globally. 
+Through real-world examples and hands-on projects, students 
+will develop critical thinking and problem-solving skills 
+essential for future success in business. Whether planning to 
+start a business or pursue a business career, students will gain 
+valuable knowledge to build their path forward.
+BUSINESS APPLICATIONS AND TECHNOLOGY 1
+GPA WAIVER OPTION 
+BUS131–Semester 1 BUS132–Semester 2 
+Open to: 9-10-11-12 One Semester
+Prerequisite: None credit: College prep 
+To live, learn and work successfully in an increasingly  
+complex and information-rich society, students must be 
+able to use technology eﬀectively. Business Applications and 
+Technology 1 is a course designed to teach students how to 
+use a variety of so/f_tware programs and multimedia platforms 
+as they create a business concept. Students will strengthen 
+their knowledge of both business operations and technology 
+usage in the workplace as they develop communications, 
+marketing materials, financial proposals and presentations  
+for their proposed business.
+BUSINESS APPLICATIONS AND TECHNOLOGY 2 
+GPA WAIVER OPTION 
+BUS142–Semester 2 only
+Open to: 9-10-11-12 One Semester
+Prerequisite: Business Applications and Technology 1
+Credit: College prep
+Business Applications and Technology 2 encourages  
+students to develop the technology and problem-solving  
+skills essential in today’s workforce. Students will be tasked 
+with finding solutions to common business problems, while 
+being encouraged to consider multiple perspectives. Students 
+will work to incorporate technology into their business 
+practices to help them become more eﬀicient and organized.
+MARKETING
+GPA WAIVER OPTION    
+BUS281–Semester 1 BUS282–Semester 2 
+Open to: 10-11-12 One Semester
+Prerequisite: None credit: College prep
+Students will learn how companies develop and market their 
+products and services. Current trends in the entertainment, 
+apparel, sports and food industries will be explored and 
+applied during class activities. Students will interact with 
+members of the school and local community to design 
+products, advertisements and sales promotions for their 
+diﬀerent target markets. They will learn personal selling 
+strategies and visual merchandising techniques and get a 
+chance to practice them in authentic projects.
+ENTREPRENEURSHIP
+GPA WAIVER OPTION 
+BUS231–Semester 1 BUS232–Semester 2 
+Open to: 10-11-12 One Semester
+Prerequisite: None credit: College prep
+Entrepreneurship will provide students with a working 
+background on the skills and knowledge necessary to own 
+and operate a small business. Students will examine the 
+environment of small business ownership, the procedures 
+and skills necessary to open a small business and the policies 
+and practices of a successful small business operation. 
+Entrepreneurship will emphasize a hands-on approach  
+to small business ownership. 
+APPLIED ARTS–BUSINESS EDUCATION16

@@ -1,0 +1,193 @@
+{
+  "sourcePage": 92,
+  "departments": [],
+  "courses": [
+    {
+      "title": "Earth Science Dual Credit",
+      "department": null,
+      "description": "In this lab-based course, students explore geology, meteorology and astronomy. Students will work collaboratively and engage with the science and engineering practices. This course is a dual-credit, college-level science course where students can earn college credit hours at no cost through the College of Lake County.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI671",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors (Dual Credit) Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI672",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors (Dual Credit) Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["Credits inferred as 1.0 (no numeric credit printed on page)."],
+      "sourceReference": "Science section (page 92)"
+    },
+    {
+      "title": "AP Physics 1",
+      "department": null,
+      "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI611",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI612",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Science section (page 92)"
+    },
+    {
+      "title": "AP Physics 1 — Early Bird Option",
+      "department": null,
+      "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI61E1",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.5
+        },
+        {
+          "courseCode": "SCI61E2",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.5
+        }
+      ],
+      "notes": ["Credits set to 1.5 because description begins with 'In this 1.5 period lab-based course,'."],
+      "sourceReference": "Science section (page 92)"
+    },
+    {
+      "title": "AP Physics 2",
+      "department": null,
+      "description": "In this lab-based course, students explore electrostatics, circuits, electromagnetism, thermodynamics, waves and sound, optics and modern physics topics. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 2 exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI681",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [11, 12],
+          "prerequisites": ["AP Physics 1 or Physics"],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI682",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [11, 12],
+          "prerequisites": ["AP Physics 1 or Physics"],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["Credits inferred as 1.0 (no explicit numeric amount printed)."],
+      "sourceReference": "Science section (page 92)"
+    },
+    {
+      "title": "AP Biology",
+      "department": null,
+      "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI631",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["NONE"],
+          "corequisites": [],
+          "creditType": "Honors Biological Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI632",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["NONE"],
+          "corequisites": [],
+          "creditType": "Honors Biological Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Science section (page 92)"
+    },
+    {
+      "title": "AP Biology — Early Bird Option",
+      "department": null,
+      "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI63E1",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Biological Science",
+          "credits": 1.5
+        },
+        {
+          "courseCode": "SCI63E2",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Biological Science",
+          "credits": 1.5
+        }
+      ],
+      "notes": ["Credits set to 1.5 because description begins with 'In this 1.5 period lab-based course,'."],
+      "sourceReference": "Science section (page 92)"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "AP Physics 1 and AP Biology regular offerings (SCI611/612 and SCI631/632) had no separate descriptions on the page; credits were set to 1.0 by default.",
+    "The 1.5 credit rule was applied only to Early Bird offerings whose descriptions explicitly begin with 'In this 1.5 period lab-based course,'.",
+    "AP Physics 2 does not mention 1.5 period courses; all offerings set to 1.0.",
+    "Several offerings had no explicit numeric credit printed; credits inferred based on course description content."
+  ]
+}

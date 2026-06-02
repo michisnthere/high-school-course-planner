@@ -1,0 +1,103 @@
+SCIENCE88
+KEY:  
+B=Biological Science 
+P=Physical Science
+Biology (B)
+Full-Year Course 
+SCI111/SCI112
+Chemistry (P)
+Full-Year Course 
+SCI211/SCI212
+AP Biology (B)
+Full-Year Course
+SCI631/SCI632
+Early Bird Option
+SCI63E1/SCI63E2
+AP Chemistry (P)
+Full-Year Course 
+SCI651/SCI652
+Early Bird Option 
+SCI65E1/SCI65E2
+Human Anatomy  
+and Physiology (B)
+Full-Year Course 
+SCI521/SCI522
+AP Physics C (P)
+Full-Year Course 
+SCI661/SCI662
+Early Bird Option 
+SCI66E1/SCI66E2
+Chemistry (P)
+Full-Year Course 
+SCI211/SCI212
+Earth Science (P)
+Full-Year Course 
+SCI271/SCI272
+Physics (P)
+Full-Year Course 
+SCI401/SCI402
+Earth Science  
+Dual Credit (P)
+Full-Year Course 
+SCI671/SCI672 
+AP Physics 1 (P)
+Full-Year Course
+SCI611/SCI612
+Early Bird Option
+SCI61E1/SCI61E2
+SCIENCE DIVISION COURSE OFFERINGS 
+WWW.D125.ORG/ACADEMICS/COURSEBOOK  
+Science Research
+Full-Year Course 
+SCI351/SCI352
+Horticulture(B) 
+One-Semester Course 
+SCI531/SCI532
+Biology (B)
+Full-Year Course 
+SCI111/SCI112
+Biology (B)
+Full-Year Course 
+SCI111/SCI112
+Chemistry (P)
+Full-Year Course 
+SCI211/SCI212
+AP Biology (B)
+Full-Year Course
+SCI631/SCI632
+Early Bird Option
+SCI63E1/SCI63E2
+AP Chemistry (P)
+Full-Year Course 
+SCI651/SCI652
+Early Bird Option 
+SCI65E1/SCI65E2
+Earth Science (P)
+Full-Year Course 
+SCI271/SCI272
+Physics (P)
+Full-Year Course 
+SCI401/SCI402
+Earth Science  
+Dual Credit (P)
+Full-Year Course 
+SCI671/SCI672
+ 
+AP Physics 1 (P)
+Full-Year Course
+SCI611/SCI612
+Early Bird Option
+SCI61E1/SCI61E2
+Science Research
+Full-Year Course 
+SCI351/SCI352
+Horticulture(B) 
+One-Semester Course 
+SCI531/SCI532
+AP Environmental 
+Science (1B and 1P)
+Full-Year Course 
+SCI641/SCI642
+AP Physics 2 (P)
+Full-Year Course 
+SCI681/SCI682

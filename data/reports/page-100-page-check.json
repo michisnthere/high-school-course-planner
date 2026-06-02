@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3788,
+  "courseSignalCount": 26,
+  "policySignalCount": 13,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 13,
+    "duration": 5,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 3,
+    "requirement": 5,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 1,
+    "economics": 4
+  },
+  "preview": "AP MACROECONOMICS SOC641\u2013Semester 1 SOC642\u2013Semester 2 Open to: 11-12 One Semester Prerequisite: World History and Geography Credit: honors The purpose of an advanced placement course in macroeconomics is to give students a thorough understanding of the principles of economics that apply to an economic system as a whole. The course places particular emphasis on the study of national income and price-level determination, and also develops students\u2019 familiarity with economic performance measures, t"
+}

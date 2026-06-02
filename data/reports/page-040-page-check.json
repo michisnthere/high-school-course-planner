@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3347,
+  "courseSignalCount": 18,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 6,
+    "duration": 3,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 3,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET)38 ENGINEERING WHETHER STUDENTS ASPIRE TO DEVELOP A CAREER IN FIELDS OF ARCHITECTURE OR ENGINEERING, OR ARE JUST LOOKING FOR A CREATIVE OUTLET TO DEVELOP PROBLEM-SOLVING SKILLS, THE COURSES WITHIN THIS PROGRAM ARE EXCELLENT ELECTIVE OPTIONS. ALL COURSES ARE HANDS-ON, COLLABORATIVE AND UTILIZE INDUSTRY STANDARDS SOFTWARE AND TOOLS. STUDENTS CAN CHOOSE COURSES FROM MULTIPLE PATHWAYS INCLUDING: MECHANICAL ENGINEERING, ELECTRICAL ENGINEERING, COMPUT"
+}

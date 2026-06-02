@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3628,
+  "courseSignalCount": 33,
+  "policySignalCount": 5,
+  "courseSignals": {
+    "course_code": 9,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 14,
+    "duration": 5,
+    "gpa_waiver": 5
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 5,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "BUSINESS EDUCATION IN EVERY FACET OF SOCIETY, BUSINESS PLAYS A VITAL ROLE. THEREFORE, A THOROUGH BUSINESS EDUCATION CAN PROVIDE A SOLID FOUNDATION FOR A SUCCESSFUL, PROFESSIONAL LIFE. STEVENSON HIGH SCHOOL PROVIDES THE SKILLS NECESSARY FOR STUDENTS TO BECOME TOMORROW’S BUSINESS LEADERS. INTRODUCTION TO BUSINESS GPA WAIVER OPTION BUS171–Semester 1 BUS172–Semester 2 Open to: 9-10 One Semester Prerequisite: None credit: College prep Introduction to Business provides students with a foundational und"
+}

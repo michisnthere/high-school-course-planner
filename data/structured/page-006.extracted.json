@@ -1,0 +1,120 @@
+{
+  "sourcePage": 6,
+  "departments": [],
+  "courses": [],
+  "graduationRequirements": [
+    {
+      "name": "Civics and Patriotism",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["Students who pass their required government course satisfy the one-semester state civics requirement. Must pass assessments on Patriotism and Principles of Representative Government."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Driver Education",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": ["Complete Driver Education at Stevenson, submit certificate from commercial school, or provide driver's license issued prior to age 18."],
+      "notes": ["Students must earn eight credits in previous two semesters to be eligible for Driver Education."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Elective Credits",
+      "category": "Graduation Requirement",
+      "requirementType": "credits",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["At least two elective semester credits must come from Applied Arts, Fine Arts, Multilingual Learning and/or Computer Science, Engineering and Technology."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Economics or Personal Finance",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": ["Economics","AP Macroeconomics","AP Microeconomics","Personal Finance"],
+      "waiverRules": [],
+      "notes": ["Students must complete a semester of economics or personal finance."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "English",
+      "category": "Graduation Requirement",
+      "requirementType": "credits",
+      "requiredValue": 8.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["Eight credits required for graduation; two writing-intensive courses required."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Health",
+      "category": "Graduation Requirement",
+      "requirementType": "credits",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["One semester/credit of Health Education is required for graduation, including participation in a unit on Adult CPR."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Mathematics",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 6.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["At least six semesters/credits required including algebra and one course with geometry content."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Physical Welfare / PE",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": ["Waivers: Dance, Health Education (first time), Applied Health, Driver Education (first time), athletic waiver, Marching Band or Color Guard, senior academic waiver."],
+      "notes": ["Students must participate in Physical Education each semester unless they meet waiver conditions."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Science",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 4.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["Two semesters of biological science and two semesters of physical science required."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Social Studies",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 5.0,
+      "eligibleCourses": ["U.S. History","AP U.S. History","World History and Geography","Government","AP United States Government and Politics"],
+      "waiverRules": [],
+      "notes": ["Two semesters/credits of U.S. History (or AP U.S. History); two semesters/credits of World History and Geography; one semester/credit of Government (or AP United States Government and Politics), including passing specific assessments on Patriotism and Principles of Representative Government in the required government course to satisfy the state requirement for graduation."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "ACT",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": ["The ACT is the state's high school accountability exam in Illinois. All students in public high schools are required to participate in the ACT Suite of Assessments. Stevenson High School adheres to the requirements of the Illinois State Board of Education (ISBE) and will administer the Digital PreACT 9 to all freshman students, Digital PreACT to all sophomore students and the Digital School-day ACT to all junior students. It is important to note that the school-day ACT given to juniors in the spring is a graduation requirement in the State of Illinois. No other ACT administration fulfills this requirement. ACT scores are not included on a student's transcript. For information on the Suite of Assessments and more detail on the timeline of these exams, visit Stevenson's website at www.d125.org."],
+      "sourceReference": "Graduation Requirements (page 6)"
+    }
+  ],
+  "warnings": [
+    "Requirement values were interpreted from prose; verify numeric requirements against source PDF where applicable."
+  ]
+}

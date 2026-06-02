@@ -1,0 +1,96 @@
+You are extracting structured academic data from one page of a high school coursebook.
+Return only valid JSON. Do not invent missing information.
+
+Extract any courses, course offerings, departments, graduation requirements, requirement rules,
+waivers, prerequisites, co-requisites, credits, grade levels, and notes visible on this page.
+
+Use this JSON shape:
+{
+  "sourcePage": 22,
+  "departments": [
+    {
+      "name": "string or null",
+      "description": "string or null"
+    }
+  ],
+  "courses": [
+    {
+      "title": "string",
+      "department": "string or null",
+      "description": "string or null",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "string or null",
+          "semesterLabel": "string or null",
+          "duration": "string or null",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["string"],
+          "corequisites": ["string"],
+          "creditType": "string or null",
+          "credits": null
+        }
+      ],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "graduationRequirements": [
+    {
+      "name": "string",
+      "category": "string or null",
+      "requirementType": "credits | semesters | completion | waiver | policy | unknown",
+      "requiredValue": "number, string, or null",
+      "eligibleCourses": ["string"],
+      "waiverRules": ["string"],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "warnings": ["string"]
+}
+
+Page text:
+APPLIED ARTS–FAMILY AND CONSUMER SCIENCES20
+FAMILY AND CONSUMER SCIENCES COURSE OFFERINGS 
+WWW.D125.ORG/ACADEMICS/COURSEBOOK
+Interior Design
+One-Semester Course 
+FCS231 or FCS232
+Food and  
+Nutrition
+One-Semester Course 
+FCS111 or FCS112
+Food Preparation
+One-Semester Course 
+FCS221 or FCS222
+Gourmet Foods 
+One-Semester Course 
+FCS321 or FCS322
+Human Growth and 
+Development
+One-Semester Course 
+FCS211 or FCS212
+Teaching Young 
+Children 1
+One-Semester Course 
+FCS311 or FCS312
+Teaching Young 
+Children 2
+One-Semester Course 
+FCS331 or FCS332
+Clothing and  
+Design 1
+One-Semester Course 
+FCS251 or FCS252
+Clothing and  
+Design 2
+One-Semester Course 
+FCS291 or FCS292
+Business of  
+Fashion and Design
+One-Semester Course 
+FCS241 or FCS242
+Life by Design
+One-Semester Course 
+FCS411 or FCS412

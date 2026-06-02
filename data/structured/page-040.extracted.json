@@ -1,0 +1,107 @@
+{
+  "sourcePage": 40,
+  "departments": [
+    {
+      "name": "Computer Science, Engineering and Technology (CSET)",
+      "description": "Whether students aspire to develop a career in fields of architecture or engineering, or are just looking for a creative outlet to develop problem-solving skills, the courses within this program are excellent elective options. All courses are hands-on, collaborative and utilize industry standards software and tools. Students can choose courses from multiple pathways including: Mechanical Engineering, Electrical Engineering, Computer Engineering, Architecture and Robotic Engineering."
+    }
+  ],
+  "courses": [
+    {
+      "title": "Architectural Design",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "description": "Architectural Design is an introductory course for students interested in exploring the world of architecture. Through hands-on projects, students will learn key concepts in design, planning and technical drawing. Using the same software as professional architects, Autodesk Revit, they'll create floor plans, site layouts, elevations and renderings focused on residential design. Along the way, students will also build skills in physical model making, project documentation, creative problem-solving and presenting their ideas clearly to others.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "TEC141",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "TEC142",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["OCR fix applied: 'so/f_tware' -> 'software'.", "Credits inferred as 1.0 (not printed on page)."],
+      "sourceReference": "Computer Science, Engineering and Technology (page 40)"
+    },
+    {
+      "title": "Advanced Architectural Design",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "description": "Advanced Architectural Design is recommended for students interested in pursuing a career in architecture and/or interior design. Advanced Architectural Design is designed to prepare students for the wide variety of technical and computer software skills needed for higher education courses and within the workforce. Students will use architectural software and technology that is used by professional architects including Autodesk Revit, Autodesk AutoCAD, SketchUp, Adobe InDesign, Adobe Photoshop and a laser printer. Students will use this software to aid them in designing residential and commercial buildings and to create physical laser-cut models of their designs. In addition, students learn about documenting their projects, solving problems and communicating their solutions to their classmates.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "TEC241",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Civil Engineering and Architecture–PLTW", "Architectural Design"],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "TEC242",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Civil Engineering and Architecture–PLTW", "Architectural Design"],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["OCR fixes applied: 'so/f_tware' -> 'software' (multiple instances).", "Credits inferred as 1.0 (not printed on page).", "Prerequisite is disjunctive: one of the listed courses required."],
+      "sourceReference": "Computer Science, Engineering and Technology (page 40)"
+    },
+    {
+      "title": "Introduction to Engineering Design–PLTW",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "description": "Introduction to Engineering Design–PLTW is a full-year course available to all students. In this course, students use 3D solid modeling design software to help them design solutions to solve proposed problems. Students will then use high-tech equipment including 3D printers, a laser engraver and CNC router to produce their solutions. Students will learn how to document their work and communicate solutions to peers and members of the professional community. The major focus of the Introduction to Engineering Design–PLTW course is to expose students to the design process, research and analysis, collaboration skills, communication methods, global and human impacts, engineering standards and technical documentation. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "TEC151",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "TEC152",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["OCR fix applied: 'so/f_tware' -> 'software'.", "Credits inferred as 1.0 (not printed on page).", "May earn college credit/advanced standing based on cumulative exam."],
+      "sourceReference": "Computer Science, Engineering and Technology (page 40)"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Credits were not explicitly listed on this page; credits set to 1.0 by default and should be verified.",
+    "OCR artifacts fixed ('so/f_tware' -> 'software') in multiple course descriptions.",
+    "Advanced Architectural Design prerequisite structure is unclear (disjunctive); verify whether both courses are required or only one."
+  ]
+}

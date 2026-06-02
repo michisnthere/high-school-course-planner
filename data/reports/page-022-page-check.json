@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 791,
+  "courseSignalCount": 33,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 22,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 11,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPLIED ARTS\u2013FAMILY AND CONSUMER SCIENCES20 FAMILY AND CONSUMER SCIENCES COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK Interior Design One-Semester Course FCS231 or FCS232 Food and Nutrition One-Semester Course FCS111 or FCS112 Food Preparation One-Semester Course FCS221 or FCS222 Gourmet Foods One-Semester Course FCS321 or FCS322 Human Growth and Development One-Semester Course FCS211 or FCS212 Teaching Young Children 1 One-Semester Course FCS311 or FCS312 Teaching Young Children 2 One-Sem"
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4482,
+  "courseSignalCount": 31,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 15,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 12,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS68 AP CALCULUS AB MTH471\u2013Semester 1 MTH472\u2013Semester 2 Open to: 11-12 Full Year Prerequisite: ANY AP PRECALCULUS COURSE Credit: Honors AP Calculus AB (MTH471/472) is a full-year capstone course designed to be the equivalent of the first semester of college calculus. Calculus focuses on the study of rates of change, limits and the analysis of functions. It is widely applicable to various Science, Technology, Engineering and Mathematics (STEM) disciplines. Calculus is also used to unders"
+}

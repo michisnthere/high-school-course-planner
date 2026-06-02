@@ -1,0 +1,136 @@
+{
+  "sourcePage": 19,
+  "departments": [
+    {
+      "name": "Applied Arts - Business Education",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Entrepreneurial Tactics",
+      "department": "Applied Arts - Business Education",
+      "description": "Entrepreneurial Tactics is a capstone course that ties together all the curricular fundamentals from the Business Education curriculum. This course models the research and concepts of a capstone course at many university business schools. In this project-based course, students work within teams to create a business plan that guides them in developing a business of their choice. Students will learn to work with and have first-hand collaboration with top business professionals from the community. These CFOs, CEOs and other top executives will visit, present and mentor the students in incorporating all the fundamentals of creating a business idea, marketing the product and preparing the finances of their business plan.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "BUS411",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [11, 12],
+          "prerequisites": ["One from: Introduction to Business, Business Law, Marketing, Entrepreneurship; AND One from: Investment Management, Accounting 1, Accounting 2 Honors, Advanced Accounting Honors"],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "BUS412",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [11, 12],
+          "prerequisites": ["One from: Introduction to Business, Business Law, Marketing, Entrepreneurship; AND One from: Investment Management, Accounting 1, Accounting 2 Honors, Advanced Accounting Honors"],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["Credits inferred as 1.0 (not printed on page).", "Complex prerequisite structure: one course from first group AND one course from second group."],
+      "sourceReference": "Applied Arts - Business Education (page 19)"
+    },
+    {
+      "title": "Accounting 1",
+      "department": "Applied Arts - Business Education",
+      "description": "This is the first semester of a two-semester sequence in the study of accounting. It is strongly recommended that both semesters of accounting be taken in the same year. Accounting is currently the most in-demand college major. Basic principles and practices of double entry accounting are developed with an emphasis on the financial records of sole proprietorships and partnerships. Daily transactions and financial statement analysis are included. Students also have the opportunity to attend regional, state and national accounting competitions.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "BUS251",
+          "semesterLabel": "Semester 1 Only",
+          "duration": "One Semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["Credits inferred as 1.0 (not printed on page)."],
+      "sourceReference": "Applied Arts - Business Education (page 19)"
+    },
+    {
+      "title": "Accounting 2",
+      "department": "Applied Arts - Business Education",
+      "description": "This is the second semester of a two-semester sequence in the study of accounting. It is strongly recommended that this semester be taken immediately following Accounting 1. Specialized journal systems, uncollected accounts, depreciation, inventory controls, payroll, taxes and financial statement analysis are emphasized with regard to a corporation. Students also have the opportunity to attend regional, state and national accounting competitions.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "BUS252",
+          "semesterLabel": "Semester 2 Only",
+          "duration": "One Semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Accounting 1"],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["Credits inferred as 1.0 (not printed on page)."],
+      "sourceReference": "Applied Arts - Business Education (page 19)"
+    },
+    {
+      "title": "Advanced Accounting",
+      "department": "Applied Arts - Business Education",
+      "description": "This one-semester course serves as a capstone to the advanced study of accounting. A “managerial approach” emphasizing the internal data used to make decisions and control revenues, costs and expenses is explored and developed. Acquiring capital, cash flows and principles of cost accounting are other areas of study. Accounting simulations and software applications are also used within the course. Students learn to work both independently and as a “management team” solving business accounting problems. Students also have the opportunity to attend regional, state and national accounting competitions.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "BUS351",
+          "semesterLabel": "Semester 1 Only",
+          "duration": "One Semester",
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Accounting 2"],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["OCR fix applied: 'so/f_tware' -> 'software'.", "Credits inferred as 1.0 (not printed on page)."],
+      "sourceReference": "Applied Arts - Business Education (page 19)"
+    },
+    {
+      "title": "Business Law",
+      "department": "Applied Arts - Business Education",
+      "description": "This course is designed to satisfy the curiosity of students who are interested in learning about the law as it relates to various aspects of business. Students will gain a greater understanding of their legal rights and responsibilities as an individual, employee, manager and business owner. General legal topics discussed include contracts, property, employment rules and regulations, business organization, finance, as well as technology, environment, entertainment and sports law. Students will participate in daily discussions about current legal events, review “real world” cases and verdicts and participate in lively arguments and debates. In addition, guest speakers, collaborative team projects and small group activities allow for students to work together developing a greater understanding of the law to receive a more authentic learning experience.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "BUS371",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "BUS372",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [11, 12],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": ["Credits inferred as 1.0 (not printed on page)."],
+      "sourceReference": "Applied Arts - Business Education (page 19)"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Credits were not explicitly listed for many offerings on this page; credits set to 1.0 by default and should be verified.",
+    "OCR fixes applied where obvious (e.g., 'so/f_tware' -> 'software')."
+  ]
+}

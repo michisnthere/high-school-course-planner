@@ -1,0 +1,87 @@
+MATHEMATICS68
+AP CALCULUS AB
+MTH471–Semester 1 MTH472–Semester 2
+Open to: 11-12 Full Year 
+Prerequisite: ANY AP PRECALCULUS COURSE 
+Credit: Honors
+AP Calculus AB (MTH471/472) is a full-year capstone course 
+designed to be the equivalent of the first semester of college 
+calculus. Calculus focuses on the study of rates of change, 
+limits and the analysis of functions. It is widely applicable to 
+various Science, Technology, Engineering and Mathematics 
+(STEM) disciplines. Calculus is also used to understand 
+dynamic phenomena in business, finance and the social 
+sciences. AP Calculus AB focuses on connecting mathematical 
+representations (verbal, graphical, algebraic and numeric) so 
+that relationships among topics of study are elucidated. In 
+addition, students will apply prior skills in algebraic reasoning 
+to complex problems presented in bare and real-world 
+contexts. Students will also apply and strengthen skills around 
+mathematical justification (reasoning) and communication 
+in written form. AP Calculus AB focuses on diﬀerential and 
+integral calculus. The course design prepares students for 
+the College Board AP Calculus AB Exam. AP Calculus AB 
+(MTH471/472) is not appropriate for students seeking to take 
+AP Calculus BC (MTH491/492).
+AP CALCULUS BC
+MTH491–Semester 1 MTH492–Semester 2
+Open to: 11-12 Full Year  
+Prerequisite: AP Precalculus BC
+Credit: Honors
+AP Calculus BC (MTH491/492) attends to all the learning 
+outcomes of AP Calculus AB (MTH471/472) and is a full-year 
+capstone course designed to be the equivalent of the first 
+and second semesters of college calculus. In addition, this 
+course extends the content and skills of AP Calculus AB to 
+parametrically defined curves, polar curves and vector-valued 
+functions, develops additional integration techniques and 
+applications, and explores sequences and series. The course 
+design prepares students for the College Board AP Calculus 
+BC Exam. The course is closed to students who have not 
+completed AP Precalculus BC. Successfully completing this 
+course will prepare students for a college-level experience in 
+College Multivariable Calculus (MTH591) and College Linear 
+Algebra (MTH592).
+COLLEGE MUL TIVARIABLE CALCULUS 
+MTH591–Semester 1 ONLY
+Open to: 11-12 ONE SEMESTER
+Prerequisite: AP Calculus BC Credit: Honors
+College Multivariable Calculus (MTH591) is a one-semester 
+capstone course designed to be equivalent to a third-semester 
+college calculus. The distinctive focus of this course is the 
+attention to applying the tools of calculus to multidimensional 
+space, whereas previous coursework limited students to  
+one- or two-dimensional experiences. This introductory 
+course exposes students to curves, surfaces, vector fields, 
+partial derivatives, advanced integrals (line, multi-variable, 
+surface), curl and divergence. Students who successfully 
+demonstrate the complete proficiencies of the course may 
+seek to petition future college/university programs for course 
+credits or waivers. A current syllabus will be provided. This 
+course is not aﬀiliated with a dual-credit or articulated  
+credit program.
+COLLEGE LINEAR ALGEBRA 
+MTH592–Semester 2 only
+Open to: 11-12 one semester
+Prerequisite: AP Calculus BC Credit: Honors
+College Linear Algebra (MTH592) is a one-semester capstone 
+college-level course that applies matrix and linear algebra 
+techniques to model and analyze phenomena presented in 
+concrete and abstract settings. The study of linear algebra 
+has valuable applications within the computational, physical 
+and social sciences. Numeric, computational and estimation 
+techniques will be used to arrive at empirical and theoretical 
+conclusions that support students’ understanding of matrix 
+properties and operations. Mathematical reasoning will be 
+strengthened through the writing of formal and informal 
+proofs. Topics of study include a system of equations, 
+matrix operations, determinants, inverses, vector spaces, 
+inner product spaces, orthogonality, linear transformations, 
+eigenvalues, eigenvectors, matrix diagonalization and 
+quadratic forms. The course emphasizes skills in reading, 
+writing and communicating mathematics verbally and 
+analytically. Students who successfully demonstrate the 
+complete proficiencies of the course may seek to petition 
+future college/university programs for course credits or 
+waivers. A current syllabus will be provided. This course is not 
+aﬀiliated with a dual-credit or articulated credit program.

@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 1550,
+  "courseSignalCount": 16,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 4,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 7,
+    "duration": 3,
+    "gpa_waiver": 2
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 2,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPLIED ARTS\u2013FAMILY AND CONSUMER SCIENCES 23 TEACHING YOUNG CHILDREN 1 GPA WAIVER OPTION FCS311\u2013Semester 1 FCS312\u2013Semester 2 Open to: 10-11-12 One Semester Prerequisite: Human Growth and Development Credit: College prep Teaching Young Children 1 o\ufb00ers students the opportunity to enhance their understanding of child development while interacting with the children in the Little Patriots Lab School. Students will focus on creating and implementing developmentally appropriate lessons, interacting po"
+}

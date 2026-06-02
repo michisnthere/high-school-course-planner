@@ -1,0 +1,154 @@
+You are extracting structured academic data from a single page of a high school coursebook.
+Return only valid JSON that conforms to the Phase 1 schema. Do NOT call external APIs.
+
+Important extraction rules (do not summarize):
+- Copy course descriptions and department descriptions as completely as they appear on the page.
+- Do NOT shorten, paraphrase, or summarize descriptions. Preserve all sentences and punctuation.
+- Minor OCR fixes are allowed only to restore broken words (e.g., "so/f_tware" -> "software")
+  but do not change meaning or remove whole clauses.
+- Store courses only in the top-level "courses" array. Do NOT nest course arrays inside departments.
+- Department records should include only `name` and `description` (full available text).
+
+Credit handling rules:
+- If a numeric credit amount is explicitly printed on the page, use that value.
+- If no numeric credit is printed, set `credits` to 1.0 by default and add a warning that
+  the credit was inferred rather than printed.
+- If the description explicitly states a lab period like "1.5 period lab-based" or contains
+  the phrase "1.5 period" or "1.5-period", set `credits` to 1.5.
+- Keep `creditType` exactly as printed (e.g., "College prep").
+
+Other rules:
+- Include `gpaWaiverOption` exactly as marked on the page.
+- Preserve course `prerequisites` and `corequisites` verbatim from the page.
+- `gradeLevels` should be a list of integers parsed from ranges like "9-10-11-12".
+- When uncertain about a parsed field, include a concise entry in the top-level `warnings` array
+  describing the uncertainty and which course it affects.
+
+Text cleanup rules (allowed automatic fixes):
+- Normalize common PDF mojibake and typographic artifacts: replace sequences like
+  `â€™` and the Unicode right single quotation `’` with the ASCII apostrophe `'`.
+- Replace common ligatures or broken characters (for example `ﬀ` -> `ff`).
+- Fix obvious broken words caused by OCR (for example `so/f_tware` -> `software`).
+- Do not change sentence meaning or remove clauses; these fixes should only restore
+  readable characters and words.
+
+Credit type normalization:
+- Normalize printed creditType values to Title Case where appropriate (e.g., "College prep" -> "College Prep").
+- Do not invent or change other policy text.
+
+Return JSON using this shape (match `src/schemas/academic_data.py`):
+{
+  "sourcePage": 87,
+  "departments": [
+    {
+      "name": "string or null",
+      "description": "string or null"
+    }
+  ],
+  "courses": [
+    {
+      "title": "string",
+      "department": "string or null",
+      "description": "string or null",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "string or null",
+          "semesterLabel": "string or null",
+          "duration": "string or null",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["string"],
+          "corequisites": ["string"],
+          "creditType": "string or null",
+          "credits": null
+        }
+      ],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": ["string"]
+}
+
+Page text (preserve exactly when extracting descriptions; you may perform minor OCR fixes):
+CHOICE P .E. 
+PED451–Semester 1 PED452–Semester 2
+Open to: 9-10-11-12 One Semester
+Prerequisite: A Foundational Fitness class, any previous  
+Physical Education course or director approval
+Credit: College prep
+This course is designed for students to develop and maintain 
+their lifelong wellness in activities of their choice. Students 
+will choose the activity in which they will participate each 
+semester. (Regardless of activity selected, all students will 
+learn how to apply their fitness plan, reflect on their fitness 
+and build their knowledge of health-related fitness.) This 
+course may be repeated for credit.
+EARLY BIRD OPTION
+PED031 (early bird)–Semester 1 PED032 (early bird)–Semester 2 
+Open to: 10-11-12 One Semester
+Prerequisite: A Foundational Fitness course, any physical 
+education class or director approval
+Credit: College prep
+(See description for Choice P .E.). Early Bird Physical Education 
+is scheduled from 7-8:25 a.m. on Monday/Wednesday/Friday. 
+Students with excessive absenteeism in this class will be 
+removed from the Early Bird program and placed in a Physical 
+Education class during the regularly scheduled day. This 
+course may be repeated for credit. 
+PHYSICAL EDUCATION LEADERSHIP TRAINING 
+GPA WAIVER OPTION 
+PED61L–Semester 1 PED62L–Semester 2
+Open to: 11 Full Year
+Credit: College prep
+Note: The Physical education Leadership program is a  
+two-year commitment 
+The first year of the Leadership Program is designed for 
+students to become eﬀective teacher aides and strong leaders. 
+There will be active participation in all activities oﬀered within 
+the Stevenson Physical Education program. Students will 
+learn to lead group activities, to develop skill progression 
+and to study methods and techniques of teaching physical 
+education. The focus of this program is to develop and expand 
+on leadership skills in group and individual led discussions 
+or teaching opportunities where students will be asked to 
+continually reflect on their leadership experience. Students 
+will have the opportunity to apply the skills they learn by 
+assisting Physical Education classes and planning two field 
+days for junior high students. Failure to comply with the 
+Stevenson High School Student Guidebook Code of Conduct 
+and P .E. Leader Code of Conduct can result in immediate 
+dismissal.
+SENIOR LEADERSHIP 
+GPA WAIVER OPTION 
+PED81L–Semester 1 PED82L–Semester 2
+Open to: 12 Full Year 
+Prerequisite: Physical education Leadership Training
+Credit: College prep
+Students will apply what they learned in Physical Education 
+Leadership Training by serving as teacher aides with a Physical 
+Education teacher. All students will participate in fitness 
+testing. Failure to comply with the Stevenson High School 
+Student Guidebook Code of Conduct and P .E. Leader Code  
+of Conduct can result in immediate dismissal.
+LIFEGUARD TRAINING AND CERTIFICATION 
+GPA WAIVER OPTION 
+PED501–Semester 1 Only Open to: 10-11-12 
+One Semester
+Prerequisite: Ability to demonstrate required swim skills. 
+Students must be at least 15 years old by the end of the 
+course.
+Additional fee to receive AMERICAN RED CROSS certificate.
+Credit: College prep
+This course is designed to provide students with the 
+ability to earn American Red Cross Lifeguarding and First 
+Aid certification. Students will also learn skills in oxygen 
+administration, preventing disease transmission and  
+CPR/AED. Students will be charged a fee if they wish to  
+receive their American Red Cross certification. Students  
+taking this class will be encouraged to participate in our  
+Pool Leadership program. (Materials for the course are 
+available in the Patriot Superstore.)
+ 
+PHYSICAL WELFARE–PHYSICAL EDUCATION 85

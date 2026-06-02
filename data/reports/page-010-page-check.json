@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4059,
+  "courseSignalCount": 5,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 5,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "EARLY GRADUATION Students wishing to graduate early should meet with their counselor to determine eligibility. Once it is determined that the student can meet graduation requirements earlier than the scheduled semester of graduation, the student, with parent/guardian approval, must complete an \u201cIntent to Graduate Early\u201d form available online. GRADING Our grading model measures the student\u2019s mastery of the course\u2019s skills and standards. The final grade is a determination of the student\u2019s body of "
+}

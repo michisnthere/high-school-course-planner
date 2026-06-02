@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 1354,
+  "courseSignalCount": 1,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 1
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 1,
+    "physical_education": 1,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS 43 FINE ARTS DIVISION JON GRICE, DIRECTOR | JGRICE/at.caseD125.ORG | 847-415-4751 Visual Arts Department Dance Department Music Department Theatre Department The Fine Arts curriculum focuses on the necessary skills, concepts and artistic traditions that allow each student to achieve their potential within each art discipline, and provides a shared common cultural experience. The curriculum encompasses well-established methods, processes and outcomes, as well as contemporary approaches,"
+}
