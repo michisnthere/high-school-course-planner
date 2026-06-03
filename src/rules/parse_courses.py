@@ -33,6 +33,7 @@ def parse_course_page(page_number: int, raw_text: str, classification: str = "de
     title_spans = _find_course_title_spans(lines)
     courses: List[Dict[str, Any]] = []
     warnings: List[str] = []
+    _infer_credits.inferred_count = 0
 
     if not title_spans:
         return _empty_result(page_number, departments, [f"No course boundaries found on page {page_number}."])
@@ -47,6 +48,9 @@ def parse_course_page(page_number: int, raw_text: str, classification: str = "de
             preview = collapse_spaces(" ".join(section_lines))[:160]
             warnings.append(f"Page {page_number}: failed to parse possible course section: {preview}")
 
+    inferred = getattr(_infer_credits, "inferred_count", 0)
+    if inferred:
+        warnings.append(f"Page {page_number}: credit inference count = {inferred}")
     return {
         "sourcePage": page_number,
         "departments": departments,
@@ -72,7 +76,8 @@ def _extract_departments(lines: List[str]) -> List[Dict[str, Optional[str]]]:
     first = lines[0]
     first_lookahead = " ".join(lines[1:6])
     if _looks_like_course_title_candidate(first) and COURSE_CODE_RE.search(first_lookahead):
-        return []
+        if "–" not in first and "—" not in first:
+            return []
     if not _looks_like_department_line(first):
         return []
 
@@ -111,6 +116,8 @@ def _find_course_title_spans(lines: List[str]) -> List[int]:
 
 def _looks_like_course_title_candidate(line: str) -> bool:
     stripped = collapse_spaces(line)
+    if stripped.startswith("DUAL CREDIT"):
+        return False
     if stripped in TITLE_EXCLUDE:
         return False
     if stripped in {"LAKE COUNTY", "COLLEGE OF", "AND TECHNOLOGY"}:
@@ -279,7 +286,7 @@ def _infer_credits(section: str, description: Optional[str], code: str, warnings
     is_early_bird_code = bool(re.search(r"\d+E\d$", code))
     if is_early_bird_code and re.search(r"1\.5\s*period\s+lab-based", desc, re.IGNORECASE):
         return 1.5
-    warnings.append(f"Page {page_number} {title} {code}: credits inferred as 1.0.")
+    _infer_credits.inferred_count = getattr(_infer_credits, "inferred_count", 0) + 1
     return 1.0
 
 
