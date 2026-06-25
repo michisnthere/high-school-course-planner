@@ -121,7 +121,7 @@ def split_list_text(value: str) -> List[str]:
 
 def without_footer_lines(lines: Iterable[str]) -> List[str]:
     result: List[str] = []
-    footer_pattern = re.compile(r"^(?:ADLAI E\. STEVENSON HIGH SCHOOL|SCIENCE|APPLIED ARTS|FINE ARTS|WORLD LANGUAGES|ENGLISH|MATHEMATICS|SOCIAL STUDIES).{0,80}\d+$", re.IGNORECASE)
+    footer_pattern = re.compile(r"^(?:ADLAI E\. STEVENSON HIGH SCHOOL|SCIENCE|APPLIED ARTS|FINE ARTS|WORLD LANGUAGES|ENGLISH|MATHEMATICS|SOCIAL STUDIES)(?![\u2013\u2014]).{0,80}\d+$", re.IGNORECASE)
     for line in lines:
         stripped = line.strip()
         if not stripped:

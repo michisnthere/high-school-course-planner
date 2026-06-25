@@ -24,6 +24,7 @@ class CourseRecord(TypedDict):
     department: Optional[str]
     description: Optional[str]
     gpaWaiverOption: bool
+    isOnline: bool
     offerings: List[CourseOfferingRecord]
     notes: List[str]
     sourceReference: Optional[str]

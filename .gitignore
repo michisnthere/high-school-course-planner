@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Node
+node_modules/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma generated files
+prisma/generated/
+
+# Build outputs
+dist/
+build/
+
+# Generated extraction outputs
+data/raw-text/
+data/reports/
+data/structured/rule-pages/
+
+# Python cache
+__pycache__/
+*/__pycache__/
+*.pyc

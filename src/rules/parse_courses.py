@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import re
+from dataclasses import dataclass, replace
 from typing import Any, Dict, List, Optional
 
 from src.rules.clean_text import (
@@ -25,32 +26,60 @@ TITLE_EXCLUDE = {
 }
 
 
+@dataclass
+class Block:
+    lines: List[str]
+    start_index: int
+    end_index: int
+
+
+@dataclass
+class CourseUnit:
+    title: str
+    lines: List[str]
+    start_block: int
+    end_block: int
+    department: Optional[str] = None
+
+
+@dataclass
+class DepartmentContext:
+    current_department: Optional[str]
+
+
 def parse_course_page(page_number: int, raw_text: str, classification: str = "detailed_course_content") -> Dict[str, Any]:
     text = clean_text(raw_text)
     lines = without_footer_lines(text.splitlines())
-    departments = _extract_departments(lines)
-    department_name = departments[0]["name"] if departments else None
-    title_spans = _find_course_title_spans(lines)
+    blocks = _group_lines_into_blocks(lines)
+    departments = _extract_departments(lines, blocks)
+    course_units = _segment_course_units(blocks)
+    course_units = _assign_departments(course_units, blocks)
+    if not departments:
+        assigned_departments = []
+        for unit in course_units:
+            if unit.department and unit.department not in assigned_departments:
+                assigned_departments.append(unit.department)
+        departments = [{"name": name, "description": None} for name in assigned_departments]
     courses: List[Dict[str, Any]] = []
     warnings: List[str] = []
     _infer_credits.inferred_count = 0
 
-    if not title_spans:
+    if not course_units:
         return _empty_result(page_number, departments, [f"No course boundaries found on page {page_number}."])
 
-    for position, start in enumerate(title_spans):
-        end = title_spans[position + 1] if position + 1 < len(title_spans) else len(lines)
-        section_lines = lines[start:end]
-        course = _parse_course_section(page_number, section_lines, department_name, warnings)
+    for unit in course_units:
+        course = _parse_course_section(page_number, unit.lines, unit.department, warnings)
         if course:
+            _normalize_course_record(course, unit)
             courses.append(course)
         else:
-            preview = collapse_spaces(" ".join(section_lines))[:160]
+            preview = collapse_spaces(" ".join(unit.lines))[:160]
             warnings.append(f"Page {page_number}: failed to parse possible course section: {preview}")
 
     inferred = getattr(_infer_credits, "inferred_count", 0)
     if inferred:
         warnings.append(f"Page {page_number}: credit inference count = {inferred}")
+    departments = _normalize_department_records(departments, courses)
     return {
         "sourcePage": page_number,
         "departments": departments,
@@ -70,27 +99,218 @@ def _empty_result(page_number: int, departments: List[Dict[str, Any]], warnings:
     }
 
 
-def _extract_departments(lines: List[str]) -> List[Dict[str, Optional[str]]]:
-    if not lines:
-        return []
-    first = lines[0]
-    first_lookahead = " ".join(lines[1:6])
-    if _looks_like_course_title_candidate(first) and COURSE_CODE_RE.search(first_lookahead):
-        if "–" not in first and "—" not in first:
-            return []
-    if not _looks_like_department_line(first):
-        return []
+def _group_lines_into_blocks(lines: List[str]) -> List[Block]:
+    blocks: List[Block] = []
+    start_index: Optional[int] = None
+    current: List[str] = []
 
-    dept_name = title_from_heading(re.sub(r"\s+\d+$", "", first))
+    for index, line in enumerate(lines):
+        if start_index is None:
+            start_index = index
+        elif _starts_strong_block(lines, index):
+            blocks.append(Block(lines=current, start_index=start_index, end_index=index))
+            start_index = index
+            current = []
+        current.append(line)
+
+    if start_index is not None and current:
+        blocks.append(Block(lines=current, start_index=start_index, end_index=len(lines)))
+    return blocks
+
+
+def _starts_strong_block(lines: List[str], index: int) -> bool:
+    line = lines[index]
+    lookahead = " ".join(lines[index + 1:index + 6])
+
+    if not _looks_like_course_title_candidate(line):
+        return False
+
+    has_codes = COURSE_CODE_RE.search(lookahead) is not None
+    has_metadata = METADATA_RE.search(lookahead) is not None
+
+    # CORE RULE: must have course codes nearby
+    if not has_codes:
+        return False
+
+    # OPTIONAL BOOST: metadata increases confidence but is NOT required
+    return True
+
+def _extract_departments(lines: List[str], blocks: Optional[List[Block]] = None) -> List[Dict[str, Optional[str]]]:
+    blocks = blocks if blocks is not None else _group_lines_into_blocks(lines)
+    department_name = _infer_page_context_department(blocks)
+    if not department_name:
+        return []
+    first_course_block = next((block for block in blocks if _is_course_block_candidate(block)), None)
     description_parts: List[str] = []
-    for line in lines[1:10]:
-        if _looks_like_course_title_candidate(line):
+    for block in blocks[:2]:
+        if block is first_course_block:
             break
-        if METADATA_RE.search(line) or COURSE_CODE_RE.search(line):
-            break
-        description_parts.append(line)
+        if title_from_heading(re.sub(r"\s+\d+$", "", block.lines[0])) == department_name:
+            continue
+        for line in block.lines:
+            if METADATA_RE.search(line) or COURSE_CODE_RE.search(line):
+                break
+            description_parts.append(line)
     description = clean_description(" ".join(description_parts)) if description_parts else None
-    return [{"name": dept_name, "description": description}]
+    return [{"name": department_name, "description": description}]
+
+
+def _infer_page_context_department(blocks: List[Block]) -> Optional[str]:
+    for block in blocks[:2]:
+        if _is_course_block_candidate(block):
+            return None
+        first = block.lines[0] if block.lines else ""
+        if _looks_like_department_line(first):
+            return title_from_heading(re.sub(r"\s+\d+$", "", first))
+    return None
+
+
+def _is_course_block_candidate(block: Block) -> bool:
+    block_text = " ".join(block.lines)
+    return bool(COURSE_CODE_RE.search(block_text))
+
+
+def _assign_departments(course_units: List[CourseUnit], blocks: List[Block]) -> List[CourseUnit]:
+    context = DepartmentContext(current_department=_infer_page_context_department(blocks))
+    if context.current_department is None:
+        context.current_department = _infer_department_from_course_units(course_units)
+    return [replace(unit, department=context.current_department) for unit in course_units]
+
+
+def _infer_department_from_course_units(course_units: List[CourseUnit]) -> Optional[str]:
+    prefixes = set()
+    for unit in course_units:
+        for code in COURSE_CODE_RE.findall(" ".join(unit.lines)):
+            prefix_match = re.match(r"[A-Z]+", code)
+            if prefix_match:
+                prefixes.add(prefix_match.group(0))
+    if not prefixes:
+        return None
+    if prefixes <= {"ART", "DNC", "MUS", "THR"}:
+        return "Fine Arts"
+    if prefixes <= {"FRE", "GRE", "HBR", "LAT", "CHI", "SPA"}:
+        return "Language Learning"
+    if prefixes <= {"SCI"}:
+        return "Science"
+    if prefixes <= {"SOC"}:
+        return "Social Studies"
+    if prefixes <= {"MTH"}:
+        return "Mathematics"
+    if prefixes <= {"ENG", "JRN"}:
+        return "Communication Arts"
+    if prefixes <= {"PED"}:
+        return "Physical Welfare"
+    if prefixes <= {"CSC", "TEC"}:
+        return "Computer Science, Engineering and Technology (CSET)"
+    if prefixes <= {"FCS", "VOC"}:
+        return "Applied Arts"
+    return None
+
+
+def _segment_course_units(blocks: List[Block]) -> List[CourseUnit]:
+    entries = [
+        (block_index, line)
+        for block_index, block in enumerate(blocks)
+        for line in block.lines
+    ]
+    starts: List[int] = []
+    for index, (_block_index, line) in enumerate(entries):
+        if _looks_like_course_unit_title_candidate(line) and _lookahead_supports_course_title(entries, index):
+            starts.append(index)
+            continue
+        if starts and CODE_WITH_SEMESTER_RE.search(line):
+            current_text = " ".join(item[1] for item in entries[starts[-1]:index])
+            previous_line = _previous_meaningful_line(entries, index)
+            fallback = entries[starts[-1]][1]
+            derived_title = _derive_title_for_code_unit([line] + [item[1] for item in entries[index + 1:index + 8]], fallback)
+            if (
+                METADATA_RE.search(current_text)
+                and not _looks_like_course_unit_title_candidate(previous_line)
+                and derived_title != fallback
+            ):
+                starts.append(index)
+
+    units: List[CourseUnit] = []
+    for position, start in enumerate(starts):
+        end = starts[position + 1] if position + 1 < len(starts) else len(entries)
+        segment = entries[start:end]
+        if not segment:
+            continue
+        first_block = segment[0][0]
+        last_block = segment[-1][0] + 1
+        segment_lines = [line for _block_index, line in segment]
+        first_line = segment_lines[0]
+        if _looks_like_course_unit_title_candidate(first_line):
+            title = first_line
+            unit_lines = segment_lines
+        else:
+            fallback = units[-1].title if units else first_line
+            title = _derive_title_for_code_unit(segment_lines, fallback)
+            unit_lines = [title] + segment_lines
+        units.append(CourseUnit(title=title, lines=unit_lines, start_block=first_block, end_block=last_block))
+    return units
+
+
+def _lookahead_supports_course_title(entries: List[tuple[int, str]], index: int) -> bool:
+    has_code = False
+    has_metadata = False
+    for _block_index, line in entries[index + 1:index + 6]:
+        if not has_code and _looks_like_course_unit_title_candidate(line):
+            return False
+        has_code = has_code or bool(COURSE_CODE_RE.search(line))
+        has_metadata = has_metadata or bool(METADATA_RE.search(line))
+    return has_code and has_metadata
+
+
+def _previous_meaningful_line(entries: List[tuple[int, str]], index: int) -> str:
+    for _block_index, line in reversed(entries[:index]):
+        if line in TITLE_EXCLUDE:
+            continue
+        if METADATA_RE.search(line):
+            continue
+        if COURSE_CODE_RE.search(line):
+            continue
+        return line
+    return ""
+
+
+def _derive_title_for_code_unit(lines: List[str], fallback: str) -> str:
+    code_line = lines[0] if lines else ""
+    codes = [match.group("code") for match in CODE_WITH_SEMESTER_RE.finditer(code_line)]
+    if codes:
+        code_patterns = [re.escape(code) for code in codes]
+        if len(codes) >= 2:
+            prefix_match = re.match(r"([A-Z]+)(\d+)", codes[1])
+            if prefix_match:
+                code_patterns.append(re.escape(f"{codes[0]}/{prefix_match.group(2)}"))
+        code_pattern = "|".join(code_patterns)
+        for line in lines[1:8]:
+            match = re.search(rf"\b([A-Z][A-Za-z0-9\s/]+?)\s*\((?:{code_pattern})\)", line)
+            if match:
+                return match.group(1).strip()
+    return fallback
+
+
+def _looks_like_course_unit_title_candidate(line: str) -> bool:
+    stripped = collapse_spaces(line)
+    if stripped.startswith("DUAL CREDIT"):
+        return False
+    if stripped in TITLE_EXCLUDE:
+        return False
+    if stripped in {"LAKE COUNTY", "COLLEGE OF", "AND TECHNOLOGY"}:
+        return False
+    if len(stripped) < 3 or len(stripped) > 90:
+        return False
+    if len(stripped.split()) > 9:
+        return False
+    if stripped.endswith(" COURSE OFFERINGS"):
+        return False
+    if METADATA_RE.search(stripped) or COURSE_CODE_RE.search(stripped):
+        return False
+    letters = re.sub(r"[^A-Za-z]", "", stripped)
+    if not letters:
+        return False
+    return letters.upper() == letters
 
 
 def _looks_like_department_line(line: str) -> bool:
@@ -103,12 +323,16 @@ def _looks_like_department_line(line: str) -> bool:
     return bool(letters) and letters.upper() == letters
 
 
-def _find_course_title_spans(lines: List[str]) -> List[int]:
+def _find_course_title_spans(blocks: List[Block]) -> List[int]:
     spans: List[int] = []
-    for index, line in enumerate(lines):
+    for block in blocks:
+        if not _is_course_block_candidate(block):
+            continue
+        index = block.start_index
+        line = block.lines[0]
         if not _looks_like_course_title_candidate(line):
             continue
-        lookahead = " ".join(lines[index + 1:index + 6])
+        lookahead = " ".join(block.lines[1:6])
         if COURSE_CODE_RE.search(lookahead) and METADATA_RE.search(lookahead):
             spans.append(index)
     return spans
@@ -136,6 +360,100 @@ def _looks_like_course_title_candidate(line: str) -> bool:
     if not letters:
         return False
     return letters.upper() == letters
+
+
+def _normalize_course_record(course: Dict[str, Any], unit: CourseUnit) -> None:
+    course["title"] = _normalize_course_title(_reconstruct_course_title(course["title"], unit))
+    course["department"] = _normalize_department_name(course.get("department"))
+    course["isOnline"] = _is_online_course(course["title"], unit.lines)
+
+
+def _normalize_department_records(departments: List[Dict[str, Optional[str]]], courses: List[Dict[str, Any]]) -> List[Dict[str, Optional[str]]]:
+    normalized: List[Dict[str, Optional[str]]] = []
+    seen = set()
+    for department in departments:
+        name = _normalize_department_name(department.get("name"))
+        if not name or name in seen:
+            continue
+        normalized.append({"name": name, "description": department.get("description")})
+        seen.add(name)
+    for course in courses:
+        name = course.get("department")
+        if name and name not in seen:
+            normalized.append({"name": name, "description": None})
+            seen.add(name)
+    return normalized
+
+
+def _normalize_department_name(name: Optional[str]) -> Optional[str]:
+    if not name:
+        return None
+    cleaned = _normalize_known_text_artifacts(name)
+    cleaned = re.sub(r"\d+$", "", cleaned).strip()
+    known = {
+        "Family and": "Family and Consumer Sciences",
+        "American Studies (ap U.S. History and": "Social Studies",
+        "Computer Science, Engineering and Technology (cset)": "Computer Science, Engineering and Technology (CSET)",
+        "Fine Arts—theatre": "Fine Arts—Theatre",
+        "Fine Arts—visual Arts": "Fine Arts—Visual Arts",
+        "Fine Arts—media Arts": "Fine Arts—Media Arts",
+        "Fine Arts—dance": "Fine Arts—Dance",
+        "Fine Arts—music": "Fine Arts—Music",
+        "Language Learning—spanish": "Language Learning—Spanish",
+    }
+    return known.get(cleaned, cleaned)
+
+
+def _normalize_course_title(title: str) -> str:
+    cleaned = _normalize_known_text_artifacts(title)
+    replacements = {
+        "AP Art: Drawing, 2D and 3D Design": "AP Art: Drawing, 2D and 3D Design",
+        "2D Animation": "2D Animation",
+        "3D Animation": "3D Animation",
+    }
+    return replacements.get(cleaned, cleaned)
+
+
+def _normalize_known_text_artifacts(value: str) -> str:
+    replacements = {
+        "Cul Ture": "Culture",
+        "Al Ternative": "Alternative",
+        "Heal Th": "Health",
+        "Mul Tivariable": "Multivariable",
+        "Mul Tilingual": "Multilingual",
+        "P .e.": "P.E.",
+        "2d": "2D",
+        "3d": "3D",
+    }
+    cleaned = value
+    for old, new in replacements.items():
+        cleaned = cleaned.replace(old, new)
+    cleaned = re.sub(r"\bAb/bc\b", "AB/BC", cleaned)
+    cleaned = re.sub(r"\bAb\b(?=/BC|\b)", "AB", cleaned)
+    cleaned = re.sub(r"\bBc\b", "BC", cleaned)
+    cleaned = cleaned.replace("(cset)", "(CSET)")
+    return collapse_spaces(cleaned)
+
+
+def _reconstruct_course_title(title: str, unit: CourseUnit) -> str:
+    codes = [match.group("code") for match in CODE_WITH_SEMESTER_RE.finditer("\n".join(unit.lines))]
+    code_set = set(codes)
+    if {"THR301", "THR302"} & code_set:
+        return "Theatre Leadership: Directing and Management"
+    if {"SOC63Q1", "SOC63Q2"} & code_set:
+        return "AP Comparative Government and Politics—Online"
+    if {"ELD261", "ELD262"} & code_set:
+        return "English Language Development (ELD) 2"
+    if {"ELD361", "ELD362"} & code_set:
+        return "English Language Development (ELD) Language"
+    if {"ELD371", "ELD372"} & code_set:
+        return "English Language Development (ELD) Literature"
+    return title
+
+
+def _is_online_course(title: str, lines: List[str]) -> bool:
+    text = "\n".join([title] + lines)
+    return bool(re.search(r"\b(?:Online|Virtual)\b", text, re.IGNORECASE))
 
 
 def _parse_course_section(page_number: int, lines: List[str], department_name: Optional[str], warnings: List[str]) -> Optional[Dict[str, Any]]:
@@ -288,5 +606,3 @@ def _infer_credits(section: str, description: Optional[str], code: str, warnings
         return 1.5
     _infer_credits.inferred_count = getattr(_infer_credits, "inferred_count", 0) + 1
     return 1.0
-
-

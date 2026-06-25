@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import argparse
+import copy
 import json
 import sys
 from pathlib import Path
@@ -16,6 +17,7 @@ from pypdf import PdfReader
 
 from src.pdf.classify_page import classify_page
 from src.rules.clean_text import clean_text
+from src.rules.normalize_catalog import normalize_catalog, normalize_departments
 from src.rules.parse_courses import parse_course_page
 from src.rules.parse_requirements import parse_requirement_page
 
@@ -24,6 +26,8 @@ RAW_TEXT_DIR = PROJECT_ROOT / "data" / "raw-text"
 REPORTS_DIR = PROJECT_ROOT / "data" / "reports"
 RULE_PAGES_DIR = PROJECT_ROOT / "data" / "structured" / "rule-pages"
 DRAFT_PATH = PROJECT_ROOT / "data" / "structured" / "academic-data.rule-based-draft.json"
+EXTRACTED_PATH = PROJECT_ROOT / "data" / "extracted_courses.json"
+DB_READY_PATH = PROJECT_ROOT / "data" / "db_ready_courses.json"
 REPORT_PATH = PROJECT_ROOT / "data" / "reports" / "rule-extraction-report.json"
 
 
@@ -63,6 +67,51 @@ def build_empty_page_result(page_number: int) -> Dict[str, Any]:
         "graduationRequirements": [],
         "warnings": [],
     }
+
+
+def validate_export_invariants(courses: List[Dict[str, Any]]) -> Dict[str, int]:
+    total_courses = len(courses)
+    total_offerings = sum(len(course.get("offerings", [])) for course in courses)
+    codes: List[str] = []
+    empty_titles: List[str] = []
+
+    for course in courses:
+        title = course.get("title")
+        if not isinstance(title, str) or not title.strip():
+            empty_titles.append(str(course.get("sourceReference", "unknown source")))
+        for offering in course.get("offerings", []):
+            code = offering.get("courseCode")
+            if code:
+                codes.append(code)
+
+    duplicates = sorted({code for code in codes if codes.count(code) > 1})
+    failures = []
+    if total_courses != 225:
+        failures.append(f"expected 225 courses, got {total_courses}")
+    if total_offerings != 452:
+        failures.append(f"expected 452 offerings, got {total_offerings}")
+    if duplicates:
+        failures.append(f"duplicate course codes: {duplicates}")
+    if empty_titles:
+        failures.append(f"empty course titles at: {empty_titles}")
+
+    if failures:
+        raise ValueError("Export validation failed: " + "; ".join(failures))
+
+    return {
+        "totalCourses": total_courses,
+        "totalOfferings": total_offerings,
+        "uniqueCourseCodes": len(set(codes)),
+        "duplicateCourseCodes": len(duplicates),
+        "emptyCourseTitles": len(empty_titles),
+    }
+
+
+def build_export_catalog(combined: Dict[str, Any], db_ready: bool = False) -> Dict[str, Any]:
+    catalog = copy.deepcopy(combined)
+    catalog["departments"] = normalize_departments(catalog.get("departments", []))
+    catalog["courses"] = normalize_catalog(catalog.get("courses", []), db_ready=db_ready)
+    return catalog
 
 
 def main() -> None:
@@ -164,7 +213,18 @@ def main() -> None:
     report["totalGraduationRequirements"] = len(combined["graduationRequirements"])
     report["totalWarnings"] = len(combined["warnings"])
 
-    write_json(DRAFT_PATH, combined)
+    standard_catalog = build_export_catalog(combined, db_ready=False)
+    db_ready_catalog = build_export_catalog(combined, db_ready=True)
+    validation = validate_export_invariants(standard_catalog["courses"])
+    db_ready_validation = validate_export_invariants(db_ready_catalog["courses"])
+    if validation != db_ready_validation:
+        raise ValueError(f"DB-ready validation mismatch: {validation} != {db_ready_validation}")
+
+    report["exportValidation"] = validation
+
+    write_json(DRAFT_PATH, standard_catalog)
+    write_json(EXTRACTED_PATH, standard_catalog)
+    write_json(DB_READY_PATH, db_ready_catalog)
     write_json(REPORT_PATH, report)
     print(json.dumps({
         "pagesChecked": report["pagesChecked"],
@@ -174,7 +234,10 @@ def main() -> None:
         "totalCourseOfferings": report["totalCourseOfferings"],
         "totalGraduationRequirements": report["totalGraduationRequirements"],
         "totalWarnings": report["totalWarnings"],
+        "exportValidation": validation,
         "draftPath": str(DRAFT_PATH),
+        "extractedPath": str(EXTRACTED_PATH),
+        "dbReadyPath": str(DB_READY_PATH),
         "reportPath": str(REPORT_PATH),
     }, indent=2))
 
