@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//
+// =========================
+// DEPARTMENT
+// =========================
+//
+model Department {
+  id              Int      @id @default(autoincrement())
+  name            String   @unique
+  normalizedName  String?
+  description     String?
+
+  subdepartments  Subdepartment[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+//
+// =========================
+// SUBDEPARTMENT
+// =========================
+//
+model Subdepartment {
+  id              Int      @id @default(autoincrement())
+
+  name            String
+  normalizedName  String?
+
+  departmentId    Int
+  department      Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  courses         Course[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([departmentId, name])
+  @@index([departmentId])
+}
+
+//
+// =========================
+// COURSE
+// =========================
+//
+model Course {
+  id              Int      @id @default(autoincrement())
+
+  title           String
+  normalizedTitle String?
+
+  importKey       String   @unique
+
+  description     String?
+
+  gpaWaiverOption Boolean  @default(false)
+  isOnline        Boolean  @default(false)
+
+  notes           Json     @default("[]")
+  sourceReference String?
+
+  subdepartmentId Int?
+  subdepartment   Subdepartment? @relation(fields: [subdepartmentId], references: [id], onDelete: SetNull)
+
+  offerings       CourseOffering[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([subdepartmentId])
+  @@unique([subdepartmentId, title])
+}
+
+//
+// =========================
+// COURSE OFFERING
+// =========================
+//
+model CourseOffering {
+  id             Int     @id @default(autoincrement())
+
+  courseCode     String  @unique
+
+  semesterLabel  String?
+  duration       String?
+
+  gradeLevels    Json    @default("[]")
+  prerequisites  Json    @default("[]")
+  corequisites   Json    @default("[]")
+
+  creditType     String?
+  credits        Float?
+
+  courseId       Int
+  course         Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([courseId])
+}
