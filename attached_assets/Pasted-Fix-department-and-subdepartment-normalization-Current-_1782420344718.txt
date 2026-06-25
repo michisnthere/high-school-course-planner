@@ -1,0 +1,151 @@
+Fix department and subdepartment normalization.
+
+Current problem:
+
+The extracted catalog currently contains department values such as:
+
+- Business Education
+- Applied Arts–Business Education
+- Family and Consumer Sciences
+- Applied Arts–Family and Consumer Sciences
+- Technology Courses
+- Fine Arts—Visual Arts
+- Fine Arts—Theatre
+- Language Learning—Spanish
+
+These are being treated as departments, but many are actually subdepartments or extraction artifacts.
+
+Goal:
+
+Produce a clean Department → Subdepartment hierarchy suitable for a relational database and frontend filtering.
+
+Target examples:
+
+Applied Arts
+  - Business Education
+  - Family and Consumer Sciences
+  - Technology Courses
+
+Fine Arts
+  - Visual Arts
+  - Media Arts
+  - Dance
+  - Music
+  - Theatre
+
+Language Learning
+  - French
+  - German
+  - Hebrew
+  - Mandarin Chinese
+  - Spanish
+  - English Language Development (ELD)
+
+Communication Arts
+Mathematics
+Science
+Social Studies
+Physical Education
+
+Requirements:
+
+1. Modify only the normalization/export layer.
+
+Do NOT modify:
+
+- extraction
+- block grouping
+- CourseUnit segmentation
+- offering extraction
+- parser architecture
+
+2. Preserve all existing course counts.
+
+Must remain:
+
+- 225 courses
+- 452 offerings
+- 0 duplicate course codes
+
+3. Generate three fields for every course:
+
+department
+subdepartment
+department_raw
+
+Example:
+
+Before:
+
+{
+  "department": "Applied Arts–business Education"
+}
+
+After:
+
+{
+  "department": "Applied Arts",
+  "subdepartment": "Business Education",
+  "department_raw": "Applied Arts–business Education"
+}
+
+4. If a department has no meaningful subdepartment:
+
+Set:
+
+{
+  "department": "Science",
+  "subdepartment": null
+}
+
+Do NOT create fake subdepartments such as:
+
+- General
+- Science
+- Communication Arts
+
+unless they already exist in the source catalog.
+
+5. Update db_ready_courses.json generation.
+
+6. Update import_courses.ts to use:
+
+Department
+  → Subdepartment
+      → Course
+          → Offering
+
+7. Deduplicate departments.
+
+After normalization there should be one Department record for:
+
+- Applied Arts
+- Communication Arts
+- CSET
+- Fine Arts
+- Language Learning
+- Mathematics
+- Science
+- Social Studies
+- Physical Education
+
+(and any other legitimate top-level departments found in the catalog)
+
+Validation:
+
+Report:
+
+- unique departments before
+- unique departments after
+- unique subdepartments after
+- course count before/after
+- offering count before/after
+
+Verify:
+
+- 225 courses
+- 452 offerings
+- 0 duplicate course codes
+- no department names containing embedded subdepartment text
+- no page-number contamination
+- Department → Subdepartment hierarchy imports successfully
