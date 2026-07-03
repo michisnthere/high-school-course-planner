@@ -47,13 +47,42 @@ class DepartmentContext:
     current_department: Optional[str]
 
 
-def parse_course_page(page_number: int, raw_text: str, classification: str = "detailed_course_content") -> Dict[str, Any]:
+@dataclass
+class ExtractionContext:
+    """Carries department state forward across pages during a full-book extraction run.
+
+    `prefix_department_map` records which course-code prefixes (e.g. "BUS", "SPA") have been
+    empirically observed under a given department name whenever that department was detected
+    via an explicit header. This lets a later, header-less continuation page confidently inherit
+    the previous page's department ONLY if its course codes match a prefix family already seen
+    under that department -- preventing an unrelated new section (e.g. a different course-code
+    family) from silently inheriting the wrong department just because it happens to follow it.
+    """
+
+    current_department: Optional[str] = None
+    prefix_department_map: Dict[str, set] = None
+
+    def __post_init__(self) -> None:
+        if self.prefix_department_map is None:
+            self.prefix_department_map = {}
+
+
+def parse_course_page(
+    page_number: int,
+    raw_text: str,
+    classification: str = "detailed_course_content",
+    context: Optional[ExtractionContext] = None,
+) -> Dict[str, Any]:
+    if context is None:
+        context = ExtractionContext()
     text = clean_text(raw_text)
     lines = without_footer_lines(text.splitlines())
     blocks = _group_lines_into_blocks(lines)
     departments = _extract_departments(lines, blocks)
     course_units = _segment_course_units(blocks)
-    course_units = _assign_departments(course_units, blocks)
+    course_units, resolved_department, header_detected = _assign_departments(course_units, blocks, context)
+    if resolved_department and (header_detected or resolved_department == context.current_department):
+        context.current_department = resolved_department
     if not departments:
         assigned_departments = []
         for unit in course_units:
@@ -72,6 +101,11 @@ def parse_course_page(page_number: int, raw_text: str, classification: str = "de
         if course:
             _normalize_course_record(course, unit)
             courses.append(course)
+            if not course.get("department"):
+                warnings.append(
+                    f"Page {page_number}: Missing department context for course '{course['title']}' "
+                    f"(no header detected, no compatible carry-forward department, no course-code fallback match)."
+                )
         else:
             preview = collapse_spaces(" ".join(unit.lines))[:160]
             warnings.append(f"Page {page_number}: failed to parse possible course section: {preview}")
@@ -170,20 +204,56 @@ def _is_course_block_candidate(block: Block) -> bool:
     return bool(COURSE_CODE_RE.search(block_text))
 
 
-def _assign_departments(course_units: List[CourseUnit], blocks: List[Block]) -> List[CourseUnit]:
-    context = DepartmentContext(current_department=_infer_page_context_department(blocks))
-    if context.current_department is None:
-        context.current_department = _infer_department_from_course_units(course_units)
-    return [replace(unit, department=context.current_department) for unit in course_units]
+def _assign_departments(
+    course_units: List[CourseUnit],
+    blocks: List[Block],
+    context: ExtractionContext,
+) -> tuple[List[CourseUnit], Optional[str], bool]:
+    detected = _infer_page_context_department(blocks)
+    if detected is not None:
+        _record_prefixes(context, course_units, detected)
+        return [replace(unit, department=detected) for unit in course_units], detected, True
+
+    prefixes = _collect_prefixes(course_units)
+    carried = context.current_department
+    if carried and prefixes:
+        known_prefixes = context.prefix_department_map.get(carried)
+        # Only inherit the carried-forward department if either (a) we've previously seen this
+        # exact prefix family confirmed under that department via a real header, or (b) we have
+        # no recorded prefix history for it at all (e.g. it was itself inherited). If we DO have
+        # recorded history and this page's prefixes don't match it, this is very likely a new,
+        # unlabeled section rather than a continuation -- do not silently mislabel it.
+        if known_prefixes is None or prefixes <= known_prefixes:
+            _record_prefixes(context, course_units, carried)
+            return [replace(unit, department=carried) for unit in course_units], carried, False
+
+    inferred = _infer_department_from_course_units(course_units)
+    if inferred:
+        return [replace(unit, department=inferred) for unit in course_units], inferred, False
+
+    return [replace(unit, department=None) for unit in course_units], None, False
 
 
-def _infer_department_from_course_units(course_units: List[CourseUnit]) -> Optional[str]:
+def _collect_prefixes(course_units: List[CourseUnit]) -> set:
     prefixes = set()
     for unit in course_units:
         for code in COURSE_CODE_RE.findall(" ".join(unit.lines)):
             prefix_match = re.match(r"[A-Z]+", code)
             if prefix_match:
                 prefixes.add(prefix_match.group(0))
+    return prefixes
+
+
+def _record_prefixes(context: ExtractionContext, course_units: List[CourseUnit], department: str) -> None:
+    prefixes = _collect_prefixes(course_units)
+    if not prefixes:
+        return
+    existing = context.prefix_department_map.setdefault(department, set())
+    existing.update(prefixes)
+
+
+def _infer_department_from_course_units(course_units: List[CourseUnit]) -> Optional[str]:
+    prefixes = _collect_prefixes(course_units)
     if not prefixes:
         return None
     if prefixes <= {"ART", "DNC", "MUS", "THR"}:

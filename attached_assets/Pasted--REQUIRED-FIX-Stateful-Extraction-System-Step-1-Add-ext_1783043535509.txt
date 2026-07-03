@@ -1,0 +1,96 @@
+🚀 REQUIRED FIX: Stateful Extraction System
+Step 1 — Add extraction context object
+
+In your Python extraction layer (or JS if hybrid), define:
+
+class ExtractionContext:
+    def __init__(self):
+        self.current_department = None
+        self.current_subdepartment = None
+
+This is the “memory” your parser currently lacks.
+
+Step 2 — Detect department headers BEFORE parsing courses
+
+You need a function like:
+
+def detect_department_header(text):
+
+It should match patterns like:
+
+"Applied Arts–Business Education"
+"Fine Arts – Visual Arts"
+"Language Learning"
+"Social Studies"
+
+When found:
+
+context.current_department = parsed_department
+context.current_subdepartment = parsed_subdepartment (if exists)
+Step 3 — Carry context forward across pages
+
+This is the MOST IMPORTANT fix.
+
+When you process a new page:
+
+DO NOT reset context
+
+Instead:
+
+keep previous department active
+only update when a new header is detected
+Step 4 — Apply context to every course row
+
+When parsing a course:
+
+course.department = context.current_department
+course.subdepartment = context.current_subdepartment
+
+If still None:
+
+log_warning("Missing department context", course)
+Step 5 — Add “header confidence fallback”
+
+Some pages won’t clearly label departments.
+
+So add fallback logic:
+
+If no header detected:
+
+Use heuristics:
+
+course code prefix (BUS, MATH, SCI)
+surrounding text blocks
+nearest previous valid department
+
+Example:
+
+if not context.current_department:
+    context.current_department = infer_from_course_code(course.code)
+Step 6 — Fix page transition bug (your real root cause)
+
+Your current system likely does this:
+
+Page N → reset → Page N+1
+
+You must change it to:
+
+Page N → carry context → Page N+1 continues context
+
+ONLY reset if:
+
+a completely new section is detected AND validated
+(not just page change)
+🔥 What this fixes immediately
+
+After this change:
+
+Before:
+7 orphan courses
+broken department continuity
+reliance on null departmentId
+After:
+near-zero orphan courses
+clean department mapping
+consistent catalog structure
+better recommendation system inputs
