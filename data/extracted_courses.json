@@ -1,5 +1,5 @@
 {
-  "sourceFile": "C:\\Users\\chell\\Documents\\high_school_course_planner\\Coursebook2026-27INTERACTIVE101725.pdf",
+  "sourceFile": "/home/runner/workspace/Coursebook2026-27INTERACTIVE101725.pdf",
   "departments": [
     {
       "name": "Business Education",
@@ -15,7 +15,7 @@
     },
     {
       "name": "Applied Arts–family and Consumer Sciences",
-      "description": null
+      "description": "APPLIED ARTS–FAMILY AND CONSUMER SCIENCES22"
     },
     {
       "name": "Communication Arts",
@@ -425,7 +425,7 @@
     },
     {
       "title": "Investment Management",
-      "department": null,
+      "department": "Applied Arts–business Education",
       "description": "Investment Management is designed to help students create a well-rounded investment plan to meet their financial goals. Students will learn techniques used in corporate finance and analyze various financial securities like stocks, futures and options. They will explore the issues faced by today’s corporate financial managers and brokers through the use of a sophisticated, hands-on investment simulation. This course is designed for students who are planning careers in brokerage, investment and other financial fields.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -462,7 +462,7 @@
     },
     {
       "title": "Personal Finance",
-      "department": null,
+      "department": "Applied Arts–business Education",
       "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Students will gain knowledge and skills by investigating and responding to problems and challenges facing all consumers. The curricular requirements for this course are identical to the traditional Personal Finance course. Instructional activities are adjusted for an online instructional setting. There will be no physical class meeting period or time, though some activities will be available to all enrolled students in-person during the school day. Students will be expected to engage in class activities, projects, discussions and peer feedback frequently within each school week. Assignments will have specific due dates and students will receive individualized feedback from their teacher. Daily in-person office hours will be available for all students enrolled in the course. In-person remediation may be required as needed on an individual student basis with their teacher. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3219,7 +3219,7 @@
     },
     {
       "title": "Photography 1",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Media Arts",
       "description": "Note: Students may use their own DSLR; however, students may check out school-owned cameras for assignments. This foundational course covers basic concepts and practice of digital photography, including understanding and use of the camera, lenses and other basic photographic equipment. The course will address aesthetic principles as they relate to composition, space, exposure, light and color. An introduction to Adobe Photoshop will be studied in this course. Technological requirements of digital formats will be addressed. Basic digital manipulations of images will be taught in preparation for creating finished art.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3262,7 +3262,7 @@
     },
     {
       "title": "Photography 2",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Media Arts",
       "description": "Note: Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments. This course is designed to refine students’ digital photographic skills and aesthetic judgment as they relate to composition, space, exposure, light and color. Special effects, studio lighting, portraiture, night photography, use of Adobe Photoshop, the Creative Suite and Procreate are areas studied in this course. Technological requirements of digital formats and printing will be addressed.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3309,7 +3309,7 @@
     },
     {
       "title": "Advanced Photography and Digital Design",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Media Arts",
       "description": "Note: Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments. This course offers an advanced study of photography and/or digital design for students who want to pursue image making in a serious manner. Students on the photography track are introduced to large format printing, DSLR camera handling skills and advanced techniques using Adobe Photoshop and the Creative Suite. Students on the design track will be developing a portfolio of digital drawings and designs using the Adobe Creative Suite and the Procreate drawing app. Design students will also explore methods of digital photography to enhance their layout, formatting and design skills. Students will explore brainstorming methods to develop stronger concepts and common visual connections through the development of a series of work. Students will compile a portfolio and assemble a one-person show to be exhibited in the spring.",
       "gpaWaiverOption": false,
       "offerings": [
@@ -3354,7 +3354,7 @@
     },
     {
       "title": "AP Photography and Digital Design",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Media Arts",
       "description": "Note: Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments. This course offers digital 2D design drawing and painting students a concentrated program, which enables them to apply for college credit in art. Emphasis is centered on studio work, the preparation of a portfolio and the submission of a portfolio for potential AP credit. In the spring, each student will exhibit their work in a one-person show. This course may be repeated for credit.",
       "gpaWaiverOption": false,
       "offerings": [
@@ -3747,7 +3747,7 @@
     },
     {
       "title": "Dance 4",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Dance",
       "description": "This course is designed for students who have achieved a high degree of technical skill. The class will work toward developing and enhancing performance qualities. The emphasis is on challenging students’ creative skills in order to strengthen versatility of movement styles through choreographic and compositional strategies. Students will also be introduced to leadership skills through assisting with or leading peers in instruction. Course content knowledge is enhanced through critical response and self-assessment activities. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstration performance during first semester and the Day of the Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3792,7 +3792,7 @@
     },
     {
       "title": "Concert Dance",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Dance",
       "description": "Additional fees for dual credit may be imposed by the college/university. This course is designed for students who have had advanced training in contemporary dance, as well as a strong background in ballet, jazz and composition. Concert dancers are responsible for maintaining a high quality of technical skill. The Concert Dance class will work toward developing and enhancing performance and choreographic skills in preparation for college-level dance study and/ or professional studio experience. Concert dancers will choreograph their own dances and perform in the Winter and Spring Dance Concerts. Daily and a/f_ter-school rehearsals will be scheduled one to two weeks prior to the opening of the Winter and Spring Concerts and attendance is mandatory. Students may also audition for guest choreographers. These rehearsals take place a/f_ter school and are required, if cast. Fees are approximately $150 for a/f_ter-school dance company expenses. Admission into Concert Dance is based on the submission of a portfolio submitted to and approved by the Dance Department. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3837,7 +3837,7 @@
     },
     {
       "title": "Jazz Fusion",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Dance",
       "description": "This course will introduce and review essential dance skills that pertain to the jazz dance genre. Over the semester of this jazz survey course, students will learn and engage in jazz, hip hop, musical theatre and dance fitness movement. With focus on creativity, discipline and technical development, dancers work in a nurturing atmosphere to build confidence and life/dance skills. The Jazz Fusion curriculum is designed to help dancers create a strong foundation through repetitive movement, dance vocabulary, discussion and explorations. No experience is necessary and this course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3876,7 +3876,7 @@
     },
     {
       "title": "Technical Skills",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Dance",
       "description": "This course will focus on honing technical dance skills by working on anatomical alignment, physical strength and flexibility. Students will practice technical movements such as jumps, turns and leaps. Students will also learn specific dance conditioning practices to increase the quality of dance execution. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -3921,7 +3921,7 @@
     },
     {
       "title": "Dance Leadership",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Dance",
       "description": "Dance Leadership is a one-year course where students will intern and assist with dance instruction in a technique class. Dance leaders will learn and demonstrate the teacher-created combinations including warm-ups, across the floor and center combinations. Dance leaders will model proper technique and assist students. Dance Leaders will periodically work one-on-one with dance students in a peer mentoring fashion. While taking this course, the Dance Leaders will also meet individually with the teacher outside of class to learn what they will instruct at the end of each semester. They will also create exercises and a lesson that they will instruct at the end of each semester. Dance Leadership applications are available on the Dance website in early November and are due by December 5. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4259,7 +4259,7 @@
     },
     {
       "title": "Stevenson Orchestra",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "Note: All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals. This course is open to students in grade 9, as well as transfer students who demonstrate the appropriate level of technical preparedness on violin, viola, cello, bass or harp. Students will continue developing foundational and intermediate performance techniques while expanding their knowledge of music theory and comprehensive musicianship skills. The ensemble will study and perform a variety of string orchestra and chamber music repertoire. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include four formal concerts and additional curricular string events throughout the school year. Incoming students in grade 9 and transfer students are encouraged to attend a one-day summer strings camp in August to become familiar with the strings program and facilities. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4300,7 +4300,7 @@
     },
     {
       "title": "Concert Orchestra",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "Note: All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals. This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4345,7 +4345,7 @@
     },
     {
       "title": "Symphonic Orchestra",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "Note: All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals. This course is designed for advanced violin, viola, cello, bass and harp string students. The repertoire in this class includes works for chamber groups, string ensemble and full orchestra. Musical works highlight repertoire of the Baroque, Classical and early Romantic eras with performances on five formal concerts throughout the school year. Students in this class will work towards mastery of three-octave major and minor scales and arpeggios, concerto-level repertoire, music theory concepts and comprehensive musicianship skills. The students in this ensemble collaborate with members of Wind Symphony each year for an exploration of the full orchestra repertoire. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4392,7 +4392,7 @@
     },
     {
       "title": "Patriot Orchestra",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "Note: All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals. This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4570,7 +4570,7 @@
     },
     {
       "title": "Piano 1",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "This course is designed for students of all skill levels, from non-experienced through advanced. This class will introduce students to music notation, basic music theory, keyboard technique and music terminology through the study of keyboard repertoire. Students will work independently, collaboratively and with instructor guidance to shape their musical goals, including selecting their own music to learn and perform. Students repeating this course or students with theory and composition experiences will be able to experience more advanced musical topics. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4611,7 +4611,7 @@
     },
     {
       "title": "Music Production 1",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "This course will explore concepts in production, recording, performance, audio engineering, music business, sound design, music marketing and more. Students will have access to music production software, instruments and recording equipment in order to create, edit and mix the music that interests them. Music Production 1 is open to all students with an interest in music, no prior experience is necessary. All students will have the option to participate in a Music Production Showcase at the end of the semester.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4652,7 +4652,7 @@
     },
     {
       "title": "Music Production 2",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "Music Production 2 is a course designed for students interested in furthering their study and exploration of music production and the music industry. Students will pursue more advanced concepts and techniques resulting in a substantial amount of original music by the end of the course. Students will have access to music production software, instruments and recording equipment in order to create, edit and mix the music that interests them. All students will participate in a Music Production Showcase at the end of the semester.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4699,7 +4699,7 @@
     },
     {
       "title": "Advanced Music Production",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "Advanced Music Production is a course designed for students interested in pursuing advanced concepts in music production. This course will provide real world experiences to students and prepare them to participate in the music industry a/f_ter high school and beyond. Students in this course will get to experience the process of recording original music in a professional studio setting and all students will participate in a Music Production Showcase at the end of each semester. Students will have access to music production software, instruments and recording equipment both at home and at school. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -4744,7 +4744,7 @@
     },
     {
       "title": "AP Music Theory",
-      "department": "Fine Arts",
+      "department": "Fine Arts—Music",
       "description": "This course is designed for the advanced musician who is interested in enhancing their music ability through a rigorous study of Western music theory. Students learn the basics of tonal harmony, including: chord construction, four-part voice writing, harmonic analysis and harmonic sequence. Students also study ear training, sight singing, melodic, rhythmic and harmonic dictation, 20th century techniques and form/structure. Students who enroll in this course will be prepared to take the AP Music Theory exam in May, as well as entrance examinations given by schools of music for entering music majors/minors.",
       "gpaWaiverOption": false,
       "offerings": [
@@ -9835,7 +9835,12 @@
     "Page 79: credit inference count = 8",
     "Page 80: credit inference count = 8",
     "Page 81: credit inference count = 8",
+    "Page 82: Missing department context for course 'Eld Faculty In The Multilingual Learning Division.' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 82: Missing department context for course 'English Language Development (ELD) 2' (no header detected, no compatible carry-forward department, no course-code fallback match).",
     "Page 82: credit inference count = 4",
+    "Page 83: Missing department context for course 'English Language Development (ELD) Language' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: Missing department context for course 'English Language Development (ELD) Literature' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: Missing department context for course 'Current Events' (no header detected, no compatible carry-forward department, no course-code fallback match).",
     "Page 83: credit inference count = 8",
     "Page 86: credit inference count = 4",
     "Page 87: credit inference count = 7",

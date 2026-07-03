@@ -1,1 +1,2 @@
 - [Course extraction department context](course-extraction-department-context.md) — page-level dept detection has no cross-page memory by default; carry-forward must be prefix-validated, not blind, or it mislabels new sections.
+- [Coursebook PDF header quirks](coursebook-pdf-header-quirks.md) — page-number digits often glue directly onto header words (e.g. "ARTS48"), false-matching course-code regexes; some real dept names only appear on a division-intro page far from the course listing.
