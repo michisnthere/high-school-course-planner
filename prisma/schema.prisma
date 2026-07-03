@@ -9,102 +9,206 @@ datasource db {
 
 //
 // =========================
-// DEPARTMENT
+// ENUMS
 // =========================
 //
+
+enum EntryStatus {
+  PLANNED
+  COMPLETED
+  DROPPED
+}
+
+enum RequirementType {
+  CREDITS
+  COMPLETION
+  RULE_BASED
+}
+
+//
+// =========================
+// CATALOG LAYER
+// =========================
+//
+
 model Department {
-  id              Int      @id @default(autoincrement())
-  name            String   @unique
-  normalizedName  String?
-  description     String?
+  id             Int      @id @default(autoincrement())
+  name           String   @unique
+  description    String?
 
-  subdepartments  Subdepartment[]
-
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-}
-
-//
-// =========================
-// SUBDEPARTMENT
-// =========================
-//
-model Subdepartment {
-  id              Int      @id @default(autoincrement())
-
-  name            String
-  normalizedName  String?
-
-  departmentId    Int
-  department      Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-
-  courses         Course[]
-
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@unique([departmentId, name])
-  @@index([departmentId])
-}
-
-//
-// =========================
-// COURSE
-// =========================
-//
-model Course {
-  id              Int      @id @default(autoincrement())
-
-  title           String
-  normalizedTitle String?
-
-  importKey       String   @unique
-
-  description     String?
-
-  gpaWaiverOption Boolean  @default(false)
-  isOnline        Boolean  @default(false)
-
-  notes           Json     @default("[]")
-  sourceReference String?
-
-  subdepartmentId Int?
-  subdepartment   Subdepartment? @relation(fields: [subdepartmentId], references: [id], onDelete: SetNull)
-
-  offerings       CourseOffering[]
-
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([subdepartmentId])
-  @@unique([subdepartmentId, title])
-}
-
-//
-// =========================
-// COURSE OFFERING
-// =========================
-//
-model CourseOffering {
-  id             Int     @id @default(autoincrement())
-
-  courseCode     String  @unique
-
-  semesterLabel  String?
-  duration       String?
-
-  gradeLevels    Json    @default("[]")
-  prerequisites  Json    @default("[]")
-  corequisites   Json    @default("[]")
-
-  creditType     String?
-  credits        Float?
-
-  courseId       Int
-  course         Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  subdepartments Subdepartment[]
+  courses        Course[]
 
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+model Subdepartment {
+  id             Int      @id @default(autoincrement())
+  name           String
+
+  departmentId   Int
+  department     Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  courses        Course[]
+
+  @@unique([departmentId, name])
+}
+
+model Course {
+  id               Int      @id @default(autoincrement())
+
+  title            String
+  description      String?
+  notes            Json     @default("[]")
+
+  gpaWaiverOption  Boolean  @default(false)
+  isOnline         Boolean  @default(false)
+
+  importKey        String   @unique
+
+  departmentId     Int?
+  department       Department? @relation(fields: [departmentId], references: [id])
+
+  subdepartmentId  Int?
+  subdepartment    Subdepartment? @relation(fields: [subdepartmentId], references: [id])
+
+  offerings        CourseOffering[]
+
+  requirements     RequirementCourseMap[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([subdepartmentId])
+}
+
+model CourseOffering {
+  id              Int     @id @default(autoincrement())
+
+  courseCode      String  @unique
+
+  semester        Int
+  durationUnits   Float?
+  credits         Float?
+
+  gradeLevels     Json    @default("[]")
+  creditType      String?
+
+  prerequisites   Json    @default("[]")
+
+  courseId        Int
+  course          Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@index([courseId])
+}
+
+//
+// =========================
+// GRADUATION REQUIREMENTS
+// =========================
+//
+
+model GraduationRequirement {
+  id              Int      @id @default(autoincrement())
+
+  name            String
+  category        String
+
+  requirementType RequirementType
+  requiredValue   Float?
+
+  description     String?
+  sourceReference String?
+
+  rules           Json     @default("[]")
+
+  courses         RequirementCourseMap[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model RequirementCourseMap {
+  id            Int @id @default(autoincrement())
+
+  requirementId Int
+  requirement   GraduationRequirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+
+  courseId      Int
+  course        Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  weight        Float?
+
+  @@unique([requirementId, courseId])
+}
+
+//
+// =========================
+// STUDENT LAYER
+// =========================
+//
+
+model Student {
+  id                Int      @id @default(autoincrement())
+
+  email             String   @unique
+  name              String?
+
+  currentGradeLevel Int
+  graduationYear    Int?
+
+  gpaUnweighted     Float?
+  gpaWeighted       Float?
+
+  plans             AcademicPlan[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AcademicPlan {
+  id        Int @id @default(autoincrement())
+
+  studentId Int
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  name      String @default("Primary Plan")
+
+  isActive  Boolean @default(true)
+
+  entries   PlannedCourseEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([studentId])
+}
+
+model PlannedCourseEntry {
+  id              Int @id @default(autoincrement())
+
+  planId          Int
+  plan            AcademicPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  courseOfferingId Int
+  courseOffering   CourseOffering @relation(fields: [courseOfferingId], references: [id])
+
+  year            Int
+  semesterSlot    Int
+  slotIndex       Int
+
+  status          EntryStatus @default(PLANNED)
+
+  letterGrade     String?
+  isCompleted     Boolean @default(false)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([planId])
+  @@index([courseOfferingId])
 }
