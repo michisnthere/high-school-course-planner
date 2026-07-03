@@ -191,9 +191,18 @@ def _extract_departments(lines: List[str], blocks: Optional[List[Block]] = None)
 
 def _infer_page_context_department(blocks: List[Block]) -> Optional[str]:
     for block in blocks[:2]:
+        first = block.lines[0] if block.lines else ""
+        # A lone single-line block is sometimes a department header with the page
+        # number glued directly onto the last word (e.g. "FINE ARTS\u2014MEDIA ARTS48"),
+        # which can falsely match COURSE_CODE_RE (e.g. "ARTS48" looks like a course
+        # code). Check the header pattern on the digit-stripped text first so a real
+        # header isn't discarded as a course-code block before we even look at it.
+        if len(block.lines) == 1:
+            stripped_first = re.sub(r"\d+$", "", first).strip()
+            if _looks_like_department_line(stripped_first):
+                return title_from_heading(stripped_first)
         if _is_course_block_candidate(block):
             return None
-        first = block.lines[0] if block.lines else ""
         if _looks_like_department_line(first):
             return title_from_heading(re.sub(r"\s+\d+$", "", first))
     return None

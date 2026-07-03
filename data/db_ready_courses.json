@@ -1,5 +1,5 @@
 {
-  "sourceFile": "C:\\Users\\chell\\Documents\\high_school_course_planner\\Coursebook2026-27INTERACTIVE101725.pdf",
+  "sourceFile": "/home/runner/workspace/Coursebook2026-27INTERACTIVE101725.pdf",
   "departments": [
     {
       "name": "Business Education",
@@ -15,7 +15,7 @@
     },
     {
       "name": "Applied Arts–family and Consumer Sciences",
-      "description": null
+      "description": "APPLIED ARTS–FAMILY AND CONSUMER SCIENCES22"
     },
     {
       "name": "Communication Arts",
@@ -445,7 +445,7 @@
     },
     {
       "title": "Investment Management",
-      "department": null,
+      "department": "Applied Arts",
       "description": "Investment Management is designed to help students create a well-rounded investment plan to meet their financial goals. Students will learn techniques used in corporate finance and analyze various financial securities like stocks, futures and options. They will explore the issues faced by today’s corporate financial managers and brokers through the use of a sophisticated, hands-on investment simulation. This course is designed for students who are planning careers in brokerage, investment and other financial fields.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -479,12 +479,12 @@
       "notes": [],
       "sourceReference": "Page 20",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": null
+      "subdepartment": "business Education",
+      "department_raw": "Applied Arts–business Education"
     },
     {
       "title": "Personal Finance",
-      "department": null,
+      "department": "Applied Arts",
       "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Students will gain knowledge and skills by investigating and responding to problems and challenges facing all consumers. The curricular requirements for this course are identical to the traditional Personal Finance course. Instructional activities are adjusted for an online instructional setting. There will be no physical class meeting period or time, though some activities will be available to all enrolled students in-person during the school day. Students will be expected to engage in class activities, projects, discussions and peer feedback frequently within each school week. Assignments will have specific due dates and students will receive individualized feedback from their teacher. Daily in-person office hours will be available for all students enrolled in the course. In-person remediation may be required as needed on an individual student basis with their teacher. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
       "gpaWaiverOption": true,
       "offerings": [
@@ -518,8 +518,8 @@
       "notes": [],
       "sourceReference": "Page 20",
       "isOnline": true,
-      "subdepartment": null,
-      "department_raw": null
+      "subdepartment": "business Education",
+      "department_raw": "Applied Arts–business Education"
     },
     {
       "title": "Clothing and Design 1",
@@ -3415,8 +3415,8 @@
       ],
       "sourceReference": "Page 50",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Media Arts",
+      "department_raw": "Fine Arts—Media Arts"
     },
     {
       "title": "Photography 2",
@@ -3464,8 +3464,8 @@
       ],
       "sourceReference": "Page 50",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Media Arts",
+      "department_raw": "Fine Arts—Media Arts"
     },
     {
       "title": "Advanced Photography and Digital Design",
@@ -3511,8 +3511,8 @@
       ],
       "sourceReference": "Page 50",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Media Arts",
+      "department_raw": "Fine Arts—Media Arts"
     },
     {
       "title": "AP Photography and Digital Design",
@@ -3556,8 +3556,8 @@
       ],
       "sourceReference": "Page 50",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Media Arts",
+      "department_raw": "Fine Arts—Media Arts"
     },
     {
       "title": "Digital Art and Design 1",
@@ -3969,8 +3969,8 @@
       "notes": [],
       "sourceReference": "Page 54",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Dance",
+      "department_raw": "Fine Arts—Dance"
     },
     {
       "title": "Concert Dance",
@@ -4016,8 +4016,8 @@
       "notes": [],
       "sourceReference": "Page 54",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Dance",
+      "department_raw": "Fine Arts—Dance"
     },
     {
       "title": "Jazz Fusion",
@@ -4057,8 +4057,8 @@
       "notes": [],
       "sourceReference": "Page 54",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Dance",
+      "department_raw": "Fine Arts—Dance"
     },
     {
       "title": "Technical Skills",
@@ -4104,8 +4104,8 @@
       "notes": [],
       "sourceReference": "Page 54",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Dance",
+      "department_raw": "Fine Arts—Dance"
     },
     {
       "title": "Dance Leadership",
@@ -4145,8 +4145,8 @@
       "notes": [],
       "sourceReference": "Page 54",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Dance",
+      "department_raw": "Fine Arts—Dance"
     },
     {
       "title": "Freshman Band*",
@@ -4501,8 +4501,8 @@
       ],
       "sourceReference": "Page 58",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Concert Orchestra",
@@ -4548,8 +4548,8 @@
       ],
       "sourceReference": "Page 58",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Symphonic Orchestra",
@@ -4597,8 +4597,8 @@
       ],
       "sourceReference": "Page 58",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Patriot Orchestra",
@@ -4644,8 +4644,8 @@
       ],
       "sourceReference": "Page 58",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Guitar 1",
@@ -4826,8 +4826,8 @@
       "notes": [],
       "sourceReference": "Page 60",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Music Production 1",
@@ -4869,8 +4869,8 @@
       "notes": [],
       "sourceReference": "Page 60",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Music Production 2",
@@ -4918,8 +4918,8 @@
       "notes": [],
       "sourceReference": "Page 60",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Advanced Music Production",
@@ -4965,8 +4965,8 @@
       "notes": [],
       "sourceReference": "Page 60",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "AP Music Theory",
@@ -5012,8 +5012,8 @@
       "notes": [],
       "sourceReference": "Page 60",
       "isOnline": false,
-      "subdepartment": null,
-      "department_raw": "Fine Arts"
+      "subdepartment": "Music",
+      "department_raw": "Fine Arts—Music"
     },
     {
       "title": "Acting 1: Confidence and Collaboration",
@@ -10285,7 +10285,12 @@
     "Page 79: credit inference count = 8",
     "Page 80: credit inference count = 8",
     "Page 81: credit inference count = 8",
+    "Page 82: Missing department context for course 'Eld Faculty In The Multilingual Learning Division.' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 82: Missing department context for course 'English Language Development (ELD) 2' (no header detected, no compatible carry-forward department, no course-code fallback match).",
     "Page 82: credit inference count = 4",
+    "Page 83: Missing department context for course 'English Language Development (ELD) Language' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: Missing department context for course 'English Language Development (ELD) Literature' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: Missing department context for course 'Current Events' (no header detected, no compatible carry-forward department, no course-code fallback match).",
     "Page 83: credit inference count = 8",
     "Page 86: credit inference count = 4",
     "Page 87: credit inference count = 7",
