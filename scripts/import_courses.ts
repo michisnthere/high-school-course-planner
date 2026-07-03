@@ -204,18 +204,21 @@ async function main() {
     // department_raw / subdepartment come from normalizeDepartment(), which
     // splits compound raw strings (e.g. "Applied Arts–Business Education")
     // and maps every known raw value onto the standardized department list.
-    // No fake subdepartments (e.g. "General") are created: when the course
-    // has a real department but no distinct subdepartment, subdepartmentId
-    // is left null exactly as the normalization produced it — see the
-    // schema-alignment note in the final summary for the trade-off this
-    // implies given the current schema's Course → Subdepartment → Department
-    // linkage.
+    // No fake subdepartments (e.g. "General") are created.
+    //
+    // Course.departmentId is set directly and ALWAYS whenever the source
+    // specifies a department — this is the course's primary department link
+    // and does not depend on a subdepartment existing. Subdepartment is a
+    // pure refinement on top of that: subdepartmentId is set only when a
+    // real, distinct subdepartment is resolved; otherwise it stays null and
+    // never blocks department-level queries.
     const norm = normalizeDepartment(course.department);
 
+    let departmentId: number | null = null;
     let subdepartmentId: number | null = null;
 
     if (norm.department) {
-      const departmentId = await getOrCreateDepartment(norm.department);
+      departmentId = await getOrCreateDepartment(norm.department);
 
       if (norm.subdepartment) {
         subdepartmentId = await getOrCreateSubdepartment(departmentId, norm.subdepartment);
@@ -241,6 +244,7 @@ async function main() {
           isOnline: Boolean(course.isOnline),
           notes: requireArray(course.notes),
           sourceReference: course.sourceReference ?? null,
+          departmentId,
           subdepartmentId,
         },
         update: {
@@ -248,6 +252,7 @@ async function main() {
           gpaWaiverOption: Boolean(course.gpaWaiverOption),
           isOnline: Boolean(course.isOnline),
           notes: requireArray(course.notes),
+          departmentId,
           subdepartmentId,
         },
         select: { id: true },
