@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { normalizeDepartment, parseSemester, parseDurationUnits } from "./lib/normalize";
 
 // ---------------------------------------------------------------------------
 // Input types — subdepartment is optional; not all source records carry it.
@@ -36,6 +37,7 @@ type ExtractedCatalog = {
 type FailedRecord = {
   title?: string;
   sourceReference?: string | null;
+  importKey?: string;
   reason: string;
 };
 
@@ -44,7 +46,6 @@ type FailedRecord = {
 // ---------------------------------------------------------------------------
 
 const INPUT_PATH = path.resolve("data", "extracted_courses.json");
-const FALLBACK_SUBDEPARTMENT = "General";
 
 const prisma = new PrismaClient();
 
@@ -67,23 +68,76 @@ function importKeyFor(course: CourseInput): string {
   return `${course.sourceReference ?? ""}::${course.title}`;
 }
 
-function validateCourse(course: CourseInput, seenCodes: Set<string>): string | null {
-  if (!course.title?.trim()) {
-    return "missing title";
-  }
-  if (!Array.isArray(course.offerings) || course.offerings.length === 0) {
-    return "missing offerings";
-  }
-  for (const offering of course.offerings) {
-    if (!offering.courseCode?.trim()) {
-      return `missing courseCode for "${course.title}"`;
+// ---------------------------------------------------------------------------
+// Pre-write validation (rule 7)
+//
+// Runs BEFORE any DB writes. Ensures:
+//   - required fields exist on every course/offering
+//   - no duplicate importKeys across the whole input
+//   - no duplicate courseCodes across the whole input
+// First occurrence wins; every subsequent collision is logged to
+// failedRecords and the whole course record is skipped (never partially
+// imported, never silently overwritten).
+// ---------------------------------------------------------------------------
+
+function validateAll(
+  courses: CourseInput[]
+): { valid: CourseInput[]; failedRecords: FailedRecord[] } {
+  const seenImportKeys = new Set<string>();
+  const seenCourseCodes = new Set<string>();
+  const valid: CourseInput[] = [];
+  const failedRecords: FailedRecord[] = [];
+
+  for (const course of courses) {
+    const importKey = importKeyFor(course);
+
+    const fail = (reason: string) => {
+      failedRecords.push({
+        title: course.title,
+        sourceReference: course.sourceReference,
+        importKey,
+        reason,
+      });
+    };
+
+    if (!course.title?.trim()) {
+      fail("missing title");
+      continue;
     }
-    if (seenCodes.has(offering.courseCode)) {
-      return `duplicate courseCode in input: ${offering.courseCode}`;
+    if (!Array.isArray(course.offerings) || course.offerings.length === 0) {
+      fail("missing offerings");
+      continue;
     }
-    seenCodes.add(offering.courseCode);
+    if (seenImportKeys.has(importKey)) {
+      fail(`duplicate importKey in input: ${importKey}`);
+      continue;
+    }
+
+    let offeringConflict: string | null = null;
+    for (const offering of course.offerings) {
+      if (!offering.courseCode?.trim()) {
+        offeringConflict = `missing courseCode for "${course.title}"`;
+        break;
+      }
+      if (seenCourseCodes.has(offering.courseCode)) {
+        offeringConflict = `duplicate courseCode in input: ${offering.courseCode}`;
+        break;
+      }
+    }
+    if (offeringConflict) {
+      fail(offeringConflict);
+      continue;
+    }
+
+    // Record is clean — commit its keys so later duplicates are caught.
+    seenImportKeys.add(importKey);
+    for (const offering of course.offerings) {
+      seenCourseCodes.add(offering.courseCode!);
+    }
+    valid.push(course);
   }
-  return null;
+
+  return { valid, failedRecords };
 }
 
 // ---------------------------------------------------------------------------
@@ -135,44 +189,41 @@ async function getOrCreateSubdepartment(
 async function main() {
   const raw = await readFile(INPUT_PATH, "utf8");
   const catalog = JSON.parse(raw) as ExtractedCatalog;
-  const courses = Array.isArray(catalog.courses) ? catalog.courses : [];
+  const allCourses = Array.isArray(catalog.courses) ? catalog.courses : [];
 
-  const seenCodes = new Set<string>();
-  const failedRecords: FailedRecord[] = [];
+  const { valid: courses, failedRecords } = validateAll(allCourses);
 
   let coursesUpserted = 0;
   let offeringsUpserted = 0;
-  let noDepartment = 0;
+  let coursesWithNoDepartment = 0;
+  let coursesWithNoSubdepartment = 0;
 
   for (const course of courses) {
-    // -- Validate --------------------------------------------------------
-    const validationError = validateCourse(course, seenCodes);
-    if (validationError) {
-      failedRecords.push({
-        title: course.title,
-        sourceReference: course.sourceReference,
-        reason: validationError,
-      });
-      continue;
-    }
-
     // -- Department + Subdepartment --------------------------------------
     //
-    // If the course has no department we cannot place it in the hierarchy
-    // without inventing data. Leave subdepartmentId null and count it.
-    //
-    // Subdepartment name comes from course.subdepartment when present;
-    // otherwise falls back to FALLBACK_SUBDEPARTMENT ("General").
+    // department_raw / subdepartment come from normalizeDepartment(), which
+    // splits compound raw strings (e.g. "Applied Arts–Business Education")
+    // and maps every known raw value onto the standardized department list.
+    // No fake subdepartments (e.g. "General") are created: when the course
+    // has a real department but no distinct subdepartment, subdepartmentId
+    // is left null exactly as the normalization produced it — see the
+    // schema-alignment note in the final summary for the trade-off this
+    // implies given the current schema's Course → Subdepartment → Department
+    // linkage.
+    const norm = normalizeDepartment(course.department);
 
     let subdepartmentId: number | null = null;
 
-    if (course.department?.trim()) {
-      const departmentId = await getOrCreateDepartment(course.department.trim());
+    if (norm.department) {
+      const departmentId = await getOrCreateDepartment(norm.department);
 
-      const subdeptName = course.subdepartment?.trim() || FALLBACK_SUBDEPARTMENT;
-      subdepartmentId = await getOrCreateSubdepartment(departmentId, subdeptName);
+      if (norm.subdepartment) {
+        subdepartmentId = await getOrCreateSubdepartment(departmentId, norm.subdepartment);
+      } else {
+        coursesWithNoSubdepartment += 1;
+      }
     } else {
-      noDepartment += 1;
+      coursesWithNoDepartment += 1;
     }
 
     // -- Course  — upsert by importKey only ------------------------------
@@ -202,9 +253,10 @@ async function main() {
         select: { id: true },
       });
     } catch (err: unknown) {
-      // A P2002 on (subdepartmentId, title) means a different record with the
-      // same title already occupies this subdepartment slot.  This is a data
-      // quality issue in the source — log it and skip so the run stays clean.
+      // A P2002 on (subdepartmentId, title) means a different record with
+      // the same title already occupies this subdepartment slot. This is a
+      // data quality conflict, not something to merge or overwrite — log it
+      // and move on so the run stays clean.
       const isPrismaUniqueViolation =
         typeof err === "object" &&
         err !== null &&
@@ -214,7 +266,8 @@ async function main() {
         failedRecords.push({
           title: course.title,
           sourceReference: course.sourceReference,
-          reason: `title already exists under this subdepartment (importKey=${importKey})`,
+          importKey,
+          reason: "title already exists under this subdepartment (conflicting course, not overwritten)",
         });
         continue;
       }
@@ -222,14 +275,24 @@ async function main() {
     }
     coursesUpserted += 1;
 
-    // -- Offerings  — upsert by courseCode -------------------------------
+    // -- Offerings  — upsert by courseCode only --------------------------
+    // semester (INT) and durationUnits (FLOAT, supports 1.0/1.5/2.0) are
+    // computed here from the raw semesterLabel/duration text. The current
+    // Prisma schema does not have dedicated Int/Float columns for these
+    // (see summary — schema alignment note), so the parsed canonical values
+    // are stored back into the existing semesterLabel/duration String
+    // columns, replacing inconsistent raw text ("SEMESTER 1", "Semester 1
+    // Only", etc.) with a single normalized representation.
     for (const offering of course.offerings!) {
+      const semester = parseSemester(offering.semesterLabel);
+      const durationUnits = parseDurationUnits(offering.duration);
+
       await prisma.courseOffering.upsert({
         where: { courseCode: offering.courseCode! },
         create: {
           courseCode: offering.courseCode!,
-          semesterLabel: offering.semesterLabel ?? null,
-          duration: offering.duration ?? null,
+          semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
+          duration: durationUnits !== null ? String(durationUnits) : offering.duration ?? null,
           gradeLevels: requireArray(offering.gradeLevels),
           prerequisites: requireArray(offering.prerequisites),
           corequisites: requireArray(offering.corequisites),
@@ -238,8 +301,8 @@ async function main() {
           courseId: savedCourse.id,
         },
         update: {
-          semesterLabel: offering.semesterLabel ?? null,
-          duration: offering.duration ?? null,
+          semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
+          duration: durationUnits !== null ? String(durationUnits) : offering.duration ?? null,
           gradeLevels: requireArray(offering.gradeLevels),
           prerequisites: requireArray(offering.prerequisites),
           corequisites: requireArray(offering.corequisites),
@@ -256,12 +319,13 @@ async function main() {
     JSON.stringify(
       {
         inputPath: INPUT_PATH,
-        totalCoursesInFile: courses.length,
+        totalCoursesInFile: allCourses.length,
         coursesUpserted,
         offeringsUpserted,
         departmentsCached: departmentCache.size,
         subdepartmentsCached: subdepartmentCache.size,
-        coursesWithNoDepartment: noDepartment,
+        coursesWithNoDepartment,
+        coursesWithNoSubdepartment,
         failedRecords,
       },
       null,
