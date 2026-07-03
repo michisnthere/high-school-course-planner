@@ -18,7 +18,7 @@ from pypdf import PdfReader
 from src.pdf.classify_page import classify_page
 from src.rules.clean_text import clean_text
 from src.rules.normalize_catalog import normalize_catalog, normalize_departments
-from src.rules.parse_courses import parse_course_page
+from src.rules.parse_courses import ExtractionContext, parse_course_page
 from src.rules.parse_requirements import parse_requirement_page
 
 DEFAULT_PDF = PROJECT_ROOT / "Coursebook2026-27INTERACTIVE101725.pdf"
@@ -146,6 +146,8 @@ def main() -> None:
         "pageSummaries": [],
     }
 
+    extraction_context = ExtractionContext()
+
     for page_number in range(args.start, end_page + 1):
         text = reader.pages[page_number - 1].extract_text() or ""
         text = clean_text(text)
@@ -166,7 +168,7 @@ def main() -> None:
 
         page_result = build_empty_page_result(page_number)
         if should_parse_courses:
-            course_result = parse_course_page(page_number, text, classification)
+            course_result = parse_course_page(page_number, text, classification, extraction_context)
             page_result["departments"].extend(course_result.get("departments", []))
             page_result["courses"].extend(course_result.get("courses", []))
             page_result["warnings"].extend(course_result.get("warnings", []))

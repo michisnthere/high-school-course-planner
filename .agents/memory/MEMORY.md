@@ -1,0 +1,1 @@
+- [Course extraction department context](course-extraction-department-context.md) — page-level dept detection has no cross-page memory by default; carry-forward must be prefix-validated, not blind, or it mislabels new sections.
