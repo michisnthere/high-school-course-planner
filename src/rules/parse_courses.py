@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import re
 from dataclasses import dataclass, replace
@@ -169,25 +169,82 @@ def _starts_strong_block(lines: List[str], index: int) -> bool:
     # OPTIONAL BOOST: metadata increases confidence but is NOT required
     return True
 
-def _extract_departments(lines: List[str], blocks: Optional[List[Block]] = None) -> List[Dict[str, Optional[str]]]:
+def _extract_departments(
+    lines: List[str],
+    blocks: Optional[List[Block]] = None
+) -> List[Dict[str, Optional[str]]]:
+
     blocks = blocks if blocks is not None else _group_lines_into_blocks(lines)
+
     department_name = _infer_page_context_department(blocks)
+
+    # If we cannot even infer a department, return empty safely
     if not department_name:
         return []
-    first_course_block = next((block for block in blocks if _is_course_block_candidate(block)), None)
+
+    # --- Build description (unchanged logic, but safer) ---
+    first_course_block = next(
+        (block for block in blocks if _is_course_block_candidate(block)),
+        None
+    )
+
     description_parts: List[str] = []
+
     for block in blocks[:2]:
         if block is first_course_block:
             break
-        if title_from_heading(re.sub(r"\s+\d+$", "", block.lines[0])) == department_name:
+
+        normalized_header = title_from_heading(
+            re.sub(r"\s+\d+$", "", block.lines[0])
+        )
+
+        if normalized_header == department_name:
             continue
+
         for line in block.lines:
             if METADATA_RE.search(line) or COURSE_CODE_RE.search(line):
                 break
             description_parts.append(line)
-    description = clean_description(" ".join(description_parts)) if description_parts else None
-    return [{"name": department_name, "description": description}]
 
+    description = (
+        clean_description(" ".join(description_parts))
+        if description_parts
+        else None
+    )
+
+    # =========================================================
+    # ✅ FIXED ELD FALLBACK (correct scope + correct merge)
+    # =========================================================
+
+    text_sample = " ".join(
+        line.upper()
+        for b in blocks
+        for line in b.lines[:6]
+    )
+
+    is_eld_page = (
+        "ENGLISH LANGUAGE DEVELOPMENT" in text_sample
+        or re.search(r"\bELD\b", text_sample)
+    )
+
+    # If this is an ELD page but header inference failed or is wrong
+    if is_eld_page and (
+        department_name is None
+        or "LANGUAGE" not in department_name.upper()
+    ):
+        return [{
+            "name": "Language Learning",
+            "subdepartment": "English Language Development",
+            "description": description
+        }]
+
+    # =========================================================
+    # default path
+    # =========================================================
+    return [{
+        "name": department_name,
+        "description": description
+    }]
 
 def _infer_page_context_department(blocks: List[Block]) -> Optional[str]:
     for block in blocks[:2]:
