@@ -1,0 +1,52 @@
+{
+  "pdf": "Coursebook2627.pdf",
+
+  "sections": [
+    {
+      "id": "graduation_requirements",
+      "type": "graduation_requirements",
+      "pages": [5, 6, 7, 8, 9, 10, 11]
+    },
+    {
+      "id": "applied_arts",
+      "type": "department_overview",
+      "pages": [16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+    },
+    {
+      "id": "fine_arts",
+      "type": "department_overview",
+      "pages": [45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]
+    },
+    {
+      "id": "cset",
+      "type": "department_overview",
+      "pages": [35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+    },
+    {
+      "id": "mathematics",
+      "type": "department_overview",
+      "pages": [64, 65, 66, 67, 68, 69, 70]
+    },
+
+    {
+      "id": "language_learning",
+      "type": "department_overview",
+      "pages": [71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83]
+    },
+    {
+      "id": "science",
+      "type": "department_overview",
+      "pages": [89, 90, 91, 92, 93]
+    },
+    {
+      "id": "social_studies",
+      "type": "department_overview",
+      "pages": [94, 95, 96, 97, 98, 99, 100, 101, 102]
+    },
+    {
+      "id": "physical_welfare",
+      "type": "department_overview",
+      "pages": [84, 85, 86, 87, 88]
+    }
+  ]
+}

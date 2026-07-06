@@ -60,8 +60,10 @@ class ExtractionContext:
     """
 
     current_department: Optional[str] = None
-    prefix_department_map: Dict[str, set] = None
+    from dataclasses import field
+    from typing import Dict, Set
 
+    prefix_department_map: Dict[str, Set[str]] = field(default_factory=dict)
     def __post_init__(self) -> None:
         if self.prefix_department_map is None:
             self.prefix_department_map = {}
@@ -176,11 +178,12 @@ def _extract_departments(
 
     blocks = blocks if blocks is not None else _group_lines_into_blocks(lines)
 
-    department_name = _infer_page_context_department(blocks)
-
-    # If we cannot even infer a department, return empty safely
-    if not department_name:
+    dept_result = _infer_page_context_department(blocks)
+    department_name: Optional[str]
+    subdepartment: Optional[str]
+    if not dept_result:
         return []
+    department_name, subdepartment = dept_result
 
     # --- Build description (unchanged logic, but safer) ---
     first_course_block = next(
@@ -241,27 +244,70 @@ def _extract_departments(
     # =========================================================
     # default path
     # =========================================================
-    return [{
-        "name": department_name,
-        "description": description
-    }]
+    record: Dict[str, Optional[str]] = {"name": department_name, "description": description}
+    if subdepartment:
+        record["subdepartment"] = subdepartment
+    return [record]
 
-def _infer_page_context_department(blocks: List[Block]) -> Optional[str]:
-    for block in blocks[:2]:
-        first = block.lines[0] if block.lines else ""
-        # A lone single-line block is sometimes a department header with the page
-        # number glued directly onto the last word (e.g. "FINE ARTS\u2014MEDIA ARTS48"),
-        # which can falsely match COURSE_CODE_RE (e.g. "ARTS48" looks like a course
-        # code). Check the header pattern on the digit-stripped text first so a real
-        # header isn't discarded as a course-code block before we even look at it.
-        if len(block.lines) == 1:
-            stripped_first = re.sub(r"\d+$", "", first).strip()
-            if _looks_like_department_line(stripped_first):
-                return title_from_heading(stripped_first)
-        if _is_course_block_candidate(block):
-            return None
-        if _looks_like_department_line(first):
-            return title_from_heading(re.sub(r"\s+\d+$", "", first))
+def _infer_page_context_department(blocks: List[Block]) -> Optional[tuple[str, Optional[str]]]:
+    """Scan the first up-to-6 blocks and try to infer a (department, subdepartment).
+
+    - Ignores blocks that contain course codes or metadata.
+    - Normalizes inline (uppercase, collapse spaces, strip trailing page numbers,
+      normalize various dashes to U+2013).
+    - Matches against DEPARTMENT_HEADER_MAP; if found, returns its mapping.
+    - Falls back to `title_from_heading(line)` if the line looks like a department header.
+    - Returns None when nothing is found.
+    """
+
+    scan_limit = min(6, len(blocks))
+    for block in blocks[:scan_limit]:
+        if not block.lines:
+            continue
+
+        block_text = " ".join(block.lines)
+        # ignore blocks that clearly contain course data or metadata
+        if COURSE_CODE_RE.search(block_text) or METADATA_RE.search(block_text):
+            continue
+
+        # consider the first line and a two-line join (headers sometimes wrap)
+        candidates = [block.lines[0].strip()]
+        if len(block.lines) >= 2:
+            candidates.append(collapse_spaces(" ".join(block.lines[:2])))
+
+        for cand in candidates:
+            if not cand:
+                continue
+
+            # Basic OCR-cleaning: replace replacement-char, normalize dashes to EN DASH,
+            # collapse whitespace, uppercase, strip trailing page digits
+            cleaned = cand.replace("�", " ")
+            cleaned = re.sub(r"[\-–—‐‑]+", "–", cleaned)
+            cleaned = collapse_spaces(cleaned).upper()
+            cleaned = re.sub(r"\s*\d+$", "", cleaned).strip()
+
+            # Strip any remaining punctuation except slashes and en-dash
+            cleaned_key = re.sub(r"[^A-Z0-9\s/–]", "", cleaned)
+            cleaned_key = collapse_spaces(cleaned_key)
+
+            # If the cleaned line looks like a department heading, extract dept/subdept
+            if _looks_like_department_line(cleaned_key):
+                # split on en-dash or common dash characters to capture subdepartment
+                parts = re.split(r"\s*[–—-]\s*", cleaned_key, maxsplit=1)
+                if len(parts) == 2:
+                    dept = title_from_heading(parts[0])
+                    # format subdepartment: lowercase first word, title-case the rest
+                    sub_raw = collapse_spaces(parts[1])
+                    sub_words = sub_raw.split()
+                    if sub_words:
+                        first = sub_words[0].lower()
+                        rest = [w.capitalize() for w in sub_words[1:]]
+                        sub = " ".join([first] + rest)
+                    else:
+                        sub = sub_raw.lower()
+                    return dept, sub
+                return title_from_heading(cleaned_key), None
+
     return None
 
 
@@ -277,8 +323,11 @@ def _assign_departments(
 ) -> tuple[List[CourseUnit], Optional[str], bool]:
     detected = _infer_page_context_department(blocks)
     if detected is not None:
-        _record_prefixes(context, course_units, detected)
-        return [replace(unit, department=detected) for unit in course_units], detected, True
+        dept, sub = detected
+        # preserve original combined department string when subdepartment present
+        dept_full = f"{dept}–{sub}" if sub else dept
+        _record_prefixes(context, course_units, dept_full)
+        return [replace(unit, department=dept_full) for unit in course_units], dept_full, True
 
     prefixes = _collect_prefixes(course_units)
     carried = context.current_department
