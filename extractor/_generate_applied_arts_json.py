@@ -21,8 +21,8 @@ pages = {
                 'gpaWaiverOption': False,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS171', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'BUS172', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS171', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'BUS172', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 16'
@@ -34,8 +34,8 @@ pages = {
                 'gpaWaiverOption': False,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS131', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'BUS132', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS131', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'BUS132', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 16'
@@ -55,7 +55,7 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS142', 'semesterLabel': 'SEMESTER 2', 'duration': 'semester 2 course only', 'gradeLevels': [9,10,11,12], 'prerequisites': ['BUS131 or BUS132'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS142', 'semesterLabel': 'SEMESTER 2', 'duration': 'semester 2 course only', 'gradeLevels': [9,10,11,12], 'prerequisites': ['BUS131 or BUS132'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 17'
@@ -67,8 +67,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS281', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'BUS282', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS281', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'BUS282', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 17'
@@ -80,8 +80,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS231', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'BUS232', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS231', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'BUS232', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 17'
@@ -101,7 +101,7 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS251', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS251', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 18'
@@ -113,7 +113,7 @@ pages = {
                 'gpaWaiverOption': False,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS252', 'semesterLabel': 'SEMESTER 2', 'duration': 'semester 2 course only', 'gradeLevels': [10,11,12], 'prerequisites': ['Accounting 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                    {'courseCode': 'BUS252', 'semesterLabel': 'SEMESTER 2', 'duration': 'semester 2 course only', 'gradeLevels': [10,11,12], 'prerequisites': ['Accounting 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 18'
@@ -125,7 +125,7 @@ pages = {
                 'gpaWaiverOption': False,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS351', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Accounting 2'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                    {'courseCode': 'BUS351', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Accounting 2'], 'corequisites': [], 'creditType': 'Honors', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 18'
@@ -145,8 +145,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS371', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'BUS372', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS371', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'BUS372', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 19'
@@ -158,8 +158,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'BUS301', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'BUS302', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'BUS301', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'BUS302', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 19'
@@ -179,8 +179,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS111', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS112', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS111', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS112', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 20'
@@ -192,8 +192,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS211', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS212', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS211', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS212', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 20'
@@ -213,8 +213,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS251', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS252', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS251', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS252', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 21'
@@ -226,8 +226,8 @@ pages = {
                 'gpaWaiverOption': False,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS291', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Clothing and Design 1'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS292', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Clothing and Design 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                    {'courseCode': 'FCS291', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Clothing and Design 1'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS292', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Clothing and Design 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 21'
@@ -247,8 +247,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS231', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS232', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS231', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS232', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 22'
@@ -260,8 +260,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS241', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS242', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS241', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS242', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 22'
@@ -281,8 +281,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS221', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS222', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS221', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS222', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 23'
@@ -294,8 +294,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS321', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Food Preparation'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS322', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Food Preparation'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS321', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Food Preparation'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS322', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Food Preparation'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 23'
@@ -315,8 +315,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS311', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Human Growth and Development'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS312', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Human Growth and Development'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS311', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Human Growth and Development'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS312', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Human Growth and Development'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 24'
@@ -328,8 +328,8 @@ pages = {
                 'gpaWaiverOption': False,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS331', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [11,12], 'prerequisites': ['Teaching Young Children 1'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS332', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [11,12], 'prerequisites': ['Teaching Young Children 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                    {'courseCode': 'FCS331', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [11,12], 'prerequisites': ['Teaching Young Children 1'], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS332', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [11,12], 'prerequisites': ['Teaching Young Children 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 24'
@@ -349,8 +349,8 @@ pages = {
                 'gpaWaiverOption': True,
                 'isOnline': False,
                 'offerings': [
-                    {'courseCode': 'FCS411', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
-                    {'courseCode': 'FCS412', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                    {'courseCode': 'FCS411', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0},
+                    {'courseCode': 'FCS412', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': 1.0}
                 ],
                 'notes': [],
                 'sourceReference': 'page 25'

@@ -28,7 +28,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "BUS172",
@@ -41,7 +41,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -66,7 +66,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "BUS132",
@@ -80,7 +80,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -108,7 +108,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -133,7 +133,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "BUS282",
@@ -147,7 +147,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -172,7 +172,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "BUS232",
@@ -186,7 +186,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -211,7 +211,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -238,7 +238,7 @@
           ],
           "corequisites": [],
           "creditType": "Honors",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -265,7 +265,7 @@
           ],
           "corequisites": [],
           "creditType": "Honors",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -290,7 +290,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "BUS372",
@@ -304,7 +304,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -329,7 +329,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "BUS302",
@@ -343,7 +343,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -369,7 +369,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS112",
@@ -384,7 +384,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -410,7 +410,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS212",
@@ -425,7 +425,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -451,7 +451,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS252",
@@ -466,7 +466,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -493,7 +493,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS292",
@@ -509,7 +509,7 @@
           ],
           "corequisites": [],
           "creditType": "Honors",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -534,7 +534,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS232",
@@ -548,7 +548,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -573,7 +573,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS242",
@@ -587,7 +587,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -612,7 +612,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS222",
@@ -626,7 +626,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -653,7 +653,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS322",
@@ -669,7 +669,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -696,7 +696,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS312",
@@ -712,7 +712,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -738,7 +738,7 @@
           ],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS332",
@@ -753,7 +753,7 @@
           ],
           "corequisites": [],
           "creditType": "Honors",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
@@ -779,7 +779,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         },
         {
           "courseCode": "FCS412",
@@ -794,7 +794,7 @@
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": 1.0
         }
       ],
       "notes": [],
