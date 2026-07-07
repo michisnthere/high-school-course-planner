@@ -23,7 +23,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -36,14 +36,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 16",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Business Applications and Technology 1",
@@ -62,7 +62,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -76,14 +76,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 16",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

@@ -19,7 +19,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -33,14 +33,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 23",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Gourmet Foods",
@@ -61,7 +61,7 @@
             "Food Preparation"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -77,14 +77,14 @@
             "Food Preparation"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 23",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

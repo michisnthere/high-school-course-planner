@@ -173,7 +173,7 @@
         {
           "courseCode": "BUS142",
           "semesterLabel": "Semester 2",
-          "duration": "semester 2 course only",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
@@ -308,7 +308,7 @@
         {
           "courseCode": "BUS252",
           "semesterLabel": "Semester 2",
-          "duration": "semester 2 course only",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
@@ -858,7 +858,7 @@
     {
       "title": "Life by Design",
       "department": "Family and Consumer Sciences",
-      "description": "In Life by Design, students explore a variety of topics designed to help them meet the challenges of life. Students gain an enhanced understanding of self, increase awareness of others, learn to develop healthy relationships and heighten responsible decision-making skills.",
+      "description": "In Life by Design, students explore a variety of topics designed to help them meet the challenges of life. Students gain an enhanced understanding of self, increase awareness of others, learn to develop healthy relationships and heighten responsible decision-making skills. Students improve communication skills, reduce stress, build positive relationships with others, gain independence, express emotions, set goals, improve time management and make decisions based on personal values.",
       "gpaWaiverOption": true,
       "offerings": [
         {
@@ -896,15 +896,6 @@
       "sourceReference": "page 25",
       "creditType": "College Prep",
       "credits": 1.0
-    },
-    {
-      "title": "Life by Design — continued note",
-      "department": "Family and Consumer Sciences",
-      "description": "Students improve communication skills, reduce stress, build positive relationships with others, gain independence, express emotions, set goals, improve time management and make decisions based on personal values.",
-      "gpaWaiverOption": false,
-      "offerings": [],
-      "notes": [],
-      "sourceReference": "page 25"
     },
     {
       "title": "Computer Programming 1",
@@ -6979,7 +6970,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Early Bird Option",
@@ -7020,7 +7012,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -7719,7 +7712,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Early Bird Option",
@@ -7756,7 +7750,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -7844,7 +7839,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Early Bird Option",
@@ -7881,7 +7877,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -7965,7 +7962,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Early Bird Option",
@@ -8002,7 +8000,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -8050,7 +8049,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Early Bird Option",
@@ -8089,7 +8089,8 @@
               "credits": 1.5,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -8585,7 +8586,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Online Option",
@@ -8626,7 +8628,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -9090,7 +9093,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Blended Option",
@@ -9129,7 +9133,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     },
@@ -9177,7 +9182,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Online Option",
@@ -9216,7 +9222,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     }

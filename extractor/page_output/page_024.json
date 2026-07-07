@@ -21,7 +21,7 @@
             "Human Growth and Development"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -37,14 +37,14 @@
             "Human Growth and Development"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 24",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Teaching Young Children 2",
@@ -64,7 +64,7 @@
             "Teaching Young Children 1"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -79,14 +79,14 @@
             "Teaching Young Children 1"
           ],
           "creditType": "Honors",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 24",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

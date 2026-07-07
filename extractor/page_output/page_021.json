@@ -20,7 +20,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -35,14 +35,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 21",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Clothing and Design 2",
@@ -63,7 +63,7 @@
             "Clothing and Design 1"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -79,14 +79,14 @@
             "Clothing and Design 1"
           ],
           "creditType": "Honors",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 21",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

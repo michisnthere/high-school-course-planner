@@ -46,7 +46,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         },
         {
           "name": "Online Option",
@@ -85,7 +86,8 @@
               "credits": 1.0,
               "notes": []
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     }

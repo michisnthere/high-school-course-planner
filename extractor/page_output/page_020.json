@@ -25,7 +25,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -40,14 +40,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 20",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Human Growth and Development",
@@ -67,7 +67,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -82,14 +82,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 20",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

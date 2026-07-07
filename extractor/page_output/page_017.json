@@ -11,7 +11,7 @@
         {
           "courseCode": "BUS142",
           "semesterLabel": "Semester 2",
-          "duration": "semester 2 course only",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
@@ -22,14 +22,14 @@
             "BUS131 or BUS132"
           ],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 17",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Marketing",
@@ -48,7 +48,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -62,14 +62,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 17",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     },
     {
       "title": "Entrepreneurship",
@@ -88,7 +88,7 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         },
         {
@@ -102,14 +102,14 @@
           ],
           "prerequisites": [],
           "creditType": "College Prep",
-          "credits": null,
+          "credits": 1.0,
           "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 17",
       "creditType": "College Prep",
-      "credits": null
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],
