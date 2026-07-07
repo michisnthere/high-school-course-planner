@@ -19,9 +19,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI112",
@@ -34,14 +34,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Biological Science",
+      "credits": 1.0
     },
     {
       "title": "Chemistry",
@@ -60,9 +61,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI212",
@@ -75,14 +76,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0
     },
     {
       "title": "Earth Science",
@@ -100,9 +102,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI272",
@@ -114,14 +116,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0
     },
     {
       "title": "Physics",
@@ -139,9 +142,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI402",
@@ -153,14 +156,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0
     },
     {
       "title": "Horticulture",
@@ -178,9 +182,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI532",
@@ -192,14 +196,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Biological Science",
+      "credits": 1.0
     },
     {
       "title": "Science Research",
@@ -217,9 +222,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Elective Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI352",
@@ -231,16 +236,17 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Elective Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "Pass/Fail course."
       ],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Elective Science",
+      "credits": 1.0
     },
     {
       "title": "Human Anatomy and Physiology",
@@ -257,9 +263,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Accelerated Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI522",
@@ -270,14 +276,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Accelerated Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "Accelerated Biological Science",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

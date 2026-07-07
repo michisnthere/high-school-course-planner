@@ -6,7 +6,12 @@
       "director": "Jon Grice",
       "directorEmail": "jgrice@d125.org",
       "directorPhone": "847-415-4751",
-      "subDepartments": ["Visual Arts Department", "Dance Department", "Music Department", "Theatre Department"]
+      "subDepartments": [
+        "Visual Arts Department",
+        "Dance Department",
+        "Music Department",
+        "Theatre Department"
+      ]
     }
   ],
   "courses": [],

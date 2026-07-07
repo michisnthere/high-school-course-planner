@@ -12,12 +12,11 @@
       "department": "Family and Consumer Sciences",
       "description": "Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FCS111",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
@@ -25,14 +24,14 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "FCS112",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
@@ -40,25 +39,26 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 20"
+      "sourceReference": "page 20",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Human Growth and Development",
       "department": "Family and Consumer Sciences",
       "description": "Human Growth and Development explores the world of the developing individual from prenatal development through adolescence. This course investigates psychological concepts that apply to everyday life and explores dynamics that shape growth and development.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FCS211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
@@ -66,14 +66,14 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "FCS212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
@@ -81,13 +81,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 20"
+      "sourceReference": "page 20",
+      "creditType": "College Prep",
+      "credits": null
     }
   ],
   "graduationRequirements": [],

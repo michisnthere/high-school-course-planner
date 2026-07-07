@@ -6,12 +6,11 @@
       "department": "Mathematics",
       "description": "Mathematical Modeling and Design (MTH431/432) is a non-AP introductory study in mathematical modeling and design thinking. Modeling is quantifying and understanding real-world scenarios and phenomena to make informed decisions that help improve the conditions defined within the scenarios. Students will build on prior mathematics knowledge and applications of new skills (stochastic methods, statistical models, numerical analysis, graph theory, digital simulations, etc.). These will be applied to represent real-world situations using appropriate modeling technology. Productive collaboration and effective written and presentational communication will be emphasized. Students will explore overarching ideas of problem posing, assumption audits, strategic selection of mathematical algorithms and procedures, result analysis and feasibility, and continuous iteration. As a capstone project, students will design and successively improve a mathematical model to address a self-selected 'problem of interest.' After completing this course, students may be interested in exploring descriptive and analytic methods of statistics (AP Statistics MTH461/462) and data management and visualizations (Data Science MTH481/482).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH431",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -19,14 +18,14 @@
           "prerequisites": [
             "Any precalculus course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH432",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -34,27 +33,28 @@
           "prerequisites": [
             "Any precalculus course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Data Science",
       "department": "Mathematics",
       "description": "Data Science (MTH481/482) is an emerging field focused on formulating relevant questions and gathering, managing and analyzing data to propose practical solutions. In this non-AP introductory course, students will explore the tools of descriptive, diagnostic, and predictive data analysis and data presentation. Students will work independently and collaboratively with applications of the data science cycle in real-world scenarios and use written and visual presentations to communicate their analysis and reasoning. Topics of study will include data analysis, sampling, data visualization, correlation/causation, bias and uncertainty, probability, modeling with data, constructing and evaluating data-based arguments, and comprehending the societal impact of data. After completing this course, students may be interested in exploring descriptive and analytic methods of statistics (AP Statistics MTH461/462), and modeling and simulations (Mathematical Modeling and Design MTH431/432).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH481",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -62,14 +62,14 @@
           "prerequisites": [
             "Algebra 2 or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH482",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -77,50 +77,51 @@
           "prerequisites": [
             "Algebra 2 or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Advanced Mathematical Decision Making",
       "department": "Mathematics",
       "description": "Advanced Mathematical Decision Making (MTH441/442) is a capstone non-AP course that prepares students for post-secondary workforce opportunities and non-STEM college majors by strengthening quantitative, collaborative and communication skills. Students will develop quantitative literacy with an emphasis on numeracy (quantities, rates, estimation, the reasonableness of results, probability, combinatorics, etc.), algebraic thinking (ratios, proportions, numeric operations, algebraic operations, etc.) and modeling (functions, data summaries, analysis, decision making, justification, etc.). Students will be exposed to real-world contexts (finance, statistics, networks) and apply their learning to real life experiences and future workforce opportunities. Cooperative groups are central to helping students understand learning outcomes and completing class presentations and projects. This course is closed to students who have completed Precalculus (MTH451/452) or any AP mathematics coursework.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH441",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             12
           ],
           "prerequisites": [
             "Algebra 2"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH442",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             12
           ],
           "prerequisites": [
             "Algebra 2"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
@@ -128,19 +129,20 @@
         "This course is closed to students who have completed Precalculus (MTH451/452) or any AP mathematics coursework.",
         "Qualifying senior students who meet College of Lake County parameters will earn direct placement into a post-secondary credit-bearing mathematics course at Illinois community colleges and some Illinois four-year universities without a college math placement test. See your school counselor for details."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "AP Statistics",
       "department": "Mathematics",
       "description": "AP Statistics (MTH461/462) is a full-year course designed to be the equivalent of a first-semester college-level non-calculus-based statistics course. This course explores variation and distribution, patterns and uncertainty, and data-based predictions, decisions and conclusions. These skills are widely applicable to various Science, Technology, Engineering and Mathematics (STEM) disciplines and the study of business, social sciences and data analytics. In this introductory course, students develop statistical literacy by exploring data (describing patterns and departures from patterns), sampling and experimentation (planning and conducting a statistical study), anticipating patterns (exploring random phenomena using probability and simulation) and statistical inference (estimating population parameters and testing hypotheses). After completing this course, students may be interested in exploring modeling and simulations (Mathematical Modeling and Design MTH431/432) and data management and visualizations (Data Science MTH481/482). The course design prepares students for the College Board AP Statistics Exam.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH461",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -149,14 +151,14 @@
           "prerequisites": [
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH462",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -165,15 +167,17 @@
           "prerequisites": [
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "Honors",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

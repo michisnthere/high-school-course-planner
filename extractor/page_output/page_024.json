@@ -7,12 +7,11 @@
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 1 offers students the opportunity to enhance their understanding of child development while interacting with children in the Little Patriots Lab School. Students focus on creating developmentally appropriate lessons and observing children's development.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FCS311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
@@ -21,14 +20,14 @@
           "prerequisites": [
             "Human Growth and Development"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "FCS312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
@@ -37,25 +36,26 @@
           "prerequisites": [
             "Human Growth and Development"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 24"
+      "sourceReference": "page 24",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Teaching Young Children 2",
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FCS331",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             11,
             12
@@ -63,14 +63,14 @@
           "prerequisites": [
             "Teaching Young Children 1"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "FCS332",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             11,
             12
@@ -78,13 +78,15 @@
           "prerequisites": [
             "Teaching Young Children 1"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 24"
+      "sourceReference": "page 24",
+      "creditType": "College Prep",
+      "credits": null
     }
   ],
   "graduationRequirements": [],

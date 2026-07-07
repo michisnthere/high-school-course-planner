@@ -6,16 +6,15 @@
       "title": "Choice P.E.",
       "department": "Physical Education",
       "description": "This course is designed for students to develop and maintain their lifelong wellness in activities of their choice. Students will choose the activity in which they will participate each semester. (Regardless of activity selected, all students will learn how to apply their fitness plan, reflect on their fitness and build their knowledge of health-related fitness.) This course may be repeated for credit.",
-      "isOnline": false,
       "sourceReference": "page 87",
       "notes": [
         "Pass/Fail course.",
-        "This course may be repeated for credit.",
-        "Early Bird Physical Education is scheduled from 7-8:25 a.m. on Monday/Wednesday/Friday. Students with excessive absenteeism in this class will be removed from the Early Bird program and placed in a Physical Education class during the regularly scheduled day."
+        "This course may be repeated for credit."
       ],
       "choices": [
         {
           "name": "Regular",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "College Prep",
           "credits": 1.0,
@@ -33,9 +32,9 @@
               "prerequisites": [
                 "A Foundational Fitness class, any previous Physical Education course or director approval"
               ],
-              "corequisites": [],
               "creditType": "College Prep",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             },
             {
               "courseCode": "PED452",
@@ -50,14 +49,15 @@
               "prerequisites": [
                 "A Foundational Fitness class, any previous Physical Education course or director approval"
               ],
-              "corequisites": [],
               "creditType": "College Prep",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             }
           ]
         },
         {
           "name": "Early Bird Option",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "College Prep",
           "credits": 1.0,
@@ -74,9 +74,9 @@
               "prerequisites": [
                 "A Foundational Fitness course, any physical education class or director approval"
               ],
-              "corequisites": [],
               "creditType": "College Prep",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             },
             {
               "courseCode": "PED032",
@@ -90,9 +90,9 @@
               "prerequisites": [
                 "A Foundational Fitness course, any physical education class or director approval"
               ],
-              "corequisites": [],
               "creditType": "College Prep",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             }
           ]
         }
@@ -102,7 +102,6 @@
       "title": "Physical Education Leadership Training",
       "department": "Physical Education",
       "description": "The first year of the Leadership Program is designed for students to become effective teacher aides and strong leaders. There will be active participation in all activities offered within the Stevenson Physical Education program. Students will learn to lead group activities, to develop skill progression and to study methods and techniques of teaching physical education. The focus of this program is to develop and expand on leadership skills in group and individual led discussions or teaching opportunities where students will be asked to continually reflect on their leadership experience. Students will have the opportunity to apply the skills they learn by assisting Physical Education classes and planning two field days for junior high students. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
-      "isOnline": false,
       "sourceReference": "page 87",
       "notes": [
         "The Physical Education Leadership program is a two-year commitment."
@@ -116,9 +115,9 @@
             11
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "PED62L",
@@ -128,18 +127,19 @@
             11
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "gpaWaiverOption": true
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Senior Leadership",
       "department": "Physical Education",
       "description": "Students will apply what they learned in Physical Education Leadership Training by serving as teacher aides with a Physical Education teacher. All students will participate in fitness testing. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
-      "isOnline": false,
       "sourceReference": "page 87",
       "notes": [],
       "offerings": [
@@ -153,9 +153,9 @@
           "prerequisites": [
             "Physical education Leadership Training"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "PED82L",
@@ -167,18 +167,19 @@
           "prerequisites": [
             "Physical education Leadership Training"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "gpaWaiverOption": true
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Lifeguard Training and Certification",
       "department": "Physical Education",
       "description": "This course is designed to provide students with the ability to earn American Red Cross Lifeguarding and First Aid certification. Students will also learn skills in oxygen administration, preventing disease transmission and CPR/AED. Students will be charged a fee if they wish to receive their American Red Cross certification. Students taking this class will be encouraged to participate in our Pool Leadership program. (Materials for the course are available in the Patriot Superstore.)",
-      "isOnline": false,
       "sourceReference": "page 87",
       "notes": [
         "Additional fee to receive American Red Cross certificate."
@@ -197,12 +198,14 @@
             "Ability to demonstrate required swim skills",
             "Students must be at least 15 years old by the end of the course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "gpaWaiverOption": true
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

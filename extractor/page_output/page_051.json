@@ -6,155 +6,224 @@
       "department": "Visual Arts",
       "description": "This course is designed to introduce students to Adobe Photoshop and Procreate as drawing and graphic design tools and as a means of producing finished artwork. Students will have the opportunity to develop skills and be creative while digitally drawing, painting and manipulating photographic images with both Wacom tablets as well as the iPad and Apple Pencil. Projects will have fine arts, photography, media arts and graphic design components.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART501",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART502",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."],
-      "sourceReference": "page 51"
+      "notes": [
+        "Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."
+      ],
+      "sourceReference": "page 51",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Digital Art and Design 2",
       "department": "Visual Arts",
       "description": "This course can be an advanced or second level for students interested in furthering their study and exploration of using Adobe Photoshop as well as Procreate as a drawing and graphic design tool. Students will have the opportunity to develop skills and be creative while digitally drawing, painting and manipulating photographic images with both Wacom tablets as well as the iPad and Apple Pencil. Students will be introduced to more complex concepts and techniques of media arts and graphic design. The course will have fine arts, photographic and commercial art components.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART511",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART512",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."],
-      "sourceReference": "page 51"
+      "notes": [
+        "Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."
+      ],
+      "sourceReference": "page 51",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "2D Animation",
       "department": "Visual Arts",
       "description": "This course provides students the opportunity to study and explore 2D animation. Students will study the history of animation and work with 2D animation software to produce their own animated shorts, from initial concept and storyboarding through final rendering. Concepts and techniques in vector-based drawing, timing, key-framing and music and lip synchronization will be explored.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART531",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART532",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 51"
+      "sourceReference": "page 51",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "3D Animation",
       "department": "Visual Arts",
       "description": "This course is designed for students with an interest in 3D animation. Students will build upon the concepts, skills and techniques learned from 2D Animation to help them learn to use 3D animation software to create and animate their own 3D models/characters. Polygon and NURB modeling, texturing, lighting and basic 3D key-frame/path animation will be explored.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART541",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["2D Animation and/or Director Approval"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "2D Animation and/or Director Approval"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART542",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["2D Animation and/or Director Approval"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "2D Animation and/or Director Approval"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 51"
+      "sourceReference": "page 51",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "AP Art History",
       "department": "Visual Arts",
       "description": "This course is designed as an introductory college-level course in the history of art. Students will examine the major forms of artistic expression from prehistoric through contemporary cultures. They will study architecture, sculpture, painting and other art forms with intelligence and sensitivity. Students who enroll in this course will be prepared to take the AP Art History exam in May.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART721",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART722",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 51"
+      "sourceReference": "page 51",
+      "creditType": "Honors",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

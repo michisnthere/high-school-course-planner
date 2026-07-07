@@ -23,9 +23,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI112",
@@ -38,14 +38,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Biological Science",
+      "credits": 1.0
     },
     {
       "title": "Chemistry",
@@ -64,9 +65,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI212",
@@ -79,14 +80,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0
     },
     {
       "title": "Earth Science",
@@ -104,9 +106,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI272",
@@ -118,14 +120,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0
     },
     {
       "title": "Physics",
@@ -143,9 +146,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI402",
@@ -157,14 +160,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0
     },
     {
       "title": "Horticulture",
@@ -182,9 +186,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI532",
@@ -196,14 +200,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Biological Science",
+      "credits": 1.0
     },
     {
       "title": "Science Research",
@@ -221,9 +226,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Elective Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI352",
@@ -235,16 +240,17 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep Elective Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "Pass/Fail course."
       ],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "College Prep Elective Science",
+      "credits": 1.0
     },
     {
       "title": "Human Anatomy and Physiology",
@@ -261,9 +267,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Accelerated Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI522",
@@ -274,14 +280,15 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Accelerated Biological Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 91",
-      "isOnline": false
+      "creditType": "Accelerated Biological Science",
+      "credits": 1.0
     },
     {
       "title": "Earth Science Dual Credit",
@@ -299,9 +306,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Honors (Dual Credit) Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI672",
@@ -313,27 +320,26 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Honors (Dual Credit) Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 92",
-      "isOnline": false
+      "creditType": "Honors (Dual Credit) Physical Science",
+      "credits": 1.0
     },
     {
       "title": "AP Physics 1",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
-      "notes": [
-        "Early Bird option listed on page."
-      ],
+      "notes": [],
       "sourceReference": "page 92",
-      "isOnline": false,
       "choices": [
         {
           "name": "Regular",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Physical Science",
           "credits": 1.5,
@@ -348,9 +354,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI612",
@@ -362,14 +368,15 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         },
         {
           "name": "Early Bird Option",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Physical Science",
           "credits": 1.5,
@@ -384,9 +391,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI61E2",
@@ -398,9 +405,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         }
@@ -423,9 +430,9 @@
           "prerequisites": [
             "AP Physics 1 or Physics"
           ],
-          "corequisites": [],
           "creditType": "Honors Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI682",
@@ -438,27 +445,26 @@
           "prerequisites": [
             "AP Physics 1 or Physics"
           ],
-          "corequisites": [],
           "creditType": "Honors Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 92",
-      "isOnline": false
+      "creditType": "Honors Physical Science",
+      "credits": 1.0
     },
     {
       "title": "AP Biology",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
-      "notes": [
-        "Early Bird option listed on page."
-      ],
+      "notes": [],
       "sourceReference": "page 92",
-      "isOnline": false,
       "choices": [
         {
           "name": "Regular",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Biological Science",
           "credits": 1.5,
@@ -473,9 +479,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Biological Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI632",
@@ -487,14 +493,15 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Biological Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         },
         {
           "name": "Early Bird Option",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Biological Science",
           "credits": 1.5,
@@ -509,9 +516,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Biological Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI63E2",
@@ -523,9 +530,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Biological Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         }
@@ -546,9 +553,9 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Honors Biological Science, Honors Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SCI642",
@@ -559,27 +566,26 @@
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "Honors Biological Science, Honors Physical Science",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
       "sourceReference": "page 93",
-      "isOnline": false
+      "creditType": "Honors Biological Science, Honors Physical Science",
+      "credits": 1.0
     },
     {
       "title": "AP Chemistry",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
-      "notes": [
-        "Early Bird option listed on page."
-      ],
+      "notes": [],
       "sourceReference": "page 93",
-      "isOnline": false,
       "choices": [
         {
           "name": "Regular",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Physical Science",
           "credits": 1.5,
@@ -594,9 +600,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI652",
@@ -608,14 +614,15 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         },
         {
           "name": "Early Bird Option",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Physical Science",
           "credits": 1.5,
@@ -630,9 +637,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI65E2",
@@ -644,9 +651,9 @@
                 12
               ],
               "prerequisites": [],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         }
@@ -656,14 +663,12 @@
       "title": "AP Physics C",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, rotational, and simple harmonic motion; forces; energy; momentum; electrostatics; DC circuits; magnetostatics; and electromagnetic induction. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take both the AP Physics C Mechanics and AP Physics C Electricity and Magnetism exams in May.",
-      "notes": [
-        "Early Bird option listed on page."
-      ],
+      "notes": [],
       "sourceReference": "page 93",
-      "isOnline": false,
       "choices": [
         {
           "name": "Regular",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Physical Science",
           "credits": 1.5,
@@ -679,9 +684,9 @@
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI662",
@@ -694,14 +699,15 @@
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         },
         {
           "name": "Early Bird Option",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors Physical Science",
           "credits": 1.5,
@@ -717,9 +723,9 @@
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             },
             {
               "courseCode": "SCI66E2",
@@ -732,9 +738,9 @@
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ],
-              "corequisites": [],
               "creditType": "Honors Physical Science",
-              "credits": 1.5
+              "credits": 1.5,
+              "notes": []
             }
           ]
         }

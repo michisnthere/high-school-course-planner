@@ -7,78 +7,80 @@
       "department": "Business Education",
       "description": "This course is designed to satisfy the curiosity of students who are interested in learning about the law as it relates to various aspects of business. Students will gain a greater understanding of their legal rights and responsibilities as an individual, employee, manager and business owner. Topics include contracts, property, employment rules and regulations, business organization, finance, technology and sports law. Students will participate in discussions and debates and complete collaborative team projects and small group activities.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS371",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "BUS372",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 19"
+      "sourceReference": "page 19",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Personal Finance",
       "department": "Business Education",
       "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS301",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "BUS302",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 19"
+      "sourceReference": "page 19",
+      "creditType": "College Prep",
+      "credits": null
     }
   ],
   "graduationRequirements": [],

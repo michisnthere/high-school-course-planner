@@ -14,13 +14,13 @@ class CourseOfferingRecord(TypedDict):
     duration: Optional[str]
     gradeLevels: List[int]
     prerequisites: List[str]
-    corequisites: List[str]
     creditType: Optional[str]
     credits: Optional[float]
 
 
 class CourseChoiceRecord(TypedDict):
     name: str
+    isOnline: bool
     gpaWaiverOption: bool
     creditType: Optional[str]
     credits: Optional[float]
@@ -32,7 +32,7 @@ class CourseRecord(TypedDict):
     department: Optional[str]
     description: Optional[str]
     gpaWaiverOption: NotRequired[Optional[bool]]
-    isOnline: bool
+    isOnline: NotRequired[bool]
     offerings: NotRequired[Optional[List[CourseOfferingRecord]]]
     choices: NotRequired[Optional[List[CourseChoiceRecord]]]
     notes: List[str]

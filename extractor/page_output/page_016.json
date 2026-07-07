@@ -12,76 +12,78 @@
       "department": "Business Education",
       "description": "Introduction to Business provides students with a foundational understanding of the business world. This course explores key topics including marketing, accounting, international business and entrepreneurship, giving students insight into how businesses operate locally and globally. Through real-world examples and hands-on projects, students will develop critical thinking and problem-solving skills essential for future success in business.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS171",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "BUS172",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 16"
+      "sourceReference": "page 16",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Business Applications and Technology 1",
       "department": "Business Education",
       "description": "Business Applications and Technology 1 is a course designed to teach students to use a variety of software programs and multimedia platforms as they create a business concept. Students will strengthen their knowledge of both business operations and technology usage in the workplace as they develop communications, marketing materials, financial proposals and presentations for their proposed business.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS131",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
             11
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "BUS132",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             9,
             10,
             11
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 16"
+      "sourceReference": "page 16",
+      "creditType": "College Prep",
+      "credits": null
     }
   ],
   "graduationRequirements": [],

@@ -6,12 +6,11 @@
       "department": "Hebrew",
       "description": "Hebrew 1 is an introduction to the Hebrew language and Israeli culture. Students develop their competencies across three modes of communication: interpersonal, presentational and interpretative. Students become comfortable reading the print form of the Hebrew alphabet that appears in books and also learn the script form for writing. The course explores the language in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments in the interpersonal, presentational and interpretive modes provides students with the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks focus on the acquisition and recognition of basic stated information in Hebrew. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Additionally, students explore Israeli culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -21,14 +20,14 @@
           "prerequisites": [
             "None"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -38,24 +37,26 @@
           "prerequisites": [
             "None"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 2",
       "department": "Hebrew",
       "description": "Students continue to develop their competence in Hebrew across the three modes of communication: interpersonal, presentational and interpretive. Students also continue to learn in the context of the six AP themes: Global Challenges; Science and Technology; Contemporary Life; Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading activities are focused on the acquisition and recognition of key details in Hebrew. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Additionally, students explore Israeli culture through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, news reports, advertising and video clips from Israel.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -65,14 +66,14 @@
           "prerequisites": [
             "Hebrew 1 or passing the placement exam for Hebrew 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -82,24 +83,26 @@
           "prerequisites": [
             "Hebrew 1 or passing the placement exam for Hebrew 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 3",
       "department": "Hebrew",
       "description": "Students continue to develop their competence in Hebrew across the three modes of communication: interpersonal, presentational and interpretive in a near-immersion environment. Students also continue to learn in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide us the opportunity to use the language independently in familiar contexts. Interpretive listening and reading activities are focused on the ability to interpret and infer meaning in Hebrew. Practice is provided regularly, both within the classroom and at home. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Students continue to explore Israeli culture through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, news reports, advertising, art, video clips and movies from Israel.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -108,14 +111,14 @@
           "prerequisites": [
             "Hebrew 2 or passing the placement exam for Hebrew 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -124,24 +127,26 @@
           "prerequisites": [
             "Hebrew 2 or passing the placement exam for Hebrew 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 4",
       "department": "Hebrew",
       "description": "Students develop their competence in Hebrew and engage in higher-level reading, writing, listening and speaking activities that align with the interpersonal, presentational and interpretive modes of communication in an immersion environment. Students continue to learn in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide the opportunity to use the language independently even in unfamiliar contexts. Interpretive listening and reading activities are focused on both literal comprehension and inferential interpretation of the language. In Hebrew 4, classroom discussions and debates are led by the students. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Israeli culture continues to be explored through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, print and broadcast news reports, advertising, art, video-clips, popular TV sitcoms and movies from Israel.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR411",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -149,14 +154,14 @@
           "prerequisites": [
             "Hebrew 3 or passing the placement exam for Hebrew 4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR412",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -164,12 +169,15 @@
           "prerequisites": [
             "Hebrew 3 or passing the placement exam for Hebrew 4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

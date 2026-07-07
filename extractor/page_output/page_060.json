@@ -6,159 +6,223 @@
       "department": "Music",
       "description": "This course is designed for students of all skill levels, from non-experienced through advanced. This class will introduce students to music notation, basic music theory, keyboard technique and music terminology through the study of keyboard repertoire. Students will work independently, collaboratively and with instructor guidance to shape their musical goals, including selecting their own music to learn and perform. Students repeating this course or students with theory and composition experiences will be able to experience more advanced musical topics. This course may be repeated for credit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS401",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MUS402",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["This course may be repeated for credit."],
-      "sourceReference": "page 60"
+      "notes": [
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 60",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Music Production 1",
       "department": "Music",
       "description": "This course will explore concepts in production, recording, performance, audio engineering, music business, sound design, music marketing and more. Students will have access to music production software, instruments and recording equipment in order to create, edit and mix the music that interests them. Music Production 1 is open to all students with an interest in music; no prior experience is necessary. All students will have the option to participate in a Music Production Showcase at the end of the semester.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS431",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MUS432",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 60"
+      "sourceReference": "page 60",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Music Production 2",
       "department": "Music",
       "description": "Music Production 2 is a course designed for students interested in furthering their study and exploration of music production and the music industry. Students will pursue more advanced concepts and techniques resulting in a substantial amount of original music by the end of the course. Students will have access to music production software, instruments and recording equipment in order to create, edit and mix the music that interests them. All students will participate in a Music Production Showcase at the end of the semester.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS451",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Music Production 1 or Approval of Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 1 or Approval of Instructor"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MUS452",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Music Production 1 or Approval of Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 1 or Approval of Instructor"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 60"
+      "sourceReference": "page 60",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Advanced Music Production",
       "department": "Music",
       "description": "Advanced Music Production is a course designed for students interested in pursuing advanced concepts in music production. This course will provide real world experiences to students and prepare them to participate in the music industry after high school and beyond. Students in this course will get to experience the process of recording original music in a professional studio setting and all students will participate in a Music Production Showcase at the end of each semester. Students will have access to music production software, instruments and recording equipment both at home and at school. This course may be repeated for credit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS471",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Music Production 2 or Placement by Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 2 or Placement by Instructor"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MUS472",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Music Production 2 or Placement by Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 2 or Placement by Instructor"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
-        "Dual Credit Available with Loyola University Chicago.",
         "Additional fees for dual credit may be imposed by the college/university.",
         "This course may be repeated for credit."
       ],
-      "sourceReference": "page 60"
+      "sourceReference": "page 60",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "AP Music Theory",
       "department": "Music",
       "description": "This course is designed for the advanced musician who is interested in enhancing their music ability through a rigorous study of Western music theory. Students learn the basics of tonal harmony, including: chord construction, four-part voice writing, harmonic analysis and harmonic sequence. Students also study ear training, sight singing, melodic, rhythmic and harmonic dictation, 20th century techniques and form/structure. Students who enroll in this course will be prepared to take the AP Music Theory exam in May, as well as entrance examinations given by schools of music for entering music majors/minors.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS801",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MUS802",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 60"
+      "sourceReference": "page 60",
+      "creditType": "Honors",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

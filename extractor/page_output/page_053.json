@@ -11,61 +11,85 @@
       "department": "Dance",
       "description": "This course will introduce and review essential dance skills. Students will learn basic dance movement and concepts such as time, space and energy, as well as movement terminology. Practice and repetition are primary means of learning movement and are followed by assessment and teacher feedback. Emphasis will be on dance movement followed by a focus on refining technique and choreography concepts. Students will be asked to demonstrate risk-taking and a willingness to step outside their comfort zone. Students will also learn basic dance anatomy and conditioning exercises to prepare the body for flexibility, strength and endurance. Students will also participate in peer-to-peer feedback. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstration during first semester and the Day of Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "DNC101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "DNC102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
         "This course may be repeated for credit."
       ],
-      "sourceReference": "page 53"
+      "sourceReference": "page 53",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Dance 2",
       "department": "Dance",
       "description": "This course is designed for students who have some experience in contemporary dance technique. Emphasis will be on dance vocabulary, essential choreographic concepts and basic anatomy as it pertains to dance. Practice and repetition are primary means of learning movement and are followed by assessment and teacher feedback. Students will also participate in peer-to-peer feedback. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstrations during first semester and the Day of Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "DNC201",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 1 and/or Placement by Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 1 and/or Placement by Instructor"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "DNC202",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 1 and/or Placement by Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 1 and/or Placement by Instructor"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
@@ -73,34 +97,49 @@
         "All incoming freshmen interested in Dance 2 must attend a placement assessment in January.",
         "This course may be repeated for credit."
       ],
-      "sourceReference": "page 53"
+      "sourceReference": "page 53",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Dance 3",
       "department": "Dance",
       "description": "This course is designed for students with previous dance training. Students will focus on the detailed aspects of contemporary dance at an accelerated pace. Emphasis is on the student's technique and choreography studies. Students engage in critical response and self-assessment activities to enhance content knowledge. Dancers will challenge their physical limitations and their ability to dance to their full potential. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstration performance during first semester and the Day of Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "DNC301",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 2 and/or Placement by Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 and/or Placement by Instructor"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "DNC302",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 2 and/or Placement by Instructor"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 and/or Placement by Instructor"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
@@ -108,7 +147,9 @@
         "All incoming freshmen interested in Dance 3 must attend a placement assessment in January.",
         "This course may be repeated for credit."
       ],
-      "sourceReference": "page 53"
+      "sourceReference": "page 53",
+      "creditType": "College Prep",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

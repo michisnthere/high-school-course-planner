@@ -6,12 +6,11 @@
       "department": "English Language Development",
       "description": "This is a two-credit course for students in the ELD program at the beginning level who are new to the English language or have emerging English vocabulary and communication skills. The course meets two periods each day. Students work on developing and expanding their vocabulary, grammar, speaking, listening, reading and writing skills. Students will practice their writing skills in the context of the course readings and will start with basic sentence structures and end with essay writing. Speaking and listening will focus on proper pronunciation as well as interpersonal and presentational communication.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD161",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -21,14 +20,14 @@
           "prerequisites": [
             "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD162",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -38,27 +37,28 @@
           "prerequisites": [
             "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 82",
       "notes": [
         "This is a two-credit course. The course meets two periods each day."
-      ]
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "English Language Development (ELD) 2",
       "department": "English Language Development",
       "description": "This is a two-credit course for students in the ELD program at the intermediate level. This course will meet two periods each day and instruction is entirely in English. Students will build on all four language domains (listening, speaking, reading and writing) across thematic units. Their writing skills move beyond paragraph construction to composing, revising and editing essays within various writing genres. Speaking and listening is practiced and assessed as students are expected to have conversational and presentational English speaking skills.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD261",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -68,14 +68,14 @@
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD262",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10,
@@ -85,15 +85,17 @@
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 82",
       "notes": [
         "This is a two-credit course. This course will meet two periods each day."
-      ]
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

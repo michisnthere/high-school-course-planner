@@ -6,12 +6,12 @@
       "title": "AP Government–United States",
       "department": "Social Studies",
       "description": "This course gives students the tools to engage meaningfully in the local, state and national political process. This course involves both the study of general concepts used to interpret U.S. politics and the analysis of specific case studies. It also requires familiarity with the various institutions, groups, beliefs and ideas that constitute United States political reality. Civics skills will be acquired to help students learn to use the skills, knowledge and attitudes that will prepare them to be competent and responsible citizens. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the Constitution of the U.S.A. and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson's graduation requirement of one semester of government. Students who enroll in this course will be prepared to take the AP United States Government and Politics exam in May.",
-      "isOnline": false,
       "sourceReference": "page 102",
       "notes": [],
       "choices": [
         {
           "name": "Regular",
+          "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
           "credits": 1.0,
@@ -27,9 +27,9 @@
                 "World History and Geography",
                 "U.S. History"
               ],
-              "corequisites": [],
               "creditType": "Honors",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             },
             {
               "courseCode": "SOC682",
@@ -42,14 +42,15 @@
                 "World History and Geography",
                 "U.S. History"
               ],
-              "corequisites": [],
               "creditType": "Honors",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             }
           ]
         },
         {
           "name": "Online Option",
+          "isOnline": true,
           "gpaWaiverOption": false,
           "creditType": "Honors",
           "credits": 1.0,
@@ -65,9 +66,9 @@
                 "World History and Geography",
                 "U.S. History"
               ],
-              "corequisites": [],
               "creditType": "Honors",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             },
             {
               "courseCode": "SOC6Q2",
@@ -80,9 +81,9 @@
                 "World History and Geography",
                 "U.S. History"
               ],
-              "corequisites": [],
               "creditType": "Honors",
-              "credits": 1.0
+              "credits": 1.0,
+              "notes": []
             }
           ]
         }

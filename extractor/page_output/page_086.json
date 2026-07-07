@@ -6,7 +6,6 @@
       "title": "Freshman Foundational Fitness Choice P.E.",
       "department": "Physical Education",
       "description": "Freshman Foundational Fitness Choice P.E. is designed for students to learn to develop and maintain physical fitness in a variety of self-selected activities. The course begins with the Foundations of Fitness, where students learn how to develop and apply a personal fitness plan, how to perform basic lifting techniques and how to utilize a fitness center safely. Students who are able to demonstrate safety in and around the water will choose activities in which they will participate and apply their fitness plan. (Students needing additional support for achieving swimming proficiency will participate in American Red Cross Learn to Swim lessons.)",
-      "isOnline": false,
       "sourceReference": "page 86",
       "notes": [
         "Pass/Fail course."
@@ -20,9 +19,9 @@
             9
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "PED122",
@@ -32,18 +31,19 @@
             9
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "gpaWaiverOption": false
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Adventure Education",
       "department": "Physical Education",
       "description": "Students in this course will participate in individual, partner and team activities to work towards becoming better problem solvers and communicators, while learning to trust others and be trusted. Some units will require students to be in the pool. Activities may include team building, outdoor games, biking, archery, climbing/rappelling, kayaking and canoeing. Multiple credits may be earned for this course.",
-      "isOnline": false,
       "sourceReference": "page 86",
       "notes": [
         "Pass/Fail course.",
@@ -63,9 +63,9 @@
           "prerequisites": [
             "A Foundational Fitness class or any previous physical education course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "PED332",
@@ -80,12 +80,14 @@
           "prerequisites": [
             "A Foundational Fitness class or any previous physical education course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "gpaWaiverOption": false
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

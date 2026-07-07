@@ -6,12 +6,11 @@
       "department": "Spanish",
       "description": "Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Cultural information and comparisons are drawn from authentic print, literary works and class discussion. Students will participate in classroom debates and facilitate classroom discussion through their own student-led presentation. Upon completion of this course, students will be prepared to enter into AP Spanish Language and Culture. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA401",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -19,14 +18,14 @@
           "prerequisites": [
             "Spanish 3"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA402",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -34,24 +33,26 @@
           "prerequisites": [
             "Spanish 3"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "AP Spanish Language and Culture",
       "department": "Spanish",
       "description": "This course is designed to prepare students for the AP Spanish Language and Culture exam and provides a transition to the AP Spanish Literature and Culture course. Students continue to work to develop their competence in Spanish across the three modes of communication: interpretive, interpersonal and presentational, within the context of the six AP themes: Families and Communities, Science and Technology, Global Challenges, Contemporary Life, Personal and Public Identities, Beauty and Aesthetics. Performance-based assessments provide the students the opportunity to use the language independently in familiar and unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Cultural information and comparisons are drawn from authentic print and audio-visual sources, literary works and class discussion. Students will research a variety of cultural topics and facilitate discussion through their own student-led presentations. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place in Spanish.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA601",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -60,14 +61,14 @@
           "prerequisites": [
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA602",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -76,24 +77,26 @@
           "prerequisites": [
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "AP Spanish Literature and Culture",
       "department": "Spanish",
       "description": "This course is designed to introduce students to the formal study of Peninsular Spanish, Latin American and U.S. Hispanic literature. The course aims to develop students’ critical reading and analytical writing skills in Spanish as well as their ability to make interdisciplinary connections and explore linguistic and cultural comparisons. This course will be conducted entirely in Spanish appropriate to this level and covers the entire official AP Spanish Literature and Culture reading list. Literary texts are grouped by themes and presented in chronological order within each of the following themes: las sociedades en contacto, la construcción del género, el tiempo y el espacio, las relaciones interpersonales, la dualidad del ser and la creación literaria. Students are expected to discuss literary texts and their different historical, sociocultural and geopolitical contexts in a variety of interactive oral and written formats in Spanish. Students who enroll in this course will be prepared to take the AP Spanish Literature and Culture exam in May.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA611",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -101,14 +104,14 @@
           "prerequisites": [
             "AP Spanish Language and Culture"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA612",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -116,24 +119,26 @@
           "prerequisites": [
             "AP Spanish Language and Culture"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
       "department": "Spanish",
       "description": "Advanced conversation and culture builds upon the communicative focus in the presentational, interpretive and interpersonal modes from prior coursework, but will uniquely explore the language through a cultural lens. The aim of this course is to present how the language manifests itself in various regions of the Spanish-speaking world through both historical and contemporary settings. Students who like to travel or who are thinking about studying abroad in college will enjoy this course and the experience it will provide prior to graduation. In discovering Spanish throughout the world, students will also engage in film studies, literature and a comprehensive review of grammar, all of which will prepare them for continued language study at the university level. Teacher-student and/or student-student interactions are conducted exclusively in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA511",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -142,14 +147,14 @@
           "prerequisites": [
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA512",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -158,12 +163,15 @@
           "prerequisites": [
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

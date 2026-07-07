@@ -14,12 +14,11 @@
       "department": "Mathematics",
       "description": "Algebra 1 (MTH151/152) helps students develop proficiency in algebraic thinking. Students will explore overarching ideas of patterns of change (constant, linear and multiplicative), mathematical representations (verbal, algebraic, graphical and numeric), models (real-world scenarios in and out of context) and solutions (that validate equalities/inequalities). Creating equivalence through strategic and purposeful manipulation of algebraic forms will support students' procedural fluency. Conceptual understanding is developed by creating and connecting representations when exploring linear, exponential and quadratic functions. Students will begin to explain and perform transformations on these functions. This course also develops students' statistical literacy through the descriptive and analytic critique of data. Successfully completing this course will prepare students for Geometry (MTH251/252). Geometry AB/BC (MTH271/272) is an option with consistently demonstrated proficiency in all the course skills of Algebra 1.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH151",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10
@@ -27,14 +26,14 @@
           "prerequisites": [
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH152",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10
@@ -42,27 +41,28 @@
           "prerequisites": [
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 66"
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Geometry",
       "department": "Mathematics",
       "description": "Geometry (MTH251/252) helps students develop proficiency in deductive reasoning and geometric thinking. Students will rely on exploration, conjecture, deduction, justification and abstraction to strengthen their reasoning skills. Geometric thinking is supported by exploring the idea of measures (geometric magnitudes, lengths, areas and volumes), transformations (effects on congruence, scaling and symmetry on geometric properties) and composition (the role simple objects play in constructing and deconstructing complex objects). This course leverages algebra to explore the properties of triangles, quadrilaterals, polygons, circles, right triangle trigonometry and conic sections. Working with 2D objects and 3D solids in kinesthetic and digital environments strengthens students' spatial reasoning. Communicating understanding leans on writing explanations and justifying reasoning using informal and formal proof structures. Focusing on terminology, notation and clarity in writing helps prepare students for future studies. Successfully completing Geometry (MTH251/252) will prepare students for Algebra 2 (MTH351/352). Algebra 2 AB/BC (MTH171/172) is an option with consistently demonstrated proficiency in all the course skills of Geometry (MTH251/252).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH251",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10
@@ -70,14 +70,14 @@
           "prerequisites": [
             "Algebra 1"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH252",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10
@@ -85,27 +85,28 @@
           "prerequisites": [
             "Algebra 1"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 66"
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Geometry AB/BC",
       "department": "Mathematics",
       "description": "Geometry AB/BC (MTH271/272) attends to all the learning outcomes of Geometry (MTH251/252). The topics above will be extended, and students will routinely apply prior learning to unique, non-routine and novel contexts. The course design emphasizes students' growth in making connections and transferring knowledge between units of study while extending their learning in preparation for future college-level experiences in high school. Successfully completing Geometry AB/BC (MTH271/272) will prepare students for Algebra 2 (MTH351/352) and Algebra 2 AB/BC (MTH171/172).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH271",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10
@@ -113,14 +114,14 @@
           "prerequisites": [
             "Algebra 1"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH272",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             9,
             10
@@ -128,27 +129,28 @@
           "prerequisites": [
             "Algebra 1"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 66"
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Algebra 2",
       "department": "Mathematics",
       "description": "Algebra 2 (MTH351/352) builds upon students' prior experiences in geometric relationships and deductive reasoning to deepen students' fluency with algebraic thinking. Overarching ideas from Algebra 1 around patterns of change, mathematical representations, models and solutions are further extended in scope and depth. Students' prior exposure to linear relationships will be strengthened. Students will delve deeper into understanding the value of non-real imaginary numbers, inverse operations and overlapping transformations of previously studied linear, quadratic and exponential functions. These skills will be applied to understand the characteristics of absolute, polynomial, rational, exponential, logarithmic and trigonometric functions. Students' mathematical reasoning skills will be further strengthened in verbal and written forms. Successfully completing Algebra 2 (MTH351/352) will prepare students for Advanced Mathematical Decision Making (MTH441/442), Data Science (MTH481/482) and Precalculus (MTH451/452).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH351",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11
@@ -156,14 +158,14 @@
           "prerequisites": [
             "Geometry or Geometry AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH352",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11
@@ -171,27 +173,28 @@
           "prerequisites": [
             "Geometry or Geometry AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 67"
+      "sourceReference": "page 67",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Algebra 2 AB/BC",
       "department": "Mathematics",
       "description": "Algebra 2 AB/BC (MTH171/172) attends to all the learning outcomes of Algebra 2 (MTH351/352). The topics above will be extended, and students will routinely apply prior learning to unique, non-routine and novel contexts. The course design emphasizes students' growth in making connections and transferring knowledge between units of study while extending their learning in preparation for future college-level experiences in high school. Successfully completing Algebra 2 AB/BC (MTH171/172) will prepare students for AP Precalculus AB (MTH411/412) and Precalculus (MTH451/452). AP Precalculus BC (MTH421/422) is an option with consistently demonstrated proficiency in all the course skills of Algebra 2 AB/BC (MTH171/172).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH171",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11
@@ -199,14 +202,14 @@
           "prerequisites": [
             "Geometry AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH172",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11
@@ -214,27 +217,28 @@
           "prerequisites": [
             "Geometry AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 67"
+      "sourceReference": "page 67",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Precalculus",
       "department": "Mathematics",
       "description": "Precalculus (MTH451/452) represents students' third course focused on algebraic thinking. Specifically, this course provides students with a lens to understand the interconnectedness of algebraic, geometric and trigonometric relationships. The overarching ideas from previous courses will continue to be extended in scope and depth. Students will further understand complex numbers, extraneous and feasible solutions, graphical and algebraic limits and function properties (even/odd, symmetry). Skills developed in prior courses will be further applied to studying piecewise, inverse, trigonometric identities and functions and conic sections. Successfully completing Precalculus (MTH451/452) will prepare students for AP Precalculus AB (MTH411/412). AP Calculus AB (MTH471/472) is not an option. AP Statistics (MTH461/462), Data Science (MTH481/482) and Mathematical Modeling and Design (MTH431/432) are also options (with the latter two being non-AP experiences).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH451",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -242,14 +246,14 @@
           "prerequisites": [
             "Algebra 2 or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH452",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -257,27 +261,28 @@
           "prerequisites": [
             "Algebra 2 or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 67"
+      "sourceReference": "page 67",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "AP Precalculus AB",
       "department": "Mathematics",
       "description": "AP Precalculus AB (MTH411/412) is aligned with the College Board's expectations to prepare students for future studies in calculus. The course design prepares students for the College Board AP Precalculus Exam. This course is ideal for students preparing to complete one semester of college calculus in high school or enroll in calculus after graduation. This course represents students' third course in algebraic thinking and extends students' previous understanding of polynomial, rational, exponential, logarithmic, trigonometric and polar functions. Learning to model real-world data, connect representations, master symbolic manipulations and apply functions to model dynamic change will prepare students for the future study of calculus. As required by the College Board, please note that this course will appear as AP Precalculus on the student's transcript. Sophomore and Junior Students: Successfully completing this course with consistently demonstrated proficiency in all the course skills will prepare students to take AP Calculus AB (MTH471/472) and AP Statistics (MTH461/462). Students may also elect to take Mathematical Modeling and Design (MTH431/432) or Data Science (MTH481/482) as non-AP course options. AP Precalculus AB (MTH411/412) is not appropriate for students seeking to take AP Calculus BC (MTH491/492). Senior Students: Successfully completing this course will prepare students to take calculus or another at-level math course upon entering college. At some institutions, college credit via the AP Precalculus Exam may fulfill college math requirements or serve as a tool to guide college math and science course placements.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH411",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -286,14 +291,14 @@
           "prerequisites": [
             "Precalculus or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH412",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -302,27 +307,28 @@
           "prerequisites": [
             "Precalculus or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 68"
+      "sourceReference": "page 68",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "AP Precalculus BC",
       "department": "Mathematics",
       "description": "AP Precalculus BC (MTH421/422) is aligned with the College Board's expectations to prepare students for future studies in calculus. The course design prepares students for the College Board AP Precalculus Exam. This course is ideal for students preparing to complete two semesters of college calculus in high school or enroll in calculus after graduation. This course attends to all the learning outcomes of AP Precalculus AB (MTH411/412), as well as functions involving parameters, vectors and matrices. Students will routinely apply prior learning to unique, non-routine and novel contexts. The course design emphasizes students' growth in making connections and transferring knowledge between units of study while extending their learning in preparation for taking calculus in high school. As required by the College Board, please note that this course will appear as AP Precalculus on the student's transcript. Sophomore and Junior Students: Successfully completing this course will prepare students to take AP Calculus AB (MTH471/472), AP Calculus BC (MTH491/492) and AP Statistics (MTH461/462). Students may also elect to take Mathematical Modeling and Design (MTH431/432) or Data Science (MTH481/482) as non-AP course options. Senior Students: Successfully completing this course will prepare students to take calculus or another at-level math course upon entering college. At some institutions, college credit via the AP Precalculus Exam may fulfill college math requirements or serve as a tool to guide college math and science course placements.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH421",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -331,14 +337,14 @@
           "prerequisites": [
             "Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH422",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -347,27 +353,28 @@
           "prerequisites": [
             "Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 68"
+      "sourceReference": "page 68",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Mathematical Modeling and Design",
       "department": "Mathematics",
       "description": "Mathematical Modeling and Design (MTH431/432) is a non-AP introductory study in mathematical modeling and design thinking. Modeling is quantifying and understanding real-world scenarios and phenomena to make informed decisions that help improve the conditions defined within the scenarios. Students will build on prior mathematics knowledge and applications of new skills (stochastic methods, statistical models, numerical analysis, graph theory, digital simulations, etc.). These will be applied to represent real-world situations using appropriate modeling technology. Productive collaboration and effective written and presentational communication will be emphasized. Students will explore overarching ideas of problem posing, assumption audits, strategic selection of mathematical algorithms and procedures, result analysis and feasibility, and continuous iteration. As a capstone project, students will design and successively improve a mathematical model to address a self-selected 'problem of interest.' After completing this course, students may be interested in exploring descriptive and analytic methods of statistics (AP Statistics MTH461/462) and data management and visualizations (Data Science MTH481/482).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH431",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -375,14 +382,14 @@
           "prerequisites": [
             "Any precalculus course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH432",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -390,27 +397,28 @@
           "prerequisites": [
             "Any precalculus course"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Data Science",
       "department": "Mathematics",
       "description": "Data Science (MTH481/482) is an emerging field focused on formulating relevant questions and gathering, managing and analyzing data to propose practical solutions. In this non-AP introductory course, students will explore the tools of descriptive, diagnostic, and predictive data analysis and data presentation. Students will work independently and collaboratively with applications of the data science cycle in real-world scenarios and use written and visual presentations to communicate their analysis and reasoning. Topics of study will include data analysis, sampling, data visualization, correlation/causation, bias and uncertainty, probability, modeling with data, constructing and evaluating data-based arguments, and comprehending the societal impact of data. After completing this course, students may be interested in exploring descriptive and analytic methods of statistics (AP Statistics MTH461/462), and modeling and simulations (Mathematical Modeling and Design MTH431/432).",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH481",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -418,14 +426,14 @@
           "prerequisites": [
             "Algebra 2 or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH482",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -433,50 +441,51 @@
           "prerequisites": [
             "Algebra 2 or Algebra 2 AB/BC"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Advanced Mathematical Decision Making",
       "department": "Mathematics",
       "description": "Advanced Mathematical Decision Making (MTH441/442) is a capstone non-AP course that prepares students for post-secondary workforce opportunities and non-STEM college majors by strengthening quantitative, collaborative and communication skills. Students will develop quantitative literacy with an emphasis on numeracy (quantities, rates, estimation, the reasonableness of results, probability, combinatorics, etc.), algebraic thinking (ratios, proportions, numeric operations, algebraic operations, etc.) and modeling (functions, data summaries, analysis, decision making, justification, etc.). Students will be exposed to real-world contexts (finance, statistics, networks) and apply their learning to real life experiences and future workforce opportunities. Cooperative groups are central to helping students understand learning outcomes and completing class presentations and projects. This course is closed to students who have completed Precalculus (MTH451/452) or any AP mathematics coursework.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH441",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             12
           ],
           "prerequisites": [
             "Algebra 2"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH442",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             12
           ],
           "prerequisites": [
             "Algebra 2"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
@@ -484,19 +493,20 @@
         "This course is closed to students who have completed Precalculus (MTH451/452) or any AP mathematics coursework.",
         "Qualifying senior students who meet College of Lake County parameters will earn direct placement into a post-secondary credit-bearing mathematics course at Illinois community colleges and some Illinois four-year universities without a college math placement test. See your school counselor for details."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "AP Statistics",
       "department": "Mathematics",
       "description": "AP Statistics (MTH461/462) is a full-year course designed to be the equivalent of a first-semester college-level non-calculus-based statistics course. This course explores variation and distribution, patterns and uncertainty, and data-based predictions, decisions and conclusions. These skills are widely applicable to various Science, Technology, Engineering and Mathematics (STEM) disciplines and the study of business, social sciences and data analytics. In this introductory course, students develop statistical literacy by exploring data (describing patterns and departures from patterns), sampling and experimentation (planning and conducting a statistical study), anticipating patterns (exploring random phenomena using probability and simulation) and statistical inference (estimating population parameters and testing hypotheses). After completing this course, students may be interested in exploring modeling and simulations (Mathematical Modeling and Design MTH431/432) and data management and visualizations (Data Science MTH481/482). The course design prepares students for the College Board AP Statistics Exam.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH461",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -505,14 +515,14 @@
           "prerequisites": [
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH462",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             10,
             11,
@@ -521,27 +531,28 @@
           "prerequisites": [
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 69"
+      "sourceReference": "page 69",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "AP Calculus AB",
       "department": "Mathematics",
       "description": "AP Calculus AB (MTH471/472) is a full-year capstone course designed to be the equivalent of the first semester of college calculus. Calculus focuses on the study of rates of change, limits and the analysis of functions. It is widely applicable to various Science, Technology, Engineering and Mathematics (STEM) disciplines. Calculus is also used to understand dynamic phenomena in business, finance and the social sciences. AP Calculus AB focuses on connecting mathematical representations (verbal, graphical, algebraic and numeric) so that relationships among topics of study are elucidated. In addition, students will apply prior skills in algebraic reasoning to complex problems presented in bare and real-world contexts. Students will also apply and strengthen skills around mathematical justification (reasoning) and communication in written form. AP Calculus AB focuses on differential and integral calculus. The course design prepares students for the College Board AP Calculus AB Exam. AP Calculus AB (MTH471/472) is not appropriate for students seeking to take AP Calculus BC (MTH491/492).",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH471",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -549,14 +560,14 @@
           "prerequisites": [
             "Any AP Precalculus course"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH472",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -564,27 +575,28 @@
           "prerequisites": [
             "Any AP Precalculus course"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 70"
+      "sourceReference": "page 70",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "AP Calculus BC",
       "department": "Mathematics",
       "description": "AP Calculus BC (MTH491/492) attends to all the learning outcomes of AP Calculus AB (MTH471/472) and is a full-year capstone course designed to be the equivalent of the first and second semesters of college calculus. In addition, this course extends the content and skills of AP Calculus AB to parametrically defined curves, polar curves and vector-valued functions, develops additional integration techniques and applications, and explores sequences and series. The course design prepares students for the College Board AP Calculus BC Exam. The course is closed to students who have not completed AP Precalculus BC. Successfully completing this course will prepare students for a college-level experience in College Multivariable Calculus (MTH591) and College Linear Algebra (MTH592).",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH491",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -592,14 +604,14 @@
           "prerequisites": [
             "AP Precalculus BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "MTH492",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
           "gradeLevels": [
             11,
             12
@@ -607,27 +619,28 @@
           "prerequisites": [
             "AP Precalculus BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 70"
+      "sourceReference": "page 70",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "College Multivariable Calculus",
       "department": "Mathematics",
       "description": "College Multivariable Calculus (MTH591) is a one-semester capstone course designed to be equivalent to a third-semester college calculus. The distinctive focus of this course is the attention to applying the tools of calculus to multidimensional space, whereas previous coursework limited students to one- or two-dimensional experiences. This introductory course exposes students to curves, surfaces, vector fields, partial derivatives, advanced integrals (line, multi-variable, surface), curl and divergence. Students who successfully demonstrate the complete proficiencies of the course may seek to petition future college/university programs for course credits or waivers. A current syllabus will be provided. This course is not affiliated with a dual-credit or articulated credit program.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH591",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             11,
             12
@@ -635,27 +648,28 @@
           "prerequisites": [
             "AP Calculus BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 70"
+      "sourceReference": "page 70",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "College Linear Algebra",
       "department": "Mathematics",
       "description": "College Linear Algebra (MTH592) is a one-semester capstone college-level course that applies matrix and linear algebra techniques to model and analyze phenomena presented in concrete and abstract settings. The study of linear algebra has valuable applications within the computational, physical and social sciences. Numeric, computational and estimation techniques will be used to arrive at empirical and theoretical conclusions that support students' understanding of matrix properties and operations. Mathematical reasoning will be strengthened through the writing of formal and informal proofs. Topics of study include a system of equations, matrix operations, determinants, inverses, vector spaces, inner product spaces, orthogonality, linear transformations, eigenvalues, eigenvectors, matrix diagonalization and quadratic forms. The course emphasizes skills in reading, writing and communicating mathematics verbally and analytically. Students who successfully demonstrate the complete proficiencies of the course may seek to petition future college/university programs for course credits or waivers. A current syllabus will be provided. This course is not affiliated with a dual-credit or articulated credit program.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "MTH592",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             11,
             12
@@ -663,15 +677,17 @@
           "prerequisites": [
             "AP Calculus BC"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [
         "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
       ],
-      "sourceReference": "page 70"
+      "sourceReference": "page 70",
+      "creditType": "Honors",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

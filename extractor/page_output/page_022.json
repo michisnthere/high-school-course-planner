@@ -7,78 +7,80 @@
       "department": "Family and Consumer Sciences",
       "description": "Interior Design is a project-based course where design is explored as it relates to housing and commercial interiors. Emphasis is on using available resources effectively to meet individual and housing needs.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FCS231",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "FCS232",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 22"
+      "sourceReference": "page 22",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Business of Fashion and Design",
       "department": "Family and Consumer Sciences",
       "description": "Business of Fashion and Design is a project-based course which focuses on the business side of the fashion industry, fashion design and the merchandising of fashion-related products. Topics include product development, visual merchandising, fashion promotion and accessory design. Dual credit option with Harper College available.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FCS241",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "FCS242",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 22"
+      "sourceReference": "page 22",
+      "creditType": "College Prep",
+      "credits": null
     }
   ],
   "graduationRequirements": [],

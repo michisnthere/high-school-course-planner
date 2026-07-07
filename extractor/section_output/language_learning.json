@@ -6,7 +6,10 @@
       "director": "Justin Fisk",
       "directorEmail": "jfisk@d125.org",
       "directorPhone": "847-415-4700",
-      "subDepartments": ["Language Learning", "English Language Development"]
+      "subDepartments": [
+        "Language Learning",
+        "English Language Development"
+      ]
     }
   ],
   "courses": [
@@ -15,1296 +18,1754 @@
       "department": "French",
       "description": "Students begin to develop their competence in French across three modes of communication: interpersonal, presentational and interpretative. They will explore the language in the context of six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes (speaking and writing) provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. Additionally, students explore the cultures of the French-speaking world, making comparisons and connections with their own experiences. Communication in class (teacher-student and/or student-student) is primarily in French.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FRE101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "FRE102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 74"
+      "sourceReference": "page 74",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "French 2",
       "department": "French",
       "description": "This course is the first in the three-year accelerated sequence that prepares students for AP French Language. Students continue to develop their competence in French across the three modes of communication in the context of the six AP themes. Performance-based assessments in the interpersonal and presentational modes (speaking and writing) provide the students the opportunity to use the language in practiced, familiar contexts as well as occasional, unfamiliar topics with increasing independence. Interpretive listening and reading is focused on the recognition of key details and making inferences about the content of authentic sources. Students continue to explore the cultures of the French-speaking world in new contexts. Communication in class (teacher-student and/or student-student) is primarily in French.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FRE211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "French 1 or passing the placement exam for French 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "FRE212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "French 1 or passing the placement exam for French 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 74"
+      "sourceReference": "page 74",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "French 3",
       "department": "French",
       "description": "This course is the second in the three-year accelerated sequence that prepares students for AP French Language. Students continue to develop their competence in French across the three modes of communication in the context of the six AP themes. Performance-based assessments in the interpersonal and presentational modes (speaking and writing) provide the students the opportunity to use French independently in familiar contexts, with the increasing ability to use the language in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Throughout the course, students continue to explore the cultures of the French-speaking world in new contexts. In this course, students also read authentic literature including poems, short stories and excerpts from novels. Communication in class (teacher-student and/or student-student) is entirely in French.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FRE311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "French 2 or passing the placement exam for French 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "FRE312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "French 2 or passing the placement exam for French 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 74",
-      "notes": ["Dual Credit Available with Loyola University Chicago."]
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "AP French Language",
       "department": "French",
       "description": "Students continue to work to develop their competence across the three modes of communication in the context of the six AP themes, as they simultaneously prepare for the AP French Language and Culture exam. Performance-based assessments (speaking and writing) provide the students the opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks involve authentic sources designed for native speakers and are focused on both literal comprehension and inferential interpretation. A variety of authentic print, audio and video materials provide the basis for exploration of the cultures of the French-speaking world. Tasks involve students analyzing and making comparisons with their own cultural products, practices and perspectives. Communication in class (teacher-student and/or student-student) is entirely in French. Students who enroll in this course will be prepared to take the AP French Language and Culture exam in May.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "FRE601",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "French 3 or passing the placement exam for AP French Language and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "FRE602",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "French 3 or passing the placement exam for AP French Language and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 74"
+      "sourceReference": "page 74",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "German 1",
       "department": "German",
       "description": "German 1 is an introduction to German language and culture. Students begin to develop their competence in German across the three modes of communication: interpersonal, presentational and interpretative in the context of the following AP themes: Contemporary Life and Personal and Public Identities. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. By the end of the course, students will be able to communicate in German in a basic way in familiar contexts. Moreover, they will be able to read and understand short stories in German. Additionally, students will explore the target culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in German. This is the first course in a four course sequence that prepares students for AP German Language and Culture.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "GRE101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "GRE102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 75"
+      "sourceReference": "page 75",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "German 2",
       "department": "German",
       "description": "Students continue to work to develop their competence in German across the three modes of communication in the context of the following AP themes: Contemporary Life, Families and Communities and Science and Technology. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts with increasing independence. Moreover, they will be able to read and understand more complex stories in German. Interpretive listening and reading are focused on the acquisition and recognition of key details in the target language. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in German. This is the second course in a four course sequence that prepares students for AP German Language and Culture.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "GRE211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "German 1 or passing the placement exam for German 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "GRE212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "German 1 or passing the placement exam for German 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 75"
+      "sourceReference": "page 75",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "German 3",
       "department": "German",
       "description": "This course, which moves at a faster pace than German 2, begins preparation for the AP German Language and Culture Exam. Students continue to work to develop their competence in German across the three modes of communication in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities, and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in familiar contexts independently. Additionally, authentic materials will expand their German knowledge. Interpretive listening and reading tasks are focused on literal comprehension with increasing emphasis on inferential interpretation. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in German. This is the third course in a four course sequence that prepares students for AP German Language and Culture.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "GRE311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "German 2 or passing the placement exam for German 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "GRE312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "German 2 or passing the placement exam for German 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 75",
-      "notes": ["Dual Credit Available with Loyola University Chicago."]
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "AP German Language and Culture",
       "department": "German",
       "description": "This AP German course is designed for motivated students who have successfully finished three years of German and who are interested in taking a higher level German course. It is aimed to prepare students who are interested in taking the AP German Language and Culture exam and/or in furthering their study in the German language and culture. Special emphasis is placed on the use of authentic source materials related to culture and current events and the integration of language skills. Specific work includes: analysis of articles and literature, formal and informal oral presentations, formal and informal writings, a variety of audios/videos related to conversations, announcements, news reports or academic or cultural topics related to the German-speaking world. The expectation is that all communication in the classroom (teacher-student and/or student-student) take place in German. Students who enroll in this course will be prepared to take the AP German Language and Culture exam in May.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "GRE601",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "German 3 or passing the placement exam for AP German and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "GRE602",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "German 3 or passing the placement exam for AP German and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 75"
+      "sourceReference": "page 75",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 1",
       "department": "Hebrew",
       "description": "Hebrew 1 is an introduction to the Hebrew language and Israeli culture. Students develop their competencies across three modes of communication: interpersonal, presentational and interpretative. Students become comfortable reading the print form of the Hebrew alphabet that appears in books and also learn the script form for writing. The course explores the language in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments in the interpersonal, presentational and interpretive modes provides students with the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks focus on the acquisition and recognition of basic stated information in Hebrew. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Additionally, students explore Israeli culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 2",
       "department": "Hebrew",
       "description": "Students continue to develop their competence in Hebrew across the three modes of communication: interpersonal, presentational and interpretive. Students also continue to learn in the context of the six AP themes: Global Challenges; Science and Technology; Contemporary Life; Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading activities are focused on the acquisition and recognition of key details in Hebrew. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Additionally, students explore Israeli culture through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, news reports, advertising and video clips from Israel.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Hebrew 1 or passing the placement exam for Hebrew 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Hebrew 1 or passing the placement exam for Hebrew 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 3",
       "department": "Hebrew",
       "description": "Students continue to develop their competence in Hebrew across the three modes of communication: interpersonal, presentational and interpretive in a near-immersion environment. Students also continue to learn in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide us the opportunity to use the language independently in familiar contexts. Interpretive listening and reading activities are focused on the ability to interpret and infer meaning in Hebrew. Practice is provided regularly, both within the classroom and at home. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Students continue to explore Israeli culture through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, news reports, advertising, art, video clips and movies from Israel.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Hebrew 2 or passing the placement exam for Hebrew 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Hebrew 2 or passing the placement exam for Hebrew 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Hebrew 4",
       "department": "Hebrew",
       "description": "Students develop their competence in Hebrew and engage in higher-level reading, writing, listening and speaking activities that align with the interpersonal, presentational and interpretive modes of communication in an immersion environment. Students continue to learn in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide the opportunity to use the language independently even in unfamiliar contexts. Interpretive listening and reading activities are focused on both literal comprehension and inferential interpretation of the language. In Hebrew 4, classroom discussions and debates are led by the students. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Israeli culture continues to be explored through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, print and broadcast news reports, advertising, art, video-clips, popular TV sitcoms and movies from Israel.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "HBR411",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "Hebrew 3 or passing the placement exam for Hebrew 4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "HBR412",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "Hebrew 3 or passing the placement exam for Hebrew 4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 76"
+      "sourceReference": "page 76",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Latin 1",
       "department": "Latin",
       "description": "Latin 1 focuses on learning the basics of Latin grammar, syntax and vocabulary. This course is designed to enable students to read materials in Latin with ease and understanding and to write original Latin sentences employing the vocabulary and grammatical structures learned. Additionally, basic prefixes, suffixes and roots of vocabulary words and word families will be studied. This class will also cover topics in Roman history, mythology and culture.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "LAT101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "LAT102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 77"
+      "sourceReference": "page 77",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Latin 2",
       "department": "Latin",
       "description": "Latin 2 focuses on refining students’ knowledge of grammar and syntax from Latin 1 in order to facilitate the translation of more complex passages. Readings will focus on daily life in Rome, mythology and the heroic ideal. In addition, students will complete a semester of vocabulary study based on Latin roots, which is designed to increase students’ English vocabulary. Students will also study prescription writing in Latin abbreviations, Latin in modern law and Latin in medicine and anatomy.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "LAT211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Latin 1 or passing the placement exam for Latin 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "LAT212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Latin 1 or passing the placement exam for Latin 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 77"
+      "sourceReference": "page 77",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Latin 3",
       "department": "Latin",
       "description": "Students will explore various selections of Latin literature. Students will continue to refine their skills in literal translation, sight translation, scansion and literary analysis both in the target language and in English in order to facilitate greater fluency in the reading of Latin literature. Authors that will be studied include Ovid, Catullus, Cicero, Plautus and Caesar. Caesar is studied in order to provide a bridge to advanced placement in fourth year.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "LAT311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Latin 2 or passing the placement exam for Latin 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "LAT312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Latin 2 or passing the placement exam for Latin 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 77",
-      "notes": ["Dual Credit Available with Loyola University Chicago."]
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "AP Latin",
       "department": "Latin",
       "description": "Students will complete preparation for the AP Latin exam. Students will continue to refine reading, writing, listening and speaking skills. Training in translation, meter and poetic devices involved in the study of major Latin works of literature will be stressed. The students will become more comfortable in the reading and interpretation of Vergil’s Aeneid and Caesar’s De Bello Gallico. To achieve this endeavor, both the cultural component (history, politics, social structure and art) and the linguistic aspect (grammar, vocabulary and structure) will be emphasized. Students proceeding to AP Latin will be provided with summer readings by the classroom instructor. Students who enroll in this course will be prepared to take the AP Latin exam in May.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "LAT621",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Latin 3 and approval of director"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Latin 3 and approval of director"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "LAT622",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Latin 3 and approval of director"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Latin 3 and approval of director"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 77",
-      "notes": ["Dual Credit Available with Loyola University Chicago."]
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Mandarin Chinese 1",
       "department": "Mandarin Chinese",
       "description": "Mandarin Chinese 1 is an introduction to Chinese language and culture. It is designed for students who are not heritage/native speakers*. Students begin to develop their competence in Chinese across the three modes of communication: interpersonal, presentational and interpretative in the context of the following global themes: Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. By the end of the course, students will be able to communicate in Mandarin (the spoken language) and Hanzi (the written language) in a basic way in familiar contexts. Additionally, students explore the target culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Mandarin. * There is a placement exam for heritage students or students with prior knowledge that includes reading, writing and a short interview. The results from the exam will determine the appropriate course for the student.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 77"
+      "sourceReference": "page 77",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Mandarin Chinese 2",
       "department": "Mandarin Chinese",
       "description": "In this course, students continue to work to develop their competence in Chinese across the three modes of communication in the context of the following AP themes: Contemporary Life, Families and Communities, Beauty and Aesthetics and Science and Technology. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading are focused on the acquisition and recognition of key details in the target language. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Mandarin.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 78"
+      "sourceReference": "page 78",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Mandarin Chinese 3",
       "department": "Mandarin Chinese",
       "description": "This course requires students to engage in interpersonal, presentational and interpretive tasks at more advanced proficiency levels. Students continue to work to develop their competence in Chinese across the three modes of communication in the context of the six AP themes. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in familiar contexts independently. Interpretive listening and reading tasks are focused on literal comprehension with increasing emphasis on inferential interpretation. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Mandarin.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 2 or passing the placement exam for Mandarin Chinese 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 2 or passing the placement exam for Mandarin Chinese 3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 78"
+      "sourceReference": "page 78",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Intermediate Mandarin Chinese Language Arts",
       "department": "Mandarin Chinese",
       "description": "This course is designed specifically for students with lived Mandarin Chinese language experience, either from prior schooling in a Chinese-speaking country or as native/heritage speakers of Chinese. Students will develop their literacy skills in Chinese as they explore literature from the Chinese-speaking world and engage in focused development of reading and writing skills. While special focus will be placed on developing foundational literacy skills (e.g., Mandarin character decoding and character writing), students will also develop critical thinking and oracy skills in Chinese as they collaboratively explore topics related to current events, culture and media.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI351",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Intermediate or higher proficiency in the domains of speaking and listening as demonstrated on Mandarin Chinese language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI352",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Intermediate or higher proficiency in the domains of speaking and listening as demonstrated on Mandarin Chinese language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 78"
+      "sourceReference": "page 78",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Mandarin Chinese 4",
       "department": "Mandarin Chinese",
       "description": "Students continue to work to develop their competence in Mandarin Chinese across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal and comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Cultural information and comparisons are drawn from authentic print, literary works and class discussion. Students will participate in class debates and facilitate classroom discussion through their own student-led presentation. The expectation is that the communication in the classroom take place primarily in Chinese. This course begins preparation for the AP Chinese Language and Culture exam.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI411",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 3 or passing the placement exam for Mandarin Chinese 4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI412",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 3 or passing the placement exam for Mandarin Chinese 4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 78",
-      "notes": ["Dual Credit Available with North Central College."]
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "AP Chinese Language and Culture",
       "department": "Mandarin Chinese",
       "description": "This course is designed to prepare students for the AP Chinese Language and Culture exam, i.e. a level comparable to fourth semester (or equivalent) college/university courses in Mandarin Chinese. The course focuses on language proficiency while dealing with level- and age-appropriate cultural content throughout the course. Students engage in readings, conversation and composition and research projects. The expectation is that all communication in the classroom takes place in the target language. By the end of the year, students will be able to understand the spoken language formally (lectures, news, etc.) and in conversation (dialogues…); to acquire vocabulary and structures that enable students to understand, analyze contextualized materials (advertisement, posters, newspaper, magazine articles, letters, etc.); to describe an event or activity in a cohesive and coherent manner with linguistic accuracy; to write appropriately employing the organization, vocabulary and structure appropriate to the purpose of their writing and to demonstrate cultural appropriateness through spoken and written discourse.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI601",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI602",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 79"
+      "sourceReference": "page 79",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Chinese Literature, Media and Culture",
       "department": "Mandarin Chinese",
       "description": "Students continue to work to develop their competence in Chinese across the three modes of communication within the context of critical analysis of literature and media, as well as a close investigation of culture and social trends. Performance-based assessments provide students the opportunity to use the language independently and collaboratively in both familiar and unfamiliar literary, media and cultural contexts. Interpretive listening, viewing and reading tasks are focused on both literal comprehension and inferential interpretation of both familiar and unfamiliar pieces of literature, media and culture. Practice is provided regularly, both within the classroom and at home. Throughout the course, students continue to explore the target culture as they are invited to situate their own experiences within new contexts.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "CHI611",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "AP Chinese Language and Culture or placement test"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "CHI612",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "AP Chinese Language and Culture or placement test"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 79"
+      "sourceReference": "page 79",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Spanish 1",
       "department": "Spanish",
       "description": "Students begin to develop their competence in Spanish across three modes of communication: interpersonal, presentational and interpretative. They will explore the language in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities, and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. Practice is provided regularly, both within the classroom and at home. Additionally, students explore the target culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA101",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA102",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 79"
+      "sourceReference": "page 79",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Spanish 2",
       "department": "Spanish",
       "description": "Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading are focused on the acquisition and recognition of key details in the target language. Practice is provided regularly, both within the classroom and at home. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA201",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA202",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 79"
+      "sourceReference": "page 79",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Spanish 2-3",
       "department": "Spanish",
       "description": "In comparison to Spanish 2, Spanish 2-3 has a faster pace and students are asked to engage in interpersonal, presentational and interpretive tasks at more advanced proficiency levels. Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language in practiced, familiar contexts as well as occasional unfamiliar topics with increasing independence. Interpretive listening and reading are focused on the acquisition and recognition of key details with emerging evidence of inference making in the target language. Practice is provided regularly, both within the classroom and at home. Students continue to explore the target culture in new contexts. In this course, students also begin reading poems and short stories by authors who appear on the AP Spanish Literature and Culture reading list. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA211",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 1 or passing the placement exam for Spanish 2-3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA212",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 1 or passing the placement exam for Spanish 2-3 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 80"
+      "sourceReference": "page 80",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Spanish 3",
       "department": "Spanish",
       "description": "Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language in familiar contexts independently. Interpretive listening and reading tasks are focused on literal comprehension with increasing emphasis on inferential interpretation. Practice is provided regularly, both within the classroom and at home. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA301",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Spanish 2"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Spanish 2"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA302",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Spanish 2"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Spanish 2"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 80"
+      "sourceReference": "page 80",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Spanish 3-4",
       "department": "Spanish",
       "description": "Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Throughout the course, students continue to explore the target culture in new contexts. In comparison to the college prep sequence of courses, Spanish 3-4 accelerated has a faster pace and students are asked to engage in interpersonal, presentational and interpretive tasks at more advanced proficiency levels. In this course, students also continue reading authentic literature including poems, short stories and plays. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA311",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 2-3 or passing the placement exam for Spanish 3-4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA312",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 2-3 or passing the placement exam for Spanish 3-4 and approval of director"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 80"
+      "sourceReference": "page 80",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Intermediate Spanish Language Arts",
       "department": "Spanish",
       "description": "This course is designed specifically for students with lived Spanish language experience, either from prior schooling in a Spanish-speaking country or as native/heritage speakers of Spanish. Students will develop their literacy skills in Spanish as they explore literature from the Spanish-speaking world and engage in focused development of writing skills. Additionally, students will develop critical thinking and oracy skills in Spanish as they collaboratively explore topics related to current events, culture and media.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA351",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Intermediate or higher proficiency as demonstrated on Spanish language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA352",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Intermediate or higher proficiency as demonstrated on Spanish language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ],
-          "corequisites": [],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 80"
+      "sourceReference": "page 80",
+      "notes": [],
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "Spanish 4",
       "department": "Spanish",
       "description": "Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Cultural information and comparisons are drawn from authentic print, literary works and class discussion. Students will participate in classroom debates and facilitate classroom discussion through their own student-led presentation. Upon completion of this course, students will be prepared to enter into AP Spanish Language and Culture. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA401",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Spanish 3"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Spanish 3"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA402",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Spanish 3"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Spanish 3"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "AP Spanish Language and Culture",
       "department": "Spanish",
       "description": "This course is designed to prepare students for the AP Spanish Language and Culture exam and provides a transition to the AP Spanish Literature and Culture course. Students continue to work to develop their competence in Spanish across the three modes of communication: interpretive, interpersonal and presentational, within the context of the six AP themes: Families and Communities, Science and Technology, Global Challenges, Contemporary Life, Personal and Public Identities, Beauty and Aesthetics. Performance-based assessments provide the students the opportunity to use the language independently in familiar and unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Cultural information and comparisons are drawn from authentic print and audio-visual sources, literary works and class discussion. Students will research a variety of cultural topics and facilitate discussion through their own student-led presentations. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place in Spanish.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA601",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA602",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "AP Spanish Literature and Culture",
       "department": "Spanish",
       "description": "This course is designed to introduce students to the formal study of Peninsular Spanish, Latin American and U.S. Hispanic literature. The course aims to develop students’ critical reading and analytical writing skills in Spanish as well as their ability to make interdisciplinary connections and explore linguistic and cultural comparisons. This course will be conducted entirely in Spanish appropriate to this level and covers the entire official AP Spanish Literature and Culture reading list. Literary texts are grouped by themes and presented in chronological order within each of the following themes: las sociedades en contacto, la construcción del género, el tiempo y el espacio, las relaciones interpersonales, la dualidad del ser and la creación literaria. Students are expected to discuss literary texts and their different historical, sociocultural and geopolitical contexts in a variety of interactive oral and written formats in Spanish. Students who enroll in this course will be prepared to take the AP Spanish Literature and Culture exam in May.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA611",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["AP Spanish Language and Culture"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "AP Spanish Language and Culture"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA612",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["AP Spanish Language and Culture"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "AP Spanish Language and Culture"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
       "department": "Spanish",
       "description": "Advanced conversation and culture builds upon the communicative focus in the presentational, interpretive and interpersonal modes from prior coursework, but will uniquely explore the language through a cultural lens. The aim of this course is to present how the language manifests itself in various regions of the Spanish-speaking world through both historical and contemporary settings. Students who like to travel or who are thinking about studying abroad in college will enjoy this course and the experience it will provide prior to graduation. In discovering Spanish throughout the world, students will also engage in film studies, literature and a comprehensive review of grammar, all of which will prepare them for continued language study at the university level. Teacher-student and/or student-student interactions are conducted exclusively in Spanish.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "SPA511",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "SPA512",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 81"
+      "sourceReference": "page 81",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "English Language Development (ELD) 1",
       "department": "English Language Development",
       "description": "This is a two-credit course for students in the ELD program at the beginning level who are new to the English language or have emerging English vocabulary and communication skills. The course meets two periods each day. Students work on developing and expanding their vocabulary, grammar, speaking, listening, reading and writing skills. Students will practice their writing skills in the context of the course readings and will start with basic sentence structures and end with essay writing. Speaking and listening will focus on proper pronunciation as well as interpersonal and presentational communication.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD161",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD162",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 82",
       "notes": [
         "This is a two-credit course. The course meets two periods each day."
-      ]
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "English Language Development (ELD) 2",
       "department": "English Language Development",
       "description": "This is a two-credit course for students in the ELD program at the intermediate level. This course will meet two periods each day and instruction is entirely in English. Students will build on all four language domains (listening, speaking, reading and writing) across thematic units. Their writing skills move beyond paragraph construction to composing, revising and editing essays within various writing genres. Speaking and listening is practiced and assessed as students are expected to have conversational and presentational English speaking skills.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD261",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD262",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 82",
       "notes": [
         "This is a two-credit course. This course will meet two periods each day."
-      ]
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "English Language Development (ELD) 3: Language",
       "department": "English Language Development",
       "description": "This is one of two courses available for students in the ELD program at the advanced level. This course may be taken concurrently with English Language Development (ELD) 3 Literature (ELD371/372) or may be taken alone. Students will leverage their own cultural and linguistic assets as they work to expand their English language proficiency. In addition to a focus on the development of advanced literacy skills, including argumentative writing and literary analysis, students will foster their listening and speaking skills by participating in discussions, debates and oral presentations.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD361",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD362",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 83",
       "notes": [
         "May be taken concurrently with English Language Development (ELD) 3 Literature."
-      ]
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "English Language Development (ELD) 3: Literature",
       "department": "English Language Development",
       "description": "This is one of two courses available for students in the ELD program at the advanced level. This course may be taken concurrently with English Language Development (ELD) 3 Language (ELD361/362) or may be taken alone. Students will leverage their own cultural and linguistic assets as they work to expand their English language proficiency. Students will explore both fiction and nonfiction literature through both common and independent reading tasks. Students will make text-to-self connections as they engage in literary analysis and argumentative writing, including multi-page process writing.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD371",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD372",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 83",
       "notes": [
         "May be taken concurrently with English Language Development (ELD) 3 Language."
-      ]
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "English Language Development (ELD) 4",
       "department": "English Language Development",
       "description": "This is an English course for students who are transitioning out of the ELD program. Students are expected to produce work with ELD support similar to that of a student in a Communication Arts English course. Students’ proficiencies will advance in the areas of literary analysis, writing, grammar, oral communication and research. Students will explore literary works from their own cultural backgrounds and experiences and use literature as a pathway to greater understanding of diverse perspectives and narratives.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD461",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD462",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "sourceReference": "page 83"
+      "sourceReference": "page 83",
+      "notes": [],
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Current Events",
       "department": "English Language Development",
       "description": "This one-semester elective course is designed to develop students’ academic, social and instructional language across the five WIDA Standards (Social and Instructional Language, the Language of Language Arts, the Language of Mathematics, the Language of Science and the Language of Social Studies) through discussion and guided written reflection around current events and students’ own experiences. Special focus will not only be given to written, audio and visual sources that are connected with the WIDA Standards, but also to students’ own cultural and linguistic experiences across these standards. Additionally, added focus will be given to academic, social and instructional language for WIDA’s five complementary strands (the Language of Music and Performing Arts, the Language of Humanities, the Language of Visual Arts, the Language of Health and Physical Education and the Language of Technology and Engineering.) This course may be repeated for credit.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ELD561",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ELD562",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["None"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "sourceReference": "page 83",
-      "notes": ["This course may be repeated for credit."]
+      "notes": [
+        "This course may be repeated for credit."
+      ],
+      "creditType": "College Prep",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

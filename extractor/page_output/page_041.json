@@ -6,175 +6,218 @@
       "department": "Engineering",
       "description": "Students will learn the art and science of planning, designing and constructing buildings. The major focus of this course is completing long-term projects that involve the design and development of residential and commercial structures. Students use Autodesk Revit, a professional grade software, to design a small structure and a home to learn the basic construction systems such as wall, roof, foundation, water and electrical systems. Students design a commercial structure in the surrounding community following local building codes. Within this project, students will also learn about additional topics such as commercial construction systems, sustainable design, universal design and structural engineering. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "TEC261",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design or Architectural Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "TEC262",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design or Architectural Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 41"
+      "sourceReference": "page 41",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Principles of Engineering–PLTW",
       "department": "Engineering",
       "description": "Principles of Engineering–PLTW is a survey course in which students will be introduced to several elements of engineering including mechanisms, energy, statics, materials and kinematics. Students in Principles of Engineering–PLTW will develop problem-solving skills and collaborate with others to complete design challenges. Students will be using various engineering programs to research and evaluate designs, create code for robotics and develop virtual models of design solutions. Student projects will include: creating a bridge, designing a robotic material sorter and programming and building a projectile launcher. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "TEC301",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "TEC302",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 41"
+      "sourceReference": "page 41",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Electrical Engineering–PLTW",
       "department": "Engineering",
       "description": "This Electrical Engineering (EE) course gives students the chance to explore the technology behind everyday electronics. Students will learn the basics of how digital circuits work and dive into topics like logic gates, integrated circuits and programmable devices. They will also learn how to design your own circuits using both hardware and software. Along the way, students will build teamwork, communication and problem-solving skills while learning how engineers document and share their ideas.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "TEC291",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "TEC292",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 41"
+      "sourceReference": "page 41",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Computer Integrated Manufacturing–PLTW",
       "department": "Engineering",
       "description": "Computer Integrated Manufacturing is one of the specialization courses in the PLTW Engineering program. The course deepens the skills and knowledge of an engineering student within the context of efficiently creating the products all around us. Students learn about manufacturing processes, product design, robotics and automation. Students develop their knowledge and skills of Computer Aided Design and Manufacturing to produce products using a Computer Numerical Controlled (CNC) mill. Students apply the knowledge and skills gained in this course as they collaborate to design, build and program factory system models.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "TEC351",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "TEC352",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 41"
+      "sourceReference": "page 41",
+      "creditType": "Honors",
+      "credits": 1.0
     },
     {
       "title": "Engineering Design and Development–PLTW",
       "department": "Engineering",
       "description": "In this capstone course of the engineering pathway, students take full ownership of the design process as they identify a real-world problem and develop a meaningful, innovative solution. Drawing on skills from previous engineering classes, students deepen their understanding of design thinking, manufacturing techniques and patterns of innovation. The course begins with a team-based mini-capstone that introduces advanced tools and methods—including 3D printing, laser cutting, CNC machining and traditional fabrication equipment like saws and drills. From there, students explore problem validation, conduct user-focused research and pitch their own project ideas. Once approved, students move from concept to prototype, applying iterative design and testing to refine their solutions. The experience culminates in the Engineering Design Fair, where students present their work to peers and faculty. Projects must focus on creating something that's both approachable and impactful. Past capstones have included a child-proof knife block to reduce kitchen injuries, mobility crutches designed for athletes and a smart recycling sorter that detects and separates overlooked plastics.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "TEC401",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "PLTW Digital Electronics or Electrical Engineering–PLTW, Principles of Engineering–PLTW, Computer Integrated Manufacturing–PLTW or Civil Engineering and Architecture–PLTW"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "TEC402",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
           "prerequisites": [
             "PLTW Digital Electronics or Electrical Engineering–PLTW, Principles of Engineering–PLTW, Computer Integrated Manufacturing–PLTW or Civil Engineering and Architecture–PLTW"
           ],
-          "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 41"
+      "sourceReference": "page 41",
+      "creditType": "Honors",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

@@ -6,124 +6,183 @@
       "department": "Visual Arts",
       "description": "This foundational course covers basic concepts and practice of digital photography, including understanding and use of the camera, lenses and other basic photographic equipment. The course will address aesthetic principles as they relate to composition, space, exposure, light and color. An introduction to Adobe Photoshop will be studied in this course. Technological requirements of digital formats will be addressed. Basic digital manipulations of images will be taught in preparation for creating finished art.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART401",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART402",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["Students may use their own DSLR; however, students may check out school-owned cameras for assignments."],
-      "sourceReference": "page 50"
+      "notes": [
+        "Students may use their own DSLR; however, students may check out school-owned cameras for assignments."
+      ],
+      "sourceReference": "page 50",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Photography 2",
       "department": "Visual Arts",
       "description": "This course is designed to refine students' digital photographic skills and aesthetic judgment as they relate to composition, space, exposure, light and color. Special effects, studio lighting, portraiture, night photography, use of Adobe Photoshop, the Creative Suite and Procreate are areas studied in this course. Technological requirements of digital formats and printing will be addressed.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART411",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Photography 1"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART412",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Photography 1"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1"
+          ],
           "creditType": "College Prep",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."],
-      "sourceReference": "page 50"
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
+      ],
+      "sourceReference": "page 50",
+      "creditType": "College Prep",
+      "credits": 1.0
     },
     {
       "title": "Advanced Photography and Digital Design",
       "department": "Visual Arts",
       "description": "This course offers an advanced study of photography and/or digital design for students who want to pursue image making in a serious manner. Students on the photography track are introduced to large format printing, DSLR camera handling skills and advanced techniques using Adobe Photoshop and the Creative Suite. Students on the design track will be developing a portfolio of digital drawings and designs using the Adobe Creative Suite and the Procreate drawing app. Design students will also explore methods of digital photography to enhance their layout, formatting and design skills. Students will explore brainstorming methods to develop stronger concepts and common visual connections through the development of a series of work. Students will compile a portfolio and assemble a one-person show to be exhibited in the spring.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART421",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
+          ],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART422",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
+          ],
           "creditType": "Accelerated",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."],
-      "sourceReference": "page 50"
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
+      ],
+      "sourceReference": "page 50",
+      "creditType": "Accelerated",
+      "credits": 1.0
     },
     {
       "title": "AP Photography and Digital Design",
       "department": "Visual Arts",
       "description": "This course offers digital 2D design drawing and painting students a concentrated program, which enables them to apply for college credit in art. Emphasis is centered on studio work, the preparation of a portfolio and the submission of a portfolio for potential AP credit. In the spring, each student will exhibit their work in a one-person show. This course may be repeated for credit.",
       "gpaWaiverOption": false,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "ART871",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Advanced Photography and Digital Design"],
-          "corequisites": [],
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Photography and Digital Design"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         },
         {
           "courseCode": "ART872",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Advanced Photography and Digital Design"],
-          "corequisites": [],
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Photography and Digital Design"
+          ],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 1.0,
+          "notes": []
         }
       ],
-      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments.", "This course may be repeated for credit."],
-      "sourceReference": "page 50"
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments.",
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 50",
+      "creditType": "Honors",
+      "credits": 1.0
     }
   ],
   "graduationRequirements": [],

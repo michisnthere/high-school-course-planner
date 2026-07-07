@@ -7,11 +7,10 @@
       "department": "Business Education",
       "description": "Business Applications and Technology 2 encourages students to develop the technology and problem-solving skills essential in today's workforce. Students will be tasked with finding solutions to common business problems, while being encouraged to consider multiple perspectives. Students will work to incorporate technology into their business practices to help them become more efficient and organized.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS142",
-          "semesterLabel": "SEMESTER 2",
+          "semesterLabel": "Semester 2",
           "duration": "semester 2 course only",
           "gradeLevels": [
             9,
@@ -22,91 +21,95 @@
           "prerequisites": [
             "BUS131 or BUS132"
           ],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 17"
+      "sourceReference": "page 17",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Marketing",
       "department": "Business Education",
       "description": "Students will learn how companies develop and market their products and services. Current trends in the entertainment, apparel, sports and food industries will be explored and applied during class activities.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS281",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "BUS282",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 17"
+      "sourceReference": "page 17",
+      "creditType": "College Prep",
+      "credits": null
     },
     {
       "title": "Entrepreneurship",
       "department": "Business Education",
       "description": "Entrepreneurship will provide students with a working background on the skills and knowledge necessary to own and operate a small business. Students will examine the environment of small business ownership, the procedures and skills necessary to open a small business and the policies and practices of a successful small business operation. Entrepreneurship will emphasize a hands-on approach to small business ownership.",
       "gpaWaiverOption": true,
-      "isOnline": false,
       "offerings": [
         {
           "courseCode": "BUS231",
-          "semesterLabel": "SEMESTER 1",
-          "duration": "one semester",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         },
         {
           "courseCode": "BUS232",
-          "semesterLabel": "SEMESTER 2",
-          "duration": "one semester",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
           "gradeLevels": [
             10,
             11,
             12
           ],
           "prerequisites": [],
-          "corequisites": [],
           "creditType": "College Prep",
-          "credits": null
+          "credits": null,
+          "notes": []
         }
       ],
       "notes": [],
-      "sourceReference": "page 17"
+      "sourceReference": "page 17",
+      "creditType": "College Prep",
+      "credits": null
     }
   ],
   "graduationRequirements": [],
