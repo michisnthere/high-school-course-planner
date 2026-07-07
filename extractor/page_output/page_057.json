@@ -1,8 +1,234 @@
 {
   "departments": [],
-  "courses": [],
+  "courses": [
+    {
+      "title": "Wind Symphony",
+      "department": "Music",
+      "description": "Students in grades 10-12 with band experience may audition to enroll in Wind Symphony to continue work on comprehensive musicianship skills. Wind Symphony members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Symphonic Band and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS131",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS132",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Important note for all band classes: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals."
+      ],
+      "sourceReference": "page 57"
+    },
+    {
+      "title": "Wind Ensemble",
+      "department": "Music",
+      "description": "Students in grades 10-12 with band experience may audition to enroll in Wind Ensemble to continue work on comprehensive musicianship skills. Wind Ensemble also performs in five annual concerts at Stevenson High School and may also participate in additional performance opportunities or festivals. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Symphonic Band and Wind Symphony. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS141",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS142",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "GPA waiver option available for College Prep credit only.",
+        "Important note for all band classes: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
+        "Seniors who are enrolled in Wind Ensemble, Patriot Orchestra, Patriot Guitar Ensemble, Patriot Singers and Advanced Chorus and have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver."
+      ],
+      "sourceReference": "page 57"
+    },
+    {
+      "title": "Stevenson Singers",
+      "department": "Music",
+      "description": "This ensemble is an entry level singing course, available to all students of all grade levels, regardless of previous experience. This course focuses on developing fundamental skills for individual and group singing, and comprehensive musician skills. Stevenson Singers perform at five school concerts throughout the year. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS201",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS202",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "page 57"
+    },
+    {
+      "title": "Advanced Chorus",
+      "department": "Music",
+      "description": "Experienced sopranos and altos may audition for this advanced vocal ensemble. Students will continue to work on developing more advanced skills for individual and group singing, as well as comprehensive musicianship. This ensemble performs at five school concerts and may also participate in additional performance opportunities or festivals. Seniors may earn accelerated credit in this course. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS211",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with choir faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS212",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with choir faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "GPA waiver option available for College Prep credit only.",
+        "Seniors who are enrolled in Wind Ensemble, Patriot Orchestra, Patriot Guitar Ensemble, Patriot Singers and Advanced Chorus and have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver."
+      ],
+      "sourceReference": "page 57"
+    },
+    {
+      "title": "Patriot Singers",
+      "department": "Music",
+      "description": "Experienced students of all voice parts may audition for Patriot Singers. This is an advanced SATB vocal ensemble, where students will be challenged with a wide variety of repertoire, and further develop advanced musicianship skills. The Patriot Singers perform at five school concerts, community events and may also participate in additional performance opportunities or festivals. Seniors may earn accelerated credit in this course. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS221",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with choir faculty",
+            "Treble voices need to have completed one year in Advanced Chorus"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS222",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with choir faculty",
+            "Treble voices need to have completed one year in Advanced Chorus"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "GPA waiver option available for College Prep credit only.",
+        "Seniors who are enrolled in Wind Ensemble, Patriot Orchestra, Patriot Guitar Ensemble, Patriot Singers and Advanced Chorus and have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver."
+      ],
+      "sourceReference": "page 57"
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_057.png"
-  ]
+  "warnings": []
 }

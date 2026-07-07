@@ -1,8 +1,139 @@
 {
-  "departments": [],
-  "courses": [],
+  "departments": [
+    {
+      "name": "Theatre",
+      "description": "Theatre classes at Stevenson feature a sequential and cumulative curriculum which allows students to develop theatrical skills while exploring their unique creativity and considering social and historical context and impact. Some courses include a public performance component. While Theatre courses can provide pre-professional training for students, the ultimate goals are to develop 21st century transfer skills, to have fun creating art, to develop ensemble and community, to build self-awareness and confidence and to explore empathy and critical thinking through diverse stories."
+    }
+  ],
+  "courses": [
+    {
+      "title": "Acting 1: Confidence and Collaboration",
+      "department": "Theatre",
+      "description": "Acting 1: Confidence and Collaboration is an introductory theatre survey and performance-based class. This course emphasizes the basic skills and techniques of theatre artists including: ensemble collaboration, confidence and risk-taking, imagination, focus, performance, rehearsal and text analysis. These skills also prepare students for careers in all areas of entertainment, education, business, law and STEM. Techniques to be covered include warm-up activities and exercises, ensemble communication and collaboration, improvisation, pantomime, text interpretation, performance critique, character creation, and solo and scene performances, with an emphasis on transferability. Students interested in pursuing public performance opportunities will be encouraged to audition for department productions and to take advanced level theatre courses.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "THR101",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "THR102",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "page 62"
+    },
+    {
+      "title": "Entertainment Production and Design",
+      "department": "Theatre",
+      "description": "Entertainment Production and Design takes students behind the scenes of theatre, film, TV, concerts, events and digital media. Areas of study include scenery, lighting, sound engineering, costumes, special effects makeup and production management. Students will collaborate with professional designers as they learn how to safely work in our state-of-the-art scenic (woodworking), costume and lighting shops. This is a hands-on and collaborative class where students will strengthen communication, problem-solving and leadership skills while gaining a comprehensive understanding of the production process in order to prepare for careers in entertainment, fashion, STEM and other creative and hands-on fields. This course may be repeated for credit; repeating students will have the opportunity to learn digital design programs including CAD, CNC router, laser printers, 3D printers, Illustrator, Cricut and production specific software including QLab, VectorWorks, lighting consoles, sound boards, networking for entertainment control systems, motorized rigging and more.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "THR121",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "THR122",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "page 62"
+    },
+    {
+      "title": "Acting 2: Character and Comedy",
+      "department": "Theatre",
+      "description": "Acting 2: Character and Comedy builds upon the work of Acting 1: Confidence and Collaboration with a greater emphasis on building character through improv comedy as well as diverse scripted scene work. We will continue to build skills in performing, writing, analysis and ensemble. Successful completion of this course prepares students to enroll in Acting 3 and 4.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "THR111",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 1: Confidence and Collaboration"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "THR112",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 1: Confidence and Collaboration"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "page 62"
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_062.png"
-  ]
+  "warnings": []
 }

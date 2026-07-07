@@ -1,8 +1,98 @@
 {
-  "departments": [],
-  "courses": [],
+  "departments": [
+    {
+      "name": "Music",
+      "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin—or continue—a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
+    }
+  ],
+  "courses": [
+    {
+      "title": "Freshman Band",
+      "department": "Music",
+      "description": "All incoming freshmen with middle school band experience may enroll in Freshman Band to continue work on their comprehensive musicianship skills. Freshman Band members also perform in three formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Symphonic Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS101",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "Prior band experience or approval of band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS102",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "Prior band experience or approval of band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Important note for all band classes: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals."
+      ],
+      "sourceReference": "page 56"
+    },
+    {
+      "title": "Symphonic Band",
+      "department": "Music",
+      "description": "Students in grades 10-12 with band experience in Freshman Band may enroll in Symphonic Band to continue work on comprehensive musicianship skills. Symphonic Band members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS121",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS122",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Important note for all band classes: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals."
+      ],
+      "sourceReference": "page 56"
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_056.png"
-  ]
+  "warnings": []
 }

@@ -1,8 +1,144 @@
 {
   "departments": [],
-  "courses": [],
+  "courses": [
+    {
+      "title": "Guitar 1",
+      "department": "Music",
+      "description": "This course is designed for students who are interested in learning how to play the guitar and/or develop strong technical skills in guitar performance. While this course is designed for a brand new guitarist, it also supports students with some guitar experience. This course will introduce the techniques and musicianship skills in order to perform classical, blues, jazz, rock and pop repertoire. Students will learn music reading skills, sight-reading, chords, collaboration, practice skills and expressive performance and listening skills. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS421",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS422",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice."
+      ],
+      "sourceReference": "page 59"
+    },
+    {
+      "title": "Guitar 2",
+      "department": "Music",
+      "description": "This course is designed for guitarists who are interested in advancing their guitar abilities. Students will refine and further develop musicianship to develop a high level of performance on guitar. Emphasis is placed on the development of technique, music-reading skills, sight-reading, more technical chords throughout the neck of the guitar, and expressive performance, solo repertoire and ensemble skills. Students perform two concerts throughout the year. This class may be repeated for credit. Students repeating this course or students with guitar experiences will receive a more tailored curriculum to help develop their skills and musicianship.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS461",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Guitar 1 or per audition with the guitar faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS462",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Guitar 1 or per audition with the guitar faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice."
+      ],
+      "sourceReference": "page 59"
+    },
+    {
+      "title": "Patriot Guitar Ensemble",
+      "department": "Music",
+      "description": "This course is designed for advanced guitarists who are interested in further developing technique and musicianship. The repertoire performed in this class includes chamber works for guitar, large ensemble pieces by composers of varied eras and extensive solo work repertoire. Emphasis is placed on development of technique, music-reading skills, composition, sight-reading, jazz voicings of chords and expressive performance as soloists and ensemble members. Students perform three concerts throughout the year. This class may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "MUS441",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the guitar faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS442",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the guitar faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep with Accelerated Option",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice.",
+        "GPA waiver option available for College Prep credit only.",
+        "Seniors who are enrolled in Wind Ensemble, Patriot Orchestra, Patriot Guitar Ensemble, Patriot Singers and Advanced Chorus and have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver."
+      ],
+      "sourceReference": "page 59"
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_059.png"
-  ]
+  "warnings": []
 }

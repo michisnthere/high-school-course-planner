@@ -1,0 +1,2618 @@
+"""
+_generate_fine_arts_json.py
+
+Hand-coded extraction for Fine Arts section (pages 45–63).
+Produces extractor/page_output/page_045.json … page_063.json
+and extractor/section_output/fine_arts.json.
+
+All data is taken directly from visual inspection of the page PNGs.
+Do not run this through any parser; it IS the authoritative output.
+"""
+from __future__ import annotations
+
+import json
+import os
+
+PAGE_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "page_output")
+SECTION_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "section_output")
+
+# ── shared note strings ───────────────────────────────────────────────────────
+_DANCE_PE_NOTE = (
+    "All Dance courses are Fine Arts credits and also satisfy the "
+    "Physical Education graduation requirement."
+)
+_DANCE_PLACEMENT_NOTE = (
+    "All incoming freshmen interested in an upper-level Dance course "
+    "(Dance 2, 3 or 4) must attend a placement assessment in January. "
+    "Based off the assessment, students will be given the appropriate "
+    "level placement. All other students may register for Dance 1 with "
+    "no audition necessary. All current placements are held in "
+    "January/early February. Transfer students placements are held in "
+    "August before classes begin."
+)
+_BAND_PE_NOTE = (
+    "Important note for all band classes: In order to earn a P.E. "
+    "waiver, all band students who participate in the Marching Patriots "
+    "must be available for rehearsals during summer and fall evenings. "
+    "Students must also obtain all necessary GPA waiver approvals."
+)
+_SENIOR_ACCEL_NOTE = (
+    "Seniors who are enrolled in Wind Ensemble, Patriot Orchestra, "
+    "Patriot Guitar Ensemble, Patriot Singers and Advanced Chorus and "
+    "have been active for four semesters in performing ensembles earn "
+    "accelerated-level grade points unless requesting a GPA waiver."
+)
+_ORCH_INSTRUMENT_NOTE = (
+    "All students enrolled in orchestra are expected to own or rent an "
+    "instrument for home use, although cello and bass students may use "
+    "school instruments for daily rehearsals."
+)
+_GUITAR_NOTE = (
+    "Nylon string, classical guitars are provided for class use. "
+    "It is recommended to have an additional guitar at home to practice."
+)
+_LOYOLA_NOTE = (
+    "Dual credit available with Loyola University Chicago. "
+    "Additional fees for dual credit may be imposed by the college/university."
+)
+_DSLR_NOTE = (
+    "Students may use their own DSLR/Apple Pencil/tripod; however, "
+    "students may check out a school-owned DSLR, Apple Pencil and/or "
+    "tripod for assignments."
+)
+_APPLE_PENCIL_NOTE = (
+    "Students may use their own Apple Pencil; however, students may "
+    "check out a school-owned Apple Pencil for assignments."
+)
+
+
+# ── PAGE 45 — Fine Arts Division intro ───────────────────────────────────────
+PAGE_45 = {
+    "departments": [
+        {
+            "name": "Fine Arts",
+            "description": (
+                "The Fine Arts curriculum focuses on the necessary skills, concepts and artistic "
+                "traditions that allow each student to achieve their potential within each art "
+                "discipline, and provides a shared common cultural experience. The curriculum "
+                "encompasses well-established methods, processes and outcomes, as well as "
+                "contemporary approaches, subject matter and themes. It includes introductory "
+                "opportunities for the novice learner and differentiated rigorous experiences for "
+                "the most experienced learners too. Students will be provided with a solid "
+                "foundation to pursue post-secondary programs with confidence, well-developed "
+                "problem-solving skills and refined higher-order thinking abilities. The curriculum "
+                "presents students with artistic material of high and enduring quality from a "
+                "variety of historical periods, artistic styles and cultures. Elective courses in "
+                "the Fine Arts Department may be eligible for the GPA waiver option. All Dance "
+                "courses are Fine Arts credit and also satisfy the Physical Education graduation "
+                "requirement."
+            ),
+        }
+    ],
+    "courses": [],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 46 — Visual Arts course offerings diagram (no descriptions) ──────────
+PAGE_46 = {
+    "departments": [],
+    "courses": [],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 47 — Visual Arts: Media Arts and Art History offerings diagram ────────
+PAGE_47 = {
+    "departments": [],
+    "courses": [],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 48 — Visual Arts dept + Art and Design / Drawing / Painting / Mixed Media / Ceramics / Sculpture ──
+PAGE_48 = {
+    "departments": [
+        {
+            "name": "Visual Arts",
+            "description": (
+                "The activities in Art classes are designed to develop skills of perception, "
+                "problem solving, understanding and sensitivity through a variety of experiences. "
+                "The aim of the Art curriculum is to give students an understanding and "
+                "appreciation for the endless and constant results of artistic efforts which "
+                "surround us in our daily lives. The unique character of the Art curriculum "
+                "provides students an opportunity to express and nurture their creative instincts "
+                "and to develop a high sense of appreciation for humankind and nature in an "
+                "atmosphere where individual expression is encouraged. Courses are offered to "
+                "meet the varied interests and abilities of the students. Students may be required "
+                "to purchase specialized supplies and tools for some Art classes."
+            ),
+        }
+    ],
+    "courses": [
+        {
+            "title": "Art and Design",
+            "department": "Visual Arts",
+            "description": (
+                "This foundational course introduces students to essential techniques, tools and "
+                "media across the visual arts. Students will explore drawing, painting, sculpture "
+                "and ceramics through hands-on studio experiences that emphasize creative thinking "
+                "and technical development. This course serves as a prerequisite for all advanced "
+                "art classes."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART101",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART102",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 48",
+        },
+        {
+            "title": "Drawing",
+            "department": "Visual Arts",
+            "description": (
+                "This course provides students with the opportunity to learn more advanced "
+                "realistic drawing and shading techniques. Observational drawing and inventive "
+                "design are explored. Various color and black and white media are used in this "
+                "course."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART221",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART222",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 48",
+        },
+        {
+            "title": "Painting",
+            "department": "Visual Arts",
+            "description": (
+                "This course teaches students the concepts, skills, methods and processes "
+                "necessary to explore watercolor and oil painting. Students create a variety of "
+                "compositions through both quick studies and extended complex paintings. There is "
+                "an emphasis on color theory, design principles, media, tools and a variety of "
+                "painting techniques."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART261",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART262",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 48",
+        },
+        {
+            "title": "Mixed Media",
+            "department": "Visual Arts",
+            "description": (
+                "This course will help students develop their individual expression through the "
+                "use of creative visual problem-solving. Students will use colored pencil, pastel, "
+                "ink pen, watercolor and other media, students will be challenged to think "
+                "creatively, work more quickly and experiment with different techniques and "
+                "compositional approaches."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART611",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART612",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 48",
+        },
+        {
+            "title": "Ceramics",
+            "department": "Visual Arts",
+            "description": (
+                "This course is a hands-on class designed for those students who like to work in "
+                "clay. Students will learn basic and advanced hand-building techniques and how to "
+                "use a potter's wheel. They will be introduced to a variety of decorating, glazing "
+                "and firing techniques and will produce a number of creative stoneware pieces."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART201",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART202",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 48",
+        },
+        {
+            "title": "Sculpture",
+            "department": "Visual Arts",
+            "description": (
+                "This course provides a hands-on approach for understanding contemporary "
+                "sculpture. Students will have the opportunity to work with a variety of 3D "
+                "media. Sculptural techniques explored may include additive, subtractive and/or "
+                "assemblage, with a focus on creative problem-solving."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART281",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART282",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 48",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 49 — Metals and Jewelry / Adv Drawing / Adv Ceramics / AP Art ────────
+PAGE_49 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Metals and Jewelry",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed to introduce students to the principles of design as "
+                "applied to metalwork, wire and jewelry. Students will learn to cut, file, "
+                "texture and polish metal pieces. They will also solder with a torch and set a "
+                "cabochon stone."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART241",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART242",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Art and Design"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 49",
+        },
+        {
+            "title": "Advanced Drawing, Painting and Mixed Media",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed to give students advanced experiences in creative "
+                "thinking and problem-solving using 2D art media. In this class, students will "
+                "build upon the concepts and skills learned in their Drawing, Painting, Studio "
+                "Art and/or Mixed Media classes. Students can choose to focus on drawing, "
+                "painting or mixed media either in a representational or expressive style, to "
+                "produce works of art that relate to specific design issues and themes. This "
+                "course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART621",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Art and Design",
+                        "Two of the following: Drawing, Painting, Studio Art, or Mixed Media",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART622",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Art and Design",
+                        "Two of the following: Drawing, Painting, Studio Art, or Mixed Media",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 49",
+        },
+        {
+            "title": "Advanced Ceramics, Metals and Sculpture",
+            "department": "Visual Arts",
+            "description": (
+                "This course gives students advanced experiences in creative thinking and problem "
+                "solving with 3D art issues and 3D art media. In this class, students can focus "
+                "on ceramics, sculpture or jewelry and metals to produce works of art that relate "
+                "to specific design issues and themes. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART631",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Art and Design",
+                        "Two of the following: Ceramics, Metals and Jewelry, or Sculpture",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART632",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Art and Design",
+                        "Two of the following: Ceramics, Metals and Jewelry, or Sculpture",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 49",
+        },
+        {
+            "title": "AP Art: Drawing, 2D and 3D Design",
+            "department": "Visual Arts",
+            "description": (
+                "This course offers students a concentrated program which enables them to apply "
+                "for college credit in art. Emphasis is centered on studio work, the preparation "
+                "of a portfolio and the submission of a portfolio for potential AP credit. In the "
+                "spring, each student will exhibit their work in a one-person show. This course "
+                "may be repeated for credit."
+            ),
+            "gpaWaiverOption": False,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART801",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": [
+                        "Advanced Drawing, Painting and Mixed Media",
+                        "or Advanced Ceramics, Metals and Sculpture",
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART802",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": [
+                        "Advanced Drawing, Painting and Mixed Media",
+                        "or Advanced Ceramics, Metals and Sculpture",
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 49",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 50 — Photography 1 / Photography 2 / Advanced Photo / AP Photo ───────
+PAGE_50 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Photography 1",
+            "department": "Visual Arts",
+            "description": (
+                "This foundational course covers basic concepts and practice of digital "
+                "photography, including understanding and use of the camera, lenses and other "
+                "basic photographic equipment. The course will address aesthetic principles as "
+                "they relate to composition, space, exposure, light and color. An introduction "
+                "to Adobe Photoshop will be studied in this course. Technological requirements "
+                "of digital formats will be addressed. Basic digital manipulations of images "
+                "will be taught in preparation for creating finished art."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART401",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART402",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                "Students may use their own DSLR; however, students may check out "
+                "school-owned cameras for assignments."
+            ],
+            "sourceReference": "page 50",
+        },
+        {
+            "title": "Photography 2",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed to refine students' digital photographic skills and "
+                "aesthetic judgment as they relate to composition, space, exposure, light and "
+                "color. Special effects, studio lighting, portraiture, night photography, use "
+                "of Adobe Photoshop, the Creative Suite and Procreate are areas studied in this "
+                "course. Technological requirements of digital formats and printing will be "
+                "addressed."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART411",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Photography 1"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART412",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Photography 1"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DSLR_NOTE],
+            "sourceReference": "page 50",
+        },
+        {
+            "title": "Advanced Photography and Digital Design",
+            "department": "Visual Arts",
+            "description": (
+                "This course offers an advanced study of photography and/or digital design for "
+                "students who want to pursue image making in a serious manner. Students on the "
+                "photography track are introduced to large format printing, DSLR camera handling "
+                "skills and advanced techniques using Adobe Photoshop and the Creative Suite. "
+                "Students on the design track will be developing a portfolio of digital drawings "
+                "and designs using the Adobe Creative Suite and the Procreate drawing app. Design "
+                "students will also explore methods of digital photography to enhance their "
+                "layout, formatting and design skills. Students will explore brainstorming "
+                "methods to develop stronger concepts and common visual connections through the "
+                "development of a series of work. Students will compile a portfolio and assemble "
+                "a one-person show to be exhibited in the spring."
+            ),
+            "gpaWaiverOption": False,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART421",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Photography 1 and Photography 2, "
+                        "or Digital Art and Design 1 and Digital Art and Design 2, "
+                        "or 2D Animation and/or 3D Animation"
+                    ],
+                    "corequisites": [],
+                    "creditType": "Accelerated",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART422",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Photography 1 and Photography 2, "
+                        "or Digital Art and Design 1 and Digital Art and Design 2, "
+                        "or 2D Animation and/or 3D Animation"
+                    ],
+                    "corequisites": [],
+                    "creditType": "Accelerated",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DSLR_NOTE],
+            "sourceReference": "page 50",
+        },
+        {
+            "title": "AP Photography and Digital Design",
+            "department": "Visual Arts",
+            "description": (
+                "This course offers digital 2D design drawing and painting students a "
+                "concentrated program, which enables them to apply for college credit in art. "
+                "Emphasis is centered on studio work, the preparation of a portfolio and the "
+                "submission of a portfolio for potential AP credit. In the spring, each student "
+                "will exhibit their work in a one-person show. This course may be repeated for "
+                "credit."
+            ),
+            "gpaWaiverOption": False,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART871",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": ["Advanced Photography and Digital Design"],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART872",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": ["Advanced Photography and Digital Design"],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DSLR_NOTE],
+            "sourceReference": "page 50",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 51 — Digital Art 1/2 / 2D Animation / 3D Animation / AP Art History ──
+PAGE_51 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Digital Art and Design 1",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed to introduce students to Adobe Photoshop and Procreate "
+                "as drawing and graphic design tools and as a means of producing finished "
+                "artwork. Students will have the opportunity to develop skills and be creative "
+                "while digitally drawing, painting and manipulating photographic images with "
+                "both Wacom tablets as well as the iPad and Apple Pencil. Projects will have "
+                "fine arts, photography, media arts and graphic design components."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART501",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART502",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_APPLE_PENCIL_NOTE],
+            "sourceReference": "page 51",
+        },
+        {
+            "title": "Digital Art and Design 2",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed to be an advanced or second level for students "
+                "interested in furthering their study and exploration of using Adobe Photoshop "
+                "as well as Procreate as a drawing and graphic design tool. Students will have "
+                "the opportunity to develop skills and be creative while digitally drawing, "
+                "painting and manipulating photographic images with both Wacom tablets as well "
+                "as the iPad and Apple Pencil. Students will be introduced to more complex "
+                "concepts and techniques of media arts and graphic design. The course will have "
+                "fine arts, photographic and commercial art components."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART511",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Digital Art and Design 1"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART512",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Digital Art and Design 1"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_APPLE_PENCIL_NOTE],
+            "sourceReference": "page 51",
+        },
+        {
+            "title": "2D Animation",
+            "department": "Visual Arts",
+            "description": (
+                "This course provides students the opportunity to study and explore 2D animation. "
+                "Students will study the history of animation and work with 2D animation software "
+                "to produce their own animated shorts, from initial concept and storyboarding "
+                "through final rendering. Concepts and techniques in vector-based drawing, "
+                "timing, key-framing and music and lip synchronization will be explored."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART531",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Digital Art and Design 1"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART532",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Digital Art and Design 1"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 51",
+        },
+        {
+            "title": "3D Animation",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed for students with an interest in 3D animation. Students "
+                "will build upon the concepts, skills and techniques learned from 2D Animation to "
+                "help them learn to use 3D animation software to create and animate their own 3D "
+                "models/characters. Polygon and NURB modeling, texturing, lighting and basic 3D "
+                "key-frame/path animation will be explored."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART541",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["2D Animation and/or director approval"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART542",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["2D Animation and/or director approval"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 51",
+        },
+        {
+            "title": "AP Art History",
+            "department": "Visual Arts",
+            "description": (
+                "This course is designed as an introductory college-level course in the history "
+                "of art. Students will examine the major forms of artistic expression from "
+                "prehistoric through contemporary cultures. They will study architecture, "
+                "sculpture, painting and other art forms with intelligence and sensitivity. "
+                "Students who enroll in this course will be prepared to take the AP Art History "
+                "exam in May."
+            ),
+            "gpaWaiverOption": False,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "ART721",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "ART722",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 51",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 52 — Dance Course Offerings diagram (no descriptions) ────────────────
+PAGE_52 = {
+    "departments": [],
+    "courses": [],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 53 — Dance dept + Dance 1 / Dance 2 / Dance 3 ───────────────────────
+PAGE_53 = {
+    "departments": [
+        {
+            "name": "Dance",
+            "description": (
+                "Stevenson High School provides Dance as a creative and rewarding art experience "
+                "where artistic integrity and appreciation are developed. Dance is a physical and "
+                "mental discipline. Students are provided opportunities to develop body strength, "
+                "agility, coordination, creative problem-solving skills, organizational skills "
+                "and the ability to work effectively in cooperative learning groups. They gain "
+                "self-confidence, self-discipline and satisfaction in movement. Students will "
+                "have the opportunity to learn a variety of dance styles from guest dance "
+                "teachers during the school year. Dance students are regularly assessed on all "
+                "course skills. All Dance students are required to purchase and wear appropriate "
+                "attire as designated by the Dance teacher."
+            ),
+        }
+    ],
+    "courses": [
+        {
+            "title": "Dance 1",
+            "department": "Dance",
+            "description": (
+                "This course will introduce and review essential dance skills. Students will "
+                "learn basic dance movement and concepts such as time, space and energy, as well "
+                "as movement terminology. Practice and repetition are primary means of learning "
+                "movement and are followed by assessment and teacher feedback. Emphasis will be "
+                "on dance movement followed by a focus on refining technique and choreography "
+                "concepts. Students will be asked to demonstrate risk-taking and a willingness "
+                "to step outside their comfort zone. Students will also learn basic dance anatomy "
+                "and conditioning exercises to prepare the body for flexibility, strength and "
+                "endurance. Students will also participate in peer-to-peer feedback. Students "
+                "are required to attend and critique the Winter and Spring Dance Concerts. "
+                "Students will also participate in the Dance Demonstration during first semester "
+                "and the Day of Dance performance during second semester. This course may be "
+                "repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC101",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC102",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DANCE_PE_NOTE, _DANCE_PLACEMENT_NOTE],
+            "sourceReference": "page 53",
+        },
+        {
+            "title": "Dance 2",
+            "department": "Dance",
+            "description": (
+                "This course is designed for students who have some experience in contemporary "
+                "dance technique. Emphasis will be on dance vocabulary, essential choreographic "
+                "concepts and basic anatomy as it pertains to dance. Practice and repetition are "
+                "primary means of learning movement and are followed by assessment and teacher "
+                "feedback. Students will also participate in peer-to-peer feedback. Students are "
+                "required to attend and critique the Winter and Spring Dance Concerts. Students "
+                "will also participate in the Dance Demonstrations during first semester and the "
+                "Day of Dance performance during second semester. This course may be repeated "
+                "for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC201",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Dance 1 and/or placement by instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC202",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Dance 1 and/or placement by instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DANCE_PE_NOTE],
+            "sourceReference": "page 53",
+        },
+        {
+            "title": "Dance 3",
+            "department": "Dance",
+            "description": (
+                "This course is designed for students with previous dance training. Students "
+                "will focus on the detailed aspects of contemporary dance at an accelerated "
+                "pace. Emphasis is on the student's technique and choreography studies. Students "
+                "engage in critical response and self-assessment activities to enhance content "
+                "knowledge. Dancers will challenge their physical limitations and their ability "
+                "to dance to their full potential. Students are required to attend and critique "
+                "the Winter and Spring Dance Concerts. Students will also participate in the "
+                "Dance Demonstration performance during first semester and the Day of Dance "
+                "performance during second semester. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC301",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Dance 2 and/or placement by instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC302",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Dance 2 and/or placement by instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DANCE_PE_NOTE],
+            "sourceReference": "page 53",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 54 — Dance 4 / Concert Dance / Jazz Fusion / Technical Skills / Dance Leadership ──
+PAGE_54 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Dance 4",
+            "department": "Dance",
+            "description": (
+                "This course is designed for students who have achieved a high degree of "
+                "technical skill. The class will work toward developing and enhancing performance "
+                "qualities. The emphasis is on challenging students' creative skills in order to "
+                "strengthen versatility of movement styles through choreographic and "
+                "compositional strategies. Students will also be introduced to leadership skills "
+                "through assisting with or leading peers in instruction. Course content knowledge "
+                "is enhanced through critical response and self-assessment activities. Students "
+                "are required to attend and critique the Winter and Spring Dance Concerts. "
+                "Students will also participate in the Dance Demonstration performance during "
+                "first semester and the Day of the Dance performance during second semester. "
+                "This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC401",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Dance 3 and/or placement by instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC402",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Dance 3 and/or placement by instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DANCE_PE_NOTE],
+            "sourceReference": "page 54",
+        },
+        {
+            "title": "Concert Dance",
+            "department": "Dance",
+            "description": (
+                "This course is designed for students who have had advanced training in "
+                "contemporary dance, as well as a strong background in ballet, jazz and "
+                "composition. Concert dancers are responsible for maintaining a high quality of "
+                "technical skill. The Concert Dance class will work toward developing and "
+                "enhancing performance and choreographic skills in preparation for college-level "
+                "dance study and/or professional studio experience. Concert dancers will "
+                "choreograph their own dances and perform in the Winter and Spring Dance "
+                "Concerts. Daily and after-school rehearsals will be scheduled one to two weeks "
+                "prior to the opening of the Winter and Spring Concerts and attendance is "
+                "mandatory. Students may also audition for guest choreographers. These rehearsals "
+                "take place after school and are required, if cast. Fees are approximately $150 "
+                "for after-school dance company expenses. Admission into Concert Dance is based "
+                "on the submission of a portfolio submitted to and approved by the Dance "
+                "Department. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC501",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Dance 4",
+                        "or a senior who has completed Dance 3",
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC502",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Dance 4",
+                        "or a senior who has completed Dance 3",
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                _DANCE_PE_NOTE,
+                _LOYOLA_NOTE,
+                "Fees are approximately $150 for after-school dance company expenses.",
+                "Admission into Concert Dance is based on the submission of a portfolio submitted to and approved by the Dance Department.",
+            ],
+            "sourceReference": "page 54",
+        },
+        {
+            "title": "Jazz Fusion",
+            "department": "Dance",
+            "description": (
+                "This course will introduce and review essential dance skills that pertain to "
+                "the jazz dance genre. Over the semester of this jazz survey course, students "
+                "will learn and engage in jazz, hip hop, musical theatre and dance fitness "
+                "movement. With focus on creativity, discipline and technical development, "
+                "dancers work in a nurturing atmosphere to build confidence and life/dance "
+                "skills. The Jazz Fusion curriculum is designed to help dancers create a strong "
+                "foundation through repetitive movement, dance vocabulary, discussion and "
+                "explorations. No experience is necessary and this course may be repeated for "
+                "credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC321",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC322",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DANCE_PE_NOTE],
+            "sourceReference": "page 54",
+        },
+        {
+            "title": "Technical Skills",
+            "department": "Dance",
+            "description": (
+                "This course will focus on honing technical dance skills by working on "
+                "anatomical alignment, physical strength and flexibility. Students will practice "
+                "technical movements such as jumps, turns and leaps. Students will also learn "
+                "specific dance conditioning practices to increase the quality of dance "
+                "execution. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC311",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Dance 2 or higher, and/or teacher approval"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC312",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Dance 2 or higher, and/or teacher approval"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_DANCE_PE_NOTE],
+            "sourceReference": "page 54",
+        },
+        {
+            "title": "Dance Leadership",
+            "department": "Dance",
+            "description": (
+                "Dance Leadership is a one-year course where students will intern and assist "
+                "with dance instruction in a technique class. Dance leaders will learn and "
+                "demonstrate the teacher-created combinations including warm-ups, across the "
+                "floor and center combinations. Dance leaders will model proper technique and "
+                "assist students. Dance Leaders will periodically work one-on-one with dance "
+                "students in a peer mentoring fashion. While taking this course, the Dance "
+                "Leaders will also meet individually with the teacher outside of class to learn "
+                "what they will instruct at the end of each semester. They will also create "
+                "exercises and a lesson that they will instruct at the end of each semester. "
+                "Dance Leadership applications are available on the Dance website in early "
+                "November and are due by December 5. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "DNC601",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Minimum of one year in Dance 3 or Dance 4 and/or approval of instructors"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "DNC602",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Minimum of one year in Dance 3 or Dance 4 and/or approval of instructors"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                _DANCE_PE_NOTE,
+                "Dance Leadership applications are available on the Dance website in early November and are due by December 5.",
+            ],
+            "sourceReference": "page 54",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 55 — Music Course Offerings diagram (no descriptions) ────────────────
+PAGE_55 = {
+    "departments": [],
+    "courses": [],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 56 — Music dept + Freshman Band + Symphonic Band ─────────────────────
+PAGE_56 = {
+    "departments": [
+        {
+            "name": "Music",
+            "description": (
+                "Music study helps students develop skills in comprehending, creative problem "
+                "solving, working as a team, logical reasoning, using symbols, conceptualizing, "
+                "making value judgments and communicating. It promotes cultural awareness and "
+                "provides unique opportunities for self-expression and creativity. The Stevenson "
+                "Music Department offers a variety of classes that allow students to begin—or "
+                "continue—a strong, sequential program of music study. Courses are offered in "
+                "instrumental music, vocal music and non-performance classes. Though many "
+                "objectives for music education can be met in the classroom, it is important "
+                "that students, who are developing music skills, are provided opportunities to "
+                "display their accomplishments through concerts, recitals, parades, festivals "
+                "and other performance experiences. These are a direct outgrowth of the nature "
+                "of the art which is being studied. Therefore, performing ensembles include an "
+                "emphasis on the importance of participation in occasional after-school "
+                "rehearsals and performances."
+            ),
+        }
+    ],
+    "courses": [
+        {
+            "title": "Freshman Band",
+            "department": "Music",
+            "description": (
+                "All incoming freshmen with middle school band experience may enroll in Freshman "
+                "Band to continue work on their comprehensive musicianship skills. Freshman Band "
+                "members also perform in three formal concerts throughout the year. For the first "
+                "eight to nine weeks of the first semester, band students may choose to perform "
+                "in the highly acclaimed Marching Patriots with members of the Symphonic Band, "
+                "Wind Symphony and Wind Ensemble. Students electing to participate in Marching "
+                "Band may receive a P.E. waiver for the first semester."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS101",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9],
+                    "prerequisites": [
+                        "Prior band experience or approval of band faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS102",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9],
+                    "prerequisites": [
+                        "Prior band experience or approval of band faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_BAND_PE_NOTE],
+            "sourceReference": "page 56",
+        },
+        {
+            "title": "Symphonic Band",
+            "department": "Music",
+            "description": (
+                "Students in grades 10-12 with band experience in Freshman Band may enroll in "
+                "Symphonic Band to continue work on comprehensive musicianship skills. Symphonic "
+                "Band members also perform in four formal concerts throughout the year. For the "
+                "first eight to nine weeks of the first semester, band students may choose to "
+                "perform in the highly acclaimed Marching Patriots with members of the Freshman "
+                "Band, Wind Symphony and Wind Ensemble. Students electing to participate in "
+                "Marching Band may receive a P.E. waiver for the first semester. This course "
+                "may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS121",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with band faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS122",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with band faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_BAND_PE_NOTE],
+            "sourceReference": "page 56",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 57 — Wind Symphony / Wind Ensemble / Stevenson Singers / Advanced Chorus / Patriot Singers ──
+PAGE_57 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Wind Symphony",
+            "department": "Music",
+            "description": (
+                "Students in grades 10-12 with band experience may audition to enroll in Wind "
+                "Symphony to continue work on comprehensive musicianship skills. Wind Symphony "
+                "members also perform in four formal concerts throughout the year. For the first "
+                "eight to nine weeks of the first semester, band students may choose to perform "
+                "in the highly acclaimed Marching Patriots with members of the Freshman Band, "
+                "Symphonic Band and Wind Ensemble. Students electing to participate in Marching "
+                "Band may receive a P.E. waiver for the first semester. This course may be "
+                "repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS131",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with band faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS132",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with band faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_BAND_PE_NOTE],
+            "sourceReference": "page 57",
+        },
+        {
+            "title": "Wind Ensemble",
+            "department": "Music",
+            "description": (
+                "Students in grades 10-12 with band experience may audition to enroll in Wind "
+                "Ensemble to continue work on comprehensive musicianship skills. Wind Ensemble "
+                "also performs in five annual concerts at Stevenson High School and may also "
+                "participate in additional performance opportunities or festivals. For the first "
+                "eight to nine weeks of the first semester, band students may choose to perform "
+                "in the highly acclaimed Marching Patriots with members of the Freshman Band, "
+                "Symphonic Band and Wind Symphony. Students electing to participate in Marching "
+                "Band may receive a P.E. waiver for the first semester. This course may be "
+                "repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS141",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with band faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS142",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with band faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                "GPA waiver option available for College Prep credit only.",
+                _BAND_PE_NOTE,
+                _SENIOR_ACCEL_NOTE,
+            ],
+            "sourceReference": "page 57",
+        },
+        {
+            "title": "Stevenson Singers",
+            "department": "Music",
+            "description": (
+                "This ensemble is an entry level singing course, available to all students of "
+                "all grade levels, regardless of previous experience. This course focuses on "
+                "developing fundamental skills for individual and group singing, and "
+                "comprehensive musician skills. Stevenson Singers perform at five school "
+                "concerts throughout the year. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS201",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS202",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 57",
+        },
+        {
+            "title": "Advanced Chorus",
+            "department": "Music",
+            "description": (
+                "Experienced sopranos and altos may audition for this advanced vocal ensemble. "
+                "Students will continue to work on developing more advanced skills for individual "
+                "and group singing, as well as comprehensive musicianship. This ensemble performs "
+                "at five school concerts and may also participate in additional performance "
+                "opportunities or festivals. Seniors may earn accelerated credit in this course. "
+                "This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS211",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with choir faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS212",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Audition with choir faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                "GPA waiver option available for College Prep credit only.",
+                _SENIOR_ACCEL_NOTE,
+            ],
+            "sourceReference": "page 57",
+        },
+        {
+            "title": "Patriot Singers",
+            "department": "Music",
+            "description": (
+                "Experienced students of all voice parts may audition for Patriot Singers. "
+                "This is an advanced SATB vocal ensemble, where students will be challenged "
+                "with a wide variety of repertoire, and further develop advanced musicianship "
+                "skills. The Patriot Singers perform at five school concerts, community events "
+                "and may also participate in additional performance opportunities or festivals. "
+                "Seniors may earn accelerated credit in this course. This course may be "
+                "repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS221",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Audition with choir faculty",
+                        "Treble voices need to have completed one year in Advanced Chorus",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS222",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Audition with choir faculty",
+                        "Treble voices need to have completed one year in Advanced Chorus",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                "GPA waiver option available for College Prep credit only.",
+                _SENIOR_ACCEL_NOTE,
+            ],
+            "sourceReference": "page 57",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 58 — Orchestra courses ───────────────────────────────────────────────
+PAGE_58 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Stevenson Orchestra",
+            "department": "Music",
+            "description": (
+                "This course is open to students in grade 9, as well as transfer students who "
+                "demonstrate the appropriate level of technical preparedness on violin, viola, "
+                "cello, bass or harp. Students will continue developing foundational and "
+                "intermediate performance techniques while expanding their knowledge of music "
+                "theory and comprehensive musicianship skills. The ensemble will study and "
+                "perform a variety of string orchestra and chamber music repertoire. Students "
+                "are required to attend scheduled rehearsals and performances outside of the "
+                "school day. Performance commitments include four formal concerts and additional "
+                "curricular string events throughout the school year. Incoming students in grade "
+                "9 and transfer students are encouraged to attend a one-day summer strings camp "
+                "in August to become familiar with the strings program and facilities. This "
+                "course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS301",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9],
+                    "prerequisites": [
+                        "All incoming freshman orchestra students should register for this class"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS302",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9],
+                    "prerequisites": [
+                        "All incoming freshman orchestra students should register for this class"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_ORCH_INSTRUMENT_NOTE],
+            "sourceReference": "page 58",
+        },
+        {
+            "title": "Concert Orchestra",
+            "department": "Music",
+            "description": (
+                "This course is designed for students in grades 10–12 who play violin, viola, "
+                "cello, bass or harp with advanced string technique. Students will study two- "
+                "and three-octave scales and arpeggios while developing advanced performance "
+                "techniques, music theory knowledge and comprehensive musicianship skills. The "
+                "orchestra will perform a wide range of intermediate to advanced string orchestra "
+                "and chamber music repertoire. Students will participate in four formal concerts "
+                "as well as additional curricular string events throughout the school year. This "
+                "course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS311",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Prior orchestra experience and/or approval of orchestra faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS312",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Prior orchestra experience and/or approval of orchestra faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_ORCH_INSTRUMENT_NOTE],
+            "sourceReference": "page 58",
+        },
+        {
+            "title": "Symphonic Orchestra",
+            "department": "Music",
+            "description": (
+                "This course is designed for advanced violin, viola, cello, bass and harp "
+                "string students. The repertoire in this class includes works for chamber "
+                "groups, string ensemble and full orchestra. Musical works highlight repertoire "
+                "of the Baroque, Classical and early Romantic eras with performances on five "
+                "formal concerts throughout the school year. Students in this class will work "
+                "towards mastery of three-octave major and minor scales and arpeggios, "
+                "concerto-level repertoire, music theory concepts and comprehensive "
+                "musicianship skills. The students in this ensemble collaborate with members "
+                "of Wind Symphony each year for an exploration of the full orchestra repertoire. "
+                "This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS331",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [
+                        "Auditions are required for all students with the orchestra faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS332",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [
+                        "Auditions are required for all students with the orchestra faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_ORCH_INSTRUMENT_NOTE],
+            "sourceReference": "page 58",
+        },
+        {
+            "title": "Patriot Orchestra",
+            "department": "Music",
+            "description": (
+                "This course is designed for students in grades 10–12 who play violin, viola, "
+                "cello, bass or harp and demonstrate advanced string technique. Repertoire "
+                "includes works for chamber ensemble, string orchestra and full orchestra with "
+                "a focus on advanced literature ranging from the mid-19th century to "
+                "contemporary composers. Students will be expected to demonstrate mastery of "
+                "all three-octave major and minor scales and arpeggios, concerto repertoire, "
+                "music theory concepts and comprehensive musicianship skills. In addition to "
+                "performing advanced repertoire, members of this ensemble collaborate annually "
+                "with the Wind Ensemble to study and present full-orchestra literature. Students "
+                "are required to attend scheduled rehearsals and performances outside of the "
+                "school day. Performance commitments include five formal concerts and additional "
+                "curricular string events throughout the year. Seniors may earn accelerated "
+                "credit for this course. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS321",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Completed one full year of Concert or Symphonic Orchestra",
+                        "Formal audition and approval from the orchestra faculty",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS322",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Completed one full year of Concert or Symphonic Orchestra",
+                        "Formal audition and approval from the orchestra faculty",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                _ORCH_INSTRUMENT_NOTE,
+                "GPA waiver option available for College Prep credit only.",
+                _SENIOR_ACCEL_NOTE,
+            ],
+            "sourceReference": "page 58",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 59 — Guitar 1 / Guitar 2 / Patriot Guitar Ensemble ──────────────────
+PAGE_59 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Guitar 1",
+            "department": "Music",
+            "description": (
+                "This course is designed for students who are interested in learning how to play "
+                "the guitar and/or develop strong technical skills in guitar performance. While "
+                "this course is designed for a brand new guitarist, it also supports students "
+                "with some guitar experience. This course will introduce the techniques and "
+                "musicianship skills in order to perform classical, blues, jazz, rock and pop "
+                "repertoire. Students will learn music reading skills, sight-reading, chords, "
+                "collaboration, practice skills and expressive performance and listening skills. "
+                "This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS421",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS422",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_GUITAR_NOTE],
+            "sourceReference": "page 59",
+        },
+        {
+            "title": "Guitar 2",
+            "department": "Music",
+            "description": (
+                "This course is designed for guitarists who are interested in advancing their "
+                "guitar abilities. Students will refine and further develop musicianship to "
+                "develop a high level of performance on guitar. Emphasis is placed on the "
+                "development of technique, music-reading skills, sight-reading, more technical "
+                "chords throughout the neck of the guitar, and expressive performance, solo "
+                "repertoire and ensemble skills. Students perform two concerts throughout the "
+                "year. This class may be repeated for credit. Students repeating this course "
+                "or students with guitar experiences will receive a more tailored curriculum "
+                "to help develop their skills and musicianship."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS461",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Guitar 1 or per audition with the guitar faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS462",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Guitar 1 or per audition with the guitar faculty"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_GUITAR_NOTE],
+            "sourceReference": "page 59",
+        },
+        {
+            "title": "Patriot Guitar Ensemble",
+            "department": "Music",
+            "description": (
+                "This course is designed for advanced guitarists who are interested in further "
+                "developing technique and musicianship. The repertoire performed in this class "
+                "includes chamber works for guitar, large ensemble pieces by composers of varied "
+                "eras and extensive solo work repertoire. Emphasis is placed on development of "
+                "technique, music-reading skills, composition, sight-reading, jazz voicings of "
+                "chords and expressive performance as soloists and ensemble members. Students "
+                "perform three concerts throughout the year. This class may be repeated for "
+                "credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS441",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Auditions are required for all students with the guitar faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS442",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Auditions are required for all students with the guitar faculty"
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep with Accelerated Option",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [
+                _GUITAR_NOTE,
+                "GPA waiver option available for College Prep credit only.",
+                _SENIOR_ACCEL_NOTE,
+            ],
+            "sourceReference": "page 59",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 60 — Piano 1 / Music Production 1 & 2 / Advanced Music Production / AP Music Theory ──
+PAGE_60 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Piano 1",
+            "department": "Music",
+            "description": (
+                "This course is designed for students of all skill levels, from non-experienced "
+                "through advanced. This class will introduce students to music notation, basic "
+                "music theory, keyboard technique and music terminology through the study of "
+                "keyboard repertoire. Students will work independently, collaboratively and "
+                "with instructor guidance to shape their musical goals, including selecting "
+                "their own music to learn and perform. Students repeating this course or "
+                "students with theory and composition experiences will be able to experience "
+                "more advanced musical topics. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS401",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS402",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 60",
+        },
+        {
+            "title": "Music Production 1",
+            "department": "Music",
+            "description": (
+                "This course will explore concepts in production, recording, performance, audio "
+                "engineering, music business, sound design, music marketing and more. Students "
+                "will have access to music production software, instruments and recording "
+                "equipment in order to create, edit and mix the music that interests them. "
+                "Music Production 1 is open to all students with an interest in music, no prior "
+                "experience is necessary. All students will have the option to participate in a "
+                "Music Production Showcase at the end of the semester."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS431",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS432",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 60",
+        },
+        {
+            "title": "Music Production 2",
+            "department": "Music",
+            "description": (
+                "Music Production 2 is a course designed for students interested in furthering "
+                "their study and exploration of music production and the music industry. "
+                "Students will pursue more advanced concepts and techniques resulting in a "
+                "substantial amount of original music by the end of the course. Students will "
+                "have access to music production software, instruments and recording equipment "
+                "in order to create, edit and mix the music that interests them. All students "
+                "will participate in a Music Production Showcase at the end of the semester."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS451",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Music Production 1 or approval of instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS452",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Music Production 1 or approval of instructor"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 60",
+        },
+        {
+            "title": "Advanced Music Production",
+            "department": "Music",
+            "description": (
+                "Advanced Music Production is a course designed for students interested in "
+                "pursuing advanced concepts in music production. This course will provide real "
+                "world experiences to students and prepare them to participate in the music "
+                "industry after high school and beyond. Students in this course will get to "
+                "experience the process of recording original music in a professional studio "
+                "setting and all students will participate in a Music Production Showcase at "
+                "the end of each semester. Students will have access to music production "
+                "software, instruments and recording equipment both at home and at school. "
+                "This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS471",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Music Production 2 or placement by instructor"
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS472",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Music Production 2 or placement by instructor"
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_LOYOLA_NOTE],
+            "sourceReference": "page 60",
+        },
+        {
+            "title": "AP Music Theory",
+            "department": "Music",
+            "description": (
+                "This course is designed for the advanced musician who is interested in "
+                "enhancing their music ability through a rigorous study of Western music "
+                "theory. Students learn the basics of tonal harmony, including: chord "
+                "construction, four-part voice writing, harmonic analysis and harmonic "
+                "sequence. Students also study ear training, sight singing, melodic, rhythmic "
+                "and harmonic dictation, 20th century techniques and form/structure. Students "
+                "who enroll in this course will be prepared to take the AP Music Theory exam "
+                "in May, as well as entrance examinations given by schools of music for "
+                "entering music majors/minors."
+            ),
+            "gpaWaiverOption": False,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "MUS801",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Membership in either Instrumental or Vocal Ensemble, or approval of instructor"
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "MUS802",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "full year",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": [
+                        "Membership in either Instrumental or Vocal Ensemble, or approval of instructor"
+                    ],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 60",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 61 — Theatre Course Offerings diagram (no descriptions) ──────────────
+PAGE_61 = {
+    "departments": [],
+    "courses": [],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 62 — Theatre dept + Acting 1 / Entertainment Production / Acting 2 ───
+PAGE_62 = {
+    "departments": [
+        {
+            "name": "Theatre",
+            "description": (
+                "Theatre classes at Stevenson feature a sequential and cumulative curriculum "
+                "which allows students to develop theatrical skills while exploring their unique "
+                "creativity and considering social and historical context and impact. Some "
+                "courses include a public performance component. While Theatre courses can "
+                "provide pre-professional training for students, the ultimate goals are to "
+                "develop 21st century transfer skills, to have fun creating art, to develop "
+                "ensemble and community, to build self-awareness and confidence and to explore "
+                "empathy and critical thinking through diverse stories."
+            ),
+        }
+    ],
+    "courses": [
+        {
+            "title": "Acting 1: Confidence and Collaboration",
+            "department": "Theatre",
+            "description": (
+                "Acting 1: Confidence and Collaboration is an introductory theatre survey and "
+                "performance-based class. This course emphasizes the basic skills and techniques "
+                "of theatre artists including: ensemble collaboration, confidence and "
+                "risk-taking, imagination, focus, performance, rehearsal and text analysis. "
+                "These skills also prepare students for careers in all areas of entertainment, "
+                "education, business, law and STEM. Techniques to be covered include warm-up "
+                "activities and exercises, ensemble communication and collaboration, "
+                "improvisation, pantomime, text interpretation, performance critique, character "
+                "creation, and solo and scene performances, with an emphasis on transferability. "
+                "Students interested in pursuing public performance opportunities will be "
+                "encouraged to audition for department productions and to take advanced level "
+                "theatre courses."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR101",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "THR102",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 62",
+        },
+        {
+            "title": "Entertainment Production and Design",
+            "department": "Theatre",
+            "description": (
+                "Entertainment Production and Design takes students behind the scenes of "
+                "theatre, film, TV, concerts, events and digital media. Areas of study include "
+                "scenery, lighting, sound engineering, costumes, special effects makeup and "
+                "production management. Students will collaborate with professional designers "
+                "as they learn how to safely work in our state-of-the-art scenic (woodworking), "
+                "costume and lighting shops. This is a hands-on and collaborative class where "
+                "students will strengthen communication, problem-solving and leadership skills "
+                "while gaining a comprehensive understanding of the production process in order "
+                "to prepare for careers in entertainment, fashion, STEM and other creative and "
+                "hands-on fields. This course may be repeated for credit; repeating students "
+                "will have the opportunity to learn digital design programs including CAD, CNC "
+                "router, laser printers, 3D printers, Illustrator, Cricut and production "
+                "specific software including QLab, VectorWorks, lighting consoles, sound "
+                "boards, networking for entertainment control systems, motorized rigging and "
+                "more."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR121",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "THR122",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 62",
+        },
+        {
+            "title": "Acting 2: Character and Comedy",
+            "department": "Theatre",
+            "description": (
+                "Acting 2: Character and Comedy builds upon the work of Acting 1: Confidence "
+                "and Collaboration with a greater emphasis on building character through improv "
+                "comedy as well as diverse scripted scene work. We will continue to build skills "
+                "in performing, writing, analysis and ensemble. Successful completion of this "
+                "course prepares students to enroll in Acting 3 and 4."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR111",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Acting 1: Confidence and Collaboration"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "THR112",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [9, 10, 11, 12],
+                    "prerequisites": ["Acting 1: Confidence and Collaboration"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 62",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+# ── PAGE 63 — Acting 3 / Acting 4 / Advanced Acting / Theatre Leadership / Leadership in Theatre Studies ──
+PAGE_63 = {
+    "departments": [],
+    "courses": [
+        {
+            "title": "Acting 3",
+            "department": "Theatre",
+            "description": (
+                "Acting 3 is an advanced theatre course with an emphasis on student-generated "
+                "performance. Specific areas of focus include improv comedy and student written "
+                "performance relating to contemporary social issues. Acting 3 culminates in an "
+                "original devised performance, as part of the Patriot Theatre Company season."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR211",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "semester 1 only",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Acting 2: Character and Comedy"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 63",
+        },
+        {
+            "title": "Acting 4",
+            "department": "Theatre",
+            "description": (
+                "Acting 4 is an advanced theatre course which allows students to explore and "
+                "perform a wide range of theatrical texts and traditions. Students will gain "
+                "knowledge of influential theatre styles including Greek, Commedia dell'arte, "
+                "Shakespeare and other global traditions."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR212",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "semester 2 only",
+                    "gradeLevels": [10, 11, 12],
+                    "prerequisites": ["Acting 3"],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 63",
+        },
+        {
+            "title": "Advanced Acting",
+            "department": "Theatre",
+            "description": (
+                "In Advanced Acting, students will experience an intensive theatre course in "
+                "performance, production and leadership. Students will build on the foundations "
+                "of Acting 1-4 to analyze and present complex theatrical texts. Advanced Acting "
+                "prepares students to be involved in departmental productions in acting and "
+                "production capacities. This course also prepares students for college and "
+                "professional theatre pursuits, as well as the transfer of theatre skills to "
+                "all career avenues. Students will be expected to conduct themselves as theatre "
+                "professionals and role models to the entire theatre community. Advanced Acting "
+                "culminates in a public showcase of a scripted work as part of the Patriot "
+                "Theatre Company season. This course may be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR401",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": ["Acting 4"],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "THR402",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": ["Acting 4"],
+                    "corequisites": [],
+                    "creditType": "Honors",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [_LOYOLA_NOTE],
+            "sourceReference": "page 63",
+        },
+        {
+            "title": "Theatre Leadership: Directing and Management",
+            "department": "Theatre",
+            "description": (
+                "This directing course focuses on developing leadership skills and artistic "
+                "directing. In addition to coaching actors, students in this class have the "
+                "opportunity to put their advanced level theatre collaboration skills to use "
+                "as they focus on production processes such as stage management, season "
+                "development and creating community within ensembles. The course also examines "
+                "innovative theatre practices that push the boundaries of the theatre experience."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR301",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": [
+                        "Acting 4",
+                        "or Entertainment Production and Design and instructor approval",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "THR302",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": [
+                        "Acting 4",
+                        "or Entertainment Production and Design and instructor approval",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 63",
+        },
+        {
+            "title": "Leadership in Theatre Studies",
+            "department": "Theatre",
+            "description": (
+                "Leadership in Theatre Studies is a one-semester course in which students will "
+                "intern and assist with theatre instruction in Acting 1: Confidence and "
+                "Collaboration, Acting 2: Character and Comedy, Acting 3, Acting 4 and/or "
+                "Entertainment Production and Design courses. Student leaders will lead by "
+                "example, demonstrating superior ensemble behavior, providing critical feedback "
+                "to their peers and modeling performance expectations. Student leaders will "
+                "work with individual students and small groups as they prepare for "
+                "performances. They will also have regular check-ins with their teacher, to "
+                "set personal goals and plan for instructional opportunities. This course may "
+                "be repeated for credit."
+            ),
+            "gpaWaiverOption": True,
+            "isOnline": False,
+            "offerings": [
+                {
+                    "courseCode": "THR601",
+                    "semesterLabel": "SEMESTER 1",
+                    "duration": "one semester",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": [
+                        "Acting 4",
+                        "or Entertainment Production and Design and instructor approval",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+                {
+                    "courseCode": "THR602",
+                    "semesterLabel": "SEMESTER 2",
+                    "duration": "one semester",
+                    "gradeLevels": [11, 12],
+                    "prerequisites": [
+                        "Acting 4",
+                        "or Entertainment Production and Design and instructor approval",
+                    ],
+                    "corequisites": [],
+                    "creditType": "College Prep",
+                    "credits": 1.0,
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 63",
+        },
+    ],
+    "graduationRequirements": [],
+    "warnings": [],
+}
+
+
+# ── Page map ──────────────────────────────────────────────────────────────────
+PAGES: dict[int, dict] = {
+    45: PAGE_45,
+    46: PAGE_46,
+    47: PAGE_47,
+    48: PAGE_48,
+    49: PAGE_49,
+    50: PAGE_50,
+    51: PAGE_51,
+    52: PAGE_52,
+    53: PAGE_53,
+    54: PAGE_54,
+    55: PAGE_55,
+    56: PAGE_56,
+    57: PAGE_57,
+    58: PAGE_58,
+    59: PAGE_59,
+    60: PAGE_60,
+    61: PAGE_61,
+    62: PAGE_62,
+    63: PAGE_63,
+}
+
+
+def main() -> None:
+    os.makedirs(PAGE_OUTPUT_DIR, exist_ok=True)
+    os.makedirs(SECTION_OUTPUT_DIR, exist_ok=True)
+
+    combined: dict = {
+        "departments": [],
+        "courses": [],
+        "graduationRequirements": [],
+        "warnings": [],
+    }
+
+    for page_num in sorted(PAGES.keys()):
+        page_data = PAGES[page_num]
+        page_path = os.path.join(PAGE_OUTPUT_DIR, f"page_{page_num:03d}.json")
+        with open(page_path, "w", encoding="utf-8") as fh:
+            json.dump(page_data, fh, indent=2, ensure_ascii=False)
+        combined["departments"].extend(page_data.get("departments", []))
+        combined["courses"].extend(page_data.get("courses", []))
+        combined["graduationRequirements"].extend(page_data.get("graduationRequirements", []))
+        combined["warnings"].extend(page_data.get("warnings", []))
+
+    section_path = os.path.join(SECTION_OUTPUT_DIR, "fine_arts.json")
+    with open(section_path, "w", encoding="utf-8") as fh:
+        json.dump(combined, fh, indent=2, ensure_ascii=False)
+
+    print(f"Wrote {len(PAGES)} page JSONs")
+    print(f"Section JSON → {section_path}")
+    print(f"  Departments : {len(combined['departments'])}")
+    print(f"  Courses     : {len(combined['courses'])}")
+    total_offerings = sum(len(c.get("offerings", [])) for c in combined["courses"])
+    print(f"  Offerings   : {total_offerings}")
+    course_codes = [o["courseCode"] for c in combined["courses"] for o in c.get("offerings", [])]
+    print(f"  Course codes: {', '.join(course_codes)}")
+
+
+if __name__ == "__main__":
+    main()

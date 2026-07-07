@@ -1,8 +1,236 @@
 {
   "departments": [],
-  "courses": [],
+  "courses": [
+    {
+      "title": "Dance 4",
+      "department": "Dance",
+      "description": "This course is designed for students who have achieved a high degree of technical skill. The class will work toward developing and enhancing performance qualities. The emphasis is on challenging students' creative skills in order to strengthen versatility of movement styles through choreographic and compositional strategies. Students will also be introduced to leadership skills through assisting with or leading peers in instruction. Course content knowledge is enhanced through critical response and self-assessment activities. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstration performance during first semester and the Day of the Dance performance during second semester. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "DNC401",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 3 and/or placement by instructor"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "DNC402",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 3 and/or placement by instructor"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+      ],
+      "sourceReference": "page 54"
+    },
+    {
+      "title": "Concert Dance",
+      "department": "Dance",
+      "description": "This course is designed for students who have had advanced training in contemporary dance, as well as a strong background in ballet, jazz and composition. Concert dancers are responsible for maintaining a high quality of technical skill. The Concert Dance class will work toward developing and enhancing performance and choreographic skills in preparation for college-level dance study and/or professional studio experience. Concert dancers will choreograph their own dances and perform in the Winter and Spring Dance Concerts. Daily and after-school rehearsals will be scheduled one to two weeks prior to the opening of the Winter and Spring Concerts and attendance is mandatory. Students may also audition for guest choreographers. These rehearsals take place after school and are required, if cast. Fees are approximately $150 for after-school dance company expenses. Admission into Concert Dance is based on the submission of a portfolio submitted to and approved by the Dance Department. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "DNC501",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 4",
+            "or a senior who has completed Dance 3"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "DNC502",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 4",
+            "or a senior who has completed Dance 3"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement.",
+        "Dual credit available with Loyola University Chicago. Additional fees for dual credit may be imposed by the college/university.",
+        "Fees are approximately $150 for after-school dance company expenses.",
+        "Admission into Concert Dance is based on the submission of a portfolio submitted to and approved by the Dance Department."
+      ],
+      "sourceReference": "page 54"
+    },
+    {
+      "title": "Jazz Fusion",
+      "department": "Dance",
+      "description": "This course will introduce and review essential dance skills that pertain to the jazz dance genre. Over the semester of this jazz survey course, students will learn and engage in jazz, hip hop, musical theatre and dance fitness movement. With focus on creativity, discipline and technical development, dancers work in a nurturing atmosphere to build confidence and life/dance skills. The Jazz Fusion curriculum is designed to help dancers create a strong foundation through repetitive movement, dance vocabulary, discussion and explorations. No experience is necessary and this course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "DNC321",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "DNC322",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+      ],
+      "sourceReference": "page 54"
+    },
+    {
+      "title": "Technical Skills",
+      "department": "Dance",
+      "description": "This course will focus on honing technical dance skills by working on anatomical alignment, physical strength and flexibility. Students will practice technical movements such as jumps, turns and leaps. Students will also learn specific dance conditioning practices to increase the quality of dance execution. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "DNC311",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 or higher, and/or teacher approval"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "DNC312",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 or higher, and/or teacher approval"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+      ],
+      "sourceReference": "page 54"
+    },
+    {
+      "title": "Dance Leadership",
+      "department": "Dance",
+      "description": "Dance Leadership is a one-year course where students will intern and assist with dance instruction in a technique class. Dance leaders will learn and demonstrate the teacher-created combinations including warm-ups, across the floor and center combinations. Dance leaders will model proper technique and assist students. Dance Leaders will periodically work one-on-one with dance students in a peer mentoring fashion. While taking this course, the Dance Leaders will also meet individually with the teacher outside of class to learn what they will instruct at the end of each semester. They will also create exercises and a lesson that they will instruct at the end of each semester. Dance Leadership applications are available on the Dance website in early November and are due by December 5. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "DNC601",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Minimum of one year in Dance 3 or Dance 4 and/or approval of instructors"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "DNC602",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "full year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Minimum of one year in Dance 3 or Dance 4 and/or approval of instructors"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement.",
+        "Dance Leadership applications are available on the Dance website in early November and are due by December 5."
+      ],
+      "sourceReference": "page 54"
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_054.png"
-  ]
+  "warnings": []
 }
