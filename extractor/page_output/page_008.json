@@ -1,8 +1,43 @@
 {
   "departments": [],
   "courses": [],
-  "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_008.png"
-  ]
+  "graduationRequirements": [
+    {
+      "name": "NCAA Eligibility Requirements for Division I and II Athletes",
+      "category": "athletics",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students who are interested in competing in athletics at the Division I or Division II collegiate level must meet the academic eligibility requirements of the National Collegiate Athletic Association (NCAA). For more information on the Division I and Division II eligibility requirements, please visit: www.ncaa.org/student-athletes/future/academic-standards-initial-eligibility. For the most up-to-date list of Stevenson High School’s approved core courses: Go to: https://web3.ncaa.org/hsportal/exec/homeAction; Type Stevenson’s code 143550 in the “NCAA High School Code” box, then select “Search”; Select a core area or choose: “Show All Approved Courses”; To view a PDF of initial coursework, visit: http://fs.ncaa.org/Docs/eligibility_center/Student_Resources/IE_Brochure.pdf. Please contact your counselor with any questions or concerns regarding NCAA eligibility."
+      ],
+      "sourceReference": "page 8"
+    },
+    {
+      "name": "Schedule Change Guidelines",
+      "category": "scheduling",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Each year, a master schedule is created to accommodate students’ course selections. Students may modify their course requests at designated times during the spring and summer. Please note that schedule change requests may not be possible based on the availability of courses. Requests for teacher changes will not be honored. Students will be able to view their final schedule through Infinite Campus during the week before school begins. Once the semester has begun, schedule change requests must adhere to the following guidelines. Adding a course: Students may add a course in place of a free hour, study hall or another class during the first three days of a semester if space is available in the course. Students must consult with the teacher regarding make-up requirements for any missed content. Dropping a course: Students may withdraw from a one-semester course up through the end of the first eight weeks of each semester. Please note that in a full-year course, students will only have the first three days of the second semester to drop. When dropping the second semester of a full-year course, the final first semester grade remains on the student’s transcript. Students must maintain a minimum of five courses for credit."
+      ],
+      "sourceReference": "page 8"
+    },
+    {
+      "name": "Independent Study",
+      "category": "special scheduling",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The Independent Study option allows juniors and seniors, with a special interest in a subject, to pursue that area of interest in more detail or greater depth than the existing curriculum provides. Students who wish to undertake an independent study project must: develop a proposal which includes clearly-stated goals, the learning activities designed to achieve these goals and a schedule detailing the timeline of the project; complete the “Independent Study” form located online; obtain parent/guardian, teacher, director and counselor approval of the project; solicit the help of a teacher advisor to supervise the study; be scheduled into a full-period course with the teacher advisor; attend that course every day; pursue the project with a minimum of direction; complete the project and report its results as agreed upon in the project proposal. Independent study will count towards the 300-minute supervision requirement and P.E. waivers. Successful completion of an independent study project will result in a grade of “P” (Pass). Projects that are not completed will not receive a grade. Credits will be determined by the director and teacher."
+      ],
+      "sourceReference": "page 8"
+    }
+  ],
+  "warnings": []
 }

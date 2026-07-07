@@ -1,8 +1,242 @@
 {
   "departments": [],
   "courses": [],
-  "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_005.png"
-  ]
+  "graduationRequirements": [
+    {
+      "name": "Course Selection",
+      "category": "planning",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Each year, students meet with counselors to choose courses for the following academic year. Students are encouraged to work with counselors, teachers and parents to select courses that support their goals and interests and align with their health and wellness. Course verification sheets are sent home each spring to ensure accuracy. Freshman course placements are determined through criteria set by each division and will be shared with incoming freshman families shortly after the orientation evenings in January. The master schedule is created each spring based on student course selections. Requests for course changes after this point may not be possible due to course availability."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Graduation Planner",
+      "category": "planning",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "We encourage all students to reach well beyond the minimum graduation requirements and to make the most of the educational opportunities that Stevenson provides. Freshmen, along with their counselors, begin the discussion of their four-year course plan in their Freshman Advisory and during Student-Counselor-Parent/Guardian-Engagement (SCoPE) meetings. Students are encouraged to review their four-year plan with their parents/guardians each year, before course selection begins, so that long-term curriculum goals can be planned and achieved as the students progress through their high school years. All students have the opportunity to update their plans at any time by meeting with their counselor. A planning worksheet is located at the back of this coursebook."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "School Day Schedule",
+      "category": "attendance",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The school day at Stevenson High School extends from 8:30 a.m. to 3:25 p.m. Students are expected to be in attendance during these hours. There are eight, 47-minute periods in each school day, including a mandatory lunch period. “Early bird” classes are also offered in Physical Education and certain AP Science classes. Alternate schedules are followed periodically throughout the school year to allow for various activities and meetings."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Course Load",
+      "category": "enrollment",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Every student must be enrolled in the following each semester: At least five credits of coursework; A sixth supervised period (either an additional class or a full-period study hall); A Physical Welfare, Dance and/or Driver Education course (or meet the criteria to qualify for a waiver); Lunch period.",
+        "Students must meet the State of Illinois requirement of 300 minutes of supervision each day."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Course Availability",
+      "category": "policy",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "All courses listed in this coursebook require a sufficient number of student requests to run in a given year. If there is not sufficient interest in a particular course, it will not be provided during the upcoming school year. Sectioning decisions are made in early March. Counselors will contact students who may need to select another course."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "English",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 8.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "8 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Mathematics",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 6.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "6 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Biology",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Physical Science",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "U.S. History",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "World History and Geography",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Government",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Economics or Personal Finance",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Health",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Driver Education",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Required Electives and P.E.",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Additional Credits and P.E.",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 17.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "17 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Total Credits",
+      "category": "minimum graduation requirements",
+      "requirementType": "credits",
+      "requiredValue": 45.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "45 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Suggested College Admission Sequence",
+      "category": "college admission",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "English",
+        "Mathematics",
+        "Science",
+        "Social Science",
+        "Foreign Language"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "English: 8 semesters/credits; Mathematics: 6-8 semesters/credits; Science: 6-8 semesters/credits; Social Science: 6-8 semesters/credits; Foreign Language: 4-8 semesters/credits."
+      ],
+      "sourceReference": "page 5"
+    }
+  ],
+  "warnings": []
 }

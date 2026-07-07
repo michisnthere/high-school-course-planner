@@ -1,14 +1,683 @@
 {
   "departments": [],
   "courses": [],
-  "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_005.png",
-    "stub extraction for page_006.png",
-    "stub extraction for page_007.png",
-    "stub extraction for page_008.png",
-    "stub extraction for page_009.png",
-    "stub extraction for page_010.png",
-    "stub extraction for page_011.png"
-  ]
+  "graduationRequirements": [
+    {
+      "name": "Course Selection",
+      "category": "planning",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Each year, students meet with counselors to choose courses for the following academic year. Students are encouraged to work with counselors, teachers and parents to select courses that support their goals and interests and align with their health and wellness. Course verification sheets are sent home each spring to ensure accuracy. Freshman course placements are determined through criteria set by each division and will be shared with incoming freshman families shortly after the orientation evenings in January. The master schedule is created each spring based on student course selections. Requests for course changes after this point may not be possible due to course availability."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Graduation Planner",
+      "category": "planning",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "We encourage all students to reach well beyond the minimum graduation requirements and to make the most of the educational opportunities that Stevenson provides. Freshmen, along with their counselors, begin the discussion of their four-year course plan in their Freshman Advisory and during Student-Counselor-Parent/Guardian-Engagement (SCoPE) meetings. Students are encouraged to review their four-year plan with their parents/guardians each year, before course selection begins, so that long-term curriculum goals can be planned and achieved as the students progress through their high school years. All students have the opportunity to update their plans at any time by meeting with their counselor. A planning worksheet is located at the back of this coursebook."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "School Day Schedule",
+      "category": "attendance",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The school day at Stevenson High School extends from 8:30 a.m. to 3:25 p.m. Students are expected to be in attendance during these hours. There are eight, 47-minute periods in each school day, including a mandatory lunch period. “Early bird” classes are also offered in Physical Education and certain AP Science classes. Alternate schedules are followed periodically throughout the school year to allow for various activities and meetings."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Course Load",
+      "category": "enrollment",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Every student must be enrolled in the following each semester: At least five credits of coursework; A sixth supervised period (either an additional class or a full-period study hall); A Physical Welfare, Dance and/or Driver Education course (or meet the criteria to qualify for a waiver); Lunch period.",
+        "Students must meet the State of Illinois requirement of 300 minutes of supervision each day."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Course Availability",
+      "category": "policy",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "All courses listed in this coursebook require a sufficient number of student requests to run in a given year. If there is not sufficient interest in a particular course, it will not be provided during the upcoming school year. Sectioning decisions are made in early March. Counselors will contact students who may need to select another course."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "English",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 8.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "8 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Mathematics",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 6.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "6 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Biology",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Physical Science",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "U.S. History",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "World History and Geography",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Government",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Economics or Personal Finance",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Health",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Driver Education",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "1 semester/credit"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Required Electives and P.E.",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "2 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Additional Credits and P.E.",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 17.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "17 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Total Credits",
+      "category": "minimum graduation requirements",
+      "requirementType": "credits",
+      "requiredValue": 45.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "45 semesters/credits"
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Suggested College Admission Sequence",
+      "category": "college admission",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "English",
+        "Mathematics",
+        "Science",
+        "Social Science",
+        "Foreign Language"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "English: 8 semesters/credits; Mathematics: 6-8 semesters/credits; Science: 6-8 semesters/credits; Social Science: 6-8 semesters/credits; Foreign Language: 4-8 semesters/credits."
+      ],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Civics and Patriotism Graduation Requirements",
+      "category": "social studies",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students who pass their required government course satisfy the one-semester state civics requirement. Students must also pass specific assessments on Patriotism and Principles of Representative Government in their required government course to satisfy the state requirement for graduation."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Driver Education Graduation Requirement",
+      "category": "transportation",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The State of Illinois Driver Education requirement may be satisfied by: completing Driver Education at Stevenson, submitting a Certificate of Successful Completion from a commercial school or submitting a copy of the student’s Illinois driver’s license if issued prior to age 18. Students must earn eight credits in their previous two semesters in order to be eligible for Driver Education."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Elective Graduation Requirement",
+      "category": "electives",
+      "requirementType": "credits",
+      "requiredValue": 2.0,
+      "eligibleCourses": [
+        "Applied Arts",
+        "Fine Arts",
+        "Multilingual Learning",
+        "Computer Science, Engineering and Technology"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "At least two elective semester credits must come from any of the following divisions: Applied Arts, Fine Arts, Multilingual Learning and/or Computer Science, Engineering and Technology."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Economics or Personal Finance Graduation Requirement",
+      "category": "financial literacy",
+      "requirementType": "credits",
+      "requiredValue": 1.0,
+      "eligibleCourses": [
+        "Economics",
+        "AP Macroeconomics",
+        "AP Microeconomics",
+        "Personal Finance"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "Students must complete a semester of economics or personal finance. This requirement can be fulfilled by one of the following courses: Economics, AP Macroeconomics, AP Microeconomics or Personal Finance."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "English Graduation Requirement",
+      "category": "english",
+      "requirementType": "credits",
+      "requiredValue": 8.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Eight credits are required for graduation which should be taken one per semester unless a student is planning to graduate early. For these classes, two writing-intensive courses are required. These courses will be detailed in the course descriptions."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Health Graduation Requirement",
+      "category": "health",
+      "requirementType": "credits",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "One semester/credit of Health Education is required for graduation, including participation in a unit on Adult CPR."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Mathematics Graduation Requirement",
+      "category": "mathematics",
+      "requirementType": "semesters",
+      "requiredValue": 6.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "At least six semesters/credits are required for graduation, including algebra and at least one course with geometry content."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Physical Welfare Graduation Requirement and Waivers",
+      "category": "physical welfare",
+      "requirementType": "waiver",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [
+        "The student is enrolled in Dance",
+        "The student is enrolled in Health Education (for the first time)",
+        "The student is enrolled in Applied Health",
+        "The student is enrolled in Driver Education (for the first time)",
+        "The junior or senior student receives an athletic waiver (see Athletic Waiver Policy)",
+        "The student receives a Marching Band or Color Guard waiver",
+        "The senior student receives an academic waiver"
+      ],
+      "notes": [
+        "Students must participate in Physical Education during each semester they are enrolled in school unless the student is enrolled in one of the listed approved alternatives. Refer to the section on waiver policies for more specific information. Note: Students may elect to stay in Physical Education and forfeit any waivers."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Science Graduation Requirement",
+      "category": "science",
+      "requirementType": "semesters",
+      "requiredValue": 4.0,
+      "eligibleCourses": [
+        "Biological science",
+        "Physical science"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "Students must complete two semesters of a biological science and two semesters of a physical science in order to graduate."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "Social Studies Graduation Requirement",
+      "category": "social studies",
+      "requirementType": "semesters",
+      "requiredValue": 4.0,
+      "eligibleCourses": [
+        "U.S. History or AP U.S. History",
+        "World History and Geography",
+        "Government or AP United States Government and Politics"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "Social studies graduation requirements are course specific and include two semesters/credits of U.S. History (or AP U.S. History); two semesters/credits of World History and Geography; one semester/credit of Government (or AP United States Government and Politics), including passing specific assessments on Patriotism and Principles of Representative Government in their required government course to satisfy the state requirement for graduation."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "ACT Graduation Requirement",
+      "category": "testing",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The ACT is the state’s high school accountability exam in Illinois. All students in public high schools are required to participate in the ACT Suite of Assessments. Stevenson High School adheres to the requirements of the Illinois State Board of Education (ISBE) and will administer the Digital PreACT 9 to all freshman students, Digital PreACT to all sophomore students and the Digital School-day ACT to all junior students. It is important to note that the school-day ACT given to juniors in the spring is a graduation requirement in the State of Illinois. No other ACT administration fulfills this requirement. ACT scores are not included on a student’s transcript. For information on the Suite of Assessments and more detail on the timeline of these exams, please visit Stevenson’s website at: www.d125.org."
+      ],
+      "sourceReference": "page 6"
+    },
+    {
+      "name": "FAFSA Graduation Requirement",
+      "category": "financial aid",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The Free Application for Federal Student Aid (FAFSA) is an application used by colleges and other post-secondary institutions to determine a student’s eligibility for need-based federal financial aid such as grants, loans and work-study programs. In accordance with Public Act 101-0180, students must complete one of the following steps in order to graduate from an Illinois public high school: File a FAFSA; OR File an alternative application for Illinois Financial Aid. The alternative application should only be completed by students not eligible to submit the FAFSA. More information regarding eligibility requirements for the alternative application may be found on the Illinois Student Assistance Commission (ISAC) website; OR Complete the FAFSA non-participation form through the Illinois Student Assistance Commission (ISAC) portal. More detailed information will be shared with students and families in the fall of their senior year. Families may reach out to their school counselor with any questions/concerns."
+      ],
+      "sourceReference": "page 7"
+    },
+    {
+      "name": "The “46th Credit” Graduation Requirement",
+      "category": "policy",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Although it is not one of the 45 credits required for graduation from Stevenson High School, the “46th Credit” is as important as the rest. The “46th Credit” fulfills a District 125 commitment to provide students with a coordinated education and awareness program with critical information about alcohol and other drug use, as well as resources for support. During their years at Stevenson High School, students are provided with information about substance abuse prevention and are introduced to a variety of substance abuse prevention activities through Stevenson High School’s Student Assistance Program. During this Drug Education unit in the Health Education classes, all students are issued a “46th Credit” manual, which contains current information on the dangers associated with tobacco, alcohol and other drug use, addiction, recovery, available student prevention programs, school tobacco/drug/alcohol policies, state laws and local ordinances, as well as resources for assistance within the school and community. Students are held accountable for this information and must pass an exam during their Health Education class in order to satisfy this requirement. This exam, devised by the school’s Substance Use Prevention Specialist, is based directly on the information contained in the “46th Credit” manual. The Substance Use Prevention Specialist personally works with all students who have not taken or passed the “46th Credit” exam in the Health Education classes to ensure that this requirement is met. Seniors must have passed the “46th Credit” exam in order to participate in the graduation ceremony."
+      ],
+      "sourceReference": "page 7"
+    },
+    {
+      "name": "Admission Requirements to Public Universities in Illinois",
+      "category": "college admission",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "It is important to emphasize that the graduation requirements listed previously represent the minimum program of studies for Stevenson students. Entrance requirements to particular colleges and universities may be considerably more stringent. The following high school program is either required or strongly encouraged for admission to all public universities in Illinois: English, 8 semesters/credits; Mathematics, 6 semesters/credits; Science, 6 semesters/credits; Social Studies, 6 semesters/credits; Electives, 4 semesters/credits. For details on specific course requirements visit the College Career Center or individual college websites."
+      ],
+      "sourceReference": "page 7"
+    },
+    {
+      "name": "NCAA Eligibility Requirements for Division I and II Athletes",
+      "category": "athletics",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students who are interested in competing in athletics at the Division I or Division II collegiate level must meet the academic eligibility requirements of the National Collegiate Athletic Association (NCAA). For more information on the Division I and Division II eligibility requirements, please visit: www.ncaa.org/student-athletes/future/academic-standards-initial-eligibility. For the most up-to-date list of Stevenson High School’s approved core courses: Go to: https://web3.ncaa.org/hsportal/exec/homeAction; Type Stevenson’s code 143550 in the “NCAA High School Code” box, then select “Search”; Select a core area or choose: “Show All Approved Courses”; To view a PDF of initial coursework, visit: http://fs.ncaa.org/Docs/eligibility_center/Student_Resources/IE_Brochure.pdf. Please contact your counselor with any questions or concerns regarding NCAA eligibility."
+      ],
+      "sourceReference": "page 8"
+    },
+    {
+      "name": "Schedule Change Guidelines",
+      "category": "scheduling",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Each year, a master schedule is created to accommodate students’ course selections. Students may modify their course requests at designated times during the spring and summer. Please note that schedule change requests may not be possible based on the availability of courses. Requests for teacher changes will not be honored. Students will be able to view their final schedule through Infinite Campus during the week before school begins. Once the semester has begun, schedule change requests must adhere to the following guidelines. Adding a course: Students may add a course in place of a free hour, study hall or another class during the first three days of a semester if space is available in the course. Students must consult with the teacher regarding make-up requirements for any missed content. Dropping a course: Students may withdraw from a one-semester course up through the end of the first eight weeks of each semester. Please note that in a full-year course, students will only have the first three days of the second semester to drop. When dropping the second semester of a full-year course, the final first semester grade remains on the student’s transcript. Students must maintain a minimum of five courses for credit."
+      ],
+      "sourceReference": "page 8"
+    },
+    {
+      "name": "Independent Study",
+      "category": "special scheduling",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The Independent Study option allows juniors and seniors, with a special interest in a subject, to pursue that area of interest in more detail or greater depth than the existing curriculum provides. Students who wish to undertake an independent study project must: develop a proposal which includes clearly-stated goals, the learning activities designed to achieve these goals and a schedule detailing the timeline of the project; complete the “Independent Study” form located online; obtain parent/guardian, teacher, director and counselor approval of the project; solicit the help of a teacher advisor to supervise the study; be scheduled into a full-period course with the teacher advisor; attend that course every day; pursue the project with a minimum of direction; complete the project and report its results as agreed upon in the project proposal. Independent study will count towards the 300-minute supervision requirement and P.E. waivers. Successful completion of an independent study project will result in a grade of “P” (Pass). Projects that are not completed will not receive a grade. Credits will be determined by the director and teacher."
+      ],
+      "sourceReference": "page 8"
+    },
+    {
+      "name": "Course Retake Policy",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students may retake any course; however, the original grade will remain on the transcript. The GPA will be determined by using the points from the higher of the two grades. Duplicate credit will not be issued. Students must complete a “Course Retake” form available online before beginning the course. Courses taken at a lower level are not considered course retakes. Students may retake a course at a higher level if it is an equivalent course in terms of content. Course retake does count towards the 300-minute supervision requirement. Students wishing to retake a course in the summer at a different high school need to consult their counselor prior to registering to begin the approval process. If a grade of “A” was earned the first time, then a course may not be retaken."
+      ],
+      "sourceReference": "page 9"
+    },
+    {
+      "name": "Audits",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Audits do not count toward academic or athletic waivers, but they do count toward the 300-minute supervision requirement. Students who wish to audit a class may do so provided: they obtain an “Audit Request” form from their counselor; there is availability in the classroom; they request the audit within the first ten days of the semester; they receive approval of the division director; they attend the class each day, complete all assignments, take exams and finals and participate in all class activities. Students will be assigned the grade of “AU” (Audit); they receive no credit towards graduation nor points for inclusion in their grade point average. If a student fails to fulfill a requirement in a course taken on an audit basis, the student will be withdrawn from the course. No record of enrollment will appear on the student’s transcript."
+      ],
+      "sourceReference": "page 9"
+    },
+    {
+      "name": "External Credits",
+      "category": "credit transfer",
+      "requirementType": "credits",
+      "requiredValue": 4.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Stevenson students may apply for up to four credits of external study toward the completion of elective credits required for graduation. Only elective courses necessary to satisfy the 45 credits needed for graduation may be taken for external credit. A maximum of two external credits can be earned for a Multilingual Learning course. Courses offered at Stevenson will not be approved for external credit. External credits are not calculated in the grade point average (GPA). No external credits will be given for work done prior to the student entering high school in the fall term. All external credits must come from accredited programs approved by the Assistant Principal for Teaching and Learning (e.g. summer school at another high school or a college/university course). Students must apply for external credit. No credit will be given without an application. To apply for external credit, a student must meet with their counselor prior to taking the course to: complete an “External Credit” form; and provide a complete course description including information about the accredited institution, the program or course content and the number of contact hours. Upon completion of the course, the student will produce an official transcript mailed directly from the program to the registrar’s office at Stevenson High School. The approval process should be completed before the course is taken or Stevenson credit may not be given."
+      ],
+      "sourceReference": "page 9"
+    },
+    {
+      "name": "Summer School",
+      "category": "credit transfer",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Stevenson’s summer academic program offers opportunities for enrichment and remediation. Certain courses taken from this program become part of the student’s transcript. Summer courses may be taken during the student’s attendance in high school. Students must complete an “External Credit” form and request course approval prior to enrolling in any summer school class outside of Stevenson. Only courses not offered through Stevenson’s summer school are eligible for external credit. Students attending summer school in another accredited high school district must request that the school forward their grades to the Stevenson registrar. Summer school credit obtained at a high school other than Stevenson is considered external credit and is not included in the calculation of the student’s grade point average."
+      ],
+      "sourceReference": "page 9"
+    },
+    {
+      "name": "Early Graduation",
+      "category": "graduation planning",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students wishing to graduate early should meet with their counselor to determine eligibility. Once it is determined that the student can meet graduation requirements earlier than the scheduled semester of graduation, the student, with parent/guardian approval, must complete an “Intent to Graduate Early” form available online."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "Grading",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Our grading model measures the student’s mastery of the course’s skills and standards. The final grade is a determination of the student’s body of work with consideration of their recent trend. Because our grading model uses proficiency scales to collect accurate evidence of student performance and growth, students can reflect on and grow their knowledge and skills throughout the semester. At the end of the semester, the teacher reviews the body of evidence presented by each student and determines a letter grade. Student grades are based on evidence of student proficiency in course skills and content standards. The purpose of grades is to provide the teacher, student and parents/guardians as accurate a picture as possible of the student’s competence in course skills and to encourage a dialogue about how the student can grow in the content in the class. Additionally, each assessment provides feedback for the student about what skills and standards they mastered and which they need more work on. If at any point the student is reassessed on a course standard and shows a higher level of proficiency, this will be reflected in the teacher grade book. Please visit https://www.d125.org/academics/grading for more details about how the final letter grade is calculated and communicated."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "Course Description",
+      "category": "course information",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Within the first five days of the semester, all teachers will provide students with a course description. This description will explain the general goals of the course, the specific knowledge and skills acquired as a result of the course, the activities that will be included and the procedures for grading."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "Grade Point Average",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Both a weighted and an unweighted grade point average are calculated for each student at the conclusion of each semester and again after summer school. Weighted grade point average is calculated using the weights assigned to the grades in the chart below. Unweighted grade point average is calculated by assigning college prep grade points to all grades that are calculated into the grade point average, regardless of their level. College Prep: A 4.0, B 3.0, C 2.0, D 1.0, F 0; Accelerated: A 4.5, B 3.5, C 2.5, D 1.5, F 0; AP/Honors: A 5.0, B 4.0, C 3.0, D 2.0, F 0."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "College Prep Courses",
+      "category": "course level",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "English",
+        "Mathematics",
+        "Science",
+        "Social Studies",
+        "Multilingual Learning"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "College prep courses provide students with the traditional college preparatory program. These courses are designed to prepare the student for entrance into college and for academic success in the college classroom. Students have an opportunity to pursue four years of English, Mathematics, Science, Social Studies and Multilingual Learning."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "Honors/Accelerated Courses",
+      "category": "course level",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "These courses enable students to prepare for and pursue college-level studies while still in high school. Students who complete honors/accelerated level courses may have the opportunity to earn college credit or placement through AP exams."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "Advanced Placement (AP) Courses",
+      "category": "course level",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students have the opportunity to complete advanced placement courses in most subject areas. The content of these college-level courses is determined by the College Board. Students who score well on these exams may be awarded college credit in many of the nation’s colleges and universities. In assessing a student’s application, many colleges also look favorably upon courses designated as AP since these courses represent more rigorous content than the standard high school curriculum. Students are encouraged to investigate the AP policy of the college of their choice. In preparation for some AP courses at Stevenson High School, students may need to complete summer work. Summer assignments are available in the late spring via the school’s website."
+      ],
+      "sourceReference": "page 10"
+    },
+    {
+      "name": "Exclusions",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "Driver Education",
+        "Courses with grades of pass (P) or fail (F)",
+        "Correspondence courses",
+        "Audit, independent study and GPA-waived courses",
+        "External credit courses",
+        "Any course in which the regular outcomes have been significantly modified for an individual student"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "The following courses are not included in the calculation of a student’s grade point average."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Grade Point Waiver",
+      "category": "grading",
+      "requirementType": "waiver",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "All college preparatory-level Applied Arts courses",
+        "All college preparatory-level Fine Arts courses",
+        "All college preparatory-level Computer Science, Engineering and Technology (CSET) courses",
+        "Broadcast Journalism, Journalistic Writing and Advanced Journalistic Writing courses",
+        "Physical Education Leadership, Pool Leadership and Applied Health courses",
+        "All college-prep level summer school courses which are not part of the regular school year course offerings"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "Students have the option of applying to exclude certain courses from the calculation of their grade point average (GPA). These courses are those which are not considered part of the academic core and which do not fulfill a Stevenson graduation requirement. Included in this waiver option are the listed courses. To be eligible for a waiver, the student must be enrolled in four or more courses per semester which are included in the GPA. The “Request for GPA Waiver” form is available online. All waivers must be requested; no courses will have an automatic waiver. Please see the Summer School Coursebook for specific information regarding courses and deadlines offered during the summer."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Transfer Students",
+      "category": "transcript evaluation",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The records of transfer students will be evaluated individually to determine the credits which may be applied toward Stevenson graduation requirements. Coursework completed by students prior to their enrollment at Stevenson will not be included in the calculation of the student’s GPA. Any coursework completed by students through international schools prior to their enrollment at Stevenson will be given a grade of pass (P) or fail (F). The division director will make the final determination in the evaluation of the records of the transfer student. Transfer students are encouraged to submit a transcript directly from each school attended when fulfilling transcript requests to ensure the most accurate representation of their academic experience."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Homework Requests",
+      "category": "student responsibility",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students are responsible for requesting and making up classwork if they are absent from class. When students are absent from class, please follow these suggestions: review assignment sheet, if available; review the class Canvas page; email the teacher; utilize the Interactive Report Card (IRC); contact each teacher on their homework policy. If a student is out longer than five consecutive days, please contact their counselor to develop a plan."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Incomplete Grade",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students who receive a grade of “Incomplete” must complete the necessary make-up work in a timely fashion according to each teacher’s guidelines before a letter grade will be assigned. Incomplete grades do not count towards credits needed for athletic and co-curricular eligibility."
+      ],
+      "sourceReference": "page 11"
+    }
+  ],
+  "warnings": []
 }

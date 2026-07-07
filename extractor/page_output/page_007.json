@@ -1,8 +1,43 @@
 {
   "departments": [],
   "courses": [],
-  "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_007.png"
-  ]
+  "graduationRequirements": [
+    {
+      "name": "FAFSA Graduation Requirement",
+      "category": "financial aid",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The Free Application for Federal Student Aid (FAFSA) is an application used by colleges and other post-secondary institutions to determine a student’s eligibility for need-based federal financial aid such as grants, loans and work-study programs. In accordance with Public Act 101-0180, students must complete one of the following steps in order to graduate from an Illinois public high school: File a FAFSA; OR File an alternative application for Illinois Financial Aid. The alternative application should only be completed by students not eligible to submit the FAFSA. More information regarding eligibility requirements for the alternative application may be found on the Illinois Student Assistance Commission (ISAC) website; OR Complete the FAFSA non-participation form through the Illinois Student Assistance Commission (ISAC) portal. More detailed information will be shared with students and families in the fall of their senior year. Families may reach out to their school counselor with any questions/concerns."
+      ],
+      "sourceReference": "page 7"
+    },
+    {
+      "name": "The “46th Credit” Graduation Requirement",
+      "category": "policy",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Although it is not one of the 45 credits required for graduation from Stevenson High School, the “46th Credit” is as important as the rest. The “46th Credit” fulfills a District 125 commitment to provide students with a coordinated education and awareness program with critical information about alcohol and other drug use, as well as resources for support. During their years at Stevenson High School, students are provided with information about substance abuse prevention and are introduced to a variety of substance abuse prevention activities through Stevenson High School’s Student Assistance Program. During this Drug Education unit in the Health Education classes, all students are issued a “46th Credit” manual, which contains current information on the dangers associated with tobacco, alcohol and other drug use, addiction, recovery, available student prevention programs, school tobacco/drug/alcohol policies, state laws and local ordinances, as well as resources for assistance within the school and community. Students are held accountable for this information and must pass an exam during their Health Education class in order to satisfy this requirement. This exam, devised by the school’s Substance Use Prevention Specialist, is based directly on the information contained in the “46th Credit” manual. The Substance Use Prevention Specialist personally works with all students who have not taken or passed the “46th Credit” exam in the Health Education classes to ensure that this requirement is met. Seniors must have passed the “46th Credit” exam in order to participate in the graduation ceremony."
+      ],
+      "sourceReference": "page 7"
+    },
+    {
+      "name": "Admission Requirements to Public Universities in Illinois",
+      "category": "college admission",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "It is important to emphasize that the graduation requirements listed previously represent the minimum program of studies for Stevenson students. Entrance requirements to particular colleges and universities may be considerably more stringent. The following high school program is either required or strongly encouraged for admission to all public universities in Illinois: English, 8 semesters/credits; Mathematics, 6 semesters/credits; Science, 6 semesters/credits; Social Studies, 6 semesters/credits; Electives, 4 semesters/credits. For details on specific course requirements visit the College Career Center or individual college websites."
+      ],
+      "sourceReference": "page 7"
+    }
+  ],
+  "warnings": []
 }

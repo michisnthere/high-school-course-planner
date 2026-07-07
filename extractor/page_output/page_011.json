@@ -1,8 +1,81 @@
 {
   "departments": [],
   "courses": [],
-  "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_011.png"
-  ]
+  "graduationRequirements": [
+    {
+      "name": "Exclusions",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "Driver Education",
+        "Courses with grades of pass (P) or fail (F)",
+        "Correspondence courses",
+        "Audit, independent study and GPA-waived courses",
+        "External credit courses",
+        "Any course in which the regular outcomes have been significantly modified for an individual student"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "The following courses are not included in the calculation of a student’s grade point average."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Grade Point Waiver",
+      "category": "grading",
+      "requirementType": "waiver",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "All college preparatory-level Applied Arts courses",
+        "All college preparatory-level Fine Arts courses",
+        "All college preparatory-level Computer Science, Engineering and Technology (CSET) courses",
+        "Broadcast Journalism, Journalistic Writing and Advanced Journalistic Writing courses",
+        "Physical Education Leadership, Pool Leadership and Applied Health courses",
+        "All college-prep level summer school courses which are not part of the regular school year course offerings"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "Students have the option of applying to exclude certain courses from the calculation of their grade point average (GPA). These courses are those which are not considered part of the academic core and which do not fulfill a Stevenson graduation requirement. Included in this waiver option are the listed courses. To be eligible for a waiver, the student must be enrolled in four or more courses per semester which are included in the GPA. The “Request for GPA Waiver” form is available online. All waivers must be requested; no courses will have an automatic waiver. Please see the Summer School Coursebook for specific information regarding courses and deadlines offered during the summer."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Transfer Students",
+      "category": "transcript evaluation",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The records of transfer students will be evaluated individually to determine the credits which may be applied toward Stevenson graduation requirements. Coursework completed by students prior to their enrollment at Stevenson will not be included in the calculation of the student’s GPA. Any coursework completed by students through international schools prior to their enrollment at Stevenson will be given a grade of pass (P) or fail (F). The division director will make the final determination in the evaluation of the records of the transfer student. Transfer students are encouraged to submit a transcript directly from each school attended when fulfilling transcript requests to ensure the most accurate representation of their academic experience."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Homework Requests",
+      "category": "student responsibility",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students are responsible for requesting and making up classwork if they are absent from class. When students are absent from class, please follow these suggestions: review assignment sheet, if available; review the class Canvas page; email the teacher; utilize the Interactive Report Card (IRC); contact each teacher on their homework policy. If a student is out longer than five consecutive days, please contact their counselor to develop a plan."
+      ],
+      "sourceReference": "page 11"
+    },
+    {
+      "name": "Incomplete Grade",
+      "category": "grading",
+      "requirementType": "policy",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students who receive a grade of “Incomplete” must complete the necessary make-up work in a timely fashion according to each teacher’s guidelines before a letter grade will be assigned. Incomplete grades do not count towards credits needed for athletic and co-curricular eligibility."
+      ],
+      "sourceReference": "page 11"
+    }
+  ],
+  "warnings": []
 }

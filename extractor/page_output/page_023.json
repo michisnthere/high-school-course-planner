@@ -1,8 +1,90 @@
 {
+  "sourcePage": 23,
   "departments": [],
-  "courses": [],
+  "courses": [
+    {
+      "title": "Food Preparation",
+      "department": "Family and Consumer Sciences",
+      "description": "Food Preparation is a lab-based course where students enhance their culinary skills in a hands-on environment. Students learn culinary techniques, making a wide variety of recipes that align with course skills.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "FCS221",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": null
+        },
+        {
+          "courseCode": "FCS222",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": null
+        }
+      ],
+      "notes": [],
+      "sourceReference": "page 23"
+    },
+    {
+      "title": "Gourmet Foods",
+      "department": "Family and Consumer Sciences",
+      "description": "Gourmet Foods is a lab-based course where students develop advanced food preparation skills in baking and cooking while also exploring U.S. regional cuisine and gaining global perspectives of international cuisine.",
+      "gpaWaiverOption": true,
+      "isOnline": false,
+      "offerings": [
+        {
+          "courseCode": "FCS321",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Food Preparation"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": null
+        },
+        {
+          "courseCode": "FCS322",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "one semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Food Preparation"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": null
+        }
+      ],
+      "notes": [],
+      "sourceReference": "page 23"
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_023.png"
-  ]
+  "warnings": []
 }

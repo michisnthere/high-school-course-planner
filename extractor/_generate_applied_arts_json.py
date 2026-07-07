@@ -1,0 +1,389 @@
+import json
+from pathlib import Path
+
+base = Path(__file__).resolve().parent
+page_out = base / 'page_output'
+section_out = base / 'section_output'
+page_out.mkdir(parents=True, exist_ok=True)
+section_out.mkdir(parents=True, exist_ok=True)
+
+pages = {
+    16: {
+        'sourcePage': 16,
+        'departments': [
+            {'name': 'Business Education', 'description': 'In every facet of society, business plays a vital role. Stevenson High School provides the skills necessary for students to become tomorrow\'s business leaders.'}
+        ],
+        'courses': [
+            {
+                'title': 'Introduction to Business',
+                'department': 'Business Education',
+                'description': 'Introduction to Business provides students with a foundational understanding of the business world. This course explores key topics including marketing, accounting, international business and entrepreneurship, giving students insight into how businesses operate locally and globally. Through real-world examples and hands-on projects, students will develop critical thinking and problem-solving skills essential for future success in business.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS171', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'BUS172', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 16'
+            },
+            {
+                'title': 'Business Applications and Technology 1',
+                'department': 'Business Education',
+                'description': 'Business Applications and Technology 1 is a course designed to teach students to use a variety of software programs and multimedia platforms as they create a business concept. Students will strengthen their knowledge of both business operations and technology usage in the workplace as they develop communications, marketing materials, financial proposals and presentations for their proposed business.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS131', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'BUS132', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 16'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    17: {
+        'sourcePage': 17,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Business Applications and Technology 2',
+                'department': 'Business Education',
+                'description': 'Business Applications and Technology 2 encourages students to develop the technology and problem-solving skills essential in today\'s workforce. Students will be tasked with finding solutions to common business problems, while being encouraged to consider multiple perspectives. Students will work to incorporate technology into their business practices to help them become more efficient and organized.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS142', 'semesterLabel': 'SEMESTER 2', 'duration': 'semester 2 course only', 'gradeLevels': [9,10,11,12], 'prerequisites': ['BUS131 or BUS132'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 17'
+            },
+            {
+                'title': 'Marketing',
+                'department': 'Business Education',
+                'description': 'Students will learn how companies develop and market their products and services. Current trends in the entertainment, apparel, sports and food industries will be explored and applied during class activities.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS281', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'BUS282', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 17'
+            },
+            {
+                'title': 'Entrepreneurship',
+                'department': 'Business Education',
+                'description': 'Entrepreneurship will provide students with a working background on the skills and knowledge necessary to own and operate a small business. Students will examine the environment of small business ownership, the procedures and skills necessary to open a small business and the policies and practices of a successful small business operation. Entrepreneurship will emphasize a hands-on approach to small business ownership.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS231', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'BUS232', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 17'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    18: {
+        'sourcePage': 18,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Accounting 1',
+                'department': 'Business Education',
+                'description': 'This is the first semester of a two-semester sequence in the study of accounting. Basic principles and practices of double entry accounting are developed with an emphasis on the financial records of sole proprietorships and partnerships. Daily transactions and financial statement analysis are included. Students also have the opportunity to attend regional, state and national accounting competitions.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS251', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 18'
+            },
+            {
+                'title': 'Accounting 2',
+                'department': 'Business Education',
+                'description': 'This is the second semester of a two-semester sequence in the study of accounting. Specialized journal systems, uncollected accounts, depreciation, inventory controls, payroll, taxes and financial statement analysis are emphasized with regard to a corporation. Students also have the opportunity to attend regional, state and national accounting competitions.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS252', 'semesterLabel': 'SEMESTER 2', 'duration': 'semester 2 course only', 'gradeLevels': [10,11,12], 'prerequisites': ['Accounting 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 18'
+            },
+            {
+                'title': 'Advanced Accounting',
+                'department': 'Business Education',
+                'description': 'This one-semester course serves as a capstone to the advanced study of accounting. A "managerial approach" emphasizing internal data used to make decisions and control revenues, costs and expenses is explored and developed.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS351', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Accounting 2'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 18'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    19: {
+        'sourcePage': 19,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Business Law',
+                'department': 'Business Education',
+                'description': 'This course is designed to satisfy the curiosity of students who are interested in learning about the law as it relates to various aspects of business. Students will gain a greater understanding of their legal rights and responsibilities as an individual, employee, manager and business owner. Topics include contracts, property, employment rules and regulations, business organization, finance, technology and sports law. Students will participate in discussions and debates and complete collaborative team projects and small group activities.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS371', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'BUS372', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 19'
+            },
+            {
+                'title': 'Personal Finance',
+                'department': 'Business Education',
+                'description': 'Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'BUS301', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'BUS302', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 19'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    20: {
+        'sourcePage': 20,
+        'departments': [{'name': 'Family and Consumer Sciences', 'description': 'The Family and Consumer Sciences department offers a series of courses that strive to create learning environments focused on building relationships and community; technology is implemented to stay consistent with teaching, learning, current events and trends.'}],
+        'courses': [
+            {
+                'title': 'Food and Nutrition',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS111', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS112', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 20'
+            },
+            {
+                'title': 'Human Growth and Development',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Human Growth and Development explores the world of the developing individual from prenatal development through adolescence. This course investigates psychological concepts that apply to everyday life and explores dynamics that shape growth and development.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS211', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS212', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 20'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    21: {
+        'sourcePage': 21,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Clothing and Design 1',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Clothing and Design 1 is a lab-based course where students learn fashion construction techniques, pattern and fabric selection and fashion presentation skills. Projects include drawstring bag, sweatshirt and a project of student choice.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS251', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS252', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 21'
+            },
+            {
+                'title': 'Clothing and Design 2',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS291', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Clothing and Design 1'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS292', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Clothing and Design 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 21'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    22: {
+        'sourcePage': 22,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Interior Design',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Interior Design is a project-based course where design is explored as it relates to housing and commercial interiors. Emphasis is on using available resources effectively to meet individual and housing needs.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS231', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS232', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 22'
+            },
+            {
+                'title': 'Business of Fashion and Design',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Business of Fashion and Design is a project-based course which focuses on the business side of the fashion industry, fashion design and the merchandising of fashion-related products. Topics include product development, visual merchandising, fashion promotion and accessory design. Dual credit option with Harper College available.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS241', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS242', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 22'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    23: {
+        'sourcePage': 23,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Food Preparation',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Food Preparation is a lab-based course where students enhance their culinary skills in a hands-on environment. Students learn culinary techniques, making a wide variety of recipes that align with course skills.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS221', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS222', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 23'
+            },
+            {
+                'title': 'Gourmet Foods',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Gourmet Foods is a lab-based course where students develop advanced food preparation skills in baking and cooking while also exploring U.S. regional cuisine and gaining global perspectives of international cuisine.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS321', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Food Preparation'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS322', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Food Preparation'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 23'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    24: {
+        'sourcePage': 24,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Teaching Young Children 1',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Teaching Young Children 1 offers students the opportunity to enhance their understanding of child development while interacting with children in the Little Patriots Lab School. Students focus on creating developmentally appropriate lessons and observing children\'s development.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS311', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Human Growth and Development'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS312', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [10,11,12], 'prerequisites': ['Human Growth and Development'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 24'
+            },
+            {
+                'title': 'Teaching Young Children 2',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children\'s developmental progress.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS331', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [11,12], 'prerequisites': ['Teaching Young Children 1'], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS332', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [11,12], 'prerequisites': ['Teaching Young Children 1'], 'corequisites': [], 'creditType': 'Honors', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 24'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    },
+    25: {
+        'sourcePage': 25,
+        'departments': [],
+        'courses': [
+            {
+                'title': 'Life by Design',
+                'department': 'Family and Consumer Sciences',
+                'description': 'In Life by Design, students explore a variety of topics designed to help them meet the challenges of life. Students gain an enhanced understanding of self, increase awareness of others, learn to develop healthy relationships and heighten responsible decision-making skills.',
+                'gpaWaiverOption': True,
+                'isOnline': False,
+                'offerings': [
+                    {'courseCode': 'FCS411', 'semesterLabel': 'SEMESTER 1', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None},
+                    {'courseCode': 'FCS412', 'semesterLabel': 'SEMESTER 2', 'duration': 'one semester', 'gradeLevels': [9,10,11,12], 'prerequisites': [], 'corequisites': [], 'creditType': 'College Prep', 'credits': None}
+                ],
+                'notes': [],
+                'sourceReference': 'page 25'
+            },
+            {
+                'title': 'Life by Design — continued note',
+                'department': 'Family and Consumer Sciences',
+                'description': 'Students improve communication skills, reduce stress, build positive relationships with others, gain independence, express emotions, set goals, improve time management and make decisions based on personal values.',
+                'gpaWaiverOption': False,
+                'isOnline': False,
+                'offerings': [],
+                'notes': [],
+                'sourceReference': 'page 25'
+            }
+        ],
+        'graduationRequirements': [],
+        'warnings': []
+    }
+}
+
+for page_number, data in pages.items():
+    path = page_out / f'page_{page_number:03d}.json'
+    with path.open('w', encoding='utf-8') as fh:
+        json.dump(data, fh, indent=2, ensure_ascii=False)
+
+combined = {'departments': [], 'courses': [], 'graduationRequirements': [], 'warnings': []}
+for page_number in sorted(pages):
+    combined['departments'].extend(pages[page_number]['departments'])
+    combined['courses'].extend(pages[page_number]['courses'])
+    combined['graduationRequirements'].extend(pages[page_number]['graduationRequirements'])
+    combined['warnings'].extend(pages[page_number]['warnings'])
+
+with (section_out / 'applied_arts.json').open('w', encoding='utf-8') as fh:
+    json.dump(combined, fh, indent=2, ensure_ascii=False)
+
+print('applied_arts pages 16-25 written and section applied_arts.json updated')
