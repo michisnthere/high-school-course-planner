@@ -56,3 +56,10 @@ class AcademicExtractionResult(TypedDict):
     courses: List[CourseRecord]
     graduationRequirements: List[RequirementRecord]
     warnings: List[str]
+
+
+class SectionExtractionResult(TypedDict):
+    departments: List[DepartmentRecord]
+    courses: List[CourseRecord]
+    graduationRequirements: List[RequirementRecord]
+    warnings: List[str]

@@ -1,8 +1,9 @@
 {
+  "sourcePage": 95,
   "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
-    "stub extraction for page_095.png"
+    "Page 95 contains a Social Studies course listing grid with course codes but no detailed descriptions; detailed course information is extracted from pages 96-102."
   ]
 }

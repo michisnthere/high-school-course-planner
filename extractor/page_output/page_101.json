@@ -1,8 +1,135 @@
 {
+  "sourcePage": 101,
   "departments": [],
-  "courses": [],
+  "courses": [
+    {
+      "title": "Political Thought and Its Literature",
+      "department": "Social Studies",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a world view and what it means to be a political scientist.",
+      "isOnline": false,
+      "sourceReference": "page 101",
+      "notes": [],
+      "offerings": [
+        {
+          "courseCode": "SOC561",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History",
+            "Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC562",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History",
+            "Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "AP Psychology",
+      "department": "Social Studies",
+      "description": "The purpose of the year-long, advanced placement course in psychology is to introduce students to the systematic and scientific study of the behavior and mental processes of humans and animals. This course will provide the student with a learning experience equivalent to that obtained in an introductory college psychology course. The course satisfies the psychology requirement typically needed by students wishing to pursue a career in business, engineering, education, law, medicine and any other health-related fields (including preparation for the MCAT). Particular emphasis includes neuroscience, sleep, mental illness and treatment, memory, personality and social psychology. Students who enroll in this course are prepared to take the AP Psychology exam in May.",
+      "isOnline": false,
+      "sourceReference": "page 101",
+      "notes": [],
+      "choices": [
+        {
+          "name": "Regular",
+          "gpaWaiverOption": false,
+          "creditType": "Honors",
+          "credits": 1.0,
+          "offerings": [
+            {
+              "courseCode": "SOC661",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography",
+                "U.S. History"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            },
+            {
+              "courseCode": "SOC662",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography",
+                "U.S. History"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Blended Option",
+          "gpaWaiverOption": false,
+          "creditType": "Honors",
+          "credits": 1.0,
+          "offerings": [
+            {
+              "courseCode": "SOC6B1",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography",
+                "U.S. History"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            },
+            {
+              "courseCode": "SOC6B2",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography",
+                "U.S. History"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_101.png"
-  ]
+  "warnings": []
 }

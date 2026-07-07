@@ -1,8 +1,176 @@
 {
+  "sourcePage": 98,
   "departments": [],
-  "courses": [],
+  "courses": [
+    {
+      "title": "AP Comparative Government and Politics",
+      "department": "Social Studies",
+      "description": "This one-semester elective course introduces students to the rich diversity of political life outside the United States. Students use a comparative approach to examine the political structures; policies; and political, economic and social challenges of six selected countries: China, Iran, Mexico, Nigeria, Russia and the United Kingdom. Students compare the effectiveness of approaches to many global issues by examining how different governments solve similar problems by reading and interpreting data, making comparisons and applications and developing evidence-based arguments. This course does not satisfy the Stevenson government graduation requirement, nor the Illinois Civics requirement for graduation for the State of Illinois. Students are prepared to take the AP Comparative Government and Politics exam in May.",
+      "isOnline": false,
+      "sourceReference": "page 98",
+      "notes": [],
+      "choices": [
+        {
+          "name": "Regular",
+          "gpaWaiverOption": false,
+          "creditType": "Honors",
+          "credits": 1.0,
+          "offerings": [
+            {
+              "courseCode": "SOC631",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            },
+            {
+              "courseCode": "SOC632",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Online Option",
+          "gpaWaiverOption": false,
+          "creditType": "Honors",
+          "credits": 1.0,
+          "offerings": [
+            {
+              "courseCode": "SOC63Q1",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            },
+            {
+              "courseCode": "SOC63Q2",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "World History and Geography"
+              ],
+              "corequisites": [],
+              "creditType": "Honors",
+              "credits": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "U.S. History",
+      "department": "Social Studies",
+      "description": "This course fulfills the graduation requirement of one year of U.S. history, as established by the State of Illinois. With an emphasis on the 20th century, the overriding goal of this course is to give students the skills and opportunity to understand how the current domestic and international status of the U.S. developed. Similar to the World History and Geography experience in Social Studies, this course is designed to help students identify causes and effects, events and philosophies, which led to the contemporary situation and provide them with a historical basis for decision-making through the use of historical inquiry skills such as: analyzing primary, secondary and tertiary sources; developing historical arguments and communicating conclusions. Geographic themes such as location, mobility and interaction with the environment are stressed within this historical treatment as well.",
+      "isOnline": false,
+      "sourceReference": "page 98",
+      "notes": [],
+      "offerings": [
+        {
+          "courseCode": "SOC321",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC322",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "AP U.S. History",
+      "department": "Social Studies",
+      "description": "This sequence fulfills the graduation requirement of one year of U.S. history as set by the State of Illinois. In this Advanced Placement course, students investigate significant events, individuals, developments and processes in nine historical periods from approximately 1491 to the present. Students develop and use the same skills and methods employed by historians: analyzing primary and secondary sources; developing historical arguments; making historical connections; and utilizing reasoning about comparison, causation and continuity and change. This course will develop college-level reading and writing skills through the advanced study of United States history. Students who enroll in this course are prepared to take the AP U.S. History exam in May.",
+      "isOnline": false,
+      "sourceReference": "page 98",
+      "notes": [],
+      "offerings": [
+        {
+          "courseCode": "SOC621",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC622",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": false
+    }
+  ],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_098.png"
-  ]
+  "warnings": []
 }
