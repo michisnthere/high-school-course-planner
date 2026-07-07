@@ -1,4 +1,4 @@
-from typing import List, Literal, Optional, TypedDict
+from typing import List, Literal, NotRequired, Optional, TypedDict
 
 RequirementType = Literal["credits", "semesters", "completion", "waiver", "policy", "unknown"]
 
@@ -19,13 +19,22 @@ class CourseOfferingRecord(TypedDict):
     credits: Optional[float]
 
 
+class CourseChoiceRecord(TypedDict):
+    name: str
+    gpaWaiverOption: bool
+    creditType: Optional[str]
+    credits: Optional[float]
+    offerings: List[CourseOfferingRecord]
+
+
 class CourseRecord(TypedDict):
     title: str
     department: Optional[str]
     description: Optional[str]
-    gpaWaiverOption: bool
+    gpaWaiverOption: NotRequired[Optional[bool]]
     isOnline: bool
-    offerings: List[CourseOfferingRecord]
+    offerings: NotRequired[Optional[List[CourseOfferingRecord]]]
+    choices: NotRequired[Optional[List[CourseChoiceRecord]]]
     notes: List[str]
     sourceReference: Optional[str]
 
