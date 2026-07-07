@@ -3,6 +3,6 @@
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
-    "stub extraction for page_036.png"
+    "Page 36 is a Computer Science course offerings pathway diagram showing course sequence only. No course descriptions are present. Courses listed in diagram: Computer Programming 1 (CSC161/CSC162, One-Semester), Computer Programming 2 (CSC181/CSC182, One-Semester), AP Computer Science A (CSC391/CSC392, Full-Year), AP Computer Science Principles (CSC371/CSC372, Full-Year), Mobile App Development (CSC251/CSC252, Full-Year per diagram — contradicts 'One Semester' label on course listing page 38), Computer Science Algorithms (CSC421/CSC422, Full-Year)."
   ]
 }

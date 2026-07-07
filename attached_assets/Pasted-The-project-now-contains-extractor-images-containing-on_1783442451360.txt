@@ -1,0 +1,16 @@
+The project now contains:
+
+extractor/images/ containing one PNG per PDF page. extractor/config/sections.json defining which pages belong to each section. I want you to extract one section at a time.
+
+For the selected section: Read every PNG listed for that section. Visually inspect the page contents directly. Extract all information into JSON matching the existing project schema. Save one JSON file per page into extractor/page_output/. After all pages in the section are complete, combine them into extractor/section_output/<section_id>.json. Do not infer information from pages outside the current section. Preserve all course descriptions, prerequisites, credits, offerings, course codes, and notes exactly as written. If a page continues information from the previous page within the same section, merge it correctly. If anything is ambiguous, record it in a warnings array instead of guessing. Do not modify any parser or extraction code. Your task is only to generate JSON from the page images. We will repeat this workflow section by section until every section has been extracted.
+
+After each section is complete, stop and wait for my review before moving to the next one. We are currently finished with the first two sections. Continue from the third section, which should be CSET.
+
+Rule to note:
+
+Unless explicitly stated otherwise, every course should have 1.0 credit.
+The only exception is when the course description explicitly states that the course is a "1.5 period" course (this occurs most commonly in the Science division). In those cases, set the credit value appropriately according to the catalog.
+Do not infer non-default credit values from course titles or department conventions—only change the credit if the page explicitly indicates it.
+Unless explicitly stated otherwise, every course should have 1.0 credit.
+The only exception is when the course description explicitly states that the course is a "1.5 period" course (this occurs most commonly in the Science division). In those cases, set the credit value appropriately according to the catalog.
+Do not infer non-default credit values from course titles or department conventions—only change the credit if the page explicity states the course is a "1.5 period" course.
