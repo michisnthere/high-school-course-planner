@@ -1,8 +1,16 @@
 {
-  "departments": [],
+  "sourcePage": 84,
+  "departments": [
+    {
+      "name": "Physical Education Department",
+      "description": "The Division of Physical Welfare empowers students to become independent, self-reflective and healthy lifelong movers. We believe that understanding how to fuel both body and mind is essential for personal growth and well-being. Our programs emphasize the value of self and others, fostering a sense of belonging through healthy relationships and cultivating strength and emotional resilience through movement. Our courses are designed to inspire and equip students with the knowledge and skills needed to pursue and plan for lifelong wellness. Students learn to make healthy, responsible lifestyle decisions while engaging in activities that build positive physical, social and emotional habits. Beyond traditional physical and health education, our comprehensive curriculum empowers students to take ownership of their well-being. Through a movement-based curriculum and comprehensive Health Education Programs, students gain the essential knowledge and skills to become healthy, lifelong learners. Excessive absenteeism or non-participation must be made up. Make-up cards are issued to students and they can use the West Fitness Center or Fitness Mezzanine during their lunch hour or the PWC after school for make-up credit. Medical excuses are accepted from parents/guardians for up to three days. Excuses of longer duration must be written by a physician. Students with physicians' notes will be accommodated in an alternative activity. If a physical education student is also a student athlete, any medical restrictions in physical education will also affect their athletic participation. All classes in physical education, with the exception of leadership and aquatics courses, are pass/fail."
+    },
+    {
+      "name": "Health Education Department",
+      "description": "Our curriculum offers diverse and engaging activities that foster physical literacy, promote health-related fitness, cultivate a mind-body connection, encourage critical thinking and self-reflection, inspire lifelong engagement, and build community and leadership. Students have the opportunity to choose activities that align with their interests, allowing them to further develop their knowledge and skills. We are committed to providing equal opportunities for daily physical education to every student, regardless of their athletic ability or physical capabilities. Individual needs and interests guide their Physical Education choices. Physical Welfare courses required for graduation: all students must be enrolled in a Physical Education course; Health Education."
+    }
+  ],
   "courses": [],
   "graduationRequirements": [],
-  "warnings": [
-    "stub extraction for page_084.png"
-  ]
+  "warnings": []
 }

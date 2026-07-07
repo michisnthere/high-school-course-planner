@@ -69,6 +69,14 @@
       "directorPhone": "847-415-4600"
     },
     {
+      "name": "Physical Education Department",
+      "description": "The Division of Physical Welfare empowers students to become independent, self-reflective and healthy lifelong movers. We believe that understanding how to fuel both body and mind is essential for personal growth and well-being. Our programs emphasize the value of self and others, fostering a sense of belonging through healthy relationships and cultivating strength and emotional resilience through movement. Our courses are designed to inspire and equip students with the knowledge and skills needed to pursue and plan for lifelong wellness. Students learn to make healthy, responsible lifestyle decisions while engaging in activities that build positive physical, social and emotional habits. Beyond traditional physical and health education, our comprehensive curriculum empowers students to take ownership of their well-being. Through a movement-based curriculum and comprehensive Health Education Programs, students gain the essential knowledge and skills to become healthy, lifelong learners. Excessive absenteeism or non-participation must be made up. Make-up cards are issued to students and they can use the West Fitness Center or Fitness Mezzanine during their lunch hour or the PWC after school for make-up credit. Medical excuses are accepted from parents/guardians for up to three days. Excuses of longer duration must be written by a physician. Students with physicians' notes will be accommodated in an alternative activity. If a physical education student is also a student athlete, any medical restrictions in physical education will also affect their athletic participation. All classes in physical education, with the exception of leadership and aquatics courses, are pass/fail."
+    },
+    {
+      "name": "Health Education Department",
+      "description": "Our curriculum offers diverse and engaging activities that foster physical literacy, promote health-related fitness, cultivate a mind-body connection, encourage critical thinking and self-reflection, inspire lifelong engagement, and build community and leadership. Students have the opportunity to choose activities that align with their interests, allowing them to further develop their knowledge and skills. We are committed to providing equal opportunities for daily physical education to every student, regardless of their athletic ability or physical capabilities. Individual needs and interests guide their Physical Education choices. Physical Welfare courses required for graduation: all students must be enrolled in a Physical Education course; Health Education."
+    },
+    {
       "name": "Science Division",
       "description": "Science is as much a way of knowing as it is a body of knowledge. The Science Division at Stevenson is dedicated to a laboratory approach to science education that will involve each student in the process of discovery. This approach enables students to have practice in the kinds of analytical problem solving that will help them throughout life. Students will engage in the Science and Engineering Practices outlined in the Next Generation Science Standards (NGSS) as they \"do science.\" At the same time, students build an integrated information base for post-secondary studies and see the cross-cutting concepts that run through all Science disciplines."
     },
@@ -6666,6 +6674,508 @@
       "sourceReference": "page 70"
     },
     {
+      "title": "Freshman Foundational Fitness Choice P.E.",
+      "department": "Physical Education",
+      "description": "Freshman Foundational Fitness Choice P.E. is designed for students to learn to develop and maintain physical fitness in a variety of self-selected activities. The course begins with the Foundations of Fitness, where students learn how to develop and apply a personal fitness plan, how to perform basic lifting techniques and how to utilize a fitness center safely. Students who are able to demonstrate safety in and around the water will choose activities in which they will participate and apply their fitness plan. (Students needing additional support for achieving swimming proficiency will participate in American Red Cross Learn to Swim lessons.)",
+      "isOnline": false,
+      "sourceReference": "page 86",
+      "notes": [
+        "Pass/Fail course."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED121",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED122",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": false
+    },
+    {
+      "title": "Adventure Education",
+      "department": "Physical Education",
+      "description": "Students in this course will participate in individual, partner and team activities to work towards becoming better problem solvers and communicators, while learning to trust others and be trusted. Some units will require students to be in the pool. Activities may include team building, outdoor games, biking, archery, climbing/rappelling, kayaking and canoeing. Multiple credits may be earned for this course.",
+      "isOnline": false,
+      "sourceReference": "page 86",
+      "notes": [
+        "Pass/Fail course.",
+        "Multiple credits may be earned for this course."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED331",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "A Foundational Fitness class or any previous physical education course"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED332",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "A Foundational Fitness class or any previous physical education course"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": false
+    },
+    {
+      "title": "Choice P.E.",
+      "department": "Physical Education",
+      "description": "This course is designed for students to develop and maintain their lifelong wellness in activities of their choice. Students will choose the activity in which they will participate each semester. (Regardless of activity selected, all students will learn how to apply their fitness plan, reflect on their fitness and build their knowledge of health-related fitness.) This course may be repeated for credit.",
+      "isOnline": false,
+      "sourceReference": "page 87",
+      "notes": [
+        "Pass/Fail course.",
+        "This course may be repeated for credit.",
+        "Early Bird Physical Education is scheduled from 7-8:25 a.m. on Monday/Wednesday/Friday. Students with excessive absenteeism in this class will be removed from the Early Bird program and placed in a Physical Education class during the regularly scheduled day."
+      ],
+      "choices": [
+        {
+          "name": "Regular",
+          "gpaWaiverOption": false,
+          "creditType": "College Prep",
+          "credits": 1.0,
+          "offerings": [
+            {
+              "courseCode": "PED451",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                9,
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "A Foundational Fitness class, any previous Physical Education course or director approval"
+              ],
+              "corequisites": [],
+              "creditType": "College Prep",
+              "credits": 1.0
+            },
+            {
+              "courseCode": "PED452",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                9,
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "A Foundational Fitness class, any previous Physical Education course or director approval"
+              ],
+              "corequisites": [],
+              "creditType": "College Prep",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Early Bird Option",
+          "gpaWaiverOption": false,
+          "creditType": "College Prep",
+          "credits": 1.0,
+          "offerings": [
+            {
+              "courseCode": "PED031",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "A Foundational Fitness course, any physical education class or director approval"
+              ],
+              "corequisites": [],
+              "creditType": "College Prep",
+              "credits": 1.0
+            },
+            {
+              "courseCode": "PED032",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "A Foundational Fitness course, any physical education class or director approval"
+              ],
+              "corequisites": [],
+              "creditType": "College Prep",
+              "credits": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Physical Education Leadership Training",
+      "department": "Physical Education",
+      "description": "The first year of the Leadership Program is designed for students to become effective teacher aides and strong leaders. There will be active participation in all activities offered within the Stevenson Physical Education program. Students will learn to lead group activities, to develop skill progression and to study methods and techniques of teaching physical education. The focus of this program is to develop and expand on leadership skills in group and individual led discussions or teaching opportunities where students will be asked to continually reflect on their leadership experience. Students will have the opportunity to apply the skills they learn by assisting Physical Education classes and planning two field days for junior high students. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
+      "isOnline": false,
+      "sourceReference": "page 87",
+      "notes": [
+        "The Physical Education Leadership program is a two-year commitment."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED61L",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED62L",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "Senior Leadership",
+      "department": "Physical Education",
+      "description": "Students will apply what they learned in Physical Education Leadership Training by serving as teacher aides with a Physical Education teacher. All students will participate in fitness testing. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
+      "isOnline": false,
+      "sourceReference": "page 87",
+      "notes": [],
+      "offerings": [
+        {
+          "courseCode": "PED81L",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "Physical education Leadership Training"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED82L",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "Physical education Leadership Training"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "Lifeguard Training and Certification",
+      "department": "Physical Education",
+      "description": "This course is designed to provide students with the ability to earn American Red Cross Lifeguarding and First Aid certification. Students will also learn skills in oxygen administration, preventing disease transmission and CPR/AED. Students will be charged a fee if they wish to receive their American Red Cross certification. Students taking this class will be encouraged to participate in our Pool Leadership program. (Materials for the course are available in the Patriot Superstore.)",
+      "isOnline": false,
+      "sourceReference": "page 87",
+      "notes": [
+        "Additional fee to receive American Red Cross certificate."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED501",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Ability to demonstrate required swim skills",
+            "Students must be at least 15 years old by the end of the course"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "Pool Leadership",
+      "department": "Physical Education",
+      "description": "Students will continue to serve as water safety instructors, lifeguards and pool aides to the aquatics program. Each student will receive ongoing Lifeguard In-Service Training that will keep their certifications current and their skills sharp. At the end of each semester a student must receive a recommendation in their evaluation to continue in the leadership program. Materials for the course are available in the Patriot Superstore. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
+      "isOnline": false,
+      "sourceReference": "page 88",
+      "notes": [],
+      "offerings": [
+        {
+          "courseCode": "PED71L",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester or Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Students must have an American Red Cross Lifeguarding certification"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED72L",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester or Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Students must have an American Red Cross Lifeguarding certification"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "Alternative Physical Education Leadership",
+      "department": "Physical Education",
+      "description": "New students will engage in training which takes place in class during the first semester. Students will perform one-on-one or in small groups working with individuals who have a variety of special needs. Leaders also participate in work with the students outside of the regular school day. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
+      "isOnline": false,
+      "sourceReference": "page 88",
+      "notes": [
+        "The Alternative Physical Education leadership program is a two-year commitment."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED41L",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED42L",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
+      "title": "Alternative Physical Education",
+      "department": "Physical Education",
+      "description": "Alternative Physical Education is for students with disabilities that merit an adapted curriculum. All curriculum will be modified and adapted so that all students can participate and benefit. The instructor will work with the doctor in an effort to design a program to meet the individual needs of each student.",
+      "isOnline": false,
+      "sourceReference": "page 88",
+      "notes": [
+        "Pass/Fail course."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED111",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "A physician's verification must be on file"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED112",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "A physician's verification must be on file"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": false
+    },
+    {
+      "title": "Health Education",
+      "department": "Health Education",
+      "description": "The following Health Education units are taught: Wellness and Mental Health; Reality of Drugs; Adult CPR and AED; Social Health. Within the Adult CPR unit, students have the opportunity to receive Adult CPR and AED certification (summer school excluded) through the American Red Cross. (Student participation in the Adult CPR unit is a requirement.) Health Education should be completed by the end of the sophomore year. During the semester that a student takes Health Education, the student is excused from Physical Education. By completing the Reality of Drugs unit, students will be prepared for the '46th Credit' exam which is a graduation requirement.",
+      "isOnline": false,
+      "sourceReference": "page 88",
+      "notes": [
+        "Student participation in the Adult CPR unit is a requirement.",
+        "Health Education should be completed by the end of the sophomore year.",
+        "By completing the Reality of Drugs unit, students will be prepared for the '46th Credit' exam which is a graduation requirement."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED201",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED202",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": false
+    },
+    {
+      "title": "Applied Health",
+      "department": "Health Education",
+      "description": "The purpose of Applied Health is to develop professional skills that can be applied to a career in healthcare. This course empowers students with real usable skills and credentials in the allied medical health field. Topics in the course include professional rescue skills, injury management, health career exploration, functional anatomy and terminology, long-term wellness and personal/professional social/emotional life skills. The course is lab-based and highly dependent on attendance and participation. A fee is required for any student who wishes to earn the American Red Cross certification. During the semester that a student takes Applied Health, the student is excused from Physical Education.",
+      "isOnline": false,
+      "sourceReference": "page 88",
+      "notes": [
+        "Additional fee to receive American Red Cross certificate."
+      ],
+      "offerings": [
+        {
+          "courseCode": "PED231",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Health Education"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED232",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Health Education"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "gpaWaiverOption": true
+    },
+    {
       "title": "Biology",
       "department": "Science",
       "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students’ graduation requirement for two semesters of biological science.",
@@ -9201,11 +9711,12 @@
     "English Language Development (ELD) program overview page. The Stevenson High School English Language Development (ELD) Program is part of the Multilingual Learning Division and is designed to support students at Stevenson who are identified as multilingual learners. The goals of this program are to strengthen students’ literacy and oracy skills in English and to empower students to become multilingual and multiliterate by sustaining students’ academic engagement with their home languages. Appropriate placement of students in the ELD program is done through state and national testing scores, home language surveys, teacher recommendations and the cooperative efforts of the Student Services Department and the ELD faculty in the Multilingual Learning Division.",
     "Page 65 is a Mathematics course offerings diagram only. No course descriptions are present. Courses listed (with course codes): AP Precalculus AB (MTH411/MTH412), AP Precalculus BC (MTH421/MTH422), AP Calculus AB (MTH471/MTH472), AP Calculus BC (MTH491/MTH492), Algebra 1 (MTH151/MTH152), Geometry (MTH251/MTH252), Algebra 2 (MTH351/MTH352), College Multivariable Calculus (MTH591 — Semester 1 only), College Linear Algebra (MTH592 — Semester 2 only), Geometry AB/BC (MTH271/MTH272), Algebra 2 AB/BC (MTH171/MTH172), Mathematical Modeling and Design (MTH431/MTH432), Data Science (MTH481/MTH482), Advanced Mathematical Decision Making (MTH441/MTH442), AP Statistics (MTH461/MTH462), Precalculus (MTH451/MTH452).",
     "Calculator recommendation: A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate.",
-    "stub extraction for page_084.png",
-    "stub extraction for page_085.png",
-    "stub extraction for page_086.png",
-    "stub extraction for page_087.png",
-    "stub extraction for page_088.png",
+    "Page 85 contains a Physical Welfare course listing grid with course codes but no detailed descriptions; detailed course information is extracted from pages 86-88.",
+    "All physical education classes except leadership and aquatics courses are pass/fail per the catalog (page 86).",
+    "Choice P.E. may be repeated for credit; Adventure Education may also be repeated for credit.",
+    "Lifeguard Training and Certification is offered only in Semester 1 and has additional prerequisites (swim skills and minimum age 15).",
+    "Alternative Physical Education Leadership and Physical Education Leadership Training require a two-year commitment.",
+    "Health Education and Applied Health excuse students from Physical Education during the semester they are taken.",
     "Page 90 contains a course listing grid with course codes but no detailed descriptions; detailed course information is extracted from pages 91-93.",
     "Science Research is a Pass/Fail course per the catalog (page 91).",
     "AP Physics 2 prerequisite rendered as a single disjunctive string (\"AP Physics 1 or Physics\") per catalog text (page 92).",

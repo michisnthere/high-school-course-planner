@@ -1,8 +1,9 @@
 {
+  "sourcePage": 85,
   "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
-    "stub extraction for page_085.png"
+    "Page 85 contains a Physical Welfare course listing grid with course codes but no detailed descriptions; detailed course information is extracted from pages 86-88."
   ]
 }
