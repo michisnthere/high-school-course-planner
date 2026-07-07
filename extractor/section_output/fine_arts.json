@@ -17,7 +17,7 @@
     },
     {
       "name": "Music",
-      "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin—or continue—a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
+      "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin\u2014or continue\u2014a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
     },
     {
       "name": "Theatre",
@@ -36,7 +36,12 @@
           "courseCode": "ART101",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -46,7 +51,12 @@
           "courseCode": "ART102",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -67,8 +77,15 @@
           "courseCode": "ART221",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -77,8 +94,15 @@
           "courseCode": "ART222",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -98,8 +122,15 @@
           "courseCode": "ART261",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -108,8 +139,15 @@
           "courseCode": "ART262",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -129,8 +167,15 @@
           "courseCode": "ART611",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -139,8 +184,15 @@
           "courseCode": "ART612",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -160,8 +212,15 @@
           "courseCode": "ART201",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -170,8 +229,15 @@
           "courseCode": "ART202",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -191,8 +257,15 @@
           "courseCode": "ART281",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -201,8 +274,15 @@
           "courseCode": "ART282",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -222,8 +302,15 @@
           "courseCode": "ART241",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -232,8 +319,15 @@
           "courseCode": "ART242",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Art and Design"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -253,8 +347,14 @@
           "courseCode": "ART621",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -263,14 +363,22 @@
           "courseCode": "ART622",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 49"
     },
     {
@@ -284,8 +392,14 @@
           "courseCode": "ART631",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -294,14 +408,22 @@
           "courseCode": "ART632",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 49"
     },
     {
@@ -315,8 +437,13 @@
           "courseCode": "ART801",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -325,14 +452,21 @@
           "courseCode": "ART802",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 49"
     },
     {
@@ -346,7 +480,12 @@
           "courseCode": "ART401",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -356,14 +495,21 @@
           "courseCode": "ART402",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["Students may use their own DSLR; however, students may check out school-owned cameras for assignments."],
+      "notes": [
+        "Students may use their own DSLR; however, students may check out school-owned cameras for assignments."
+      ],
       "sourceReference": "page 50"
     },
     {
@@ -377,8 +523,15 @@
           "courseCode": "ART411",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Photography 1"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -387,14 +540,23 @@
           "courseCode": "ART412",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Photography 1"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."],
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
+      ],
       "sourceReference": "page 50"
     },
     {
@@ -408,8 +570,14 @@
           "courseCode": "ART421",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
+          ],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1.0
@@ -418,14 +586,22 @@
           "courseCode": "ART422",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
+          ],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1.0
         }
       ],
-      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."],
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
+      ],
       "sourceReference": "page 50"
     },
     {
@@ -439,8 +615,13 @@
           "courseCode": "ART871",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Advanced Photography and Digital Design"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Photography and Digital Design"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -449,14 +630,22 @@
           "courseCode": "ART872",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Advanced Photography and Digital Design"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Photography and Digital Design"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
-      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments.", "This course may be repeated for credit."],
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments.",
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 50"
     },
     {
@@ -470,7 +659,12 @@
           "courseCode": "ART501",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -480,14 +674,21 @@
           "courseCode": "ART502",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."],
+      "notes": [
+        "Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."
+      ],
       "sourceReference": "page 51"
     },
     {
@@ -501,8 +702,15 @@
           "courseCode": "ART511",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -511,14 +719,23 @@
           "courseCode": "ART512",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."],
+      "notes": [
+        "Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments."
+      ],
       "sourceReference": "page 51"
     },
     {
@@ -532,8 +749,15 @@
           "courseCode": "ART531",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -542,8 +766,15 @@
           "courseCode": "ART532",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Digital Art and Design 1"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Digital Art and Design 1"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -563,8 +794,15 @@
           "courseCode": "ART541",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["2D Animation and/or Director Approval"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "2D Animation and/or Director Approval"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -573,8 +811,15 @@
           "courseCode": "ART542",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["2D Animation and/or Director Approval"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "2D Animation and/or Director Approval"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -594,7 +839,11 @@
           "courseCode": "ART721",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "Honors",
@@ -604,7 +853,11 @@
           "courseCode": "ART722",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "Honors",
@@ -625,7 +878,12 @@
           "courseCode": "DNC101",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -635,7 +893,12 @@
           "courseCode": "DNC102",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -659,8 +922,15 @@
           "courseCode": "DNC201",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 1 and/or Placement by Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 1 and/or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -669,8 +939,15 @@
           "courseCode": "DNC202",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 1 and/or Placement by Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 1 and/or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -694,8 +971,15 @@
           "courseCode": "DNC301",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 2 and/or Placement by Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 and/or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -704,8 +988,15 @@
           "courseCode": "DNC302",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 2 and/or Placement by Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 and/or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -729,8 +1020,15 @@
           "courseCode": "DNC401",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 3 and/or Placement by Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 3 and/or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -739,8 +1037,15 @@
           "courseCode": "DNC402",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Dance 3 and/or Placement by Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 3 and/or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -764,8 +1069,14 @@
           "courseCode": "DNC501",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Dance 4 OR a Senior who has completed Dance 3"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 4 OR a Senior who has completed Dance 3"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -774,8 +1085,14 @@
           "courseCode": "DNC502",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Dance 4 OR a Senior who has completed Dance 3"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 4 OR a Senior who has completed Dance 3"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -800,7 +1117,11 @@
           "courseCode": "DNC321",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -810,7 +1131,11 @@
           "courseCode": "DNC322",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -834,8 +1159,14 @@
           "courseCode": "DNC311",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Dance 2 or Higher, and/or Teacher Approval"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 or Higher, and/or Teacher Approval"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -844,8 +1175,14 @@
           "courseCode": "DNC312",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Dance 2 or Higher, and/or Teacher Approval"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Dance 2 or Higher, and/or Teacher Approval"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -868,8 +1205,14 @@
           "courseCode": "DNC601",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -878,8 +1221,14 @@
           "courseCode": "DNC602",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -902,8 +1251,12 @@
           "courseCode": "MUS101",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9],
-          "prerequisites": ["Prior Band experience or approval of Band faculty"],
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "Prior Band experience or approval of Band faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -912,8 +1265,12 @@
           "courseCode": "MUS102",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9],
-          "prerequisites": ["Prior Band experience or approval of Band faculty"],
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "Prior Band experience or approval of Band faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -936,8 +1293,14 @@
           "courseCode": "MUS121",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Band Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Band Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -946,8 +1309,14 @@
           "courseCode": "MUS122",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Band Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Band Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -971,8 +1340,14 @@
           "courseCode": "MUS131",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Band Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Band Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -981,8 +1356,14 @@
           "courseCode": "MUS132",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Band Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Band Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -999,28 +1380,49 @@
       "title": "Wind Ensemble",
       "department": "Music",
       "description": "Students in grades 10-12 with band experience may audition to enroll in Wind Ensemble to continue work on comprehensive musicianship skills. Wind Ensemble also performs in five annual concerts at Stevenson High School and may also participate in additional performance opportunities or festivals. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Symphonic Band and Wind Symphony. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
-      "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS141",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Band Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Band Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
         },
         {
           "courseCode": "MUS142",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Band Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Band Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
+        }
+      ],
+      "options": [
+        {
+          "creditType": "College Prep",
+          "gpaWaived": true
+        },
+        {
+          "creditType": "Accelerated",
+          "gpaWaived": false
         }
       ],
       "notes": [
@@ -1043,7 +1445,12 @@
           "courseCode": "MUS201",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1053,42 +1460,70 @@
           "courseCode": "MUS202",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 57"
     },
     {
       "title": "Advanced Chorus",
       "department": "Music",
       "description": "Experienced sopranos and altos may audition for this advanced vocal ensemble. Students will continue to work on developing more advanced skills for individual and group singing, as well as comprehensive musicianship. This ensemble performs at five school concerts and may also participate in additional performance opportunities or festivals. Seniors may earn accelerated credit in this course. This course may be repeated for credit.",
-      "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS211",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Choir Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Choir Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
         },
         {
           "courseCode": "MUS212",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Choir Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Choir Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
+        }
+      ],
+      "options": [
+        {
+          "creditType": "College Prep",
+          "gpaWaived": true
+        },
+        {
+          "creditType": "Accelerated",
+          "gpaWaived": false
         }
       ],
       "notes": [
@@ -1103,28 +1538,49 @@
       "title": "Patriot Singers",
       "department": "Music",
       "description": "Experienced students of all voice parts may audition for Patriot Singers. This is an advanced SATB vocal ensemble, where students will be challenged with a wide variety of repertoire, and further develop advanced musicianship skills. The Patriot Singers perform at five school concerts, community events and may also participate in additional performance opportunities or festivals. Seniors may earn accelerated credit in this course. This course may be repeated for credit.",
-      "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS221",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Choir Faculty; treble voices need to have completed one year in Advanced Chorus"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Choir Faculty; treble voices need to have completed one year in Advanced Chorus"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
         },
         {
           "courseCode": "MUS222",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Audition with Choir Faculty; treble voices need to have completed one year in Advanced Chorus"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with Choir Faculty; treble voices need to have completed one year in Advanced Chorus"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
+        }
+      ],
+      "options": [
+        {
+          "creditType": "College Prep",
+          "gpaWaived": true
+        },
+        {
+          "creditType": "Accelerated",
+          "gpaWaived": false
         }
       ],
       "notes": [
@@ -1146,8 +1602,12 @@
           "courseCode": "MUS301",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9],
-          "prerequisites": ["All incoming freshman orchestra students should register for this class"],
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "All incoming freshman orchestra students should register for this class"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1156,8 +1616,12 @@
           "courseCode": "MUS302",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9],
-          "prerequisites": ["All incoming freshman orchestra students should register for this class"],
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "All incoming freshman orchestra students should register for this class"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1172,7 +1636,7 @@
     {
       "title": "Concert Orchestra",
       "department": "Music",
-      "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
+      "description": "This course is designed for students in grades 10\u201312 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
@@ -1180,8 +1644,14 @@
           "courseCode": "MUS311",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Prior Orchestra Experience and/or Approval of Orchestra Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Prior Orchestra Experience and/or Approval of Orchestra Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1190,8 +1660,14 @@
           "courseCode": "MUS312",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Prior Orchestra Experience and/or Approval of Orchestra Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Prior Orchestra Experience and/or Approval of Orchestra Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1214,8 +1690,15 @@
           "courseCode": "MUS331",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Auditions are required for all students with the Orchestra Faculty"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the Orchestra Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1224,8 +1707,15 @@
           "courseCode": "MUS332",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Auditions are required for all students with the Orchestra Faculty"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the Orchestra Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1240,29 +1730,50 @@
     {
       "title": "Patriot Orchestra",
       "department": "Music",
-      "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
-      "gpaWaiverOption": true,
+      "description": "This course is designed for students in grades 10\u201312 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
       "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS321",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["All students must have completed one full year of Concert or Symphonic Orchestra in addition to a formal audition and approval from the Orchestra Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "All students must have completed one full year of Concert or Symphonic Orchestra in addition to a formal audition and approval from the Orchestra Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
         },
         {
           "courseCode": "MUS322",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["All students must have completed one full year of Concert or Symphonic Orchestra in addition to a formal audition and approval from the Orchestra Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "All students must have completed one full year of Concert or Symphonic Orchestra in addition to a formal audition and approval from the Orchestra Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
+        }
+      ],
+      "options": [
+        {
+          "creditType": "College Prep",
+          "gpaWaived": true
+        },
+        {
+          "creditType": "Accelerated",
+          "gpaWaived": false
         }
       ],
       "notes": [
@@ -1285,7 +1796,12 @@
           "courseCode": "MUS421",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1295,7 +1811,12 @@
           "courseCode": "MUS422",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1319,8 +1840,15 @@
           "courseCode": "MUS461",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Guitar 1 or Per Audition with the Guitar Faculty"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Guitar 1 or Per Audition with the Guitar Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1329,8 +1857,15 @@
           "courseCode": "MUS462",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Guitar 1 or Per Audition with the Guitar Faculty"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Guitar 1 or Per Audition with the Guitar Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1346,28 +1881,49 @@
       "title": "Patriot Guitar Ensemble",
       "department": "Music",
       "description": "This course is designed for advanced guitarists who are interested in further developing technique and musicianship. The repertoire performed in this class includes chamber works for guitar, large ensemble pieces by composers of varied eras and extensive solo work repertoire. Emphasis is placed on development of technique, music-reading skills, composition, sight-reading, jazz voicings of chords and expressive performance as soloists and ensemble members. Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice. Students perform three concerts throughout the year. This class may be repeated for credit.",
-      "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS441",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Auditions are required for all students with the Guitar Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the Guitar Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
         },
         {
           "courseCode": "MUS442",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Auditions are required for all students with the Guitar Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the Guitar Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
+        }
+      ],
+      "options": [
+        {
+          "creditType": "College Prep",
+          "gpaWaived": true
+        },
+        {
+          "creditType": "Accelerated",
+          "gpaWaived": false
         }
       ],
       "notes": [
@@ -1389,7 +1945,12 @@
           "courseCode": "MUS401",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1399,14 +1960,21 @@
           "courseCode": "MUS402",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 60"
     },
     {
@@ -1420,7 +1988,12 @@
           "courseCode": "MUS431",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1430,7 +2003,12 @@
           "courseCode": "MUS432",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1451,8 +2029,15 @@
           "courseCode": "MUS451",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Music Production 1 or Approval of Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 1 or Approval of Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1461,8 +2046,15 @@
           "courseCode": "MUS452",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Music Production 1 or Approval of Instructor"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 1 or Approval of Instructor"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1482,8 +2074,14 @@
           "courseCode": "MUS471",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Music Production 2 or Placement by Instructor"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 2 or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -1492,8 +2090,14 @@
           "courseCode": "MUS472",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Music Production 2 or Placement by Instructor"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Music Production 2 or Placement by Instructor"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -1517,8 +2121,14 @@
           "courseCode": "MUS801",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -1527,8 +2137,14 @@
           "courseCode": "MUS802",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -1548,7 +2164,12 @@
           "courseCode": "THR101",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1558,7 +2179,12 @@
           "courseCode": "THR102",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1579,7 +2205,12 @@
           "courseCode": "THR121",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1589,14 +2220,21 @@
           "courseCode": "THR122",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 62"
     },
     {
@@ -1610,8 +2248,15 @@
           "courseCode": "THR111",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Acting 1: Confidence and Collaboration"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 1: Confidence and Collaboration"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1620,8 +2265,15 @@
           "courseCode": "THR112",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Acting 1: Confidence and Collaboration"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 1: Confidence and Collaboration"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1641,14 +2293,22 @@
           "courseCode": "THR211",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Acting 2: Character and Comedy"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 2: Character and Comedy"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["Semester 1 course only — no Semester 2 offering. THR211 is the sole course code."],
+      "notes": [
+        "Semester 1 course only \u2014 no Semester 2 offering. THR211 is the sole course code."
+      ],
       "sourceReference": "page 63"
     },
     {
@@ -1662,14 +2322,22 @@
           "courseCode": "THR212",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Acting 3"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 3"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["Semester 2 course only — no Semester 1 offering. THR212 is the sole course code."],
+      "notes": [
+        "Semester 2 course only \u2014 no Semester 1 offering. THR212 is the sole course code."
+      ],
       "sourceReference": "page 63"
     },
     {
@@ -1683,8 +2351,13 @@
           "courseCode": "THR401",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Acting 4"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 4"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -1693,8 +2366,13 @@
           "courseCode": "THR402",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Acting 4"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 4"
+          ],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -1718,8 +2396,13 @@
           "courseCode": "THR301",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Acting 4 or Entertainment Production and Design"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 4 or Entertainment Production and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1728,8 +2411,13 @@
           "courseCode": "THR302",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [11, 12],
-          "prerequisites": ["Acting 4 or Entertainment Production and Design"],
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 4 or Entertainment Production and Design"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1749,8 +2437,14 @@
           "courseCode": "THR601",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Acting 4 OR Entertainment Production and Design and Instructor Approval"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 4 OR Entertainment Production and Design and Instructor Approval"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -1759,23 +2453,31 @@
           "courseCode": "THR602",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Acting 4 OR Entertainment Production and Design and Instructor Approval"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 4 OR Entertainment Production and Design and Instructor Approval"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": ["This course may be repeated for credit."],
+      "notes": [
+        "This course may be repeated for credit."
+      ],
       "sourceReference": "page 63"
     }
   ],
   "graduationRequirements": [],
   "warnings": [
-    "Acting 3 (THR211) is offered in Semester 1 only — it has a single course code with no Semester 2 equivalent.",
-    "Acting 4 (THR212) is offered in Semester 2 only — it has a single course code with no Semester 1 equivalent.",
-    "Advanced Photography and Digital Design (ART421/ART422) carries 'Accelerated' credit type as stated on the catalog page — this is distinct from 'College Prep' and 'Honors'; recorded verbatim.",
-    "Wind Ensemble (MUS141/MUS142), Advanced Chorus (MUS211/MUS212), Patriot Singers (MUS221/MUS222), Patriot Orchestra (MUS321/MUS322), and Patriot Guitar Ensemble (MUS441/MUS442) carry 'College Prep with Accelerated Option' credit type; GPA waiver is available for College Prep track only.",
+    "Acting 3 (THR211) is offered in Semester 1 only \u2014 it has a single course code with no Semester 2 equivalent.",
+    "Acting 4 (THR212) is offered in Semester 2 only \u2014 it has a single course code with no Semester 1 equivalent.",
+    "Advanced Photography and Digital Design (ART421/ART422) carries 'Accelerated' credit type as stated on the catalog page \u2014 this is distinct from 'College Prep' and 'Honors'; recorded verbatim.",
+    "Wind Ensemble (MUS141/MUS142), Advanced Chorus (MUS211/MUS212), Patriot Singers (MUS221/MUS222), Patriot Orchestra (MUS321/MUS322), and Patriot Guitar Ensemble (MUS441/MUS442) offer both College Prep and Accelerated credit options; the College Prep option is eligible for GPA waiver while the Accelerated option is not.",
     "Stevenson Orchestra (MUS301/MUS302) is open to grade 9 only (plus transfer students at appropriate level); gradeLevels set to [9].",
     "All Dance courses satisfy both Fine Arts credit and the Physical Education graduation requirement per the catalog.",
     "Elective courses in the Fine Arts Department may be eligible for the GPA waiver option."

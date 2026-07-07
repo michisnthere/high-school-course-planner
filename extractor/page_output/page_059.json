@@ -12,7 +12,12 @@
           "courseCode": "MUS421",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -22,7 +27,12 @@
           "courseCode": "MUS422",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -46,8 +56,15 @@
           "courseCode": "MUS461",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Guitar 1 or Per Audition with the Guitar Faculty"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Guitar 1 or Per Audition with the Guitar Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -56,8 +73,15 @@
           "courseCode": "MUS462",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["Guitar 1 or Per Audition with the Guitar Faculty"],
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Guitar 1 or Per Audition with the Guitar Faculty"
+          ],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -73,28 +97,49 @@
       "title": "Patriot Guitar Ensemble",
       "department": "Music",
       "description": "This course is designed for advanced guitarists who are interested in further developing technique and musicianship. The repertoire performed in this class includes chamber works for guitar, large ensemble pieces by composers of varied eras and extensive solo work repertoire. Emphasis is placed on development of technique, music-reading skills, composition, sight-reading, jazz voicings of chords and expressive performance as soloists and ensemble members. Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice. Students perform three concerts throughout the year. This class may be repeated for credit.",
-      "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
         {
           "courseCode": "MUS441",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Auditions are required for all students with the Guitar Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the Guitar Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
         },
         {
           "courseCode": "MUS442",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [10, 11, 12],
-          "prerequisites": ["Auditions are required for all students with the Guitar Faculty"],
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Auditions are required for all students with the Guitar Faculty"
+          ],
           "corequisites": [],
-          "creditType": "College Prep with Accelerated Option",
+          "creditType": "College Prep",
           "credits": 1.0
+        }
+      ],
+      "options": [
+        {
+          "creditType": "College Prep",
+          "gpaWaived": true
+        },
+        {
+          "creditType": "Accelerated",
+          "gpaWaived": false
         }
       ],
       "notes": [
