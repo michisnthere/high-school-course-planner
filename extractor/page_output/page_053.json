@@ -2,7 +2,7 @@
   "departments": [
     {
       "name": "Dance",
-      "description": "Stevenson High School provides Dance as a creative and rewarding art experience where artistic integrity and appreciation are developed. Dance is a physical and mental discipline. Students are provided opportunities to develop body strength, agility, coordination, creative problem-solving skills, organizational skills and the ability to work effectively in cooperative learning groups. They gain self-confidence, self-discipline and satisfaction in movement. Students will have the opportunity to learn a variety of dance styles from guest dance teachers during the school year. Dance students are regularly assessed on all course skills. All Dance students are required to purchase and wear appropriate attire as designated by the Dance teacher."
+      "description": "Stevenson High School provides dance as a creative and rewarding art experience where artistic integrity and appreciation are developed. Dance is a physical and mental discipline. Students are provided opportunities to develop body strength, agility, coordination, creative problem-solving skills, organizational skills and the ability to work effectively in cooperative learning groups. They gain self-confidence, self-discipline and satisfaction in movement. Students will have the opportunity to learn a variety of dance styles from guest dance teachers during the school year. Dance students are regularly assessed on all course skills. All dance students are required to purchase and wear appropriate attire as designated by the dance teacher."
     }
   ],
   "courses": [
@@ -17,12 +17,7 @@
           "courseCode": "DNC101",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -32,12 +27,7 @@
           "courseCode": "DNC102",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -45,8 +35,8 @@
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement.",
-        "All incoming freshmen interested in an upper-level Dance course (Dance 2, 3 or 4) must attend a placement assessment in January. Based off the assessment, students will be given the appropriate level placement. All other students may register for Dance 1 with no audition necessary. All current placements are held in January/early February. Transfer students placements are held in August before classes begin."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 53"
     },
@@ -61,15 +51,8 @@
           "courseCode": "DNC201",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 1 and/or placement by instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Dance 1 and/or Placement by Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -78,22 +61,17 @@
           "courseCode": "DNC202",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 1 and/or placement by instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Dance 1 and/or Placement by Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "All incoming freshmen interested in Dance 2 must attend a placement assessment in January.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 53"
     },
@@ -108,15 +86,8 @@
           "courseCode": "DNC301",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 2 and/or placement by instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Dance 2 and/or Placement by Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -125,22 +96,17 @@
           "courseCode": "DNC302",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 2 and/or placement by instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Dance 2 and/or Placement by Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "All incoming freshmen interested in Dance 3 must attend a placement assessment in January.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 53"
     }

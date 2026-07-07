@@ -17,12 +17,8 @@
           "courseCode": "MUS101",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9
-          ],
-          "prerequisites": [
-            "Prior band experience or approval of band faculty"
-          ],
+          "gradeLevels": [9],
+          "prerequisites": ["Prior Band experience or approval of Band faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -31,19 +27,16 @@
           "courseCode": "MUS102",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9
-          ],
-          "prerequisites": [
-            "Prior band experience or approval of band faculty"
-          ],
+          "gradeLevels": [9],
+          "prerequisites": ["Prior Band experience or approval of Band faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "Important note for all band classes: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals."
+        "IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
+        "Band students participating in Marching Band are offered a P.E. waiver for the first semester."
       ],
       "sourceReference": "page 56"
     },
@@ -58,14 +51,8 @@
           "courseCode": "MUS121",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Audition with band faculty"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Audition with Band Faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -74,21 +61,17 @@
           "courseCode": "MUS122",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Audition with band faculty"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Audition with Band Faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "Important note for all band classes: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals."
+        "Open to qualified students in grades 10-11-12.",
+        "IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 56"
     }

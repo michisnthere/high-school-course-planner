@@ -12,12 +12,7 @@
           "courseCode": "MUS401",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -27,25 +22,20 @@
           "courseCode": "MUS402",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["This course may be repeated for credit."],
       "sourceReference": "page 60"
     },
     {
       "title": "Music Production 1",
       "department": "Music",
-      "description": "This course will explore concepts in production, recording, performance, audio engineering, music business, sound design, music marketing and more. Students will have access to music production software, instruments and recording equipment in order to create, edit and mix the music that interests them. Music Production 1 is open to all students with an interest in music, no prior experience is necessary. All students will have the option to participate in a Music Production Showcase at the end of the semester.",
+      "description": "This course will explore concepts in production, recording, performance, audio engineering, music business, sound design, music marketing and more. Students will have access to music production software, instruments and recording equipment in order to create, edit and mix the music that interests them. Music Production 1 is open to all students with an interest in music; no prior experience is necessary. All students will have the option to participate in a Music Production Showcase at the end of the semester.",
       "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
@@ -53,12 +43,7 @@
           "courseCode": "MUS431",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -68,12 +53,7 @@
           "courseCode": "MUS432",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -94,15 +74,8 @@
           "courseCode": "MUS451",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Music Production 1 or approval of instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Music Production 1 or Approval of Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -111,15 +84,8 @@
           "courseCode": "MUS452",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Music Production 1 or approval of instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Music Production 1 or Approval of Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -139,14 +105,8 @@
           "courseCode": "MUS471",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Music Production 2 or placement by instructor"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Music Production 2 or Placement by Instructor"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -155,21 +115,17 @@
           "courseCode": "MUS472",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Music Production 2 or placement by instructor"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Music Production 2 or Placement by Instructor"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
       "notes": [
-        "Dual credit available with Loyola University Chicago. Additional fees for dual credit may be imposed by the college/university."
+        "Dual Credit Available with Loyola University Chicago.",
+        "Additional fees for dual credit may be imposed by the college/university.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 60"
     },
@@ -184,14 +140,8 @@
           "courseCode": "MUS801",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Membership in either Instrumental or Vocal Ensemble, or approval of instructor"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -200,14 +150,8 @@
           "courseCode": "MUS802",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Membership in either Instrumental or Vocal Ensemble, or approval of instructor"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0

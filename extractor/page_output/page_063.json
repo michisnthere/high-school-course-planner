@@ -11,21 +11,15 @@
         {
           "courseCode": "THR211",
           "semesterLabel": "SEMESTER 1",
-          "duration": "semester 1 only",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 2: Character and Comedy"
-          ],
+          "duration": "one semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Acting 2: Character and Comedy"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["Semester 1 course only — no Semester 2 offering. THR211 is the sole course code."],
       "sourceReference": "page 63"
     },
     {
@@ -38,21 +32,15 @@
         {
           "courseCode": "THR212",
           "semesterLabel": "SEMESTER 2",
-          "duration": "semester 2 only",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 3"
-          ],
+          "duration": "one semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Acting 3"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["Semester 2 course only — no Semester 1 offering. THR212 is the sole course code."],
       "sourceReference": "page 63"
     },
     {
@@ -66,13 +54,8 @@
           "courseCode": "THR401",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 4"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Acting 4"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -81,20 +64,17 @@
           "courseCode": "THR402",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 4"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Acting 4"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
       "notes": [
-        "Dual credit available with Loyola University Chicago. Additional fees for dual credit may be imposed by the college/university."
+        "Dual Credit Available with Loyola University Chicago.",
+        "Additional fees for dual credit may be imposed by the college/university.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 63"
     },
@@ -109,14 +89,8 @@
           "courseCode": "THR301",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 4",
-            "or Entertainment Production and Design and instructor approval"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Acting 4 or Entertainment Production and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -125,14 +99,8 @@
           "courseCode": "THR302",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 4",
-            "or Entertainment Production and Design and instructor approval"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Acting 4 or Entertainment Production and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -152,14 +120,8 @@
           "courseCode": "THR601",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 4",
-            "or Entertainment Production and Design and instructor approval"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Acting 4 OR Entertainment Production and Design and Instructor Approval"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -168,20 +130,14 @@
           "courseCode": "THR602",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 4",
-            "or Entertainment Production and Design and instructor approval"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Acting 4 OR Entertainment Production and Design and Instructor Approval"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["This course may be repeated for credit."],
       "sourceReference": "page 63"
     }
   ],

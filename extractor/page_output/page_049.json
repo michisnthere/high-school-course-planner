@@ -12,15 +12,8 @@
           "courseCode": "ART241",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -29,15 +22,8 @@
           "courseCode": "ART242",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -57,15 +43,8 @@
           "courseCode": "ART621",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design",
-            "Two of the following: Drawing, Painting, Studio Art, or Mixed Media"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -74,21 +53,14 @@
           "courseCode": "ART622",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design",
-            "Two of the following: Drawing, Painting, Studio Art, or Mixed Media"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["This course may be repeated for credit."],
       "sourceReference": "page 49"
     },
     {
@@ -102,15 +74,8 @@
           "courseCode": "ART631",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design",
-            "Two of the following: Ceramics, Metals and Jewelry, or Sculpture"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -119,21 +84,14 @@
           "courseCode": "ART632",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design",
-            "Two of the following: Ceramics, Metals and Jewelry, or Sculpture"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["This course may be repeated for credit."],
       "sourceReference": "page 49"
     },
     {
@@ -147,14 +105,8 @@
           "courseCode": "ART801",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Advanced Drawing, Painting and Mixed Media",
-            "or Advanced Ceramics, Metals and Sculpture"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -163,20 +115,14 @@
           "courseCode": "ART802",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Advanced Drawing, Painting and Mixed Media",
-            "or Advanced Ceramics, Metals and Sculpture"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["This course may be repeated for credit."],
       "sourceReference": "page 49"
     }
   ],

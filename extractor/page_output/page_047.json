@@ -2,5 +2,7 @@
   "departments": [],
   "courses": [],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [
+    "Page 47 is a Visual Arts: Media Arts and Art History course offerings pathway diagram only. No course descriptions are present. Courses listed: Photography 1 (ART401/ART402, One-Semester), Digital Art and Design 1 (ART501/ART502, One-Semester), Photography 2 (ART411/ART412, One-Semester), Digital Art and Design 2 (ART511/ART512, One-Semester), 2D Animation (ART531/ART532, One-Semester), Advanced Photography and Digital Design (ART421/ART422, Full-Year), AP Art History (ART721/ART722, Full-Year), 3D Animation (ART541/ART542, One-Semester), AP Photography and Digital Design (ART871/ART872, Full-Year)."
+  ]
 }

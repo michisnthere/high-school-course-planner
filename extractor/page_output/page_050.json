@@ -12,12 +12,7 @@
           "courseCode": "ART401",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -27,21 +22,14 @@
           "courseCode": "ART402",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [
-        "Students may use their own DSLR; however, students may check out school-owned cameras for assignments."
-      ],
+      "notes": ["Students may use their own DSLR; however, students may check out school-owned cameras for assignments."],
       "sourceReference": "page 50"
     },
     {
@@ -55,15 +43,8 @@
           "courseCode": "ART411",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Photography 1"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Photography 1"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -72,23 +53,14 @@
           "courseCode": "ART412",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Photography 1"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Photography 1"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [
-        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
-      ],
+      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."],
       "sourceReference": "page 50"
     },
     {
@@ -102,14 +74,8 @@
           "courseCode": "ART421",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Photography 1 and Photography 2, or Digital Art and Design 1 and Digital Art and Design 2, or 2D Animation and/or 3D Animation"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1.0
@@ -118,22 +84,14 @@
           "courseCode": "ART422",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Photography 1 and Photography 2, or Digital Art and Design 1 and Digital Art and Design 2, or 2D Animation and/or 3D Animation"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1.0
         }
       ],
-      "notes": [
-        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
-      ],
+      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."],
       "sourceReference": "page 50"
     },
     {
@@ -147,13 +105,8 @@
           "courseCode": "ART871",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Advanced Photography and Digital Design"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Advanced Photography and Digital Design"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -162,21 +115,14 @@
           "courseCode": "ART872",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Advanced Photography and Digital Design"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["Advanced Photography and Digital Design"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
-      "notes": [
-        "Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments."
-      ],
+      "notes": ["Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments.", "This course may be repeated for credit."],
       "sourceReference": "page 50"
     }
   ],

@@ -2,14 +2,14 @@
   "departments": [
     {
       "name": "Theatre",
-      "description": "Theatre classes at Stevenson feature a sequential and cumulative curriculum which allows students to develop theatrical skills while exploring their unique creativity and considering social and historical context and impact. Some courses include a public performance component. While Theatre courses can provide pre-professional training for students, the ultimate goals are to develop 21st century transfer skills, to have fun creating art, to develop ensemble and community, to build self-awareness and confidence and to explore empathy and critical thinking through diverse stories."
+      "description": "Theatre classes at Stevenson feature a sequential and cumulative curriculum which allows students to develop theatrical skills while exploring their unique creativity and considering social and historical context and impact. Some courses include a public performance component. While theatre courses can provide pre-professional training for students, the ultimate goals are to develop 21st century transfer skills, to have fun creating art, to develop ensemble and community, to build self-awareness and confidence and to explore empathy and critical thinking through diverse stories."
     }
   ],
   "courses": [
     {
       "title": "Acting 1: Confidence and Collaboration",
       "department": "Theatre",
-      "description": "Acting 1: Confidence and Collaboration is an introductory theatre survey and performance-based class. This course emphasizes the basic skills and techniques of theatre artists including: ensemble collaboration, confidence and risk-taking, imagination, focus, performance, rehearsal and text analysis. These skills also prepare students for careers in all areas of entertainment, education, business, law and STEM. Techniques to be covered include warm-up activities and exercises, ensemble communication and collaboration, improvisation, pantomime, text interpretation, performance critique, character creation, and solo and scene performances, with an emphasis on transferability. Students interested in pursuing public performance opportunities will be encouraged to audition for department productions and to take advanced level theatre courses.",
+      "description": "Acting 1: Confidence and Collaboration is an introductory theatre survey and performance-based class. This course emphasizes the basic skills and techniques of theatre artists including: ensemble collaboration, confidence and risk-taking, imagination, focus, performance, rehearsal and text analysis. These skills also prepare students for careers in all areas of entertainment, business, law and STEM. Techniques to be covered include warm-up activities and exercises, ensemble communication and collaboration, improvisation, pantomime, text interpretation, performance critique, character creation, and solo and scene performances, with an emphasis on transferability. Students interested in pursuing public performance opportunities will be encouraged to audition for department productions and to take advanced level theatre courses.",
       "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
@@ -17,12 +17,7 @@
           "courseCode": "THR101",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -32,12 +27,7 @@
           "courseCode": "THR102",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -58,12 +48,7 @@
           "courseCode": "THR121",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -73,19 +58,14 @@
           "courseCode": "THR122",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
-      "notes": [],
+      "notes": ["This course may be repeated for credit."],
       "sourceReference": "page 62"
     },
     {
@@ -99,15 +79,8 @@
           "courseCode": "THR111",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 1: Confidence and Collaboration"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Acting 1: Confidence and Collaboration"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -116,15 +89,8 @@
           "courseCode": "THR112",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Acting 1: Confidence and Collaboration"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Acting 1: Confidence and Collaboration"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0

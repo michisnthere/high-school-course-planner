@@ -12,15 +12,8 @@
           "courseCode": "DNC401",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 3 and/or placement by instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Dance 3 and/or Placement by Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -29,22 +22,17 @@
           "courseCode": "DNC402",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 3 and/or placement by instructor"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Dance 3 and/or Placement by Instructor"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "All incoming freshmen interested in Dance 4 must attend a placement assessment in January.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 54"
     },
@@ -59,15 +47,8 @@
           "courseCode": "DNC501",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 4",
-            "or a senior who has completed Dance 3"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Dance 4 OR a Senior who has completed Dance 3"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -76,25 +57,18 @@
           "courseCode": "DNC502",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 4",
-            "or a senior who has completed Dance 3"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Dance 4 OR a Senior who has completed Dance 3"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement.",
-        "Dual credit available with Loyola University Chicago. Additional fees for dual credit may be imposed by the college/university.",
-        "Fees are approximately $150 for after-school dance company expenses.",
-        "Admission into Concert Dance is based on the submission of a portfolio submitted to and approved by the Dance Department."
+        "Dual Credit Available with Loyola University Chicago.",
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "Additional fees for dual credit may be imposed by the college/university.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 54"
     },
@@ -109,11 +83,7 @@
           "courseCode": "DNC321",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -123,11 +93,7 @@
           "courseCode": "DNC322",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -135,7 +101,8 @@
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 54"
     },
@@ -150,14 +117,8 @@
           "courseCode": "DNC311",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 2 or higher, and/or teacher approval"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Dance 2 or Higher, and/or Teacher Approval"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -166,21 +127,16 @@
           "courseCode": "DNC312",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Dance 2 or higher, and/or teacher approval"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Dance 2 or Higher, and/or Teacher Approval"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 54"
     },
@@ -195,14 +151,8 @@
           "courseCode": "DNC601",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Minimum of one year in Dance 3 or Dance 4 and/or approval of instructors"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -211,22 +161,16 @@
           "courseCode": "DNC602",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Minimum of one year in Dance 3 or Dance 4 and/or approval of instructors"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All Dance courses are Fine Arts credits and also satisfy the Physical Education graduation requirement.",
-        "Dance Leadership applications are available on the Dance website in early November and are due by December 5."
+        "All Dance courses are Fine Arts credit and also satisfy the Physical Education graduation requirement.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 54"
     }

@@ -12,12 +12,8 @@
           "courseCode": "MUS301",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9
-          ],
-          "prerequisites": [
-            "All incoming freshman orchestra students should register for this class"
-          ],
+          "gradeLevels": [9],
+          "prerequisites": ["All incoming freshman orchestra students should register for this class"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -26,19 +22,16 @@
           "courseCode": "MUS302",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9
-          ],
-          "prerequisites": [
-            "All incoming freshman orchestra students should register for this class"
-          ],
+          "gradeLevels": [9],
+          "prerequisites": ["All incoming freshman orchestra students should register for this class"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals."
+        "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 58"
     },
@@ -53,14 +46,8 @@
           "courseCode": "MUS311",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Prior orchestra experience and/or approval of orchestra faculty"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Prior Orchestra Experience and/or Approval of Orchestra Faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -69,21 +56,16 @@
           "courseCode": "MUS312",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Prior orchestra experience and/or approval of orchestra faculty"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["Prior Orchestra Experience and/or Approval of Orchestra Faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals."
+        "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 58"
     },
@@ -98,15 +80,8 @@
           "courseCode": "MUS331",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Auditions are required for all students with the orchestra faculty"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Auditions are required for all students with the Orchestra Faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -115,22 +90,16 @@
           "courseCode": "MUS332",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Auditions are required for all students with the orchestra faculty"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Auditions are required for all students with the Orchestra Faculty"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
         }
       ],
       "notes": [
-        "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals."
+        "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals.",
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 58"
     },
@@ -145,15 +114,8 @@
           "courseCode": "MUS321",
           "semesterLabel": "SEMESTER 1",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Completed one full year of Concert or Symphonic Orchestra",
-            "Formal audition and approval from the orchestra faculty"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["All students must have completed one full year of Concert or Symphonic Orchestra in addition to a formal audition and approval from the Orchestra Faculty"],
           "corequisites": [],
           "creditType": "College Prep with Accelerated Option",
           "credits": 1.0
@@ -162,24 +124,19 @@
           "courseCode": "MUS322",
           "semesterLabel": "SEMESTER 2",
           "duration": "full year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Completed one full year of Concert or Symphonic Orchestra",
-            "Formal audition and approval from the orchestra faculty"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["All students must have completed one full year of Concert or Symphonic Orchestra in addition to a formal audition and approval from the Orchestra Faculty"],
           "corequisites": [],
           "creditType": "College Prep with Accelerated Option",
           "credits": 1.0
         }
       ],
       "notes": [
+        "Open to qualified students in grades 10-11-12.",
+        "GPA Waiver Option available for College Prep only.",
+        "Seniors enrolled in Patriot Orchestra who have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver.",
         "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals.",
-        "GPA waiver option available for College Prep credit only.",
-        "Seniors who are enrolled in Wind Ensemble, Patriot Orchestra, Patriot Guitar Ensemble, Patriot Singers and Advanced Chorus and have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver."
+        "This course may be repeated for credit."
       ],
       "sourceReference": "page 58"
     }

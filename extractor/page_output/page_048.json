@@ -2,7 +2,7 @@
   "departments": [
     {
       "name": "Visual Arts",
-      "description": "The activities in Art classes are designed to develop skills of perception, problem solving, understanding and sensitivity through a variety of experiences. The aim of the Art curriculum is to give students an understanding and appreciation for the endless and constant results of artistic efforts which surround us in our daily lives. The unique character of the Art curriculum provides students an opportunity to express and nurture their creative instincts and to develop a high sense of appreciation for humankind and nature in an atmosphere where individual expression is encouraged. Courses are offered to meet the varied interests and abilities of the students. Students may be required to purchase specialized supplies and tools for some Art classes."
+      "description": "The activities in art classes are designed to develop skills of perception, problem solving, understanding and sensitivity through a variety of experiences. The aim of the art curriculum is to give students an understanding and appreciation for the endless and constant results of artistic efforts which surround us in our daily lives. The unique character of the art curriculum provides students an opportunity to express and nurture their creative instincts and to develop a high sense of appreciation for humankind and nature in an atmosphere where individual expression is encouraged. Courses are offered to meet the varied interests and abilities of the students. Students may be required to purchase specialized supplies and tools for some art classes."
     }
   ],
   "courses": [
@@ -17,12 +17,7 @@
           "courseCode": "ART101",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -32,12 +27,7 @@
           "courseCode": "ART102",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
+          "gradeLevels": [9, 10, 11, 12],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -58,15 +48,8 @@
           "courseCode": "ART221",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -75,15 +58,8 @@
           "courseCode": "ART222",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -103,15 +79,8 @@
           "courseCode": "ART261",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -120,15 +89,8 @@
           "courseCode": "ART262",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -140,7 +102,7 @@
     {
       "title": "Mixed Media",
       "department": "Visual Arts",
-      "description": "This course will help students develop their individual expression through the use of creative visual problem-solving. Students will use colored pencil, pastel, ink pen, watercolor and other media, students will be challenged to think creatively, work more quickly and experiment with different techniques and compositional approaches.",
+      "description": "This course will help students develop their individual expression through the use of creative visual problem-solving. Students will use colored pencil, pastel, ink pen, watercolor and other media; students will be challenged to think creatively, work more quickly and experiment with different techniques and compositional approaches.",
       "gpaWaiverOption": true,
       "isOnline": false,
       "offerings": [
@@ -148,15 +110,8 @@
           "courseCode": "ART611",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -165,15 +120,8 @@
           "courseCode": "ART612",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -193,15 +141,8 @@
           "courseCode": "ART201",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -210,15 +151,8 @@
           "courseCode": "ART202",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -238,15 +172,8 @@
           "courseCode": "ART281",
           "semesterLabel": "SEMESTER 1",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -255,15 +182,8 @@
           "courseCode": "ART282",
           "semesterLabel": "SEMESTER 2",
           "duration": "one semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Art and Design"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["Art and Design"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
