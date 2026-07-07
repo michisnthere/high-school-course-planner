@@ -18,10 +18,7 @@
           "courseCode": "SOC101",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            9,
-            10
-          ],
+          "gradeLevels": [9, 10],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -31,10 +28,7 @@
           "courseCode": "SOC102",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            9,
-            10
-          ],
+          "gradeLevels": [9, 10],
           "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
@@ -55,15 +49,8 @@
           "courseCode": "SOC511",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -72,15 +59,8 @@
           "courseCode": "SOC512",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -100,15 +80,8 @@
           "courseCode": "SOC531",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -117,15 +90,8 @@
           "courseCode": "SOC532",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -145,15 +111,8 @@
           "courseCode": "SOC431",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -162,15 +121,8 @@
           "courseCode": "SOC432",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -190,15 +142,8 @@
           "courseCode": "SOC551",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -207,15 +152,8 @@
           "courseCode": "SOC552",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -235,15 +173,8 @@
           "courseCode": "SOC541",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -252,15 +183,8 @@
           "courseCode": "SOC542",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -280,14 +204,8 @@
           "courseCode": "SOC611",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -296,14 +214,8 @@
           "courseCode": "SOC612",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -323,15 +235,8 @@
           "courseCode": "SOC501",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -340,15 +245,8 @@
           "courseCode": "SOC502",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            9,
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -368,14 +266,8 @@
           "courseCode": "SOC691",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -384,14 +276,8 @@
           "courseCode": "SOC692",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -411,14 +297,8 @@
           "courseCode": "SOC601",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -427,14 +307,8 @@
           "courseCode": "SOC602",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -460,14 +334,8 @@
               "courseCode": "SOC631",
               "semesterLabel": "Semester 1",
               "duration": "One Semester",
-              "gradeLevels": [
-                10,
-                11,
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography"
-              ],
+              "gradeLevels": [10, 11, 12],
+              "prerequisites": ["World History and Geography"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -476,14 +344,8 @@
               "courseCode": "SOC632",
               "semesterLabel": "Semester 2",
               "duration": "One Semester",
-              "gradeLevels": [
-                10,
-                11,
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography"
-              ],
+              "gradeLevels": [10, 11, 12],
+              "prerequisites": ["World History and Geography"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -500,14 +362,8 @@
               "courseCode": "SOC63Q1",
               "semesterLabel": "Semester 1",
               "duration": "One Semester",
-              "gradeLevels": [
-                10,
-                11,
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography"
-              ],
+              "gradeLevels": [10, 11, 12],
+              "prerequisites": ["World History and Geography"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -516,14 +372,8 @@
               "courseCode": "SOC63Q2",
               "semesterLabel": "Semester 2",
               "duration": "One Semester",
-              "gradeLevels": [
-                10,
-                11,
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography"
-              ],
+              "gradeLevels": [10, 11, 12],
+              "prerequisites": ["World History and Geography"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -544,12 +394,8 @@
           "courseCode": "SOC321",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -558,12 +404,8 @@
           "courseCode": "SOC322",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -583,12 +425,8 @@
           "courseCode": "SOC621",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -597,12 +435,8 @@
           "courseCode": "SOC622",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -622,31 +456,21 @@
           "courseCode": "SOC581",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "Sophomore English"
-          ],
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"],
           "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 2.0
         },
         {
           "courseCode": "SOC582",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "Sophomore English"
-          ],
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"],
           "corequisites": [],
           "creditType": "Honors",
-          "credits": 1.0
+          "credits": 2.0
         }
       ],
       "gpaWaiverOption": false
@@ -663,13 +487,8 @@
           "courseCode": "SOC411",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -678,13 +497,8 @@
           "courseCode": "SOC412",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -706,13 +520,8 @@
           "courseCode": "SOC571",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -721,13 +530,8 @@
           "courseCode": "SOC572",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -747,13 +551,8 @@
           "courseCode": "SOC641",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -762,13 +561,8 @@
           "courseCode": "SOC642",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -788,13 +582,8 @@
           "courseCode": "SOC651",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -803,13 +592,8 @@
           "courseCode": "SOC652",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -831,13 +615,8 @@
           "courseCode": "SOC671",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -846,13 +625,8 @@
           "courseCode": "SOC672",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography"
-          ],
+          "gradeLevels": [11, 12],
+          "prerequisites": ["World History and Geography"],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1.0
@@ -872,13 +646,8 @@
           "courseCode": "SOC401",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "U.S. History"
-          ],
+          "gradeLevels": [12],
+          "prerequisites": ["World History and Geography", "U.S. History"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -887,13 +656,8 @@
           "courseCode": "SOC402",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            12
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "U.S. History"
-          ],
+          "gradeLevels": [12],
+          "prerequisites": ["World History and Geography", "U.S. History"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -913,13 +677,8 @@
           "courseCode": "SOC561",
           "semesterLabel": "Semester 1",
           "duration": "One Semester",
-          "gradeLevels": [
-            12
-          ],
-          "prerequisites": [
-            "U.S. History",
-            "Junior English"
-          ],
+          "gradeLevels": [12],
+          "prerequisites": ["U.S. History", "Junior English"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -928,13 +687,8 @@
           "courseCode": "SOC562",
           "semesterLabel": "Semester 2",
           "duration": "One Semester",
-          "gradeLevels": [
-            12
-          ],
-          "prerequisites": [
-            "U.S. History",
-            "Junior English"
-          ],
+          "gradeLevels": [12],
+          "prerequisites": ["U.S. History", "Junior English"],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1.0
@@ -960,13 +714,8 @@
               "courseCode": "SOC661",
               "semesterLabel": "Semester 1",
               "duration": "Full Year",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -975,13 +724,8 @@
               "courseCode": "SOC662",
               "semesterLabel": "Semester 2",
               "duration": "Full Year",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -998,13 +742,8 @@
               "courseCode": "SOC6B1",
               "semesterLabel": "Semester 1",
               "duration": "Full Year",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -1013,13 +752,8 @@
               "courseCode": "SOC6B2",
               "semesterLabel": "Semester 2",
               "duration": "Full Year",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -1046,13 +780,8 @@
               "courseCode": "SOC681",
               "semesterLabel": "Semester 1",
               "duration": "One Semester",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -1061,13 +790,8 @@
               "courseCode": "SOC682",
               "semesterLabel": "Semester 2",
               "duration": "One Semester",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -1084,13 +808,8 @@
               "courseCode": "SOC6Q1",
               "semesterLabel": "Semester 1",
               "duration": "One Semester",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
@@ -1099,13 +818,8 @@
               "courseCode": "SOC6Q2",
               "semesterLabel": "Semester 2",
               "duration": "One Semester",
-              "gradeLevels": [
-                12
-              ],
-              "prerequisites": [
-                "World History and Geography",
-                "U.S. History"
-              ],
+              "gradeLevels": [12],
+              "prerequisites": ["World History and Geography", "U.S. History"],
               "corequisites": [],
               "creditType": "Honors",
               "credits": 1.0
