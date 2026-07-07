@@ -6,6 +6,12 @@
       "department": "Theatre",
       "description": "Acting 3 is an advanced theatre course with an emphasis on student-generated performance. Specific areas of focus include improv comedy and student written performance relating to contemporary social issues. Acting 3 culminates in an original devised performance, as part of the Patriot Theatre Company season.",
       "gpaWaiverOption": true,
+      "notes": [
+        "Semester 1 course only — no Semester 2 offering. THR211 is the sole course code."
+      ],
+      "sourceReference": "page 63",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "THR211",
@@ -18,24 +24,21 @@
           ],
           "prerequisites": [
             "Acting 2: Character and Comedy"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "Semester 1 course only — no Semester 2 offering. THR211 is the sole course code."
-      ],
-      "sourceReference": "page 63",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Acting 4",
       "department": "Theatre",
       "description": "Acting 4 is an advanced theatre course which allows students to explore and perform a wide range of theatrical texts and traditions. Students will gain knowledge of influential theatre styles including Greek, Commedia dell'arte, Shakespeare and other global traditions.",
       "gpaWaiverOption": true,
+      "notes": [
+        "Semester 2 course only — no Semester 1 offering. THR212 is the sole course code."
+      ],
+      "sourceReference": "page 63",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "THR212",
@@ -48,24 +51,22 @@
           ],
           "prerequisites": [
             "Acting 3"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "Semester 2 course only — no Semester 1 offering. THR212 is the sole course code."
-      ],
-      "sourceReference": "page 63",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Advanced Acting",
       "department": "Theatre",
       "description": "In Advanced Acting, students will experience an intensive theatre course in performance, production and leadership. Students will build on the foundations of Acting 1-4 to analyze and present complex theatrical texts. Advanced Acting prepares students to be involved in departmental productions in acting and production capacities. This course also prepares students for college and professional theatre pursuits, as well as the transfer of theatre skills to all career avenues. Students will be expected to conduct themselves as theatre professionals and role models to the entire theatre community. Advanced Acting culminates in a public showcase of a scripted work as part of the Patriot Theatre Company season. This course may be repeated for credit.",
       "gpaWaiverOption": true,
+      "notes": [
+        "Additional fees for dual credit may be imposed by the college/university.",
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 63",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "THR401",
@@ -77,10 +78,7 @@
           ],
           "prerequisites": [
             "Acting 4"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "THR402",
@@ -92,25 +90,18 @@
           ],
           "prerequisites": [
             "Acting 4"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "Additional fees for dual credit may be imposed by the college/university.",
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 63",
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Theatre Leadership: Directing and Management",
       "department": "Theatre",
       "description": "This directing course focuses on developing leadership skills and artistic directing. In addition to coaching actors, students in this class have the opportunity to put their advanced level theatre collaboration skills to use as they focus on production processes such as stage management, season development and creating community within ensembles. The course also examines innovative theatre practices that push the boundaries of the theatre experience.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 63",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "THR301",
@@ -122,10 +113,7 @@
           ],
           "prerequisites": [
             "Acting 4 or Entertainment Production and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "THR302",
@@ -137,22 +125,21 @@
           ],
           "prerequisites": [
             "Acting 4 or Entertainment Production and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 63",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Leadership in Theatre Studies",
       "department": "Theatre",
       "description": "Leadership in Theatre Studies is a one-semester course in which students will intern and assist with theatre instruction in Acting 1: Confidence and Collaboration, Acting 2: Character and Comedy, Acting 3, Acting 4 and/or Entertainment Production and Design courses. Student leaders will lead by example, demonstrating superior ensemble behavior, providing critical feedback to their peers and modeling performance expectations. Student leaders will work with individual students and small groups as they prepare for performances. They will also have regular check-ins with their teacher, to set personal goals and plan for instructional opportunities. This course may be repeated for credit.",
       "gpaWaiverOption": true,
+      "notes": [
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 63",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "THR601",
@@ -165,10 +152,7 @@
           ],
           "prerequisites": [
             "Acting 4 OR Entertainment Production and Design and Instructor Approval"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "THR602",
@@ -181,18 +165,9 @@
           ],
           "prerequisites": [
             "Acting 4 OR Entertainment Production and Design and Instructor Approval"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 63",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

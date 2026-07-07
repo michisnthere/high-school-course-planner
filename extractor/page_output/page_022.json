@@ -7,6 +7,9 @@
       "department": "Family and Consumer Sciences",
       "description": "Interior Design is a project-based course where design is explored as it relates to housing and commercial interiors. Emphasis is on using available resources effectively to meet individual and housing needs.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 22",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS231",
@@ -17,10 +20,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS232",
@@ -31,22 +31,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 22",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Business of Fashion and Design",
       "department": "Family and Consumer Sciences",
       "description": "Business of Fashion and Design is a project-based course which focuses on the business side of the fashion industry, fashion design and the merchandising of fashion-related products. Topics include product development, visual merchandising, fashion promotion and accessory design. Dual credit option with Harper College available.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 22",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS241",
@@ -57,10 +53,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS242",
@@ -71,16 +64,9 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 22",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

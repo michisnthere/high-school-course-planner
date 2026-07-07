@@ -6,6 +6,9 @@
       "department": "Mandarin Chinese",
       "description": "This course is designed to prepare students for the AP Chinese Language and Culture exam, i.e. a level comparable to fourth semester (or equivalent) college/university courses in Mandarin Chinese. The course focuses on language proficiency while dealing with level- and age-appropriate cultural content throughout the course. Students engage in readings, conversation and composition and research projects. The expectation is that all communication in the classroom takes place in the target language. By the end of the year, students will be able to understand the spoken language formally (lectures, news, etc.) and in conversation (dialogues…); to acquire vocabulary and structures that enable students to understand, analyze contextualized materials (advertisement, posters, newspaper, magazine articles, letters, etc.); to describe an event or activity in a cohesive and coherent manner with linguistic accuracy; to write appropriately employing the organization, vocabulary and structure appropriate to the purpose of their writing and to demonstrate cultural appropriateness through spoken and written discourse.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 79",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "CHI601",
@@ -17,10 +20,7 @@
           ],
           "prerequisites": [
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "CHI602",
@@ -32,22 +32,18 @@
           ],
           "prerequisites": [
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 79",
-      "notes": [],
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Chinese Literature, Media and Culture",
       "department": "Mandarin Chinese",
       "description": "Students continue to work to develop their competence in Chinese across the three modes of communication within the context of critical analysis of literature and media, as well as a close investigation of culture and social trends. Performance-based assessments provide students the opportunity to use the language independently and collaboratively in both familiar and unfamiliar literary, media and cultural contexts. Interpretive listening, viewing and reading tasks are focused on both literal comprehension and inferential interpretation of both familiar and unfamiliar pieces of literature, media and culture. Practice is provided regularly, both within the classroom and at home. Throughout the course, students continue to explore the target culture as they are invited to situate their own experiences within new contexts.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 79",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "CHI611",
@@ -59,10 +55,7 @@
           ],
           "prerequisites": [
             "AP Chinese Language and Culture or placement test"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "CHI612",
@@ -74,22 +67,18 @@
           ],
           "prerequisites": [
             "AP Chinese Language and Culture or placement test"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 79",
-      "notes": [],
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Spanish 1",
       "department": "Spanish",
       "description": "Students begin to develop their competence in Spanish across three modes of communication: interpersonal, presentational and interpretative. They will explore the language in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities, and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. Practice is provided regularly, both within the classroom and at home. Additionally, students explore the target culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 79",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SPA101",
@@ -103,10 +92,7 @@
           ],
           "prerequisites": [
             "None"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "SPA102",
@@ -120,22 +106,18 @@
           ],
           "prerequisites": [
             "None"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 79",
-      "notes": [],
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Spanish 2",
       "department": "Spanish",
       "description": "Students continue to work to develop their competence in Spanish across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading are focused on the acquisition and recognition of key details in the target language. Practice is provided regularly, both within the classroom and at home. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Spanish.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 79",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SPA201",
@@ -149,10 +131,7 @@
           ],
           "prerequisites": [
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "SPA202",
@@ -166,16 +145,9 @@
           ],
           "prerequisites": [
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 79",
-      "notes": [],
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

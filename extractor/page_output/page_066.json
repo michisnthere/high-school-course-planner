@@ -6,6 +6,12 @@
       "department": "Mathematics",
       "description": "Algebra 1 (MTH151/152) helps students develop proficiency in algebraic thinking. Students will explore overarching ideas of patterns of change (constant, linear and multiplicative), mathematical representations (verbal, algebraic, graphical and numeric), models (real-world scenarios in and out of context) and solutions (that validate equalities/inequalities). Creating equivalence through strategic and purposeful manipulation of algebraic forms will support students' procedural fluency. Conceptual understanding is developed by creating and connecting representations when exploring linear, exponential and quadratic functions. Students will begin to explain and perform transformations on these functions. This course also develops students' statistical literacy through the descriptive and analytic critique of data. Successfully completing this course will prepare students for Geometry (MTH251/252). Geometry AB/BC (MTH271/272) is an option with consistently demonstrated proficiency in all the course skills of Algebra 1.",
       "gpaWaiverOption": true,
+      "notes": [
+        "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
+      ],
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MTH151",
@@ -17,10 +23,7 @@
           ],
           "prerequisites": [
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "MTH152",
@@ -32,24 +35,21 @@
           ],
           "prerequisites": [
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
-      ],
-      "sourceReference": "page 66",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Geometry",
       "department": "Mathematics",
       "description": "Geometry (MTH251/252) helps students develop proficiency in deductive reasoning and geometric thinking. Students will rely on exploration, conjecture, deduction, justification and abstraction to strengthen their reasoning skills. Geometric thinking is supported by exploring the idea of measures (geometric magnitudes, lengths, areas and volumes), transformations (effects on congruence, scaling and symmetry on geometric properties) and composition (the role simple objects play in constructing and deconstructing complex objects). This course leverages algebra to explore the properties of triangles, quadrilaterals, polygons, circles, right triangle trigonometry and conic sections. Working with 2D objects and 3D solids in kinesthetic and digital environments strengthens students' spatial reasoning. Communicating understanding leans on writing explanations and justifying reasoning using informal and formal proof structures. Focusing on terminology, notation and clarity in writing helps prepare students for future studies. Successfully completing Geometry (MTH251/252) will prepare students for Algebra 2 (MTH351/352). Algebra 2 AB/BC (MTH171/172) is an option with consistently demonstrated proficiency in all the course skills of Geometry (MTH251/252).",
       "gpaWaiverOption": true,
+      "notes": [
+        "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
+      ],
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MTH251",
@@ -61,10 +61,7 @@
           ],
           "prerequisites": [
             "Algebra 1"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "MTH252",
@@ -76,24 +73,21 @@
           ],
           "prerequisites": [
             "Algebra 1"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
-      ],
-      "sourceReference": "page 66",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Geometry AB/BC",
       "department": "Mathematics",
       "description": "Geometry AB/BC (MTH271/272) attends to all the learning outcomes of Geometry (MTH251/252). The topics above will be extended, and students will routinely apply prior learning to unique, non-routine and novel contexts. The course design emphasizes students' growth in making connections and transferring knowledge between units of study while extending their learning in preparation for future college-level experiences in high school. Successfully completing Geometry AB/BC (MTH271/272) will prepare students for Algebra 2 (MTH351/352) and Algebra 2 AB/BC (MTH171/172).",
       "gpaWaiverOption": true,
+      "notes": [
+        "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
+      ],
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MTH271",
@@ -105,10 +99,7 @@
           ],
           "prerequisites": [
             "Algebra 1"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "MTH272",
@@ -120,18 +111,9 @@
           ],
           "prerequisites": [
             "Algebra 1"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate."
-      ],
-      "sourceReference": "page 66",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

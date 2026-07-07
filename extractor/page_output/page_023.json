@@ -7,6 +7,9 @@
       "department": "Family and Consumer Sciences",
       "description": "Food Preparation is a lab-based course where students enhance their culinary skills in a hands-on environment. Students learn culinary techniques, making a wide variety of recipes that align with course skills.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 23",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS221",
@@ -17,10 +20,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS222",
@@ -31,22 +31,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 23",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Gourmet Foods",
       "department": "Family and Consumer Sciences",
       "description": "Gourmet Foods is a lab-based course where students develop advanced food preparation skills in baking and cooking while also exploring U.S. regional cuisine and gaining global perspectives of international cuisine.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 23",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS321",
@@ -59,10 +55,7 @@
           ],
           "prerequisites": [
             "Food Preparation"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "FCS322",
@@ -75,16 +68,9 @@
           ],
           "prerequisites": [
             "Food Preparation"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 23",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

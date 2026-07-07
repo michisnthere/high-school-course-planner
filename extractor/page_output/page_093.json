@@ -7,6 +7,9 @@
       "department": "Science",
       "description": "In this lab-based course, students explore earth systems, ecology, populations, energy use, global warming and pollution. Students will work collaboratively and engage with the science and engineering practices. This course takes field trips throughout the year. Students who enroll in this course will be prepared to take the AP Environmental Science exam in May.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 93",
+      "creditType": "Honors Biological Science, Honors Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI641",
@@ -16,10 +19,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Honors Biological Science, Honors Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI642",
@@ -29,22 +29,14 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Honors Biological Science, Honors Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 93",
-      "creditType": "Honors Biological Science, Honors Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "AP Chemistry",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
-      "notes": [],
       "sourceReference": "page 93",
       "choices": [
         {
@@ -63,10 +55,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI652",
@@ -77,13 +66,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -101,10 +86,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI65E2",
@@ -115,13 +97,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     },
@@ -129,7 +107,6 @@
       "title": "AP Physics C",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, rotational, and simple harmonic motion; forces; energy; momentum; electrostatics; DC circuits; magnetostatics; and electromagnetic induction. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take both the AP Physics C Mechanics and AP Physics C Electricity and Magnetism exams in May.",
-      "notes": [],
       "sourceReference": "page 93",
       "choices": [
         {
@@ -149,10 +126,7 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             },
             {
               "courseCode": "SCI662",
@@ -164,13 +138,9 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -189,10 +159,7 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             },
             {
               "courseCode": "SCI66E2",
@@ -204,13 +171,9 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     }

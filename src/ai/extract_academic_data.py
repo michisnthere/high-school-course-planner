@@ -8,7 +8,7 @@ from typing import Any
 def build_academic_extraction_prompt(page_number: int, text: str) -> str:
     return f"""
 You are extracting structured academic data from a single page of a high school coursebook.
-Return only valid JSON that conforms to the Phase 1 schema. Do NOT call external APIs.
+Return only valid JSON that conforms to the finalized schema. Do NOT call external APIs.
 
 Important extraction rules (do not summarize):
 - Copy course descriptions and department descriptions as completely as they appear on the page.
@@ -17,6 +17,22 @@ Important extraction rules (do not summarize):
   but do not change meaning or remove whole clauses.
 - Store courses only in the top-level "courses" array. Do NOT nest course arrays inside departments.
 - Department records should include only `name` and `description` (full available text).
+- `choices` is the ONLY abstraction for alternate versions of a course (e.g., Regular vs Online,
+  Regular vs Early Bird, College Prep vs Accelerated). Do NOT use `options`.
+- For single-version courses, put `creditType`, `credits`, and `gpaWaiverOption` directly on the
+  course object.
+- For multi-version courses, put `creditType`, `credits`, `gpaWaiverOption`, and `isOnline` inside
+  each `choice` object.
+- `isOnline` must never appear at the course level. It belongs inside a choice.
+- `offerings` contain only semester-specific scheduling data: `courseCode`, `semesterLabel`,
+  `duration`, `gradeLevels`, `prerequisites`, and optional `notes`.
+- `offerings` must NEVER contain `creditType`, `credits`, or `corequisites`.
+- `corequisites` are no longer part of the schema; do not emit them.
+- `notes` should be omitted entirely when they would be empty.
+- `prerequisites` must always be a list (keep it empty if there are none).
+- `gradeLevels` should be a list of integers parsed from ranges like "9-10-11-12".
+- When uncertain about a parsed field, include a concise entry in the top-level `warnings` array
+  describing the uncertainty and which course it affects.
 
 Credit handling rules:
 - If a numeric credit amount is explicitly printed on the page, use that value.
@@ -24,18 +40,11 @@ Credit handling rules:
   the credit was inferred rather than printed.
 - If the description explicitly states a lab period like "1.5 period lab-based" or contains
   the phrase "1.5 period" or "1.5-period", set `credits` to 1.5.
-- Keep `creditType` exactly as printed (e.g., "College prep").
-
-Other rules:
-- Include `gpaWaiverOption` exactly as marked on the page.
-- Preserve course `prerequisites` and `corequisites` verbatim from the page.
-- `gradeLevels` should be a list of integers parsed from ranges like "9-10-11-12".
-- When uncertain about a parsed field, include a concise entry in the top-level `warnings` array
-  describing the uncertainty and which course it affects.
+- Keep `creditType` exactly as printed (e.g., "College prep" normalized to "College Prep").
 
 Text cleanup rules (allowed automatic fixes):
 - Normalize common PDF mojibake and typographic artifacts: replace sequences like
-  `â€™` and the Unicode right single quotation `’` with the ASCII apostrophe `'`.
+  `â€™` and the Unicode right single quotation `’` with the ASCII apostrophe `'.
 - Replace common ligatures or broken characters (for example `ﬀ` -> `ff`).
 - Fix obvious broken words caused by OCR (for example `so/f_tware` -> `software`).
 - Do not change sentence meaning or remove clauses; these fixes should only restore
@@ -59,17 +68,16 @@ Return JSON using this shape (match `src/schemas/academic_data.py`):
       "title": "string",
       "department": "string or null",
       "description": "string or null",
-      "gpaWaiverOption": true,
+      "creditType": "string or null",
+      "credits": 1.0,
+      "gpaWaiverOption": false,
       "offerings": [
         {{
           "courseCode": "string or null",
           "semesterLabel": "string or null",
           "duration": "string or null",
           "gradeLevels": [9, 10, 11, 12],
-          "prerequisites": ["string"],
-          "corequisites": ["string"],
-          "creditType": "string or null",
-          "credits": null
+          "prerequisites": ["string"]
         }}
       ],
       "notes": ["string"],
@@ -78,6 +86,25 @@ Return JSON using this shape (match `src/schemas/academic_data.py`):
   ],
   "graduationRequirements": [],
   "warnings": ["string"]
+}}
+
+For courses with multiple versions, use this choice shape instead of per-course credit fields:
+{{
+  "title": "string",
+  "department": "string or null",
+  "description": "string or null",
+  "choices": [
+    {{
+      "name": "string",
+      "isOnline": false,
+      "creditType": "string or null",
+      "credits": 1.0,
+      "gpaWaiverOption": false,
+      "offerings": [{{ ...same offering shape as above... }}]
+    }}
+  ],
+  "notes": ["string"],
+  "sourceReference": "string or null"
 }}
 
 Page text (preserve exactly when extracting descriptions; you may perform minor OCR fixes):

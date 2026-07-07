@@ -7,6 +7,9 @@
       "department": "Business Education",
       "description": "This course is designed to satisfy the curiosity of students who are interested in learning about the law as it relates to various aspects of business. Students will gain a greater understanding of their legal rights and responsibilities as an individual, employee, manager and business owner. Topics include contracts, property, employment rules and regulations, business organization, finance, technology and sports law. Students will participate in discussions and debates and complete collaborative team projects and small group activities.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 19",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS371",
@@ -17,10 +20,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS372",
@@ -31,22 +31,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 19",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Personal Finance",
       "department": "Business Education",
       "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 19",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS301",
@@ -57,10 +53,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS302",
@@ -71,16 +64,9 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 19",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

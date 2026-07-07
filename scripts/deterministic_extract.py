@@ -151,37 +151,42 @@ class CourseExtractor:
             credit_type = desc_match.group(1).strip()
             credit_type = self._normalize_credit_type(credit_type)
             description = ' '.join(desc_match.group(2).split())[:500]  # limit length
-        
-        # Parse each offering
+
+        # Credits belong to the course, not to individual offerings.
+        credits = self._extract_credits(section, description or '')
+
+        # Parse each offering (semester-specific scheduling data only)
         for match in matches:
             prefix = match.group(1)
             code = match.group(2)
             duration = match.group(3)
-            
+
             offering = {
                 'courseCode': f'{prefix}{code}',
                 'semesterLabel': duration,
                 'duration': self._parse_duration(duration),
                 'gradeLevels': self._extract_grade_levels(section),
                 'prerequisites': self._extract_prerequisites(section),
-                'corequisites': [],
-                'creditType': credit_type,
-                'credits': self._extract_credits(section, description or '')
             }
             offerings.append(offering)
-        
+
         if not offerings:
             return None
-        
-        return {
+
+        result = {
             'title': title,
             'department': self._find_department() or None,
             'description': description,
+            'creditType': credit_type,
+            'credits': credits,
             'gpaWaiverOption': gpa_waiver,
             'offerings': offerings,
-            'notes': self._extract_notes(section),
             'sourceReference': f'Page {self.page_num}'
         }
+        notes = self._extract_notes(section)
+        if notes:
+            result['notes'] = notes
+        return result
     
     def _parse_duration(self, duration_str: str) -> str:
         """Parse duration string."""

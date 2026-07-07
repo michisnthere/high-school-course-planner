@@ -11,6 +11,13 @@
       "department": "Music",
       "description": "All incoming freshmen with middle school band experience may enroll in Freshman Band to continue work on their comprehensive musicianship skills. Freshman Band members also perform in three formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Symphonic Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester.",
       "gpaWaiverOption": true,
+      "notes": [
+        "IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
+        "Band students participating in Marching Band are offered a P.E. waiver for the first semester."
+      ],
+      "sourceReference": "page 56",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MUS101",
@@ -21,10 +28,7 @@
           ],
           "prerequisites": [
             "Prior Band experience or approval of Band faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "MUS102",
@@ -35,25 +39,23 @@
           ],
           "prerequisites": [
             "Prior Band experience or approval of Band faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
-        "Band students participating in Marching Band are offered a P.E. waiver for the first semester."
-      ],
-      "sourceReference": "page 56",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Symphonic Band",
       "department": "Music",
       "description": "Students in grades 10-12 with band experience in Freshman Band may enroll in Symphonic Band to continue work on comprehensive musicianship skills. Symphonic Band members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
+      "notes": [
+        "Open to qualified students in grades 10-11-12.",
+        "IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 56",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MUS121",
@@ -66,10 +68,7 @@
           ],
           "prerequisites": [
             "Audition with Band Faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "MUS122",
@@ -82,20 +81,9 @@
           ],
           "prerequisites": [
             "Audition with Band Faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "Open to qualified students in grades 10-11-12.",
-        "IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P.E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 56",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

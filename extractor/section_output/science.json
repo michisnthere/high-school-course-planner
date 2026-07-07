@@ -11,6 +11,9 @@
       "department": "Science",
       "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students’ graduation requirement for two semesters of biological science.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 91",
+      "creditType": "College Prep Biological Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI111",
@@ -22,10 +25,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Biological Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI112",
@@ -37,22 +37,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Biological Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 91",
-      "creditType": "College Prep Biological Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Chemistry",
       "department": "Science",
       "description": "In this lab-based course, students explore atomic structure, the periodic table, intermolecular forces, thermodynamics, types of reactions, reaction rates, equilibrium and acids and bases. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 91",
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI211",
@@ -64,10 +60,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI212",
@@ -79,22 +72,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 91",
-      "creditType": "College Prep Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Earth Science",
       "department": "Science",
       "description": "In this lab-based course, students explore minerals, rocks, plate tectonics, earthquakes, volcanoes, weathering, running water, glaciers, wind, atmospheric science and astronomy. Students will work collaboratively and engage with the science and engineering practices, applying their learning in several hands-on engineering projects across the year. This course can fulfill students’ graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 91",
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI271",
@@ -105,10 +94,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI272",
@@ -119,22 +105,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 91",
-      "creditType": "College Prep Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Physics",
       "department": "Science",
       "description": "In this lab-based course, students explore constant and changing velocity, forces, energy, momentum, electrostatics, electricity and magnetism, circuits and waves. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering careers in engineering.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 91",
+      "creditType": "College Prep Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI401",
@@ -145,10 +127,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI402",
@@ -159,22 +138,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 91",
-      "creditType": "College Prep Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Horticulture",
       "department": "Science",
       "description": "In this lab-based course, students explore plant structure, function, ecology and cultivation. Students will work collaboratively and engage with the science and engineering practices, including frequent visits and learning in Stevenson’s greenhouse and green roof environments. This course does not satisfy the life science graduation requirement, but it is beneficial for students who are interested in learning more about plants and plant propagation.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 91",
+      "creditType": "College Prep Biological Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI531",
@@ -185,10 +160,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Biological Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI532",
@@ -199,22 +171,21 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Biological Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 91",
-      "creditType": "College Prep Biological Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Science Research",
       "department": "Science",
       "description": "In this lab-based course, students explore scientific inquiry and research methods. Students will work collaboratively and engage with the science and engineering practices. In this course, students design and conduct experiments, analyze data and present findings for their original research project that will be entered into symposia, competitions and publications.",
       "gpaWaiverOption": false,
+      "notes": [
+        "Pass/Fail course."
+      ],
+      "sourceReference": "page 91",
+      "creditType": "College Prep Elective Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI351",
@@ -225,10 +196,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Elective Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI352",
@@ -239,24 +207,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep Elective Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [
-        "Pass/Fail course."
-      ],
-      "sourceReference": "page 91",
-      "creditType": "College Prep Elective Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Human Anatomy and Physiology",
       "department": "Science",
       "description": "In this lab-based course, students go beyond basic biology of human body systems and delve into the complex relationships required to maintain homeostasis. Students will work collaboratively and engage with the science and engineering practices. In this course students conduct dissections. This course does not satisfy the life science graduation requirement, but it is beneficial for students considering careers in health-related fields.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 91",
+      "creditType": "Accelerated Biological Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI521",
@@ -266,10 +228,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Accelerated Biological Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI522",
@@ -279,22 +238,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Accelerated Biological Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 91",
-      "creditType": "Accelerated Biological Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Earth Science Dual Credit",
       "department": "Science",
       "description": "In this lab-based course, students explore geology, meteorology and astronomy. Students will work collaboratively and engage with the science and engineering practices. This course is a dual-credit, college-level science course where students can earn college credit hours at no cost through the College of Lake County.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 92",
+      "creditType": "Honors (Dual Credit) Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI671",
@@ -305,10 +260,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Honors (Dual Credit) Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI672",
@@ -319,22 +271,14 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Honors (Dual Credit) Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 92",
-      "creditType": "Honors (Dual Credit) Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "AP Physics 1",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
-      "notes": [],
       "sourceReference": "page 92",
       "choices": [
         {
@@ -353,10 +297,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI612",
@@ -367,13 +308,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -391,10 +328,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI61E2",
@@ -405,13 +339,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     },
@@ -420,6 +350,9 @@
       "department": "Science",
       "description": "In this lab-based course, students explore electrostatics, circuits, electromagnetism, thermodynamics, waves and sound, optics and modern physics topics. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 2 exam in May.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 92",
+      "creditType": "Honors Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI681",
@@ -431,10 +364,7 @@
           ],
           "prerequisites": [
             "AP Physics 1 or Physics"
-          ],
-          "creditType": "Honors Physical Science",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "SCI682",
@@ -446,22 +376,14 @@
           ],
           "prerequisites": [
             "AP Physics 1 or Physics"
-          ],
-          "creditType": "Honors Physical Science",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 92",
-      "creditType": "Honors Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "AP Biology",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
-      "notes": [],
       "sourceReference": "page 92",
       "choices": [
         {
@@ -480,10 +402,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Biological Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI632",
@@ -494,13 +413,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Biological Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -518,10 +433,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Biological Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI63E2",
@@ -532,13 +444,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Biological Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     },
@@ -547,6 +455,9 @@
       "department": "Science",
       "description": "In this lab-based course, students explore earth systems, ecology, populations, energy use, global warming and pollution. Students will work collaboratively and engage with the science and engineering practices. This course takes field trips throughout the year. Students who enroll in this course will be prepared to take the AP Environmental Science exam in May.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 93",
+      "creditType": "Honors Biological Science, Honors Physical Science",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SCI641",
@@ -556,10 +467,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Honors Biological Science, Honors Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "SCI642",
@@ -569,22 +477,14 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "Honors Biological Science, Honors Physical Science",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 93",
-      "creditType": "Honors Biological Science, Honors Physical Science",
-      "credits": 1.0
+      ]
     },
     {
       "title": "AP Chemistry",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
-      "notes": [],
       "sourceReference": "page 93",
       "choices": [
         {
@@ -603,10 +503,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI652",
@@ -617,13 +514,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -641,10 +534,7 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             },
             {
               "courseCode": "SCI65E2",
@@ -655,13 +545,9 @@
                 11,
                 12
               ],
-              "prerequisites": [],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              "prerequisites": []
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     },
@@ -669,7 +555,6 @@
       "title": "AP Physics C",
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, rotational, and simple harmonic motion; forces; energy; momentum; electrostatics; DC circuits; magnetostatics; and electromagnetic induction. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take both the AP Physics C Mechanics and AP Physics C Electricity and Magnetism exams in May.",
-      "notes": [],
       "sourceReference": "page 93",
       "choices": [
         {
@@ -689,10 +574,7 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             },
             {
               "courseCode": "SCI662",
@@ -704,13 +586,9 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -729,10 +607,7 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             },
             {
               "courseCode": "SCI66E2",
@@ -744,13 +619,9 @@
               ],
               "prerequisites": [
                 "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
-              ],
-              "creditType": "Honors Physical Science",
-              "credits": 1.5,
-              "notes": []
+              ]
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     }

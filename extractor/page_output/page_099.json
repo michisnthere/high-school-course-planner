@@ -7,7 +7,9 @@
       "department": "Social Studies",
       "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. SAT and AP exam preparation are used to sharpen reading, editing and revising skills. Students who enroll in this course are prepared to take both the AP English Language and Composition and the AP U.S. History exams in May.",
       "sourceReference": "page 99",
-      "notes": [],
+      "gpaWaiverOption": false,
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SOC581",
@@ -19,10 +21,7 @@
           "prerequisites": [
             "World History and Geography",
             "Sophomore English"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "SOC582",
@@ -34,22 +33,18 @@
           "prerequisites": [
             "World History and Geography",
             "Sophomore English"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Economics",
       "department": "Social Studies",
       "description": "Students in this course develop the economic awareness and decision-making skills to make rational and informed economic decisions in life, become responsible consumers and develop essential business and job skills for their futures. Through collaborative and interactive activities and units, students gain an understanding of basic economic concepts, the impact economic factors can have on their lives and their role in the growing global economy. Students improve their critical-thinking skills to better understand world events and participate as global citizens. This course also fulfills the Economic/Personal Finance graduation requirement.",
       "sourceReference": "page 99",
-      "notes": [],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SOC411",
@@ -61,10 +56,7 @@
           ],
           "prerequisites": [
             "World History and Geography"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "SOC412",
@@ -76,22 +68,18 @@
           ],
           "prerequisites": [
             "World History and Geography"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Sociology Dual Credit",
       "department": "Social Studies",
       "description": "Sociology is a course in partnership with Loyola University Chicago which allows students to take a college class while still in high school. The student can transfer earned credit in this class from Loyola University Chicago to the college they attend. As an introductory survey course, Sociology aims to provide students with an understanding of how sociologists do research and what the seminal pieces of research in their field reveal. The class will explore the structures of society, especially family, education, peers and media, all of which influence individuals by creating and maintaining culture and social stability. The class also examines social inequalities, especially social class, race and gender. Sociology is a social science, and as such, it uses scientific study to examine society. It is not a debate class or a class centered around rhetorical arguments. This scientific analysis of society is useful in many academic disciplines, and so sociology is often a prerequisite for other areas of study such as medicine, law and criminal justice, nursing, education and psychology, among others.",
       "sourceReference": "page 99",
-      "notes": [],
+      "gpaWaiverOption": false,
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "SOC571",
@@ -103,10 +91,7 @@
           ],
           "prerequisites": [
             "World History and Geography"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "SOC572",
@@ -118,15 +103,9 @@
           ],
           "prerequisites": [
             "World History and Geography"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

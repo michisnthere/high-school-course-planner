@@ -6,6 +6,9 @@
       "department": "German",
       "description": "German 1 is an introduction to German language and culture. Students begin to develop their competence in German across the three modes of communication: interpersonal, presentational and interpretative in the context of the following AP themes: Contemporary Life and Personal and Public Identities. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. By the end of the course, students will be able to communicate in German in a basic way in familiar contexts. Moreover, they will be able to read and understand short stories in German. Additionally, students will explore the target culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in German. This is the first course in a four course sequence that prepares students for AP German Language and Culture.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 75",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "GRE101",
@@ -19,10 +22,7 @@
           ],
           "prerequisites": [
             "None"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "GRE102",
@@ -36,22 +36,18 @@
           ],
           "prerequisites": [
             "None"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 75",
-      "notes": [],
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "German 2",
       "department": "German",
       "description": "Students continue to work to develop their competence in German across the three modes of communication in the context of the following AP themes: Contemporary Life, Families and Communities and Science and Technology. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts with increasing independence. Moreover, they will be able to read and understand more complex stories in German. Interpretive listening and reading are focused on the acquisition and recognition of key details in the target language. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in German. This is the second course in a four course sequence that prepares students for AP German Language and Culture.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 75",
+      "creditType": "Accelerated",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "GRE211",
@@ -65,10 +61,7 @@
           ],
           "prerequisites": [
             "German 1 or passing the placement exam for German 2 and approval of director"
-          ],
-          "creditType": "Accelerated",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "GRE212",
@@ -82,22 +75,18 @@
           ],
           "prerequisites": [
             "German 1 or passing the placement exam for German 2 and approval of director"
-          ],
-          "creditType": "Accelerated",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 75",
-      "notes": [],
-      "creditType": "Accelerated",
-      "credits": 1.0
+      ]
     },
     {
       "title": "German 3",
       "department": "German",
       "description": "This course, which moves at a faster pace than German 2, begins preparation for the AP German Language and Culture Exam. Students continue to work to develop their competence in German across the three modes of communication in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities, and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in familiar contexts independently. Additionally, authentic materials will expand their German knowledge. Interpretive listening and reading tasks are focused on literal comprehension with increasing emphasis on inferential interpretation. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in German. This is the third course in a four course sequence that prepares students for AP German Language and Culture.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 75",
+      "creditType": "Accelerated",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "GRE311",
@@ -110,10 +99,7 @@
           ],
           "prerequisites": [
             "German 2 or passing the placement exam for German 3 and approval of director"
-          ],
-          "creditType": "Accelerated",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "GRE312",
@@ -126,22 +112,18 @@
           ],
           "prerequisites": [
             "German 2 or passing the placement exam for German 3 and approval of director"
-          ],
-          "creditType": "Accelerated",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 75",
-      "notes": [],
-      "creditType": "Accelerated",
-      "credits": 1.0
+      ]
     },
     {
       "title": "AP German Language and Culture",
       "department": "German",
       "description": "This AP German course is designed for motivated students who have successfully finished three years of German and who are interested in taking a higher level German course. It is aimed to prepare students who are interested in taking the AP German Language and Culture exam and/or in furthering their study in the German language and culture. Special emphasis is placed on the use of authentic source materials related to culture and current events and the integration of language skills. Specific work includes: analysis of articles and literature, formal and informal oral presentations, formal and informal writings, a variety of audios/videos related to conversations, announcements, news reports or academic or cultural topics related to the German-speaking world. The expectation is that all communication in the classroom (teacher-student and/or student-student) take place in German. Students who enroll in this course will be prepared to take the AP German Language and Culture exam in May.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 75",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "GRE601",
@@ -153,10 +135,7 @@
           ],
           "prerequisites": [
             "German 3 or passing the placement exam for AP German and approval of director"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "GRE602",
@@ -168,16 +147,9 @@
           ],
           "prerequisites": [
             "German 3 or passing the placement exam for AP German and approval of director"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "sourceReference": "page 75",
-      "notes": [],
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -7,6 +7,9 @@
       "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 1 is a lab-based course where students learn fashion construction techniques, pattern and fabric selection and fashion presentation skills. Projects include drawstring bag, sweatshirt and a project of student choice.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 21",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS251",
@@ -18,10 +21,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS252",
@@ -33,60 +33,61 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 21",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Clothing and Design 2",
       "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.",
-      "gpaWaiverOption": false,
-      "offerings": [
+      "sourceReference": "page 21",
+      "choices": [
         {
-          "courseCode": "FCS291",
-          "semesterLabel": "Semester 1",
-          "duration": "One Semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Clothing and Design 1"
-          ],
+          "name": "College Prep",
+          "isOnline": false,
           "creditType": "College Prep",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS291",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Clothing and Design 1"
+              ]
+            }
+          ]
         },
         {
-          "courseCode": "FCS292",
-          "semesterLabel": "Semester 2",
-          "duration": "One Semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Clothing and Design 1"
-          ],
+          "name": "Honors",
+          "isOnline": false,
           "creditType": "Honors",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS292",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Clothing and Design 1"
+              ]
+            }
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 21",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

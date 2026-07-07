@@ -15,6 +15,9 @@
       "department": "Business Education",
       "description": "Introduction to Business provides students with a foundational understanding of the business world. This course explores key topics including marketing, accounting, international business and entrepreneurship, giving students insight into how businesses operate locally and globally. Through real-world examples and hands-on projects, students will develop critical thinking and problem-solving skills essential for future success in business.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 16",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS171",
@@ -24,10 +27,7 @@
             9,
             10
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS172",
@@ -37,22 +37,18 @@
             9,
             10
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 16",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Business Applications and Technology 1",
       "department": "Business Education",
       "description": "Business Applications and Technology 1 is a course designed to teach students to use a variety of software programs and multimedia platforms as they create a business concept. Students will strengthen their knowledge of both business operations and technology usage in the workplace as they develop communications, marketing materials, financial proposals and presentations for their proposed business.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 16",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS131",
@@ -63,10 +59,7 @@
             10,
             11
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS132",
@@ -77,22 +70,18 @@
             10,
             11
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 16",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Business Applications and Technology 2",
       "department": "Business Education",
       "description": "Business Applications and Technology 2 encourages students to develop the technology and problem-solving skills essential in today's workforce. Students will be tasked with finding solutions to common business problems, while being encouraged to consider multiple perspectives. Students will work to incorporate technology into their business practices to help them become more efficient and organized.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 17",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS142",
@@ -106,22 +95,18 @@
           ],
           "prerequisites": [
             "BUS131 or BUS132"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 17",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Marketing",
       "department": "Business Education",
       "description": "Students will learn how companies develop and market their products and services. Current trends in the entertainment, apparel, sports and food industries will be explored and applied during class activities.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 17",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS281",
@@ -132,10 +117,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS282",
@@ -146,22 +128,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 17",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Entrepreneurship",
       "department": "Business Education",
       "description": "Entrepreneurship will provide students with a working background on the skills and knowledge necessary to own and operate a small business. Students will examine the environment of small business ownership, the procedures and skills necessary to open a small business and the policies and practices of a successful small business operation. Entrepreneurship will emphasize a hands-on approach to small business ownership.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 17",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS231",
@@ -172,10 +150,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS232",
@@ -186,22 +161,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 17",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Accounting 1",
       "department": "Business Education",
       "description": "This is the first semester of a two-semester sequence in the study of accounting. Basic principles and practices of double entry accounting are developed with an emphasis on the financial records of sole proprietorships and partnerships. Daily transactions and financial statement analysis are included. Students also have the opportunity to attend regional, state and national accounting competitions.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 18",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS251",
@@ -212,22 +183,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 18",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Accounting 2",
       "department": "Business Education",
       "description": "This is the second semester of a two-semester sequence in the study of accounting. Specialized journal systems, uncollected accounts, depreciation, inventory controls, payroll, taxes and financial statement analysis are emphasized with regard to a corporation. Students also have the opportunity to attend regional, state and national accounting competitions.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 18",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS252",
@@ -240,22 +207,18 @@
           ],
           "prerequisites": [
             "Accounting 1"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 18",
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Advanced Accounting",
       "department": "Business Education",
       "description": "This one-semester course serves as a capstone to the advanced study of accounting. A \"managerial approach\" emphasizing internal data used to make decisions and control revenues, costs and expenses is explored and developed.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 18",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS351",
@@ -268,22 +231,18 @@
           ],
           "prerequisites": [
             "Accounting 2"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 18",
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Business Law",
       "department": "Business Education",
       "description": "This course is designed to satisfy the curiosity of students who are interested in learning about the law as it relates to various aspects of business. Students will gain a greater understanding of their legal rights and responsibilities as an individual, employee, manager and business owner. Topics include contracts, property, employment rules and regulations, business organization, finance, technology and sports law. Students will participate in discussions and debates and complete collaborative team projects and small group activities.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 19",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS371",
@@ -294,10 +253,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS372",
@@ -308,22 +264,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 19",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Personal Finance",
       "department": "Business Education",
       "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 19",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS301",
@@ -334,10 +286,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "BUS302",
@@ -348,22 +297,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 19",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Food and Nutrition",
       "department": "Family and Consumer Sciences",
       "description": "Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 20",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS111",
@@ -375,10 +320,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS112",
@@ -390,22 +332,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 20",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Human Growth and Development",
       "department": "Family and Consumer Sciences",
       "description": "Human Growth and Development explores the world of the developing individual from prenatal development through adolescence. This course investigates psychological concepts that apply to everyday life and explores dynamics that shape growth and development.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 20",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS211",
@@ -417,10 +355,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS212",
@@ -432,22 +367,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 20",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Clothing and Design 1",
       "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 1 is a lab-based course where students learn fashion construction techniques, pattern and fabric selection and fashion presentation skills. Projects include drawstring bag, sweatshirt and a project of student choice.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 21",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS251",
@@ -459,10 +390,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS252",
@@ -474,66 +402,70 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 21",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Clothing and Design 2",
       "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.",
-      "gpaWaiverOption": false,
-      "offerings": [
+      "sourceReference": "page 21",
+      "choices": [
         {
-          "courseCode": "FCS291",
-          "semesterLabel": "Semester 1",
-          "duration": "One Semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Clothing and Design 1"
-          ],
+          "name": "College Prep",
+          "isOnline": false,
           "creditType": "College Prep",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS291",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Clothing and Design 1"
+              ]
+            }
+          ]
         },
         {
-          "courseCode": "FCS292",
-          "semesterLabel": "Semester 2",
-          "duration": "One Semester",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Clothing and Design 1"
-          ],
+          "name": "Honors",
+          "isOnline": false,
           "creditType": "Honors",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS292",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Clothing and Design 1"
+              ]
+            }
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 21",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Interior Design",
       "department": "Family and Consumer Sciences",
       "description": "Interior Design is a project-based course where design is explored as it relates to housing and commercial interiors. Emphasis is on using available resources effectively to meet individual and housing needs.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 22",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS231",
@@ -544,10 +476,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS232",
@@ -558,22 +487,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 22",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Business of Fashion and Design",
       "department": "Family and Consumer Sciences",
       "description": "Business of Fashion and Design is a project-based course which focuses on the business side of the fashion industry, fashion design and the merchandising of fashion-related products. Topics include product development, visual merchandising, fashion promotion and accessory design. Dual credit option with Harper College available.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 22",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS241",
@@ -584,10 +509,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS242",
@@ -598,22 +520,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 22",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Food Preparation",
       "department": "Family and Consumer Sciences",
       "description": "Food Preparation is a lab-based course where students enhance their culinary skills in a hands-on environment. Students learn culinary techniques, making a wide variety of recipes that align with course skills.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 23",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS221",
@@ -624,10 +542,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS222",
@@ -638,22 +553,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 23",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Gourmet Foods",
       "department": "Family and Consumer Sciences",
       "description": "Gourmet Foods is a lab-based course where students develop advanced food preparation skills in baking and cooking while also exploring U.S. regional cuisine and gaining global perspectives of international cuisine.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 23",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS321",
@@ -666,10 +577,7 @@
           ],
           "prerequisites": [
             "Food Preparation"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "FCS322",
@@ -682,22 +590,18 @@
           ],
           "prerequisites": [
             "Food Preparation"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 23",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Teaching Young Children 1",
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 1 offers students the opportunity to enhance their understanding of child development while interacting with children in the Little Patriots Lab School. Students focus on creating developmentally appropriate lessons and observing children's development.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 24",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -710,10 +614,7 @@
           ],
           "prerequisites": [
             "Human Growth and Development"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "FCS312",
@@ -726,64 +627,68 @@
           ],
           "prerequisites": [
             "Human Growth and Development"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 24",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Teaching Young Children 2",
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
-      "gpaWaiverOption": false,
-      "offerings": [
+      "sourceReference": "page 24",
+      "choices": [
         {
-          "courseCode": "FCS331",
-          "semesterLabel": "Semester 1",
-          "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Teaching Young Children 1"
-          ],
+          "name": "College Prep",
+          "isOnline": false,
           "creditType": "College Prep",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS331",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Teaching Young Children 1"
+              ]
+            }
+          ]
         },
         {
-          "courseCode": "FCS332",
-          "semesterLabel": "Semester 2",
-          "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Teaching Young Children 1"
-          ],
+          "name": "Honors",
+          "isOnline": false,
           "creditType": "Honors",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS332",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Teaching Young Children 1"
+              ]
+            }
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 24",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Life by Design",
       "department": "Family and Consumer Sciences",
       "description": "In Life by Design, students explore a variety of topics designed to help them meet the challenges of life. Students gain an enhanced understanding of self, increase awareness of others, learn to develop healthy relationships and heighten responsible decision-making skills. Students improve communication skills, reduce stress, build positive relationships with others, gain independence, express emotions, set goals, improve time management and make decisions based on personal values.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 25",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS411",
@@ -795,10 +700,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS412",
@@ -810,16 +712,9 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 25",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -11,6 +11,9 @@
       "department": "Visual Arts",
       "description": "This foundational course introduces students to essential techniques, tools and media across the visual arts. Students will explore drawing, painting, sculpture and ceramics through hands-on studio experiences that emphasize creative thinking and technical development. This course serves as a prerequisite for all advanced art classes.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART101",
@@ -22,10 +25,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "ART102",
@@ -37,22 +37,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 48",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Drawing",
       "department": "Visual Arts",
       "description": "This course provides students with the opportunity to learn more advanced realistic drawing and shading techniques. Observational drawing and inventive design are explored. Various color and black and white media are used in this course.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART221",
@@ -66,10 +62,7 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART222",
@@ -83,22 +76,18 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 48",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Painting",
       "department": "Visual Arts",
       "description": "This course teaches students the concepts, skills, methods and processes necessary to explore watercolor and oil painting. Students create a variety of compositions through both quick studies and extended complex paintings. There is an emphasis on color theory, design principles, media, tools and a variety of painting techniques.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART261",
@@ -112,10 +101,7 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART262",
@@ -129,22 +115,18 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 48",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Mixed Media",
       "department": "Visual Arts",
       "description": "This course will help students develop their individual expression through the use of creative visual problem-solving. Students will use colored pencil, pastel, ink pen, watercolor and other media; students will be challenged to think creatively, work more quickly and experiment with different techniques and compositional approaches.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART611",
@@ -158,10 +140,7 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART612",
@@ -175,22 +154,18 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 48",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Ceramics",
       "department": "Visual Arts",
       "description": "This course is a hands-on class designed for those students who like to work in clay. Students will learn basic and advanced hand-building techniques and how to use a potter's wheel. They will be introduced to a variety of decorating, glazing and firing techniques and will produce a number of creative stoneware pieces.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART201",
@@ -204,10 +179,7 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART202",
@@ -221,22 +193,18 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 48",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Sculpture",
       "department": "Visual Arts",
       "description": "This course provides a hands-on approach for understanding contemporary sculpture. Students will have the opportunity to work with a variety of 3D media. Sculptural techniques explored may include additive, subtractive and/or assemblage, with a focus on creative problem-solving.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART281",
@@ -250,10 +218,7 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART282",
@@ -267,16 +232,9 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 48",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

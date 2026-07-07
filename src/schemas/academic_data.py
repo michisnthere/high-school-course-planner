@@ -14,8 +14,6 @@ class CourseOfferingRecord(TypedDict):
     duration: Optional[str]
     gradeLevels: List[int]
     prerequisites: List[str]
-    creditType: Optional[str]
-    credits: Optional[float]
     notes: NotRequired[List[str]]
 
 
@@ -38,7 +36,7 @@ class CourseRecord(TypedDict):
     credits: NotRequired[Optional[float]]
     offerings: NotRequired[Optional[List[CourseOfferingRecord]]]
     choices: NotRequired[Optional[List[CourseChoiceRecord]]]
-    notes: List[str]
+    notes: NotRequired[List[str]]
     sourceReference: Optional[str]
 
 

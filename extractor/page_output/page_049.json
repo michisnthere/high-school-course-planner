@@ -6,6 +6,9 @@
       "department": "Visual Arts",
       "description": "This course is designed to introduce students to the principles of design as applied to metalwork, wire and jewelry. Students will learn to cut, file, texture and polish metal pieces. They will also solder with a torch and set a cabochon stone.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 49",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART241",
@@ -19,10 +22,7 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART242",
@@ -36,22 +36,21 @@
           ],
           "prerequisites": [
             "Art and Design"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 49",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Advanced Drawing, Painting and Mixed Media",
       "department": "Visual Arts",
       "description": "This course is designed to give students advanced experiences in creative thinking and problem-solving using 2D art media. In this class, students will build upon the concepts and skills learned in their Drawing, Painting, Studio Art and/or Mixed Media classes. Students can choose to focus on drawing, painting or mixed media either in a representational or expressive style, to produce works of art that relate to specific design issues and themes. This course may be repeated for credit.",
       "gpaWaiverOption": true,
+      "notes": [
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 49",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART621",
@@ -64,10 +63,7 @@
           ],
           "prerequisites": [
             "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART622",
@@ -80,24 +76,21 @@
           ],
           "prerequisites": [
             "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 49",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Advanced Ceramics, Metals and Sculpture",
       "department": "Visual Arts",
       "description": "This course gives students advanced experiences in creative thinking and problem solving with 3D art issues and 3D art media. In this class, students can focus on ceramics, sculpture or jewelry and metals to produce works of art that relate to specific design issues and themes. This course may be repeated for credit.",
       "gpaWaiverOption": true,
+      "notes": [
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 49",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART631",
@@ -110,10 +103,7 @@
           ],
           "prerequisites": [
             "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART632",
@@ -126,24 +116,21 @@
           ],
           "prerequisites": [
             "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 49",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "AP Art: Drawing, 2D and 3D Design",
       "department": "Visual Arts",
       "description": "This course offers students a concentrated program which enables them to apply for college credit in art. Emphasis is centered on studio work, the preparation of a portfolio and the submission of a portfolio for potential AP credit. In the spring, each student will exhibit their work in a one-person show. This course may be repeated for credit.",
       "gpaWaiverOption": false,
+      "notes": [
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 49",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "ART801",
@@ -155,10 +142,7 @@
           ],
           "prerequisites": [
             "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "ART802",
@@ -170,18 +154,9 @@
           ],
           "prerequisites": [
             "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 49",
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

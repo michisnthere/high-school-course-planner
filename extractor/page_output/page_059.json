@@ -6,6 +6,13 @@
       "department": "Music",
       "description": "This course is designed for students who are interested in learning how to play the guitar and/or develop strong technical skills in guitar performance. While this course is designed for a brand new guitarist, it also supports students with some guitar experience. This course will introduce the techniques and musicianship skills in order to perform classical, blues, jazz, rock and pop repertoire. Students will learn music reading skills, sight-reading, chords, collaboration, practice skills and expressive performance and listening skills. Nylon string, classical guitars are provided. It is recommended to have an additional guitar at home to practice. This course may be repeated for credit.",
       "gpaWaiverOption": true,
+      "notes": [
+        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice.",
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 59",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MUS421",
@@ -17,10 +24,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "MUS422",
@@ -32,25 +36,22 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [
-        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice.",
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 59",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Guitar 2",
       "department": "Music",
       "description": "This course is designed for guitarists who are interested in advancing their guitar abilities. Students will refine and further develop musicianship to develop a high level of performance on guitar. Emphasis is placed on the development of technique, music-reading skills, sight-reading, more technical chords throughout the neck of the guitar, and expressive performance, solo repertoire and ensemble skills. Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice. Students perform two concerts throughout the year. This class may be repeated for credit. Students repeating this course or students with guitar experiences will receive a more tailored curriculum to help develop their skills and musicianship.",
       "gpaWaiverOption": true,
+      "notes": [
+        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice.",
+        "This course may be repeated for credit."
+      ],
+      "sourceReference": "page 59",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "MUS461",
@@ -64,10 +65,7 @@
           ],
           "prerequisites": [
             "Guitar 1 or Per Audition with the Guitar Faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "MUS462",
@@ -81,77 +79,92 @@
           ],
           "prerequisites": [
             "Guitar 1 or Per Audition with the Guitar Faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [
-        "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice.",
-        "This course may be repeated for credit."
-      ],
-      "sourceReference": "page 59",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Patriot Guitar Ensemble",
       "department": "Music",
       "description": "This course is designed for advanced guitarists who are interested in further developing technique and musicianship. The repertoire performed in this class includes chamber works for guitar, large ensemble pieces by composers of varied eras and extensive solo work repertoire. Emphasis is placed on development of technique, music-reading skills, composition, sight-reading, jazz voicings of chords and expressive performance as soloists and ensemble members. Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice. Students perform three concerts throughout the year. This class may be repeated for credit.",
-      "offerings": [
-        {
-          "courseCode": "MUS441",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Auditions are required for all students with the Guitar Faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
-        },
-        {
-          "courseCode": "MUS442",
-          "semesterLabel": "Semester 2",
-          "duration": "Full Year",
-          "gradeLevels": [
-            10,
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Auditions are required for all students with the Guitar Faculty"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
-        }
-      ],
-      "options": [
-        {
-          "creditType": "College Prep",
-          "gpaWaived": true
-        },
-        {
-          "creditType": "Accelerated",
-          "gpaWaived": false
-        }
-      ],
       "notes": [
         "Seniors enrolled in Patriot Guitar Ensemble who have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver.",
         "Nylon string, classical guitars are provided for class use. It is recommended to have an additional guitar at home to practice.",
         "This class may be repeated for credit."
       ],
       "sourceReference": "page 59",
-      "creditType": "College Prep",
-      "credits": 1.0,
-      "gpaWaiverOption": false
+      "choices": [
+        {
+          "name": "College Prep",
+          "isOnline": false,
+          "creditType": "College Prep",
+          "gpaWaiverOption": true,
+          "offerings": [
+            {
+              "courseCode": "MUS441",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Auditions are required for all students with the Guitar Faculty"
+              ]
+            },
+            {
+              "courseCode": "MUS442",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Auditions are required for all students with the Guitar Faculty"
+              ]
+            }
+          ],
+          "credits": 1.0
+        },
+        {
+          "name": "Accelerated",
+          "isOnline": false,
+          "creditType": "Accelerated",
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "MUS441",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Auditions are required for all students with the Guitar Faculty"
+              ]
+            },
+            {
+              "courseCode": "MUS442",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10,
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Auditions are required for all students with the Guitar Faculty"
+              ]
+            }
+          ],
+          "credits": 1.0
+        }
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -1,5 +1,15 @@
 # Course extractor prompt
 
-You will be given a set of page images that contain one or more course detail entries. Produce a JSON object with the following keys: `departments` (empty list or department info if available), `courses` (list of course objects following the existing schema: title, department, description, offerings array with courseCode, semesterLabel, duration, gradeLevels, prerequisites, creditType, credits), `graduationRequirements` (empty list), `warnings` (list of strings).
+You will be given a set of page images that contain one or more course detail entries. Produce a JSON object with the following keys: `departments` (empty list or department info if available), `courses` (list of course objects), `graduationRequirements` (empty list), `warnings` (list of strings).
+
+Each course object must follow the finalized schema:
+- `title`, `department`, `description`, `sourceReference`, `notes` (optional, omit if empty)
+- For single-version courses: `creditType`, `credits`, `gpaWaiverOption`, and `offerings`
+- For multi-version courses (e.g., Regular vs Online, Regular vs Early Bird, College Prep vs Accelerated): `choices` only, with no per-course `creditType`, `credits`, `gpaWaiverOption`, or `offerings`
+- Each `choice` must be self-contained with: `name`, `isOnline`, `creditType`, `credits`, `gpaWaiverOption`, and `offerings`
+- Each `offering` must contain only: `courseCode`, `semesterLabel`, `duration`, `gradeLevels`, `prerequisites` (keep as empty list if none), and optional `notes`
+- `offerings` must NOT contain `creditType`, `credits`, or `corequisites`
+- `isOnline` must only appear inside a `choice`, never at the course level
+- `options` is no longer used; use `choices` for all alternate versions
 
 Return only valid JSON.

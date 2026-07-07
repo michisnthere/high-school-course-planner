@@ -7,6 +7,9 @@
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 1 offers students the opportunity to enhance their understanding of child development while interacting with children in the Little Patriots Lab School. Students focus on creating developmentally appropriate lessons and observing children's development.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 24",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -19,10 +22,7 @@
           ],
           "prerequisites": [
             "Human Growth and Development"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "FCS312",
@@ -35,58 +35,59 @@
           ],
           "prerequisites": [
             "Human Growth and Development"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 24",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Teaching Young Children 2",
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
-      "gpaWaiverOption": false,
-      "offerings": [
+      "sourceReference": "page 24",
+      "choices": [
         {
-          "courseCode": "FCS331",
-          "semesterLabel": "Semester 1",
-          "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Teaching Young Children 1"
-          ],
+          "name": "College Prep",
+          "isOnline": false,
           "creditType": "College Prep",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS331",
+              "semesterLabel": "Semester 1",
+              "duration": "One Semester",
+              "gradeLevels": [
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Teaching Young Children 1"
+              ]
+            }
+          ]
         },
         {
-          "courseCode": "FCS332",
-          "semesterLabel": "Semester 2",
-          "duration": "One Semester",
-          "gradeLevels": [
-            11,
-            12
-          ],
-          "prerequisites": [
-            "Teaching Young Children 1"
-          ],
+          "name": "Honors",
+          "isOnline": false,
           "creditType": "Honors",
           "credits": 1.0,
-          "notes": []
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "FCS332",
+              "semesterLabel": "Semester 2",
+              "duration": "One Semester",
+              "gradeLevels": [
+                11,
+                12
+              ],
+              "prerequisites": [
+                "Teaching Young Children 1"
+              ]
+            }
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 24",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

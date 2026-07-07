@@ -7,7 +7,9 @@
       "department": "Physical Education",
       "description": "Students will continue to serve as water safety instructors, lifeguards and pool aides to the aquatics program. Each student will receive ongoing Lifeguard In-Service Training that will keep their certifications current and their skills sharp. At the end of each semester a student must receive a recommendation in their evaluation to continue in the leadership program. Materials for the course are available in the Patriot Superstore. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
       "sourceReference": "page 88",
-      "notes": [],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED71L",
@@ -19,10 +21,7 @@
           ],
           "prerequisites": [
             "Students must have an American Red Cross Lifeguarding certification"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED72L",
@@ -34,15 +33,9 @@
           ],
           "prerequisites": [
             "Students must have an American Red Cross Lifeguarding certification"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -52,6 +45,9 @@
       "notes": [
         "The Alternative Physical Education leadership program is a two-year commitment."
       ],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED41L",
@@ -63,10 +59,7 @@
           ],
           "prerequisites": [
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED42L",
@@ -78,15 +71,9 @@
           ],
           "prerequisites": [
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Alternative Physical Education",
@@ -96,6 +83,9 @@
       "notes": [
         "Pass/Fail course."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED111",
@@ -109,10 +99,7 @@
           ],
           "prerequisites": [
             "A physician's verification must be on file"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED112",
@@ -126,15 +113,9 @@
           ],
           "prerequisites": [
             "A physician's verification must be on file"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Health Education",
@@ -146,6 +127,9 @@
         "Health Education should be completed by the end of the sophomore year.",
         "By completing the Reality of Drugs unit, students will be prepared for the '46th Credit' exam which is a graduation requirement."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED201",
@@ -154,10 +138,7 @@
           "gradeLevels": [
             10
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "PED202",
@@ -166,15 +147,9 @@
           "gradeLevels": [
             10
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Applied Health",
@@ -184,6 +159,9 @@
       "notes": [
         "Additional fee to receive American Red Cross certificate."
       ],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED231",
@@ -196,10 +174,7 @@
           ],
           "prerequisites": [
             "Health Education"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED232",
@@ -212,15 +187,9 @@
           ],
           "prerequisites": [
             "Health Education"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

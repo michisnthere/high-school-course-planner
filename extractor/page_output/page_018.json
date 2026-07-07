@@ -7,6 +7,9 @@
       "department": "Business Education",
       "description": "This is the first semester of a two-semester sequence in the study of accounting. Basic principles and practices of double entry accounting are developed with an emphasis on the financial records of sole proprietorships and partnerships. Daily transactions and financial statement analysis are included. Students also have the opportunity to attend regional, state and national accounting competitions.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 18",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS251",
@@ -17,22 +20,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 18",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Accounting 2",
       "department": "Business Education",
       "description": "This is the second semester of a two-semester sequence in the study of accounting. Specialized journal systems, uncollected accounts, depreciation, inventory controls, payroll, taxes and financial statement analysis are emphasized with regard to a corporation. Students also have the opportunity to attend regional, state and national accounting competitions.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 18",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS252",
@@ -45,22 +44,18 @@
           ],
           "prerequisites": [
             "Accounting 1"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 18",
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Advanced Accounting",
       "department": "Business Education",
       "description": "This one-semester course serves as a capstone to the advanced study of accounting. A \"managerial approach\" emphasizing internal data used to make decisions and control revenues, costs and expenses is explored and developed.",
       "gpaWaiverOption": false,
+      "sourceReference": "page 18",
+      "creditType": "Honors",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "BUS351",
@@ -73,16 +68,9 @@
           ],
           "prerequisites": [
             "Accounting 2"
-          ],
-          "creditType": "Honors",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 18",
-      "creditType": "Honors",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -10,6 +10,9 @@
       "notes": [
         "Pass/Fail course."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED121",
@@ -18,10 +21,7 @@
           "gradeLevels": [
             9
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "PED122",
@@ -30,15 +30,9 @@
           "gradeLevels": [
             9
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Adventure Education",
@@ -49,6 +43,9 @@
         "Pass/Fail course.",
         "Multiple credits may be earned for this course."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED331",
@@ -62,10 +59,7 @@
           ],
           "prerequisites": [
             "A Foundational Fitness class or any previous physical education course"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED332",
@@ -79,15 +73,9 @@
           ],
           "prerequisites": [
             "A Foundational Fitness class or any previous physical education course"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

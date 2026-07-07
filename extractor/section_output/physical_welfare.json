@@ -18,6 +18,9 @@
       "notes": [
         "Pass/Fail course."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED121",
@@ -26,10 +29,7 @@
           "gradeLevels": [
             9
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "PED122",
@@ -38,15 +38,9 @@
           "gradeLevels": [
             9
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Adventure Education",
@@ -57,6 +51,9 @@
         "Pass/Fail course.",
         "Multiple credits may be earned for this course."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED331",
@@ -70,10 +67,7 @@
           ],
           "prerequisites": [
             "A Foundational Fitness class or any previous physical education course"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED332",
@@ -87,15 +81,9 @@
           ],
           "prerequisites": [
             "A Foundational Fitness class or any previous physical education course"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Choice P.E.",
@@ -126,10 +114,7 @@
               ],
               "prerequisites": [
                 "A Foundational Fitness class, any previous Physical Education course or director approval"
-              ],
-              "creditType": "College Prep",
-              "credits": 1.0,
-              "notes": []
+              ]
             },
             {
               "courseCode": "PED452",
@@ -143,13 +128,9 @@
               ],
               "prerequisites": [
                 "A Foundational Fitness class, any previous Physical Education course or director approval"
-              ],
-              "creditType": "College Prep",
-              "credits": 1.0,
-              "notes": []
+              ]
             }
-          ],
-          "notes": []
+          ]
         },
         {
           "name": "Early Bird Option",
@@ -169,10 +150,7 @@
               ],
               "prerequisites": [
                 "A Foundational Fitness course, any physical education class or director approval"
-              ],
-              "creditType": "College Prep",
-              "credits": 1.0,
-              "notes": []
+              ]
             },
             {
               "courseCode": "PED032",
@@ -185,13 +163,9 @@
               ],
               "prerequisites": [
                 "A Foundational Fitness course, any physical education class or director approval"
-              ],
-              "creditType": "College Prep",
-              "credits": 1.0,
-              "notes": []
+              ]
             }
-          ],
-          "notes": []
+          ]
         }
       ]
     },
@@ -203,6 +177,9 @@
       "notes": [
         "The Physical Education Leadership program is a two-year commitment."
       ],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED61L",
@@ -211,10 +188,7 @@
           "gradeLevels": [
             11
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "PED62L",
@@ -223,22 +197,18 @@
           "gradeLevels": [
             11
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Senior Leadership",
       "department": "Physical Education",
       "description": "Students will apply what they learned in Physical Education Leadership Training by serving as teacher aides with a Physical Education teacher. All students will participate in fitness testing. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
       "sourceReference": "page 87",
-      "notes": [],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED81L",
@@ -249,10 +219,7 @@
           ],
           "prerequisites": [
             "Physical education Leadership Training"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED82L",
@@ -263,15 +230,9 @@
           ],
           "prerequisites": [
             "Physical education Leadership Training"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Lifeguard Training and Certification",
@@ -281,6 +242,9 @@
       "notes": [
         "Additional fee to receive American Red Cross certificate."
       ],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED501",
@@ -294,22 +258,18 @@
           "prerequisites": [
             "Ability to demonstrate required swim skills",
             "Students must be at least 15 years old by the end of the course"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Pool Leadership",
       "department": "Physical Education",
       "description": "Students will continue to serve as water safety instructors, lifeguards and pool aides to the aquatics program. Each student will receive ongoing Lifeguard In-Service Training that will keep their certifications current and their skills sharp. At the end of each semester a student must receive a recommendation in their evaluation to continue in the leadership program. Materials for the course are available in the Patriot Superstore. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
       "sourceReference": "page 88",
-      "notes": [],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED71L",
@@ -321,10 +281,7 @@
           ],
           "prerequisites": [
             "Students must have an American Red Cross Lifeguarding certification"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED72L",
@@ -336,15 +293,9 @@
           ],
           "prerequisites": [
             "Students must have an American Red Cross Lifeguarding certification"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -354,6 +305,9 @@
       "notes": [
         "The Alternative Physical Education leadership program is a two-year commitment."
       ],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED41L",
@@ -365,10 +319,7 @@
           ],
           "prerequisites": [
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED42L",
@@ -380,15 +331,9 @@
           ],
           "prerequisites": [
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Alternative Physical Education",
@@ -398,6 +343,9 @@
       "notes": [
         "Pass/Fail course."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED111",
@@ -411,10 +359,7 @@
           ],
           "prerequisites": [
             "A physician's verification must be on file"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED112",
@@ -428,15 +373,9 @@
           ],
           "prerequisites": [
             "A physician's verification must be on file"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Health Education",
@@ -448,6 +387,9 @@
         "Health Education should be completed by the end of the sophomore year.",
         "By completing the Reality of Drugs unit, students will be prepared for the '46th Credit' exam which is a graduation requirement."
       ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED201",
@@ -456,10 +398,7 @@
           "gradeLevels": [
             10
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "PED202",
@@ -468,15 +407,9 @@
           "gradeLevels": [
             10
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "gpaWaiverOption": false,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Applied Health",
@@ -486,6 +419,9 @@
       "notes": [
         "Additional fee to receive American Red Cross certificate."
       ],
+      "gpaWaiverOption": true,
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "PED231",
@@ -498,10 +434,7 @@
           ],
           "prerequisites": [
             "Health Education"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         },
         {
           "courseCode": "PED232",
@@ -514,15 +447,9 @@
           ],
           "prerequisites": [
             "Health Education"
-          ],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          ]
         }
-      ],
-      "gpaWaiverOption": true,
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],

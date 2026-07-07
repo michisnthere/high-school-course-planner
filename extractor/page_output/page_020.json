@@ -12,6 +12,9 @@
       "department": "Family and Consumer Sciences",
       "description": "Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 20",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS111",
@@ -23,10 +26,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS112",
@@ -38,22 +38,18 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 20",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     },
     {
       "title": "Human Growth and Development",
       "department": "Family and Consumer Sciences",
       "description": "Human Growth and Development explores the world of the developing individual from prenatal development through adolescence. This course investigates psychological concepts that apply to everyday life and explores dynamics that shape growth and development.",
       "gpaWaiverOption": true,
+      "sourceReference": "page 20",
+      "creditType": "College Prep",
+      "credits": 1.0,
       "offerings": [
         {
           "courseCode": "FCS211",
@@ -65,10 +61,7 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         },
         {
           "courseCode": "FCS212",
@@ -80,16 +73,9 @@
             11,
             12
           ],
-          "prerequisites": [],
-          "creditType": "College Prep",
-          "credits": 1.0,
-          "notes": []
+          "prerequisites": []
         }
-      ],
-      "notes": [],
-      "sourceReference": "page 20",
-      "creditType": "College Prep",
-      "credits": 1.0
+      ]
     }
   ],
   "graduationRequirements": [],
