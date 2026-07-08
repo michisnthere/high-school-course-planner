@@ -1,8 +1,8 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 55 is a Music course offerings pathway diagram only. No course descriptions are present. Band courses (all Full-Year): Freshman Band (MUS101/MUS102), Symphonic Band (MUS121/MUS122), Wind Symphony (MUS131/MUS132), Wind Ensemble (MUS141/MUS142). Choral courses (all Full-Year): Stevenson Singers (MUS201/MUS202), Advanced Chorus (MUS211/MUS212), Patriot Singers (MUS221/MUS222). Orchestra courses (all Full-Year): Stevenson Orchestra (MUS301/MUS302), Concert Orchestra (MUS311/MUS312), Symphonic Orchestra (MUS331/MUS332), Patriot Orchestra (MUS321/MUS322). General Music: Piano 1 (MUS401/MUS402, One-Semester), Music Production 1 (MUS431/MUS432, One-Semester), Music Production 2 (MUS451/MUS452, One-Semester), Advanced Music Production (MUS471/MUS472, Full-Year). Guitar (all Full-Year): Guitar 1 (MUS421/MUS422), Guitar 2 (MUS461/MUS462), Patriot Guitar Ensemble (MUS441/MUS442). AP Music Theory (MUS801/MUS802, Full-Year)."
-  ]
+  ],
+  "divisions": []
 }

@@ -1,8 +1,8 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 46 is a Visual Arts course offerings pathway diagram showing course sequence only. No course descriptions are present. Courses listed: Art and Design (ART101/ART102, One-Semester), Drawing (ART221/ART222, One-Semester), Painting (ART261/ART262, One-Semester), Mixed Media (ART611/ART612, One-Semester), Ceramics (ART201/ART202, One-Semester), Sculpture (ART281/ART282, One-Semester), Metals and Jewelry (ART241/ART242, One-Semester), Advanced Drawing, Painting and Mixed Media (ART621/ART622, One-Semester), Advanced Ceramics, Metals and Sculpture (ART631/ART632, One-Semester), AP Art: Drawing, 2D and 3D Design (ART801/ART802, Full-Year)."
-  ]
+  ],
+  "divisions": []
 }

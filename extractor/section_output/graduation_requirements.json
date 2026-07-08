@@ -1,5 +1,4 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [
     {
@@ -67,7 +66,7 @@
       "name": "English",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 8.0,
+      "requiredValue": 8,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -79,7 +78,7 @@
       "name": "Mathematics",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 6.0,
+      "requiredValue": 6,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -91,7 +90,7 @@
       "name": "Biology",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -103,7 +102,7 @@
       "name": "Physical Science",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -115,7 +114,7 @@
       "name": "U.S. History",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -127,7 +126,7 @@
       "name": "World History and Geography",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -139,7 +138,7 @@
       "name": "Government",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -151,7 +150,7 @@
       "name": "Economics or Personal Finance",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -163,7 +162,7 @@
       "name": "Health",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -175,7 +174,7 @@
       "name": "Driver Education",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -187,7 +186,7 @@
       "name": "Required Electives and P.E.",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -199,7 +198,7 @@
       "name": "Additional Credits and P.E.",
       "category": "minimum graduation requirements",
       "requirementType": "semesters",
-      "requiredValue": 17.0,
+      "requiredValue": 17,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -211,7 +210,7 @@
       "name": "Total Credits",
       "category": "minimum graduation requirements",
       "requirementType": "credits",
-      "requiredValue": 45.0,
+      "requiredValue": 45,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -265,7 +264,7 @@
       "name": "Elective Graduation Requirement",
       "category": "electives",
       "requirementType": "credits",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [
         "Applied Arts",
         "Fine Arts",
@@ -282,7 +281,7 @@
       "name": "Economics or Personal Finance Graduation Requirement",
       "category": "financial literacy",
       "requirementType": "credits",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [
         "Economics",
         "AP Macroeconomics",
@@ -299,7 +298,7 @@
       "name": "English Graduation Requirement",
       "category": "english",
       "requirementType": "credits",
-      "requiredValue": 8.0,
+      "requiredValue": 8,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -311,7 +310,7 @@
       "name": "Health Graduation Requirement",
       "category": "health",
       "requirementType": "credits",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -323,7 +322,7 @@
       "name": "Mathematics Graduation Requirement",
       "category": "mathematics",
       "requirementType": "semesters",
-      "requiredValue": 6.0,
+      "requiredValue": 6,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -355,7 +354,7 @@
       "name": "Science Graduation Requirement",
       "category": "science",
       "requirementType": "semesters",
-      "requiredValue": 4.0,
+      "requiredValue": 4,
       "eligibleCourses": [
         "Biological science",
         "Physical science"
@@ -370,7 +369,7 @@
       "name": "Social Studies Graduation Requirement",
       "category": "social studies",
       "requirementType": "semesters",
-      "requiredValue": 4.0,
+      "requiredValue": 4,
       "eligibleCourses": [
         "U.S. History or AP U.S. History",
         "World History and Geography",
@@ -494,7 +493,7 @@
       "name": "External Credits",
       "category": "credit transfer",
       "requirementType": "credits",
-      "requiredValue": 4.0,
+      "requiredValue": 4,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -679,5 +678,6 @@
       "sourceReference": "page 11"
     }
   ],
-  "warnings": []
+  "warnings": [],
+  "divisions": []
 }

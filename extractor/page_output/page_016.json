@@ -1,20 +1,13 @@
 {
   "sourcePage": 16,
-  "departments": [
-    {
-      "name": "Business Education",
-      "description": "In every facet of society, business plays a vital role. Stevenson High School provides the skills necessary for students to become tomorrow's business leaders."
-    }
-  ],
   "courses": [
     {
       "title": "Introduction to Business",
-      "department": "Business Education",
       "description": "Introduction to Business provides students with a foundational understanding of the business world. This course explores key topics including marketing, accounting, international business and entrepreneurship, giving students insight into how businesses operate locally and globally. Through real-world examples and hands-on projects, students will develop critical thinking and problem-solving skills essential for future success in business.",
       "gpaWaiverOption": false,
       "sourceReference": "page 16",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -43,16 +36,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     },
     {
       "title": "Business Applications and Technology 1",
-      "department": "Business Education",
       "description": "Business Applications and Technology 1 is a course designed to teach students to use a variety of software programs and multimedia platforms as they create a business concept. Students will strengthen their knowledge of both business operations and technology usage in the workplace as they develop communications, marketing materials, financial proposals and presentations for their proposed business.",
       "gpaWaiverOption": false,
       "sourceReference": "page 16",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -83,9 +77,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Business Education",
+          "description": "In every facet of society, business plays a vital role. Stevenson High School provides the skills necessary for students to become tomorrow's business leaders."
+        }
+      ]
+    }
+  ]
 }

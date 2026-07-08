@@ -1,8 +1,8 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Course offerings diagram only; no course records extracted. Diagram showed: AP Spanish Literature and Culture (SPA611/SPA612), Mandarin Chinese 1 (CHI101/CHI102), Mandarin Chinese 2 (CHI211/CHI212), Mandarin Chinese 3 (CHI311/CHI312), Mandarin Chinese 4 (CHI411/CHI412), AP Chinese Language and Culture (CHI601/CHI602), Chinese Literature, Media and Culture (CHI611/CHI612), Intermediate Mandarin Chinese Language Arts (CHI351/CHI352), Spanish 1 (SPA101/SPA102), Spanish 2 (SPA201/SPA202), Spanish 2-3 (SPA211/SPA212), Spanish 3 (SPA301/SPA302), Spanish 3-4 (SPA311/SPA312), Spanish 4 (SPA401/SPA402), AP Spanish Language and Culture (SPA601/SPA602), Advanced Spanish Conversation and Culture (SPA511/SPA512), Intermediate Spanish Language Arts (SPA351/SPA352)."
-  ]
+  ],
+  "divisions": []
 }

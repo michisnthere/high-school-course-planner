@@ -1,19 +1,12 @@
 {
-  "departments": [
-    {
-      "name": "Visual Arts",
-      "description": "The activities in art classes are designed to develop skills of perception, problem solving, understanding and sensitivity through a variety of experiences. The aim of the art curriculum is to give students an understanding and appreciation for the endless and constant results of artistic efforts which surround us in our daily lives. The unique character of the art curriculum provides students an opportunity to express and nurture their creative instincts and to develop a high sense of appreciation for humankind and nature in an atmosphere where individual expression is encouraged. Courses are offered to meet the varied interests and abilities of the students. Students may be required to purchase specialized supplies and tools for some art classes."
-    }
-  ],
   "courses": [
     {
       "title": "Art and Design",
-      "department": "Visual Arts",
       "description": "This foundational course introduces students to essential techniques, tools and media across the visual arts. Students will explore drawing, painting, sculpture and ceramics through hands-on studio experiences that emphasize creative thinking and technical development. This course serves as a prerequisite for all advanced art classes.",
       "gpaWaiverOption": true,
       "sourceReference": "page 48",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -48,16 +41,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts"
     },
     {
       "title": "Drawing",
-      "department": "Visual Arts",
       "description": "This course provides students with the opportunity to learn more advanced realistic drawing and shading techniques. Observational drawing and inventive design are explored. Various color and black and white media are used in this course.",
       "gpaWaiverOption": true,
       "sourceReference": "page 48",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -96,16 +90,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts"
     },
     {
       "title": "Painting",
-      "department": "Visual Arts",
       "description": "This course teaches students the concepts, skills, methods and processes necessary to explore watercolor and oil painting. Students create a variety of compositions through both quick studies and extended complex paintings. There is an emphasis on color theory, design principles, media, tools and a variety of painting techniques.",
       "gpaWaiverOption": true,
       "sourceReference": "page 48",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -144,16 +139,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts"
     },
     {
       "title": "Mixed Media",
-      "department": "Visual Arts",
       "description": "This course will help students develop their individual expression through the use of creative visual problem-solving. Students will use colored pencil, pastel, ink pen, watercolor and other media; students will be challenged to think creatively, work more quickly and experiment with different techniques and compositional approaches.",
       "gpaWaiverOption": true,
       "sourceReference": "page 48",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -192,16 +188,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts"
     },
     {
       "title": "Ceramics",
-      "department": "Visual Arts",
       "description": "This course is a hands-on class designed for those students who like to work in clay. Students will learn basic and advanced hand-building techniques and how to use a potter's wheel. They will be introduced to a variety of decorating, glazing and firing techniques and will produce a number of creative stoneware pieces.",
       "gpaWaiverOption": true,
       "sourceReference": "page 48",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -240,16 +237,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts"
     },
     {
       "title": "Sculpture",
-      "department": "Visual Arts",
       "description": "This course provides a hands-on approach for understanding contemporary sculpture. Students will have the opportunity to work with a variety of 3D media. Sculptural techniques explored may include additive, subtractive and/or assemblage, with a focus on creative problem-solving.",
       "gpaWaiverOption": true,
       "sourceReference": "page 48",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -288,9 +286,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Fine Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Visual Arts",
+          "description": "The activities in art classes are designed to develop skills of perception, problem solving, understanding and sensitivity through a variety of experiences. The aim of the art curriculum is to give students an understanding and appreciation for the endless and constant results of artistic efforts which surround us in our daily lives. The unique character of the art curriculum provides students an opportunity to express and nurture their creative instincts and to develop a high sense of appreciation for humankind and nature in an atmosphere where individual expression is encouraged. Courses are offered to meet the varied interests and abilities of the students. Students may be required to purchase specialized supplies and tools for some art classes."
+        }
+      ]
+    }
+  ]
 }

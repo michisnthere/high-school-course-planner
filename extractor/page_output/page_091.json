@@ -1,15 +1,13 @@
 {
   "sourcePage": 91,
-  "departments": [],
   "courses": [
     {
       "title": "Biology",
-      "department": "Science",
       "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students’ graduation requirement for two semesters of biological science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Biology"
       ],
@@ -44,16 +42,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "Chemistry",
-      "department": "Science",
       "description": "In this lab-based course, students explore atomic structure, the periodic table, intermolecular forces, thermodynamics, types of reactions, reaction rates, equilibrium and acids and bases. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Science"
       ],
@@ -88,16 +87,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "Earth Science",
-      "department": "Science",
       "description": "In this lab-based course, students explore minerals, rocks, plate tectonics, earthquakes, volcanoes, weathering, running water, glaciers, wind, atmospheric science and astronomy. Students will work collaboratively and engage with the science and engineering practices, applying their learning in several hands-on engineering projects across the year. This course can fulfill students’ graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Science"
       ],
@@ -130,16 +130,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "Physics",
-      "department": "Science",
       "description": "In this lab-based course, students explore constant and changing velocity, forces, energy, momentum, electrostatics, electricity and magnetism, circuits and waves. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering careers in engineering.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Science"
       ],
@@ -172,16 +173,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "Horticulture",
-      "department": "Science",
       "description": "In this lab-based course, students explore plant structure, function, ecology and cultivation. Students will work collaboratively and engage with the science and engineering practices, including frequent visits and learning in Stevenson’s greenhouse and green roof environments. This course does not satisfy the life science graduation requirement, but it is beneficial for students who are interested in learning more about plants and plant propagation.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -212,11 +214,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "Science Research",
-      "department": "Science",
       "description": "In this lab-based course, students explore scientific inquiry and research methods. Students will work collaboratively and engage with the science and engineering practices. In this course, students design and conduct experiments, analyze data and present findings for their original research project that will be entered into symposia, competitions and publications.",
       "gpaWaiverOption": false,
       "notes": [
@@ -224,7 +227,7 @@
       ],
       "sourceReference": "page 91",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -254,16 +257,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "Human Anatomy and Physiology",
-      "department": "Science",
       "description": "In this lab-based course, students go beyond basic biology of human body systems and delve into the complex relationships required to maintain homeostasis. Students will work collaboratively and engage with the science and engineering practices. In this course students conduct dissections. This course does not satisfy the life science graduation requirement, but it is beneficial for students considering careers in health-related fields.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "Accelerated",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -292,9 +296,18 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Science",
+      "description": null,
+      "departments": []
+    }
+  ]
 }

@@ -1,15 +1,13 @@
 {
   "sourcePage": 96,
-  "departments": [],
   "courses": [
     {
       "title": "World History and Geography",
-      "department": "Social Studies",
       "description": "World History and Geography is a one-year course required for graduation and a prerequisite for all courses in Social Studies. Students taking World History and Geography develop core academic skills in reading and writing while studying history from the origins of human civilizations to the present. Patterns and changes in political and economic systems, social structures, religious beliefs and ideologies and cultural accomplishments are studied from a global perspective with case studies from every world region. Through collaboration, discussion and debate, World History and Geography students will improve their: 1) historical and geographic literacy, 2) historical evaluation and analysis and 3) historical argumentation for the purpose of becoming better readers, writers and critical thinkers. With the foundational study of World History and Geography, students develop global perspective, appreciation for global and community diversity and an understanding of the historical forces that have shaped our present world.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "World History and Geography"
       ],
@@ -40,16 +38,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Constitutional Law",
-      "department": "Social Studies",
       "description": "Constitutional Law provides students with an understanding of how the U.S. Constitution came into existence, why it took the form it did and how it functions in contemporary American society. Students will develop analytical and evaluative skills by applying constitutional principles to a variety of legal issues and political controversies. Students will assume a lawyer's role in oral argument activities. Students interested in legal careers, criminal and civil rights and public service should consider this course.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -86,16 +85,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Global Relations",
-      "department": "Social Studies",
       "description": "This one-semester course focuses on significant and contemporary global events. The emphasis in the course will be on international events after the Cold War. A major goal of the course is to encourage an understanding and evaluation of the international system through major current events. Students will be expected to read current news publications in addition to assigned text materials and will be engaged in several issue-based simulations throughout the course.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -132,16 +132,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Law In American Society",
-      "department": "Social Studies",
       "description": "In this one-semester course, students will develop a basic understanding of our legal system, its terminology and its procedures. An emphasis will be placed on analyzing real world issues and court cases that relate to our rights as citizens and the role of our legal system. The class will rely heavily on class discussions, group projects and simulations. We will explore the lawmaking process, civil law, criminal law, criminal investigations and criminal behavior. Students will also prepare opening statements, learn how to question witnesses and engage in mock trial activities. This class will expose students to skills and content that will prove useful for those considering careers in law, criminal justice, crime prevention and other public occupations.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -178,16 +179,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Psychology",
-      "department": "Social Studies",
       "description": "Psychology is a scientific study that deals with emotional, behavioral and mental processes of people in society. Special emphasis includes: abnormal psychology (psychological disorders and treatments) and social psychology (people's perceptions of themselves and others, group behavior and interpersonal attraction). In addition, other topics covered include personality, learning, memory and the brain. This course will provide an introduction to topics typically covered in an introductory level college psychology course. Students will learn how psychology applies to their lives by partaking in class discussions and group projects. Upon completion of this course students should have a better understanding of themselves and the wide variety of people around them.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -224,9 +226,18 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Social Studies",
+      "description": null,
+      "departments": []
+    }
+  ]
 }

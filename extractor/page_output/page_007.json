@@ -1,5 +1,4 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [
     {
@@ -39,5 +38,6 @@
       "sourceReference": "page 7"
     }
   ],
-  "warnings": []
+  "warnings": [],
+  "divisions": []
 }

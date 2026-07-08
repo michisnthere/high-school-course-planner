@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { normalizeDepartment, parseSemester, parseDurationUnits } from "./lib/normalize";
+import { parseSemester, parseDurationUnits } from "./lib/normalize";
 
 // ---------------------------------------------------------------------------
 // Input types — matches the cleaned academic-data JSON produced by the
@@ -31,8 +31,8 @@ type CourseChoiceInput = {
 
 type CourseInput = {
   title?: string;
+  division?: string | null;
   department?: string | null;
-  subdepartment?: string | null;
   description?: string | null;
   gpaWaiverOption?: boolean;
   isOnline?: boolean;
@@ -56,8 +56,14 @@ type GraduationRequirementInput = {
   sourceReference?: string | null;
 };
 
-type ExtractedCatalog = {
+type DivisionInput = {
+  name?: string;
+  description?: string | null;
   departments?: { name?: string; description?: string | null }[];
+};
+
+type ExtractedCatalog = {
+  divisions?: DivisionInput[];
   courses?: CourseInput[];
   graduationRequirements?: GraduationRequirementInput[];
 };
@@ -81,8 +87,8 @@ const prisma = new PrismaClient();
 // In-memory caches
 // ---------------------------------------------------------------------------
 
-const departmentCache = new Map<string, number>();
-const subdepartmentCache = new Map<string, number>();
+const divisionCache = new Map<string, number>();
+const departmentCache = new Map<string, number>(); // key: "divisionId:departmentName"
 const graduationRequirementCache = new Map<string, number>();
 
 // ---------------------------------------------------------------------------
@@ -104,12 +110,6 @@ function normalizeTitle(title: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/**
- * Convert the flexible `attributes` field into a normalized string array and
- * extract the dedicated `isRepeatable` flag. Handles both the new array format
- * (e.g. ["repeatable", "fineArtsCredit"]) and the legacy object format from
- * the extractor (e.g. { isRepeatable: false, requiresAudition: true }).
- */
 function normalizeAttributes(attrs: string[] | Record<string, unknown> | undefined): {
   attributes: string[];
   isRepeatable: boolean;
@@ -173,6 +173,10 @@ function validateAll(
       fail("missing title");
       continue;
     }
+    if (!course.division?.trim()) {
+      fail("missing division");
+      continue;
+    }
     if (!Array.isArray(course.offerings) || course.offerings.length === 0) {
       if (!Array.isArray(course.choices) || course.choices.length === 0) {
         fail("missing offerings and choices");
@@ -219,38 +223,96 @@ function validateAll(
 }
 
 // ---------------------------------------------------------------------------
-// Department / Subdepartment
+// Division / Department
 // ---------------------------------------------------------------------------
 
-async function getOrCreateDepartment(name: string): Promise<number> {
-  const cached = departmentCache.get(name);
+async function getOrCreateDivision(name: string, description?: string | null): Promise<number> {
+  const cached = divisionCache.get(name);
   if (cached !== undefined) return cached;
 
-  const dept = await prisma.department.upsert({
+  const division = await prisma.division.upsert({
     where: { name },
-    create: { name },
-    update: {},
+    create: {
+      name,
+      normalizedName: normalizeTitle(name),
+      description: description ?? null,
+    },
+    update: {
+      normalizedName: normalizeTitle(name),
+      description: description ?? null,
+    },
     select: { id: true },
   });
 
-  departmentCache.set(name, dept.id);
-  return dept.id;
+  divisionCache.set(name, division.id);
+  return division.id;
 }
 
-async function getOrCreateSubdepartment(departmentId: number, name: string): Promise<number> {
-  const cacheKey = `${departmentId}:${name}`;
-  const cached = subdepartmentCache.get(cacheKey);
+async function getOrCreateDepartment(
+  divisionId: number,
+  name: string,
+  description?: string | null
+): Promise<number> {
+  const cacheKey = `${divisionId}:${name}`;
+  const cached = departmentCache.get(cacheKey);
   if (cached !== undefined) return cached;
 
-  const subdept = await prisma.subdepartment.upsert({
-    where: { departmentId_name: { departmentId, name } },
-    create: { name, departmentId },
-    update: {},
+  const department = await prisma.department.upsert({
+    where: { divisionId_name: { divisionId, name } },
+    create: {
+      name,
+      normalizedName: normalizeTitle(name),
+      description: description ?? null,
+      divisionId,
+    },
+    update: {
+      normalizedName: normalizeTitle(name),
+      description: description ?? null,
+    },
     select: { id: true },
   });
 
-  subdepartmentCache.set(cacheKey, subdept.id);
-  return subdept.id;
+  departmentCache.set(cacheKey, department.id);
+  return department.id;
+}
+
+async function resolveDepartment(
+  divisionId: number,
+  divisionName: string,
+  departmentName: string | null | undefined
+): Promise<number> {
+  if (departmentName?.trim()) {
+    return getOrCreateDepartment(divisionId, departmentName.trim());
+  }
+  // Division-only course: create a default department matching the division name.
+  return getOrCreateDepartment(divisionId, divisionName);
+}
+
+async function importDivisions(divisions: DivisionInput[]): Promise<{
+  imported: number;
+  failed: FailedRecord[];
+}> {
+  const failed: FailedRecord[] = [];
+  let imported = 0;
+
+  for (const div of divisions) {
+    if (!div.name?.trim()) {
+      failed.push({ reason: "missing division name" });
+      continue;
+    }
+    const divisionId = await getOrCreateDivision(div.name, div.description);
+    imported += 1;
+
+    for (const dept of requireArray(div.departments)) {
+      if (!dept.name?.trim()) {
+        failed.push({ reason: `missing department name under division ${div.name}` });
+        continue;
+      }
+      await getOrCreateDepartment(divisionId, dept.name, dept.description);
+    }
+  }
+
+  return { imported, failed };
 }
 
 // ---------------------------------------------------------------------------
@@ -305,11 +367,9 @@ async function importGraduationRequirements(
 }
 
 function resolveRequirementId(reqName: string): number | null {
-  // Exact match first.
   const exact = graduationRequirementCache.get(reqName);
   if (exact !== undefined) return exact;
 
-  // Strip common suffixes and try again.
   const stripped = reqName
     .replace(/\s+Graduation Requirement\s+and\s+Waivers$/i, "")
     .replace(/\s+Graduation Requirement$/i, "");
@@ -415,8 +475,13 @@ async function main() {
   const allRequirements = Array.isArray(catalog.graduationRequirements)
     ? catalog.graduationRequirements
     : [];
+  const allDivisions = Array.isArray(catalog.divisions) ? catalog.divisions : [];
 
   const { valid: courses, failedRecords } = validateAll(allCourses);
+
+  // -- Divisions + Departments ------------------------------------------------
+  const { imported: divisionsImported, failed: divisionFailures } = await importDivisions(allDivisions);
+  failedRecords.push(...divisionFailures);
 
   // -- Graduation requirements ------------------------------------------------
   const { imported: requirementsImported, failed: requirementFailures } =
@@ -430,22 +495,13 @@ async function main() {
   let requirementsLinked = 0;
   let missingRequirements = 0;
   let coursesWithNoDepartment = 0;
-  let coursesWithNoSubdepartment = 0;
 
   for (const course of courses) {
-    const norm = normalizeDepartment(course.department);
+    const divisionName = course.division!.trim();
+    const divisionId = await getOrCreateDivision(divisionName);
+    const departmentId = await resolveDepartment(divisionId, divisionName, course.department);
 
-    let departmentId: number | null = null;
-    let subdepartmentId: number | null = null;
-
-    if (norm.department) {
-      departmentId = await getOrCreateDepartment(norm.department);
-      if (norm.subdepartment) {
-        subdepartmentId = await getOrCreateSubdepartment(departmentId, norm.subdepartment);
-      } else {
-        coursesWithNoSubdepartment += 1;
-      }
-    } else {
+    if (!course.department?.trim()) {
       coursesWithNoDepartment += 1;
     }
 
@@ -468,7 +524,6 @@ async function main() {
           notes: requireArray(course.notes),
           sourceReference: course.sourceReference ?? null,
           departmentId,
-          subdepartmentId,
         },
         update: {
           title: course.title!,
@@ -479,7 +534,6 @@ async function main() {
           isRepeatable: finalIsRepeatable,
           notes: requireArray(course.notes),
           departmentId,
-          subdepartmentId,
         },
         select: { id: true },
       });
@@ -494,7 +548,7 @@ async function main() {
           title: course.title,
           sourceReference: course.sourceReference,
           importKey,
-          reason: "title already exists under this subdepartment (conflicting course, not overwritten)",
+          reason: "title already exists under this department (conflicting course, not overwritten)",
         });
         continue;
       }
@@ -593,13 +647,12 @@ async function main() {
         coursesUpserted,
         optionsUpserted,
         offeringsUpserted,
+        divisionsImported,
+        departmentsImported: departmentCache.size,
         requirementsImported,
         requirementsLinked,
         missingRequirements,
-        departmentsCached: departmentCache.size,
-        subdepartmentsCached: subdepartmentCache.size,
         coursesWithNoDepartment,
-        coursesWithNoSubdepartment,
         failedRecords,
       },
       null,

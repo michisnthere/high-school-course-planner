@@ -9,17 +9,16 @@ datasource db {
 
 //
 // =========================
-// DEPARTMENT
+// DIVISION
 // =========================
 //
-model Department {
+model Division {
   id             Int     @id @default(autoincrement())
   name           String  @unique
   normalizedName String?
   description    String?
 
-  subdepartments Subdepartment[]
-  courses        Course[]
+  departments Department[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -27,25 +26,26 @@ model Department {
 
 //
 // =========================
-// SUBDEPARTMENT
+// DEPARTMENT
 // =========================
 //
-model Subdepartment {
+model Department {
   id Int @id @default(autoincrement())
 
   name           String
   normalizedName String?
+  description    String?
 
-  departmentId Int
-  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  divisionId Int
+  division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
 
   courses Course[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([departmentId, name])
-  @@index([departmentId])
+  @@unique([divisionId, name])
+  @@index([divisionId])
 }
 
 //
@@ -70,14 +70,8 @@ model Course {
   notes           Json    @default("[]")
   sourceReference String?
 
-  // A Course always belongs to a Department (set on every import where the
-  // source specifies a department). Subdepartment is an optional refinement
-  // on top of that — never required to resolve a course's department.
   departmentId Int?
   department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
-
-  subdepartmentId Int?
-  subdepartment   Subdepartment? @relation(fields: [subdepartmentId], references: [id], onDelete: SetNull)
 
   options      CourseOption[]
   requirements CourseRequirement[]
@@ -85,9 +79,8 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([subdepartmentId, title])
+  @@unique([departmentId, title])
   @@index([departmentId])
-  @@index([subdepartmentId])
 }
 
 //

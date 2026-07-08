@@ -1,9 +1,7 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "Wind Symphony",
-      "department": "Music",
       "description": "Students in grades 10-12 with band experience may audition to enroll in Wind Symphony to continue work on comprehensive musicianship skills. Wind Symphony members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Symphonic Band and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -13,7 +11,7 @@
       ],
       "sourceReference": "page 57",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -49,11 +47,12 @@
         "isRepeatable": true,
         "requiresAudition": true,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Wind Ensemble",
-      "department": "Music",
       "description": "Students in grades 10-12 with band experience may audition to enroll in Wind Ensemble to continue work on comprehensive musicianship skills. Wind Ensemble also performs in five annual concerts at Stevenson High School and may also participate in additional performance opportunities or festivals. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Symphonic Band and Wind Symphony. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
       "notes": [
         "Open to qualified students in grades 10-11-12.",
@@ -99,7 +98,7 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         },
         {
           "name": "Accelerated",
@@ -134,18 +133,19 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         }
       ],
       "attributes": {
         "isRepeatable": true,
         "requiresAudition": true,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Stevenson Singers",
-      "department": "Music",
       "description": "This ensemble is an entry level singing course, available to all students of all grade levels, regardless of previous experience. This course focuses on developing fundamental skills for individual and group singing, and comprehensive musician skills. Stevenson Singers perform at five school concerts throughout the year. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -153,7 +153,7 @@
       ],
       "sourceReference": "page 57",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -187,11 +187,12 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Advanced Chorus",
-      "department": "Music",
       "description": "Experienced sopranos and altos may audition for this advanced vocal ensemble. Students will continue to work on developing more advanced skills for individual and group singing, as well as comprehensive musicianship. This ensemble performs at five school concerts and may also participate in additional performance opportunities or festivals. Seniors may earn accelerated credit in this course. This course may be repeated for credit.",
       "notes": [
         "Open to qualified students in grades 10-11-12.",
@@ -236,7 +237,7 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         },
         {
           "name": "Accelerated",
@@ -271,18 +272,19 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         }
       ],
       "attributes": {
         "isRepeatable": true,
         "requiresAudition": true,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Patriot Singers",
-      "department": "Music",
       "description": "Experienced students of all voice parts may audition for Patriot Singers. This is an advanced SATB vocal ensemble, where students will be challenged with a wide variety of repertoire, and further develop advanced musicianship skills. The Patriot Singers perform at five school concerts, community events and may also participate in additional performance opportunities or festivals. Seniors may earn accelerated credit in this course. This course may be repeated for credit.",
       "notes": [
         "Open to qualified students in grades 10-11-12.",
@@ -327,7 +329,7 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         },
         {
           "name": "Accelerated",
@@ -362,16 +364,30 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         }
       ],
       "attributes": {
         "isRepeatable": true,
         "requiresAudition": true,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Fine Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Music",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

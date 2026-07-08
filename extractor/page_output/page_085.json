@@ -1,9 +1,9 @@
 {
   "sourcePage": 85,
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 85 contains a Physical Welfare course listing grid with course codes but no detailed descriptions; detailed course information is extracted from pages 86-88."
-  ]
+  ],
+  "divisions": []
 }

@@ -1,14 +1,7 @@
 {
-  "departments": [
-    {
-      "name": "Dance",
-      "description": "Stevenson High School provides dance as a creative and rewarding art experience where artistic integrity and appreciation are developed. Dance is a physical and mental discipline. Students are provided opportunities to develop body strength, agility, coordination, creative problem-solving skills, organizational skills and the ability to work effectively in cooperative learning groups. They gain self-confidence, self-discipline and satisfaction in movement. Students will have the opportunity to learn a variety of dance styles from guest dance teachers during the school year. Dance students are regularly assessed on all course skills. All dance students are required to purchase and wear appropriate attire as designated by the dance teacher."
-    }
-  ],
   "courses": [
     {
       "title": "Dance 1",
-      "department": "Dance",
       "description": "This course will introduce and review essential dance skills. Students will learn basic dance movement and concepts such as time, space and energy, as well as movement terminology. Practice and repetition are primary means of learning movement and are followed by assessment and teacher feedback. Emphasis will be on dance movement followed by a focus on refining technique and choreography concepts. Students will be asked to demonstrate risk-taking and a willingness to step outside their comfort zone. Students will also learn basic dance anatomy and conditioning exercises to prepare the body for flexibility, strength and endurance. Students will also participate in peer-to-peer feedback. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstration during first semester and the Day of Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -17,7 +10,7 @@
       ],
       "sourceReference": "page 53",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -51,11 +44,12 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Dance"
     },
     {
       "title": "Dance 2",
-      "department": "Dance",
       "description": "This course is designed for students who have some experience in contemporary dance technique. Emphasis will be on dance vocabulary, essential choreographic concepts and basic anatomy as it pertains to dance. Practice and repetition are primary means of learning movement and are followed by assessment and teacher feedback. Students will also participate in peer-to-peer feedback. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstrations during first semester and the Day of Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -65,7 +59,7 @@
       ],
       "sourceReference": "page 53",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -103,11 +97,12 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Dance"
     },
     {
       "title": "Dance 3",
-      "department": "Dance",
       "description": "This course is designed for students with previous dance training. Students will focus on the detailed aspects of contemporary dance at an accelerated pace. Emphasis is on the student's technique and choreography studies. Students engage in critical response and self-assessment activities to enhance content knowledge. Dancers will challenge their physical limitations and their ability to dance to their full potential. Students are required to attend and critique the Winter and Spring Dance Concerts. Students will also participate in the Dance Demonstration performance during first semester and the Day of Dance performance during second semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -117,7 +112,7 @@
       ],
       "sourceReference": "page 53",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -155,9 +150,23 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Dance"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Fine Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Dance",
+          "description": "Stevenson High School provides dance as a creative and rewarding art experience where artistic integrity and appreciation are developed. Dance is a physical and mental discipline. Students are provided opportunities to develop body strength, agility, coordination, creative problem-solving skills, organizational skills and the ability to work effectively in cooperative learning groups. They gain self-confidence, self-discipline and satisfaction in movement. Students will have the opportunity to learn a variety of dance styles from guest dance teachers during the school year. Dance students are regularly assessed on all course skills. All dance students are required to purchase and wear appropriate attire as designated by the dance teacher."
+        }
+      ]
+    }
+  ]
 }

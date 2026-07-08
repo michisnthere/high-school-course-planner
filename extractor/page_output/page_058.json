@@ -1,9 +1,7 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "Stevenson Orchestra",
-      "department": "Music",
       "description": "This course is open to students in grade 9, as well as transfer students who demonstrate the appropriate level of technical preparedness on violin, viola, cello, bass or harp. Students will continue developing foundational and intermediate performance techniques while expanding their knowledge of music theory and comprehensive musicianship skills. The ensemble will study and perform a variety of string orchestra and chamber music repertoire. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include four formal concerts and additional curricular string events throughout the school year. Incoming students in grade 9 and transfer students are encouraged to attend a one-day summer strings camp in August to become familiar with the strings program and facilities. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -12,7 +10,7 @@
       ],
       "sourceReference": "page 58",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -44,11 +42,12 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Concert Orchestra",
-      "department": "Music",
       "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -57,7 +56,7 @@
       ],
       "sourceReference": "page 58",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -93,11 +92,12 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Symphonic Orchestra",
-      "department": "Music",
       "description": "This course is designed for advanced violin, viola, cello, bass and harp string students. The repertoire in this class includes works for chamber groups, string ensemble and full orchestra. Musical works highlight repertoire of the Baroque, Classical and early Romantic eras with performances on five formal concerts throughout the school year. Students in this class will work towards mastery of three-octave major and minor scales and arpeggios, concerto-level repertoire, music theory concepts and comprehensive musicianship skills. The students in this ensemble collaborate with members of Wind Symphony each year for an exploration of the full orchestra repertoire. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -106,7 +106,7 @@
       ],
       "sourceReference": "page 58",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -144,11 +144,12 @@
         "isRepeatable": true,
         "requiresAudition": true,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Patriot Orchestra",
-      "department": "Music",
       "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
       "notes": [
         "Open to qualified students in grades 10-11-12.",
@@ -194,7 +195,7 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         },
         {
           "name": "Accelerated",
@@ -229,16 +230,30 @@
               ]
             }
           ],
-          "credits": 1.0
+          "credits": 1
         }
       ],
       "attributes": {
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Fine Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Music",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

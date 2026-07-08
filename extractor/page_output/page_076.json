@@ -1,14 +1,12 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "Hebrew 1",
-      "department": "Hebrew",
       "description": "Hebrew 1 is an introduction to the Hebrew language and Israeli culture. Students develop their competencies across three modes of communication: interpersonal, presentational and interpretative. Students become comfortable reading the print form of the Hebrew alphabet that appears in books and also learn the script form for writing. The course explores the language in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments in the interpersonal, presentational and interpretive modes provides students with the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks focus on the acquisition and recognition of basic stated information in Hebrew. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Additionally, students explore Israeli culture, make comparisons and connections with their own experiences and come to view language learning as a lifelong pursuit.",
       "gpaWaiverOption": true,
       "sourceReference": "page 76",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -45,16 +43,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "Hebrew"
     },
     {
       "title": "Hebrew 2",
-      "department": "Hebrew",
       "description": "Students continue to develop their competence in Hebrew across the three modes of communication: interpersonal, presentational and interpretive. Students also continue to learn in the context of the six AP themes: Global Challenges; Science and Technology; Contemporary Life; Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading activities are focused on the acquisition and recognition of key details in Hebrew. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Additionally, students explore Israeli culture through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, news reports, advertising and video clips from Israel.",
       "gpaWaiverOption": false,
       "sourceReference": "page 76",
       "creditType": "Accelerated",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -91,16 +90,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "Hebrew"
     },
     {
       "title": "Hebrew 3",
-      "department": "Hebrew",
       "description": "Students continue to develop their competence in Hebrew across the three modes of communication: interpersonal, presentational and interpretive in a near-immersion environment. Students also continue to learn in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide us the opportunity to use the language independently in familiar contexts. Interpretive listening and reading activities are focused on the ability to interpret and infer meaning in Hebrew. Practice is provided regularly, both within the classroom and at home. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Students continue to explore Israeli culture through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, news reports, advertising, art, video clips and movies from Israel.",
       "gpaWaiverOption": false,
       "sourceReference": "page 76",
       "creditType": "Accelerated",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -135,16 +135,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "Hebrew"
     },
     {
       "title": "Hebrew 4",
-      "department": "Hebrew",
       "description": "Students develop their competence in Hebrew and engage in higher-level reading, writing, listening and speaking activities that align with the interpersonal, presentational and interpretive modes of communication in an immersion environment. Students continue to learn in the context of the six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments provide the opportunity to use the language independently even in unfamiliar contexts. Interpretive listening and reading activities are focused on both literal comprehension and inferential interpretation of the language. In Hebrew 4, classroom discussions and debates are led by the students. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Hebrew. Israeli culture continues to be explored through a variety of contexts and authentic materials, such as short stories, essays, poems, songs, print and broadcast news reports, advertising, art, video-clips, popular TV sitcoms and movies from Israel.",
       "gpaWaiverOption": false,
       "sourceReference": "page 76",
       "creditType": "Accelerated",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -177,9 +178,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "Hebrew"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Language Learning",
+      "description": null,
+      "departments": [
+        {
+          "name": "Hebrew",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

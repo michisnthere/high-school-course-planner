@@ -1,9 +1,7 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "English Language Development (ELD) 1",
-      "department": "English Language Development",
       "description": "This is a two-credit course for students in the ELD program at the beginning level who are new to the English language or have emerging English vocabulary and communication skills. The course meets two periods each day. Students work on developing and expanding their vocabulary, grammar, speaking, listening, reading and writing skills. Students will practice their writing skills in the context of the course readings and will start with basic sentence structures and end with essay writing. Speaking and listening will focus on proper pronunciation as well as interpersonal and presentational communication.",
       "gpaWaiverOption": true,
       "sourceReference": "page 82",
@@ -11,7 +9,7 @@
         "This is a two-credit course. The course meets two periods each day."
       ],
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -47,11 +45,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development"
     },
     {
       "title": "English Language Development (ELD) 2",
-      "department": "English Language Development",
       "description": "This is a two-credit course for students in the ELD program at the intermediate level. This course will meet two periods each day and instruction is entirely in English. Students will build on all four language domains (listening, speaking, reading and writing) across thematic units. Their writing skills move beyond paragraph construction to composing, revising and editing essays within various writing genres. Speaking and listening is practiced and assessed as students are expected to have conversational and presentational English speaking skills.",
       "gpaWaiverOption": true,
       "sourceReference": "page 82",
@@ -59,7 +58,7 @@
         "This is a two-credit course. This course will meet two periods each day."
       ],
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -95,11 +94,25 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development"
     }
   ],
   "graduationRequirements": [],
   "warnings": [
     "English Language Development (ELD) program overview page. The Stevenson High School English Language Development (ELD) Program is part of the Multilingual Learning Division and is designed to support students at Stevenson who are identified as multilingual learners. The goals of this program are to strengthen students’ literacy and oracy skills in English and to empower students to become multilingual and multiliterate by sustaining students’ academic engagement with their home languages. Appropriate placement of students in the ELD program is done through state and national testing scores, home language surveys, teacher recommendations and the cooperative efforts of the Student Services Department and the ELD faculty in the Multilingual Learning Division."
+  ],
+  "divisions": [
+    {
+      "name": "Multilingual Learning",
+      "description": null,
+      "departments": [
+        {
+          "name": "English Language Development",
+          "description": null
+        }
+      ]
+    }
   ]
 }

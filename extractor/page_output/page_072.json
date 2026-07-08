@@ -1,8 +1,8 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Course offerings diagram only; no course records extracted. Diagram showed: French 1 (FRE101/FRE102), French 2 (FRE211/FRE212), French 3 (FRE311/FRE312), AP French Language (FRE601/FRE602), German 1 (GRE101/GRE102), German 2 (GRE211/GRE212), German 3 (GRE311/GRE312), AP German Language and Culture (GRE601/GRE602), Hebrew 1 (HBR101/HBR102), Hebrew 2 (HBR211/HBR212), Hebrew 3 (HBR311/HBR312), Hebrew 4 (HBR411/HBR412), Latin 1 (LAT101/LAT102), Latin 2 (LAT211/LAT212), Latin 3 (LAT311/LAT312), AP Latin (LAT621/LAT622)."
-  ]
+  ],
+  "divisions": []
 }

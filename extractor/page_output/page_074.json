@@ -1,14 +1,12 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "French 1",
-      "department": "French",
       "description": "Students begin to develop their competence in French across three modes of communication: interpersonal, presentational and interpretative. They will explore the language in the context of six AP themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities and Beauty and Aesthetics. Performance-based assessments in the presentational and interpersonal modes (speaking and writing) provide the students the opportunity to use the language in practiced, familiar contexts. Interpretive listening and reading tasks are focused on the acquisition and recognition of basic stated information in the target language. Additionally, students explore the cultures of the French-speaking world, making comparisons and connections with their own experiences. Communication in class (teacher-student and/or student-student) is primarily in French.",
       "gpaWaiverOption": true,
       "sourceReference": "page 74",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -45,16 +43,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "French"
     },
     {
       "title": "French 2",
-      "department": "French",
       "description": "This course is the first in the three-year accelerated sequence that prepares students for AP French Language. Students continue to develop their competence in French across the three modes of communication in the context of the six AP themes. Performance-based assessments in the interpersonal and presentational modes (speaking and writing) provide the students the opportunity to use the language in practiced, familiar contexts as well as occasional, unfamiliar topics with increasing independence. Interpretive listening and reading is focused on the recognition of key details and making inferences about the content of authentic sources. Students continue to explore the cultures of the French-speaking world in new contexts. Communication in class (teacher-student and/or student-student) is primarily in French.",
       "gpaWaiverOption": false,
       "sourceReference": "page 74",
       "creditType": "Accelerated",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -91,16 +90,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "French"
     },
     {
       "title": "French 3",
-      "department": "French",
       "description": "This course is the second in the three-year accelerated sequence that prepares students for AP French Language. Students continue to develop their competence in French across the three modes of communication in the context of the six AP themes. Performance-based assessments in the interpersonal and presentational modes (speaking and writing) provide the students the opportunity to use French independently in familiar contexts, with the increasing ability to use the language in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal comprehension and inferential interpretation. Throughout the course, students continue to explore the cultures of the French-speaking world in new contexts. In this course, students also read authentic literature including poems, short stories and excerpts from novels. Communication in class (teacher-student and/or student-student) is entirely in French.",
       "gpaWaiverOption": false,
       "sourceReference": "page 74",
       "creditType": "Accelerated",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -135,16 +135,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "French"
     },
     {
       "title": "AP French Language",
-      "department": "French",
       "description": "Students continue to work to develop their competence across the three modes of communication in the context of the six AP themes, as they simultaneously prepare for the AP French Language and Culture exam. Performance-based assessments (speaking and writing) provide the students the opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks involve authentic sources designed for native speakers and are focused on both literal comprehension and inferential interpretation. A variety of authentic print, audio and video materials provide the basis for exploration of the cultures of the French-speaking world. Tasks involve students analyzing and making comparisons with their own cultural products, practices and perspectives. Communication in class (teacher-student and/or student-student) is entirely in French. Students who enroll in this course will be prepared to take the AP French Language and Culture exam in May.",
       "gpaWaiverOption": false,
       "sourceReference": "page 74",
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -177,9 +178,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Language Learning",
+      "department": "French"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Language Learning",
+      "description": null,
+      "departments": [
+        {
+          "name": "French",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

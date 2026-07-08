@@ -1,5 +1,4 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [
     {
@@ -30,7 +29,7 @@
       "name": "External Credits",
       "category": "credit transfer",
       "requirementType": "credits",
-      "requiredValue": 4.0,
+      "requiredValue": 4,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -51,5 +50,6 @@
       "sourceReference": "page 9"
     }
   ],
-  "warnings": []
+  "warnings": [],
+  "divisions": []
 }

@@ -1,15 +1,13 @@
 {
   "sourcePage": 19,
-  "departments": [],
   "courses": [
     {
       "title": "Business Law",
-      "department": "Business Education",
       "description": "This course is designed to satisfy the curiosity of students who are interested in learning about the law as it relates to various aspects of business. Students will gain a greater understanding of their legal rights and responsibilities as an individual, employee, manager and business owner. Topics include contracts, property, employment rules and regulations, business organization, finance, technology and sports law. Students will participate in discussions and debates and complete collaborative team projects and small group activities.",
       "gpaWaiverOption": true,
       "sourceReference": "page 19",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -40,16 +38,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     },
     {
       "title": "Personal Finance",
-      "department": "Business Education",
       "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
       "gpaWaiverOption": true,
       "sourceReference": "page 19",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Economics or Personal Finance Graduation Requirement"
       ],
@@ -82,9 +81,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Business Education",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

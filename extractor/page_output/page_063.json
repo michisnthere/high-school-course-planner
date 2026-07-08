@@ -1,9 +1,7 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "Acting 3",
-      "department": "Theatre",
       "description": "Acting 3 is an advanced theatre course with an emphasis on student-generated performance. Specific areas of focus include improv comedy and student written performance relating to contemporary social issues. Acting 3 culminates in an original devised performance, as part of the Patriot Theatre Company season.",
       "gpaWaiverOption": true,
       "notes": [
@@ -11,7 +9,7 @@
       ],
       "sourceReference": "page 63",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -34,11 +32,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Theatre"
     },
     {
       "title": "Acting 4",
-      "department": "Theatre",
       "description": "Acting 4 is an advanced theatre course which allows students to explore and perform a wide range of theatrical texts and traditions. Students will gain knowledge of influential theatre styles including Greek, Commedia dell'arte, Shakespeare and other global traditions.",
       "gpaWaiverOption": true,
       "notes": [
@@ -46,7 +45,7 @@
       ],
       "sourceReference": "page 63",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -69,11 +68,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Theatre"
     },
     {
       "title": "Advanced Acting",
-      "department": "Theatre",
       "description": "In Advanced Acting, students will experience an intensive theatre course in performance, production and leadership. Students will build on the foundations of Acting 1-4 to analyze and present complex theatrical texts. Advanced Acting prepares students to be involved in departmental productions in acting and production capacities. This course also prepares students for college and professional theatre pursuits, as well as the transfer of theatre skills to all career avenues. Students will be expected to conduct themselves as theatre professionals and role models to the entire theatre community. Advanced Acting culminates in a public showcase of a scripted work as part of the Patriot Theatre Company season. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -82,7 +82,7 @@
       ],
       "sourceReference": "page 63",
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -116,16 +116,17 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Theatre"
     },
     {
       "title": "Theatre Leadership: Directing and Management",
-      "department": "Theatre",
       "description": "This directing course focuses on developing leadership skills and artistic directing. In addition to coaching actors, students in this class have the opportunity to put their advanced level theatre collaboration skills to use as they focus on production processes such as stage management, season development and creating community within ensembles. The course also examines innovative theatre practices that push the boundaries of the theatre experience.",
       "gpaWaiverOption": true,
       "sourceReference": "page 63",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -160,11 +161,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Theatre"
     },
     {
       "title": "Leadership in Theatre Studies",
-      "department": "Theatre",
       "description": "Leadership in Theatre Studies is a one-semester course in which students will intern and assist with theatre instruction in Acting 1: Confidence and Collaboration, Acting 2: Character and Comedy, Acting 3, Acting 4 and/or Entertainment Production and Design courses. Student leaders will lead by example, demonstrating superior ensemble behavior, providing critical feedback to their peers and modeling performance expectations. Student leaders will work with individual students and small groups as they prepare for performances. They will also have regular check-ins with their teacher, to set personal goals and plan for instructional opportunities. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -172,7 +174,7 @@
       ],
       "sourceReference": "page 63",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -208,9 +210,23 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Theatre"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Fine Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Theatre",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

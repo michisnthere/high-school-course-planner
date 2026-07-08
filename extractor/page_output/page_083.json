@@ -1,9 +1,7 @@
 {
-  "departments": [],
   "courses": [
     {
       "title": "English Language Development (ELD) 3: Language",
-      "department": "English Language Development",
       "description": "This is one of two courses available for students in the ELD program at the advanced level. This course may be taken concurrently with English Language Development (ELD) 3 Literature (ELD371/372) or may be taken alone. Students will leverage their own cultural and linguistic assets as they work to expand their English language proficiency. In addition to a focus on the development of advanced literacy skills, including argumentative writing and literary analysis, students will foster their listening and speaking skills by participating in discussions, debates and oral presentations.",
       "gpaWaiverOption": true,
       "sourceReference": "page 83",
@@ -11,7 +9,7 @@
         "May be taken concurrently with English Language Development (ELD) 3 Literature."
       ],
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -47,11 +45,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development"
     },
     {
       "title": "English Language Development (ELD) 3: Literature",
-      "department": "English Language Development",
       "description": "This is one of two courses available for students in the ELD program at the advanced level. This course may be taken concurrently with English Language Development (ELD) 3 Language (ELD361/362) or may be taken alone. Students will leverage their own cultural and linguistic assets as they work to expand their English language proficiency. Students will explore both fiction and nonfiction literature through both common and independent reading tasks. Students will make text-to-self connections as they engage in literary analysis and argumentative writing, including multi-page process writing.",
       "gpaWaiverOption": true,
       "sourceReference": "page 83",
@@ -59,7 +58,7 @@
         "May be taken concurrently with English Language Development (ELD) 3 Language."
       ],
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -95,16 +94,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development"
     },
     {
       "title": "English Language Development (ELD) 4",
-      "department": "English Language Development",
       "description": "This is an English course for students who are transitioning out of the ELD program. Students are expected to produce work with ELD support similar to that of a student in a Communication Arts English course. Students’ proficiencies will advance in the areas of literary analysis, writing, grammar, oral communication and research. Students will explore literary works from their own cultural backgrounds and experiences and use literature as a pathway to greater understanding of diverse perspectives and narratives.",
       "gpaWaiverOption": true,
       "sourceReference": "page 83",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -141,11 +141,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development"
     },
     {
       "title": "Current Events",
-      "department": "English Language Development",
       "description": "This one-semester elective course is designed to develop students’ academic, social and instructional language across the five WIDA Standards (Social and Instructional Language, the Language of Language Arts, the Language of Mathematics, the Language of Science and the Language of Social Studies) through discussion and guided written reflection around current events and students’ own experiences. Special focus will not only be given to written, audio and visual sources that are connected with the WIDA Standards, but also to students’ own cultural and linguistic experiences across these standards. Additionally, added focus will be given to academic, social and instructional language for WIDA’s five complementary strands (the Language of Music and Performing Arts, the Language of Humanities, the Language of Visual Arts, the Language of Health and Physical Education and the Language of Technology and Engineering.) This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "sourceReference": "page 83",
@@ -153,7 +154,7 @@
         "This course may be repeated for credit."
       ],
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -189,9 +190,23 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Multilingual Learning",
+      "description": null,
+      "departments": [
+        {
+          "name": "English Language Development",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

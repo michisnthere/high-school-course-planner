@@ -1,15 +1,13 @@
 {
   "sourcePage": 21,
-  "departments": [],
   "courses": [
     {
       "title": "Clothing and Design 1",
-      "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 1 is a lab-based course where students learn fashion construction techniques, pattern and fabric selection and fashion presentation skills. Projects include drawstring bag, sweatshirt and a project of student choice.",
       "gpaWaiverOption": true,
       "sourceReference": "page 21",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -42,11 +40,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     },
     {
       "title": "Clothing and Design 2",
-      "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.",
       "sourceReference": "page 21",
       "fulfillsRequirements": [],
@@ -55,7 +54,7 @@
           "name": "College Prep",
           "isOnline": false,
           "creditType": "College Prep",
-          "credits": 1.0,
+          "credits": 1,
           "gpaWaiverOption": false,
           "offerings": [
             {
@@ -77,7 +76,7 @@
           "name": "Honors",
           "isOnline": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "gpaWaiverOption": false,
           "offerings": [
             {
@@ -101,9 +100,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Family and Consumer Sciences",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

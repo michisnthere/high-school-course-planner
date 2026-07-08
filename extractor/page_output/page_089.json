@@ -1,12 +1,13 @@
 {
   "sourcePage": 89,
-  "departments": [
-    {
-      "name": "Science Division",
-      "description": "Science is as much a way of knowing as it is a body of knowledge. The Science Division at Stevenson is dedicated to a laboratory approach to science education that will involve each student in the process of discovery. This approach enables students to have practice in the kinds of analytical problem solving that will help them throughout life. Students will engage in the Science and Engineering Practices outlined in the Next Generation Science Standards (NGSS) as they \"do science.\" At the same time, students build an integrated information base for post-secondary studies and see the cross-cutting concepts that run through all Science disciplines."
-    }
-  ],
   "courses": [],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Science",
+      "description": "Science is as much a way of knowing as it is a body of knowledge. The Science Division at Stevenson is dedicated to a laboratory approach to science education that will involve each student in the process of discovery. This approach enables students to have practice in the kinds of analytical problem solving that will help them throughout life. Students will engage in the Science and Engineering Practices outlined in the Next Generation Science Standards (NGSS) as they \"do science.\" At the same time, students build an integrated information base for post-secondary studies and see the cross-cutting concepts that run through all Science disciplines.",
+      "departments": []
+    }
+  ]
 }

@@ -1,15 +1,13 @@
 {
   "sourcePage": 18,
-  "departments": [],
   "courses": [
     {
       "title": "Accounting 1",
-      "department": "Business Education",
       "description": "This is the first semester of a two-semester sequence in the study of accounting. Basic principles and practices of double entry accounting are developed with an emphasis on the financial records of sole proprietorships and partnerships. Daily transactions and financial statement analysis are included. Students also have the opportunity to attend regional, state and national accounting competitions.",
       "gpaWaiverOption": true,
       "sourceReference": "page 18",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -29,16 +27,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     },
     {
       "title": "Accounting 2",
-      "department": "Business Education",
       "description": "This is the second semester of a two-semester sequence in the study of accounting. Specialized journal systems, uncollected accounts, depreciation, inventory controls, payroll, taxes and financial statement analysis are emphasized with regard to a corporation. Students also have the opportunity to attend regional, state and national accounting competitions.",
       "gpaWaiverOption": false,
       "sourceReference": "page 18",
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -60,16 +59,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     },
     {
       "title": "Advanced Accounting",
-      "department": "Business Education",
       "description": "This one-semester course serves as a capstone to the advanced study of accounting. A \"managerial approach\" emphasizing internal data used to make decisions and control revenues, costs and expenses is explored and developed.",
       "gpaWaiverOption": false,
       "sourceReference": "page 18",
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -91,9 +91,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Business Education",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

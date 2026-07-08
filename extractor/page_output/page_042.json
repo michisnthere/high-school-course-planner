@@ -1,13 +1,19 @@
 {
-  "departments": [
-    {
-      "name": "Technology",
-      "description": "Today, students need to be proficient with technology in all aspects of their professional and personal lives. The technology courses offered within this program are focused on teaching students the knowledge and skills they need to adapt to new technology as it unfolds. Students can find their passion in one of these four areas: Print Media, Web Development, Game Development and Video Production."
-    }
-  ],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 42 is a Technology course offerings pathway diagram showing course sequence only. No course descriptions are present. Courses listed in diagram: Print Media 1 (TEC181/TEC182, One-Semester), Print Media 2 (TEC251/TEC252, One-Semester), Motion Graphics and Visual Effects (TEC111/TEC112, One-Semester), Video Editing and Production (TEC121/TEC122, One-Semester), Web Development 1 (TEC171/TEC172, One-Semester), Web Development 2 (TEC281/TEC282, One-Semester), Game Development 1 (TEC501/TEC502, One-Semester), Game Development 2 (TEC511/TEC512, One-Semester), Virtual Reality (TEC191/TEC102, One-Semester)."
+  ],
+  "divisions": [
+    {
+      "name": "CSET",
+      "description": null,
+      "departments": [
+        {
+          "name": "Technology",
+          "description": "Today, students need to be proficient with technology in all aspects of their professional and personal lives. The technology courses offered within this program are focused on teaching students the knowledge and skills they need to adapt to new technology as it unfolds. Students can find their passion in one of these four areas: Print Media, Web Development, Game Development and Video Production."
+        }
+      ]
+    }
   ]
 }

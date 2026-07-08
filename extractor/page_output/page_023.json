@@ -1,15 +1,13 @@
 {
   "sourcePage": 23,
-  "departments": [],
   "courses": [
     {
       "title": "Food Preparation",
-      "department": "Family and Consumer Sciences",
       "description": "Food Preparation is a lab-based course where students enhance their culinary skills in a hands-on environment. Students learn culinary techniques, making a wide variety of recipes that align with course skills.",
       "gpaWaiverOption": true,
       "sourceReference": "page 23",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -40,16 +38,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     },
     {
       "title": "Gourmet Foods",
-      "department": "Family and Consumer Sciences",
       "description": "Gourmet Foods is a lab-based course where students develop advanced food preparation skills in baking and cooking while also exploring U.S. regional cuisine and gaining global perspectives of international cuisine.",
       "gpaWaiverOption": true,
       "sourceReference": "page 23",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -84,9 +83,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Family and Consumer Sciences",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

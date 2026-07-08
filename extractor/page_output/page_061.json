@@ -1,8 +1,8 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 61 is a Theatre course offerings pathway diagram only. No course descriptions are present. Courses listed: Acting 1: Confidence and Collaboration (THR101/THR102, One-Semester), Entertainment Production and Design (THR121/THR122, One-Semester), Acting 2: Character and Comedy (THR111/THR112, One-Semester), Acting 3 (THR211, Semester 1 Course Only — single code, no Semester 2 equivalent), Acting 4 (THR212, Semester 2 Course Only — single code, no Semester 1 equivalent), Advanced Acting (THR401/THR402, One-Semester), Theatre Leadership: Directing and Management (THR301/THR302, One-Semester), Leadership in Theatre Studies (THR601/THR602, One-Semester)."
-  ]
+  ],
+  "divisions": []
 }

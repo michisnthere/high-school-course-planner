@@ -1,15 +1,13 @@
 {
   "sourcePage": 101,
-  "departments": [],
   "courses": [
     {
       "title": "Political Thought and Its Literature",
-      "department": "Social Studies",
       "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a world view and what it means to be a political scientist.",
       "sourceReference": "page 101",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -42,11 +40,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Psychology",
-      "department": "Social Studies",
       "description": "The purpose of the year-long, advanced placement course in psychology is to introduce students to the systematic and scientific study of the behavior and mental processes of humans and animals. This course will provide the student with a learning experience equivalent to that obtained in an introductory college psychology course. The course satisfies the psychology requirement typically needed by students wishing to pursue a career in business, engineering, education, law, medicine and any other health-related fields (including preparation for the MCAT). Particular emphasis includes neuroscience, sleep, mental illness and treatment, memory, personality and social psychology. Students who enroll in this course are prepared to take the AP Psychology exam in May.",
       "sourceReference": "page 101",
       "fulfillsRequirements": [],
@@ -56,7 +55,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC661",
@@ -89,7 +88,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC6B1",
@@ -123,9 +122,18 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Social Studies",
+      "description": null,
+      "departments": []
+    }
+  ]
 }

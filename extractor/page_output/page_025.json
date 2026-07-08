@@ -1,15 +1,13 @@
 {
   "sourcePage": 25,
-  "departments": [],
   "courses": [
     {
       "title": "Life by Design",
-      "department": "Family and Consumer Sciences",
       "description": "In Life by Design, students explore a variety of topics designed to help them meet the challenges of life. Students gain an enhanced understanding of self, increase awareness of others, learn to develop healthy relationships and heighten responsible decision-making skills. Students improve communication skills, reduce stress, build positive relationships with others, gain independence, express emotions, set goals, improve time management and make decisions based on personal values.",
       "gpaWaiverOption": true,
       "sourceReference": "page 25",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -42,9 +40,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Family and Consumer Sciences",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 39 is an Engineering and Architecture course offerings pathway diagram showing course sequence only. No course descriptions are present. Courses listed in diagram: Introduction to Engineering Design–PLTW (TEC151/TEC152, Full-Year), Architectural Design (TEC141/TEC152, Full-Year), Principles of Engineering–PLTW (TEC301/TEC302, Full-Year), Electrical Engineering–PLTW (TEC291/TEC292, Full-Year), Computer Integrated Manufacturing–PLTW (TEC351/TEC352, Full-Year), Civil Engineering and Architecture–PLTW (TEC261/TEC262, Full-Year), Advanced Architectural Design (TEC241/TEC242, Full-Year), Engineering Design and Development–PLTW (TEC401/TEC402, Full-Year)."
-  ]
+  ],
+  "divisions": []
 }

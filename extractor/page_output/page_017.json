@@ -1,15 +1,13 @@
 {
   "sourcePage": 17,
-  "departments": [],
   "courses": [
     {
       "title": "Business Applications and Technology 2",
-      "department": "Business Education",
       "description": "Business Applications and Technology 2 encourages students to develop the technology and problem-solving skills essential in today's workforce. Students will be tasked with finding solutions to common business problems, while being encouraged to consider multiple perspectives. Students will work to incorporate technology into their business practices to help them become more efficient and organized.",
       "gpaWaiverOption": true,
       "sourceReference": "page 17",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -32,16 +30,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     },
     {
       "title": "Marketing",
-      "department": "Business Education",
       "description": "Students will learn how companies develop and market their products and services. Current trends in the entertainment, apparel, sports and food industries will be explored and applied during class activities.",
       "gpaWaiverOption": true,
       "sourceReference": "page 17",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -72,16 +71,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     },
     {
       "title": "Entrepreneurship",
-      "department": "Business Education",
       "description": "Entrepreneurship will provide students with a working background on the skills and knowledge necessary to own and operate a small business. Students will examine the environment of small business ownership, the procedures and skills necessary to open a small business and the policies and practices of a successful small business operation. Entrepreneurship will emphasize a hands-on approach to small business ownership.",
       "gpaWaiverOption": true,
       "sourceReference": "page 17",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -112,9 +112,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Business Education"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Business Education",
+          "description": null
+        }
+      ]
+    }
+  ]
 }

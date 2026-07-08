@@ -1,15 +1,13 @@
 {
   "sourcePage": 92,
-  "departments": [],
   "courses": [
     {
       "title": "Earth Science Dual Credit",
-      "department": "Science",
       "description": "In this lab-based course, students explore geology, meteorology and astronomy. Students will work collaboratively and engage with the science and engineering practices. This course is a dual-credit, college-level science course where students can earn college credit hours at no cost through the College of Lake County.",
       "gpaWaiverOption": false,
       "sourceReference": "page 92",
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Science"
       ],
@@ -42,11 +40,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "AP Physics 1",
-      "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
       "sourceReference": "page 92",
       "fulfillsRequirements": [
@@ -121,16 +120,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "AP Physics 2",
-      "department": "Science",
       "description": "In this lab-based course, students explore electrostatics, circuits, electromagnetism, thermodynamics, waves and sound, optics and modern physics topics. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 2 exam in May.",
       "gpaWaiverOption": false,
       "sourceReference": "page 92",
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Science"
       ],
@@ -165,11 +165,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     },
     {
       "title": "AP Biology",
-      "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
       "sourceReference": "page 92",
       "fulfillsRequirements": [
@@ -244,9 +245,18 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Science",
+      "department": null
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Science",
+      "description": null,
+      "departments": []
+    }
+  ]
 }

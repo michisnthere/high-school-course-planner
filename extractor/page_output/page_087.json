@@ -1,10 +1,8 @@
 {
   "sourcePage": 87,
-  "departments": [],
   "courses": [
     {
       "title": "Choice P.E.",
-      "department": "Physical Education",
       "description": "This course is designed for students to develop and maintain their lifelong wellness in activities of their choice. Students will choose the activity in which they will participate each semester. (Regardless of activity selected, all students will learn how to apply their fitness plan, reflect on their fitness and build their knowledge of health-related fitness.) This course may be repeated for credit.",
       "sourceReference": "page 87",
       "notes": [
@@ -20,7 +18,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "College Prep",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "PED451",
@@ -57,7 +55,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "College Prep",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "PED031",
@@ -92,11 +90,12 @@
         "isRepeatable": true,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Physical Education",
+      "department": null
     },
     {
       "title": "Physical Education Leadership Training",
-      "department": "Physical Education",
       "description": "The first year of the Leadership Program is designed for students to become effective teacher aides and strong leaders. There will be active participation in all activities offered within the Stevenson Physical Education program. Students will learn to lead group activities, to develop skill progression and to study methods and techniques of teaching physical education. The focus of this program is to develop and expand on leadership skills in group and individual led discussions or teaching opportunities where students will be asked to continually reflect on their leadership experience. Students will have the opportunity to apply the skills they learn by assisting Physical Education classes and planning two field days for junior high students. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
       "sourceReference": "page 87",
       "notes": [
@@ -104,7 +103,7 @@
       ],
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Welfare Graduation Requirement and Waivers"
       ],
@@ -132,16 +131,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Physical Education",
+      "department": null
     },
     {
       "title": "Senior Leadership",
-      "department": "Physical Education",
       "description": "Students will apply what they learned in Physical Education Leadership Training by serving as teacher aides with a Physical Education teacher. All students will participate in fitness testing. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P.E. Leader Code of Conduct can result in immediate dismissal.",
       "sourceReference": "page 87",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Welfare Graduation Requirement and Waivers"
       ],
@@ -174,11 +174,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Physical Education",
+      "department": null
     },
     {
       "title": "Lifeguard Training and Certification",
-      "department": "Physical Education",
       "description": "This course is designed to provide students with the ability to earn American Red Cross Lifeguarding and First Aid certification. Students will also learn skills in oxygen administration, preventing disease transmission and CPR/AED. Students will be charged a fee if they wish to receive their American Red Cross certification. Students taking this class will be encouraged to participate in our Pool Leadership program. (Materials for the course are available in the Patriot Superstore.)",
       "sourceReference": "page 87",
       "notes": [
@@ -186,7 +187,7 @@
       ],
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Physical Welfare Graduation Requirement and Waivers"
       ],
@@ -210,9 +211,18 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Physical Education",
+      "department": null
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Physical Education",
+      "description": null,
+      "departments": []
+    }
+  ]
 }

@@ -1,5 +1,4 @@
 {
-  "departments": [],
   "courses": [],
   "graduationRequirements": [
     {
@@ -30,7 +29,7 @@
       "name": "Elective Graduation Requirement",
       "category": "electives",
       "requirementType": "credits",
-      "requiredValue": 2.0,
+      "requiredValue": 2,
       "eligibleCourses": [
         "Applied Arts",
         "Fine Arts",
@@ -47,7 +46,7 @@
       "name": "Economics or Personal Finance Graduation Requirement",
       "category": "financial literacy",
       "requirementType": "credits",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [
         "Economics",
         "AP Macroeconomics",
@@ -64,7 +63,7 @@
       "name": "English Graduation Requirement",
       "category": "english",
       "requirementType": "credits",
-      "requiredValue": 8.0,
+      "requiredValue": 8,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -76,7 +75,7 @@
       "name": "Health Graduation Requirement",
       "category": "health",
       "requirementType": "credits",
-      "requiredValue": 1.0,
+      "requiredValue": 1,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -88,7 +87,7 @@
       "name": "Mathematics Graduation Requirement",
       "category": "mathematics",
       "requirementType": "semesters",
-      "requiredValue": 6.0,
+      "requiredValue": 6,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
@@ -120,7 +119,7 @@
       "name": "Science Graduation Requirement",
       "category": "science",
       "requirementType": "semesters",
-      "requiredValue": 4.0,
+      "requiredValue": 4,
       "eligibleCourses": [
         "Biological science",
         "Physical science"
@@ -135,7 +134,7 @@
       "name": "Social Studies Graduation Requirement",
       "category": "social studies",
       "requirementType": "semesters",
-      "requiredValue": 4.0,
+      "requiredValue": 4,
       "eligibleCourses": [
         "U.S. History or AP U.S. History",
         "World History and Geography",
@@ -160,5 +159,6 @@
       "sourceReference": "page 6"
     }
   ],
-  "warnings": []
+  "warnings": [],
+  "divisions": []
 }

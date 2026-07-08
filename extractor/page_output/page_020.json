@@ -1,20 +1,13 @@
 {
   "sourcePage": 20,
-  "departments": [
-    {
-      "name": "Family and Consumer Sciences",
-      "description": "The Family and Consumer Sciences department offers a series of courses that strive to create learning environments focused on building relationships and community; technology is implemented to stay consistent with teaching, learning, current events and trends."
-    }
-  ],
   "courses": [
     {
       "title": "Food and Nutrition",
-      "department": "Family and Consumer Sciences",
       "description": "Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness.",
       "gpaWaiverOption": true,
       "sourceReference": "page 20",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -47,16 +40,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     },
     {
       "title": "Human Growth and Development",
-      "department": "Family and Consumer Sciences",
       "description": "Human Growth and Development explores the world of the developing individual from prenatal development through adolescence. This course investigates psychological concepts that apply to everyday life and explores dynamics that shape growth and development.",
       "gpaWaiverOption": true,
       "sourceReference": "page 20",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -89,9 +83,23 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Applied Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Family and Consumer Sciences",
+          "description": "The Family and Consumer Sciences department offers a series of courses that strive to create learning environments focused on building relationships and community; technology is implemented to stay consistent with teaching, learning, current events and trends."
+        }
+      ]
+    }
+  ]
 }

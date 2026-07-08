@@ -1,9 +1,9 @@
 {
   "sourcePage": 90,
-  "departments": [],
   "courses": [],
   "graduationRequirements": [],
   "warnings": [
     "Page 90 contains a course listing grid with course codes but no detailed descriptions; detailed course information is extracted from pages 91-93."
-  ]
+  ],
+  "divisions": []
 }

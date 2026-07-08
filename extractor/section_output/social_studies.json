@@ -1,19 +1,12 @@
 {
-  "departments": [
-    {
-      "name": "Social Studies Division",
-      "description": "Social Studies is the integrated study of the social sciences and humanities to promote civic competence. Within the school program, social studies provides a coordinated, systematic study drawing upon such disciplines as anthropology, archaeology, economics, geography, history, law, philosophy, political science, psychology, religion and sociology, as well as appropriate content from the humanities, mathematics and natural sciences. The primary purpose of social studies is to help students develop the ability to make informed and reasoned decisions for the public good as citizens of a culturally diverse, democratic society in an interdependent 21st century world. A minimum of three years of study in Social Studies is recommended for college-bound students. Social Studies Courses Required for Graduation: One year of World History and Geography; One year of U.S. History (or AP U.S. History); One semester of Government (or AP U.S. Government and Politics)—Both Government and AP U.S. Government satisfy the Illinois civics requirements for graduation; One semester of Economics, AP Macroeconomics, AP Microeconomics or Personal Finance is necessary for graduation."
-    }
-  ],
   "courses": [
     {
       "title": "World History and Geography",
-      "department": "Social Studies",
       "description": "World History and Geography is a one-year course required for graduation and a prerequisite for all courses in Social Studies. Students taking World History and Geography develop core academic skills in reading and writing while studying history from the origins of human civilizations to the present. Patterns and changes in political and economic systems, social structures, religious beliefs and ideologies and cultural accomplishments are studied from a global perspective with case studies from every world region. Through collaboration, discussion and debate, World History and Geography students will improve their: 1) historical and geographic literacy, 2) historical evaluation and analysis and 3) historical argumentation for the purpose of becoming better readers, writers and critical thinkers. With the foundational study of World History and Geography, students develop global perspective, appreciation for global and community diversity and an understanding of the historical forces that have shaped our present world.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "World History and Geography"
       ],
@@ -44,16 +37,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Constitutional Law",
-      "department": "Social Studies",
       "description": "Constitutional Law provides students with an understanding of how the U.S. Constitution came into existence, why it took the form it did and how it functions in contemporary American society. Students will develop analytical and evaluative skills by applying constitutional principles to a variety of legal issues and political controversies. Students will assume a lawyer's role in oral argument activities. Students interested in legal careers, criminal and civil rights and public service should consider this course.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -90,16 +84,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Global Relations",
-      "department": "Social Studies",
       "description": "This one-semester course focuses on significant and contemporary global events. The emphasis in the course will be on international events after the Cold War. A major goal of the course is to encourage an understanding and evaluation of the international system through major current events. Students will be expected to read current news publications in addition to assigned text materials and will be engaged in several issue-based simulations throughout the course.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -136,16 +131,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Law In American Society",
-      "department": "Social Studies",
       "description": "In this one-semester course, students will develop a basic understanding of our legal system, its terminology and its procedures. An emphasis will be placed on analyzing real world issues and court cases that relate to our rights as citizens and the role of our legal system. The class will rely heavily on class discussions, group projects and simulations. We will explore the lawmaking process, civil law, criminal law, criminal investigations and criminal behavior. Students will also prepare opening statements, learn how to question witnesses and engage in mock trial activities. This class will expose students to skills and content that will prove useful for those considering careers in law, criminal justice, crime prevention and other public occupations.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -182,16 +178,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Psychology",
-      "department": "Social Studies",
       "description": "Psychology is a scientific study that deals with emotional, behavioral and mental processes of people in society. Special emphasis includes: abnormal psychology (psychological disorders and treatments) and social psychology (people's perceptions of themselves and others, group behavior and interpersonal attraction). In addition, other topics covered include personality, learning, memory and the brain. This course will provide an introduction to topics typically covered in an introductory level college psychology course. Students will learn how psychology applies to their lives by partaking in class discussions and group projects. Upon completion of this course students should have a better understanding of themselves and the wide variety of people around them.",
       "sourceReference": "page 96",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -228,16 +225,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Sociology",
-      "department": "Social Studies",
       "description": "The purpose of this course is to provide students with a chance to examine human social interaction and social organization. Sociology focuses on special topics such as groups, culture, socialization, deviance and inequalities (gender, social class, race, ethnicity). This class will explore these areas through sociological readings and engaging in discussing and simulation. Students will learn how to become more reflective of themselves, their community and their society. Students will be required to complete ten community service hours as an alternative to a traditional final exam. Upon completion of this course and required service hours, students should gain a better understanding of themselves and their place in the social world.",
       "sourceReference": "page 97",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -274,16 +272,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Human Geography",
-      "department": "Social Studies",
       "description": "The purpose of the advanced placement course in human geography is to introduce students to the systematic study of patterns and processes that have shaped human understanding, use and alteration of our world. Students employ geographical and spatial concepts and tools to analyze topics such as human population movement and organization, cultural patterns and processes, political organization, agricultural and rural land use, industrialization and economic development and city and urban land use. Students will be expected to integrate college-level reading with maps, graphs and other spatial data sets to conduct analyses, apply models and draw conclusions. A summer reading assignment must be completed prior to beginning this course. Students who enroll in this course are prepared to take the AP Human Geography exam in May.",
       "sourceReference": "page 97",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -318,16 +317,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "World Religions",
-      "department": "Social Studies",
       "description": "This course is designed to introduce students to the major religions of the world. Students will analyze each religion's foundations, historical development, principle themes and beliefs and cultural impact. Its primary purpose is to equip students with an understanding of the major ideas and practices of the world's religions so that they may better understand the world in which they live.",
       "sourceReference": "page 97",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -364,16 +364,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP African American Studies",
-      "department": "Social Studies",
       "description": "This year-long Social Studies elective credit course is designed to prepare students to meet the AP College Board interdisciplinary standards on their assessment. The course is designed to examine a diversity of African American experiences using authentic and varied sources of information. Students will study topics from early African kingdoms to the ongoing challenges and accomplishments of the present day. Recurring social studies inquiry skills of questioning, source analysis and argumentation will be developed using a variety of literary, historical, data set and visual forms of evidence. Students are required to complete a research project of their choice, drawn from topics or themes within the course, and submitted to AP as part of the AP Exam and scored by AP graders. Students who enroll in this course will be prepared to take the remainder of the AP African American Studies exam in May.",
       "sourceReference": "page 97",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -408,16 +409,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP European History",
-      "department": "Social Studies",
       "description": "This course focuses on dominant ideas in the world today (democracy, industrialism, capitalism, communism, the scientific method) through the advanced study of European history, with a focus on understanding how European ideas, culture, politics and economics have shaped the world from 1450 to the present. Students will collaboratively engage with, discuss and debate historical evidence in order to improve their capacities in: 1) historical comprehension, 2) historical analysis and 3) historical argumentation. As a result, students will learn that history is an interpretive, dynamic study of the past that empowers them to impact the future. Students who enroll in this course are prepared to take the AP European History exam in May.",
       "sourceReference": "page 97",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -452,11 +454,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Comparative Government and Politics",
-      "department": "Social Studies",
       "description": "This one-semester elective course introduces students to the rich diversity of political life outside the United States. Students use a comparative approach to examine the political structures; policies; and political, economic and social challenges of six selected countries: China, Iran, Mexico, Nigeria, Russia and the United Kingdom. Students compare the effectiveness of approaches to many global issues by examining how different governments solve similar problems by reading and interpreting data, making comparisons and applications and developing evidence-based arguments. This course does not satisfy the Stevenson government graduation requirement, nor the Illinois Civics requirement for graduation for the State of Illinois. Students are prepared to take the AP Comparative Government and Politics exam in May.",
       "sourceReference": "page 98",
       "fulfillsRequirements": [],
@@ -466,7 +469,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC631",
@@ -501,7 +504,7 @@
           "isOnline": true,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC63Q1",
@@ -537,16 +540,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "U.S. History",
-      "department": "Social Studies",
       "description": "This course fulfills the graduation requirement of one year of U.S. history, as established by the State of Illinois. With an emphasis on the 20th century, the overriding goal of this course is to give students the skills and opportunity to understand how the current domestic and international status of the U.S. developed. Similar to the World History and Geography experience in Social Studies, this course is designed to help students identify causes and effects, events and philosophies, which led to the contemporary situation and provide them with a historical basis for decision-making through the use of historical inquiry skills such as: analyzing primary, secondary and tertiary sources; developing historical arguments and communicating conclusions. Geographic themes such as location, mobility and interaction with the environment are stressed within this historical treatment as well.",
       "sourceReference": "page 98",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "U.S. History"
       ],
@@ -579,16 +583,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP U.S. History",
-      "department": "Social Studies",
       "description": "This sequence fulfills the graduation requirement of one year of U.S. history as set by the State of Illinois. In this Advanced Placement course, students investigate significant events, individuals, developments and processes in nine historical periods from approximately 1491 to the present. Students develop and use the same skills and methods employed by historians: analyzing primary and secondary sources; developing historical arguments; making historical connections; and utilizing reasoning about comparison, causation and continuity and change. This course will develop college-level reading and writing skills through the advanced study of United States history. Students who enroll in this course are prepared to take the AP U.S. History exam in May.",
       "sourceReference": "page 98",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "U.S. History"
       ],
@@ -621,16 +626,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "American Studies (AP U.S. History and AP English Language and Composition)",
-      "department": "Social Studies",
       "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. SAT and AP exam preparation are used to sharpen reading, editing and revising skills. Students who enroll in this course are prepared to take both the AP English Language and Composition and the AP U.S. History exams in May.",
       "sourceReference": "page 99",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 2.0,
+      "credits": 2,
       "fulfillsRequirements": [
         "U.S. History"
       ],
@@ -665,16 +671,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Economics",
-      "department": "Social Studies",
       "description": "Students in this course develop the economic awareness and decision-making skills to make rational and informed economic decisions in life, become responsible consumers and develop essential business and job skills for their futures. Through collaborative and interactive activities and units, students gain an understanding of basic economic concepts, the impact economic factors can have on their lives and their role in the growing global economy. Students improve their critical-thinking skills to better understand world events and participate as global citizens. This course also fulfills the Economic/Personal Finance graduation requirement.",
       "sourceReference": "page 99",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Economics or Personal Finance Graduation Requirement"
       ],
@@ -709,16 +716,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Sociology Dual Credit",
-      "department": "Social Studies",
       "description": "Sociology is a course in partnership with Loyola University Chicago which allows students to take a college class while still in high school. The student can transfer earned credit in this class from Loyola University Chicago to the college they attend. As an introductory survey course, Sociology aims to provide students with an understanding of how sociologists do research and what the seminal pieces of research in their field reveal. The class will explore the structures of society, especially family, education, peers and media, all of which influence individuals by creating and maintaining culture and social stability. The class also examines social inequalities, especially social class, race and gender. Sociology is a social science, and as such, it uses scientific study to examine society. It is not a debate class or a class centered around rhetorical arguments. This scientific analysis of society is useful in many academic disciplines, and so sociology is often a prerequisite for other areas of study such as medicine, law and criminal justice, nursing, education and psychology, among others.",
       "sourceReference": "page 99",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -751,16 +759,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Macroeconomics",
-      "department": "Social Studies",
       "description": "The purpose of an advanced placement course in macroeconomics is to give students a thorough understanding of the principles of economics that apply to an economic system as a whole. The course places particular emphasis on the study of national income and price-level determination, and also develops students' familiarity with economic performance measures, the financial sector, stabilization policies, economic growth and international economics. It places emphasis on the different philosophies and theories associated with macroeconomic analysis and policy. Students will analyze both basic and extensive economic concepts in order to become informed economic consumers, producers and suppliers. Students who enroll in this course are prepared to take the AP Macroeconomics exam in May. Successful completion of this class fulfills the Economics/Personal Finance graduation requirement.",
       "sourceReference": "page 100",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Economics or Personal Finance Graduation Requirement"
       ],
@@ -795,16 +804,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Microeconomics",
-      "department": "Social Studies",
       "description": "This is an advanced placement level course preparing students for the AP Microeconomics exam. Coursework in AP Microeconomics includes: the basic economic problem, the nature of markets, the firm, the factor markets and the role of government. Successful completion of this class fulfills the Economics/Personal Finance graduation requirement. Students who enroll in this course are prepared to take the AP Microeconomics exam in May.",
       "sourceReference": "page 100",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Economics or Personal Finance Graduation Requirement"
       ],
@@ -839,16 +849,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Philosophy and Political Theory",
-      "department": "Social Studies",
       "description": "What is the meaning of life? What is reality? How do I know what I know? This course introduces philosophies and political theories by which humans have attempted to understand and organize their world. It is a college-level elective that explores major world philosophies, their influence on each other and their influence on the present. Students will contemplate ethical dilemmas to cultivate more thoughtful decision making in their lives. Students will learn the theories of major philosophers and utilize those ideas in discussion, debates and written assignments. Students will synthesize those ideas into a personal philosophy of their own. Upon successful completion of course requirements, students electing to receive dual credit from Loyola University Chicago will receive three credit hours for Philosophy 130: This course introduces students to the fundamental philosophical issues that bear on our understanding of persons in three equally weighted components, namely, Persons & Knowledge, Persons & Values, and Persons & Reality.",
       "sourceReference": "page 100",
       "gpaWaiverOption": false,
       "creditType": "Honors",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -881,16 +892,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Government",
-      "department": "Social Studies",
       "description": "Topics considered in this course include the fundamental concepts and structure of federal, state and local government; methods of selecting candidates for office; methods by which individuals and groups may influence government officials and mechanics of voting. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the U.S. Constitution and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson's graduation requirement of one semester of government.",
       "sourceReference": "page 100",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Government"
       ],
@@ -925,16 +937,17 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "Political Thought and Its Literature",
-      "department": "Social Studies",
       "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a world view and what it means to be a political scientist.",
       "sourceReference": "page 101",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [],
       "offerings": [
         {
@@ -967,11 +980,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Psychology",
-      "department": "Social Studies",
       "description": "The purpose of the year-long, advanced placement course in psychology is to introduce students to the systematic and scientific study of the behavior and mental processes of humans and animals. This course will provide the student with a learning experience equivalent to that obtained in an introductory college psychology course. The course satisfies the psychology requirement typically needed by students wishing to pursue a career in business, engineering, education, law, medicine and any other health-related fields (including preparation for the MCAT). Particular emphasis includes neuroscience, sleep, mental illness and treatment, memory, personality and social psychology. Students who enroll in this course are prepared to take the AP Psychology exam in May.",
       "sourceReference": "page 101",
       "fulfillsRequirements": [],
@@ -981,7 +995,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC661",
@@ -1014,7 +1028,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC6B1",
@@ -1048,11 +1062,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     },
     {
       "title": "AP Government–United States",
-      "department": "Social Studies",
       "description": "This course gives students the tools to engage meaningfully in the local, state and national political process. This course involves both the study of general concepts used to interpret U.S. politics and the analysis of specific case studies. It also requires familiarity with the various institutions, groups, beliefs and ideas that constitute United States political reality. Civics skills will be acquired to help students learn to use the skills, knowledge and attitudes that will prepare them to be competent and responsible citizens. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the Constitution of the U.S.A. and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson's graduation requirement of one semester of government. Students who enroll in this course will be prepared to take the AP United States Government and Politics exam in May.",
       "sourceReference": "page 102",
       "fulfillsRequirements": [
@@ -1064,7 +1079,7 @@
           "isOnline": false,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC681",
@@ -1097,7 +1112,7 @@
           "isOnline": true,
           "gpaWaiverOption": false,
           "creditType": "Honors",
-          "credits": 1.0,
+          "credits": 1,
           "offerings": [
             {
               "courseCode": "SOC6Q1",
@@ -1131,7 +1146,9 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Social Studies",
+      "department": null
     }
   ],
   "graduationRequirements": [],
@@ -1141,5 +1158,12 @@
     "AP Government–United States satisfies both the Illinois civics requirement and Stevenson's government graduation requirement.",
     "Government and Economics are marked with asterisks in the catalog as courses fulfilling Social Studies graduation requirements.",
     "Courses marked with a slash in the course code (e.g., SOC101/SOC102) are full-year courses; courses marked with 'or' (e.g., SOC511 or SOC512) are one-semester courses offered either semester."
+  ],
+  "divisions": [
+    {
+      "name": "Social Studies",
+      "description": "Social Studies is the integrated study of the social sciences and humanities to promote civic competence. Within the school program, social studies provides a coordinated, systematic study drawing upon such disciplines as anthropology, archaeology, economics, geography, history, law, philosophy, political science, psychology, religion and sociology, as well as appropriate content from the humanities, mathematics and natural sciences. The primary purpose of social studies is to help students develop the ability to make informed and reasoned decisions for the public good as citizens of a culturally diverse, democratic society in an interdependent 21st century world. A minimum of three years of study in Social Studies is recommended for college-bound students. Social Studies Courses Required for Graduation: One year of World History and Geography; One year of U.S. History (or AP U.S. History); One semester of Government (or AP U.S. Government and Politics)—Both Government and AP U.S. Government satisfy the Illinois civics requirements for graduation; One semester of Economics, AP Macroeconomics, AP Microeconomics or Personal Finance is necessary for graduation.",
+      "departments": []
+    }
   ]
 }

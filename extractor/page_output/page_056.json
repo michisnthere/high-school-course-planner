@@ -1,14 +1,7 @@
 {
-  "departments": [
-    {
-      "name": "Music",
-      "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin—or continue—a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
-    }
-  ],
   "courses": [
     {
       "title": "Freshman Band",
-      "department": "Music",
       "description": "All incoming freshmen with middle school band experience may enroll in Freshman Band to continue work on their comprehensive musicianship skills. Freshman Band members also perform in three formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Symphonic Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester.",
       "gpaWaiverOption": true,
       "notes": [
@@ -17,7 +10,7 @@
       ],
       "sourceReference": "page 56",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -49,11 +42,12 @@
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     },
     {
       "title": "Symphonic Band",
-      "department": "Music",
       "description": "Students in grades 10-12 with band experience in Freshman Band may enroll in Symphonic Band to continue work on comprehensive musicianship skills. Symphonic Band members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P.E. waiver for the first semester. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
@@ -63,7 +57,7 @@
       ],
       "sourceReference": "page 56",
       "creditType": "College Prep",
-      "credits": 1.0,
+      "credits": 1,
       "fulfillsRequirements": [
         "Elective Graduation Requirement"
       ],
@@ -99,9 +93,23 @@
         "isRepeatable": true,
         "requiresAudition": true,
         "requiresApplication": false
-      }
+      },
+      "division": "Fine Arts",
+      "department": "Music"
     }
   ],
   "graduationRequirements": [],
-  "warnings": []
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Fine Arts",
+      "description": null,
+      "departments": [
+        {
+          "name": "Music",
+          "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin—or continue—a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
+        }
+      ]
+    }
+  ]
 }
