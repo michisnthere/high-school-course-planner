@@ -244,7 +244,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Accounting 1",
@@ -272,7 +272,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Accounting 2",
@@ -304,7 +304,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Advanced Accounting",
@@ -333,7 +333,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Business Law",
@@ -373,7 +373,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Investment Management",
@@ -413,7 +413,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Personal Finance",
@@ -453,7 +453,7 @@
       "subdepartment": "business Education",
       "department_raw": "Applied Arts–business Education",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Clothing and Design 1",
@@ -673,7 +673,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Food Preparation",
@@ -715,7 +715,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Gourmet Foods",
@@ -761,7 +761,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Life By Design",
@@ -803,7 +803,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Human Growth and Development",
@@ -847,7 +847,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Teaching Young Children 1",
@@ -893,7 +893,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Teaching Young Children 2",
@@ -939,7 +939,7 @@
       "subdepartment": "family and Consumer Sciences",
       "department_raw": "Applied Arts–family and Consumer Sciences",
       "division": "Applied Arts",
-      "department": null
+      "department": "Applied Arts"
     },
     {
       "title": "Stories, Culture and Possibility",
@@ -977,7 +977,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Community and Social Dynamics",
@@ -1015,7 +1015,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Reflection, Perception and Choices",
@@ -1053,7 +1053,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Innovation, Identity and Our World",
@@ -1091,7 +1091,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Sophomore English",
@@ -1153,7 +1153,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Junior English",
@@ -1215,7 +1215,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "AP English Language and Composition",
@@ -1253,7 +1253,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "and Composition and AP U.S. History)",
@@ -1291,7 +1291,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "AP Literature and Composition",
@@ -1329,7 +1329,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "World Literature",
@@ -1369,7 +1369,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Public Speaking",
@@ -1411,7 +1411,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Political Thought and Its Literature",
@@ -1453,7 +1453,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Creative Writing",
@@ -1493,7 +1493,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Creative Writing Seminar",
@@ -1522,7 +1522,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Topics In Composition: Media Analysis",
@@ -1549,7 +1549,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Topics In Composition: Film Genres",
@@ -1576,7 +1576,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Mythology and Folklore",
@@ -1616,7 +1616,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Writing For College",
@@ -1657,7 +1657,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Journalistic Writing",
@@ -1705,7 +1705,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Advanced Journalistic Writing",
@@ -1753,7 +1753,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Broadcast Journalism",
@@ -1799,7 +1799,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Publication Design and Production",
@@ -1845,7 +1845,7 @@
       "subdepartment": null,
       "department_raw": "Communication Arts",
       "division": "Communication Arts",
-      "department": null
+      "department": "Communication Arts"
     },
     {
       "title": "Computer Programming 1",
@@ -1889,7 +1889,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Computer Programming 2",
@@ -1939,7 +1939,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "AP Computer Science A",
@@ -1985,7 +1985,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "AP Computer Science Principles",
@@ -2031,7 +2031,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Computer Science Algorithms",
@@ -2075,7 +2075,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Mobile App Development",
@@ -2125,7 +2125,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Architectural Design",
@@ -2169,7 +2169,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Advanced Architectural Design",
@@ -2215,7 +2215,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Introduction to Engineering Design–pl Tw",
@@ -2259,7 +2259,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Civil Engineering and Architecture–pl Tw",
@@ -2305,7 +2305,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Principles Of Engineering–pl Tw",
@@ -2351,7 +2351,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Electrical Engineering–pl Tw",
@@ -2397,7 +2397,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Computer Integrated Manufacturing–pl Tw",
@@ -2443,7 +2443,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Engineering Design and Development–pl Tw",
@@ -2489,7 +2489,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Print Media 1",
@@ -2809,7 +2809,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Video Editing and Production",
@@ -2853,7 +2853,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Virtual Reality",
@@ -2903,7 +2903,7 @@
       "subdepartment": null,
       "department_raw": "Computer Science, Engineering and Technology (CSET)",
       "division": "CSET",
-      "department": null
+      "department": "CSET"
     },
     {
       "title": "Art and Design",
@@ -2947,7 +2947,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Drawing",
@@ -2995,7 +2995,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Painting",
@@ -3043,7 +3043,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Mixed Media",
@@ -3091,7 +3091,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Ceramics",
@@ -3139,7 +3139,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Sculpture",
@@ -3187,7 +3187,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Metals and Jewelry",
@@ -3235,7 +3235,7 @@
       "subdepartment": "Visual Arts",
       "department_raw": "Fine Arts—Visual Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Advanced Drawing, Painting and Mixed Media",
@@ -3281,7 +3281,7 @@
       "subdepartment": "Visual Arts",
       "department_raw": "Fine Arts—Visual Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Advanced Ceramics, Metals and Sculpture",
@@ -3327,7 +3327,7 @@
       "subdepartment": "Visual Arts",
       "department_raw": "Fine Arts—Visual Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "AP Art: Drawing, 2D and 3D Design",
@@ -3371,7 +3371,7 @@
       "subdepartment": "Visual Arts",
       "department_raw": "Fine Arts—Visual Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Photography 1",
@@ -3417,7 +3417,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Photography 2",
@@ -3467,7 +3467,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Advanced Photography and Digital Design",
@@ -3515,7 +3515,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "AP Photography and Digital Design",
@@ -3561,7 +3561,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Digital Art and Design 1",
@@ -3607,7 +3607,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Digital Art and Design 2",
@@ -3657,7 +3657,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "2D Animation",
@@ -3705,7 +3705,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "3D Animation",
@@ -3753,7 +3753,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "AP Art History",
@@ -3795,7 +3795,7 @@
       "subdepartment": "Media Arts",
       "department_raw": "Fine Arts—Media Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Dance 1",
@@ -3839,7 +3839,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Dance 2",
@@ -3887,7 +3887,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Dance 3",
@@ -3935,7 +3935,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Dance 4",
@@ -3983,7 +3983,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Concert Dance",
@@ -4031,7 +4031,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Jazz Fusion",
@@ -4073,7 +4073,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Technical Skills",
@@ -4121,7 +4121,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Dance Leadership",
@@ -4163,7 +4163,7 @@
       "subdepartment": "Dance",
       "department_raw": "Fine Arts—Dance",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Freshman Band*",
@@ -4207,7 +4207,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Symphonic Band*",
@@ -4253,7 +4253,7 @@
       "subdepartment": null,
       "department_raw": "Fine Arts",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Wind Symphony*",
@@ -4299,7 +4299,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Wind Ensemble*",
@@ -4345,7 +4345,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Stevenson Singers",
@@ -4389,7 +4389,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Advanced Chorus",
@@ -4435,7 +4435,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Patriot Singers",
@@ -4483,7 +4483,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Stevenson Orchestra",
@@ -4527,7 +4527,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Concert Orchestra",
@@ -4575,7 +4575,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Symphonic Orchestra",
@@ -4625,7 +4625,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Patriot Orchestra",
@@ -4673,7 +4673,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Guitar 1",
@@ -4717,7 +4717,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Guitar 2",
@@ -4767,7 +4767,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Patriot Guitar Ensemble",
@@ -4815,7 +4815,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Piano 1",
@@ -4859,7 +4859,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Music Production 1",
@@ -4903,7 +4903,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Music Production 2",
@@ -4953,7 +4953,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Advanced Music Production",
@@ -5001,7 +5001,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "AP Music Theory",
@@ -5049,7 +5049,7 @@
       "subdepartment": "Music",
       "department_raw": "Fine Arts—Music",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Acting 1: Confidence and Collaboration",
@@ -5093,7 +5093,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Entertainment Production and Design",
@@ -5137,7 +5137,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Acting 2: Character and Comedy",
@@ -5185,7 +5185,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Acting 3",
@@ -5215,7 +5215,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Acting 4",
@@ -5243,7 +5243,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Advanced Acting",
@@ -5287,7 +5287,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Theatre Leadership: Directing and Management",
@@ -5331,7 +5331,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Leadership In Theatre Studies",
@@ -5375,7 +5375,7 @@
       "subdepartment": "Theatre",
       "department_raw": "Fine Arts—Theatre",
       "division": "Fine Arts",
-      "department": null
+      "department": "Fine Arts"
     },
     {
       "title": "Algebra 1",
@@ -5419,7 +5419,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Geometry",
@@ -5463,7 +5463,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Geometry AB/BC",
@@ -5507,7 +5507,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Algebra 2",
@@ -5553,7 +5553,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Algebra 2 AB/BC",
@@ -5597,7 +5597,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Precalculus",
@@ -5643,7 +5643,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Precalculus",
@@ -5689,7 +5689,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Precalculus BC",
@@ -5735,7 +5735,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Mathematical Modeling and Design",
@@ -5779,7 +5779,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Data Science",
@@ -5825,7 +5825,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -5867,7 +5867,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Statistics",
@@ -5913,7 +5913,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Calculus AB",
@@ -5957,7 +5957,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Calculus BC",
@@ -6001,7 +6001,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "College Multivariable Calculus",
@@ -6030,7 +6030,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "College Linear Algebra",
@@ -6059,7 +6059,7 @@
       "subdepartment": null,
       "department_raw": "Mathematics",
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "French 1",
@@ -6103,7 +6103,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "French 2",
@@ -6153,7 +6153,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "French 3",
@@ -6201,7 +6201,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "AP French Language",
@@ -6247,7 +6247,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "German 1",
@@ -6291,7 +6291,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "German 2",
@@ -6341,7 +6341,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "German 3",
@@ -6389,7 +6389,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "AP German Language and Culture",
@@ -6435,7 +6435,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Hebrew 1",
@@ -6479,7 +6479,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Hebrew 2",
@@ -6529,7 +6529,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Hebrew 3",
@@ -6577,7 +6577,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Hebrew 4",
@@ -6623,7 +6623,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Latin 1",
@@ -6667,7 +6667,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Latin 2",
@@ -6717,7 +6717,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Latin 3",
@@ -6765,7 +6765,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "AP Latin",
@@ -6809,7 +6809,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Mandarin Chinese 1",
@@ -6853,7 +6853,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Mandarin Chinese 2",
@@ -6903,7 +6903,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Mandarin Chinese 3",
@@ -6953,7 +6953,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Intermediate Mandarin Chinese Language Arts",
@@ -7003,7 +7003,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Mandarin Chinese 4",
@@ -7051,7 +7051,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "AP Chinese Language and Culture",
@@ -7095,7 +7095,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Chinese Literature, Media and Culture",
@@ -7139,7 +7139,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Spanish 1",
@@ -7183,7 +7183,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Spanish 2",
@@ -7233,7 +7233,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Spanish 2-3",
@@ -7283,7 +7283,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Spanish 3",
@@ -7329,7 +7329,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Spanish 3-4",
@@ -7377,7 +7377,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Intermediate Spanish Language Arts",
@@ -7427,7 +7427,7 @@
       "subdepartment": null,
       "department_raw": "Language Learning",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Spanish 4",
@@ -7471,7 +7471,7 @@
       "subdepartment": "Spanish",
       "department_raw": "Language Learning—Spanish",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "AP Spanish Language and Culture",
@@ -7517,7 +7517,7 @@
       "subdepartment": "Spanish",
       "department_raw": "Language Learning—Spanish",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "AP Spanish Literature and Culture",
@@ -7561,7 +7561,7 @@
       "subdepartment": "Spanish",
       "department_raw": "Language Learning—Spanish",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
@@ -7609,7 +7609,7 @@
       "subdepartment": "Spanish",
       "department_raw": "Language Learning—Spanish",
       "division": "Language Learning",
-      "department": null
+      "department": "Language Learning"
     },
     {
       "title": "Eld Faculty In The Multilingual Learning Division.",
@@ -7921,7 +7921,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Adventure Education",
@@ -7971,7 +7971,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Choice P.E.",
@@ -8021,7 +8021,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Physical Education Leadership Training",
@@ -8061,7 +8061,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Senior Leadership",
@@ -8103,7 +8103,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Lifeguard Training and Certification",
@@ -8133,7 +8133,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Pool Leadership",
@@ -8177,7 +8177,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -8221,7 +8221,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Alternative Physical Education",
@@ -8269,7 +8269,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Health Education",
@@ -8307,7 +8307,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Applied Health",
@@ -8353,7 +8353,7 @@
       "subdepartment": null,
       "department_raw": "Physical Welfare",
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Biology",
@@ -8397,7 +8397,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Chemistry",
@@ -8441,7 +8441,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Earth Science",
@@ -8483,7 +8483,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Physics",
@@ -8525,7 +8525,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Horticul Ture",
@@ -8567,7 +8567,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Science Research",
@@ -8613,7 +8613,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Human Anatomy and Physiology",
@@ -8653,7 +8653,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Earth Science Dual Credit",
@@ -8695,7 +8695,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "AP Physics 1",
@@ -8767,7 +8767,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "AP Physics 2",
@@ -8813,7 +8813,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "AP Biology",
@@ -8885,7 +8885,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "AP Environmental Science",
@@ -8925,7 +8925,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "AP Chemistry",
@@ -8997,7 +8997,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "AP Physics C",
@@ -9077,7 +9077,7 @@
       "subdepartment": null,
       "department_raw": "Science",
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "World History and Geography",
@@ -9117,7 +9117,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Constitutional Law",
@@ -9165,7 +9165,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Global Relations",
@@ -9213,7 +9213,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Law In American Society",
@@ -9261,7 +9261,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Psychology",
@@ -9309,7 +9309,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Sociology",
@@ -9357,7 +9357,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "World Religions",
@@ -9405,7 +9405,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP European History",
@@ -9451,7 +9451,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Human Geography",
@@ -9497,7 +9497,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP African American Studies",
@@ -9543,7 +9543,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Comparative Government and Politics",
@@ -9589,7 +9589,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Comparative Government and Politics—Online",
@@ -9635,7 +9635,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "U.S. History",
@@ -9677,7 +9677,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP U.S. History",
@@ -9719,7 +9719,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP English Language and Composition)",
@@ -9761,7 +9761,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Economics",
@@ -9805,7 +9805,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Sociology",
@@ -9849,7 +9849,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Macroeconomics",
@@ -9893,7 +9893,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Microeconomics",
@@ -9937,7 +9937,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Philosophy and Political Theory",
@@ -9981,7 +9981,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Government",
@@ -10023,7 +10023,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Political Thought and Its Literature",
@@ -10065,7 +10065,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Psychology",
@@ -10107,7 +10107,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Government–united States",
@@ -10149,7 +10149,7 @@
       "subdepartment": null,
       "department_raw": "Social Studies",
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [
@@ -10462,6 +10462,10 @@
       "description": null,
       "departments": [
         {
+          "name": "Applied Arts",
+          "description": null
+        },
+        {
           "name": "Business Education",
           "description": "THE SKILLS NECESSARY FOR STUDENTS TO BECOME TOMORROW’S BUSINESS LEADERS."
         },
@@ -10474,12 +10478,21 @@
     {
       "name": "Communication Arts",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Communication Arts",
+          "description": null
+        }
+      ]
     },
     {
       "name": "CSET",
       "description": "PLACEMENT (AP) COURSE OPTIONS ARE AVAILABLE WITHIN THIS PROGRAM.",
       "departments": [
+        {
+          "name": "CSET",
+          "description": null
+        },
         {
           "name": "Technology",
           "description": null
@@ -10490,6 +10503,10 @@
       "name": "Fine Arts",
       "description": null,
       "departments": [
+        {
+          "name": "Fine Arts",
+          "description": null
+        },
         {
           "name": "Dance",
           "description": "ALL DANCE STUDENTS ARE REQUIRED TO PURCHASE"
@@ -10517,6 +10534,10 @@
       "description": "DEPARTMENT",
       "departments": [
         {
+          "name": "Language Learning",
+          "description": null
+        },
+        {
           "name": "Spanish",
           "description": null
         }
@@ -10525,22 +10546,42 @@
     {
       "name": "Mathematics",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Mathematics",
+          "description": null
+        }
+      ]
     },
     {
       "name": "Physical Education",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Physical Education",
+          "description": null
+        }
+      ]
     },
     {
       "name": "Science",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Science",
+          "description": null
+        }
+      ]
     },
     {
       "name": "Social Studies",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

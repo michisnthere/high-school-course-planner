@@ -45,7 +45,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Data Science",
@@ -92,7 +92,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -139,7 +139,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Statistics",
@@ -188,7 +188,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     }
   ],
   "graduationRequirements": [],
@@ -197,7 +197,12 @@
     {
       "name": "Mathematics",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Mathematics",
+          "description": null
+        }
+      ]
     }
   ]
 }

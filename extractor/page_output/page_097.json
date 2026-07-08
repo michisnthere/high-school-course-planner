@@ -46,7 +46,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Human Geography",
@@ -91,7 +91,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "World Religions",
@@ -138,7 +138,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP African American Studies",
@@ -183,7 +183,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP European History",
@@ -228,7 +228,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [],
@@ -237,7 +237,12 @@
     {
       "name": "Social Studies",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

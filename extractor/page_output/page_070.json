@@ -45,7 +45,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Calculus BC",
@@ -92,7 +92,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "College Multivariable Calculus",
@@ -127,7 +127,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "College Linear Algebra",
@@ -162,7 +162,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     }
   ],
   "graduationRequirements": [],
@@ -171,7 +171,12 @@
     {
       "name": "Mathematics",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Mathematics",
+          "description": null
+        }
+      ]
     }
   ]
 }

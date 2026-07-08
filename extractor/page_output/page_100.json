@@ -44,7 +44,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Microeconomics",
@@ -89,7 +89,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Philosophy and Political Theory",
@@ -132,7 +132,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Government",
@@ -177,7 +177,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [],
@@ -186,7 +186,12 @@
     {
       "name": "Social Studies",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

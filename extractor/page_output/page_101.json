@@ -42,7 +42,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Psychology",
@@ -124,7 +124,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [],
@@ -133,7 +133,12 @@
     {
       "name": "Social Studies",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

@@ -44,7 +44,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Economics",
@@ -89,7 +89,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Sociology Dual Credit",
@@ -132,7 +132,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [],
@@ -141,7 +141,12 @@
     {
       "name": "Social Studies",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

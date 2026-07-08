@@ -44,7 +44,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -91,7 +91,7 @@
         "requiresApplication": true
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Alternative Physical Education",
@@ -142,7 +142,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Health Education",
@@ -244,6 +244,10 @@
       "name": "Physical Education",
       "description": null,
       "departments": [
+        {
+          "name": "Physical Education",
+          "description": null
+        },
         {
           "name": "Health Education",
           "description": null

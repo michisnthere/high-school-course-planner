@@ -40,7 +40,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Adventure Education",
@@ -92,7 +92,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     }
   ],
   "graduationRequirements": [],
@@ -101,7 +101,12 @@
     {
       "name": "Physical Education",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Physical Education",
+          "description": null
+        }
+      ]
     }
   ]
 }

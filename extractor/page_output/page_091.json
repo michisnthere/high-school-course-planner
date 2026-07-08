@@ -44,7 +44,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Chemistry",
@@ -89,7 +89,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Earth Science",
@@ -132,7 +132,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Physics",
@@ -175,7 +175,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Horticulture",
@@ -216,7 +216,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Science Research",
@@ -259,7 +259,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     },
     {
       "title": "Human Anatomy and Physiology",
@@ -298,7 +298,7 @@
         "requiresApplication": false
       },
       "division": "Science",
-      "department": null
+      "department": "Science"
     }
   ],
   "graduationRequirements": [],
@@ -307,7 +307,12 @@
     {
       "name": "Science",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Science",
+          "description": null
+        }
+      ]
     }
   ]
 }

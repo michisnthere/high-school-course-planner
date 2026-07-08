@@ -45,7 +45,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Geometry",
@@ -92,7 +92,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Geometry AB/BC",
@@ -139,7 +139,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Algebra 2",
@@ -186,7 +186,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Algebra 2 AB/BC",
@@ -233,7 +233,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Precalculus",
@@ -280,7 +280,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Precalculus AB",
@@ -329,7 +329,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Precalculus BC",
@@ -378,7 +378,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Mathematical Modeling and Design",
@@ -425,7 +425,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Data Science",
@@ -472,7 +472,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -519,7 +519,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Statistics",
@@ -568,7 +568,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Calculus AB",
@@ -615,7 +615,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "AP Calculus BC",
@@ -662,7 +662,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "College Multivariable Calculus",
@@ -697,7 +697,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "College Linear Algebra",
@@ -732,7 +732,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     }
   ],
   "graduationRequirements": [],
@@ -744,7 +744,12 @@
     {
       "name": "Mathematics",
       "description": "The Mathematics Division is committed to ensuring all students experience mathematics as accessible, practical and worthwhile. Coursework spans algebra, geometry, advanced mathematics, quantitative literacy and mathematical modeling. Students learn to interpret data, evaluate numerical information and make informed decisions. Through modeling, they connect abstract concepts with real-world contexts, analyze data and solve authentic problems that are essential for informed citizenship, postsecondary study and the modern workplace. Instruction is guided by the Standards for Mathematical Practice (CCSSM, 2010), which help students understand concepts and apply learning in unfamiliar contexts. These practices foster learning that is conceptual, adaptive and precise. As students progress, they strengthen their ability to explain solutions in writing, articulate reasoning verbally and engage in sense-making that builds clarity and shared understanding. The faculty emphasizes collaboration, persistence and productive struggle as essential to growth. The instructional design promotes cooperative learning, active participation and independent practice. Graphing calculators and other technologies support concept development and deepen understanding, preparing students for innovation in a rapidly changing world. Students will experience mathematics as both practical and culturally significant, fostering equity and contributing to society through its intellectual and social relevance. To graduate, students must earn six semesters of mathematics credit, including Algebra 1 and at least one course with geometry content. Completing eight semesters is strongly recommended to prepare for college, career and vocational opportunities.",
-      "departments": []
+      "departments": [
+        {
+          "name": "Mathematics",
+          "description": null
+        }
+      ]
     }
   ]
 }

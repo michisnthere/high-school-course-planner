@@ -40,7 +40,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Constitutional Law",
@@ -87,7 +87,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Global Relations",
@@ -134,7 +134,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Law In American Society",
@@ -181,7 +181,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Psychology",
@@ -228,7 +228,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [],
@@ -237,7 +237,12 @@
     {
       "name": "Social Studies",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

@@ -39,7 +39,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Constitutional Law",
@@ -86,7 +86,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Global Relations",
@@ -133,7 +133,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Law In American Society",
@@ -180,7 +180,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Psychology",
@@ -227,7 +227,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Sociology",
@@ -274,7 +274,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Human Geography",
@@ -319,7 +319,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "World Religions",
@@ -366,7 +366,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP African American Studies",
@@ -411,7 +411,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP European History",
@@ -456,7 +456,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Comparative Government and Politics",
@@ -542,7 +542,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "U.S. History",
@@ -585,7 +585,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP U.S. History",
@@ -628,7 +628,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "American Studies (AP U.S. History and AP English Language and Composition)",
@@ -673,7 +673,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Economics",
@@ -718,7 +718,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Sociology Dual Credit",
@@ -761,7 +761,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Macroeconomics",
@@ -806,7 +806,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Microeconomics",
@@ -851,7 +851,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Philosophy and Political Theory",
@@ -894,7 +894,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Government",
@@ -939,7 +939,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "Political Thought and Its Literature",
@@ -982,7 +982,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Psychology",
@@ -1064,7 +1064,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     },
     {
       "title": "AP Government–United States",
@@ -1148,7 +1148,7 @@
         "requiresApplication": false
       },
       "division": "Social Studies",
-      "department": null
+      "department": "Social Studies"
     }
   ],
   "graduationRequirements": [],
@@ -1163,7 +1163,12 @@
     {
       "name": "Social Studies",
       "description": "Social Studies is the integrated study of the social sciences and humanities to promote civic competence. Within the school program, social studies provides a coordinated, systematic study drawing upon such disciplines as anthropology, archaeology, economics, geography, history, law, philosophy, political science, psychology, religion and sociology, as well as appropriate content from the humanities, mathematics and natural sciences. The primary purpose of social studies is to help students develop the ability to make informed and reasoned decisions for the public good as citizens of a culturally diverse, democratic society in an interdependent 21st century world. A minimum of three years of study in Social Studies is recommended for college-bound students. Social Studies Courses Required for Graduation: One year of World History and Geography; One year of U.S. History (or AP U.S. History); One semester of Government (or AP U.S. Government and Politics)—Both Government and AP U.S. Government satisfy the Illinois civics requirements for graduation; One semester of Economics, AP Macroeconomics, AP Microeconomics or Personal Finance is necessary for graduation.",
-      "departments": []
+      "departments": [
+        {
+          "name": "Social Studies",
+          "description": null
+        }
+      ]
     }
   ]
 }

@@ -45,7 +45,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Geometry",
@@ -92,7 +92,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     },
     {
       "title": "Geometry AB/BC",
@@ -139,7 +139,7 @@
         "requiresApplication": false
       },
       "division": "Mathematics",
-      "department": null
+      "department": "Mathematics"
     }
   ],
   "graduationRequirements": [],
@@ -148,7 +148,12 @@
     {
       "name": "Mathematics",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Mathematics",
+          "description": null
+        }
+      ]
     }
   ]
 }

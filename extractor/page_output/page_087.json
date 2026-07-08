@@ -92,7 +92,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Physical Education Leadership Training",
@@ -133,7 +133,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Senior Leadership",
@@ -176,7 +176,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     },
     {
       "title": "Lifeguard Training and Certification",
@@ -213,7 +213,7 @@
         "requiresApplication": false
       },
       "division": "Physical Education",
-      "department": null
+      "department": "Physical Education"
     }
   ],
   "graduationRequirements": [],
@@ -222,7 +222,12 @@
     {
       "name": "Physical Education",
       "description": null,
-      "departments": []
+      "departments": [
+        {
+          "name": "Physical Education",
+          "description": null
+        }
+      ]
     }
   ]
 }
