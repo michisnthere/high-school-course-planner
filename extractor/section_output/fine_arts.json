@@ -34,7 +34,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -61,7 +61,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Drawing",
@@ -72,7 +78,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -103,7 +109,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Painting",
@@ -114,7 +126,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -145,7 +157,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mixed Media",
@@ -156,7 +174,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -187,7 +205,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Ceramics",
@@ -198,7 +222,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -229,7 +253,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Sculpture",
@@ -240,7 +270,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -271,7 +301,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Metals and Jewelry",
@@ -282,7 +318,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -313,7 +349,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Drawing, Painting and Mixed Media",
@@ -327,7 +369,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -356,7 +398,12 @@
             "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Ceramics, Metals and Sculpture",
@@ -370,7 +417,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -399,7 +446,12 @@
             "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Art: Drawing, 2D and 3D Design",
@@ -413,7 +465,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -440,7 +492,12 @@
             "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Photography 1",
@@ -454,7 +511,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -481,7 +538,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Photography 2",
@@ -495,7 +557,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -526,7 +588,12 @@
             "Photography 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Photography and Digital Design",
@@ -540,7 +607,7 @@
       "creditType": "Accelerated",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -569,7 +636,12 @@
             "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Photography and Digital Design",
@@ -584,7 +656,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -611,7 +683,12 @@
             "Advanced Photography and Digital Design"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Digital Art and Design 1",
@@ -625,7 +702,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -652,7 +729,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Digital Art and Design 2",
@@ -666,7 +748,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -697,7 +779,12 @@
             "Digital Art and Design 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "2D Animation",
@@ -708,7 +795,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -739,7 +826,13 @@
             "Digital Art and Design 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "3D Animation",
@@ -750,7 +843,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -781,7 +874,13 @@
             "2D Animation and/or Director Approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Art History",
@@ -792,7 +891,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -817,7 +916,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 1",
@@ -832,7 +937,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -859,7 +964,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 2",
@@ -875,7 +985,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -906,7 +1016,12 @@
             "Dance 1 and/or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 3",
@@ -922,7 +1037,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -953,7 +1068,12 @@
             "Dance 2 and/or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 4",
@@ -969,7 +1089,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1000,7 +1120,12 @@
             "Dance 3 and/or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Concert Dance",
@@ -1016,7 +1141,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1045,7 +1170,12 @@
             "Dance 4 OR a Senior who has completed Dance 3"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Jazz Fusion",
@@ -1060,7 +1190,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1085,7 +1215,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Technical Skills",
@@ -1100,7 +1235,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1129,7 +1264,12 @@
             "Dance 2 or Higher, and/or Teacher Approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance Leadership",
@@ -1144,7 +1284,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1173,7 +1313,12 @@
             "Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Freshman Band",
@@ -1188,7 +1333,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1213,7 +1358,12 @@
             "Prior Band experience or approval of Band faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Symphonic Band",
@@ -1229,7 +1379,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1258,7 +1408,12 @@
             "Audition with Band Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Wind Symphony",
@@ -1274,7 +1429,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1303,7 +1458,12 @@
             "Audition with Band Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Wind Ensemble",
@@ -1317,7 +1477,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -1390,7 +1550,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Stevenson Singers",
@@ -1404,7 +1569,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1431,7 +1596,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Chorus",
@@ -1444,7 +1614,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -1517,7 +1687,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Singers",
@@ -1530,7 +1705,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -1603,7 +1778,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Stevenson Orchestra",
@@ -1618,7 +1798,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1643,7 +1823,12 @@
             "All incoming freshman orchestra students should register for this class"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Concert Orchestra",
@@ -1658,7 +1843,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1687,7 +1872,12 @@
             "Prior Orchestra Experience and/or Approval of Orchestra Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Symphonic Orchestra",
@@ -1702,7 +1892,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1733,7 +1923,12 @@
             "Auditions are required for all students with the Orchestra Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Orchestra",
@@ -1747,7 +1942,7 @@
       ],
       "sourceReference": "page 58",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -1820,7 +2015,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Guitar 1",
@@ -1835,7 +2035,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1862,7 +2062,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Guitar 2",
@@ -1877,7 +2082,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1908,7 +2113,12 @@
             "Guitar 1 or Per Audition with the Guitar Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Guitar Ensemble",
@@ -1921,7 +2131,7 @@
       ],
       "sourceReference": "page 59",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -1994,7 +2204,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Piano 1",
@@ -2008,7 +2223,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2035,7 +2250,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Music Production 1",
@@ -2046,7 +2266,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2073,7 +2293,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Music Production 2",
@@ -2084,7 +2310,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2115,7 +2341,13 @@
             "Music Production 1 or Approval of Instructor"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Music Production",
@@ -2130,7 +2362,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2159,7 +2391,12 @@
             "Music Production 2 or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Music Theory",
@@ -2170,7 +2407,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2199,7 +2436,13 @@
             "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 1: Confidence and Collaboration",
@@ -2210,7 +2453,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2237,7 +2480,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Entertainment Production and Design",
@@ -2251,7 +2500,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2278,7 +2527,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 2: Character and Comedy",
@@ -2289,7 +2543,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2320,7 +2574,13 @@
             "Acting 1: Confidence and Collaboration"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 3",
@@ -2334,7 +2594,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2350,7 +2610,12 @@
             "Acting 2: Character and Comedy"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 4",
@@ -2364,7 +2629,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2380,7 +2645,12 @@
             "Acting 3"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Acting",
@@ -2395,7 +2665,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2422,7 +2692,12 @@
             "Acting 4"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Theatre Leadership: Directing and Management",
@@ -2433,7 +2708,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2460,7 +2735,13 @@
             "Acting 4 or Entertainment Production and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Leadership in Theatre Studies",
@@ -2474,7 +2755,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2503,7 +2784,12 @@
             "Acting 4 OR Entertainment Production and Design and Instructor Approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

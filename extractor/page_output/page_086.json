@@ -14,7 +14,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -35,7 +35,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Adventure Education",
@@ -50,7 +55,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -81,7 +86,12 @@
             "A Foundational Fitness class or any previous physical education course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

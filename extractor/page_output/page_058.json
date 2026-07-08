@@ -14,7 +14,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -39,7 +39,12 @@
             "All incoming freshman orchestra students should register for this class"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Concert Orchestra",
@@ -54,7 +59,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -83,7 +88,12 @@
             "Prior Orchestra Experience and/or Approval of Orchestra Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Symphonic Orchestra",
@@ -98,7 +108,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -129,7 +139,12 @@
             "Auditions are required for all students with the Orchestra Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Orchestra",
@@ -143,7 +158,7 @@
       ],
       "sourceReference": "page 58",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -216,7 +231,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

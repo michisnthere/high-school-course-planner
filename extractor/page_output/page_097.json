@@ -40,7 +40,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Human Geography",
@@ -78,7 +84,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "World Religions",
@@ -118,7 +130,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP African American Studies",
@@ -156,7 +174,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP European History",
@@ -194,7 +218,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

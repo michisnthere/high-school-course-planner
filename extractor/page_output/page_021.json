@@ -36,7 +36,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Clothing and Design 2",
@@ -89,7 +95,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

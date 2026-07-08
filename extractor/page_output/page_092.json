@@ -36,7 +36,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Physics 1",
@@ -109,7 +115,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Physics 2",
@@ -147,7 +159,13 @@
             "AP Physics 1 or Physics"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Biology",
@@ -220,7 +238,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

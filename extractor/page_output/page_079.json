@@ -35,7 +35,13 @@
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Chinese Literature, Media and Culture",
@@ -71,7 +77,13 @@
             "AP Chinese Language and Culture or placement test"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 1",
@@ -111,7 +123,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 2",
@@ -151,7 +169,13 @@
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

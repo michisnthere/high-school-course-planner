@@ -15,7 +15,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -44,7 +44,12 @@
             "Audition with Band Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Wind Ensemble",
@@ -58,7 +63,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -131,7 +136,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Stevenson Singers",
@@ -145,7 +155,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -172,7 +182,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Chorus",
@@ -185,7 +200,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -258,7 +273,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Singers",
@@ -271,7 +291,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -344,7 +364,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

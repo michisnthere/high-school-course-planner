@@ -39,7 +39,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 2",
@@ -79,7 +85,13 @@
             "German 1 or passing the placement exam for German 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 3",
@@ -117,7 +129,13 @@
             "German 2 or passing the placement exam for German 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP German Language and Culture",
@@ -153,7 +171,13 @@
             "German 3 or passing the placement exam for AP German and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

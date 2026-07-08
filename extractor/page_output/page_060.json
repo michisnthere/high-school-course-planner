@@ -13,7 +13,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -40,7 +40,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Music Production 1",
@@ -51,7 +56,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -78,7 +83,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Music Production 2",
@@ -89,7 +100,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -120,7 +131,13 @@
             "Music Production 1 or Approval of Instructor"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Music Production",
@@ -135,7 +152,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -164,7 +181,12 @@
             "Music Production 2 or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Music Theory",
@@ -175,7 +197,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -204,7 +226,13 @@
             "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

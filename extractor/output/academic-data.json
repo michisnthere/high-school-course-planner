@@ -116,7 +116,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Business Applications and Technology 1",
@@ -150,7 +156,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Business Applications and Technology 2",
@@ -176,7 +188,13 @@
             "BUS131 or BUS132"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Marketing",
@@ -210,7 +228,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Entrepreneurship",
@@ -244,7 +268,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Accounting 1",
@@ -267,7 +297,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Accounting 2",
@@ -292,7 +328,13 @@
             "Accounting 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Accounting",
@@ -317,7 +359,13 @@
             "Accounting 2"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Business Law",
@@ -351,7 +399,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Personal Finance",
@@ -362,7 +416,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Economics or Personal Finance"
+        "Economics or Personal Finance Graduation Requirement"
       ],
       "offerings": [
         {
@@ -387,7 +441,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Food and Nutrition",
@@ -423,7 +483,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Human Growth and Development",
@@ -459,7 +525,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Clothing and Design 1",
@@ -495,7 +567,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Clothing and Design 2",
@@ -548,7 +626,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Interior Design",
@@ -582,7 +666,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Business of Fashion and Design",
@@ -616,7 +706,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Food Preparation",
@@ -650,7 +746,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Gourmet Foods",
@@ -688,7 +790,13 @@
             "Food Preparation"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Teaching Young Children 1",
@@ -726,7 +834,13 @@
             "Human Growth and Development"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Teaching Young Children 2",
@@ -777,7 +891,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Life by Design",
@@ -813,7 +933,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Computer Programming 1",
@@ -849,7 +975,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Computer Programming 2",
@@ -889,7 +1021,13 @@
             "Computer Programming 1 (CSC161/162) or Web Development 2 (TEC281/282) or Principles of Engineering (TEC301/302) or AP Computer Science Principles (CSC371/372)"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Computer Science A",
@@ -927,7 +1065,13 @@
             "Computer Programming 2 (CSC181/182)"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Computer Science Principles",
@@ -965,7 +1109,13 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Computer Science Algorithms",
@@ -1001,7 +1151,13 @@
             "AP Computer Science A (CSC391/CSC392)"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mobile App Development",
@@ -1041,7 +1197,13 @@
             "Computer Programming 1 (CSC161/162) or Web Development 2 (TEC281/282) or Principles of Engineering (TEC301/302) or AP Computer Science Principles (CSC371/372)"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Architectural Design",
@@ -1077,7 +1239,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Architectural Design",
@@ -1115,7 +1283,13 @@
             "Civil Engineering and Architecture–PLTW or Architectural Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Introduction to Engineering Design–PLTW",
@@ -1151,7 +1325,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Civil Engineering and Architecture–PLTW",
@@ -1189,7 +1369,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design or Architectural Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Principles of Engineering–PLTW",
@@ -1227,7 +1413,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Electrical Engineering–PLTW",
@@ -1265,7 +1457,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Computer Integrated Manufacturing–PLTW",
@@ -1303,7 +1501,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Engineering Design and Development–PLTW",
@@ -1339,7 +1543,13 @@
             "PLTW Digital Electronics or Electrical Engineering–PLTW, Principles of Engineering–PLTW, Computer Integrated Manufacturing–PLTW or Civil Engineering and Architecture–PLTW"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Print Media 1",
@@ -1375,7 +1585,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Print Media 2",
@@ -1415,7 +1631,13 @@
             "Print Media 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Web Development 1",
@@ -1451,7 +1673,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Web Development 2",
@@ -1491,7 +1719,13 @@
             "Web Development 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Game Development 1",
@@ -1527,7 +1761,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Game Development 2",
@@ -1567,7 +1807,13 @@
             "Game Development 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Motion Graphics and Visual Effects",
@@ -1603,7 +1849,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Video Editing and Production",
@@ -1639,7 +1891,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Virtual Reality",
@@ -1679,7 +1937,13 @@
             "Game Development 1 (TEC501 or TEC502)"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Art and Design",
@@ -1690,7 +1954,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1717,7 +1981,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Drawing",
@@ -1728,7 +1998,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1759,7 +2029,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Painting",
@@ -1770,7 +2046,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1801,7 +2077,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mixed Media",
@@ -1812,7 +2094,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1843,7 +2125,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Ceramics",
@@ -1854,7 +2142,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1885,7 +2173,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Sculpture",
@@ -1896,7 +2190,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1927,7 +2221,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Metals and Jewelry",
@@ -1938,7 +2238,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -1969,7 +2269,13 @@
             "Art and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Drawing, Painting and Mixed Media",
@@ -1983,7 +2289,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2012,7 +2318,12 @@
             "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Ceramics, Metals and Sculpture",
@@ -2026,7 +2337,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2055,7 +2366,12 @@
             "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Art: Drawing, 2D and 3D Design",
@@ -2069,7 +2385,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2096,7 +2412,12 @@
             "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Photography 1",
@@ -2110,7 +2431,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2137,7 +2458,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Photography 2",
@@ -2151,7 +2477,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2182,7 +2508,12 @@
             "Photography 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Photography and Digital Design",
@@ -2196,7 +2527,7 @@
       "creditType": "Accelerated",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2225,7 +2556,12 @@
             "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Photography and Digital Design",
@@ -2240,7 +2576,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2267,7 +2603,12 @@
             "Advanced Photography and Digital Design"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Digital Art and Design 1",
@@ -2281,7 +2622,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2308,7 +2649,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Digital Art and Design 2",
@@ -2322,7 +2668,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2353,7 +2699,12 @@
             "Digital Art and Design 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "2D Animation",
@@ -2364,7 +2715,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2395,7 +2746,13 @@
             "Digital Art and Design 1"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "3D Animation",
@@ -2406,7 +2763,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2437,7 +2794,13 @@
             "2D Animation and/or Director Approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Art History",
@@ -2448,7 +2811,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2473,7 +2836,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 1",
@@ -2488,7 +2857,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2515,7 +2884,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 2",
@@ -2531,7 +2905,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2562,7 +2936,12 @@
             "Dance 1 and/or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 3",
@@ -2578,7 +2957,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2609,7 +2988,12 @@
             "Dance 2 and/or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance 4",
@@ -2625,7 +3009,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2656,7 +3040,12 @@
             "Dance 3 and/or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Concert Dance",
@@ -2672,7 +3061,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2701,7 +3090,12 @@
             "Dance 4 OR a Senior who has completed Dance 3"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Jazz Fusion",
@@ -2716,7 +3110,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2741,7 +3135,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Technical Skills",
@@ -2756,7 +3155,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2785,7 +3184,12 @@
             "Dance 2 or Higher, and/or Teacher Approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Dance Leadership",
@@ -2800,7 +3204,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2829,7 +3233,12 @@
             "Students must complete a minimum of one year in Dance 3 or Dance 4 and/or Approval of Instructors"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Freshman Band",
@@ -2844,7 +3253,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2869,7 +3278,12 @@
             "Prior Band experience or approval of Band faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Symphonic Band",
@@ -2885,7 +3299,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2914,7 +3328,12 @@
             "Audition with Band Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Wind Symphony",
@@ -2930,7 +3349,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -2959,7 +3378,12 @@
             "Audition with Band Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Wind Ensemble",
@@ -2973,7 +3397,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -3046,7 +3470,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Stevenson Singers",
@@ -3060,7 +3489,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3087,7 +3516,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Chorus",
@@ -3100,7 +3534,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -3173,7 +3607,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Singers",
@@ -3186,7 +3625,7 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -3259,7 +3698,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Stevenson Orchestra",
@@ -3274,7 +3718,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3299,7 +3743,12 @@
             "All incoming freshman orchestra students should register for this class"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Concert Orchestra",
@@ -3314,7 +3763,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3343,7 +3792,12 @@
             "Prior Orchestra Experience and/or Approval of Orchestra Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Symphonic Orchestra",
@@ -3358,7 +3812,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3389,7 +3843,12 @@
             "Auditions are required for all students with the Orchestra Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Orchestra",
@@ -3403,7 +3862,7 @@
       ],
       "sourceReference": "page 58",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -3476,7 +3935,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Guitar 1",
@@ -3491,7 +3955,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3518,7 +3982,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Guitar 2",
@@ -3533,7 +4002,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3564,7 +4033,12 @@
             "Guitar 1 or Per Audition with the Guitar Faculty"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Patriot Guitar Ensemble",
@@ -3577,7 +4051,7 @@
       ],
       "sourceReference": "page 59",
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "choices": [
         {
@@ -3650,7 +4124,12 @@
           ],
           "credits": 1.0
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Piano 1",
@@ -3664,7 +4143,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3691,7 +4170,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Music Production 1",
@@ -3702,7 +4186,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3729,7 +4213,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Music Production 2",
@@ -3740,7 +4230,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3771,7 +4261,13 @@
             "Music Production 1 or Approval of Instructor"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Music Production",
@@ -3786,7 +4282,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3815,7 +4311,12 @@
             "Music Production 2 or Placement by Instructor"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Music Theory",
@@ -3826,7 +4327,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3855,7 +4356,13 @@
             "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 1: Confidence and Collaboration",
@@ -3866,7 +4373,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3893,7 +4400,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Entertainment Production and Design",
@@ -3907,7 +4420,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3934,7 +4447,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 2: Character and Comedy",
@@ -3945,7 +4463,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -3976,7 +4494,13 @@
             "Acting 1: Confidence and Collaboration"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 3",
@@ -3990,7 +4514,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -4006,7 +4530,12 @@
             "Acting 2: Character and Comedy"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Acting 4",
@@ -4020,7 +4549,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -4036,7 +4565,12 @@
             "Acting 3"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Acting",
@@ -4051,7 +4585,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -4078,7 +4612,12 @@
             "Acting 4"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Theatre Leadership: Directing and Management",
@@ -4089,7 +4628,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -4116,7 +4655,13 @@
             "Acting 4 or Entertainment Production and Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Leadership in Theatre Studies",
@@ -4130,7 +4675,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Fine Arts"
+        "Elective Graduation Requirement"
       ],
       "offerings": [
         {
@@ -4159,7 +4704,12 @@
             "Acting 4 OR Entertainment Production and Design and Instructor Approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "French 1",
@@ -4199,7 +4749,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "French 2",
@@ -4239,7 +4795,13 @@
             "French 1 or passing the placement exam for French 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "French 3",
@@ -4277,7 +4839,13 @@
             "French 2 or passing the placement exam for French 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP French Language",
@@ -4313,7 +4881,13 @@
             "French 3 or passing the placement exam for AP French Language and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 1",
@@ -4353,7 +4927,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 2",
@@ -4393,7 +4973,13 @@
             "German 1 or passing the placement exam for German 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 3",
@@ -4431,7 +5017,13 @@
             "German 2 or passing the placement exam for German 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP German Language and Culture",
@@ -4467,7 +5059,13 @@
             "German 3 or passing the placement exam for AP German and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 1",
@@ -4507,7 +5105,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 2",
@@ -4547,7 +5151,13 @@
             "Hebrew 1 or passing the placement exam for Hebrew 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 3",
@@ -4585,7 +5195,13 @@
             "Hebrew 2 or passing the placement exam for Hebrew 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 4",
@@ -4621,7 +5237,13 @@
             "Hebrew 3 or passing the placement exam for Hebrew 4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Latin 1",
@@ -4661,7 +5283,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Latin 2",
@@ -4701,7 +5329,13 @@
             "Latin 1 or passing the placement exam for Latin 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Latin 3",
@@ -4739,7 +5373,13 @@
             "Latin 2 or passing the placement exam for Latin 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Latin",
@@ -4775,7 +5415,13 @@
             "Latin 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 1",
@@ -4815,7 +5461,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 2",
@@ -4855,7 +5507,13 @@
             "Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 3",
@@ -4895,7 +5553,13 @@
             "Mandarin Chinese 2 or passing the placement exam for Mandarin Chinese 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Intermediate Mandarin Chinese Language Arts",
@@ -4935,7 +5599,13 @@
             "Intermediate or higher proficiency in the domains of speaking and listening as demonstrated on Mandarin Chinese language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 4",
@@ -4973,7 +5643,13 @@
             "Mandarin Chinese 3 or passing the placement exam for Mandarin Chinese 4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Chinese Language and Culture",
@@ -5009,7 +5685,13 @@
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Chinese Literature, Media and Culture",
@@ -5045,7 +5727,13 @@
             "AP Chinese Language and Culture or placement test"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 1",
@@ -5085,7 +5773,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 2",
@@ -5125,7 +5819,13 @@
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 2-3",
@@ -5165,7 +5865,13 @@
             "Spanish 1 or passing the placement exam for Spanish 2-3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 3",
@@ -5203,7 +5909,13 @@
             "Spanish 2"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 3-4",
@@ -5241,7 +5953,13 @@
             "Spanish 2-3 or passing the placement exam for Spanish 3-4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Intermediate Spanish Language Arts",
@@ -5281,7 +5999,13 @@
             "Intermediate or higher proficiency as demonstrated on Spanish language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 4",
@@ -5317,7 +6041,13 @@
             "Spanish 3"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Spanish Language and Culture",
@@ -5355,7 +6085,13 @@
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Spanish Literature and Culture",
@@ -5391,7 +6127,13 @@
             "AP Spanish Language and Culture"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
@@ -5429,7 +6171,13 @@
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 1",
@@ -5472,7 +6220,12 @@
             "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 2",
@@ -5515,7 +6268,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 3: Language",
@@ -5558,7 +6316,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 3: Literature",
@@ -5601,7 +6364,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 4",
@@ -5641,7 +6409,13 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Current Events",
@@ -5684,7 +6458,12 @@
             "None"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Algebra 1",
@@ -5698,7 +6477,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5725,7 +6504,12 @@
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Geometry",
@@ -5739,7 +6523,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5766,7 +6550,12 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Geometry AB/BC",
@@ -5780,7 +6569,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5807,7 +6596,12 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Algebra 2",
@@ -5821,7 +6615,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5848,7 +6642,12 @@
             "Geometry or Geometry AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Algebra 2 AB/BC",
@@ -5862,7 +6661,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5889,7 +6688,12 @@
             "Geometry AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Precalculus",
@@ -5903,7 +6707,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5930,7 +6734,12 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Precalculus AB",
@@ -5944,7 +6753,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -5973,7 +6782,12 @@
             "Precalculus or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Precalculus BC",
@@ -5987,7 +6801,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6016,7 +6830,12 @@
             "Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mathematical Modeling and Design",
@@ -6030,7 +6849,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6057,7 +6876,12 @@
             "Any precalculus course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Data Science",
@@ -6071,7 +6895,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6098,7 +6922,12 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -6114,7 +6943,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6139,7 +6968,12 @@
             "Algebra 2"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Statistics",
@@ -6153,7 +6987,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6182,7 +7016,12 @@
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Calculus AB",
@@ -6196,7 +7035,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6223,7 +7062,12 @@
             "Any AP Precalculus course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Calculus BC",
@@ -6237,7 +7081,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6264,7 +7108,12 @@
             "AP Precalculus BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "College Multivariable Calculus",
@@ -6278,7 +7127,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6293,7 +7142,12 @@
             "AP Calculus BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "College Linear Algebra",
@@ -6307,7 +7161,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6322,7 +7176,12 @@
             "AP Calculus BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Freshman Foundational Fitness Choice P.E.",
@@ -6336,7 +7195,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6357,7 +7216,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Adventure Education",
@@ -6372,7 +7236,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6403,7 +7267,12 @@
             "A Foundational Fitness class or any previous physical education course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Choice P.E.",
@@ -6415,7 +7284,7 @@
         "This course may be repeated for credit."
       ],
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "choices": [
         {
@@ -6490,7 +7359,12 @@
             }
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Physical Education Leadership Training",
@@ -6504,7 +7378,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6525,7 +7399,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Senior Leadership",
@@ -6536,7 +7415,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6561,7 +7440,13 @@
             "Physical education Leadership Training"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Lifeguard Training and Certification",
@@ -6575,7 +7460,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6592,7 +7477,12 @@
             "Students must be at least 15 years old by the end of the course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Pool Leadership",
@@ -6603,7 +7493,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6630,7 +7520,13 @@
             "Students must have an American Red Cross Lifeguarding certification"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -6644,7 +7540,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6671,7 +7567,12 @@
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": true
+      }
     },
     {
       "title": "Alternative Physical Education",
@@ -6685,7 +7586,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -6716,7 +7617,12 @@
             "A physician's verification must be on file"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Health Education",
@@ -6732,7 +7638,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Health"
+        "Health Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6753,7 +7659,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Applied Health",
@@ -6767,7 +7678,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Health"
+        "Health Graduation Requirement"
       ],
       "offerings": [
         {
@@ -6796,7 +7707,12 @@
             "Health Education"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Biology",
@@ -6834,7 +7750,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Chemistry",
@@ -6872,7 +7794,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Earth Science",
@@ -6908,7 +7836,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Physics",
@@ -6944,7 +7878,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Horticulture",
@@ -6978,7 +7918,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Science Research",
@@ -7015,7 +7961,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Human Anatomy and Physiology",
@@ -7047,7 +7998,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Earth Science Dual Credit",
@@ -7083,7 +8040,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Physics 1",
@@ -7156,7 +8119,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Physics 2",
@@ -7194,7 +8163,13 @@
             "AP Physics 1 or Physics"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Biology",
@@ -7267,7 +8242,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Environmental Science",
@@ -7302,7 +8283,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Chemistry",
@@ -7375,7 +8362,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Physics C",
@@ -7452,7 +8445,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "World History and Geography",
@@ -7486,7 +8485,13 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Constitutional Law",
@@ -7526,7 +8531,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Global Relations",
@@ -7566,7 +8577,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Law In American Society",
@@ -7606,7 +8623,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Psychology",
@@ -7646,7 +8669,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Sociology",
@@ -7686,7 +8715,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Human Geography",
@@ -7724,7 +8759,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "World Religions",
@@ -7764,7 +8805,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP African American Studies",
@@ -7802,7 +8849,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP European History",
@@ -7840,7 +8893,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Comparative Government and Politics",
@@ -7919,7 +8978,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "U.S. History",
@@ -7955,7 +9020,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP U.S. History",
@@ -7991,7 +9062,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "American Studies (AP U.S. History and AP English Language and Composition)",
@@ -8029,7 +9106,13 @@
             "Sophomore English"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Economics",
@@ -8040,7 +9123,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Economics or Personal Finance"
+        "Economics or Personal Finance Graduation Requirement"
       ],
       "offerings": [
         {
@@ -8067,7 +9150,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Sociology Dual Credit",
@@ -8103,7 +9192,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Macroeconomics",
@@ -8114,7 +9209,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Economics or Personal Finance"
+        "Economics or Personal Finance Graduation Requirement"
       ],
       "offerings": [
         {
@@ -8141,7 +9236,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Microeconomics",
@@ -8152,7 +9253,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Economics or Personal Finance"
+        "Economics or Personal Finance Graduation Requirement"
       ],
       "offerings": [
         {
@@ -8179,7 +9280,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Philosophy and Political Theory",
@@ -8215,7 +9322,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Government",
@@ -8253,7 +9366,13 @@
             "U.S. History"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Political Thought and Its Literature",
@@ -8289,7 +9408,13 @@
             "Junior English"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Psychology",
@@ -8364,7 +9489,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Government–United States",
@@ -8441,7 +9572,13 @@
             }
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [

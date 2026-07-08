@@ -21,7 +21,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -48,7 +48,12 @@
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Geometry",
@@ -62,7 +67,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -89,7 +94,12 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Geometry AB/BC",
@@ -103,7 +113,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -130,7 +140,12 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Algebra 2",
@@ -144,7 +159,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -171,7 +186,12 @@
             "Geometry or Geometry AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Algebra 2 AB/BC",
@@ -185,7 +205,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -212,7 +232,12 @@
             "Geometry AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Precalculus",
@@ -226,7 +251,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -253,7 +278,12 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Precalculus AB",
@@ -267,7 +297,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -296,7 +326,12 @@
             "Precalculus or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Precalculus BC",
@@ -310,7 +345,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -339,7 +374,12 @@
             "Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mathematical Modeling and Design",
@@ -353,7 +393,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -380,7 +420,12 @@
             "Any precalculus course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Data Science",
@@ -394,7 +439,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -421,7 +466,12 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -437,7 +487,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -462,7 +512,12 @@
             "Algebra 2"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Statistics",
@@ -476,7 +531,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -505,7 +560,12 @@
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Calculus AB",
@@ -519,7 +579,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -546,7 +606,12 @@
             "Any AP Precalculus course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Calculus BC",
@@ -560,7 +625,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -587,7 +652,12 @@
             "AP Precalculus BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "College Multivariable Calculus",
@@ -601,7 +671,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -616,7 +686,12 @@
             "AP Calculus BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "College Linear Algebra",
@@ -630,7 +705,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -645,7 +720,12 @@
             "AP Calculus BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

@@ -42,7 +42,12 @@
             "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 2",
@@ -85,7 +90,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

@@ -35,7 +35,13 @@
             "Spanish 3"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Spanish Language and Culture",
@@ -73,7 +79,13 @@
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Spanish Literature and Culture",
@@ -109,7 +121,13 @@
             "AP Spanish Language and Culture"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
@@ -147,7 +165,13 @@
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

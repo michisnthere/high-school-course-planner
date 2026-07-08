@@ -13,7 +13,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -40,7 +40,12 @@
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Geometry",
@@ -54,7 +59,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -81,7 +86,12 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Geometry AB/BC",
@@ -95,7 +105,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -122,7 +132,12 @@
             "Algebra 1"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

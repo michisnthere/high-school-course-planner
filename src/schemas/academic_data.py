@@ -27,17 +27,24 @@ class CourseChoiceRecord(TypedDict):
     notes: NotRequired[List[str]]
 
 
+class CourseAttributesRecord(TypedDict):
+    isRepeatable: bool
+    requiresAudition: bool
+    requiresApplication: bool
+
+
 class CourseRecord(TypedDict):
     title: str
     department: Optional[str]
     description: Optional[str]
     fulfillsRequirements: List[str]
+    attributes: CourseAttributesRecord
     gpaWaiverOption: NotRequired[Optional[bool]]
     creditType: NotRequired[Optional[str]]
     credits: NotRequired[Optional[float]]
     offerings: NotRequired[Optional[List[CourseOfferingRecord]]]
     choices: NotRequired[Optional[List[CourseChoiceRecord]]]
-    notes: NotRequired[List[str]]
+    notes: List[str]
     sourceReference: Optional[str]
 
 

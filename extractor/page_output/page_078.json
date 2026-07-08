@@ -39,7 +39,13 @@
             "Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 3",
@@ -79,7 +85,13 @@
             "Mandarin Chinese 2 or passing the placement exam for Mandarin Chinese 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Intermediate Mandarin Chinese Language Arts",
@@ -119,7 +131,13 @@
             "Intermediate or higher proficiency in the domains of speaking and listening as demonstrated on Mandarin Chinese language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 4",
@@ -157,7 +175,13 @@
             "Mandarin Chinese 3 or passing the placement exam for Mandarin Chinese 4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

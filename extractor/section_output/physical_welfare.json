@@ -22,7 +22,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -43,7 +43,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Adventure Education",
@@ -58,7 +63,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -89,7 +94,12 @@
             "A Foundational Fitness class or any previous physical education course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Choice P.E.",
@@ -101,7 +111,7 @@
         "This course may be repeated for credit."
       ],
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "choices": [
         {
@@ -176,7 +186,12 @@
             }
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Physical Education Leadership Training",
@@ -190,7 +205,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -211,7 +226,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Senior Leadership",
@@ -222,7 +242,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -247,7 +267,13 @@
             "Physical education Leadership Training"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Lifeguard Training and Certification",
@@ -261,7 +287,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -278,7 +304,12 @@
             "Students must be at least 15 years old by the end of the course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Pool Leadership",
@@ -289,7 +320,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -316,7 +347,13 @@
             "Students must have an American Red Cross Lifeguarding certification"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -330,7 +367,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -357,7 +394,12 @@
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": true
+      }
     },
     {
       "title": "Alternative Physical Education",
@@ -371,7 +413,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Physical Education"
+        "Physical Welfare Graduation Requirement and Waivers"
       ],
       "offerings": [
         {
@@ -402,7 +444,12 @@
             "A physician's verification must be on file"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Health Education",
@@ -418,7 +465,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Health"
+        "Health Graduation Requirement"
       ],
       "offerings": [
         {
@@ -439,7 +486,12 @@
           ],
           "prerequisites": []
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Applied Health",
@@ -453,7 +505,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Health"
+        "Health Graduation Requirement"
       ],
       "offerings": [
         {
@@ -482,7 +534,12 @@
             "Health Education"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

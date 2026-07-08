@@ -37,7 +37,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design or Architectural Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Principles of Engineering–PLTW",
@@ -75,7 +81,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Electrical Engineering–PLTW",
@@ -113,7 +125,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Computer Integrated Manufacturing–PLTW",
@@ -151,7 +169,13 @@
             "Introduction to Engineering Design–PLTW or Engineering Design"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Engineering Design and Development–PLTW",
@@ -187,7 +211,13 @@
             "PLTW Digital Electronics or Electrical Engineering–PLTW, Principles of Engineering–PLTW, Computer Integrated Manufacturing–PLTW or Civil Engineering and Architecture–PLTW"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

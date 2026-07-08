@@ -13,7 +13,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -42,7 +42,12 @@
             "Precalculus or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Precalculus BC",
@@ -56,7 +61,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -85,7 +90,12 @@
             "Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

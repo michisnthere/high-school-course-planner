@@ -51,7 +51,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "French 2",
@@ -91,7 +97,13 @@
             "French 1 or passing the placement exam for French 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "French 3",
@@ -129,7 +141,13 @@
             "French 2 or passing the placement exam for French 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP French Language",
@@ -165,7 +183,13 @@
             "French 3 or passing the placement exam for AP French Language and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 1",
@@ -205,7 +229,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 2",
@@ -245,7 +275,13 @@
             "German 1 or passing the placement exam for German 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "German 3",
@@ -283,7 +319,13 @@
             "German 2 or passing the placement exam for German 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP German Language and Culture",
@@ -319,7 +361,13 @@
             "German 3 or passing the placement exam for AP German and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 1",
@@ -359,7 +407,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 2",
@@ -399,7 +453,13 @@
             "Hebrew 1 or passing the placement exam for Hebrew 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 3",
@@ -437,7 +497,13 @@
             "Hebrew 2 or passing the placement exam for Hebrew 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Hebrew 4",
@@ -473,7 +539,13 @@
             "Hebrew 3 or passing the placement exam for Hebrew 4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Latin 1",
@@ -513,7 +585,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Latin 2",
@@ -553,7 +631,13 @@
             "Latin 1 or passing the placement exam for Latin 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Latin 3",
@@ -591,7 +675,13 @@
             "Latin 2 or passing the placement exam for Latin 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Latin",
@@ -627,7 +717,13 @@
             "Latin 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 1",
@@ -667,7 +763,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 2",
@@ -707,7 +809,13 @@
             "Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 3",
@@ -747,7 +855,13 @@
             "Mandarin Chinese 2 or passing the placement exam for Mandarin Chinese 3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Intermediate Mandarin Chinese Language Arts",
@@ -787,7 +901,13 @@
             "Intermediate or higher proficiency in the domains of speaking and listening as demonstrated on Mandarin Chinese language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Mandarin Chinese 4",
@@ -825,7 +945,13 @@
             "Mandarin Chinese 3 or passing the placement exam for Mandarin Chinese 4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Chinese Language and Culture",
@@ -861,7 +987,13 @@
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Chinese Literature, Media and Culture",
@@ -897,7 +1029,13 @@
             "AP Chinese Language and Culture or placement test"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 1",
@@ -937,7 +1075,13 @@
             "None"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 2",
@@ -977,7 +1121,13 @@
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 2-3",
@@ -1017,7 +1167,13 @@
             "Spanish 1 or passing the placement exam for Spanish 2-3 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 3",
@@ -1055,7 +1211,13 @@
             "Spanish 2"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 3-4",
@@ -1093,7 +1255,13 @@
             "Spanish 2-3 or passing the placement exam for Spanish 3-4 and approval of director"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Intermediate Spanish Language Arts",
@@ -1133,7 +1301,13 @@
             "Intermediate or higher proficiency as demonstrated on Spanish language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Spanish 4",
@@ -1169,7 +1343,13 @@
             "Spanish 3"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Spanish Language and Culture",
@@ -1207,7 +1387,13 @@
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Spanish Literature and Culture",
@@ -1243,7 +1429,13 @@
             "AP Spanish Language and Culture"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
@@ -1281,7 +1473,13 @@
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 1",
@@ -1324,7 +1522,12 @@
             "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 2",
@@ -1367,7 +1570,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 3: Language",
@@ -1410,7 +1618,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 3: Literature",
@@ -1453,7 +1666,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 4",
@@ -1493,7 +1711,13 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Current Events",
@@ -1536,7 +1760,12 @@
             "None"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

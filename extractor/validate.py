@@ -7,7 +7,7 @@ Checks:
 - Each choice is self-contained with name, isOnline, creditType, credits, gpaWaiverOption,
   and offerings.
 - Offerings contain only semester-specific data (no creditType, credits, corequisites).
-- Empty optional arrays are omitted.
+- Notes are always present as arrays (empty arrays are allowed).
 - No legacy fields (options, isOnline, corequisites) remain at the course level.
 """
 from __future__ import annotations
@@ -39,8 +39,8 @@ def _validate_offering(offering: Dict[str, Any], prefix: str) -> List[str]:
     grade_levels = offering.get("gradeLevels")
     if not isinstance(grade_levels, list) or grade_levels != sorted(set(grade_levels)):
         errors.append(f"{prefix}: offering gradeLevels must be a sorted list of unique integers")
-    if "notes" in offering and not offering["notes"]:
-        errors.append(f"{prefix}: offering notes should be omitted when empty")
+    if "notes" in offering and not isinstance(offering["notes"], list):
+        errors.append(f"{prefix}: offering notes must be a list")
     return errors
 
 
@@ -67,8 +67,8 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
     if has_choices and has_offerings:
         errors.append(f"{prefix}: course has both choices and offerings")
 
-    if "notes" in course and not course["notes"]:
-        errors.append(f"{prefix}: course notes should be omitted when empty")
+    if not isinstance(course.get("notes"), list):
+        errors.append(f"{prefix}: course notes must be a list")
 
     if has_choices:
         for forbidden in ("creditType", "credits", "gpaWaiverOption"):
@@ -83,8 +83,8 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
                     errors.append(f"{ch_prefix}: missing required field '{required}'")
             if choice.get("creditType") not in valid_credit_types:
                 errors.append(f"{ch_prefix}: creditType must be a known academic weight or null")
-            if "notes" in choice and not choice["notes"]:
-                errors.append(f"{ch_prefix}: choice notes should be omitted when empty")
+            if "notes" in choice and not isinstance(choice["notes"], list):
+                errors.append(f"{ch_prefix}: choice notes must be a list")
             for o_idx, offering in enumerate(choice.get("offerings", [])):
                 errors.extend(_validate_offering(offering, f"{ch_prefix}: offering[{o_idx}]"))
     elif has_offerings:

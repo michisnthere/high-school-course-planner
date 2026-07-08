@@ -13,7 +13,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -40,7 +40,12 @@
             "Any precalculus course"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Data Science",
@@ -54,7 +59,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -81,7 +86,12 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -97,7 +107,7 @@
       "creditType": "College Prep",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -122,7 +132,12 @@
             "Algebra 2"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Statistics",
@@ -136,7 +151,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Mathematics"
+        "Mathematics Graduation Requirement"
       ],
       "offerings": [
         {
@@ -165,7 +180,12 @@
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

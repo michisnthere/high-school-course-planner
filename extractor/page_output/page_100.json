@@ -11,7 +11,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Economics or Personal Finance"
+        "Economics or Personal Finance Graduation Requirement"
       ],
       "offerings": [
         {
@@ -38,7 +38,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "AP Microeconomics",
@@ -49,7 +55,7 @@
       "creditType": "Honors",
       "credits": 1.0,
       "fulfillsRequirements": [
-        "Economics or Personal Finance"
+        "Economics or Personal Finance Graduation Requirement"
       ],
       "offerings": [
         {
@@ -76,7 +82,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Philosophy and Political Theory",
@@ -112,7 +124,13 @@
             "World History and Geography"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Government",
@@ -150,7 +168,13 @@
             "U.S. History"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],

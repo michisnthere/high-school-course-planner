@@ -42,7 +42,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 3: Literature",
@@ -85,7 +90,12 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "English Language Development (ELD) 4",
@@ -125,7 +135,13 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ]
         }
-      ]
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     },
     {
       "title": "Current Events",
@@ -168,7 +184,12 @@
             "None"
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
     }
   ],
   "graduationRequirements": [],
