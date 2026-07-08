@@ -151,76 +151,72 @@
     {
       "title": "Sophomore English",
       "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
-      "gpaWaiverOption": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "sourceReference": "page 30",
-      "creditType": "College Prep",
-      "credits": 1,
       "fulfillsRequirements": [],
-      "offerings": [
-        {
-          "courseCode": "ENG211",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            10
-          ],
-          "prerequisites": []
-        },
-        {
-          "courseCode": "ENG212",
-          "semesterLabel": "Semester 2",
-          "duration": "Full Year",
-          "gradeLevels": [
-            10
-          ],
-          "prerequisites": []
-        }
-      ],
-      "notes": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
-    },
-    {
-      "title": "Sophomore English",
-      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 30",
-      "creditType": "Accelerated",
-      "credits": 1,
-      "fulfillsRequirements": [],
-      "offerings": [
+      "notes": [],
+      "choices": [
         {
-          "courseCode": "ENG231",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            10
-          ],
-          "prerequisites": []
+          "name": "College Prep",
+          "isOnline": false,
+          "creditType": "College Prep",
+          "credits": 1,
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "ENG211",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10
+              ],
+              "prerequisites": []
+            },
+            {
+              "courseCode": "ENG212",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10
+              ],
+              "prerequisites": []
+            }
+          ]
         },
         {
-          "courseCode": "ENG232",
-          "semesterLabel": "Semester 2",
-          "duration": "Full Year",
-          "gradeLevels": [
-            10
-          ],
-          "prerequisites": []
+          "name": "Accelerated",
+          "isOnline": false,
+          "creditType": "Accelerated",
+          "credits": 1,
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "ENG231",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10
+              ],
+              "prerequisites": []
+            },
+            {
+              "courseCode": "ENG232",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                10
+              ],
+              "prerequisites": []
+            }
+          ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "AP English Language and Composition",
@@ -262,76 +258,72 @@
     {
       "title": "Junior English",
       "description": "This skills-based course completes the department's three-year scope and sequence in the areas of reading, writing, speaking and listening, grammar and usage and research. Through their reading and writing, students deepen their analysis of language and rhetoric. Building on the previous focus on argumentation, students continue to develop their writing through a structured process approach that is aligned with college writing expectations. Additionally, students utilize close reading in the areas of English language skills and reading which serves as preparation for the ACT. Discussion-based speaking and listening opportunities are consistently present throughout both semesters. Within each course, a reading intensive method guides students to select texts to read both independently and in book clubs, as well as full-class reading experiences. Moments of student choice extend across reading and writing experiences.",
-      "gpaWaiverOption": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "sourceReference": "page 30",
-      "creditType": "College Prep",
-      "credits": 1,
       "fulfillsRequirements": [],
-      "offerings": [
-        {
-          "courseCode": "ENG311",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
-        },
-        {
-          "courseCode": "ENG312",
-          "semesterLabel": "Semester 2",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
-        }
-      ],
-      "notes": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
-    },
-    {
-      "title": "Junior English",
-      "description": "This skills-based course completes the department's three-year scope and sequence in the areas of reading, writing, speaking and listening, grammar and usage and research. Through their reading and writing, students deepen their analysis of language and rhetoric. Building on the previous focus on argumentation, students continue to develop their writing through a structured process approach that is aligned with college writing expectations. Additionally, students utilize close reading in the areas of English language skills and reading which serves as preparation for the ACT. Discussion-based speaking and listening opportunities are consistently present throughout both semesters. Within each course, a reading intensive method guides students to select texts to read both independently and in book clubs, as well as full-class reading experiences. Moments of student choice extend across reading and writing experiences.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 30",
-      "creditType": "Accelerated",
-      "credits": 1,
-      "fulfillsRequirements": [],
-      "offerings": [
+      "notes": [],
+      "choices": [
         {
-          "courseCode": "ENG381",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
+          "name": "College Prep",
+          "isOnline": false,
+          "creditType": "College Prep",
+          "credits": 1,
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "ENG311",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                11
+              ],
+              "prerequisites": []
+            },
+            {
+              "courseCode": "ENG312",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                11
+              ],
+              "prerequisites": []
+            }
+          ]
         },
         {
-          "courseCode": "ENG382",
-          "semesterLabel": "Semester 2",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
+          "name": "Accelerated",
+          "isOnline": false,
+          "creditType": "Accelerated",
+          "credits": 1,
+          "gpaWaiverOption": false,
+          "offerings": [
+            {
+              "courseCode": "ENG381",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [
+                11
+              ],
+              "prerequisites": []
+            },
+            {
+              "courseCode": "ENG382",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [
+                11
+              ],
+              "prerequisites": []
+            }
+          ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "American Studies (AP English Language and Composition and AP U.S. History)",
