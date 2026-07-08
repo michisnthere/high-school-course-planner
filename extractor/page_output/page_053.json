@@ -18,6 +18,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC101",
@@ -58,6 +61,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC201",
@@ -102,6 +108,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC301",

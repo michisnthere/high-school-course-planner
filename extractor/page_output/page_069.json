@@ -12,6 +12,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH431",
@@ -50,6 +53,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH481",
@@ -90,6 +96,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH441",
@@ -126,6 +135,9 @@
       "sourceReference": "page 69",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH461",

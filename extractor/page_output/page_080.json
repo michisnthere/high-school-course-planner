@@ -9,6 +9,7 @@
       "sourceReference": "page 80",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA211",
@@ -48,6 +49,7 @@
       "sourceReference": "page 80",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA301",
@@ -85,6 +87,7 @@
       "sourceReference": "page 80",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA311",
@@ -122,6 +125,7 @@
       "sourceReference": "page 80",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA351",

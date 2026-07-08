@@ -12,6 +12,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART501",
@@ -50,6 +53,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART511",
@@ -89,6 +95,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART531",
@@ -128,6 +137,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART541",
@@ -167,6 +179,9 @@
       "sourceReference": "page 51",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART721",

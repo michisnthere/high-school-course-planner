@@ -10,6 +10,7 @@
       "sourceReference": "page 25",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS411",

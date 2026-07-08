@@ -10,6 +10,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS142",
@@ -35,6 +36,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS281",
@@ -68,6 +70,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS231",

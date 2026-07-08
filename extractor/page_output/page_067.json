@@ -12,6 +12,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH351",
@@ -50,6 +53,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH171",
@@ -88,6 +94,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH451",

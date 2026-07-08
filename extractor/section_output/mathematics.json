@@ -20,6 +20,9 @@
       "sourceReference": "page 66",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH151",
@@ -58,6 +61,9 @@
       "sourceReference": "page 66",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH251",
@@ -96,6 +102,9 @@
       "sourceReference": "page 66",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH271",
@@ -134,6 +143,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH351",
@@ -172,6 +184,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH171",
@@ -210,6 +225,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH451",
@@ -248,6 +266,9 @@
       "sourceReference": "page 68",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH411",
@@ -288,6 +309,9 @@
       "sourceReference": "page 68",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH421",
@@ -328,6 +352,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH431",
@@ -366,6 +393,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH481",
@@ -406,6 +436,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH441",
@@ -442,6 +475,9 @@
       "sourceReference": "page 69",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH461",
@@ -482,6 +518,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH471",
@@ -520,6 +559,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH491",
@@ -558,6 +600,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH591",
@@ -584,6 +629,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH592",

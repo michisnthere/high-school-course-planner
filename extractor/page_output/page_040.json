@@ -14,6 +14,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC141",
@@ -49,6 +50,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC241",
@@ -86,6 +88,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC151",

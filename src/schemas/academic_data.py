@@ -31,6 +31,7 @@ class CourseRecord(TypedDict):
     title: str
     department: Optional[str]
     description: Optional[str]
+    fulfillsRequirements: List[str]
     gpaWaiverOption: NotRequired[Optional[bool]]
     creditType: NotRequired[Optional[str]]
     credits: NotRequired[Optional[float]]

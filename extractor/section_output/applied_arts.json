@@ -18,6 +18,7 @@
       "sourceReference": "page 16",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS171",
@@ -49,6 +50,7 @@
       "sourceReference": "page 16",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS131",
@@ -82,6 +84,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS142",
@@ -107,6 +110,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS281",
@@ -140,6 +144,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS231",
@@ -173,6 +178,7 @@
       "sourceReference": "page 18",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS251",
@@ -195,6 +201,7 @@
       "sourceReference": "page 18",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS252",
@@ -219,6 +226,7 @@
       "sourceReference": "page 18",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS351",
@@ -243,6 +251,7 @@
       "sourceReference": "page 19",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS371",
@@ -276,6 +285,9 @@
       "sourceReference": "page 19",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "BUS301",
@@ -309,6 +321,7 @@
       "sourceReference": "page 20",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS111",
@@ -344,6 +357,7 @@
       "sourceReference": "page 20",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS211",
@@ -379,6 +393,7 @@
       "sourceReference": "page 21",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS251",
@@ -411,6 +426,7 @@
       "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.",
       "sourceReference": "page 21",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "College Prep",
@@ -466,6 +482,7 @@
       "sourceReference": "page 22",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS231",
@@ -499,6 +516,7 @@
       "sourceReference": "page 22",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS241",
@@ -532,6 +550,7 @@
       "sourceReference": "page 23",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS221",
@@ -565,6 +584,7 @@
       "sourceReference": "page 23",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS321",
@@ -602,6 +622,7 @@
       "sourceReference": "page 24",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -636,6 +657,7 @@
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
       "sourceReference": "page 24",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "College Prep",
@@ -689,6 +711,7 @@
       "sourceReference": "page 25",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS411",

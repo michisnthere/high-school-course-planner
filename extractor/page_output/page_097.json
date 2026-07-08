@@ -10,6 +10,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC541",
@@ -49,6 +50,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC611",
@@ -86,6 +88,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC501",
@@ -125,6 +128,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC691",
@@ -162,6 +166,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC601",

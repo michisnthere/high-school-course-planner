@@ -51,12 +51,18 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
     if not course.get("title"):
         errors.append(f"{prefix}: missing title")
 
+    if "fulfillsRequirements" not in course:
+        errors.append(f"{prefix}: missing fulfillsRequirements")
+    elif not isinstance(course.get("fulfillsRequirements"), list):
+        errors.append(f"{prefix}: fulfillsRequirements must be a list")
+
     for forbidden in ("options", "isOnline", "corequisites"):
         if forbidden in course:
             errors.append(f"{prefix}: forbidden field '{forbidden}' at course level")
 
     has_choices = bool(course.get("choices"))
     has_offerings = bool(course.get("offerings"))
+    valid_credit_types = {"College Prep", "Accelerated", "Honors", "AP", None}
 
     if has_choices and has_offerings:
         errors.append(f"{prefix}: course has both choices and offerings")
@@ -75,6 +81,8 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
             for required in ("name", "isOnline", "creditType", "credits", "gpaWaiverOption", "offerings"):
                 if required not in choice:
                     errors.append(f"{ch_prefix}: missing required field '{required}'")
+            if choice.get("creditType") not in valid_credit_types:
+                errors.append(f"{ch_prefix}: creditType must be a known academic weight or null")
             if "notes" in choice and not choice["notes"]:
                 errors.append(f"{ch_prefix}: choice notes should be omitted when empty")
             for o_idx, offering in enumerate(choice.get("offerings", [])):
@@ -83,6 +91,8 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
         for required in ("creditType", "credits", "gpaWaiverOption"):
             if required not in course:
                 errors.append(f"{prefix}: single-version course missing '{required}'")
+        if course.get("creditType") not in valid_credit_types:
+            errors.append(f"{prefix}: creditType must be a known academic weight or null")
         for o_idx, offering in enumerate(course["offerings"]):
             errors.extend(_validate_offering(offering, f"{prefix}: offering[{o_idx}]"))
     else:

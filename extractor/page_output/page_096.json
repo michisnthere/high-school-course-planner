@@ -10,6 +10,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "World History and Geography"
+      ],
       "offerings": [
         {
           "courseCode": "SOC101",
@@ -41,6 +44,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC511",
@@ -80,6 +84,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC531",
@@ -119,6 +124,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC431",
@@ -158,6 +164,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC551",

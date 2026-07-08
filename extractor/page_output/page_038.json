@@ -9,6 +9,7 @@
       "sourceReference": "page 38",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC371",
@@ -46,6 +47,7 @@
       "sourceReference": "page 38",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC421",
@@ -84,6 +86,7 @@
       ],
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC251",

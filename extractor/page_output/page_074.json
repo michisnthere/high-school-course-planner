@@ -9,6 +9,7 @@
       "sourceReference": "page 74",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE101",
@@ -48,6 +49,7 @@
       "sourceReference": "page 74",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE211",
@@ -87,6 +89,7 @@
       "sourceReference": "page 74",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE311",
@@ -124,6 +127,7 @@
       "sourceReference": "page 74",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE601",

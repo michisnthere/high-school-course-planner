@@ -12,6 +12,9 @@
       "sourceReference": "page 68",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH411",
@@ -52,6 +55,9 @@
       "sourceReference": "page 68",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH421",

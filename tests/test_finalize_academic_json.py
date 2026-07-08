@@ -117,6 +117,40 @@ OPTIONS_COURSE = {
 }
 
 
+CREDIT_TYPE_REQUIREMENT_COURSE = {
+    "title": "Biology",
+    "department": "Science",
+    "description": "A college preparatory biological science course.",
+    "gpaWaiverOption": False,
+    "creditType": "College Prep Biological Science",
+    "credits": 1.0,
+    "offerings": [
+        {
+            "courseCode": "SCI111",
+            "semesterLabel": "Semester 1",
+            "duration": "Full Year",
+            "gradeLevels": [9, 10],
+            "prerequisites": [],
+            "creditType": "College Prep Biological Science",
+            "credits": 1.0,
+            "notes": [],
+        },
+        {
+            "courseCode": "SCI112",
+            "semesterLabel": "Semester 2",
+            "duration": "Full Year",
+            "gradeLevels": [9, 10],
+            "prerequisites": [],
+            "creditType": "College Prep Biological Science",
+            "credits": 1.0,
+            "notes": [],
+        },
+    ],
+    "notes": [],
+    "sourceReference": "page 80",
+}
+
+
 class TestFinalizeAcademicJson(unittest.TestCase):
     def _validate(self, course: dict) -> list[str]:
         return finalizer._validate_course(course, Path("test"), 0)
@@ -127,6 +161,8 @@ class TestFinalizeAcademicJson(unittest.TestCase):
         self.assertEqual(result["creditType"], "College Prep")
         self.assertEqual(result["credits"], 1.0)
         self.assertIs(result["gpaWaiverOption"], False)
+        self.assertIn("fulfillsRequirements", result)
+        self.assertEqual(result["fulfillsRequirements"], [])
         self.assertEqual(len(result["offerings"]), 2)
         for o in result["offerings"]:
             self.assertNotIn("creditType", o)
@@ -140,6 +176,8 @@ class TestFinalizeAcademicJson(unittest.TestCase):
         self.assertNotIn("offerings", result)
         self.assertNotIn("creditType", result)
         self.assertNotIn("credits", result)
+        self.assertIn("fulfillsRequirements", result)
+        self.assertEqual(result["fulfillsRequirements"], [])
 
         choices = result["choices"]
         self.assertEqual(len(choices), 2)
@@ -164,6 +202,8 @@ class TestFinalizeAcademicJson(unittest.TestCase):
         self.assertNotIn("options", result)
         self.assertIn("choices", result)
         self.assertEqual(len(result["choices"]), 2)
+        self.assertIn("fulfillsRequirements", result)
+        self.assertEqual(result["fulfillsRequirements"], ["Fine Arts"])
 
         names = {c["name"] for c in result["choices"]}
         self.assertEqual(names, {"College Prep", "Accelerated"})
@@ -179,6 +219,76 @@ class TestFinalizeAcademicJson(unittest.TestCase):
                 self.assertNotIn("credits", o)
 
         self.assertEqual(self._validate(result), [])
+
+    def test_credit_type_requirements_normalized(self):
+        result = finalizer._finalize_course(copy.deepcopy(CREDIT_TYPE_REQUIREMENT_COURSE))
+        self.assertNotIn("choices", result)
+        self.assertEqual(result["creditType"], "College Prep")
+        self.assertIn("fulfillsRequirements", result)
+        self.assertEqual(result["fulfillsRequirements"], ["Biology"])
+        self.assertEqual(self._validate(result), [])
+
+    def test_credit_type_multiple_requirements_extracted(self):
+        course = {
+            "title": "Integrated Science",
+            "department": "Science",
+            "description": "An interdisciplinary science course.",
+            "gpaWaiverOption": False,
+            "creditType": "Honors Biological Science, Honors Physical Science",
+            "credits": 1.0,
+            "offerings": [
+                {
+                    "courseCode": "SCI001",
+                    "semesterLabel": "Semester 1",
+                    "duration": "Full Year",
+                    "gradeLevels": [9, 10],
+                    "prerequisites": [],
+                    "creditType": "Honors Biological Science, Honors Physical Science",
+                    "credits": 1.0,
+                    "notes": [],
+                },
+                {
+                    "courseCode": "SCI002",
+                    "semesterLabel": "Semester 2",
+                    "duration": "Full Year",
+                    "gradeLevels": [9, 10],
+                    "prerequisites": [],
+                    "creditType": "Honors Biological Science, Honors Physical Science",
+                    "credits": 1.0,
+                    "notes": [],
+                },
+            ],
+            "notes": [],
+            "sourceReference": "page 99",
+        }
+        result = finalizer._finalize_course(course)
+        self.assertEqual(result["creditType"], "Honors")
+        self.assertEqual(sorted(result["fulfillsRequirements"]), ["Biology", "Physical Science"])
+        self.assertEqual(self._validate(result), [])
+
+    def test_credit_type_embedded_requirement_rejected_by_validator(self):
+        """A creditType that still contains a requirement name is not schema-valid."""
+        course = {
+            "title": "Biology",
+            "department": "Science",
+            "description": "A course with an unnormalized creditType.",
+            "creditType": "College Prep Biological Science",
+            "credits": 1.0,
+            "gpaWaiverOption": False,
+            "fulfillsRequirements": ["Biology"],
+            "offerings": [
+                {
+                    "courseCode": "SCI001",
+                    "semesterLabel": "Semester 1",
+                    "duration": "Full Year",
+                    "gradeLevels": [9, 10],
+                    "prerequisites": [],
+                }
+            ],
+            "sourceReference": "page 99",
+        }
+        errors = self._validate(course)
+        self.assertTrue(any("creditType must be a known academic weight" in e for e in errors))
 
     def test_idempotent_second_pass(self):
         first = finalizer._finalize_course(copy.deepcopy(MIXED_CREDIT_COURSE))

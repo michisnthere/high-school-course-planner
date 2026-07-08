@@ -30,6 +30,12 @@ Important extraction rules (do not summarize):
 - `corequisites` are no longer part of the schema; do not emit them.
 - `notes` should be omitted entirely when they would be empty.
 - `prerequisites` must always be a list (keep it empty if there are none).
+- `fulfillsRequirements` is a required top-level array on every course. List the exact
+  graduation requirement names from `graduation_requirements.json` that the course
+  satisfies. Use an empty array if none.
+- `creditType` must represent only academic weighting (College Prep, Accelerated,
+  Honors, AP). Do not embed requirement names like "Biological Science" or
+  "Physical Science" in `creditType`; put those in `fulfillsRequirements`.
 - `gradeLevels` should be a list of integers parsed from ranges like "9-10-11-12".
 - When uncertain about a parsed field, include a concise entry in the top-level `warnings` array
   describing the uncertainty and which course it affects.
@@ -40,7 +46,9 @@ Credit handling rules:
   the credit was inferred rather than printed.
 - If the description explicitly states a lab period like "1.5 period lab-based" or contains
   the phrase "1.5 period" or "1.5-period", set `credits` to 1.5.
-- Keep `creditType` exactly as printed (e.g., "College prep" normalized to "College Prep").
+- `creditType` must be only the academic weight. If the printed credit type contains a
+  requirement name (e.g. "College Prep Biological Science"), record the weight as
+  "College Prep" and put the requirement name in `fulfillsRequirements`.
 
 Text cleanup rules (allowed automatic fixes):
 - Normalize common PDF mojibake and typographic artifacts: replace sequences like
@@ -51,7 +59,10 @@ Text cleanup rules (allowed automatic fixes):
   readable characters and words.
 
 Credit type normalization:
-- Normalize printed creditType values to Title Case where appropriate (e.g., "College prep" -> "College Prep").
+- Normalize printed creditType values to one of the academic weights: College Prep,
+  Accelerated, Honors, or AP. If the printed value contains a requirement name (e.g.,
+  "College Prep Biological Science"), put the requirement in `fulfillsRequirements` and
+  keep only the weight in `creditType`.
 - Do not invent or change other policy text.
 
 Return JSON using this shape (match `src/schemas/academic_data.py`):
@@ -71,6 +82,7 @@ Return JSON using this shape (match `src/schemas/academic_data.py`):
       "creditType": "string or null",
       "credits": 1.0,
       "gpaWaiverOption": false,
+      "fulfillsRequirements": [],
       "offerings": [
         {{
           "courseCode": "string or null",
@@ -103,6 +115,7 @@ For courses with multiple versions, use this choice shape instead of per-course 
       "offerings": [{{ ...same offering shape as above... }}]
     }}
   ],
+  "fulfillsRequirements": [],
   "notes": ["string"],
   "sourceReference": "string or null"
 }}

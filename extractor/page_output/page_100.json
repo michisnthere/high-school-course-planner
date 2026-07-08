@@ -10,6 +10,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC641",
@@ -45,6 +48,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC651",
@@ -80,6 +86,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC671",
@@ -115,6 +122,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Government"
+      ],
       "offerings": [
         {
           "courseCode": "SOC401",

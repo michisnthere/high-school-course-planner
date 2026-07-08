@@ -94,6 +94,7 @@
       "sourceReference": "page 16",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS171",
@@ -125,6 +126,7 @@
       "sourceReference": "page 16",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS131",
@@ -158,6 +160,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS142",
@@ -183,6 +186,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS281",
@@ -216,6 +220,7 @@
       "sourceReference": "page 17",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS231",
@@ -249,6 +254,7 @@
       "sourceReference": "page 18",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS251",
@@ -271,6 +277,7 @@
       "sourceReference": "page 18",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS252",
@@ -295,6 +302,7 @@
       "sourceReference": "page 18",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS351",
@@ -319,6 +327,7 @@
       "sourceReference": "page 19",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "BUS371",
@@ -352,6 +361,9 @@
       "sourceReference": "page 19",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "BUS301",
@@ -385,6 +397,7 @@
       "sourceReference": "page 20",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS111",
@@ -420,6 +433,7 @@
       "sourceReference": "page 20",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS211",
@@ -455,6 +469,7 @@
       "sourceReference": "page 21",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS251",
@@ -487,6 +502,7 @@
       "department": "Family and Consumer Sciences",
       "description": "Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.",
       "sourceReference": "page 21",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "College Prep",
@@ -542,6 +558,7 @@
       "sourceReference": "page 22",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS231",
@@ -575,6 +592,7 @@
       "sourceReference": "page 22",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS241",
@@ -608,6 +626,7 @@
       "sourceReference": "page 23",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS221",
@@ -641,6 +660,7 @@
       "sourceReference": "page 23",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS321",
@@ -678,6 +698,7 @@
       "sourceReference": "page 24",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -712,6 +733,7 @@
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
       "sourceReference": "page 24",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "College Prep",
@@ -765,6 +787,7 @@
       "sourceReference": "page 25",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS411",
@@ -800,6 +823,7 @@
       "sourceReference": "page 37",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC161",
@@ -835,6 +859,7 @@
       "sourceReference": "page 37",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC181",
@@ -874,6 +899,7 @@
       "sourceReference": "page 37",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC391",
@@ -911,6 +937,7 @@
       "sourceReference": "page 38",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC371",
@@ -948,6 +975,7 @@
       "sourceReference": "page 38",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC421",
@@ -983,6 +1011,7 @@
       "sourceReference": "page 38",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC251",
@@ -1022,6 +1051,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC141",
@@ -1057,6 +1087,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC241",
@@ -1094,6 +1125,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC151",
@@ -1129,6 +1161,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC261",
@@ -1166,6 +1199,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC301",
@@ -1203,6 +1237,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC291",
@@ -1240,6 +1275,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC351",
@@ -1277,6 +1313,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC401",
@@ -1312,6 +1349,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC181",
@@ -1347,6 +1385,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC251",
@@ -1386,6 +1425,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC171",
@@ -1421,6 +1461,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC281",
@@ -1460,6 +1501,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC501",
@@ -1495,6 +1537,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC511",
@@ -1534,6 +1577,7 @@
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC111",
@@ -1569,6 +1613,7 @@
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC121",
@@ -1604,6 +1649,7 @@
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC191",
@@ -1643,6 +1689,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART101",
@@ -1678,6 +1727,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART221",
@@ -1717,6 +1769,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART261",
@@ -1756,6 +1811,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART611",
@@ -1795,6 +1853,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART201",
@@ -1834,6 +1895,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART281",
@@ -1873,6 +1937,9 @@
       "sourceReference": "page 49",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART241",
@@ -1915,6 +1982,9 @@
       "sourceReference": "page 49",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART621",
@@ -1955,6 +2025,9 @@
       "sourceReference": "page 49",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART631",
@@ -1995,6 +2068,9 @@
       "sourceReference": "page 49",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART801",
@@ -2033,6 +2109,9 @@
       "sourceReference": "page 50",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART401",
@@ -2071,6 +2150,9 @@
       "sourceReference": "page 50",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART411",
@@ -2113,6 +2195,9 @@
       "sourceReference": "page 50",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART421",
@@ -2154,6 +2239,9 @@
       "sourceReference": "page 50",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART871",
@@ -2192,6 +2280,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART501",
@@ -2230,6 +2321,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART511",
@@ -2269,6 +2363,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART531",
@@ -2308,6 +2405,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART541",
@@ -2347,6 +2447,9 @@
       "sourceReference": "page 51",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART721",
@@ -2384,6 +2487,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC101",
@@ -2424,6 +2530,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC201",
@@ -2468,6 +2577,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC301",
@@ -2512,6 +2624,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC401",
@@ -2556,6 +2671,9 @@
       "sourceReference": "page 54",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC501",
@@ -2597,6 +2715,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC321",
@@ -2634,6 +2755,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC311",
@@ -2675,6 +2799,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC601",
@@ -2716,6 +2843,9 @@
       "sourceReference": "page 56",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS101",
@@ -2754,6 +2884,9 @@
       "sourceReference": "page 56",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS121",
@@ -2796,6 +2929,9 @@
       "sourceReference": "page 57",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS131",
@@ -2836,6 +2972,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 57",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -2920,6 +3059,9 @@
       "sourceReference": "page 57",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS201",
@@ -2957,6 +3099,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 57",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -3040,6 +3185,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 57",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -3125,6 +3273,9 @@
       "sourceReference": "page 58",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS301",
@@ -3162,6 +3313,9 @@
       "sourceReference": "page 58",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS311",
@@ -3203,6 +3357,9 @@
       "sourceReference": "page 58",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS331",
@@ -3245,6 +3402,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 58",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -3330,6 +3490,9 @@
       "sourceReference": "page 59",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS421",
@@ -3369,6 +3532,9 @@
       "sourceReference": "page 59",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS461",
@@ -3410,6 +3576,9 @@
         "This class may be repeated for credit."
       ],
       "sourceReference": "page 59",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -3494,6 +3663,9 @@
       "sourceReference": "page 60",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS401",
@@ -3529,6 +3701,9 @@
       "sourceReference": "page 60",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS431",
@@ -3564,6 +3739,9 @@
       "sourceReference": "page 60",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS451",
@@ -3607,6 +3785,9 @@
       "sourceReference": "page 60",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS471",
@@ -3644,6 +3825,9 @@
       "sourceReference": "page 60",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS801",
@@ -3681,6 +3865,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR101",
@@ -3719,6 +3906,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR121",
@@ -3754,6 +3944,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR111",
@@ -3796,6 +3989,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR211",
@@ -3823,6 +4019,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR212",
@@ -3851,6 +4050,9 @@
       "sourceReference": "page 63",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR401",
@@ -3886,6 +4088,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR301",
@@ -3924,6 +4129,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR601",
@@ -3961,6 +4169,7 @@
       "sourceReference": "page 74",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE101",
@@ -4000,6 +4209,7 @@
       "sourceReference": "page 74",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE211",
@@ -4039,6 +4249,7 @@
       "sourceReference": "page 74",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE311",
@@ -4076,6 +4287,7 @@
       "sourceReference": "page 74",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FRE601",
@@ -4111,6 +4323,7 @@
       "sourceReference": "page 75",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "GRE101",
@@ -4150,6 +4363,7 @@
       "sourceReference": "page 75",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "GRE211",
@@ -4189,6 +4403,7 @@
       "sourceReference": "page 75",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "GRE311",
@@ -4226,6 +4441,7 @@
       "sourceReference": "page 75",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "GRE601",
@@ -4261,6 +4477,7 @@
       "sourceReference": "page 76",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "HBR101",
@@ -4300,6 +4517,7 @@
       "sourceReference": "page 76",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "HBR211",
@@ -4339,6 +4557,7 @@
       "sourceReference": "page 76",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "HBR311",
@@ -4376,6 +4595,7 @@
       "sourceReference": "page 76",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "HBR411",
@@ -4411,6 +4631,7 @@
       "sourceReference": "page 77",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "LAT101",
@@ -4450,6 +4671,7 @@
       "sourceReference": "page 77",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "LAT211",
@@ -4489,6 +4711,7 @@
       "sourceReference": "page 77",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "LAT311",
@@ -4526,6 +4749,7 @@
       "sourceReference": "page 77",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "LAT621",
@@ -4561,6 +4785,7 @@
       "sourceReference": "page 77",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI101",
@@ -4600,6 +4825,7 @@
       "sourceReference": "page 78",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI211",
@@ -4639,6 +4865,7 @@
       "sourceReference": "page 78",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI311",
@@ -4678,6 +4905,7 @@
       "sourceReference": "page 78",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI351",
@@ -4717,6 +4945,7 @@
       "sourceReference": "page 78",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI411",
@@ -4754,6 +4983,7 @@
       "sourceReference": "page 79",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI601",
@@ -4789,6 +5019,7 @@
       "sourceReference": "page 79",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CHI611",
@@ -4824,6 +5055,7 @@
       "sourceReference": "page 79",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA101",
@@ -4863,6 +5095,7 @@
       "sourceReference": "page 79",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA201",
@@ -4902,6 +5135,7 @@
       "sourceReference": "page 80",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA211",
@@ -4941,6 +5175,7 @@
       "sourceReference": "page 80",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA301",
@@ -4978,6 +5213,7 @@
       "sourceReference": "page 80",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA311",
@@ -5015,6 +5251,7 @@
       "sourceReference": "page 80",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA351",
@@ -5054,6 +5291,7 @@
       "sourceReference": "page 81",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA401",
@@ -5089,6 +5327,7 @@
       "sourceReference": "page 81",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA601",
@@ -5126,6 +5365,7 @@
       "sourceReference": "page 81",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA611",
@@ -5161,6 +5401,7 @@
       "sourceReference": "page 81",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SPA511",
@@ -5201,6 +5442,7 @@
       ],
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "ELD161",
@@ -5243,6 +5485,7 @@
       ],
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "ELD261",
@@ -5285,6 +5528,7 @@
       ],
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "ELD361",
@@ -5327,6 +5571,7 @@
       ],
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "ELD371",
@@ -5366,6 +5611,7 @@
       "sourceReference": "page 83",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "ELD461",
@@ -5408,6 +5654,7 @@
       ],
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "ELD561",
@@ -5450,6 +5697,9 @@
       "sourceReference": "page 66",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH151",
@@ -5488,6 +5738,9 @@
       "sourceReference": "page 66",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH251",
@@ -5526,6 +5779,9 @@
       "sourceReference": "page 66",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH271",
@@ -5564,6 +5820,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH351",
@@ -5602,6 +5861,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH171",
@@ -5640,6 +5902,9 @@
       "sourceReference": "page 67",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH451",
@@ -5678,6 +5943,9 @@
       "sourceReference": "page 68",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH411",
@@ -5718,6 +5986,9 @@
       "sourceReference": "page 68",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH421",
@@ -5758,6 +6029,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH431",
@@ -5796,6 +6070,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH481",
@@ -5836,6 +6113,9 @@
       "sourceReference": "page 69",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH441",
@@ -5872,6 +6152,9 @@
       "sourceReference": "page 69",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH461",
@@ -5912,6 +6195,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH471",
@@ -5950,6 +6236,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH491",
@@ -5988,6 +6277,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH591",
@@ -6014,6 +6306,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH592",
@@ -6040,6 +6335,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED121",
@@ -6073,6 +6371,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED331",
@@ -6112,6 +6413,9 @@
       "notes": [
         "Pass/Fail course.",
         "This course may be repeated for credit."
+      ],
+      "fulfillsRequirements": [
+        "Physical Education"
       ],
       "choices": [
         {
@@ -6199,6 +6503,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED61L",
@@ -6228,6 +6535,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED81L",
@@ -6264,6 +6574,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED501",
@@ -6289,6 +6602,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED71L",
@@ -6327,6 +6643,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED41L",
@@ -6365,6 +6684,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED111",
@@ -6409,6 +6731,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Health"
+      ],
       "offerings": [
         {
           "courseCode": "PED201",
@@ -6441,6 +6766,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Health"
+      ],
       "offerings": [
         {
           "courseCode": "PED231",
@@ -6476,8 +6804,11 @@
       "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students’ graduation requirement for two semesters of biological science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
-      "creditType": "College Prep Biological Science",
+      "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Biology"
+      ],
       "offerings": [
         {
           "courseCode": "SCI111",
@@ -6511,8 +6842,11 @@
       "description": "In this lab-based course, students explore atomic structure, the periodic table, intermolecular forces, thermodynamics, types of reactions, reaction rates, equilibrium and acids and bases. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
-      "creditType": "College Prep Physical Science",
+      "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "offerings": [
         {
           "courseCode": "SCI211",
@@ -6546,8 +6880,11 @@
       "description": "In this lab-based course, students explore minerals, rocks, plate tectonics, earthquakes, volcanoes, weathering, running water, glaciers, wind, atmospheric science and astronomy. Students will work collaboratively and engage with the science and engineering practices, applying their learning in several hands-on engineering projects across the year. This course can fulfill students’ graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
-      "creditType": "College Prep Physical Science",
+      "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "offerings": [
         {
           "courseCode": "SCI271",
@@ -6579,8 +6916,11 @@
       "description": "In this lab-based course, students explore constant and changing velocity, forces, energy, momentum, electrostatics, electricity and magnetism, circuits and waves. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering careers in engineering.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
-      "creditType": "College Prep Physical Science",
+      "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "offerings": [
         {
           "courseCode": "SCI401",
@@ -6612,8 +6952,9 @@
       "description": "In this lab-based course, students explore plant structure, function, ecology and cultivation. Students will work collaboratively and engage with the science and engineering practices, including frequent visits and learning in Stevenson’s greenhouse and green roof environments. This course does not satisfy the life science graduation requirement, but it is beneficial for students who are interested in learning more about plants and plant propagation.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
-      "creditType": "College Prep Biological Science",
+      "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SCI531",
@@ -6648,8 +6989,9 @@
         "Pass/Fail course."
       ],
       "sourceReference": "page 91",
-      "creditType": "College Prep Elective Science",
+      "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SCI351",
@@ -6681,8 +7023,9 @@
       "description": "In this lab-based course, students go beyond basic biology of human body systems and delve into the complex relationships required to maintain homeostasis. Students will work collaboratively and engage with the science and engineering practices. In this course students conduct dissections. This course does not satisfy the life science graduation requirement, but it is beneficial for students considering careers in health-related fields.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
-      "creditType": "Accelerated Biological Science",
+      "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SCI521",
@@ -6712,8 +7055,11 @@
       "description": "In this lab-based course, students explore geology, meteorology and astronomy. Students will work collaboratively and engage with the science and engineering practices. This course is a dual-credit, college-level science course where students can earn college credit hours at no cost through the College of Lake County.",
       "gpaWaiverOption": false,
       "sourceReference": "page 92",
-      "creditType": "Honors (Dual Credit) Physical Science",
+      "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "offerings": [
         {
           "courseCode": "SCI671",
@@ -6744,12 +7090,15 @@
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
       "sourceReference": "page 92",
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "choices": [
         {
           "name": "Regular",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Physical Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -6780,7 +7129,7 @@
           "name": "Early Bird Option",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Physical Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -6815,8 +7164,11 @@
       "description": "In this lab-based course, students explore electrostatics, circuits, electromagnetism, thermodynamics, waves and sound, optics and modern physics topics. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 2 exam in May.",
       "gpaWaiverOption": false,
       "sourceReference": "page 92",
-      "creditType": "Honors Physical Science",
+      "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "offerings": [
         {
           "courseCode": "SCI681",
@@ -6849,12 +7201,15 @@
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
       "sourceReference": "page 92",
+      "fulfillsRequirements": [
+        "Biology"
+      ],
       "choices": [
         {
           "name": "Regular",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Biological Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -6885,7 +7240,7 @@
           "name": "Early Bird Option",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Biological Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -6920,8 +7275,12 @@
       "description": "In this lab-based course, students explore earth systems, ecology, populations, energy use, global warming and pollution. Students will work collaboratively and engage with the science and engineering practices. This course takes field trips throughout the year. Students who enroll in this course will be prepared to take the AP Environmental Science exam in May.",
       "gpaWaiverOption": false,
       "sourceReference": "page 93",
-      "creditType": "Honors Biological Science, Honors Physical Science",
+      "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Biology",
+        "Physical Science"
+      ],
       "offerings": [
         {
           "courseCode": "SCI641",
@@ -6950,12 +7309,15 @@
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
       "sourceReference": "page 93",
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "choices": [
         {
           "name": "Regular",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Physical Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -6986,7 +7348,7 @@
           "name": "Early Bird Option",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Physical Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -7020,12 +7382,15 @@
       "department": "Science",
       "description": "In this 1.5 period lab-based course, students explore linear, rotational, and simple harmonic motion; forces; energy; momentum; electrostatics; DC circuits; magnetostatics; and electromagnetic induction. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take both the AP Physics C Mechanics and AP Physics C Electricity and Magnetism exams in May.",
       "sourceReference": "page 93",
+      "fulfillsRequirements": [
+        "Physical Science"
+      ],
       "choices": [
         {
           "name": "Regular",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Physical Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -7058,7 +7423,7 @@
           "name": "Early Bird Option",
           "isOnline": false,
           "gpaWaiverOption": false,
-          "creditType": "Honors Physical Science",
+          "creditType": "Honors",
           "credits": 1.5,
           "offerings": [
             {
@@ -7097,6 +7462,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "World History and Geography"
+      ],
       "offerings": [
         {
           "courseCode": "SOC101",
@@ -7128,6 +7496,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC511",
@@ -7167,6 +7536,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC531",
@@ -7206,6 +7576,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC431",
@@ -7245,6 +7616,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC551",
@@ -7284,6 +7656,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC541",
@@ -7323,6 +7696,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC611",
@@ -7360,6 +7734,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC501",
@@ -7399,6 +7774,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC691",
@@ -7436,6 +7812,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC601",
@@ -7470,6 +7847,7 @@
       "department": "Social Studies",
       "description": "This one-semester elective course introduces students to the rich diversity of political life outside the United States. Students use a comparative approach to examine the political structures; policies; and political, economic and social challenges of six selected countries: China, Iran, Mexico, Nigeria, Russia and the United Kingdom. Students compare the effectiveness of approaches to many global issues by examining how different governments solve similar problems by reading and interpreting data, making comparisons and applications and developing evidence-based arguments. This course does not satisfy the Stevenson government graduation requirement, nor the Illinois Civics requirement for graduation for the State of Illinois. Students are prepared to take the AP Comparative Government and Politics exam in May.",
       "sourceReference": "page 98",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "Regular",
@@ -7551,6 +7929,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
       "offerings": [
         {
           "courseCode": "SOC321",
@@ -7584,6 +7965,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
       "offerings": [
         {
           "courseCode": "SOC621",
@@ -7617,6 +8001,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 2.0,
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
       "offerings": [
         {
           "courseCode": "SOC581",
@@ -7652,6 +8039,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC411",
@@ -7687,6 +8077,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC571",
@@ -7722,6 +8113,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC641",
@@ -7757,6 +8151,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC651",
@@ -7792,6 +8189,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC671",
@@ -7827,6 +8225,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Government"
+      ],
       "offerings": [
         {
           "courseCode": "SOC401",
@@ -7862,6 +8263,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC561",
@@ -7894,6 +8296,7 @@
       "department": "Social Studies",
       "description": "The purpose of the year-long, advanced placement course in psychology is to introduce students to the systematic and scientific study of the behavior and mental processes of humans and animals. This course will provide the student with a learning experience equivalent to that obtained in an introductory college psychology course. The course satisfies the psychology requirement typically needed by students wishing to pursue a career in business, engineering, education, law, medicine and any other health-related fields (including preparation for the MCAT). Particular emphasis includes neuroscience, sleep, mental illness and treatment, memory, personality and social psychology. Students who enroll in this course are prepared to take the AP Psychology exam in May.",
       "sourceReference": "page 101",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "Regular",
@@ -7968,6 +8371,9 @@
       "department": "Social Studies",
       "description": "This course gives students the tools to engage meaningfully in the local, state and national political process. This course involves both the study of general concepts used to interpret U.S. politics and the analysis of specific case studies. It also requires familiarity with the various institutions, groups, beliefs and ideas that constitute United States political reality. Civics skills will be acquired to help students learn to use the skills, knowledge and attitudes that will prepare them to be competent and responsible citizens. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the Constitution of the U.S.A. and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson's graduation requirement of one semester of government. Students who enroll in this course will be prepared to take the AP United States Government and Politics exam in May.",
       "sourceReference": "page 102",
+      "fulfillsRequirements": [
+        "Government"
+      ],
       "choices": [
         {
           "name": "Regular",

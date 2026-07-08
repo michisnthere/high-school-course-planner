@@ -14,6 +14,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "World History and Geography"
+      ],
       "offerings": [
         {
           "courseCode": "SOC101",
@@ -45,6 +48,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC511",
@@ -84,6 +88,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC531",
@@ -123,6 +128,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC431",
@@ -162,6 +168,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC551",
@@ -201,6 +208,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC541",
@@ -240,6 +248,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC611",
@@ -277,6 +286,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC501",
@@ -316,6 +326,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC691",
@@ -353,6 +364,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC601",
@@ -387,6 +399,7 @@
       "department": "Social Studies",
       "description": "This one-semester elective course introduces students to the rich diversity of political life outside the United States. Students use a comparative approach to examine the political structures; policies; and political, economic and social challenges of six selected countries: China, Iran, Mexico, Nigeria, Russia and the United Kingdom. Students compare the effectiveness of approaches to many global issues by examining how different governments solve similar problems by reading and interpreting data, making comparisons and applications and developing evidence-based arguments. This course does not satisfy the Stevenson government graduation requirement, nor the Illinois Civics requirement for graduation for the State of Illinois. Students are prepared to take the AP Comparative Government and Politics exam in May.",
       "sourceReference": "page 98",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "Regular",
@@ -468,6 +481,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
       "offerings": [
         {
           "courseCode": "SOC321",
@@ -501,6 +517,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
       "offerings": [
         {
           "courseCode": "SOC621",
@@ -534,6 +553,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 2.0,
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
       "offerings": [
         {
           "courseCode": "SOC581",
@@ -569,6 +591,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC411",
@@ -604,6 +629,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC571",
@@ -639,6 +665,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC641",
@@ -674,6 +703,9 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
       "offerings": [
         {
           "courseCode": "SOC651",
@@ -709,6 +741,7 @@
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC671",
@@ -744,6 +777,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Government"
+      ],
       "offerings": [
         {
           "courseCode": "SOC401",
@@ -779,6 +815,7 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "SOC561",
@@ -811,6 +848,7 @@
       "department": "Social Studies",
       "description": "The purpose of the year-long, advanced placement course in psychology is to introduce students to the systematic and scientific study of the behavior and mental processes of humans and animals. This course will provide the student with a learning experience equivalent to that obtained in an introductory college psychology course. The course satisfies the psychology requirement typically needed by students wishing to pursue a career in business, engineering, education, law, medicine and any other health-related fields (including preparation for the MCAT). Particular emphasis includes neuroscience, sleep, mental illness and treatment, memory, personality and social psychology. Students who enroll in this course are prepared to take the AP Psychology exam in May.",
       "sourceReference": "page 101",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "Regular",
@@ -885,6 +923,9 @@
       "department": "Social Studies",
       "description": "This course gives students the tools to engage meaningfully in the local, state and national political process. This course involves both the study of general concepts used to interpret U.S. politics and the analysis of specific case studies. It also requires familiarity with the various institutions, groups, beliefs and ideas that constitute United States political reality. Civics skills will be acquired to help students learn to use the skills, knowledge and attitudes that will prepare them to be competent and responsible citizens. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the Constitution of the U.S.A. and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson's graduation requirement of one semester of government. Students who enroll in this course will be prepared to take the AP United States Government and Politics exam in May.",
       "sourceReference": "page 102",
+      "fulfillsRequirements": [
+        "Government"
+      ],
       "choices": [
         {
           "name": "Regular",

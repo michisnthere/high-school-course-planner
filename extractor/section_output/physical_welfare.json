@@ -21,6 +21,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED121",
@@ -54,6 +57,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED331",
@@ -93,6 +99,9 @@
       "notes": [
         "Pass/Fail course.",
         "This course may be repeated for credit."
+      ],
+      "fulfillsRequirements": [
+        "Physical Education"
       ],
       "choices": [
         {
@@ -180,6 +189,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED61L",
@@ -209,6 +221,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED81L",
@@ -245,6 +260,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED501",
@@ -270,6 +288,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED71L",
@@ -308,6 +329,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED41L",
@@ -346,6 +370,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED111",
@@ -390,6 +417,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Health"
+      ],
       "offerings": [
         {
           "courseCode": "PED201",
@@ -422,6 +452,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Health"
+      ],
       "offerings": [
         {
           "courseCode": "PED231",

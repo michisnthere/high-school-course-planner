@@ -18,6 +18,9 @@
       "sourceReference": "page 56",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS101",
@@ -56,6 +59,9 @@
       "sourceReference": "page 56",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS121",

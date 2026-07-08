@@ -1,0 +1,117 @@
+Refactor the academic catalog so that graduation requirement information is stored separately from academic level.
+
+### Goal
+
+`creditType` should represent **only the academic weighting** (College Prep, Accelerated, Honors, AP, etc.).
+
+Graduation requirement categories should instead be stored in a new top-level field:
+
+```json
+"fulfillsRequirements": []
+```
+
+### Rules
+
+Every course must contain:
+
+```json
+"fulfillsRequirements": []
+```
+
+even if the array is empty.
+
+---
+
+### Canonical requirement names
+
+Always use these exact names:
+
+* English
+* Mathematics
+* Life Science
+* Physical Science
+* United States History
+* Government
+* Consumer Education
+* Health Education
+* Physical Education
+* Fine Arts
+* Career Education
+* World Language
+
+Never invent alternate spellings or abbreviations.
+
+---
+
+### Normalize creditType
+
+Examples:
+
+Replace
+
+```json
+"College Prep Biological Science"
+```
+
+with
+
+```json
+"creditType": "College Prep",
+"fulfillsRequirements": [
+    "Life Science"
+]
+```
+
+Replace
+
+```json
+"Honors Physical Science"
+```
+
+with
+
+```json
+"creditType": "Honors",
+"fulfillsRequirements": [
+    "Physical Science"
+]
+```
+
+Do this consistently throughout the catalog.
+
+---
+
+### Determining fulfillsRequirements
+
+Use explicit statements from the catalog whenever possible.
+
+Also apply these safe defaults:
+
+* Mathematics department → Mathematics
+* English department → English
+* Government courses → Government
+* U.S. History courses → United States History
+* Health courses → Health Education
+* Consumer Education courses → Consumer Education
+
+Continue using explicit catalog wording for courses that satisfy:
+
+* Fine Arts
+* Physical Education
+* Life Science
+* Physical Science
+* Career Education
+* World Language
+
+A course may satisfy multiple requirements.
+
+Example:
+
+```json
+"fulfillsRequirements": [
+    "Fine Arts",
+    "Physical Education"
+]
+```
+
+Preserve all existing data while performing this normalization.

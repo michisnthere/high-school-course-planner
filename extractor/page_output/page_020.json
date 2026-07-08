@@ -15,6 +15,7 @@
       "sourceReference": "page 20",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS111",
@@ -50,6 +51,7 @@
       "sourceReference": "page 20",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS211",

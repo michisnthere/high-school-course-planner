@@ -12,6 +12,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR211",
@@ -39,6 +42,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR212",
@@ -67,6 +73,9 @@
       "sourceReference": "page 63",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR401",
@@ -102,6 +111,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR301",
@@ -140,6 +152,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR601",

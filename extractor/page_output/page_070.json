@@ -12,6 +12,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH471",
@@ -50,6 +53,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH491",
@@ -88,6 +94,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH591",
@@ -114,6 +123,9 @@
       "sourceReference": "page 70",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Mathematics"
+      ],
       "offerings": [
         {
           "courseCode": "MTH592",

@@ -33,6 +33,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART101",
@@ -68,6 +71,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART221",
@@ -107,6 +113,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART261",
@@ -146,6 +155,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART611",
@@ -185,6 +197,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART201",
@@ -224,6 +239,9 @@
       "sourceReference": "page 48",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART281",
@@ -263,6 +281,9 @@
       "sourceReference": "page 49",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART241",
@@ -305,6 +326,9 @@
       "sourceReference": "page 49",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART621",
@@ -345,6 +369,9 @@
       "sourceReference": "page 49",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART631",
@@ -385,6 +412,9 @@
       "sourceReference": "page 49",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART801",
@@ -423,6 +453,9 @@
       "sourceReference": "page 50",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART401",
@@ -461,6 +494,9 @@
       "sourceReference": "page 50",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART411",
@@ -503,6 +539,9 @@
       "sourceReference": "page 50",
       "creditType": "Accelerated",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART421",
@@ -544,6 +583,9 @@
       "sourceReference": "page 50",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART871",
@@ -582,6 +624,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART501",
@@ -620,6 +665,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART511",
@@ -659,6 +707,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART531",
@@ -698,6 +749,9 @@
       "sourceReference": "page 51",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART541",
@@ -737,6 +791,9 @@
       "sourceReference": "page 51",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "ART721",
@@ -774,6 +831,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC101",
@@ -814,6 +874,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC201",
@@ -858,6 +921,9 @@
       "sourceReference": "page 53",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC301",
@@ -902,6 +968,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC401",
@@ -946,6 +1015,9 @@
       "sourceReference": "page 54",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC501",
@@ -987,6 +1059,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC321",
@@ -1024,6 +1099,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC311",
@@ -1065,6 +1143,9 @@
       "sourceReference": "page 54",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "DNC601",
@@ -1106,6 +1187,9 @@
       "sourceReference": "page 56",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS101",
@@ -1144,6 +1228,9 @@
       "sourceReference": "page 56",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS121",
@@ -1186,6 +1273,9 @@
       "sourceReference": "page 57",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS131",
@@ -1226,6 +1316,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 57",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -1310,6 +1403,9 @@
       "sourceReference": "page 57",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS201",
@@ -1347,6 +1443,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 57",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -1430,6 +1529,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 57",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -1515,6 +1617,9 @@
       "sourceReference": "page 58",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS301",
@@ -1552,6 +1657,9 @@
       "sourceReference": "page 58",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS311",
@@ -1593,6 +1701,9 @@
       "sourceReference": "page 58",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS331",
@@ -1635,6 +1746,9 @@
         "This course may be repeated for credit."
       ],
       "sourceReference": "page 58",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -1720,6 +1834,9 @@
       "sourceReference": "page 59",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS421",
@@ -1759,6 +1876,9 @@
       "sourceReference": "page 59",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS461",
@@ -1800,6 +1920,9 @@
         "This class may be repeated for credit."
       ],
       "sourceReference": "page 59",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",
@@ -1884,6 +2007,9 @@
       "sourceReference": "page 60",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS401",
@@ -1919,6 +2045,9 @@
       "sourceReference": "page 60",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS431",
@@ -1954,6 +2083,9 @@
       "sourceReference": "page 60",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS451",
@@ -1997,6 +2129,9 @@
       "sourceReference": "page 60",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS471",
@@ -2034,6 +2169,9 @@
       "sourceReference": "page 60",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS801",
@@ -2071,6 +2209,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR101",
@@ -2109,6 +2250,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR121",
@@ -2144,6 +2288,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR111",
@@ -2186,6 +2333,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR211",
@@ -2213,6 +2363,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR212",
@@ -2241,6 +2394,9 @@
       "sourceReference": "page 63",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR401",
@@ -2276,6 +2432,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR301",
@@ -2314,6 +2473,9 @@
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR601",

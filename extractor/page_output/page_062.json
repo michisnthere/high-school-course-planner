@@ -14,6 +14,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR101",
@@ -52,6 +55,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR121",
@@ -87,6 +93,9 @@
       "sourceReference": "page 62",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "THR111",

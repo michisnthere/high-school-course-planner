@@ -9,6 +9,27 @@ import sys
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 
+# Title scanning patterns for explicit course-level requirement tags.
+_TITLE_REQUIREMENT_PATTERNS = [
+    (re.compile(r"\bBiology\b", re.IGNORECASE), "Biology"),
+    (re.compile(r"\bPhysical Science\b", re.IGNORECASE), "Physical Science"),
+    (re.compile(r"\bU\.?S\.?\s*History\b", re.IGNORECASE), "U.S. History"),
+    (re.compile(r"\bWorld History and Geography\b", re.IGNORECASE), "World History and Geography"),
+    (re.compile(r"\bGovernment\b", re.IGNORECASE), "Government"),
+    (re.compile(r"\b(?:macro|micro)?economics\b|\bPersonal Finance\b", re.IGNORECASE), "Economics or Personal Finance"),
+    (re.compile(r"\bHealth\b", re.IGNORECASE), "Health"),
+    (re.compile(r"\bDriver Education\b", re.IGNORECASE), "Driver Education"),
+    (re.compile(r"\bPhysical Education\b", re.IGNORECASE), "Physical Education"),
+    (re.compile(r"\bFine Arts\b", re.IGNORECASE), "Fine Arts"),
+]
+
+# Explicit "does not satisfy" statements override positive signals.
+_NEGATIVE_REQUIREMENT_PATTERNS = [
+    (re.compile(r"does not satisfy the life science graduation requirement", re.IGNORECASE), "Biology"),
+    (re.compile(r"does not satisfy the physical science graduation requirement", re.IGNORECASE), "Physical Science"),
+    (re.compile(r"does not satisfy the .*government graduation requirement", re.IGNORECASE), "Government"),
+]
+
 class CourseExtractor:
     """Extract course information from coursebook raw text using validated rules."""
     
@@ -37,19 +58,48 @@ class CourseExtractor:
             text = text.replace(pattern, replacement)
         return text
     
-    def _normalize_credit_type(self, ct: str) -> str:
-        """Normalize creditType to Title Case."""
+    # Department-level defaults for graduation requirements.
+    DEPARTMENT_REQUIREMENT_DEFAULTS = {
+        'Mathematics': 'Mathematics',
+        'English': 'English',
+        'Physical Education': 'Physical Education',
+        'Health Education': 'Health',
+        'Driver Education': 'Driver Education',
+        'Visual Arts': 'Fine Arts',
+        'Music': 'Fine Arts',
+        'Theatre': 'Fine Arts',
+        'Dance': 'Fine Arts',
+    }
+
+    def _normalize_credit_type(self, ct: str) -> tuple[str, list[str]]:
+        """Normalize creditType to an academic weight and extract graduation requirements."""
         if not ct:
-            return ct
-        # Handle special cases
-        if ct.lower() in ('college prep', 'college prep'):
-            return 'College Prep'
-        if ct.lower() == 'honors':
-            return 'Honors'
-        if ct.lower() == 'accelerated':
-            return 'Accelerated'
-        # General title case
-        return ' '.join(word.capitalize() for word in ct.split())
+            return ct, []
+        ct = ct.strip()
+        ct_lower = ct.lower()
+
+        # Known academic weights.
+        weights = ('College Prep', 'Accelerated', 'Honors', 'AP')
+        weight = None
+        for w in weights:
+            if w.lower() in ct_lower:
+                weight = w
+                break
+
+        # Extract requirement phrases embedded in the creditType.
+        req_map = {
+            'Biological Science': 'Biology',
+            'Physical Science': 'Physical Science',
+        }
+        requirements = []
+        for token, req_name in req_map.items():
+            if token.lower() in ct_lower:
+                requirements.append(req_name)
+
+        # Fallback: if no known weight is found, keep the original title casing.
+        if weight is None:
+            weight = ' '.join(word.capitalize() for word in ct.split())
+        return weight, requirements
     
     def extract(self) -> Dict[str, Any]:
         """Extract all course and requirement data from the raw text."""
@@ -147,9 +197,11 @@ class CourseExtractor:
         description = None
         credit_type = 'College Prep'  # default
         
+        fulfills_requirements = []
         if desc_match:
-            credit_type = desc_match.group(1).strip()
-            credit_type = self._normalize_credit_type(credit_type)
+            raw_credit_type = desc_match.group(1).strip()
+            credit_type, extracted_reqs = self._normalize_credit_type(raw_credit_type)
+            fulfills_requirements.extend(extracted_reqs)
             description = ' '.join(desc_match.group(2).split())[:500]  # limit length
 
         # Credits belong to the course, not to individual offerings.
@@ -173,13 +225,36 @@ class CourseExtractor:
         if not offerings:
             return None
 
+        department = self._find_department() or None
+
+        # Apply department-level safe defaults for graduation requirements.
+        if department in self.DEPARTMENT_REQUIREMENT_DEFAULTS:
+            default = self.DEPARTMENT_REQUIREMENT_DEFAULTS[department]
+            if default not in fulfills_requirements:
+                fulfills_requirements.append(default)
+
+        # Add explicit requirement tags from the course title.
+        for pattern, req_name in _TITLE_REQUIREMENT_PATTERNS:
+            if pattern.search(title) and req_name not in fulfills_requirements:
+                fulfills_requirements.append(req_name)
+
+        # Remove requirements explicitly negated by catalog text.
+        removals = []
+        full_text = " ".join(filter(None, [title, description])) or ""
+        for pattern, req_name in _NEGATIVE_REQUIREMENT_PATTERNS:
+            if pattern.search(full_text) and req_name in fulfills_requirements:
+                removals.append(req_name)
+        for req_name in removals:
+            fulfills_requirements.remove(req_name)
+
         result = {
             'title': title,
-            'department': self._find_department() or None,
+            'department': department,
             'description': description,
             'creditType': credit_type,
             'credits': credits,
             'gpaWaiverOption': gpa_waiver,
+            'fulfillsRequirements': fulfills_requirements,
             'offerings': offerings,
             'sourceReference': f'Page {self.page_num}'
         }

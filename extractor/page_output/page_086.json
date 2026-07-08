@@ -13,6 +13,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED121",
@@ -46,6 +49,9 @@
       "gpaWaiverOption": false,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED331",

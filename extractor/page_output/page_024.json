@@ -10,6 +10,7 @@
       "sourceReference": "page 24",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -44,6 +45,7 @@
       "department": "Family and Consumer Sciences",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
       "sourceReference": "page 24",
+      "fulfillsRequirements": [],
       "choices": [
         {
           "name": "College Prep",

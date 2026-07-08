@@ -48,6 +48,157 @@ SEMESTER_LABEL_RE = re.compile(r"semester\s*(1|2)", re.IGNORECASE)
 
 
 # ---------------------------------------------------------------------------
+# Graduation requirement normalization
+# ---------------------------------------------------------------------------
+
+# Known academic weighting values.  Order matters: check longer, more specific
+# tokens before shorter ones (e.g. "College Prep" before "College").
+_ACADEMIC_WEIGHTS = ("College Prep", "Accelerated", "Honors", "AP")
+
+# Requirement phrases that appear inside printed creditType strings.  They are
+# mapped to the exact graduation requirement names used in the catalog.
+_CREDIT_TYPE_REQUIREMENT_MAP = {
+    "Biological Science": "Biology",
+    "Physical Science": "Physical Science",
+}
+
+# Department-level safe defaults: any course in this department is assumed to
+# satisfy the listed graduation requirement.  These are used only when more
+# explicit evidence (creditType tokens or catalog text) is absent.
+_DEPARTMENT_REQUIREMENT_DEFAULTS = {
+    "Mathematics": "Mathematics",
+    "English": "English",
+    "Physical Education": "Physical Education",
+    "Health Education": "Health",
+    "Driver Education": "Driver Education",
+    "Visual Arts": "Fine Arts",
+    "Music": "Fine Arts",
+    "Theatre": "Fine Arts",
+    "Dance": "Fine Arts",
+}
+
+# Load the canonical requirement names from the source-of-truth JSON so we never
+# invent alternate spellings.  Fall back to a curated set if the file is missing.
+_CANONICAL_REQUIREMENT_NAMES: set[str] = set()
+
+
+def _load_canonical_requirement_names() -> set[str]:
+    path = PROJECT_ROOT / "extractor" / "section_output" / "graduation_requirements.json"
+    if not path.exists():
+        return set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return {r.get("name") for r in data.get("graduationRequirements", []) if r.get("name")}
+    except Exception:
+        return set()
+
+
+_CANONICAL_REQUIREMENT_NAMES = _load_canonical_requirement_names()
+
+# Names that are safe to use as course-level `fulfillsRequirements` tags.
+# Policy-level names (e.g. "Grading", "Transfer Students", "Audits",
+# "Summer School") are excluded.  All names are exact strings from
+# graduation_requirements.json except "Fine Arts" (an eligibleCourse) and
+# "Physical Education" (the user's requested department-level tag).
+_REQUIREMENT_NAMES = {
+    "Biology",
+    "Physical Science",
+    "U.S. History",
+    "World History and Geography",
+    "Government",
+    "Economics or Personal Finance",
+    "Health",
+    "Driver Education",
+    "Physical Education",
+    "Fine Arts",
+} | set(_DEPARTMENT_REQUIREMENT_DEFAULTS.values())
+
+# Title scanning patterns.  Titles are strong, unambiguous catalog statements,
+# whereas free-form descriptions are noisy (e.g. "health-related").
+_TITLE_REQUIREMENT_PATTERNS = [
+    (re.compile(r"\bBiology\b", re.IGNORECASE), "Biology"),
+    (re.compile(r"\bPhysical Science\b", re.IGNORECASE), "Physical Science"),
+    (re.compile(r"\bU\.?S\.?\s*History\b", re.IGNORECASE), "U.S. History"),
+    (re.compile(r"\bWorld History and Geography\b", re.IGNORECASE), "World History and Geography"),
+    (re.compile(r"\bGovernment\b", re.IGNORECASE), "Government"),
+    (re.compile(r"\b(?:macro|micro)?economics\b|\bPersonal Finance\b", re.IGNORECASE), "Economics or Personal Finance"),
+    (re.compile(r"\bHealth\b", re.IGNORECASE), "Health"),
+    (re.compile(r"\bDriver Education\b", re.IGNORECASE), "Driver Education"),
+    (re.compile(r"\bPhysical Education\b", re.IGNORECASE), "Physical Education"),
+    (re.compile(r"\bFine Arts\b", re.IGNORECASE), "Fine Arts"),
+]
+
+# Explicit "does not satisfy" statements override any positive signals.
+_NEGATIVE_REQUIREMENT_PATTERNS = [
+    (re.compile(r"does not satisfy the life science graduation requirement", re.IGNORECASE), "Biology"),
+    (re.compile(r"does not satisfy the physical science graduation requirement", re.IGNORECASE), "Physical Science"),
+    (re.compile(r"does not satisfy the .*government graduation requirement", re.IGNORECASE), "Government"),
+]
+
+
+def _normalize_credit_type(credit_type: Optional[str]) -> Tuple[Optional[str], List[str]]:
+    """Split a printed creditType into an academic weight and graduation requirements.
+
+    Returns a tuple ``(weight, [requirements])``.  The weight is one of the known
+    academic weighting values (College Prep, Accelerated, Honors, AP) or None if
+    the creditType is missing/empty/"None".
+    """
+    if not credit_type or credit_type == "None":
+        return None, []
+
+    ct = credit_type.lower()
+    weight = None
+    for w in _ACADEMIC_WEIGHTS:
+        if w.lower() in ct:
+            weight = w
+            break
+
+    requirements: List[str] = []
+    for token, req_name in _CREDIT_TYPE_REQUIREMENT_MAP.items():
+        if token.lower() in ct:
+            requirements.append(req_name)
+
+    return weight, _dedupe(requirements)
+
+
+def _requirements_from_text(title: Optional[str], description: Optional[str]) -> List[str]:
+    """Scan the course title for explicit graduation requirement names.
+
+    Descriptions are intentionally not scanned for generic requirement names
+    because they are too noisy (e.g. "health-related" should not tag a course as
+    Health).  Department-level defaults and explicit creditType tokens cover the
+    remaining cases.
+    """
+    found: List[str] = []
+    text = title or ""
+    for pattern, req_name in _TITLE_REQUIREMENT_PATTERNS:
+        if pattern.search(text):
+            found.append(req_name)
+    return _dedupe(found)
+
+
+def _negated_requirements(title: Optional[str], description: Optional[str]) -> List[str]:
+    """Return requirements that the catalog explicitly says a course does NOT satisfy."""
+    found: List[str] = []
+    text = " ".join(filter(None, [title, description])) or ""
+    for pattern, req_name in _NEGATIVE_REQUIREMENT_PATTERNS:
+        if pattern.search(text):
+            found.append(req_name)
+    return _dedupe(found)
+
+
+def _requirements_from_credit_sources(sources: List[Optional[str]]) -> List[str]:
+    """Collect all graduation requirements encoded in creditType strings."""
+    reqs: List[str] = []
+    for ct in sources:
+        if not ct:
+            continue
+        _, extracted = _normalize_credit_type(ct)
+        reqs.extend(extracted)
+    return _dedupe(reqs)
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
@@ -176,6 +327,10 @@ def _ensure_choice_self_contained(choice: Dict[str, Any], course: Dict[str, Any]
         _clean_offering(o) for o in _ensure_list(choice.get("offerings"))
     ]
 
+    # Normalize the choice creditType to an academic weight and strip any embedded
+    # graduation requirement language (e.g. "Honors Physical Science" -> "Honors").
+    choice["creditType"] = _normalize_credit_type(choice.get("creditType"))[0]
+
     # Remove empty choice notes.
     _remove_empty_field(choice, "notes")
 
@@ -208,10 +363,13 @@ def _choices_from_offering_credit_groups(offerings: List[Dict[str, Any]], course
     choices: List[Dict[str, Any]] = []
     for (credit_type, credits), offs in groups:
         name = credit_type or "Option"
+        # Normalize the creditType to an academic weight; requirements are promoted
+        # to the parent course's fulfillsRequirements field.
+        normalized_weight = _normalize_credit_type(credit_type or course.get("creditType"))[0]
         choice = {
             "name": name,
             "isOnline": _choice_name_to_is_online(name),
-            "creditType": credit_type,
+            "creditType": normalized_weight,
             "credits": credits,
             "gpaWaiverOption": course.get("gpaWaiverOption", False),
             "offerings": [_clean_offering(copy.deepcopy(o)) for o in offs],
@@ -228,11 +386,12 @@ def _choices_from_offering_credit_groups(offerings: List[Dict[str, Any]], course
 def _choice_from_option(option: Dict[str, Any], shared_offerings: List[Dict[str, Any]], course: Dict[str, Any]) -> Dict[str, Any]:
     """Convert a legacy option dict into a self-contained choice."""
     description = course.get("description")
-    name = option.get("creditType") or "Option"
+    option_credit_type = option.get("creditType") or course.get("creditType")
+    name = _normalize_credit_type(option_credit_type)[0] or "Option"
     choice: Dict[str, Any] = {
         "name": name,
         "isOnline": _choice_name_to_is_online(name),
-        "creditType": option.get("creditType") or course.get("creditType"),
+        "creditType": _normalize_credit_type(option_credit_type)[0],
         "gpaWaiverOption": option.get("gpaWaived", False),
         "offerings": [_clean_offering(copy.deepcopy(o)) for o in shared_offerings],
     }
@@ -264,6 +423,18 @@ def _finalize_course(course: Dict[str, Any]) -> Dict[str, Any]:
     options = course.pop("options", None)
     existing_choices = course.pop("choices", None) or []
     shared_offerings = course.pop("offerings", None) or []
+
+    # Capture all creditType sources before we normalize/remove them.  These may
+    # encode graduation requirements (e.g. "College Prep Biological Science").
+    original_credit_type = course.get("creditType")
+    original_fulfills_requirements = _dedupe(_ensure_list(course.get("fulfillsRequirements")))
+    credit_sources: List[Optional[str]] = [original_credit_type]
+    for o in shared_offerings:
+        credit_sources.append(o.get("creditType"))
+    for opt in _ensure_list(options):
+        credit_sources.append(opt.get("creditType"))
+    for ch in existing_choices:
+        credit_sources.append(ch.get("creditType"))
 
     # Remove any top-level credit/scheduling fields that belong inside a choice or offering.
     course.pop("isOnline", None)
@@ -330,6 +501,9 @@ def _finalize_course(course: Dict[str, Any]) -> Dict[str, Any]:
                     credits = o["credits"]
                 cleaned_offerings.append(_clean_offering(o))
 
+            # Normalize creditType to a pure academic weight.
+            credit_type, _ = _normalize_credit_type(credit_type)
+
             course["offerings"] = cleaned_offerings
             if credit_type is not None:
                 course["creditType"] = credit_type
@@ -340,7 +514,21 @@ def _finalize_course(course: Dict[str, Any]) -> Dict[str, Any]:
             course.setdefault("gpaWaiverOption", False)
             course.pop("choices", None)
 
-    # Final cleanup: remove empty notes arrays everywhere.
+    # Compute fulfillsRequirements from all available evidence, preserving any
+    # valid requirements already present so the script remains idempotent.
+    valid_existing = {r for r in original_fulfills_requirements if r in _REQUIREMENT_NAMES}
+    requirements = set(valid_existing)
+    requirements.update(_requirements_from_credit_sources(credit_sources))
+    requirements.update(_requirements_from_text(course.get("title"), course.get("description")))
+    department = course.get("department")
+    if department in _DEPARTMENT_REQUIREMENT_DEFAULTS:
+        requirements.add(_DEPARTMENT_REQUIREMENT_DEFAULTS[department])
+    # Explicit "does not satisfy" statements override positive signals.
+    requirements -= set(_negated_requirements(course.get("title"), course.get("description")))
+    course["fulfillsRequirements"] = sorted(requirements)
+
+    # Final cleanup: remove empty notes arrays everywhere.  Do NOT remove an empty
+    # fulfillsRequirements array: it is required by the schema.
     _remove_empty_field(course, "notes")
     for ch in course.get("choices", []):
         _remove_empty_field(ch, "notes")
@@ -362,6 +550,11 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
     if not course.get("title"):
         errors.append(f"{prefix}: missing title")
 
+    if "fulfillsRequirements" not in course:
+        errors.append(f"{prefix}: missing fulfillsRequirements")
+    elif not isinstance(course.get("fulfillsRequirements"), list):
+        errors.append(f"{prefix}: fulfillsRequirements must be a list")
+
     # Forbidden legacy fields
     for forbidden in ("options", "isOnline", "corequisites"):
         if forbidden in course:
@@ -369,6 +562,7 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
 
     has_choices = bool(course.get("choices"))
     has_offerings = bool(course.get("offerings"))
+    valid_credit_types = {"College Prep", "Accelerated", "Honors", "AP", None}
 
     if has_choices and has_offerings:
         errors.append(f"{prefix}: course has both choices and offerings")
@@ -387,6 +581,8 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
             for required in ("name", "isOnline", "creditType", "credits", "gpaWaiverOption", "offerings"):
                 if required not in ch:
                     errors.append(f"{ch_prefix}: missing required field '{required}'")
+            if ch.get("creditType") not in valid_credit_types:
+                errors.append(f"{ch_prefix}: creditType must be a known academic weight or null")
             if "notes" in ch and not ch["notes"]:
                 errors.append(f"{ch_prefix}: empty notes array should be omitted")
             for o_idx, o in enumerate(ch.get("offerings", [])):
@@ -396,6 +592,8 @@ def _validate_course(course: Dict[str, Any], path: Path, idx: int) -> List[str]:
         for required in ("creditType", "credits", "gpaWaiverOption"):
             if required not in course:
                 errors.append(f"{prefix}: single-version course missing '{required}'")
+        if course.get("creditType") not in valid_credit_types:
+            errors.append(f"{prefix}: creditType must be a known academic weight or null")
         if "notes" in course and not course["notes"]:
             errors.append(f"{prefix}: empty notes array should be omitted")
         for o_idx, o in enumerate(course["offerings"]):

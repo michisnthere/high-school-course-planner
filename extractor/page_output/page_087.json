@@ -11,6 +11,9 @@
         "Pass/Fail course.",
         "This course may be repeated for credit."
       ],
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "choices": [
         {
           "name": "Regular",
@@ -97,6 +100,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED61L",
@@ -126,6 +132,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED81L",
@@ -162,6 +171,9 @@
       "gpaWaiverOption": true,
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Physical Education"
+      ],
       "offerings": [
         {
           "courseCode": "PED501",

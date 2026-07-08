@@ -13,6 +13,9 @@
       "sourceReference": "page 59",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS421",
@@ -52,6 +55,9 @@
       "sourceReference": "page 59",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "offerings": [
         {
           "courseCode": "MUS461",
@@ -93,6 +99,9 @@
         "This class may be repeated for credit."
       ],
       "sourceReference": "page 59",
+      "fulfillsRequirements": [
+        "Fine Arts"
+      ],
       "choices": [
         {
           "name": "College Prep",

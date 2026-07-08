@@ -29,6 +29,7 @@
       "sourceReference": "page 37",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC161",
@@ -64,6 +65,7 @@
       "sourceReference": "page 37",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC181",
@@ -103,6 +105,7 @@
       "sourceReference": "page 37",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC391",
@@ -140,6 +143,7 @@
       "sourceReference": "page 38",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC371",
@@ -177,6 +181,7 @@
       "sourceReference": "page 38",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC421",
@@ -212,6 +217,7 @@
       "sourceReference": "page 38",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "CSC251",
@@ -251,6 +257,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC141",
@@ -286,6 +293,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC241",
@@ -323,6 +331,7 @@
       "sourceReference": "page 40",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC151",
@@ -358,6 +367,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC261",
@@ -395,6 +405,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC301",
@@ -432,6 +443,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC291",
@@ -469,6 +481,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC351",
@@ -506,6 +519,7 @@
       "sourceReference": "page 41",
       "creditType": "Honors",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC401",
@@ -541,6 +555,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC181",
@@ -576,6 +591,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC251",
@@ -615,6 +631,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC171",
@@ -650,6 +667,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC281",
@@ -689,6 +707,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC501",
@@ -724,6 +743,7 @@
       "sourceReference": "page 43",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC511",
@@ -763,6 +783,7 @@
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC111",
@@ -798,6 +819,7 @@
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC121",
@@ -833,6 +855,7 @@
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1.0,
+      "fulfillsRequirements": [],
       "offerings": [
         {
           "courseCode": "TEC191",
