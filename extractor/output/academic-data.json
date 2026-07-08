@@ -9702,7 +9702,9 @@
       "sourceReference": "page 29",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG141",
@@ -9739,7 +9741,9 @@
       "sourceReference": "page 29",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG151",
@@ -9776,7 +9780,9 @@
       "sourceReference": "page 29",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG161",
@@ -9813,7 +9819,9 @@
       "sourceReference": "page 29",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG171",
@@ -9849,7 +9857,9 @@
       "division": "Communication Arts",
       "department": "Communication Arts",
       "sourceReference": "page 30",
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
@@ -9920,7 +9930,9 @@
       "sourceReference": "page 30",
       "creditType": "Honors",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG371",
@@ -9956,7 +9968,9 @@
       "division": "Communication Arts",
       "department": "Communication Arts",
       "sourceReference": "page 30",
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
@@ -10027,7 +10041,9 @@
       "sourceReference": "page 31",
       "creditType": "Honors",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG341",
@@ -10064,7 +10080,9 @@
       "sourceReference": "page 31",
       "creditType": "Honors",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG451",
@@ -10101,7 +10119,9 @@
       "sourceReference": "page 31",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG431",
@@ -10140,7 +10160,9 @@
       "sourceReference": "page 32",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG761",
@@ -10181,7 +10203,9 @@
       "sourceReference": "page 32",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG501",
@@ -10222,7 +10246,9 @@
       "sourceReference": "page 32",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG522",
@@ -10255,7 +10281,9 @@
       "sourceReference": "page 32",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG601",
@@ -10298,7 +10326,9 @@
       "sourceReference": "page 33",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG691",
@@ -10329,7 +10359,9 @@
       "sourceReference": "page 33",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG681",
@@ -10368,7 +10400,9 @@
       "sourceReference": "page 33",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG722",
@@ -10399,7 +10433,9 @@
       "sourceReference": "page 33",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "ENG541",
@@ -10438,7 +10474,9 @@
       "sourceReference": "page 34",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "JRN901",
@@ -10483,7 +10521,9 @@
       "sourceReference": "page 34",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "JRN911",
@@ -10526,7 +10566,9 @@
       "sourceReference": "page 34",
       "creditType": "College Prep",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "JRN921",
@@ -10575,7 +10617,9 @@
       "sourceReference": "page 34",
       "creditType": "Accelerated",
       "credits": 1,
-      "fulfillsRequirements": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
       "offerings": [
         {
           "courseCode": "JRN951",
