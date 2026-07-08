@@ -13,16 +13,16 @@ datasource db {
 // =========================
 //
 model Department {
-  id              Int      @id @default(autoincrement())
-  name            String   @unique
-  normalizedName  String?
-  description     String?
+  id             Int     @id @default(autoincrement())
+  name           String  @unique
+  normalizedName String?
+  description    String?
 
-  subdepartments  Subdepartment[]
-  courses         Course[]
+  subdepartments Subdepartment[]
+  courses        Course[]
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 //
@@ -31,18 +31,18 @@ model Department {
 // =========================
 //
 model Subdepartment {
-  id              Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  name            String
-  normalizedName  String?
+  name           String
+  normalizedName String?
 
-  departmentId    Int
-  department      Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
 
-  courses         Course[]
+  courses Course[]
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([departmentId, name])
   @@index([departmentId])
@@ -54,38 +54,68 @@ model Subdepartment {
 // =========================
 //
 model Course {
-  id              Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   title           String
   normalizedTitle String?
 
-  importKey       String   @unique
+  importKey String @unique
 
-  description     String?
+  description String?
 
-  gpaWaiverOption Boolean  @default(false)
-  isOnline        Boolean  @default(false)
+  attributes           Json    @default("[]")
+  fulfillsRequirements Json    @default("[]")
+  isRepeatable         Boolean @default(false)
 
-  notes           Json     @default("[]")
+  notes           Json    @default("[]")
   sourceReference String?
 
   // A Course always belongs to a Department (set on every import where the
   // source specifies a department). Subdepartment is an optional refinement
   // on top of that — never required to resolve a course's department.
-  departmentId    Int?
-  department      Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  departmentId Int?
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
 
   subdepartmentId Int?
   subdepartment   Subdepartment? @relation(fields: [subdepartmentId], references: [id], onDelete: SetNull)
 
-  offerings       CourseOffering[]
+  options      CourseOption[]
+  requirements CourseRequirement[]
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@unique([subdepartmentId, title])
   @@index([departmentId])
   @@index([subdepartmentId])
-  @@unique([subdepartmentId, title])
+}
+
+//
+// =========================
+// COURSE OPTION
+// =========================
+//
+model CourseOption {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  isOnline        Boolean @default(false)
+  creditType      String?
+  credits         Float?
+  gpaWaiverOption Boolean @default(false)
+
+  attributes Json @default("[]")
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  offerings CourseOffering[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
 }
 
 //
@@ -94,25 +124,70 @@ model Course {
 // =========================
 //
 model CourseOffering {
-  id             Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  courseCode     String  @unique
+  courseCode String @unique
 
-  semesterLabel  String?
-  duration       String?
+  semesterLabel String?
+  duration      String?
 
-  gradeLevels    Json    @default("[]")
-  prerequisites  Json    @default("[]")
-  corequisites   Json    @default("[]")
+  gradeMin Int?
+  gradeMax Int?
 
-  creditType     String?
-  credits        Float?
+  prerequisites Json @default("[]")
+  corequisites  Json @default("[]")
 
-  courseId       Int
-  course         Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  creditType String?
+  credits    Float?
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  courseOptionId Int
+  courseOption   CourseOption @relation(fields: [courseOptionId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseOptionId])
+}
+
+//
+// =========================
+// GRADUATION REQUIREMENT
+// =========================
+//
+model GraduationRequirement {
+  id Int @id @default(autoincrement())
+
+  name            String
+  normalizedName  String?
+  category        String?
+  requirementType String?
+  requiredValue   Float?
+  notes           Json    @default("[]")
+  sourceReference String?
+
+  courses CourseRequirement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, category, requirementType])
+}
+
+//
+// =========================
+// COURSE REQUIREMENT
+// =========================
+//
+model CourseRequirement {
+  id Int @id @default(autoincrement())
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  graduationRequirementId Int
+  graduationRequirement   GraduationRequirement @relation(fields: [graduationRequirementId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, graduationRequirementId])
   @@index([courseId])
+  @@index([graduationRequirementId])
 }
