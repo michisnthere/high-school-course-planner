@@ -1,0 +1,155 @@
+{
+  "departments": [
+    {
+      "name": "Mathematics",
+      "description": "Mathematics Division"
+    },
+    {
+      "name": "Fine Arts",
+      "description": "Fine Arts Division"
+    },
+    {
+      "name": "Science",
+      "description": "Science Division"
+    }
+  ],
+  "graduationRequirements": [
+    {
+      "name": "Mathematics",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 6.0,
+      "notes": ["6 semesters/credits"],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Elective Graduation Requirement",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "notes": ["2 semesters/credits"],
+      "sourceReference": "page 5"
+    },
+    {
+      "name": "Physical Science",
+      "category": "minimum graduation requirements",
+      "requirementType": "semesters",
+      "requiredValue": 2.0,
+      "notes": ["2 semesters/credits"],
+      "sourceReference": "page 5"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Geometry AB/BC",
+      "department": "Mathematics",
+      "description": "Honors geometry course.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 66",
+      "creditType": "College Prep",
+      "credits": 1.0,
+      "fulfillsRequirements": ["Mathematics Graduation Requirement"],
+      "offerings": [
+        {
+          "courseCode": "MTH271",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [9, 10],
+          "prerequisites": ["Algebra 1"]
+        },
+        {
+          "courseCode": "MTH272",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [9, 10],
+          "prerequisites": ["Algebra 1"]
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
+    },
+    {
+      "title": "AP Physics 1",
+      "department": "Science",
+      "description": "AP Physics with multiple scheduling options.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 89",
+      "creditType": "Advanced Placement",
+      "credits": 1.0,
+      "fulfillsRequirements": ["Physical Science"],
+      "choices": [
+        {
+          "name": "Regular",
+          "isOnline": false,
+          "offerings": [
+            {
+              "courseCode": "SCI611",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [11, 12],
+              "prerequisites": ["Geometry"]
+            },
+            {
+              "courseCode": "SCI612",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [11, 12],
+              "prerequisites": ["Geometry"]
+            }
+          ]
+        },
+        {
+          "name": "Early Bird",
+          "isOnline": false,
+          "offerings": [
+            {
+              "courseCode": "SCI61E1",
+              "semesterLabel": "Semester 1",
+              "duration": "Full Year",
+              "gradeLevels": [11, 12],
+              "prerequisites": ["Geometry"]
+            },
+            {
+              "courseCode": "SCI61E2",
+              "semesterLabel": "Semester 2",
+              "duration": "Full Year",
+              "gradeLevels": [11, 12],
+              "prerequisites": ["Geometry"]
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "attributes": ["requiresLab"]
+    },
+    {
+      "title": "Art and Design",
+      "department": "Fine Arts—Visual Arts",
+      "description": "Foundational visual arts course.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 48",
+      "creditType": "College Prep",
+      "credits": 1.0,
+      "fulfillsRequirements": ["Elective Graduation Requirement"],
+      "offerings": [
+        {
+          "courseCode": "ART101",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": []
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      }
+    }
+  ]
+}
