@@ -1,0 +1,89 @@
+Update the Prisma schema and importer to support duplicate `courseCode` values across different course choices.
+
+## Scope
+
+Modify only:
+
+* `prisma/schema.prisma`
+* Prisma migrations (if necessary)
+* `scripts/import_courses.ts`
+* Any directly related importer/helper code
+
+Do **not** modify the JSON extraction pipeline or academic-data.json.
+
+---
+
+## Background
+
+The catalog now models course variants using `choices`.
+
+Examples:
+
+* College Prep vs Accelerated
+* Regular vs Online
+* Regular vs Early Bird
+
+Each choice represents a complete enrollment option.
+
+Some choices intentionally contain identical course codes.
+
+Example:
+
+```
+Wind Ensemble
+    College Prep
+        MUS141
+        MUS142
+
+    Accelerated
+        MUS141
+        MUS142
+```
+
+This is correct and should be supported.
+
+---
+
+## Required schema changes
+
+The database must no longer require `courseCode` to be globally unique.
+
+Instead:
+
+* A CourseOffering belongs to exactly one CourseOption.
+* Duplicate course codes are allowed when they belong to different CourseOptions.
+* Course codes should still be queryable and indexed.
+
+Replace the global uniqueness constraint with an appropriate composite uniqueness constraint.
+
+Choose the simplest schema that accurately models the relationship.
+
+---
+
+## Importer changes
+
+Update the importer so that:
+
+* offerings are created beneath their owning CourseOption
+* duplicate course codes across different CourseOptions are imported successfully
+* identical course codes inside the SAME CourseOption are still rejected
+* duplicate offerings are not accidentally created during repeated imports
+
+Maintain idempotent imports.
+
+---
+
+## Validation
+
+After implementation:
+
+Report:
+
+* schema changes made
+* migration changes made
+* importer changes made
+* new uniqueness constraints
+* confirmation that duplicate course codes across different choices import successfully
+* confirmation that duplicate course codes within the same choice are still prevented
+
+Do not make unrelated schema changes.

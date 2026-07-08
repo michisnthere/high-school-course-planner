@@ -189,33 +189,44 @@ function validateAll(
     }
 
     let offeringConflict: string | null = null;
-    const allOfferings = Array.isArray(course.offerings) ? [...course.offerings] : [];
+
+    // Validate offerings per option group. Duplicate courseCodes are allowed
+    // across different course options (different choices), but not within the
+    // same option group.
+    const optionGroups: CourseOfferingInput[][] = [];
+    if (Array.isArray(course.offerings) && course.offerings.length > 0) {
+      optionGroups.push(course.offerings);
+    }
     if (Array.isArray(course.choices)) {
       for (const choice of course.choices) {
-        if (Array.isArray(choice.offerings)) {
-          allOfferings.push(...choice.offerings);
+        if (Array.isArray(choice.offerings) && choice.offerings.length > 0) {
+          optionGroups.push(choice.offerings);
         }
       }
     }
-    for (const offering of allOfferings) {
-      if (!offering.courseCode?.trim()) {
-        offeringConflict = `missing courseCode for "${course.title}"`;
-        break;
+
+    for (const group of optionGroups) {
+      const seenCourseCodes = new Set<string>();
+      for (const offering of group) {
+        if (!offering.courseCode?.trim()) {
+          offeringConflict = `missing courseCode for "${course.title}"`;
+          break;
+        }
+        if (seenCourseCodes.has(offering.courseCode)) {
+          offeringConflict = `duplicate courseCode in input: ${offering.courseCode}`;
+          break;
+        }
+        seenCourseCodes.add(offering.courseCode);
       }
-      if (seenCourseCodes.has(offering.courseCode)) {
-        offeringConflict = `duplicate courseCode in input: ${offering.courseCode}`;
-        break;
-      }
+      if (offeringConflict) break;
     }
+
     if (offeringConflict) {
       fail(offeringConflict);
       continue;
     }
 
     seenImportKeys.add(importKey);
-    for (const offering of allOfferings) {
-      seenCourseCodes.add(offering.courseCode!);
-    }
     valid.push(course);
   }
 
@@ -568,7 +579,12 @@ async function main() {
         const durationUnits = parseDurationUnits(offering.duration);
 
         await prisma.courseOffering.upsert({
-          where: { courseCode: offering.courseCode! },
+          where: {
+            courseOptionId_courseCode: {
+              courseOptionId: savedOption.id,
+              courseCode: offering.courseCode!,
+            },
+          },
           create: {
             courseCode: offering.courseCode!,
             semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
@@ -590,7 +606,6 @@ async function main() {
             corequisites: requireArray(offering.corequisites),
             creditType: offering.creditType ?? option.creditType ?? null,
             credits: offering.credits ?? option.credits ?? null,
-            courseOptionId: savedOption.id,
           },
         });
         offeringsUpserted += 1;
