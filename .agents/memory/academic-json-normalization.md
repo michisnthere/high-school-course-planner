@@ -30,9 +30,9 @@ description: Boundaries and rules for keeping academic weighting, graduation req
 
 **Why:** Catalog text is the authoritative source; a course can share a name or topic with a requirement without actually fulfilling it.
 
-## DB import feed is a separate artifact
+## DB import feed tracks the canonical academic JSON
 
-- The downstream DB import feed remains flat because the importer and its schema expect flat courses and a per-course `isOnline` flag.
-- Do not reshape the DB feed until the import pipeline and schema are updated to handle `choices` and per-choice `isOnline`.
+- The canonical extracted catalog JSON is the single source of truth for the importer. It carries `CourseOption` choice groups and a per-choice `isOnline` flag, and the importer consumes it directly using the Division → Department → Course → CourseOption → CourseOffering hierarchy.
+- Legacy flat feeds that predate the choice-group model are no longer consumed by the importer and should be treated as historical artifacts.
 
-**Why:** The extracted academic JSON is the canonical, cleaned catalog; the DB feed is a downstream artifact with its own schema and should be migrated separately.
+**Why:** Maintaining a separate flattened feed duplicates data and loses choice-group semantics; the importer should read the canonical catalog JSON directly.
