@@ -1,0 +1,163 @@
+{
+  "sourcePage": 33,
+  "courses": [
+    {
+      "title": "Media Analysis",
+      "description": "This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries—advertising, news and entertainment—and the print and non-print messages created by these industries. Students will be required to write weekly response papers, read college-level texts, view a variety of forms of media, participate in class discussions and complete analytical projects.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 33",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG691",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Mythology and Folklore",
+      "description": "The study of myth, folklore and culture provides students with a lens to study various texts: written, oral, performative, ritualistic, etc. We will study a wide range of short texts from various cultures and eras, including contemporary studies. In addition, this class will develop analysis of texts such as artifacts and field studies to foster intracultural and intercultural understanding. This course welcomes students to investigate literature and local communities related to their identities. In this project-based course, reading and writing assessments allow students to showcase some personal interests.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 33",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG681",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "ENG682",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Film Genres",
+      "description": "This one-semester composition course is designed to lead students to an understanding of the art of film through the world of film genre, including suspense, comedy, horror, among others. Topics of composition include film techniques, film history, film analysis and elements of genre conventions. Students will be required to write weekly response papers, view a variety of films, participate in class discussions and complete four analytical projects.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 33",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG722",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Writing for College",
+      "description": "This class provides students the opportunity to develop their writing through a variety of skills, including but not limited to argumentation, research and impromptu responses. Structured in an inquiry format guided by essential questions, students will read and critique several short texts in each unit (such as non-fiction, fiction, video/film and independent research) and engage in frequent class discussions to support writing as a process. Students will read and analyze selected models of prose writing, and synthesize multiple authors' ideas to support their thinking. Student progress is evaluated throughout the semester in a manner that authorizes students to take an active role in their learning. Note: This course is not focused on college application essays.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 33",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG541",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "ENG542",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [
+        "This course is not focused on college application essays."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Media Analysis and Film Genres are listed as 'College Prep with Accelerated Option' in the catalog; recorded as College Prep with a note about the accelerated option.",
+    "Course code for Media Analysis was interpreted from the flow chart (ENG691) because the description-page OCR read it as 'ENGBS1'.",
+    "Course code for Film Genres (ENG722) was inferred from the flow chart on page 28 because the description page did not clearly expose the code."
+  ],
+  "divisions": [
+    {
+      "name": "Communication Arts",
+      "description": "Kimberly Musolf, kmusolf@d125.org, 847-415-4326",
+      "departments": [
+        {
+          "name": "Communication Arts",
+          "description": null
+        }
+      ]
+    }
+  ]
+}

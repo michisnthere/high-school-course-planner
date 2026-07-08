@@ -1,0 +1,206 @@
+{
+  "sourcePage": 34,
+  "courses": [
+    {
+      "title": "Journalistic Writing",
+      "description": "This course includes interviewing students and adults, writing stories that could get published in the student newspaper or yearbook and solving problems that typically face reporters and editors. Designed to offer students background and practice in basic journalism concepts and skills, Journalistic Writing units include news gathering/interviewing, news writing, feature writing, copy editing, press law and opinion writing. Oral and written communication skills, as well as critical thinking and problem-solving skills, will be exercised.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 34",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "JRN901",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "JRN902",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [
+        "GPA waiver option available."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Broadcast Journalism",
+      "description": "This one-semester course is designed to combine the journalistic principles of coverage and writing with video production. The course requires that students learn the techniques and tools to accurately, efficiently and ethically communicate using video and audio in a variety of platforms (studio desk, live at the scene, vlog, podcast, radio, game coverage, etc.). Students will write scripts, apply visual messaging and research stories and topics, as well as critically evaluate past broadcasts and film. Additionally, students will produce video segments for different audiences and topics in the course.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 34",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "JRN911",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "JRN912",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [
+        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Advanced Journalistic Writing",
+      "description": "Units in opinion writing (editorial, personal column, reviews), feature writing, sports writing and in-depth reporting, along with hands-on production of pages, prepare students for positions in student publications. Students will build on the reporting and writing skills learned in Journalistic Writing. As in the prerequisite course, communication and problem-solving will be stressed.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 34",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "JRN921",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Journalistic Writing"
+          ]
+        },
+        {
+          "courseCode": "JRN922",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Journalistic Writing"
+          ]
+        }
+      ],
+      "notes": [
+        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Journalistic Writing and Production",
+      "description": "Students do all the work necessary to produce the Statesman (newspaper and website). Staff positions include executive editors, copy editors, design editors, advertising manager, section editors (news, opinions, sports, in-depth and feature) and reporter. Staff members gather news, research and write copy and help complete pages. Because this is a student publication, all responsibilities—from the planning of the content, to the design of an issue, to the processing of photos and the completion of pages—are handled by students. After-school work is necessary for these publications. This course may be repeated for credit.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 34",
+      "creditType": "Accelerated",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "JRN951",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Journalistic Writing"
+          ]
+        },
+        {
+          "courseCode": "JRN952",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Journalistic Writing"
+          ]
+        }
+      ],
+      "notes": [
+        "Listed as an elective credit; not an English graduation credit. After-school work is necessary."
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Journalism electives are explicitly marked as elective credit and not an English graduation credit.",
+    "The full-year advanced journalism course (JRN951/JRN952) title was ambiguous in the flow chart; used 'Journalistic Writing and Production' based on the description referencing the Statesman newspaper and website."
+  ],
+  "divisions": [
+    {
+      "name": "Communication Arts",
+      "description": "Kimberly Musolf, kmusolf@d125.org, 847-415-4326",
+      "departments": [
+        {
+          "name": "Communication Arts",
+          "description": null
+        }
+      ]
+    }
+  ]
+}

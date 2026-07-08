@@ -1,0 +1,20 @@
+{
+  "sourcePage": 28,
+  "courses": [],
+  "graduationRequirements": [],
+  "warnings": [
+    "Flow-chart overview page; course details are on pages 29-34. This file intentionally contains no courses to avoid duplicating data."
+  ],
+  "divisions": [
+    {
+      "name": "Communication Arts",
+      "description": "Kimberly Musolf, kmusolf@d125.org, 847-415-4326",
+      "departments": [
+        {
+          "name": "Communication Arts",
+          "description": null
+        }
+      ]
+    }
+  ]
+}

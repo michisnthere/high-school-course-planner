@@ -9700,6 +9700,901 @@
       "isOnline": true,
       "division": "Social Studies",
       "department": "Social Studies"
+    },
+    {
+      "title": "English 9: Belonging and Becoming",
+      "description": "Explore how our journey, family and community shape where our stories begin and the paths we might take. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG141",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG142",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 29",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "English 9: Threads of Loyalty",
+      "description": "Analyze how loyalty, trust, courage and community build (or break) society, with connections to modern teen life. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG151",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG152",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 29",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "English 9: Mirrors and Shadows",
+      "description": "Explore what makes us human, how we understand ourselves and the struggles we carry within. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG161",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG162",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 29",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "English 9: Reimagining the Future",
+      "description": "Explore how technology and imagination influence our decisions as we define ourselves, our world, and our future. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG171",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG172",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 29",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Sophomore English",
+      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG211",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG212",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 30",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Sophomore English",
+      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG231",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG232",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 30",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "AP English Language and Composition",
+      "description": "This is a college-level course, one that adheres to the objectives articulated by the College Board, and students may obtain college credit by taking the AP English Language and Composition exam, a natural culmination of the year-long study of language. Students are guided to proficiency in the areas of reading, literary analysis, argumentation, writing, grammar and usage, oral communication and research. The course emphasizes a variety of non-fiction texts as a means of critical analysis of language and rhetoric. This writing intensive course focuses on literary analysis, rhetorical analysis, synthesis and argumentation and is more rigorous than the accelerated level in terms of quantity and complexity of the writing assignments. The writing assignments, ranging from process essays to a research paper, require students to assume an increasing degree of independence as the year progresses. In addition, students write numerous short papers and in-class essays each semester. Students will be assessed regularly in the area of full-class and small-group discussions, as well as formal presentations. ACT and AP exam preparation are used to sharpen reading, editing and revising skills. Students also engage in independent and intensive vocabulary study throughout the year. Students who enroll in this course will be prepared to take the AP English Language and Composition exam.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG371",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG372",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 30",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Junior English",
+      "description": "This skills-based course completes the department's three-year scope and sequence in the areas of reading, writing, speaking and listening, grammar and usage and research. Through their reading and writing, students deepen their analysis of language and rhetoric. Building on the previous focus on argumentation, students continue to develop their writing through a structured process approach that is aligned with college writing expectations. Additionally, students utilize close reading in the areas of English language skills and reading which serves as preparation for the ACT. Discussion-based speaking and listening opportunities are consistently present throughout both semesters. Within each course, a reading intensive method guides students to select texts to read both independently and in book clubs, as well as full-class reading experiences. Moments of student choice extend across reading and writing experiences.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG311",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG312",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 30",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Junior English",
+      "description": "This skills-based course completes the department's three-year scope and sequence in the areas of reading, writing, speaking and listening, grammar and usage and research. Through their reading and writing, students deepen their analysis of language and rhetoric. Building on the previous focus on argumentation, students continue to develop their writing through a structured process approach that is aligned with college writing expectations. Additionally, students utilize close reading in the areas of English language skills and reading which serves as preparation for the ACT. Discussion-based speaking and listening opportunities are consistently present throughout both semesters. Within each course, a reading intensive method guides students to select texts to read both independently and in book clubs, as well as full-class reading experiences. Moments of student choice extend across reading and writing experiences.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG381",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG382",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 30",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "American Studies (AP English Language and Composition and AP U.S. History)",
+      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. The AP English Language component features the study of primary source documents, contemporary and historical nonfiction and fiction. Students read to deepen their analysis of rhetoric and to develop their perspective of both history and contemporary society. Students write and orally present original arguments—both with and without sources. All forms of writing—analysis, argument, synthesis, creative prose—are influenced by students' awareness of the interdisciplinary content.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG341",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG342",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 31",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "AP Literature and Composition",
+      "description": "This course will provide students with a college-level literary experience that will foster readiness for the AP English Literature and Composition exam. In compliance with College Board requirements, students will study works from the 16th century to the present. During the course of the year, students are expected to continue to develop their knowledge of literary terms related to prose and poetry; demonstrate how the parts and techniques of a literary work contribute to the meaning of the work; actively participate in high-level analytical discourse; and create cogent, sustained and sophisticated expressions of analytical interpretation in written form. Students should expect to write weekly, including response papers, in-class essays and process essays.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG451",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG452",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 31",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "World Literature",
+      "description": "This full-year course leads students through a wide variety of literature from traditions around the globe. Students critically examine the literary themes and methods that reflect the diverse times and cultures that produced these texts. Through multiple modes such as the novel, traditional origin stories and poetry, students will explore questions about the nature of humanity and of perspective. Students express and develop their conclusions through multiple methods such as presentations, papers, discussions and original research. The course design includes choices for students to take the college prep level or to choose texts and tasks of added complexity within the course inquiry and study, which result in earning an Accelerated credit.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG431",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG432",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "sourceReference": "Page 31",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Public Speaking",
+      "description": "This course is designed to provide experience and training in public speaking so that students are equipped with the skills essential for success in the business and academic worlds of today and tomorrow. Students learn to tailor a message to suit a particular audience, enhance the message through technology, understand logic and reasoning, develop listening skills, identify propaganda techniques and understand the physical producers of voice to control and vary tone, volume, pitch and rate. Students participate in workshop-oriented groups to develop the various skills listed above. Students present approximately one speech per week and are responsible for constructive feedback of their peers' speeches.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG761",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG762",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 32",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Creative Writing",
+      "description": "Students learn to express their thoughts through writing short stories, poems and plays. Class discussions analyze and implement different writing styles including, but not limited to, fiction, poetry and drama. The course format is a workshop that includes daily writing. Students will give and receive feedback and peer edit in small- and full-class groups. Students are also required to read and annotate fiction. The reading will be assessed in a manner that engages students in a process through which they become more aware of how their reading improves over time. All students participate in a variety of approaches to literacy development and to apply what they learn to the art of writing creatively.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG501",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG502",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "sourceReference": "Page 32",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Creative Writing Seminar",
+      "description": "Students will refine their skills in writing and analyzing stories, plays and poetry. Projects, readings and assignments will cover various genres that allow students to pursue individual interests. Class discussions focus on the analysis and consideration of different writing styles and genres including, but not limited to, fiction, poetry and drama. Students explore writing in greater depth than in the prerequisite course, examining how various genres impact writing style and what it means to create voice in writing. The course format is a workshop that includes daily writing. Students will give and receive feedback and peer edit in small and full class groups. Students are also required to read and annotate fiction. The reading will be assessed in a manner that engages students in a process through which they become more aware of how their reading improves over time. All students participate in a wide variety of approaches to literacy development and apply what they learn to the art of writing creatively.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG522",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Creative Writing"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "sourceReference": "Page 32",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Topics in Political Thought and Its Literature",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them better be prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a worldview and what it means to be a political scientist.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG601",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History",
+            "Any Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG602",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History",
+            "Any Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 32",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Media Analysis",
+      "description": "This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries—advertising, news and entertainment—and the print and non-print messages created by these industries. Students will be required to write weekly response papers, read college-level texts, view a variety of forms of media, participate in class discussions and complete analytical projects.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG691",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "sourceReference": "Page 33",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Mythology and Folklore",
+      "description": "The study of myth, folklore and culture provides students with a lens to study various texts: written, oral, performative, ritualistic, etc. We will study a wide range of short texts from various cultures and eras, including contemporary studies. In addition, this class will develop analysis of texts such as artifacts and field studies to foster intracultural and intercultural understanding. This course welcomes students to investigate literature and local communities related to their identities. In this project-based course, reading and writing assessments allow students to showcase some personal interests.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG681",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG682",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 33",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Film Genres",
+      "description": "This one-semester composition course is designed to lead students to an understanding of the art of film through the world of film genre, including suspense, comedy, horror, among others. Topics of composition include film techniques, film history, film analysis and elements of genre conventions. Students will be required to write weekly response papers, view a variety of films, participate in class discussions and complete four analytical projects.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG722",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "sourceReference": "Page 33",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Writing for College",
+      "description": "This class provides students the opportunity to develop their writing through a variety of skills, including but not limited to argumentation, research and impromptu responses. Structured in an inquiry format guided by essential questions, students will read and critique several short texts in each unit (such as non-fiction, fiction, video/film and independent research) and engage in frequent class discussions to support writing as a process. Students will read and analyze selected models of prose writing, and synthesize multiple authors' ideas to support their thinking. Student progress is evaluated throughout the semester in a manner that authorizes students to take an active role in their learning. Note: This course is not focused on college application essays.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG541",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "ENG542",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "This course is not focused on college application essays."
+      ],
+      "sourceReference": "Page 33",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Journalistic Writing",
+      "description": "This course includes interviewing students and adults, writing stories that could get published in the student newspaper or yearbook and solving problems that typically face reporters and editors. Designed to offer students background and practice in basic journalism concepts and skills, Journalistic Writing units include news gathering/interviewing, news writing, feature writing, copy editing, press law and opinion writing. Oral and written communication skills, as well as critical thinking and problem-solving skills, will be exercised.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "JRN901",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "JRN902",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "GPA waiver option available."
+      ],
+      "sourceReference": "Page 34",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Broadcast Journalism",
+      "description": "This one-semester course is designed to combine the journalistic principles of coverage and writing with video production. The course requires that students learn the techniques and tools to accurately, efficiently and ethically communicate using video and audio in a variety of platforms (studio desk, live at the scene, vlog, podcast, radio, game coverage, etc.). Students will write scripts, apply visual messaging and research stories and topics, as well as critically evaluate past broadcasts and film. Additionally, students will produce video segments for different audiences and topics in the course.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "JRN911",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "JRN912",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
+      ],
+      "sourceReference": "Page 34",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Advanced Journalistic Writing",
+      "description": "Units in opinion writing (editorial, personal column, reviews), feature writing, sports writing and in-depth reporting, along with hands-on production of pages, prepare students for positions in student publications. Students will build on the reporting and writing skills learned in Journalistic Writing. As in the prerequisite course, communication and problem-solving will be stressed.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "JRN921",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Journalistic Writing"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        },
+        {
+          "courseCode": "JRN922",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Journalistic Writing"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
+      ],
+      "sourceReference": "Page 34",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "Journalistic Writing and Production",
+      "description": "Students do all the work necessary to produce the Statesman (newspaper and website). Staff positions include executive editors, copy editors, design editors, advertising manager, section editors (news, opinions, sports, in-depth and feature) and reporter. Staff members gather news, research and write copy and help complete pages. Because this is a student publication, all responsibilities—from the planning of the content, to the design of an issue, to the processing of photos and the completion of pages—are handled by students. After-school work is necessary for these publications. This course may be repeated for credit.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "JRN951",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Journalistic Writing"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1
+        },
+        {
+          "courseCode": "JRN952",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Journalistic Writing"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1
+        }
+      ],
+      "notes": [
+        "Listed as an elective credit; not an English graduation credit. After-school work is necessary."
+      ],
+      "sourceReference": "Page 34",
+      "isOnline": false,
+      "division": "Communication Arts",
+      "department": "Communication Arts"
     }
   ],
   "graduationRequirements": [

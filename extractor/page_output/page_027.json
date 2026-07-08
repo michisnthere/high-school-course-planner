@@ -1,0 +1,20 @@
+{
+  "sourcePage": 27,
+  "courses": [],
+  "graduationRequirements": [],
+  "warnings": [
+    "Division intro page; no course listings."
+  ],
+  "divisions": [
+    {
+      "name": "Communication Arts",
+      "description": "Kimberly Musolf, kmusolf@d125.org, 847-415-4326",
+      "departments": [
+        {
+          "name": "Communication Arts",
+          "description": null
+        }
+      ]
+    }
+  ]
+}

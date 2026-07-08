@@ -1,0 +1,167 @@
+{
+  "sourcePage": 29,
+  "courses": [
+    {
+      "title": "English 9: Belonging and Becoming",
+      "description": "Explore how our journey, family and community shape where our stories begin and the paths we might take. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 29",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG141",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "ENG142",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "English 9: Threads of Loyalty",
+      "description": "Analyze how loyalty, trust, courage and community build (or break) society, with connections to modern teen life. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 29",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG151",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "ENG152",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "English 9: Mirrors and Shadows",
+      "description": "Explore what makes us human, how we understand ourselves and the struggles we carry within. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 29",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG161",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "ENG162",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    },
+    {
+      "title": "English 9: Reimagining the Future",
+      "description": "Explore how technology and imagination influence our decisions as we define ourselves, our world, and our future. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short stories, essays, articles, novels, poetry, drama and other texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading, writing, listening and speaking skills. With a focus on authentic modes, students engage in the process of writing in multiple formats to enhance student learning in all areas of literacy development. Each of the four options for freshman English is equal in rigor and support.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 29",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
+      "offerings": [
+        {
+          "courseCode": "ENG171",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        },
+        {
+          "courseCode": "ENG172",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": []
+        }
+      ],
+      "notes": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts"
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [],
+  "divisions": [
+    {
+      "name": "Communication Arts",
+      "description": "Kimberly Musolf, kmusolf@d125.org, 847-415-4326",
+      "departments": [
+        {
+          "name": "Communication Arts",
+          "description": null
+        }
+      ]
+    }
+  ]
+}
