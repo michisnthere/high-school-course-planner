@@ -36,3 +36,7 @@ data/structured/rule-pages/
 __pycache__/
 */__pycache__/
 *.pyc
+
+tmp/
+
+.pytest_cache/
