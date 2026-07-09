@@ -1,0 +1,158 @@
+Create a clean dashboard template for the High School Course Planner frontend.
+
+Context:
+This is a Next.js 16 App Router project.
+
+Existing working architecture:
+- Root layout:
+  frontend/src/app/layout.tsx
+  - already contains Header and Sidebar
+  - do not modify it
+
+- Existing layout components:
+  frontend/src/components/layout/Header.tsx
+  frontend/src/components/layout/Sidebar.tsx
+
+- Existing API helper:
+  frontend/src/lib/api.ts
+
+- Backend API:
+  GET http://localhost:4000/courses
+
+The database/backend integration is already working.
+
+Goal:
+Create a professional but simple dashboard foundation. This is a template phase, not the final polished UI.
+
+Do not modify:
+- backend files
+- Prisma files
+- database schema
+- package.json
+- configuration files
+- Header.tsx
+- Sidebar.tsx
+- layout.tsx
+
+Do not install dependencies.
+
+---
+
+Create this component structure:
+
+frontend/src/components/dashboard/
+
+Components:
+
+1. DashboardHeader.tsx
+Purpose:
+- Welcome section
+- Title: "Dashboard"
+- Short subtitle explaining the planner
+
+2. StatCard.tsx
+Purpose:
+Reusable statistics card.
+
+Props:
+- label
+- value
+
+Example:
+- Total Courses: 223
+- Departments: 22
+- Graduation Requirements: 52
+
+3. QuickActions.tsx
+Purpose:
+Placeholder buttons/cards for future actions:
+- Browse Courses
+- Build My Planner
+- View Requirements
+
+No routing logic needed.
+
+4. RecentCourses.tsx
+Purpose:
+Display a small preview list of courses.
+
+Requirements:
+- Accept courses as props
+- Display first few courses
+- Show:
+  - course title
+  - department
+  - credit type if available
+
+5. RequirementProgress.tsx
+Purpose:
+Placeholder section for future graduation requirement tracking.
+
+Display simple placeholder cards only.
+
+---
+
+Update:
+
+frontend/src/app/page.tsx
+
+Requirements:
+- Keep page.tsx as a Server Component
+- Use getCourses() from src/lib/api.ts
+- Fetch real courses
+- Pass data into child components
+- Do not directly put all UI in page.tsx
+
+Dashboard layout should include:
+
+Top:
+DashboardHeader
+
+Middle:
+Statistics cards in a responsive row
+
+Below:
+Two-column layout if possible:
+- Recent Courses
+- Requirement Progress
+
+Bottom:
+Quick Actions
+
+---
+
+Styling requirements:
+
+Use inline styles only.
+
+Match existing application style:
+- system font stack
+- white background
+- light gray borders (#e5e7eb)
+- rounded corners
+- clean spacing
+- responsive flexbox/grid
+- no external UI libraries
+
+Prioritize:
+- readable structure
+- reusable components
+- maintainability
+
+Do not focus on final visual polish.
+
+---
+
+Verification:
+
+After changes:
+1. Run:
+
+npx tsc --noEmit
+
+2. Report:
+- files created
+- files modified
+- verification result
+
+If a file already exists, modify it carefully rather than creating duplicates.

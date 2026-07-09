@@ -1,57 +1,51 @@
 import { getCourses } from "@/lib/api";
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { StatCard } from "@/components/dashboard/StatCard";
+import { QuickActions } from "@/components/dashboard/QuickActions";
+import { RecentCourses, Course } from "@/components/dashboard/RecentCourses";
+import { RequirementProgress } from "@/components/dashboard/RequirementProgress";
 
 export default async function Home() {
-  const courses = await getCourses();
+  const courses: Course[] = await getCourses();
+
+  const departments = new Set(courses.map((course) => course.department).filter(Boolean));
 
   return (
-    <main
+    <div
       style={{
         padding: "32px",
-        fontFamily: "system-ui, sans-serif",
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
-      <h1
-        style={{
-          fontSize: "32px",
-          fontWeight: 700,
-          marginBottom: "8px",
-        }}
-      >
-        Dashboard
-      </h1>
-
-      <p
-        style={{
-          color: "#6b7280",
-          marginBottom: "32px",
-        }}
-      >
-        Welcome to your High School Course Planner
-      </p>
+      <DashboardHeader />
 
       <div
         style={{
           display: "flex",
           gap: "16px",
           flexWrap: "wrap",
+          marginBottom: "32px",
         }}
       >
-        <StatCard
-          label="Total Courses"
-          value={courses.length}
-        />
-
-        <StatCard
-          label="Departments"
-          value="22"
-        />
-
-        <StatCard
-          label="Requirements"
-          value="52"
-        />
+        <StatCard label="Total Courses" value={courses.length} />
+        <StatCard label="Departments" value={departments.size} />
+        <StatCard label="Graduation Requirements" value={52} />
       </div>
-    </main>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "24px",
+          flexWrap: "wrap",
+          marginBottom: "32px",
+        }}
+      >
+        <RecentCourses courses={courses} />
+        <RequirementProgress />
+      </div>
+
+      <QuickActions />
+    </div>
   );
 }
