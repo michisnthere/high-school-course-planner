@@ -1,6 +1,10 @@
 import React from "react";
 
-export function EmptyState(): React.ReactElement {
+type EmptyStateProps = {
+  message?: string;
+};
+
+export function EmptyState({ message = "No courses found." }: EmptyStateProps): React.ReactElement {
   return (
     <div
       style={{
@@ -21,7 +25,7 @@ export function EmptyState(): React.ReactElement {
           color: "#6b7280",
         }}
       >
-        No courses found.
+        {message}
       </p>
     </div>
   );

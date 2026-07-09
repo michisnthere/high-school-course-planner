@@ -8,7 +8,7 @@ export function DashboardHeader(): React.ReactElement {
           margin: 0,
           fontSize: "32px",
           fontWeight: 700,
-          color: "#111827",
+          color: "#ffffff",
           lineHeight: 1.2,
           fontFamily:
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
@@ -20,7 +20,7 @@ export function DashboardHeader(): React.ReactElement {
         style={{
           margin: "8px 0 0",
           fontSize: "16px",
-          color: "#6b7280",
+          color: "#ffffff",
           fontFamily:
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}

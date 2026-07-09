@@ -1,12 +1,20 @@
+"use client";
+
 import React from "react";
 
-export function CourseSearch(): React.ReactElement {
+type CourseSearchProps = {
+  query: string;
+  onQueryChange: (query: string) => void;
+};
+
+export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React.ReactElement {
   return (
     <div style={{ marginBottom: "24px" }}>
       <input
         type="text"
         placeholder="Search courses..."
-        readOnly
+        value={query}
+        onChange={(e) => onQueryChange(e.target.value)}
         style={{
           width: "100%",
           maxWidth: "480px",
