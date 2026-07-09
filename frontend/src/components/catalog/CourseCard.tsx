@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
+import { SaveCourseButton } from "./SaveCourseButton";
 
 type CourseCardProps = {
   course: Course;
@@ -21,30 +22,30 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
   const slug = getCourseSlug(course);
 
   return (
-    <Link
-      href={`/catalog/${slug}`}
+    <div
       style={{
-        display: "block",
-        textDecoration: "none",
-        color: "inherit",
+        backgroundColor: "#ffffff",
+        border: "1px solid #e5e7eb",
+        borderRadius: "12px",
+        padding: "20px",
+        transition: "border-color 0.2s ease",
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "#d1d5db";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "#e5e7eb";
       }}
     >
-      <div
+      <Link
+        href={`/catalog/${slug}`}
         style={{
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
-          borderRadius: "12px",
-          padding: "20px",
-          transition: "border-color 0.2s ease",
-          cursor: "pointer",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "#d1d5db";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = "#e5e7eb";
+          display: "block",
+          textDecoration: "none",
+          color: "inherit",
+          marginBottom: "12px",
         }}
       >
         <h3
@@ -108,7 +109,9 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
             {description}
           </p>
         )}
-      </div>
-    </Link>
+      </Link>
+
+      <SaveCourseButton course={course} />
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
+import { SaveCourseButton } from "./SaveCourseButton";
 
 type CourseDetailHeaderProps = {
   course: Course;
@@ -97,6 +98,8 @@ export function CourseDetailHeader({ course }: CourseDetailHeaderProps): React.R
             {creditType}
           </span>
         )}
+
+        <SaveCourseButton course={course} />
       </div>
     </div>
   );

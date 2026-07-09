@@ -6,6 +6,7 @@ import Link from "next/link";
 const navItems = [
   { label: "Dashboard", href: "/" },
   { label: "Course Catalog", href: "/catalog" },
+  { label: "Saved Courses", href: "/saved" },
   { label: "My Planner", href: "/planner" },
   { label: "Graduation Requirements", href: "/requirements" },
 ];
