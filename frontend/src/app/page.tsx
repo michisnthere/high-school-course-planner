@@ -2,8 +2,10 @@ import { getCourses } from "@/lib/api";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { QuickActions } from "@/components/dashboard/QuickActions";
-import { RecentCourses, Course } from "@/components/dashboard/RecentCourses";
-import { RequirementProgress } from "@/components/dashboard/RequirementProgress";
+import { RecentCourses } from "@/components/dashboard/RecentCourses";
+import type { Course } from "@/types/course";import { RequirementProgress } from "@/components/dashboard/RequirementProgress";
+
+
 
 export default async function Home() {
   const courses: Course[] = await getCourses();

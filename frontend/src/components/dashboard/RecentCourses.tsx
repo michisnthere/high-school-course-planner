@@ -1,14 +1,5 @@
 import React from "react";
-
-export type Course = {
-  title: string;
-  department?: {
-    name: string;
-  } | null;
-  options?: {
-    creditType?: string | null;
-  }[];
-};
+import type { Course } from "@/types/course";
 
 type RecentCoursesProps = {
   courses: Course[];
