@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
+import { Sidebar } from "@/components/layout/Sidebar";
 
 export const metadata: Metadata = {
   title: "High School Course Planner",
@@ -16,7 +17,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        {children}
+        <div style={{ display: "flex", minHeight: "calc(100vh - 64px)" }}>
+          <Sidebar />
+          <main style={{ flex: 1 }}>
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
