@@ -7,8 +7,6 @@ import { CourseFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
 import { EmptyState } from "./EmptyState";
 
-import { normalizeTitle } from "@/lib/normalize";
-
 type CatalogContentProps = {
   courses: Course[];
 };
@@ -16,18 +14,7 @@ type CatalogContentProps = {
 function courseMatchesQuery(course: Course, query: string): boolean {
   const normalizedQuery = query.toLowerCase().trim();
   if (!normalizedQuery) return true;
-
-  const title = course.title.toLowerCase();
-  const normalizedTitle = (course.normalizedTitle || normalizeTitle(course.title)).toLowerCase();
-  const department = course.department?.name?.toLowerCase() || "";
-  const description = (course.description || "").toLowerCase();
-
-  return (
-    title.includes(normalizedQuery) ||
-    normalizedTitle.includes(normalizedQuery) ||
-    department.includes(normalizedQuery) ||
-    description.includes(normalizedQuery)
-  );
+  return course.title.toLowerCase().includes(normalizedQuery);
 }
 
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
