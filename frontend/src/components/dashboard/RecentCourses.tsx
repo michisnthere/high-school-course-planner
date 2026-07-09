@@ -2,8 +2,12 @@ import React from "react";
 
 export type Course = {
   title: string;
-  department?: string | null;
-  creditType?: string | null;
+  department?: {
+    name: string;
+  } | null;
+  options?: {
+    creditType?: string | null;
+  }[];
 };
 
 type RecentCoursesProps = {
@@ -96,8 +100,13 @@ export function RecentCourses({
                     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                 }}
               >
-                {course.department && <span>{course.department}</span>}
-                {course.creditType && <span>• {course.creditType}</span>}
+              {course.department?.name && (
+                <span>{course.department.name}</span>
+              )}
+
+              {course.options?.[0]?.creditType && (
+                <span>• {course.options[0].creditType}</span>
+              )}
               </div>
             </li>
           ))}
