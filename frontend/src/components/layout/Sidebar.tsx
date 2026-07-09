@@ -15,7 +15,8 @@ export function Sidebar(): React.ReactElement {
     <aside
       style={{
         width: "240px",
-        height: "100vh",
+        minHeight: "calc(100vh - 64px)",
+        alignSelf: "stretch",
         display: "flex",
         flexDirection: "column",
         padding: "24px 16px",

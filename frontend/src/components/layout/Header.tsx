@@ -26,7 +26,7 @@ export function Header(): React.ReactElement {
             margin: 0,
             fontSize: "1.25rem",
             fontWeight: 700,
-            color: "#111827",
+            color: "#000000",
             lineHeight: 1.2,
             fontFamily:
               '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
