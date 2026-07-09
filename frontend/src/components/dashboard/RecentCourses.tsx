@@ -33,7 +33,7 @@ export function RecentCourses({
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
-        Recent Courses
+        Explore Courses
       </h2>
 
       {preview.length === 0 ? (
