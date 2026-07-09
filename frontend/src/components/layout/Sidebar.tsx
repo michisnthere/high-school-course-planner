@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
-/**
- * Sidebar — vertical navigation for the High School Course Planner dashboard.
- *
- * Placeholder component: navigation items are visual-only and have no routing logic.
- */
+const navItems = [
+  { label: "Dashboard", href: "/" },
+  { label: "Course Catalog", href: "/catalog" },
+  { label: "My Planner", href: "/planner" },
+  { label: "Graduation Requirements", href: "/requirements" },
+];
+
 export function Sidebar(): React.ReactElement {
-  const items = ["Dashboard", "Course Catalog", "My Planner", "Graduation Requirements"];
-
   return (
     <aside
       style={{
@@ -24,10 +25,10 @@ export function Sidebar(): React.ReactElement {
       }}
     >
       <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {items.map((item) => (
-          <a
-            key={item}
-            href="#"
+        {navItems.map((item) => (
+          <Link
+            key={item.label}
+            href={item.href}
             style={{
               display: "block",
               padding: "10px 12px",
@@ -40,10 +41,9 @@ export function Sidebar(): React.ReactElement {
               fontFamily:
                 '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
             }}
-            onClick={(e) => e.preventDefault()}
           >
-            {item}
-          </a>
+            {item.label}
+          </Link>
         ))}
       </nav>
     </aside>
