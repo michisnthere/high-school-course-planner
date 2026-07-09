@@ -12,6 +12,7 @@ export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React
     <div style={{ marginBottom: "24px" }}>
       <input
         type="text"
+        aria-label="Search courses"
         placeholder="Search courses..."
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}

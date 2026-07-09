@@ -6,6 +6,8 @@ import { AcademicSnapshot } from "@/components/dashboard/AcademicSnapshot";
 import { RecentCourses } from "@/components/dashboard/RecentCourses";
 import type { Course } from "@/types/course";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const courses: Course[] = await getCourses();
 

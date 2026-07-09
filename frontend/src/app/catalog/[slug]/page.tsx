@@ -21,6 +21,8 @@ function findCourseBySlug(courses: Course[], slug: string): Course | undefined {
   });
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function CatalogDetailPage({ params }: CatalogDetailPageProps) {
   const { slug } = await params;
   const courses: Course[] = await getCourses();
@@ -62,7 +64,7 @@ export default async function CatalogDetailPage({ params }: CatalogDetailPagePro
               color: "#6b7280",
             }}
           >
-            We couldn't find a course matching that link. It may have been removed or renamed.
+            We could not find a course matching that link. It may have been removed or renamed.
           </p>
           <Link
             href="/catalog"
