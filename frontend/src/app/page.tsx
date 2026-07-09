@@ -1,4 +1,5 @@
 import { getCourses } from "@/lib/api";
+import { StatCard } from "@/components/dashboard/StatCard";
 
 export default async function Home() {
   const courses = await getCourses();
@@ -14,50 +15,42 @@ export default async function Home() {
         style={{
           fontSize: "32px",
           fontWeight: 700,
-          marginBottom: "24px",
+          marginBottom: "8px",
         }}
       >
-        Course Catalog
+        Dashboard
       </h1>
 
-      <p style={{ marginBottom: "24px" }}>
-        Total courses: {courses.length}
+      <p
+        style={{
+          color: "#6b7280",
+          marginBottom: "32px",
+        }}
+      >
+        Welcome to your High School Course Planner
       </p>
 
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
           gap: "16px",
+          flexWrap: "wrap",
         }}
       >
-        {courses.map((course: any) => (
-          <div
-            key={course.id}
-            style={{
-              border: "1px solid #e5e7eb",
-              borderRadius: "12px",
-              padding: "16px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "20px",
-                fontWeight: 600,
-              }}
-            >
-              {course.title}
-            </h2>
+        <StatCard
+          label="Total Courses"
+          value={courses.length}
+        />
 
-            <p>
-              Department: {course.department?.name}
-            </p>
+        <StatCard
+          label="Departments"
+          value="22"
+        />
 
-            <p>
-              Options: {course.options?.length ?? 0}
-            </p>
-          </div>
-        ))}
+        <StatCard
+          label="Requirements"
+          value="52"
+        />
       </div>
     </main>
   );
