@@ -73,19 +73,21 @@ function extractSemesters(courses: Course[]): string[] {
 }
 
 function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
-  if (filters.department && course.department?.name !== filters.department) {
-    return false;
+  if (filters.department.length > 0) {
+    if (!course.department?.name || !filters.department.includes(course.department.name)) {
+      return false;
+    }
   }
 
-  if (filters.creditType) {
+  if (filters.creditType.length > 0) {
     const hasCreditType = course.options?.some(
-      (option) => option.creditType === filters.creditType
+      (option) => option.creditType && filters.creditType.includes(option.creditType)
     );
     if (!hasCreditType) return false;
   }
 
-  if (filters.gradeLevel) {
-    const selectedGrade = parseInt(filters.gradeLevel, 10);
+  if (filters.gradeLevel.length > 0) {
+    const selectedGrades = filters.gradeLevel.map((grade) => parseInt(grade, 10));
     const hasGrade = course.options?.some((option) =>
       option.offerings?.some((offering) => {
         if (offering.gradeMin == null && offering.gradeMax == null) {
@@ -93,17 +95,17 @@ function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
         }
         const min = offering.gradeMin ?? 9;
         const max = offering.gradeMax ?? 12;
-        return selectedGrade >= min && selectedGrade <= max;
+        return selectedGrades.some((grade) => grade >= min && grade <= max);
       })
     );
     if (!hasGrade) return false;
   }
 
-  if (filters.semester) {
+  if (filters.semester.length > 0) {
     const hasSemester = course.options?.some((option) =>
       option.offerings?.some((offering) => {
         const value = offering.semesterLabel ?? offering.duration ?? "";
-        return value === filters.semester;
+        return filters.semester.includes(value);
       })
     );
     if (!hasSemester) return false;
@@ -114,7 +116,7 @@ function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
 
 function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
   const hasQuery = query.trim().length > 0;
-  const hasFilters = Object.values(filters).some(Boolean);
+  const hasFilters = Object.values(filters).some((values) => values.length > 0);
 
   if (hasQuery && hasFilters) {
     return "No courses match your search and filters.";
@@ -131,10 +133,10 @@ function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<ActiveFilters>({
-    department: "",
-    creditType: "",
-    gradeLevel: "",
-    semester: "",
+    department: [],
+    creditType: [],
+    gradeLevel: [],
+    semester: [],
   });
 
   const departments = useMemo(() => extractDepartments(courses), [courses]);
