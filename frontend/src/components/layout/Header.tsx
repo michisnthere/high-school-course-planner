@@ -14,7 +14,7 @@ export function Header(): React.ReactElement {
         justifyContent: "space-between",
         height: "64px",
         padding: "0 24px",
-        backgroundColor: "#ffffff",
+        backgroundColor: "transparent",
         borderBottom: "1px solid #e5e7eb",
         boxSizing: "border-box",
       }}
@@ -26,7 +26,7 @@ export function Header(): React.ReactElement {
             margin: 0,
             fontSize: "1.25rem",
             fontWeight: 700,
-            color: "#000000",
+            color: "#ffffff",
             lineHeight: 1.2,
             fontFamily:
               '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',

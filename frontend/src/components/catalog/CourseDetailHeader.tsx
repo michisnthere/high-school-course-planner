@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
-import { getCourseSlug } from "@/lib/normalize";
 
 type CourseDetailHeaderProps = {
   course: Course;
@@ -26,7 +25,7 @@ export function CourseDetailHeader({ course }: CourseDetailHeaderProps): React.R
           display: "inline-block",
           marginBottom: "16px",
           fontSize: "14px",
-          color: "#6b7280",
+          color: "#d1d5db",
           textDecoration: "none",
           fontWeight: 500,
         }}
@@ -39,7 +38,7 @@ export function CourseDetailHeader({ course }: CourseDetailHeaderProps): React.R
           margin: "0 0 12px",
           fontSize: "32px",
           fontWeight: 700,
-          color: "#111827",
+          color: "#ffffff",
           lineHeight: 1.2,
         }}
       >
