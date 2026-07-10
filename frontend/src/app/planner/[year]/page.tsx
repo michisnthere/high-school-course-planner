@@ -302,9 +302,24 @@ function PlannerYearContent(): React.ReactElement {
           ) : !planner ? (
             <p style={{ color: "#d1d5db" }}>Planner not found.</p>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "32px",
+                flexWrap: "wrap",
+                alignItems: "stretch",
+              }}
+            >
               {[1, 2].map((semester) => (
-                <section key={semester}>
+                <section
+                  key={semester}
+                  style={{
+                    flex: "1 1 0",
+                    minWidth: "280px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <h2
                     style={{
                       margin: "0 0 16px",
@@ -317,9 +332,10 @@ function PlannerYearContent(): React.ReactElement {
                   </h2>
                   <div
                     style={{
-                      display: "grid",
-                      gap: "16px",
-                      gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "12px",
+                      flex: 1,
                     }}
                   >
                     {Array.from({ length: 7 }, (_, i) => renderSlot(semester, i + 1))}
