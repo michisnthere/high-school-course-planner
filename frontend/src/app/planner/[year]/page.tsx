@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
-import { CourseDetailPopover } from "@/components/catalog/CourseDetailPopover";
+import { getCourseSlug } from "@/lib/normalize";
 import { getDivisionColor, getDivisionBackgroundColor } from "@/lib/divisionColors";
 import {
   getPlanners,
@@ -65,17 +65,14 @@ function PlannerYearContent(): React.ReactElement {
     semester: number;
     slot: number;
   } | null>(null);
-  const [popoverCourse, setPopoverCourse] = useState<PlannerCourseDetails | null>(null);
-  const [moveDialog, setMoveDialog] = useState<PlannedCourse | null>(null);
   const [removedCourse, setRemovedCourse] = useState<RemovedCourseState | null>(null);
   const [toast, setToast] = useState<ToastState>({ message: "", type: "success", visible: false });
   const [refreshKey, setRefreshKey] = useState(0);
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [dragOverSlot, setDragOverSlot] = useState<{ semester: number; slot: number } | null>(null);
-  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
-  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const { isSaved } = useSavedCourses();
+  const router = useRouter();
 
   const loadPlanners = useCallback(async () => {
     try {
@@ -103,16 +100,6 @@ function PlannerYearContent(): React.ReactElement {
     loadPlanners();
   }, [year, refreshKey, loadPlanners]);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpenMenuId(null);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   const showToast = useCallback((message: string, type: ToastType = "success", onUndo?: () => void) => {
     setToast({ message, type, onUndo, visible: true });
     setTimeout(() => {
@@ -127,6 +114,14 @@ function PlannerYearContent(): React.ReactElement {
   const handleCloseModal = useCallback(() => {
     setActiveSlot(null);
   }, []);
+
+  const handleCourseClick = useCallback((planned: PlannedCourse) => {
+    const slug = getCourseSlug({
+      title: planned.course.title,
+      normalizedTitle: planned.course.normalizedTitle,
+    });
+    router.push(`/catalog/${slug}?return=${encodeURIComponent(`/planner/${year}`)}`);
+  }, [router, year]);
 
   const handleCourseSelected = useCallback(
     async (courseId: number) => {
@@ -224,10 +219,7 @@ function PlannerYearContent(): React.ReactElement {
           isDragging={draggingId === planned.id}
           isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
           onRemove={() => handleRemoveCourse(planned)}
-          onViewDetails={() => setPopoverCourse(planned.course)}
-          onMove={() => setMoveDialog(planned)}
-          onMenuToggle={() => setOpenMenuId((id) => (id === planned.id ? null : planned.id))}
-          isMenuOpen={openMenuId === planned.id}
+          onClick={() => handleCourseClick(planned)}
           onDragStart={() => setDraggingId(planned.id)}
           onDragEnd={() => setDraggingId(null)}
           onDragOver={() => setDragOverSlot({ semester, slot })}
@@ -356,28 +348,6 @@ function PlannerYearContent(): React.ReactElement {
           onClose={handleCloseModal}
           onSelect={handleCourseSelected}
           isSaved={isSaved}
-        />
-      )}
-
-      {popoverCourse && planner && (
-        <CourseDetailPopover
-          course={popoverCourse}
-          returnUrl={`/planner/${year}`}
-          onClose={() => setPopoverCourse(null)}
-        />
-      )}
-
-      {moveDialog && planner && (
-        <MoveDialog
-          planned={moveDialog}
-          onClose={() => setMoveDialog(null)}
-          onMove={handleMove}
-          occupiedSlots={planner.plannedCourses.map((p) => ({
-            semester: p.semester,
-            slot: p.slot,
-            courseId: p.courseId,
-            title: p.course.title,
-          }))}
         />
       )}
 
@@ -598,10 +568,7 @@ function PlannedCourseCard({
   isDragging,
   isDragOver,
   onRemove,
-  onViewDetails,
-  onMove,
-  onMenuToggle,
-  isMenuOpen,
+  onClick,
   onDragStart,
   onDragEnd,
   onDragOver,
@@ -613,10 +580,7 @@ function PlannedCourseCard({
   isDragging: boolean;
   isDragOver: boolean;
   onRemove: () => void;
-  onViewDetails: () => void;
-  onMove: () => void;
-  onMenuToggle: () => void;
-  isMenuOpen: boolean;
+  onClick: () => void;
   onDragStart: () => void;
   onDragEnd: () => void;
   onDragOver: () => void;
@@ -626,15 +590,29 @@ function PlannedCourseCard({
   const { course } = planned;
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
+  const dragStarted = useRef(false);
 
   return (
     <div
       draggable
+      onClick={() => {
+        if (dragStarted.current) {
+          dragStarted.current = false;
+          return;
+        }
+        onClick();
+      }}
       onDragStart={(e) => {
         e.dataTransfer.setData("plannedCourseId", String(planned.id));
+        dragStarted.current = true;
         onDragStart();
       }}
-      onDragEnd={onDragEnd}
+      onDragEnd={() => {
+        window.setTimeout(() => {
+          dragStarted.current = false;
+        }, 0);
+        onDragEnd();
+      }}
       onDragOver={(e) => {
         e.preventDefault();
         onDragOver();
@@ -700,67 +678,41 @@ function PlannedCourseCard({
         >
           Slot {planned.slot}
         </div>
-        <div style={{ position: "relative" }}>
-          <button
-            type="button"
-            onClick={onMenuToggle}
-            aria-label="Course actions"
-            aria-expanded={isMenuOpen}
-            style={{
-              width: "28px",
-              height: "28px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-              color: "#9ca3af",
-              fontSize: "18px",
-              lineHeight: 1,
-              transition: "background-color 0.15s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
-              e.currentTarget.style.color = "#d1d5db";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#9ca3af";
-            }}
-          >
-            ⋯
-          </button>
-          {isMenuOpen && (
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                right: 0,
-                marginTop: "4px",
-                minWidth: "160px",
-                backgroundColor: "#1f2937",
-                border: "1px solid #374151",
-                borderRadius: "8px",
-                boxShadow: "0 10px 24px rgba(0,0,0,0.25)",
-                zIndex: 20,
-                overflow: "hidden",
-              }}
-            >
-              <MenuItem label="View Course Details" onClick={onViewDetails} />
-              <MenuItem label="Move Course" onClick={onMove} />
-              <MenuItem
-                label="Remove Course"
-                onClick={() => {
-                  onMenuToggle();
-                  onRemove();
-                }}
-                danger
-              />
-            </div>
-          )}
-        </div>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove();
+          }}
+          draggable={false}
+          aria-label="Remove course"
+          style={{
+            width: "28px",
+            height: "28px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "transparent",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            color: "#9ca3af",
+            fontSize: "16px",
+            lineHeight: 1,
+            transition: "background-color 0.15s ease, color 0.15s ease",
+            flex: "0 0 auto",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
+            e.currentTarget.style.color = "#ef4444";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+            e.currentTarget.style.color = "#9ca3af";
+          }}
+        >
+          🗑
+        </button>
       </div>
 
       <div
@@ -839,214 +791,6 @@ function PlannedCourseCard({
           ))}
         </div>
       )}
-    </div>
-  );
-}
-
-function MenuItem({
-  label,
-  onClick,
-  danger,
-}: {
-  label: string;
-  onClick: () => void;
-  danger?: boolean;
-}): React.ReactElement {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      style={{
-        display: "block",
-        width: "100%",
-        padding: "10px 14px",
-        fontSize: "14px",
-        fontWeight: 500,
-        color: danger ? "#fca5a5" : "#d1d5db",
-        backgroundColor: "transparent",
-        border: "none",
-        textAlign: "left",
-        cursor: "pointer",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
-        transition: "background-color 0.15s ease",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = "transparent";
-      }}
-    >
-      {label}
-    </button>
-  );
-}
-
-function MoveDialog({
-  planned,
-  onClose,
-  onMove,
-  occupiedSlots,
-}: {
-  planned: PlannedCourse;
-  onClose: () => void;
-  onMove: (plannedCourseId: number, semester: number, slot: number) => Promise<void>;
-  occupiedSlots: Array<{ semester: number; slot: number; courseId: number; title: string }>;
-}): React.ReactElement {
-  const [targetSemester, setTargetSemester] = useState(planned.semester);
-  const [targetSlot, setTargetSlot] = useState(planned.slot);
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async () => {
-    setSubmitting(true);
-    await onMove(planned.id, targetSemester, targetSlot);
-    setSubmitting(false);
-    onClose();
-  };
-
-  const occupied = occupiedSlots.find(
-    (s) => s.semester === targetSemester && s.slot === targetSlot && s.courseId !== planned.courseId
-  );
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 100,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "400px",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
-          borderRadius: "16px",
-          padding: "24px",
-          fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h2
-          style={{
-            margin: "0 0 16px",
-            fontSize: "20px",
-            fontWeight: 600,
-            color: "#ffffff",
-          }}
-        >
-          Move Course
-        </h2>
-
-        <p style={{ margin: "0 0 16px", fontSize: "15px", color: "#d1d5db" }}>
-          Choose a new semester and slot for <strong>{planned.course.title}</strong>.
-        </p>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "16px" }}>
-          <label style={{ fontSize: "14px", color: "#9ca3af" }}>
-            Semester
-            <select
-              value={targetSemester}
-              onChange={(e) => setTargetSemester(Number(e.target.value))}
-              style={{
-                width: "100%",
-                marginTop: "6px",
-                padding: "10px 12px",
-                fontSize: "15px",
-                color: "#ffffff",
-                backgroundColor: "#111827",
-                border: "1px solid #4b5563",
-                borderRadius: "8px",
-              }}
-            >
-              <option value={1}>Semester 1</option>
-              <option value={2}>Semester 2</option>
-            </select>
-          </label>
-
-          <label style={{ fontSize: "14px", color: "#9ca3af" }}>
-            Slot
-            <select
-              value={targetSlot}
-              onChange={(e) => setTargetSlot(Number(e.target.value))}
-              style={{
-                width: "100%",
-                marginTop: "6px",
-                padding: "10px 12px",
-                fontSize: "15px",
-                color: "#ffffff",
-                backgroundColor: "#111827",
-                border: "1px solid #4b5563",
-                borderRadius: "8px",
-              }}
-            >
-              {Array.from({ length: 7 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  Slot {i + 1}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
-        {occupied && (
-          <p
-            style={{
-              margin: "0 0 16px",
-              fontSize: "14px",
-              color: "#fca5a5",
-            }}
-          >
-            {occupied.title} is already in this slot. They will swap places.
-          </p>
-        )}
-
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
-          <button
-            type="button"
-            onClick={onClose}
-            style={{
-              padding: "10px 16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "#d1d5db",
-              backgroundColor: "transparent",
-              border: "1px solid #4b5563",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={submitting}
-            style={{
-              padding: "10px 16px",
-              fontSize: "14px",
-              fontWeight: 600,
-              color: "#ffffff",
-              backgroundColor: "#2563eb",
-              border: "none",
-              borderRadius: "8px",
-              cursor: submitting ? "not-allowed" : "pointer",
-              opacity: submitting ? 0.7 : 1,
-            }}
-          >
-            {submitting ? "Moving..." : "Move"}
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
