@@ -111,7 +111,7 @@ export async function movePlannedCourse(
   plannedCourseId: number,
   semester: number,
   slot: number
-): Promise<void> {
+): Promise<Planner> {
   const response = await fetch(`${API_URL}/api/planner/courses/${plannedCourseId}/move`, {
     method: "POST",
     credentials: "include",
@@ -123,4 +123,6 @@ export async function movePlannedCourse(
     const body = await response.json().catch(() => ({ error: "Failed to move course" }));
     throw new Error(body.error || "Failed to move course");
   }
+
+  return response.json();
 }

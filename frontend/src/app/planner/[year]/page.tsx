@@ -16,7 +16,6 @@ import {
   type Planner,
   type PlannerCourseDetails,
   type PlannedCourse,
-  type CourseDuration,
 } from "@/lib/planner";
 
 const YEAR_LABELS: Record<number, string> = {
@@ -36,14 +35,20 @@ export default function PlannerYearPage(): React.ReactElement {
   );
 }
 
-type RemovedCourseState = {
-  plannerId: number;
-  courseId: number;
-  semester: number;
-  slot: number;
-  courseTitle: string;
-  duration: CourseDuration;
+type HistoryEntry = {
+  planners: Planner[];
+  undo: () => Promise<void>;
 };
+
+function applyIdMap(planners: Planner[], idMap: Map<number, number>): Planner[] {
+  return planners.map((p) => ({
+    ...p,
+    plannedCourses: p.plannedCourses.map((pc) => {
+      const mappedId = idMap.get(pc.id);
+      return mappedId !== undefined ? { ...pc, id: mappedId } : pc;
+    }),
+  }));
+}
 
 type ToastType = "success" | "warning";
 
@@ -65,13 +70,13 @@ function PlannerYearContent(): React.ReactElement {
     semester: number;
     slot: number;
   } | null>(null);
-  const [removedCourse, setRemovedCourse] = useState<RemovedCourseState | null>(null);
   const [toast, setToast] = useState<ToastState>({ message: "", type: "success", visible: false });
-  const [refreshKey, setRefreshKey] = useState(0);
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [dragOverSlot, setDragOverSlot] = useState<{ semester: number; slot: number } | null>(null);
   const scrollYRef = useRef<number | null>(null);
   const loadedYearRef = useRef<number | null>(null);
+  const historyRef = useRef<HistoryEntry[]>([]);
+  const [canUndo, setCanUndo] = useState(false);
 
   const { isSaved } = useSavedCourses();
   const router = useRouter();
@@ -82,9 +87,13 @@ function PlannerYearContent(): React.ReactElement {
       setAllPlanners(planners);
       const current = planners.find((p) => p.schoolYear === year);
       setPlanner(current || null);
+      historyRef.current = [{ planners, undo: async () => {} }];
+      setCanUndo(false);
     } catch {
       setPlanner(null);
       setAllPlanners([]);
+      historyRef.current = [];
+      setCanUndo(false);
     } finally {
       setLoading(false);
     }
@@ -104,7 +113,7 @@ function PlannerYearContent(): React.ReactElement {
     }
     setError(null);
     loadPlanners();
-  }, [year, refreshKey, loadPlanners]);
+  }, [year, loadPlanners]);
 
   useLayoutEffect(() => {
     if (scrollYRef.current !== null) {
@@ -119,6 +128,33 @@ function PlannerYearContent(): React.ReactElement {
       setToast((prev) => ({ ...prev, visible: false }));
     }, 4000);
   }, []);
+
+  const pushHistory = useCallback(
+    (newPlanners: Planner[], undo: () => Promise<void>) => {
+      historyRef.current = [...historyRef.current, { planners: newPlanners, undo }];
+      setAllPlanners(newPlanners);
+      setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
+      setCanUndo(true);
+    },
+    [year]
+  );
+
+  const handleUndo = useCallback(async () => {
+    if (historyRef.current.length <= 1) return;
+    scrollYRef.current = window.scrollY;
+    const entry = historyRef.current[historyRef.current.length - 1];
+    try {
+      await entry.undo();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to undo";
+      showToast(message, "warning");
+      return;
+    }
+    const previous = historyRef.current[historyRef.current.length - 1];
+    setAllPlanners(previous.planners);
+    setPlanner(previous.planners.find((p) => p.schoolYear === year) || null);
+    setCanUndo(historyRef.current.length > 1);
+  }, [year, showToast]);
 
   const handleOpenModal = useCallback((semester: number, slot: number) => {
     setActiveSlot({ semester, slot });
@@ -142,74 +178,103 @@ function PlannerYearContent(): React.ReactElement {
 
       try {
         scrollYRef.current = window.scrollY;
-        await addPlannedCourse(planner.id, courseId, activeSlot.semester, activeSlot.slot);
-        setRefreshKey((k) => k + 1);
+        const added = await addPlannedCourse(planner.id, courseId, activeSlot.semester, activeSlot.slot);
+        const newPlanners = allPlanners.map((p) =>
+          p.id === planner.id ? { ...p, plannedCourses: [...p.plannedCourses, ...added] } : p
+        );
+        pushHistory(newPlanners, async () => {
+          if (added.length > 0) {
+            await removePlannedCourse(added[0].id);
+          }
+          historyRef.current = historyRef.current.slice(0, -1);
+        });
         handleCloseModal();
+        showToast("Course added.", "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to add course";
         showToast(message, "warning");
       }
     },
-    [planner, activeSlot, handleCloseModal, showToast]
+    [planner, activeSlot, allPlanners, handleCloseModal, pushHistory, showToast, handleUndo]
   );
 
   const handleRemoveCourse = useCallback(
     async (planned: PlannedCourse) => {
       try {
         scrollYRef.current = window.scrollY;
+        const removedEntries = allPlanners
+          .find((p) => p.id === planned.plannerId)
+          ?.plannedCourses.filter((pc) =>
+            planned.course.duration === 2
+              ? pc.courseId === planned.courseId && pc.slot === planned.slot
+              : pc.id === planned.id
+          ) ?? [];
+
+        const newPlanners = allPlanners.map((p) =>
+          p.id === planned.plannerId
+            ? {
+                ...p,
+                plannedCourses: p.plannedCourses.filter((pc) => !removedEntries.some((r) => r.id === pc.id)),
+              }
+            : p
+        );
+
         await removePlannedCourse(planned.id);
-        setRemovedCourse({
-          plannerId: planned.plannerId,
-          courseId: planned.courseId,
-          semester: planned.semester,
-          slot: planned.slot,
-          courseTitle: planned.course.title,
-          duration: planned.course.duration,
-        });
-        setRefreshKey((k) => k + 1);
-        showToast(`Course removed.`, "success", () => {
-          if (!removedCourse) return;
-          handleUndoRemove({
-            plannerId: planned.plannerId,
-            courseId: planned.courseId,
-            semester: planned.semester,
-            slot: planned.slot,
-            courseTitle: planned.course.title,
-            duration: planned.course.duration,
+        pushHistory(newPlanners, async () => {
+          const restored = await addPlannedCourse(
+            planned.plannerId,
+            planned.courseId,
+            planned.semester,
+            planned.slot
+          );
+          const previousIndex = historyRef.current.length - 2;
+          const previousEntry = historyRef.current[previousIndex];
+          const updatedPlanners = previousEntry.planners.map((p) => {
+            if (p.id !== planned.plannerId) return p;
+            return {
+              ...p,
+              plannedCourses: [
+                ...p.plannedCourses.filter((pc) => !removedEntries.some((r) => r.id === pc.id)),
+                ...restored,
+              ],
+            };
           });
+          historyRef.current = [
+            ...historyRef.current.slice(0, previousIndex),
+            { ...previousEntry, planners: updatedPlanners },
+          ];
         });
+        showToast("Course removed.", "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to remove course";
         showToast(message, "warning");
       }
     },
-    [showToast]
+    [allPlanners, pushHistory, showToast, handleUndo]
   );
-
-  const handleUndoRemove = useCallback(async (state: RemovedCourseState) => {
-    try {
-      scrollYRef.current = window.scrollY;
-      await addPlannedCourse(state.plannerId, state.courseId, state.semester, state.slot);
-      setRemovedCourse(null);
-      setRefreshKey((k) => k + 1);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to undo remove";
-      showToast(message, "warning");
-    }
-  }, [showToast]);
 
   const handleMove = useCallback(
     async (plannedCourseId: number, semester: number, slot: number) => {
       try {
         scrollYRef.current = window.scrollY;
-        await movePlannedCourse(plannedCourseId, semester, slot);
-        setRefreshKey((k) => k + 1);
+        const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
+        if (!source) return;
+
+        const updatedPlanner = await movePlannedCourse(plannedCourseId, semester, slot);
+        const newPlanners = allPlanners.map((p) =>
+          p.schoolYear === updatedPlanner.schoolYear ? updatedPlanner : p
+        );
+        pushHistory(newPlanners, async () => {
+          await movePlannedCourse(plannedCourseId, source.semester, source.slot);
+          historyRef.current = historyRef.current.slice(0, -1);
+        });
+        showToast("Course moved.", "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to move course";
         showToast(message, "warning");
       }
     },
-    [showToast]
+    [allPlanners, pushHistory, showToast, handleUndo]
   );
 
   const handleDrop = useCallback(

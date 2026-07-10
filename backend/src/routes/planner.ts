@@ -131,6 +131,43 @@ function serializePlannedCourse(plannedCourse: {
   };
 }
 
+async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
+  const planner = await prisma.planner.findUnique({
+    where: { id: plannerId },
+    include: {
+      plannedCourses: {
+        include: {
+          course: {
+            include: {
+              department: {
+                include: {
+                  division: true,
+                },
+              },
+              options: {
+                include: {
+                  offerings: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!planner) {
+    throw new Error("Planner not found");
+  }
+
+  return {
+    id: planner.id,
+    schoolYear: planner.schoolYear,
+    label: YEAR_LABELS[planner.schoolYear],
+    plannedCourses: planner.plannedCourses.map(serializePlannedCourse),
+  };
+}
+
 router.get("/", requireAuth, async (req, res) => {
   const userId = req.user!.id;
   const years = [9, 10, 11, 12];
@@ -436,7 +473,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
         },
         data: { slot: slotNum },
       });
-      return res.json({ success: true });
+      return res.json(await getPlannerResponse(source.plannerId));
     }
 
     const allSameCourse = targets.length === 2 && targets.every((t) => t.courseId === targets[0].courseId);
@@ -470,7 +507,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
             data: { slot: slotNum },
           }),
         ]);
-        return res.json({ success: true });
+        return res.json(await getPlannerResponse(source.plannerId));
       }
     }
 
@@ -487,7 +524,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
       where: { id: source.id },
       data: { semester: semesterNum, slot: slotNum },
     });
-    return res.json({ success: true });
+    return res.json(await getPlannerResponse(source.plannerId));
   }
 
   const targetDuration = deriveCourseDuration(target.course);
@@ -513,7 +550,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
     }),
   ]);
 
-  res.json({ success: true });
+  res.json(await getPlannerResponse(source.plannerId));
 });
 
 export default router;
