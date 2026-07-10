@@ -104,19 +104,19 @@ export async function addPlannedCourse(
   courseId: number,
   semester: number,
   slot: number
-): Promise<PlannedCourse[]>;
+): Promise<Planner>;
 
 export async function addPlannedCourse(
   plannerId: number,
   item: { plannerOptionId: number; semester: number; slot: number }
-): Promise<PlannedCourse[]>;
+): Promise<Planner>;
 
 export async function addPlannedCourse(
   plannerId: number,
   courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number },
   semester?: number,
   slot?: number
-): Promise<PlannedCourse[]> {
+): Promise<Planner> {
   const body: Record<string, unknown> = { plannerId };
   if (typeof courseIdOrItem === "number") {
     body.courseId = courseIdOrItem;
@@ -173,4 +173,81 @@ export async function movePlannedCourse(
   }
 
   return response.json();
+}
+
+import type { Course } from "@/types/course";
+
+function normalizeDuration(value: unknown): number {
+  if (typeof value === "number" && value === 2) return 2;
+  if (typeof value === "string") {
+    const num = Number(value.trim());
+    return num === 2 ? 2 : 1;
+  }
+  return 1;
+}
+
+function deriveCourseDuration(course: Course): number {
+  if (course.duration === 2) return 2;
+  if (course.duration === 1) return 1;
+  const durations =
+    course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
+  return durations.some((duration) => normalizeDuration(duration) === 2) ? 2 : 1;
+}
+
+export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
+  const option = course.options?.[0];
+  const offerings = option?.offerings ?? [];
+
+  const prerequisites = new Set<string>();
+  for (const offering of offerings) {
+    if (Array.isArray(offering.prerequisites)) {
+      for (const item of offering.prerequisites) {
+        if (typeof item === "string" && item.trim()) {
+          prerequisites.add(item.trim());
+        }
+      }
+    }
+  }
+
+  let courseCode: string | null = null;
+  for (const offering of offerings) {
+    if (typeof offering.courseCode === "string" && offering.courseCode) {
+      courseCode = offering.courseCode;
+      break;
+    }
+  }
+
+  return {
+    id: course.id,
+    title: course.title,
+    normalizedTitle: course.normalizedTitle ?? null,
+    duration: deriveCourseDuration(course),
+    creditType: option?.creditType ?? null,
+    credits: option?.credits ?? null,
+    division: course.department?.division?.name ?? null,
+    department: course.department?.name ?? null,
+    description: course.description ?? null,
+    fulfillsRequirements: Array.isArray(course.fulfillsRequirements)
+      ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string")
+      : [],
+    prerequisites: Array.from(prerequisites),
+    courseCode,
+  };
+}
+
+export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCourseDetails {
+  return {
+    id: -option.id,
+    title: option.name,
+    normalizedTitle: null,
+    duration: option.duration,
+    creditType: null,
+    credits: option.credits,
+    division: null,
+    department: null,
+    description: null,
+    fulfillsRequirements: [],
+    prerequisites: [],
+    courseCode: null,
+  };
 }

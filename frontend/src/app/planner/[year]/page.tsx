@@ -21,11 +21,14 @@ import {
   movePlannedCourse,
   searchPlannerCourses,
   getPlannerOptions,
+  courseToPlannerDetails,
+  plannerOptionToPlannerDetails,
   type Planner,
   type PlannerCourseDetails,
   type PlannedCourse,
   type PlannerOption,
 } from "@/lib/planner";
+import { getCourses } from "@/lib/api";
 import { getRequirementStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -76,6 +79,48 @@ function applyIdMap(planners: Planner[], idMap: Map<number, number>): Planner[] 
 
 function clonePlanners(planners: Planner[]): Planner[] {
   return planners.map((p) => ({ ...p, plannedCourses: p.plannedCourses.map((pc) => ({ ...pc })) }));
+}
+
+function replacePlannerInList(planners: Planner[], updated: Planner): Planner[] {
+  return planners.map((p) => (p.id === updated.id ? updated : p));
+}
+
+function buildAddCourseUndo(
+  beforePlanners: Planner[],
+  afterPlanner: Planner,
+  removeFn: (id: number) => Promise<void>,
+  moveFn: (id: number, semester: number, slot: number) => Promise<Planner>
+): () => Promise<void> {
+  const beforeMap = new Map(
+    beforePlanners
+      .flatMap((p) => p.plannedCourses)
+      .map((pc) => [pc.id, { semester: pc.semester, slot: pc.slot }])
+  );
+
+  const addedCourses = afterPlanner.plannedCourses.filter((pc) => !beforeMap.has(pc.id));
+  const shiftedCourses = afterPlanner.plannedCourses
+    .filter((pc) => beforeMap.has(pc.id))
+    .map((pc) => {
+      const before = beforeMap.get(pc.id)!;
+      return {
+        id: pc.id,
+        newSemester: pc.semester,
+        newSlot: pc.slot,
+        originalSemester: before.semester,
+        originalSlot: before.slot,
+      };
+    })
+    .filter((shift) => shift.newSemester !== shift.originalSemester || shift.newSlot !== shift.originalSlot)
+    .sort((a, b) => a.newSlot - b.newSlot);
+
+  return async () => {
+    if (addedCourses.length > 0) {
+      await removeFn(addedCourses[0].id);
+    }
+    for (const shift of shiftedCourses) {
+      await moveFn(shift.id, shift.originalSemester, shift.originalSlot);
+    }
+  };
 }
 
 function applyOptimisticMove(
@@ -322,21 +367,30 @@ function PlannerYearContent(): React.ReactElement {
   }, [router, year]);
 
   const handleCourseSelected = useCallback(
-    async (courseId: number) => {
+    async (selection: { courseId: number } | { plannerOptionId: number }) => {
       if (!planner || !activeSlot) return;
 
       try {
         scrollYRef.current = window.scrollY;
-        const added = await addPlannedCourse(planner.id, courseId, activeSlot.semester, activeSlot.slot);
-        const newPlanners = allPlanners.map((p) =>
-          p.id === planner.id ? { ...p, plannedCourses: [...p.plannedCourses, ...added] } : p
+        const beforePlanners = allPlanners;
+        const updatedPlanner =
+          "courseId" in selection
+            ? await addPlannedCourse(
+                planner.id,
+                selection.courseId,
+                activeSlot.semester,
+                activeSlot.slot
+              )
+            : await addPlannedCourse(planner.id, {
+                plannerOptionId: selection.plannerOptionId,
+                semester: activeSlot.semester,
+                slot: activeSlot.slot,
+              });
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(
+          newPlanners,
+          buildAddCourseUndo(beforePlanners, updatedPlanner, removePlannedCourse, movePlannedCourse)
         );
-        pushHistory(newPlanners, async () => {
-          if (added.length > 0) {
-            await removePlannedCourse(added[0].id);
-          }
-          historyRef.current = historyRef.current.slice(0, -1);
-        });
         handleCloseModal();
         showToast("Course added.", "success", handleUndo);
       } catch (err) {
@@ -354,16 +408,13 @@ function PlannerYearContent(): React.ReactElement {
 
       try {
         scrollYRef.current = window.scrollY;
-        const added = await addPlannedCourse(targetPlanner.id, courseId, semester, slot);
-        const newPlanners = allPlanners.map((p) =>
-          p.id === targetPlanner.id ? { ...p, plannedCourses: [...p.plannedCourses, ...added] } : p
+        const beforePlanners = allPlanners;
+        const updatedPlanner = await addPlannedCourse(targetPlanner.id, courseId, semester, slot);
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(
+          newPlanners,
+          buildAddCourseUndo(beforePlanners, updatedPlanner, removePlannedCourse, movePlannedCourse)
         );
-        pushHistory(newPlanners, async () => {
-          if (added.length > 0) {
-            await removePlannedCourse(added[0].id);
-          }
-          historyRef.current = historyRef.current.slice(0, -1);
-        });
         setAllPlanners(newPlanners);
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
         showToast("Prerequisite added.", "success", handleUndo);
@@ -399,7 +450,7 @@ function PlannerYearContent(): React.ReactElement {
 
         await removePlannedCourse(planned.id);
         pushHistory(newPlanners, async () => {
-          const restored = await addPlannedCourse(
+          const restoredPlanner = await addPlannedCourse(
             planned.plannerId,
             planned.courseId,
             planned.semester,
@@ -407,16 +458,9 @@ function PlannerYearContent(): React.ReactElement {
           );
           const previousIndex = historyRef.current.length - 2;
           const previousEntry = historyRef.current[previousIndex];
-          const updatedPlanners = previousEntry.planners.map((p) => {
-            if (p.id !== planned.plannerId) return p;
-            return {
-              ...p,
-              plannedCourses: [
-                ...p.plannedCourses.filter((pc) => !removedEntries.some((r) => r.id === pc.id)),
-                ...restored,
-              ],
-            };
-          });
+          const updatedPlanners = previousEntry.planners.map((p) =>
+            p.id === restoredPlanner.id ? restoredPlanner : p
+          );
           historyRef.current = [
             ...historyRef.current.slice(0, previousIndex),
             { ...previousEntry, planners: updatedPlanners },
@@ -622,6 +666,7 @@ function PlannerYearContent(): React.ReactElement {
           onClose={handleCloseModal}
           onSelect={handleCourseSelected}
           isSaved={isSaved}
+          grade={year}
         />
       )}
 
@@ -1137,10 +1182,12 @@ function CourseSearchModal({
   onClose,
   onSelect,
   isSaved,
+  grade,
 }: {
   onClose: () => void;
-  onSelect: (courseId: number) => void;
+  onSelect: (selection: { courseId: number } | { plannerOptionId: number }) => void;
   isSaved: (courseId: number) => boolean;
+  grade: number;
 }): React.ReactElement {
   const [query, setQuery] = useState("");
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
@@ -1149,11 +1196,14 @@ function CourseSearchModal({
 
   useEffect(() => {
     setLoading(true);
-    searchPlannerCourses("")
-      .then(setAllCourses)
+    Promise.all([
+      getCourses().then((courses) => courses.map(courseToPlannerDetails)),
+      getPlannerOptions(grade).then((options) => options.map(plannerOptionToPlannerDetails)),
+    ])
+      .then(([courses, options]) => setAllCourses([...options, ...courses]))
       .catch(() => setAllCourses([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [grade]);
 
   const divisions = useMemo(
     () => extractDivisionsFromItems(allCourses, (course) => course.division),
@@ -1324,7 +1374,11 @@ function CourseSearchModal({
                 <button
                   key={course.id}
                   type="button"
-                  onClick={() => onSelect(course.id)}
+                  onClick={() =>
+                    onSelect(
+                      course.id < 0 ? { plannerOptionId: -course.id } : { courseId: course.id }
+                    )
+                  }
                   style={{
                     display: "flex",
                     alignItems: "flex-start",

@@ -31,6 +31,7 @@ export type Course = {
   title: string;
   normalizedTitle?: string | null;
   description?: string | null;
+  duration?: number | null;
   notes?: string[];
   attributes?: string[];
   fulfillsRequirements?: string[];

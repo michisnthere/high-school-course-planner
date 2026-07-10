@@ -153,6 +153,43 @@ function getPlannedDuration(plannedCourse: {
   return plannedCourse.plannerOption?.duration ?? 1;
 }
 
+function computeShiftChain(
+  existingCourses: Array<{
+    id: number;
+    semester: number;
+    slot: number;
+    course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+    plannerOption: PlannerOption | null;
+  }>,
+  semester: number,
+  startSlot: number
+): Array<{ id: number; newSlot: number }> | null {
+  const semCourses = existingCourses
+    .filter((pc) => pc.semester === semester)
+    .sort((a, b) => a.slot - b.slot);
+
+  const occupant = semCourses.find((pc) => pc.slot === startSlot);
+  if (!occupant) return [];
+
+  if (getPlannedDuration(occupant) === 2) return null;
+
+  let emptySlot = startSlot;
+  while (emptySlot <= 7) {
+    if (!semCourses.some((pc) => pc.slot === emptySlot)) break;
+    emptySlot++;
+  }
+  if (emptySlot > 7) return null;
+
+  const chain: Array<{ id: number; newSlot: number }> = [];
+  for (let slot = startSlot; slot < emptySlot; slot++) {
+    const pc = semCourses.find((c) => c.slot === slot);
+    if (!pc) return null;
+    if (getPlannedDuration(pc) === 2) return null;
+    chain.push({ id: pc.id, newSlot: slot + 1 });
+  }
+  return chain;
+}
+
 function serializePlannedCourse(plannedCourse: {
   id: number;
   plannerId: number;
@@ -388,46 +425,61 @@ router.post("/courses", requireAuth, async (req, res) => {
     createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum };
   }
 
-  const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
-
-  const occupied = await prisma.plannedCourse.findMany({
-    where: {
-      plannerId: planner.id,
-      semester: { in: targetSemesters },
-      slot: slotNum,
+  const existingCourses = await prisma.plannedCourse.findMany({
+    where: { plannerId: planner.id },
+    include: {
+      course: {
+        include: {
+          department: {
+            include: {
+              division: true,
+            },
+          },
+          options: {
+            include: {
+              offerings: true,
+            },
+          },
+        },
+      },
+      plannerOption: true,
     },
   });
 
-  if (occupied.length > 0) {
-    return res.status(409).json({ error: "Slot is already occupied" });
+  const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
+  const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
+
+  for (const sem of targetSemesters) {
+    const chain = computeShiftChain(existingCourses, sem, slotNum);
+    if (chain === null) {
+      return res.status(409).json({ error: "Not enough room to place this full-year course." });
+    }
+    shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
   }
 
-  const created = await prisma.$transaction(
-    targetSemesters.map((sem) =>
-      prisma.plannedCourse.create({
-        data: { ...createData, semester: sem },
-        include: {
-          course: {
-            include: {
-              department: {
-                include: {
-                  division: true,
-                },
-              },
-              options: {
-                include: {
-                  offerings: true,
-                },
-              },
-            },
-          },
-          plannerOption: true,
-        },
-      })
-    )
-  );
+  if (duration === 1) {
+    const occupant = existingCourses.find((pc) => pc.semester === semesterNum && pc.slot === slotNum);
+    if (occupant) {
+      return res.status(409).json({ error: "Slot is already occupied" });
+    }
+  }
 
-  res.status(201).json(created.map(serializePlannedCourse));
+  await prisma.$transaction(async (tx) => {
+    // Apply shifts from highest new slot to lowest to avoid transient unique-key collisions.
+    for (const shift of shifts.sort((a, b) => b.newSlot - a.newSlot)) {
+      await tx.plannedCourse.update({
+        where: { id: shift.id },
+        data: { slot: shift.newSlot },
+      });
+    }
+    for (const sem of targetSemesters) {
+      await tx.plannedCourse.create({
+        data: { ...createData, semester: sem },
+      });
+    }
+  });
+
+  res.status(201).json(await getPlannerResponse(planner.id));
 });
 
 router.delete("/courses/:id", requireAuth, async (req, res) => {
