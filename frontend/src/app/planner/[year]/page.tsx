@@ -343,6 +343,10 @@ function PlannerYearContent(): React.ReactElement {
       showToast(message, "warning");
       return;
     }
+    // Pop the undone entry and restore the previous planner state. Each undo
+    // handler is responsible for reverting the backend; this line makes the
+    // in-memory history stack consistent with that reverted state.
+    historyRef.current = historyRef.current.slice(0, -1);
     const previous = historyRef.current[historyRef.current.length - 1];
     setAllPlanners(previous.planners);
     setPlanner(previous.planners.find((p) => p.schoolYear === year) || null);
@@ -455,13 +459,14 @@ function PlannerYearContent(): React.ReactElement {
             planned.semester,
             planned.slot
           );
-          const previousIndex = historyRef.current.length - 2;
-          const previousEntry = historyRef.current[previousIndex];
+          // Replace the state we are undoing back into with the freshly restored
+          // planner so the re-added course has the correct ids and shifted positions.
+          const previousEntry = historyRef.current[historyRef.current.length - 1];
           const updatedPlanners = previousEntry.planners.map((p) =>
             p.id === restoredPlanner.id ? restoredPlanner : p
           );
           historyRef.current = [
-            ...historyRef.current.slice(0, previousIndex),
+            ...historyRef.current.slice(0, -1),
             { ...previousEntry, planners: updatedPlanners },
           ];
         });
@@ -496,7 +501,6 @@ function PlannerYearContent(): React.ReactElement {
         );
         pushHistory(newPlanners, async () => {
           await movePlannedCourse(plannedCourseId, source.semester, source.slot);
-          historyRef.current = historyRef.current.slice(0, -1);
         });
         showToast("Course moved.", "success", handleUndo);
       } catch (err) {
