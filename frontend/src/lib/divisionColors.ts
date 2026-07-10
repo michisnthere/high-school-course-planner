@@ -1,13 +1,18 @@
 export const DIVISION_COLORS: Record<string, string> = {
   Mathematics: "#3b82f6", // blue
   "Communication Arts": "#ef4444", // red
+  English: "#ef4444", // red
   Science: "#eab308", // yellow
   "Social Studies": "#22c55e", // green
   "Applied Arts": "#a855f7", // purple
   CSET: "#14b8a6", // teal
+  CTE: "#14b8a6", // teal
+  "Career & Technical Education": "#14b8a6", // teal
   "Fine Arts": "#ec4899", // pink
   "Multilingual Learning": "#991b1b", // maroon
+  "Language Learning": "#991b1b", // maroon
   "Physical Welfare": "#d4c5a9", // beige
+  "Physical Education": "#d4c5a9", // beige
 };
 
 export function getDivisionColor(division: string | null | undefined): string {
