@@ -50,6 +50,93 @@ function applyIdMap(planners: Planner[], idMap: Map<number, number>): Planner[] 
   }));
 }
 
+function clonePlanners(planners: Planner[]): Planner[] {
+  return planners.map((p) => ({ ...p, plannedCourses: p.plannedCourses.map((pc) => ({ ...pc })) }));
+}
+
+function applyOptimisticMove(
+  planners: Planner[],
+  source: PlannedCourse,
+  targetSemester: number,
+  targetSlot: number
+): Planner[] {
+  const plannerIndex = planners.findIndex((p) => p.id === source.plannerId);
+  if (plannerIndex === -1) return planners;
+
+  const planner = planners[plannerIndex];
+  const courses = planner.plannedCourses;
+
+  const replacePlanner = (newCourses: PlannedCourse[]): Planner[] => [
+    ...planners.slice(0, plannerIndex),
+    { ...planner, plannedCourses: newCourses },
+    ...planners.slice(plannerIndex + 1),
+  ];
+
+  if (source.course.duration === 2) {
+    // Full-year: dropping on the same slot is a no-op; semester is ignored by the API.
+    if (source.slot === targetSlot) return planners;
+
+    const targetOccupants = courses.filter((pc) => pc.slot === targetSlot);
+    if (targetOccupants.length === 0) {
+      return replacePlanner(
+        courses.map((pc) =>
+          pc.courseId === source.courseId && pc.slot === source.slot ? { ...pc, slot: targetSlot } : pc
+        )
+      );
+    }
+
+    const allSameCourse = targetOccupants.every((pc) => pc.courseId === targetOccupants[0].courseId);
+    const allFullYear = targetOccupants.every((pc) => pc.course.duration === 2);
+    if (allSameCourse && allFullYear) {
+      const targetCourseId = targetOccupants[0].courseId;
+      if (targetCourseId === source.courseId) return planners;
+      return replacePlanner(
+        courses.map((pc) => {
+          if (pc.courseId === source.courseId && pc.slot === source.slot) {
+            return { ...pc, slot: targetSlot };
+          }
+          if (pc.courseId === targetCourseId && pc.slot === targetSlot) {
+            return { ...pc, slot: source.slot };
+          }
+          return pc;
+        })
+      );
+    }
+
+    // Full-year cannot be dropped onto a slot occupied by a one-semester course.
+    return planners;
+  }
+
+  // One-semester source.
+  if (source.semester === targetSemester && source.slot === targetSlot) return planners;
+
+  const target = courses.find((pc) => pc.semester === targetSemester && pc.slot === targetSlot);
+  if (!target) {
+    return replacePlanner(
+      courses.map((pc) =>
+        pc.id === source.id ? { ...pc, semester: targetSemester, slot: targetSlot } : pc
+      )
+    );
+  }
+
+  if (target.course.duration === 2) {
+    // One-semester courses cannot swap with full-year courses.
+    return planners;
+  }
+
+  return replacePlanner(
+    courses.map((pc) => {
+      if (pc.id === source.id) {
+        return { ...pc, semester: targetSemester, slot: targetSlot };
+      }
+      if (pc.id === target.id) {
+        return { ...pc, semester: source.semester, slot: source.slot };
+      }
+      return pc;
+    })
+  );
+}
+
 type ToastType = "success" | "warning";
 
 type ToastState = {
@@ -255,11 +342,20 @@ function PlannerYearContent(): React.ReactElement {
 
   const handleMove = useCallback(
     async (plannedCourseId: number, semester: number, slot: number) => {
-      try {
-        scrollYRef.current = window.scrollY;
-        const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
-        if (!source) return;
+      scrollYRef.current = window.scrollY;
+      const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
+      if (!source) return;
+      if (source.semester === semester && source.slot === slot && source.course.duration !== 2) return;
+      if (source.course.duration === 2 && source.slot === slot) return;
 
+      const originalPlanners = clonePlanners(allPlanners);
+      const optimisticPlanners = applyOptimisticMove(allPlanners, source, semester, slot);
+      if (optimisticPlanners !== originalPlanners) {
+        setAllPlanners(optimisticPlanners);
+        setPlanner(optimisticPlanners.find((p) => p.schoolYear === year) || null);
+      }
+
+      try {
         const updatedPlanner = await movePlannedCourse(plannedCourseId, semester, slot);
         const newPlanners = allPlanners.map((p) =>
           p.schoolYear === updatedPlanner.schoolYear ? updatedPlanner : p
@@ -272,9 +368,11 @@ function PlannerYearContent(): React.ReactElement {
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to move course";
         showToast(message, "warning");
+        setAllPlanners(originalPlanners);
+        setPlanner(originalPlanners.find((p) => p.schoolYear === year) || null);
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo]
+    [allPlanners, pushHistory, showToast, handleUndo, year]
   );
 
   const handleDrop = useCallback(
