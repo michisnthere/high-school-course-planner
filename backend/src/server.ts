@@ -29,7 +29,7 @@ app.use(passportSession);
 app.use("/courses", coursesRouter);
 app.use("/auth", authRouter);
 app.use("/saved-courses", savedCoursesRouter);
-app.use("/planner", plannerRouter);
+app.use("/api/planner", plannerRouter);
 
 app.get("/", (_req, res) => {
   res.json({

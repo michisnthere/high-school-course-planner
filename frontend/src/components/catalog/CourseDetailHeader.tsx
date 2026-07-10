@@ -5,23 +5,27 @@ import { SaveCourseButton } from "./SaveCourseButton";
 
 type CourseDetailHeaderProps = {
   course: Course;
+  returnUrl?: string;
 };
 
-export function CourseDetailHeader({ course }: CourseDetailHeaderProps): React.ReactElement {
+export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProps): React.ReactElement {
   const creditType = course.options?.[0]?.creditType ?? null;
   const division = course.department?.division?.name;
   const department = course.department?.name;
+
+  const backHref = returnUrl && returnUrl.startsWith("/") ? returnUrl : "/catalog";
+  const backLabel = returnUrl ? "← Back to Planner" : "← Back to Catalog";
 
   return (
     <div
       style={{
         marginBottom: "32px",
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
       }}
     >
       <Link
-        href="/catalog"
+        href={backHref}
         style={{
           display: "inline-block",
           marginBottom: "16px",
@@ -31,7 +35,7 @@ export function CourseDetailHeader({ course }: CourseDetailHeaderProps): React.R
           fontWeight: 500,
         }}
       >
-        ← Back to Catalog
+        {backLabel}
       </Link>
 
       <h1

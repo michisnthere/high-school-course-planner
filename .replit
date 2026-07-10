@@ -10,14 +10,6 @@ channel = "stable-25_05"
 deploymentTarget = "vm"
 run = ["npm", "run", "import:courses"]
 
-[[ports]]
-localPort = 3000
-externalPort = 3000
-
-[[ports]]
-localPort = 4000
-externalPort = 80
-
 [userenv]
 
 [userenv.shared]
@@ -64,3 +56,11 @@ waitForPort = 3000
 
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 4000
+externalPort = 80

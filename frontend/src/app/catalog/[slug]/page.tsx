@@ -10,6 +10,7 @@ import type { Course } from "@/types/course";
 
 type CatalogDetailPageProps = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ return?: string }>;
 };
 
 function findCourseBySlug(courses: Course[], slug: string): Course | undefined {
@@ -23,8 +24,9 @@ function findCourseBySlug(courses: Course[], slug: string): Course | undefined {
 
 export const dynamic = "force-dynamic";
 
-export default async function CatalogDetailPage({ params }: CatalogDetailPageProps) {
+export default async function CatalogDetailPage({ params, searchParams }: CatalogDetailPageProps) {
   const { slug } = await params;
+  const { return: returnUrl } = await searchParams;
   const courses: Course[] = await getCourses();
   const course = findCourseBySlug(courses, slug);
 
@@ -34,7 +36,7 @@ export default async function CatalogDetailPage({ params }: CatalogDetailPagePro
         style={{
           padding: "32px",
           fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         }}
       >
         <div
@@ -92,10 +94,10 @@ export default async function CatalogDetailPage({ params }: CatalogDetailPagePro
       style={{
         padding: "32px",
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
       }}
     >
-      <CourseDetailHeader course={course} />
+      <CourseDetailHeader course={course} returnUrl={returnUrl} />
       <CourseDescription course={course} />
       <CourseOfferings course={course} />
       <CoursePrerequisites course={course} />
