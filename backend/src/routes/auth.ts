@@ -1,6 +1,8 @@
 import { Router } from "express";
 import passport from "passport";
 
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
 const router = Router();
 
 router.get(
@@ -11,9 +13,11 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/login",
-    successRedirect: "/",
-  })
+    failureRedirect: `${FRONTEND_URL}/login`,
+  }),
+  (_req, res) => {
+    res.redirect(FRONTEND_URL);
+  }
 );
 
 router.get("/session", (req, res) => {
