@@ -118,41 +118,35 @@ export function CourseFilters({
     0
   );
 
+  const selectedDivision = filters.division[0] ?? null;
+
   const availableDepartments = useMemo(() => {
-    if (filters.division.length === 0) return departments;
-    const set = new Set<string>();
-    for (const division of filters.division) {
-      for (const dept of divisionDepartments.get(division) ?? []) {
-        set.add(dept);
-      }
+    if (!selectedDivision) return [];
+    return divisionDepartments.get(selectedDivision) ?? [];
+  }, [selectedDivision, divisionDepartments]);
+
+  const isDepartmentRedundant =
+    selectedDivision != null &&
+    availableDepartments.length === 1 &&
+    availableDepartments[0] === selectedDivision;
+
+  const handleDivisionToggle = (value: string) => {
+    if (selectedDivision === value) {
+      // Clearing the division hides the department selector again.
+      onFilterChange({ ...filters, division: [], department: [] });
+      return;
     }
-    return Array.from(set).sort();
-  }, [filters.division, divisionDepartments, departments]);
+
+    // Only one division may be selected at a time. Changing divisions replaces
+    // the department list and clears the current department selection.
+    onFilterChange({ ...filters, division: [value], department: [] });
+  };
 
   const handleToggle = (key: keyof ActiveFilters, value: string) => {
     const current = filters[key];
     const next = current.includes(value)
       ? current.filter((v) => v !== value)
       : [...current, value];
-
-    if (key === "division") {
-      // When a division is selected, only keep departments that belong to one
-      // of the selected divisions. When no division is selected, leave the
-      // department choices untouched.
-      const nextDivisions = next;
-      let nextDepartments = filters.department;
-      if (nextDivisions.length > 0) {
-        const validDepartments = new Set<string>();
-        for (const division of nextDivisions) {
-          for (const dept of divisionDepartments.get(division) ?? []) {
-            validDepartments.add(dept);
-          }
-        }
-        nextDepartments = filters.department.filter((d) => validDepartments.has(d));
-      }
-      onFilterChange({ ...filters, division: nextDivisions, department: nextDepartments });
-      return;
-    }
 
     onFilterChange({ ...filters, [key]: next });
   };
@@ -167,13 +161,11 @@ export function CourseFilters({
     });
   };
 
-  const groups: Array<{
+  const otherGroups: Array<{
     key: keyof ActiveFilters;
     label: string;
     values: string[];
   }> = [
-    { key: "division", label: "Division", values: divisions },
-    { key: "department", label: "Department", values: availableDepartments },
     { key: "creditType", label: "Credit Type", values: creditTypes },
     {
       key: "gradeLevel",
@@ -193,7 +185,23 @@ export function CourseFilters({
           marginBottom: activeFilterCount > 0 ? "16px" : "0",
         }}
       >
-        {groups.map((group) => (
+        <ToggleGroup
+          label="Division"
+          values={divisions}
+          selected={filters.division}
+          onToggle={handleDivisionToggle}
+        />
+
+        {selectedDivision != null && !isDepartmentRedundant && (
+          <ToggleGroup
+            label="Department"
+            values={availableDepartments}
+            selected={filters.department}
+            onToggle={(value) => handleToggle("department", value)}
+          />
+        )}
+
+        {otherGroups.map((group) => (
           <ToggleGroup
             key={group.key}
             label={group.label}
@@ -214,7 +222,17 @@ export function CourseFilters({
           }}
         >
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            {groups.flatMap((group) =>
+            {filters.division.map((value) => (
+              <span key={`division-${value}`} style={activeChipStyle}>
+                Division: {value}
+              </span>
+            ))}
+            {filters.department.map((value) => (
+              <span key={`department-${value}`} style={activeChipStyle}>
+                Department: {value}
+              </span>
+            ))}
+            {otherGroups.flatMap((group) =>
               filters[group.key].map((value) => (
                 <span key={`${group.key}-${value}`} style={activeChipStyle}>
                   {group.label}: {value}
