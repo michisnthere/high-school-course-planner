@@ -3,7 +3,7 @@
 const API_URL =
   typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
 
-export type CourseDuration = "Full Year" | "One Semester";
+export type CourseDuration = number;
 
 export type PlannerCourseDetails = {
   id: number;

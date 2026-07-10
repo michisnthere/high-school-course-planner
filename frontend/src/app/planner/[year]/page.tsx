@@ -396,7 +396,7 @@ function SummarySidebar({
     0
   );
   const currentCourseCount = currentPlanner?.plannedCourses.length || 0;
-  const fullYearCount = currentPlanner?.plannedCourses.filter((pc) => pc.course.duration === "Full Year").length || 0;
+  const fullYearCount = currentPlanner?.plannedCourses.filter((pc) => pc.course.duration === 2).length || 0;
   const semesterCount = currentCourseCount - fullYearCount;
   const creditsRemaining = Math.max(0, GRADUATION_CREDITS - totalCredits);
 
@@ -776,7 +776,7 @@ function PlannedCourseCard({
             {course.credits} credits
           </span>
         )}
-        {course.duration === "Full Year" && (
+        {course.duration === 2 && (
           <span
             style={{
               padding: "4px 10px",
@@ -1038,7 +1038,7 @@ function CourseSearchModal({
                           {course.credits} credits
                         </span>
                       )}
-                      {course.duration && (
+                      {course.duration === 2 && (
                         <span
                           style={{
                             padding: "3px 8px",
@@ -1046,7 +1046,18 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          {course.duration}
+                          Full Year
+                        </span>
+                      )}
+                      {course.duration === 1 && (
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            backgroundColor: "#1f2937",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          One Semester
                         </span>
                       )}
                     </div>

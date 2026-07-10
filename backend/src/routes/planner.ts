@@ -12,13 +12,11 @@ const YEAR_LABELS: Record<number, string> = {
   12: "Senior",
 };
 
-type CourseDuration = "Full Year" | "One Semester";
-
 type CourseDetails = {
   id: number;
   title: string;
   normalizedTitle: string | null;
-  duration: CourseDuration;
+  duration: number;
   creditType: string | null;
   credits: number | null;
   division: string | null;
@@ -45,15 +43,22 @@ type PlannerResponse = {
   plannedCourses: PlannedCourseResponse[];
 };
 
-function deriveCourseDuration(course: Course & { options?: Array<{ offerings?: Array<{ duration?: string | null }> }> }): CourseDuration {
+function normalizeDuration(value: unknown): number {
+  if (typeof value === "number" && (value === 1 || value === 2)) {
+    return value;
+  }
+  if (typeof value === "string") {
+    const num = Number(value.trim());
+    return num === 2 ? 2 : 1;
+  }
+  return 1;
+}
+
+function deriveCourseDuration(course: Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }): number {
   const durations =
     course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
 
-  const hasFullYear = durations.some(
-    (duration) => typeof duration === "string" && duration.toLowerCase().includes("full year")
-  );
-
-  return hasFullYear ? "Full Year" : "One Semester";
+  return durations.some((duration) => normalizeDuration(duration) === 2) ? 2 : 1;
 }
 
 function deriveCourseDetails(
@@ -63,7 +68,7 @@ function deriveCourseDetails(
       creditType?: string | null;
       credits?: number | null;
       offerings?: Array<{
-        duration?: string | null;
+        duration?: string | number | null;
         courseCode?: string | null;
         prerequisites?: unknown;
       }>;
@@ -253,7 +258,7 @@ router.post("/courses", requireAuth, async (req, res) => {
 
   const duration = deriveCourseDuration(course);
 
-  const targetSemesters = duration === "Full Year" ? [1, 2] : [semesterNum];
+  const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
 
   const occupied = await prisma.plannedCourse.findMany({
     where: {
@@ -334,7 +339,7 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
 
   const duration = deriveCourseDuration(plannedCourse.course);
 
-  if (duration === "Full Year") {
+  if (duration === 2) {
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
@@ -397,8 +402,8 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
   }
 
   const sourceDuration = deriveCourseDuration(source.course);
-  const sourceSemesters = sourceDuration === "Full Year" ? [1, 2] : [source.semester];
-  const targetSemesters = sourceDuration === "Full Year" ? [1, 2] : [semesterNum];
+  const sourceSemesters = sourceDuration === 2 ? [1, 2] : [source.semester];
+  const targetSemesters = sourceDuration === 2 ? [1, 2] : [semesterNum];
 
   const targets = await prisma.plannedCourse.findMany({
     where: {
@@ -421,7 +426,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
 
   const TEMP_SLOT = 0;
 
-  if (sourceDuration === "Full Year") {
+  if (sourceDuration === 2) {
     if (targets.length === 0) {
       await prisma.plannedCourse.updateMany({
         where: {
@@ -437,7 +442,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
     const allSameCourse = targets.length === 2 && targets.every((t) => t.courseId === targets[0].courseId);
     if (allSameCourse) {
       const targetDuration = deriveCourseDuration(targets[0].course);
-      if (targetDuration === "Full Year") {
+      if (targetDuration === 2) {
         const targetCourseId = targets[0].courseId;
         await prisma.$transaction([
           prisma.plannedCourse.updateMany({
@@ -486,7 +491,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
   }
 
   const targetDuration = deriveCourseDuration(target.course);
-  if (targetDuration === "Full Year") {
+  if (targetDuration === 2) {
     return res.status(409).json({
       error: "Cannot swap a one-semester course with a full-year course.",
     });
