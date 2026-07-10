@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import type { Course } from "@/types/course";
+import { sortAndGroupCourses } from "@/lib/catalog";
 import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
@@ -151,6 +152,10 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     );
   }, [courses, query, filters]);
 
+  const groupedCourses = useMemo(() => {
+    return sortAndGroupCourses(filteredCourses);
+  }, [filteredCourses]);
+
   return (
     <>
       <CourseSearch query={query} onQueryChange={setQuery} />
@@ -166,7 +171,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       {filteredCourses.length === 0 ? (
         <EmptyState message={getEmptyStateMessage(query, filters)} />
       ) : (
-        <CourseGrid courses={filteredCourses} />
+        <CourseGrid groupedCourses={groupedCourses} />
       )}
     </>
   );
