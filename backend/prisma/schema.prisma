@@ -63,6 +63,9 @@ model Course {
 
   description String?
 
+  // Normalized duration in semester units: 1 = one semester, 2 = full year.
+  duration Int?
+
   attributes           Json    @default("[]")
   fulfillsRequirements Json    @default("[]")
   isRepeatable         Boolean @default(false)

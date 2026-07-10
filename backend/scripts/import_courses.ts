@@ -520,6 +520,15 @@ async function main() {
     const { attributes, isRepeatable } = normalizeAttributes(course.attributes);
     const finalIsRepeatable = course.isRepeatable ?? isRepeatable;
 
+    // Compute the normalized course duration from all offerings (1 = one semester, 2 = full year).
+    const allOfferings = Array.isArray(course.choices) && course.choices.length > 0
+      ? course.choices.flatMap((choice) => choice.offerings ?? course.offerings ?? [])
+      : (course.offerings ?? []);
+    const parsedDurations = allOfferings
+      .map((offering) => parseDurationUnits(offering.duration))
+      .filter((d): d is number => d !== null);
+    const courseDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
+
     let savedCourse: { id: number };
     try {
       savedCourse = await prisma.course.upsert({
@@ -529,6 +538,7 @@ async function main() {
           normalizedTitle: normalizeTitle(course.title!),
           importKey,
           description: course.description ?? null,
+          duration: courseDuration ?? null,
           attributes,
           fulfillsRequirements: requireArray(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
@@ -540,6 +550,7 @@ async function main() {
           title: course.title!,
           normalizedTitle: normalizeTitle(course.title!),
           description: course.description ?? null,
+          duration: courseDuration ?? null,
           attributes,
           fulfillsRequirements: requireArray(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,

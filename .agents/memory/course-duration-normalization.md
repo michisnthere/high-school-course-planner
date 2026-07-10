@@ -1,16 +1,15 @@
 ---
 name: Course duration normalization
-description: How the planner should interpret duration strings from imported course data.
+description: Planner duration is a numeric value, never a string label.
 ---
 
 # Course duration normalization
 
-The imported course catalog stores `duration` as a string on each `CourseOffering`. Common values include:
+Course duration is a numeric value on the `Course` model: `1` for one semester, `2` for a full year. The planner API uses that value directly and never parses or compares raw duration strings like `"Full Year"` or `"One Semester"`.
 
-- `"Full Year"` — spans both semesters, represented as two `PlannedCourse` rows in the planner.
-- `"One Semester"` — a single semester.
-- Occasional numeric strings like `"2"`.
+**Why:** Relying on string labels in the planner made full-year detection fragile and caused full-year courses to populate only one semester. Treating duration as a typed numeric value removes ambiguity.
 
-**Why:** Early planner logic treated `duration` as a numeric value. This caused full-year courses to be classified as one-semester courses, which broke full-year add/move/delete behavior and inflated the summary counts.
-
-**How to apply:** Always normalize the `duration` field to a numeric duration (`1` for one semester, `2` for full-year) before using it in planner logic. A full-year course should be identified by any string that starts with `"full"`, equals `"full year"`, `"full-year"`, `"yearlong"`, or `"year-long"`, or by the numeric value `2`.
+**How to apply:**
+- Store the normalized duration on the `Course` model.
+- Convert raw catalog strings to numeric values only during import or a dedicated data migration.
+- Keep all planner logic (add, remove, move, summary counting) strictly numeric.

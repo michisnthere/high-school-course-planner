@@ -48,22 +48,25 @@ function normalizeDuration(value: unknown): number {
     return 2;
   }
   if (typeof value === "string") {
-    const trimmed = value.trim().toLowerCase();
-    if (
-      trimmed === "2" ||
-      trimmed.startsWith("full") ||
-      trimmed === "full year" ||
-      trimmed === "full-year" ||
-      trimmed === "yearlong" ||
-      trimmed === "year-long"
-    ) {
-      return 2;
-    }
+    const num = Number(value.trim());
+    return num === 2 ? 2 : 1;
   }
   return 1;
 }
 
-function deriveCourseDuration(course: Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }): number {
+function deriveCourseDuration(
+  course: Course & {
+    duration?: number | null;
+    options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }>;
+  }
+): number {
+  if (course.duration === 2) {
+    return 2;
+  }
+  if (course.duration === 1) {
+    return 1;
+  }
+
   const durations =
     course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
 
