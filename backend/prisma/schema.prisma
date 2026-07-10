@@ -76,10 +76,11 @@ model Course {
   departmentId Int?
   department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
 
-  options        CourseOption[]
-  requirements   CourseRequirement[]
-  savedCourses   SavedCourse[]
-  plannedCourses PlannedCourse[]
+  options          CourseOption[]
+  requirements     CourseRequirement[]
+  savedCourses     SavedCourse[]
+  plannedCourses   PlannedCourse[]
+  completedCourses CompletedCourse[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -206,8 +207,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  savedCourses SavedCourse[]
-  planners     Planner[]
+  savedCourses       SavedCourse[]
+  planners           Planner[]
+  completedCourses   CompletedCourse[]
 }
 
 //
@@ -291,4 +293,27 @@ model PlannedCourse {
   @@index([plannerId])
   @@index([courseId])
   @@index([plannerOptionId])
+}
+
+//
+// =========================
+// COMPLETED COURSE
+// =========================
+//
+model CompletedCourse {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  courseId        Int
+  gradeLevelTaken Int
+  yearTaken       Int
+  credits         Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId, gradeLevelTaken, yearTaken])
+  @@index([userId])
+  @@index([courseId])
 }
