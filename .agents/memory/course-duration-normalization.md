@@ -13,3 +13,5 @@ Course duration is a numeric value on the `Course` model: `1` for one semester, 
 - Store the normalized duration on the `Course` model.
 - Convert raw catalog strings to numeric values only during import or a dedicated data migration.
 - Keep all planner logic (add, remove, move, summary counting) strictly numeric.
+- Normalize `CourseOffering.duration` to the same numeric strings ("1" or "2") as well: the planner fallback only recognizes the numeric string "2" as full-year, so a raw label like `"Full Year"` would silently be treated as one-semester if `Course.duration` is ever null.
+- Ensure the importer never leaves `Course.duration` null; default unrecognized or missing durations to `1` (one semester) and log them rather than letting the planner guess.

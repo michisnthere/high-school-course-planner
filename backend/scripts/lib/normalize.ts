@@ -22,8 +22,11 @@ export function parseSemester(label: string | null | undefined): number | null {
 /**
  * Parse a free-text duration ("One Semester", "Full Year", etc.) into a
  * numeric unit count, where 1.0 = one semester and 2.0 = a full year.
- * Recognizes 1.5-style fractional durations for forward-compatibility, but
- * never guesses at unrecognized text — those return null.
+ *
+ * Recognizes canonical labels as well as common extraction variants such as
+ * hyphenated forms, numeric strings, and legacy labels. This is the single
+ * source of truth for converting raw duration text into the numeric values the
+ * planner expects (1 or 2).
  */
 const DURATION_UNIT_MAP: Record<string, number> = {
   "one semester": 1.0,
@@ -35,6 +38,30 @@ const DURATION_UNIT_MAP: Record<string, number> = {
 
 export function parseDurationUnits(duration: string | null | undefined): number | null {
   if (!duration) return null;
-  const key = duration.trim().toLowerCase();
-  return DURATION_UNIT_MAP[key] ?? null;
+
+  // Normalize whitespace and hyphens so "Full-Year", "full year", and "FULL YEAR"
+  // all collapse to the same canonical form.
+  const key = duration.trim().toLowerCase().replace(/-/g, " ").replace(/\s+/g, " ");
+
+  // Canonical match.
+  const canonical = DURATION_UNIT_MAP[key];
+  if (canonical !== undefined) {
+    return canonical;
+  }
+
+  // Numeric strings like "2", "2.0", "1", "1.0".
+  const numeric = Number(key);
+  if (!Number.isNaN(numeric)) {
+    return numeric;
+  }
+
+  // Common variant phrases used by the extraction pipeline and legacy data.
+  if (key.includes("full year") || key.includes("fullyear") || key.includes("year long") || key.includes("yearlong")) {
+    return 2.0;
+  }
+  if (key === "semester" || key.includes("one semester") || key.includes("semester only") || key.includes("semester course")) {
+    return 1.0;
+  }
+
+  return null;
 }

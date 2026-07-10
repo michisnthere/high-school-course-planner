@@ -521,13 +521,16 @@ async function main() {
     const finalIsRepeatable = course.isRepeatable ?? isRepeatable;
 
     // Compute the normalized course duration from all offerings (1 = one semester, 2 = full year).
+    // The planner only supports one-semester (1) and full-year (2) durations, so any fractional
+    // duration is rounded: 1.5+ semesters are treated as full year, everything else as one semester.
     const allOfferings = Array.isArray(course.choices) && course.choices.length > 0
       ? course.choices.flatMap((choice) => choice.offerings ?? course.offerings ?? [])
       : (course.offerings ?? []);
     const parsedDurations = allOfferings
       .map((offering) => parseDurationUnits(offering.duration))
       .filter((d): d is number => d !== null);
-    const courseDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
+    const maxDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
+    const courseDuration = maxDuration === null ? 1 : maxDuration >= 1.5 ? 2 : 1;
 
     let savedCourse: { id: number };
     try {
@@ -588,6 +591,8 @@ async function main() {
         const { gradeMin, gradeMax } = gradeRange(offering.gradeLevels);
         const semester = parseSemester(offering.semesterLabel);
         const durationUnits = parseDurationUnits(offering.duration);
+        // Normalize every offering duration to the planner-supported values 1 or 2.
+        const normalizedOfferingDuration = durationUnits === null ? 1 : durationUnits >= 1.5 ? 2 : 1;
 
         await prisma.courseOffering.upsert({
           where: {
@@ -599,7 +604,7 @@ async function main() {
           create: {
             courseCode: offering.courseCode!,
             semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
-            duration: durationUnits !== null ? String(durationUnits) : offering.duration ?? null,
+            duration: String(normalizedOfferingDuration),
             gradeMin,
             gradeMax,
             prerequisites: requireArray(offering.prerequisites),
@@ -610,7 +615,7 @@ async function main() {
           },
           update: {
             semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
-            duration: durationUnits !== null ? String(durationUnits) : offering.duration ?? null,
+            duration: String(normalizedOfferingDuration),
             gradeMin,
             gradeMax,
             prerequisites: requireArray(offering.prerequisites),
