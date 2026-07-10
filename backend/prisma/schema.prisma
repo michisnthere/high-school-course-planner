@@ -261,6 +261,7 @@ model PlannedCourse {
   planner Planner @relation(fields: [plannerId], references: [id], onDelete: Cascade)
   course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
+  @@unique([plannerId, semester, slot])
   @@index([plannerId])
   @@index([courseId])
 }
