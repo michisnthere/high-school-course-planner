@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -70,6 +70,8 @@ function PlannerYearContent(): React.ReactElement {
   const [refreshKey, setRefreshKey] = useState(0);
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [dragOverSlot, setDragOverSlot] = useState<{ semester: number; slot: number } | null>(null);
+  const scrollYRef = useRef<number | null>(null);
+  const loadedYearRef = useRef<number | null>(null);
 
   const { isSaved } = useSavedCourses();
   const router = useRouter();
@@ -95,10 +97,21 @@ function PlannerYearContent(): React.ReactElement {
       return;
     }
 
-    setLoading(true);
+    const isYearChange = loadedYearRef.current !== year;
+    loadedYearRef.current = year;
+    if (isYearChange) {
+      setLoading(true);
+    }
     setError(null);
     loadPlanners();
   }, [year, refreshKey, loadPlanners]);
+
+  useLayoutEffect(() => {
+    if (scrollYRef.current !== null) {
+      window.scrollTo(0, scrollYRef.current);
+      scrollYRef.current = null;
+    }
+  }, [planner, allPlanners]);
 
   const showToast = useCallback((message: string, type: ToastType = "success", onUndo?: () => void) => {
     setToast({ message, type, onUndo, visible: true });
@@ -128,6 +141,7 @@ function PlannerYearContent(): React.ReactElement {
       if (!planner || !activeSlot) return;
 
       try {
+        scrollYRef.current = window.scrollY;
         await addPlannedCourse(planner.id, courseId, activeSlot.semester, activeSlot.slot);
         setRefreshKey((k) => k + 1);
         handleCloseModal();
@@ -142,6 +156,7 @@ function PlannerYearContent(): React.ReactElement {
   const handleRemoveCourse = useCallback(
     async (planned: PlannedCourse) => {
       try {
+        scrollYRef.current = window.scrollY;
         await removePlannedCourse(planned.id);
         setRemovedCourse({
           plannerId: planned.plannerId,
@@ -173,6 +188,7 @@ function PlannerYearContent(): React.ReactElement {
 
   const handleUndoRemove = useCallback(async (state: RemovedCourseState) => {
     try {
+      scrollYRef.current = window.scrollY;
       await addPlannedCourse(state.plannerId, state.courseId, state.semester, state.slot);
       setRemovedCourse(null);
       setRefreshKey((k) => k + 1);
@@ -185,6 +201,7 @@ function PlannerYearContent(): React.ReactElement {
   const handleMove = useCallback(
     async (plannedCourseId: number, semester: number, slot: number) => {
       try {
+        scrollYRef.current = window.scrollY;
         await movePlannedCourse(plannedCourseId, semester, slot);
         setRefreshKey((k) => k + 1);
       } catch (err) {
