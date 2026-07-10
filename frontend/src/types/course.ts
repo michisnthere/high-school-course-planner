@@ -27,6 +27,7 @@ export type Department = {
 };
 
 export type Course = {
+  id: number;
   title: string;
   normalizedTitle?: string | null;
   description?: string | null;

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { getSession } from "@/lib/auth";
+import React from "react";
+import { useAuth } from "@/context/AuthContext";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -20,25 +20,9 @@ export function ProtectedRoute({
   children,
   fallback,
 }: ProtectedRouteProps): React.ReactElement | null {
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    getSession()
-      .then((session) => {
-        setAuthenticated(session.authenticated);
-      })
-      .catch(() => {
-        setAuthenticated(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (authenticated === false) {
-      window.location.href = "/login";
-    }
-  }, [authenticated]);
-
-  if (authenticated === null) {
+  if (loading) {
     return (
       <div
         style={{
@@ -52,8 +36,12 @@ export function ProtectedRoute({
     );
   }
 
-  if (authenticated === false) {
-    return fallback ? <>{fallback}</> : null;
+  if (!user) {
+    if (fallback) {
+      return <>{fallback}</>;
+    }
+    window.location.href = "/login";
+    return null;
   }
 
   return <>{children}</>;

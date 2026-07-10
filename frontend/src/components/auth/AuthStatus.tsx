@@ -1,37 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { getSession, logout, type AuthUser } from "@/lib/auth";
+import React from "react";
+import { useAuth } from "@/context/AuthContext";
 
 export function AuthStatus(): React.ReactElement {
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getSession()
-      .then((session) => {
-        setUser(session.authenticated ? session.user ?? null : null);
-      })
-      .catch(() => {
-        setUser(null);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const { user, loading, logout } = useAuth();
 
   const handleSignIn = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/auth/google`;
+    window.location.href = `${
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"
+    }/auth/google`;
   };
 
   const handleSignOut = async () => {
-    try {
-      await logout();
-    } catch {
-      // Ignore logout errors; session is cleared on the backend if it exists.
-    }
-    setUser(null);
-    window.location.href = "/";
+    await logout();
   };
 
   if (loading) {

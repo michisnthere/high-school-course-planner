@@ -66,12 +66,83 @@ const removeButtonStyle: React.CSSProperties = {
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
-export function SavedCoursesContent({ courses }: SavedCoursesContentProps): React.ReactElement {
-  const { saved, toggle } = useSavedCourses();
+const signInButtonStyle: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  height: "40px",
+  padding: "0 20px",
+  fontSize: "15px",
+  fontWeight: 600,
+  color: "#ffffff",
+  backgroundColor: "#2563eb",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  textDecoration: "none",
+  fontFamily:
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+};
 
-  const savedCourses = courses.filter((course) =>
-    saved.includes(getCourseSlug(course))
-  );
+export function SavedCoursesContent({
+  courses,
+}: SavedCoursesContentProps): React.ReactElement {
+  const { savedIds, loading, isAuthenticated, toggle } = useSavedCourses();
+
+  const savedCourses = courses.filter((course) => savedIds.includes(course.id));
+
+  if (!isAuthenticated) {
+    return (
+      <div
+        style={{
+          padding: "24px",
+          backgroundColor: "#1f2937",
+          borderRadius: "12px",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        }}
+      >
+        <h2
+          style={{
+            margin: "0 0 8px",
+            fontSize: "20px",
+            fontWeight: 600,
+            color: "#ffffff",
+          }}
+        >
+          Sign in to save courses
+        </h2>
+        <p
+          style={{
+            margin: "0 0 16px",
+            fontSize: "15px",
+            color: "#d1d5db",
+            lineHeight: 1.5,
+          }}
+        >
+          Your saved courses will be stored securely and synced across devices.
+        </p>
+        <a href="/login" style={signInButtonStyle}>
+          Sign In
+        </a>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <p
+        style={{
+          margin: 0,
+          fontSize: "16px",
+          color: "#d1d5db",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        }}
+      >
+        Loading saved courses...
+      </p>
+    );
+  }
 
   if (savedCourses.length === 0) {
     return (
@@ -127,7 +198,7 @@ export function SavedCoursesContent({ courses }: SavedCoursesContentProps): Reac
               </Link>
               <button
                 type="button"
-                onClick={() => toggle(slug)}
+                onClick={() => toggle(course.id)}
                 style={removeButtonStyle}
               >
                 Remove

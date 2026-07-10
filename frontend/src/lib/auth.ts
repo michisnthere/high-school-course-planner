@@ -1,10 +1,11 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export interface AuthUser {
-  id: string;
+  id: number;
+  googleId: string;
   email: string;
-  name: string;
-  picture?: string;
+  name: string | null;
+  picture: string | null;
 }
 
 export interface SessionResponse {

@@ -1,38 +1,62 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { getSavedCourses, saveSavedCourses } from "@/lib/savedCourses";
-
-const CHANGE_EVENT = "savedCoursesChange";
+import { useAuth } from "@/context/AuthContext";
+import {
+  getSavedCourseIds,
+  saveCourse,
+  removeSavedCourse,
+} from "@/lib/savedCourses";
 
 export function useSavedCourses() {
-  const [saved, setSaved] = useState<string[]>([]);
+  const { user, loading: authLoading } = useAuth();
+  const [savedIds, setSavedIds] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const update = () => setSaved(getSavedCourses());
-    update();
-    window.addEventListener(CHANGE_EVENT, update);
-    window.addEventListener("storage", update);
-    return () => {
-      window.removeEventListener(CHANGE_EVENT, update);
-      window.removeEventListener("storage", update);
-    };
-  }, []);
+    if (!user) {
+      setSavedIds([]);
+      setLoading(false);
+      return;
+    }
 
-  const toggle = useCallback((slug: string) => {
-    const current = getSavedCourses();
-    const next = current.includes(slug)
-      ? current.filter((s) => s !== slug)
-      : [...current, slug];
-    saveSavedCourses(next);
-    setSaved(next);
-    window.dispatchEvent(new Event(CHANGE_EVENT));
-  }, []);
+    setLoading(true);
+    getSavedCourseIds()
+      .then((ids) => setSavedIds(ids))
+      .catch(() => setSavedIds([]))
+      .finally(() => setLoading(false));
+  }, [user]);
 
-  const isSaved = useCallback(
-    (slug: string) => saved.includes(slug),
-    [saved]
+  const toggle = useCallback(
+    async (courseId: number) => {
+      if (!user) return;
+
+      const isSaved = savedIds.includes(courseId);
+      try {
+        if (isSaved) {
+          await removeSavedCourse(courseId);
+          setSavedIds((prev) => prev.filter((id) => id !== courseId));
+        } else {
+          await saveCourse(courseId);
+          setSavedIds((prev) => [...prev, courseId]);
+        }
+      } catch (err) {
+        console.error("Failed to toggle saved course:", err);
+      }
+    },
+    [user, savedIds]
   );
 
-  return { saved, toggle, isSaved };
+  const isSaved = useCallback(
+    (courseId: number) => savedIds.includes(courseId),
+    [savedIds]
+  );
+
+  return {
+    savedIds,
+    loading: loading || authLoading,
+    isAuthenticated: !!user,
+    toggle,
+    isSaved,
+  };
 }

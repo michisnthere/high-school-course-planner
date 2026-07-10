@@ -75,6 +75,7 @@ model Course {
 
   options      CourseOption[]
   requirements CourseRequirement[]
+  savedCourses SavedCourse[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -185,4 +186,40 @@ model CourseRequirement {
   @@unique([courseId, graduationRequirementId])
   @@index([courseId])
   @@index([graduationRequirementId])
+}
+
+//
+// =========================
+// USER
+// =========================
+//
+model User {
+  id        Int      @id @default(autoincrement())
+  googleId  String   @unique
+  email     String   @unique
+  name      String?
+  picture   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  savedCourses SavedCourse[]
+}
+
+//
+// =========================
+// SAVED COURSE
+// =========================
+//
+model SavedCourse {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  courseId  Int
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
 }

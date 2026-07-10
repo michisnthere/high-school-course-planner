@@ -1,12 +1,15 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import type { Request, Response, NextFunction } from "express";
 import session from "express-session";
+import { prisma } from "./prisma.js";
 
 export interface SessionUser {
-  id: string;
+  id: number;
+  googleId: string;
   email: string;
-  name: string;
-  picture?: string;
+  name: string | null;
+  picture: string | null;
 }
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -35,24 +38,54 @@ passport.use(
       const email = profile.emails?.[0]?.value;
       const name = profile.displayName;
       const picture = profile.photos?.[0]?.value;
-      const id = profile.id;
+      const googleId = profile.id;
 
       if (!email) {
         return done(new Error("No email provided by Google"));
       }
 
-      const user: SessionUser = { id, email, name, picture };
-      return done(null, user);
+      prisma.user
+        .upsert({
+          where: { googleId },
+          update: { email, name, picture },
+          create: { googleId, email, name, picture },
+        })
+        .then((user) => {
+          const sessionUser: SessionUser = {
+            id: user.id,
+            googleId: user.googleId,
+            email: user.email,
+            name: user.name,
+            picture: user.picture,
+          };
+          return done(null, sessionUser);
+        })
+        .catch((err) => done(err));
     }
   )
 );
 
 passport.serializeUser((user: Express.User, done) => {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser((user: Express.User, done) => {
-  done(null, user);
+passport.deserializeUser((id: number, done) => {
+  prisma.user
+    .findUnique({ where: { id } })
+    .then((user) => {
+      if (!user) {
+        return done(new Error("User not found"));
+      }
+      const sessionUser: SessionUser = {
+        id: user.id,
+        googleId: user.googleId,
+        email: user.email,
+        name: user.name,
+        picture: user.picture,
+      };
+      return done(null, sessionUser);
+    })
+    .catch((err) => done(err));
 });
 
 export const sessionMiddleware = session({
@@ -69,3 +102,10 @@ export const sessionMiddleware = session({
 
 export const passportInit = passport.initialize();
 export const passportSession = passport.session();
+
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ error: "Unauthorized" });
+}

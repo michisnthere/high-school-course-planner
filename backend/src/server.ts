@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import coursesRouter from "./routes/courses.js";
 import authRouter from "./routes/auth.js";
+import savedCoursesRouter from "./routes/savedCourses.js";
 import {
   sessionMiddleware,
   passportInit,
@@ -26,6 +27,7 @@ app.use(passportSession);
 
 app.use("/courses", coursesRouter);
 app.use("/auth", authRouter);
+app.use("/saved-courses", savedCoursesRouter);
 
 app.get("/", (_req, res) => {
   res.json({

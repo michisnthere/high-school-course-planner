@@ -2,22 +2,30 @@
 
 import React from "react";
 import type { Course } from "@/types/course";
-import { getCourseSlug } from "@/lib/normalize";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
 
 type SaveCourseButtonProps = {
   course: Course;
 };
 
-export function SaveCourseButton({ course }: SaveCourseButtonProps): React.ReactElement {
-  const slug = getCourseSlug(course);
-  const { isSaved, toggle } = useSavedCourses();
-  const saved = isSaved(slug);
+export function SaveCourseButton({
+  course,
+}: SaveCourseButtonProps): React.ReactElement {
+  const { isSaved, toggle, isAuthenticated } = useSavedCourses();
+  const saved = isSaved(course.id);
+
+  const handleClick = () => {
+    if (!isAuthenticated) {
+      window.location.href = "/login";
+      return;
+    }
+    toggle(course.id);
+  };
 
   return (
     <button
       type="button"
-      onClick={() => toggle(slug)}
+      onClick={handleClick}
       aria-pressed={saved}
       style={{
         height: "36px",
