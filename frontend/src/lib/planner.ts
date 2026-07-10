@@ -20,10 +20,20 @@ export type PlannerCourseDetails = {
   courseCode: string | null;
 };
 
+export type PlannerOption = {
+  id: number;
+  name: string;
+  duration: number;
+  credits: number;
+  availableGrades: number[];
+  maxPerYear: number | null;
+};
+
 export type PlannedCourse = {
   id: number;
   plannerId: number;
-  courseId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
   semester: number;
   slot: number;
   course: PlannerCourseDetails;
@@ -74,22 +84,60 @@ export async function searchPlannerCourses(query: string): Promise<PlannerCourse
   return response.json();
 }
 
+export async function getPlannerOptions(grade: number): Promise<PlannerOption[]> {
+  const response = await fetch(
+    `${API_URL}/api/planner/options?grade=${encodeURIComponent(grade)}`,
+    {
+      credentials: "include",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch planner options");
+  }
+
+  return response.json();
+}
+
 export async function addPlannedCourse(
   plannerId: number,
   courseId: number,
   semester: number,
   slot: number
+): Promise<PlannedCourse[]>;
+
+export async function addPlannedCourse(
+  plannerId: number,
+  item: { plannerOptionId: number; semester: number; slot: number }
+): Promise<PlannedCourse[]>;
+
+export async function addPlannedCourse(
+  plannerId: number,
+  courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number },
+  semester?: number,
+  slot?: number
 ): Promise<PlannedCourse[]> {
+  const body: Record<string, unknown> = { plannerId };
+  if (typeof courseIdOrItem === "number") {
+    body.courseId = courseIdOrItem;
+    body.semester = semester;
+    body.slot = slot;
+  } else {
+    body.plannerOptionId = courseIdOrItem.plannerOptionId;
+    body.semester = courseIdOrItem.semester;
+    body.slot = courseIdOrItem.slot;
+  }
+
   const response = await fetch(`${API_URL}/api/planner/courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ plannerId, courseId, semester, slot }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({ error: "Failed to add course" }));
-    throw new Error(body.error || "Failed to add course");
+    const data = await response.json().catch(() => ({ error: "Failed to add course" }));
+    throw new Error(data.error || "Failed to add course");
   }
 
   return response.json();

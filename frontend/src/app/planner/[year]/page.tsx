@@ -13,10 +13,17 @@ import {
   removePlannedCourse,
   movePlannedCourse,
   searchPlannerCourses,
+  getPlannerOptions,
   type Planner,
   type PlannerCourseDetails,
   type PlannedCourse,
+  type PlannerOption,
 } from "@/lib/planner";
+
+const PLANNER_OPTION_COLORS = {
+  border: "#6b7280",
+  background: "#374151",
+};
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",

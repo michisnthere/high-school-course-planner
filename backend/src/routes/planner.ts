@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
-import type { Course } from "@prisma/client";
+import type { Course, PlannerOption } from "@prisma/client";
 
 const router = Router();
 
@@ -30,7 +30,8 @@ type CourseDetails = {
 type PlannedCourseResponse = {
   id: number;
   plannerId: number;
-  courseId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
   semester: number;
   slot: number;
   course: CourseDetails;
@@ -125,21 +126,53 @@ function deriveCourseDetails(
   };
 }
 
+function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
+  return {
+    id: -option.id,
+    title: option.name,
+    normalizedTitle: null,
+    duration: option.duration,
+    creditType: null,
+    credits: option.credits,
+    division: null,
+    department: null,
+    description: null,
+    fulfillsRequirements: [],
+    prerequisites: [],
+    courseCode: null,
+  };
+}
+
+function getPlannedDuration(plannedCourse: {
+  course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+  plannerOption: PlannerOption | null;
+}): number {
+  if (plannedCourse.course) {
+    return deriveCourseDuration(plannedCourse.course);
+  }
+  return plannedCourse.plannerOption?.duration ?? 1;
+}
+
 function serializePlannedCourse(plannedCourse: {
   id: number;
   plannerId: number;
-  courseId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
   semester: number;
   slot: number;
-  course: Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> };
+  course: (Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> }) | null;
+  plannerOption: PlannerOption | null;
 }): PlannedCourseResponse {
   return {
     id: plannedCourse.id,
     plannerId: plannedCourse.plannerId,
     courseId: plannedCourse.courseId,
+    plannerOptionId: plannedCourse.plannerOptionId,
     semester: plannedCourse.semester,
     slot: plannedCourse.slot,
-    course: deriveCourseDetails(plannedCourse.course),
+    course: plannedCourse.course
+      ? deriveCourseDetails(plannedCourse.course)
+      : derivePlannerOptionDetails(plannedCourse.plannerOption!),
   };
 }
 
@@ -163,6 +196,7 @@ async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
               },
             },
           },
+          plannerOption: true,
         },
       },
     },
@@ -213,6 +247,7 @@ router.get("/", requireAuth, async (req, res) => {
               },
             },
           },
+          plannerOption: true,
         },
       },
     },
@@ -258,12 +293,27 @@ router.get("/courses", requireAuth, async (req, res) => {
   res.json(response);
 });
 
+router.get("/options", requireAuth, async (req, res) => {
+  const grade = Number(req.query.grade);
+
+  const options = await prisma.plannerOption.findMany({
+    where: Number.isFinite(grade) ? { availableGrades: { has: grade } } : {},
+    orderBy: { name: "asc" },
+  });
+
+  res.json(options);
+});
+
 router.post("/courses", requireAuth, async (req, res) => {
   const userId = req.user!.id;
-  const { plannerId, courseId, semester, slot } = req.body;
+  const { plannerId, courseId, plannerOptionId, semester, slot } = req.body;
 
-  if (!plannerId || !courseId || !semester || !slot) {
-    return res.status(400).json({ error: "plannerId, courseId, semester, and slot are required" });
+  if (!plannerId || (!courseId && !plannerOptionId) || semester == null || slot == null) {
+    return res.status(400).json({ error: "plannerId, one of courseId or plannerOptionId, semester, and slot are required" });
+  }
+
+  if (courseId && plannerOptionId) {
+    return res.status(400).json({ error: "Cannot provide both courseId and plannerOptionId" });
   }
 
   const semesterNum = Number(semester);
@@ -285,27 +335,58 @@ router.post("/courses", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Planner not found" });
   }
 
-  const course = await prisma.course.findUnique({
-    where: { id: Number(courseId) },
-    include: {
-      department: {
-        include: {
-          division: true,
-        },
-      },
-      options: {
-        include: {
-          offerings: true,
-        },
-      },
-    },
-  });
+  let duration: number;
+  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number };
 
-  if (!course) {
-    return res.status(404).json({ error: "Course not found" });
+  if (courseId) {
+    const course = await prisma.course.findUnique({
+      where: { id: Number(courseId) },
+      include: {
+        department: {
+          include: {
+            division: true,
+          },
+        },
+        options: {
+          include: {
+            offerings: true,
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    duration = deriveCourseDuration(course);
+    createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum };
+  } else {
+    const option = await prisma.plannerOption.findUnique({
+      where: { id: Number(plannerOptionId) },
+    });
+
+    if (!option) {
+      return res.status(404).json({ error: "Planner option not found" });
+    }
+
+    if (!option.availableGrades.includes(planner.schoolYear)) {
+      return res.status(409).json({ error: `${option.name} is not available for grade ${planner.schoolYear}` });
+    }
+
+    const existingCount = await prisma.plannedCourse.count({
+      where: { plannerId: planner.id, plannerOptionId: option.id },
+    });
+
+    if (option.maxPerYear != null && existingCount >= option.maxPerYear) {
+      return res.status(409).json({
+        error: `You can only add ${option.name} ${option.maxPerYear} time${option.maxPerYear === 1 ? "" : "s"} per year`,
+      });
+    }
+
+    duration = option.duration;
+    createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum };
   }
-
-  const duration = deriveCourseDuration(course);
 
   const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
 
@@ -324,12 +405,7 @@ router.post("/courses", requireAuth, async (req, res) => {
   const created = await prisma.$transaction(
     targetSemesters.map((sem) =>
       prisma.plannedCourse.create({
-        data: {
-          plannerId: planner.id,
-          courseId: course.id,
-          semester: sem,
-          slot: slotNum,
-        },
+        data: { ...createData, semester: sem },
         include: {
           course: {
             include: {
@@ -345,6 +421,7 @@ router.post("/courses", requireAuth, async (req, res) => {
               },
             },
           },
+          plannerOption: true,
         },
       })
     )
@@ -379,6 +456,7 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
           },
         },
       },
+      plannerOption: true,
     },
   });
 
@@ -386,15 +464,23 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Planned course not found" });
   }
 
-  const duration = deriveCourseDuration(plannedCourse.course);
+  const duration = getPlannedDuration(plannedCourse);
 
-  if (duration === 2) {
+  if (duration === 2 && plannedCourse.courseId) {
     // Full-year courses are stored as two PlannedCourse records (one per semester).
     // Deleting one deletes the whole course; deleteMany is safe and idempotent.
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
         courseId: plannedCourse.courseId,
+        slot: plannedCourse.slot,
+      },
+    });
+  } else if (duration === 2 && plannedCourse.plannerOptionId) {
+    await prisma.plannedCourse.deleteMany({
+      where: {
+        plannerId: plannedCourse.plannerId,
+        plannerOptionId: plannedCourse.plannerOptionId,
         slot: plannedCourse.slot,
       },
     });
@@ -450,6 +536,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
           },
         },
       },
+      plannerOption: true,
     },
   });
 
@@ -457,7 +544,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Planned course not found" });
   }
 
-  const sourceDuration = deriveCourseDuration(source.course);
+  const sourceDuration = getPlannedDuration(source);
   const sourceSemesters = sourceDuration === 2 ? [1, 2] : [source.semester];
   const targetSemesters = sourceDuration === 2 ? [1, 2] : [semesterNum];
 
@@ -477,6 +564,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
           },
         },
       },
+      plannerOption: true,
     },
   });
 
@@ -497,7 +585,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
 
     const allSameCourse = targets.length === 2 && targets.every((t) => t.courseId === targets[0].courseId);
     if (allSameCourse) {
-      const targetDuration = deriveCourseDuration(targets[0].course);
+      const targetDuration = getPlannedDuration(targets[0]);
       if (targetDuration === 2) {
         const targetCourseId = targets[0].courseId;
         await prisma.$transaction([
@@ -546,14 +634,14 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
     return res.json(await getPlannerResponse(source.plannerId));
   }
 
-  const targetDuration = deriveCourseDuration(target.course);
+  const targetDuration = getPlannedDuration(target);
   if (targetDuration === 2) {
     return res.status(409).json({
       error: "Cannot swap a one-semester course with a full-year course.",
     });
   }
 
-  // Swap two one-semester courses. Use a temporary slot to avoid unique-constraint conflicts.
+  // Swap two one-semester items. Use a temporary slot to avoid unique-constraint conflicts.
   await prisma.$transaction([
     prisma.plannedCourse.update({
       where: { id: source.id },
