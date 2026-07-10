@@ -98,6 +98,21 @@ function computePrerequisiteDepth(
   return maxDepth;
 }
 
+function getCourseMinGradeLevel(course: Course): number {
+  let minGrade = Infinity;
+  for (const option of course.options ?? []) {
+    for (const offering of option.offerings ?? []) {
+      if (offering.gradeMin != null || offering.gradeMax != null) {
+        const grade = offering.gradeMin ?? 9;
+        if (grade < minGrade) {
+          minGrade = grade;
+        }
+      }
+    }
+  }
+  return Number.isFinite(minGrade) ? minGrade : 9;
+}
+
 export function sortCoursesByPrerequisites(courses: Course[]): Course[] {
   if (courses.length <= 1) return [...courses];
 
@@ -106,11 +121,17 @@ export function sortCoursesByPrerequisites(courses: Course[]): Course[] {
   const memo = new Map<Course, number>();
 
   const depths = new Map<Course, number>();
+  const minGrades = new Map<Course, number>();
   for (const course of courseList) {
     depths.set(course, computePrerequisiteDepth(course, prereqMap, memo, new Set()));
+    minGrades.set(course, getCourseMinGradeLevel(course));
   }
 
   return courseList.sort((a, b) => {
+    const gradeA = minGrades.get(a) ?? 9;
+    const gradeB = minGrades.get(b) ?? 9;
+    if (gradeA !== gradeB) return gradeA - gradeB;
+
     const depthA = depths.get(a) ?? 0;
     const depthB = depths.get(b) ?? 0;
     if (depthA !== depthB) return depthA - depthB;
