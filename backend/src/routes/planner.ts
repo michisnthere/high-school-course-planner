@@ -251,6 +251,18 @@ async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
   };
 }
 
+import { analyzePlanners } from "../lib/plannerAnalysis.js";
+
+router.get("/analysis", requireAuth, async (req, res) => {
+  try {
+    const analysis = await analyzePlanners(req.user!.id);
+    res.json(analysis);
+  } catch (err) {
+    console.error("Failed to analyze planners:", err);
+    res.status(500).json({ error: "Failed to analyze planners" });
+  }
+});
+
 router.get("/", requireAuth, async (req, res) => {
   const userId = req.user!.id;
   const years = [9, 10, 11, 12];
