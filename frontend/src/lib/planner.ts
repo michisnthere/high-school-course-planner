@@ -69,21 +69,6 @@ export async function getPlanner(year: number): Promise<Planner> {
   return planner;
 }
 
-export async function searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]> {
-  const response = await fetch(
-    `${API_URL}/api/planner/courses?search=${encodeURIComponent(query)}`,
-    {
-      credentials: "include",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to search courses");
-  }
-
-  return response.json();
-}
-
 export async function getPlannerOptions(grade: number): Promise<PlannerOption[]> {
   const response = await fetch(
     `${API_URL}/api/planner/options?grade=${encodeURIComponent(grade)}`,

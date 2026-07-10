@@ -301,35 +301,6 @@ router.get("/", requireAuth, async (req, res) => {
   res.json(response);
 });
 
-router.get("/courses", requireAuth, async (req, res) => {
-  const search = typeof req.query.search === "string" ? req.query.search.trim() : "";
-
-  const courses = await prisma.course.findMany({
-    where: search
-      ? {
-          title: { contains: search, mode: "insensitive" },
-        }
-      : undefined,
-    include: {
-      department: {
-        include: {
-          division: true,
-        },
-      },
-      options: {
-        include: {
-          offerings: true,
-        },
-      },
-    },
-    orderBy: { title: "asc" },
-    take: 50,
-  });
-
-  const response: CourseDetails[] = courses.map(deriveCourseDetails);
-  res.json(response);
-});
-
 router.get("/options", requireAuth, async (req, res) => {
   const grade = Number(req.query.grade);
 

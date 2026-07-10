@@ -19,7 +19,6 @@ import {
   addPlannedCourse,
   removePlannedCourse,
   movePlannedCourse,
-  searchPlannerCourses,
   getPlannerOptions,
   courseToPlannerDetails,
   plannerOptionToPlannerDetails,
@@ -1688,8 +1687,8 @@ function WarningActionModal({
 
   useEffect(() => {
     setLoading(true);
-    searchPlannerCourses("")
-      .then(setAllCourses)
+    getCourses()
+      .then((courses) => setAllCourses(courses.map(courseToPlannerDetails)))
       .catch(() => setAllCourses([]))
       .finally(() => setLoading(false));
   }, []);
