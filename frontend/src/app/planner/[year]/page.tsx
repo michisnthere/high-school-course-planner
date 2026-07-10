@@ -460,8 +460,21 @@ function SummarySidebar({
     (sum, pc) => sum + (pc.course.credits || 0),
     0
   );
-  const currentCourseCount = currentPlanner?.plannedCourses.length || 0;
-  const fullYearCount = currentPlanner?.plannedCourses.filter((pc) => pc.course.duration === 2).length || 0;
+  // A full-year course is stored as two PlannedCourse records (one per semester,
+  // same slot). Count distinct course placements by courseId + slot so full-year
+  // courses are counted once while repeatable courses in different slots are
+  // counted as separate instances.
+  const currentCourseIds = new Set<string>();
+  const fullYearCourseIds = new Set<string>();
+  for (const pc of currentPlanner?.plannedCourses || []) {
+    const instanceKey = `${pc.courseId}-${pc.slot}`;
+    currentCourseIds.add(instanceKey);
+    if (pc.course.duration === 2) {
+      fullYearCourseIds.add(instanceKey);
+    }
+  }
+  const currentCourseCount = currentCourseIds.size;
+  const fullYearCount = fullYearCourseIds.size;
   const semesterCount = currentCourseCount - fullYearCount;
   const creditsRemaining = Math.max(0, GRADUATION_CREDITS - totalCredits);
 

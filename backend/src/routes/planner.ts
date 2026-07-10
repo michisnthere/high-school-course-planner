@@ -44,12 +44,21 @@ type PlannerResponse = {
 };
 
 function normalizeDuration(value: unknown): number {
-  if (typeof value === "number" && (value === 1 || value === 2)) {
-    return value;
+  if (typeof value === "number" && value === 2) {
+    return 2;
   }
   if (typeof value === "string") {
-    const num = Number(value.trim());
-    return num === 2 ? 2 : 1;
+    const trimmed = value.trim().toLowerCase();
+    if (
+      trimmed === "2" ||
+      trimmed.startsWith("full") ||
+      trimmed === "full year" ||
+      trimmed === "full-year" ||
+      trimmed === "yearlong" ||
+      trimmed === "year-long"
+    ) {
+      return 2;
+    }
   }
   return 1;
 }
@@ -377,6 +386,8 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
   const duration = deriveCourseDuration(plannedCourse.course);
 
   if (duration === 2) {
+    // Full-year courses are stored as two PlannedCourse records (one per semester).
+    // Deleting one deletes the whole course; deleteMany is safe and idempotent.
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
@@ -385,12 +396,17 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
       },
     });
   } else {
-    await prisma.plannedCourse.delete({
-      where: { id: plannedCourseId },
+    // deleteMany will not throw if the record was already removed, so repeated
+    // deletes are idempotent and race conditions do not crash the server.
+    await prisma.plannedCourse.deleteMany({
+      where: {
+        id: plannedCourseId,
+        planner: { userId },
+      },
     });
   }
 
-  res.json({ success: true });
+  res.status(204).send();
 });
 
 router.post("/courses/:id/move", requireAuth, async (req, res) => {
