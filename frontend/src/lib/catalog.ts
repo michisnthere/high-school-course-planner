@@ -115,10 +115,6 @@ export function sortCoursesByPrerequisites(courses: Course[]): Course[] {
     const depthB = depths.get(b) ?? 0;
     if (depthA !== depthB) return depthA - depthB;
 
-    const keyA = getCourseSortKey(a);
-    const keyB = getCourseSortKey(b);
-    if (keyA !== keyB) return keyA.localeCompare(keyB);
-
     return a.title.localeCompare(b.title);
   });
 }
