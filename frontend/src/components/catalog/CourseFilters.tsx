@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 
 export type ActiveFilters = {
+  division: string[];
   department: string[];
   creditType: string[];
   gradeLevel: string[];
@@ -10,6 +11,8 @@ export type ActiveFilters = {
 };
 
 type CourseFiltersProps = {
+  divisions: string[];
+  divisionDepartments: Map<string, string[]>;
   departments: string[];
   creditTypes: string[];
   gradeLevels: number[];
@@ -101,6 +104,8 @@ function ToggleGroup({
 }
 
 export function CourseFilters({
+  divisions,
+  divisionDepartments,
   departments,
   creditTypes,
   gradeLevels,
@@ -113,16 +118,48 @@ export function CourseFilters({
     0
   );
 
+  const availableDepartments = useMemo(() => {
+    if (filters.division.length === 0) return departments;
+    const set = new Set<string>();
+    for (const division of filters.division) {
+      for (const dept of divisionDepartments.get(division) ?? []) {
+        set.add(dept);
+      }
+    }
+    return Array.from(set).sort();
+  }, [filters.division, divisionDepartments, departments]);
+
   const handleToggle = (key: keyof ActiveFilters, value: string) => {
     const current = filters[key];
     const next = current.includes(value)
       ? current.filter((v) => v !== value)
       : [...current, value];
+
+    if (key === "division") {
+      // When a division is selected, only keep departments that belong to one
+      // of the selected divisions. When no division is selected, leave the
+      // department choices untouched.
+      const nextDivisions = next;
+      let nextDepartments = filters.department;
+      if (nextDivisions.length > 0) {
+        const validDepartments = new Set<string>();
+        for (const division of nextDivisions) {
+          for (const dept of divisionDepartments.get(division) ?? []) {
+            validDepartments.add(dept);
+          }
+        }
+        nextDepartments = filters.department.filter((d) => validDepartments.has(d));
+      }
+      onFilterChange({ ...filters, division: nextDivisions, department: nextDepartments });
+      return;
+    }
+
     onFilterChange({ ...filters, [key]: next });
   };
 
   const clearFilters = () => {
     onFilterChange({
+      division: [],
       department: [],
       creditType: [],
       gradeLevel: [],
@@ -135,7 +172,8 @@ export function CourseFilters({
     label: string;
     values: string[];
   }> = [
-    { key: "department", label: "Department", values: departments },
+    { key: "division", label: "Division", values: divisions },
+    { key: "department", label: "Department", values: availableDepartments },
     { key: "creditType", label: "Credit Type", values: creditTypes },
     {
       key: "gradeLevel",

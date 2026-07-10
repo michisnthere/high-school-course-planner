@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import type { Course } from "@/types/course";
-import { sortAndGroupCourses } from "@/lib/catalog";
+import { sortCoursesByPrerequisites } from "@/lib/catalog";
 import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
@@ -16,6 +16,36 @@ function courseMatchesQuery(course: Course, query: string): boolean {
   const normalizedQuery = query.toLowerCase().trim();
   if (!normalizedQuery) return true;
   return course.title.toLowerCase().includes(normalizedQuery);
+}
+
+function extractDivisions(courses: Course[]): string[] {
+  const divisions = new Set<string>();
+  for (const course of courses) {
+    const division = course.department?.division?.name;
+    if (division) {
+      divisions.add(division);
+    }
+  }
+  return Array.from(divisions).sort();
+}
+
+function extractDivisionDepartments(courses: Course[]): Map<string, string[]> {
+  const map = new Map<string, Set<string>>();
+  for (const course of courses) {
+    const division = course.department?.division?.name;
+    const department = course.department?.name;
+    if (!division || !department) continue;
+    if (!map.has(division)) {
+      map.set(division, new Set<string>());
+    }
+    map.get(division)!.add(department);
+  }
+
+  const result = new Map<string, string[]>();
+  for (const [division, departments] of map.entries()) {
+    result.set(division, Array.from(departments).sort());
+  }
+  return result;
 }
 
 function extractDepartments(courses: Course[]): string[] {
@@ -74,6 +104,13 @@ function extractSemesters(courses: Course[]): string[] {
 }
 
 function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
+  if (filters.division.length > 0) {
+    const courseDivision = course.department?.division?.name;
+    if (!courseDivision || !filters.division.includes(courseDivision)) {
+      return false;
+    }
+  }
+
   if (filters.department.length > 0) {
     if (!course.department?.name || !filters.department.includes(course.department.name)) {
       return false;
@@ -134,12 +171,15 @@ function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<ActiveFilters>({
+    division: [],
     department: [],
     creditType: [],
     gradeLevel: [],
     semester: [],
   });
 
+  const divisions = useMemo(() => extractDivisions(courses), [courses]);
+  const divisionDepartments = useMemo(() => extractDivisionDepartments(courses), [courses]);
   const departments = useMemo(() => extractDepartments(courses), [courses]);
   const creditTypes = useMemo(() => extractCreditTypes(courses), [courses]);
   const gradeLevels = useMemo(() => extractGradeLevels(courses), [courses]);
@@ -152,14 +192,16 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     );
   }, [courses, query, filters]);
 
-  const groupedCourses = useMemo(() => {
-    return sortAndGroupCourses(filteredCourses);
+  const sortedCourses = useMemo(() => {
+    return sortCoursesByPrerequisites(filteredCourses);
   }, [filteredCourses]);
 
   return (
     <>
       <CourseSearch query={query} onQueryChange={setQuery} />
       <CourseFilters
+        divisions={divisions}
+        divisionDepartments={divisionDepartments}
         departments={departments}
         creditTypes={creditTypes}
         gradeLevels={gradeLevels}
@@ -168,10 +210,10 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
         onFilterChange={setFilters}
       />
 
-      {filteredCourses.length === 0 ? (
+      {sortedCourses.length === 0 ? (
         <EmptyState message={getEmptyStateMessage(query, filters)} />
       ) : (
-        <CourseGrid groupedCourses={groupedCourses} />
+        <CourseGrid courses={sortedCourses} />
       )}
     </>
   );
