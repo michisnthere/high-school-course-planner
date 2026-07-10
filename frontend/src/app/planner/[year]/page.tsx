@@ -19,6 +19,8 @@ import {
   type PlannedCourse,
   type PlannerOption,
 } from "@/lib/planner";
+import { getRequirementStatus } from "@/lib/gradeRequirements";
+import { GradeRequirements } from "@/components/planner/GradeRequirements";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -581,7 +583,6 @@ function SummarySidebar({
   const currentCourseCount = currentCourseIds.size;
   const fullYearCount = fullYearCourseIds.size;
   const semesterCount = currentCourseCount - fullYearCount;
-  const creditsRemaining = Math.max(0, GRADUATION_CREDITS - totalCredits);
 
   return (
     <aside
@@ -614,8 +615,12 @@ function SummarySidebar({
         <SummaryRow label="Full-Year Courses" value={String(fullYearCount)} />
         <SummaryRow label="Semester Courses" value={String(semesterCount)} />
         <SummaryRow label="Overall Credits" value={totalCredits.toFixed(1)} />
-        <SummaryRow label="Credits Remaining" value={creditsRemaining.toFixed(1)} />
       </div>
+
+      <GradeRequirements
+        grade={currentYear}
+        requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
+      />
 
       <div
         style={{
