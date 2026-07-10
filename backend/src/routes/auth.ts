@@ -1,24 +1,42 @@
 import { Router } from "express";
 import passport from "passport";
+import { createGoogleStrategy } from "../lib/auth.js";
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+
+const CALLBACK_URL = `${BACKEND_URL}/auth/google/callback`;
 
 const router = Router();
 
-router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+router.get("/google", (req, res, next) => {
+  const strategy = createGoogleStrategy(CALLBACK_URL);
+  passport.authenticate(strategy, { scope: ["profile", "email"] })(req, res, next);
+});
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: `${FRONTEND_URL}/login`,
-  }),
-  (_req, res) => {
-    res.redirect(FRONTEND_URL);
-  }
-);
+router.get("/google/callback", (req, res, next) => {
+  const strategy = createGoogleStrategy(CALLBACK_URL);
+  passport.authenticate(
+    strategy,
+    {
+      failureRedirect: `${FRONTEND_URL}/login`,
+    },
+    (err: unknown, user: Express.User | false | null) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.redirect(`${FRONTEND_URL}/login`);
+      }
+      req.logIn(user, (loginErr) => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        res.redirect(FRONTEND_URL);
+      });
+    }
+  )(req, res, next);
+});
 
 router.get("/session", (req, res) => {
   if (req.user) {

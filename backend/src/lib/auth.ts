@@ -25,12 +25,12 @@ if (!SESSION_SECRET) {
   throw new Error("SESSION_SECRET must be set");
 }
 
-passport.use(
-  new GoogleStrategy(
+export function createGoogleStrategy(callbackURL: string): GoogleStrategy {
+  return new GoogleStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      clientID: GOOGLE_CLIENT_ID!,
+      clientSecret: GOOGLE_CLIENT_SECRET!,
+      callbackURL,
       scope: ["profile", "email"],
       state: true,
     },
@@ -62,8 +62,8 @@ passport.use(
         })
         .catch((err) => done(err));
     }
-  )
-);
+  );
+}
 
 passport.serializeUser((user: Express.User, done) => {
   done(null, user.id);

@@ -21,8 +21,9 @@ externalPort = 80
 [userenv]
 
 [userenv.shared]
-FRONTEND_URL = "https://60eb1182-c77c-4cf1-b605-ed5ed04b1e11-00-31vto1zzrwoaq.spock.replit.dev:3000"
-NEXT_PUBLIC_API_URL = "https://60eb1182-c77c-4cf1-b605-ed5ed04b1e11-00-31vto1zzrwoaq.spock.replit.dev"
+FRONTEND_URL = "https://3d4ec48d-9bea-4ab2-9623-a3ca48b2e753-00-2lyn05yaghqlq.riker.replit.dev"
+NEXT_PUBLIC_API_URL = "https://3d4ec48d-9bea-4ab2-9623-a3ca48b2e753-00-2lyn05yaghqlq.riker.replit.dev:4000"
+BACKEND_URL = "https://3d4ec48d-9bea-4ab2-9623-a3ca48b2e753-00-2lyn05yaghqlq.riker.replit.dev:4000"
 
 [workflows]
 runButton = "Project"
