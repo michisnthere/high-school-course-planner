@@ -1,9 +1,8 @@
 import React from "react";
+import { AuthStatus } from "@/components/auth/AuthStatus";
 
 /**
  * Header — top navigation bar for the High School Course Planner dashboard.
- *
- * Placeholder component: buttons are no-ops.
  */
 export function Header(): React.ReactElement {
   return (
@@ -45,44 +44,7 @@ export function Header(): React.ReactElement {
           gap: "12px",
         }}
       >
-        <button
-          type="button"
-          style={{
-            height: "40px",
-            padding: "0 16px",
-            fontSize: "0.9375rem",
-            fontWeight: 500,
-            color: "#ffffff",
-            backgroundColor: "#1f2937",
-            border: "1px solid #374151",
-            borderRadius: "8px",
-            cursor: "pointer",
-            boxSizing: "border-box",
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-          }}
-        >
-          Theme
-        </button>
-        <button
-          type="button"
-          style={{
-            height: "40px",
-            padding: "0 16px",
-            fontSize: "0.9375rem",
-            fontWeight: 500,
-            color: "#ffffff",
-            backgroundColor: "#1f2937",
-            border: "1px solid #374151",
-            borderRadius: "8px",
-            cursor: "pointer",
-            boxSizing: "border-box",
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-          }}
-        >
-          Profile
-        </button>
+        <AuthStatus />
       </div>
     </header>
   );
