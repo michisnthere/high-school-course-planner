@@ -185,3 +185,29 @@ export function sortAndGroupCourses(courses: Course[]): DivisionGroup[] {
   const sorted = sortCoursesByPrerequisites(courses);
   return groupCoursesByDivision(sorted);
 }
+
+export function courseMatchesQuery(course: { title: string }, query: string): boolean {
+  const normalizedQuery = query.toLowerCase().trim();
+  if (!normalizedQuery) return true;
+  return course.title.toLowerCase().includes(normalizedQuery);
+}
+
+export function courseMatchesDivisionFilter(
+  courseDivision: string | null | undefined,
+  selectedDivision: string | null
+): boolean {
+  if (!selectedDivision) return true;
+  return courseDivision === selectedDivision;
+}
+
+export function extractDivisionsFromItems<T>(
+  items: T[],
+  getDivision: (item: T) => string | null | undefined
+): string[] {
+  const divisions = new Set<string>();
+  for (const item of items) {
+    const division = getDivision(item);
+    if (division) divisions.add(division);
+  }
+  return Array.from(divisions).sort();
+}

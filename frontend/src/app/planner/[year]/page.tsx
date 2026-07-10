@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -21,6 +28,11 @@ import {
 } from "@/lib/planner";
 import { getRequirementStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
+import {
+  courseMatchesQuery,
+  courseMatchesDivisionFilter,
+  extractDivisionsFromItems,
+} from "@/lib/catalog";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -33,8 +45,6 @@ const YEAR_LABELS: Record<number, string> = {
   11: "Junior",
   12: "Senior",
 };
-
-const GRADUATION_CREDITS = 24;
 
 export default function PlannerYearPage(): React.ReactElement {
   return (
@@ -583,6 +593,9 @@ function SummarySidebar({
   const currentCourseCount = currentCourseIds.size;
   const fullYearCount = fullYearCourseIds.size;
   const semesterCount = currentCourseCount - fullYearCount;
+  const totalSlots = 14;
+  const filledSlots = (currentPlanner?.plannedCourses || []).length;
+  const slotPercentage = totalSlots > 0 ? Math.min(100, (filledSlots / totalSlots) * 100) : 0;
 
   return (
     <aside
@@ -631,6 +644,21 @@ function SummarySidebar({
       >
         <div
           style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "8px",
+            fontSize: "14px",
+            color: "#d1d5db",
+          }}
+        >
+          <span>Course Slots Filled</span>
+          <span>
+            {filledSlots} / {totalSlots}
+          </span>
+        </div>
+        <div
+          style={{
             height: "8px",
             backgroundColor: "#374151",
             borderRadius: "9999px",
@@ -639,7 +667,7 @@ function SummarySidebar({
         >
           <div
             style={{
-              width: `${Math.min(100, (totalCredits / GRADUATION_CREDITS) * 100)}%`,
+              width: `${slotPercentage}%`,
               height: "100%",
               backgroundColor: "#22c55e",
               borderRadius: "9999px",
@@ -647,16 +675,6 @@ function SummarySidebar({
             }}
           />
         </div>
-        <p
-          style={{
-            margin: "8px 0 0",
-            fontSize: "13px",
-            color: "#9ca3af",
-            textAlign: "center",
-          }}
-        >
-          {totalCredits.toFixed(1)} / {GRADUATION_CREDITS} credits
-        </p>
       </div>
     </aside>
   );
@@ -1010,6 +1028,7 @@ function CourseSearchModal({
   isSaved: (courseId: number) => boolean;
 }): React.ReactElement {
   const [query, setQuery] = useState("");
+  const [selectedDivision, setSelectedDivision] = useState("All Divisions");
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -1021,8 +1040,18 @@ function CourseSearchModal({
       .finally(() => setLoading(false));
   }, []);
 
-  const filteredResults = allCourses.filter((course) =>
-    course.title.toLowerCase().includes(query.trim().toLowerCase())
+  const divisions = useMemo(
+    () => extractDivisionsFromItems(allCourses, (course) => course.division),
+    [allCourses]
+  );
+
+  const filteredResults = allCourses.filter(
+    (course) =>
+      courseMatchesQuery(course, query) &&
+      courseMatchesDivisionFilter(
+        course.division,
+        selectedDivision === "All Divisions" ? null : selectedDivision
+      )
   );
 
   const sortedResults = [...filteredResults].sort((a, b) => {
@@ -1121,6 +1150,31 @@ function CourseSearchModal({
               boxSizing: "border-box",
             }}
           />
+
+          <select
+            value={selectedDivision}
+            onChange={(e) => setSelectedDivision(e.target.value)}
+            aria-label="Filter by division"
+            style={{
+              width: "100%",
+              marginTop: "12px",
+              padding: "12px 16px",
+              fontSize: "15px",
+              color: "#ffffff",
+              backgroundColor: "#111827",
+              border: "1px solid #4b5563",
+              borderRadius: "10px",
+              outline: "none",
+              cursor: "pointer",
+            }}
+          >
+            <option value="All Divisions">All Divisions</option>
+            {divisions.map((division) => (
+              <option key={division} value={division}>
+                {division}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div
@@ -1134,7 +1188,20 @@ function CourseSearchModal({
             <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading courses...</p>
           ) : sortedResults.length === 0 ? (
             <p style={{ color: "#9ca3af", textAlign: "center" }}>
-              {query.trim() === "" ? "No courses available." : "No courses match your search."}
+              {(() => {
+                const hasQuery = query.trim().length > 0;
+                const hasDivision = selectedDivision !== "All Divisions";
+                if (hasQuery && hasDivision) {
+                  return "No courses match your search and division filter.";
+                }
+                if (hasQuery) {
+                  return "No courses match your search.";
+                }
+                if (hasDivision) {
+                  return "No courses match the selected division.";
+                }
+                return "No courses available.";
+              })()}
             </p>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
