@@ -755,6 +755,7 @@ function PlannerYearContent(): React.ReactElement {
           currentYear={year}
           onClose={() => setSelectedWarning(null)}
           onAddToPlanner={handleAddPrerequisiteToPlanner}
+          onSwapSemesters={handleMove}
           onIgnore={() =>
             persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
           }
@@ -1822,6 +1823,14 @@ type PlannerWarning = {
   message: string;
   type: "missing_prerequisite" | "later_prerequisite";
   prerequisite: string;
+  prerequisitePlacement?: {
+    id: number;
+    plannerId: number;
+    year: number;
+    semester: number;
+    slot: number;
+    courseId: number;
+  };
 };
 
 function makeWarningKey(planned: PlannedCourse, warning: PlannerWarning): string {
@@ -1862,34 +1871,38 @@ function getWarnings(
 
   const completedCourseIds = new Set(completedCourses.map((cc) => cc.courseId));
 
-  // Build ordered list of all planned course placements across all years/semesters.
-  const ordered: Array<{ year: number; semester: number; courseId: number }> = [];
+  const plannedPlacements: Array<{
+    id: number;
+    plannerId: number;
+    year: number;
+    semester: number;
+    slot: number;
+    courseId: number;
+  }> = [];
   for (const p of allPlanners) {
     for (const pc of p.plannedCourses) {
       if (pc.courseId == null) continue;
-      ordered.push({
+      plannedPlacements.push({
+        id: pc.id,
+        plannerId: pc.plannerId,
         year: p.schoolYear,
         semester: pc.semester,
+        slot: pc.slot,
         courseId: pc.courseId,
       });
     }
   }
-  ordered.sort((a, b) => {
+
+  plannedPlacements.sort((a, b) => {
     if (a.year !== b.year) return a.year - b.year;
-    return a.semester - b.semester;
+    if (a.semester !== b.semester) return a.semester - b.semester;
+    return a.slot - b.slot;
   });
 
   const plannedCourseId = planned.courseId;
   if (plannedCourseId == null) {
     return warnings;
   }
-
-  const plannedIndex = ordered.findIndex(
-    (item) =>
-      item.year === currentYear &&
-      item.semester === currentSemester &&
-      item.courseId === plannedCourseId
-  );
 
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
@@ -1910,19 +1923,32 @@ function getWarnings(
       continue;
     }
 
-    const prereqIndex = ordered.findIndex((item) => matchedCourseIds.includes(item.courseId));
+    const prereqPlacements = plannedPlacements.filter((item) =>
+      matchedCourseIds.includes(item.courseId)
+    );
+    const isPrerequisiteSatisfied = prereqPlacements.some(
+      (item) =>
+        item.year < currentYear ||
+        (item.year === currentYear && item.semester === 1 && currentSemester === 2)
+    );
 
-    if (prereqIndex === -1) {
+    if (prereqPlacements.length === 0) {
       warnings.push({
         message: `${course.title} usually requires ${prereq} first.`,
         type: "missing_prerequisite",
         prerequisite: prereq,
       });
-    } else if (plannedIndex !== -1 && prereqIndex > plannedIndex) {
+    } else if (!isPrerequisiteSatisfied) {
+      const prerequisitePlacement =
+        prereqPlacements.find(
+          (item) =>
+            item.year === currentYear && item.semester === 2 && currentSemester === 1
+        ) ?? prereqPlacements[0];
       warnings.push({
-        message: `A prerequisite for this course appears later in your plan.`,
+        message: `A prerequisite for this course is not scheduled before it.`,
         type: "later_prerequisite",
         prerequisite: prereq,
+        prerequisitePlacement,
       });
     }
   }
@@ -1938,6 +1964,7 @@ function WarningActionModal({
   currentYear,
   onClose,
   onAddToPlanner,
+  onSwapSemesters,
   onIgnore,
   onMarkCompleted,
   showToast,
@@ -1949,6 +1976,7 @@ function WarningActionModal({
   currentYear: number;
   onClose: () => void;
   onAddToPlanner: (plannerId: number, courseId: number, semester: number, slot: number) => Promise<void>;
+  onSwapSemesters: (plannedCourseId: number, semester: number, slot: number) => Promise<void>;
   onIgnore: () => void;
   onMarkCompleted: (completed: CompletedCourse) => void;
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
@@ -2047,6 +2075,21 @@ function WarningActionModal({
     }
   };
 
+  const handleSwapSemesters = async () => {
+    const prerequisitePlacement = warning.prerequisitePlacement;
+    if (!prerequisitePlacement) return;
+    setLoading(true);
+    try {
+      await onSwapSemesters(prerequisitePlacement.id, planned.semester, planned.slot);
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to swap semesters";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleIgnore = () => {
     setShowConfirmIgnore(true);
   };
@@ -2068,11 +2111,18 @@ function WarningActionModal({
     selectedYear != null &&
     getFirstEmptySlot(selectedYear) != null;
 
+  const prerequisitePlacement = warning.prerequisitePlacement;
+  const canSwapSemesters =
+    warning.type === "later_prerequisite" &&
+    prerequisitePlacement?.plannerId === planned.plannerId &&
+    prerequisitePlacement.semester === 2 &&
+    planned.semester === 1;
+
   const addPrerequisiteHelpText =
-    !hasPreviousYears
+    warning.type !== "missing_prerequisite"
+      ? ""
+      : !hasPreviousYears
       ? "No previous school years are available."
-      : warning.type === "later_prerequisite"
-      ? "This prerequisite is already planned in a later year. Add it to a previous year if you want to move it earlier."
       : matchedCourses.length === 0
       ? "No matching course was found for this prerequisite."
       : selectedCourse == null
@@ -2238,14 +2288,36 @@ function WarningActionModal({
                 I already completed this course
               </button>
 
-              {hasPreviousYears && (
+              {canSwapSemesters && (
+                <button
+                  type="button"
+                  onClick={handleSwapSemesters}
+                  disabled={loading}
+                  style={{
+                    padding: "12px 16px",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                    color: "#ffffff",
+                    backgroundColor: "#16a34a",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    textAlign: "left",
+                    opacity: loading ? 0.5 : 1,
+                  }}
+                >
+                  Swap semesters
+                </button>
+              )}
+
+              {hasPreviousYears && warning.type === "missing_prerequisite" && (
                 <>
                   <select
                     value={selectedYear ?? ""}
                     onChange={(e) =>
                       setSelectedYear(e.target.value ? Number(e.target.value) : null)
                     }
-                    disabled={matchedCourses.length === 0 || warning.type === "later_prerequisite"}
+                    disabled={matchedCourses.length === 0}
                     aria-label="Select previous year"
                     style={{
                       width: "100%",
@@ -2256,11 +2328,8 @@ function WarningActionModal({
                       border: "1px solid #4b5563",
                       borderRadius: "8px",
                       outline: "none",
-                      cursor:
-                        matchedCourses.length === 0 || warning.type === "later_prerequisite"
-                          ? "not-allowed"
-                          : "pointer",
-                      opacity: matchedCourses.length === 0 || warning.type === "later_prerequisite" ? 0.5 : 1,
+                      cursor: matchedCourses.length === 0 ? "not-allowed" : "pointer",
+                      opacity: matchedCourses.length === 0 ? 0.5 : 1,
                     }}
                   >
                     <option value="">Select previous year</option>
