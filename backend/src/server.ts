@@ -4,6 +4,7 @@ import "dotenv/config";
 import coursesRouter from "./routes/courses.js";
 import authRouter from "./routes/auth.js";
 import savedCoursesRouter from "./routes/savedCourses.js";
+import completedCoursesRouter from "./routes/completedCourses.js";
 import plannerRouter from "./routes/planner.js";
 import {
   sessionMiddleware,
@@ -29,6 +30,7 @@ app.use(passportSession);
 app.use("/courses", coursesRouter);
 app.use("/auth", authRouter);
 app.use("/saved-courses", savedCoursesRouter);
+app.use("/api/completed-courses", completedCoursesRouter);
 app.use("/api/planner", plannerRouter);
 
 app.get("/", (_req, res) => {

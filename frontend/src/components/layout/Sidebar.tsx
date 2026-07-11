@@ -8,6 +8,7 @@ const navItems = [
   { label: "Course Catalog", href: "/catalog" },
   { label: "Saved Courses", href: "/saved" },
   { label: "My Planner", href: "/planner" },
+  { label: "Completed Courses", href: "/completed" },
   { label: "Graduation Requirements", href: "/requirements" },
 ];
 

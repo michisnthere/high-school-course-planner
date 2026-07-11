@@ -12,11 +12,17 @@ import {
   addPlannedCourse,
   removePlannedCourse,
   movePlannedCourse,
-  searchPlannerCourses,
   type Planner,
-  type PlannerCourseDetails,
   type PlannedCourse,
 } from "@/lib/planner";
+import {
+  getCompletedCourses,
+  addCompletedCourse,
+  type CompletedCourse,
+  type GradeCompleted,
+} from "@/lib/completedCourses";
+import { CourseSearchModal } from "@/components/planner/CourseSearchModal";
+import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -77,6 +83,11 @@ function PlannerYearContent(): React.ReactElement {
   const loadedYearRef = useRef<number | null>(null);
   const historyRef = useRef<HistoryEntry[]>([]);
   const [canUndo, setCanUndo] = useState(false);
+  const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
+  const [completedCoursePicker, setCompletedCoursePicker] = useState<{
+    open: boolean;
+    excludeCourseIds?: number[];
+  }>({ open: false });
 
   const { isSaved } = useSavedCourses();
   const router = useRouter();
@@ -99,6 +110,15 @@ function PlannerYearContent(): React.ReactElement {
     }
   }, [year]);
 
+  const loadCompletedCourses = useCallback(async () => {
+    try {
+      const courses = await getCompletedCourses();
+      setCompletedCourses(courses);
+    } catch {
+      setCompletedCourses([]);
+    }
+  }, []);
+
   useEffect(() => {
     if (!year || !YEAR_LABELS[year]) {
       setError("Invalid school year.");
@@ -115,6 +135,10 @@ function PlannerYearContent(): React.ReactElement {
     loadPlanners();
   }, [year, loadPlanners]);
 
+  useEffect(() => {
+    loadCompletedCourses();
+  }, [loadCompletedCourses]);
+
   useLayoutEffect(() => {
     if (scrollYRef.current !== null) {
       window.scrollTo(0, scrollYRef.current);
@@ -128,6 +152,21 @@ function PlannerYearContent(): React.ReactElement {
       setToast((prev) => ({ ...prev, visible: false }));
     }, 4000);
   }, []);
+
+  const handleCompletedCourseSubmit = useCallback(
+    async ({ courseId, gradeCompleted }: { courseId: number; gradeCompleted: GradeCompleted }) => {
+      try {
+        await addCompletedCourse(courseId, gradeCompleted);
+        setCompletedCoursePicker({ open: false });
+        await loadCompletedCourses();
+        showToast("Course marked as completed.", "success");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to mark course as completed";
+        showToast(message, "warning");
+      }
+    },
+    [loadCompletedCourses, showToast]
+  );
 
   const pushHistory = useCallback(
     (newPlanners: Planner[], undo: () => Promise<void>) => {
@@ -297,11 +336,12 @@ function PlannerYearContent(): React.ReactElement {
         <PlannedCourseCard
           key={`${semester}-${slot}`}
           planned={planned}
-          warnings={getWarnings(planned, allPlanners, semester, year)}
+          warnings={getWarnings(planned, allPlanners, semester, year, completedCourses)}
           isDragging={draggingId === planned.id}
           isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
           onRemove={() => handleRemoveCourse(planned)}
           onClick={() => handleCourseClick(planned)}
+          onMarkCompleted={() => setCompletedCoursePicker({ open: true, excludeCourseIds: completedCourses.map((c) => c.courseId) })}
           onDragStart={() => setDraggingId(planned.id)}
           onDragEnd={() => setDraggingId(null)}
           onDragOver={() => setDragOverSlot({ semester, slot })}
@@ -430,6 +470,14 @@ function PlannerYearContent(): React.ReactElement {
           onClose={handleCloseModal}
           onSelect={handleCourseSelected}
           isSaved={isSaved}
+        />
+      )}
+
+      {completedCoursePicker.open && (
+        <CompletedCoursePicker
+          onClose={() => setCompletedCoursePicker({ open: false })}
+          onSubmit={handleCompletedCourseSubmit}
+          excludeCourseIds={completedCoursePicker.excludeCourseIds}
         />
       )}
 
@@ -651,6 +699,7 @@ function PlannedCourseCard({
   isDragOver,
   onRemove,
   onClick,
+  onMarkCompleted,
   onDragStart,
   onDragEnd,
   onDragOver,
@@ -663,6 +712,7 @@ function PlannedCourseCard({
   isDragOver: boolean;
   onRemove: () => void;
   onClick: () => void;
+  onMarkCompleted: () => void;
   onDragStart: () => void;
   onDragEnd: () => void;
   onDragOver: () => void;
@@ -871,278 +921,25 @@ function PlannedCourseCard({
           {warnings.map((w, i) => (
             <div key={i}>⚠ {w}</div>
           ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function CourseSearchModal({
-  onClose,
-  onSelect,
-  isSaved,
-}: {
-  onClose: () => void;
-  onSelect: (courseId: number) => void;
-  isSaved: (courseId: number) => boolean;
-}): React.ReactElement {
-  const [query, setQuery] = useState("");
-  const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    searchPlannerCourses("")
-      .then(setAllCourses)
-      .catch(() => setAllCourses([]))
-      .finally(() => setLoading(false));
-  }, []);
-
-  const filteredResults = allCourses.filter((course) =>
-    course.title.toLowerCase().includes(query.trim().toLowerCase())
-  );
-
-  const sortedResults = [...filteredResults].sort((a, b) => {
-    const aSaved = isSaved(a.id) ? 1 : 0;
-    const bSaved = isSaved(b.id) ? 1 : 0;
-    return bSaved - aSaved;
-  });
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 50,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "600px",
-          maxHeight: "80vh",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
-          borderRadius: "16px",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div
-          style={{
-            padding: "24px 24px 16px",
-            borderBottom: "1px solid #374151",
-          }}
-        >
-          <div
+          <button
+            type="button"
+            onClick={onMarkCompleted}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "16px",
+              marginTop: "8px",
+              padding: "4px 10px",
+              fontSize: "12px",
+              fontWeight: 600,
+              color: "#111827",
+              backgroundColor: "#facc15",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
             }}
           >
-            <h2
-              style={{
-                margin: 0,
-                fontSize: "22px",
-                fontWeight: 600,
-                color: "#ffffff",
-              }}
-            >
-              Add a Course
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                fontSize: "24px",
-                color: "#9ca3af",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "4px",
-                lineHeight: 1,
-              }}
-              aria-label="Close"
-            >
-              ×
-            </button>
-          </div>
-
-          <input
-            type="text"
-            placeholder="Search by course title..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoFocus
-            style={{
-              width: "100%",
-              padding: "14px 16px",
-              fontSize: "16px",
-              color: "#ffffff",
-              backgroundColor: "#111827",
-              border: "1px solid #4b5563",
-              borderRadius: "10px",
-              outline: "none",
-              boxSizing: "border-box",
-            }}
-          />
+            I already completed this course
+          </button>
         </div>
-
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "16px 24px 24px",
-          }}
-        >
-          {loading ? (
-            <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading courses...</p>
-          ) : sortedResults.length === 0 ? (
-            <p style={{ color: "#9ca3af", textAlign: "center" }}>
-              {query.trim() === "" ? "No courses available." : "No courses match your search."}
-            </p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {sortedResults.map((course) => (
-                <button
-                  key={course.id}
-                  type="button"
-                  onClick={() => onSelect(course.id)}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    gap: "12px",
-                    padding: "16px",
-                    backgroundColor: "#111827",
-                    border: "1px solid #374151",
-                    borderRadius: "12px",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    color: "inherit",
-                    width: "100%",
-                    transition: "border-color 0.15s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#4b5563";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "#374151";
-                  }}
-                >
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        marginBottom: "6px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: "16px",
-                          fontWeight: 600,
-                          color: "#ffffff",
-                        }}
-                      >
-                        {course.title}
-                      </span>
-                      {isSaved(course.id) && (
-                        <span
-                          style={{
-                            fontSize: "18px",
-                            color: "#fbbf24",
-                          }}
-                          aria-label="Saved"
-                        >
-                          ★
-                        </span>
-                      )}
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "8px",
-                        fontSize: "13px",
-                        color: "#9ca3af",
-                      }}
-                    >
-                      {course.creditType && (
-                        <span
-                          style={{
-                            padding: "3px 8px",
-                            backgroundColor: "#1f2937",
-                            borderRadius: "9999px",
-                          }}
-                        >
-                          {course.creditType}
-                        </span>
-                      )}
-                      {course.credits != null && (
-                        <span
-                          style={{
-                            padding: "3px 8px",
-                            backgroundColor: "#1f2937",
-                            borderRadius: "9999px",
-                          }}
-                        >
-                          {course.credits} credits
-                        </span>
-                      )}
-                      {course.duration === 2 && (
-                        <span
-                          style={{
-                            padding: "3px 8px",
-                            backgroundColor: "#1f2937",
-                            borderRadius: "9999px",
-                          }}
-                        >
-                          Full Year
-                        </span>
-                      )}
-                      {course.duration === 1 && (
-                        <span
-                          style={{
-                            padding: "3px 8px",
-                            backgroundColor: "#1f2937",
-                            borderRadius: "9999px",
-                          }}
-                        >
-                          One Semester
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      color: "#3b82f6",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    Add →
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -1223,7 +1020,8 @@ function getWarnings(
   planned: PlannedCourse,
   allPlanners: Planner[],
   currentSemester: number,
-  currentYear: number
+  currentYear: number,
+  completedCourses: CompletedCourse[]
 ): string[] {
   const warnings: string[] = [];
   const { course } = planned;
@@ -1258,6 +1056,11 @@ function getWarnings(
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
     const normalizedPrereq = prereq.toLowerCase();
+
+    const isCompleted = completedCourses.some((cc) =>
+      cc.course.title.toLowerCase().includes(normalizedPrereq)
+    );
+    if (isCompleted) continue;
 
     const prereqIndex = ordered.findIndex((item) =>
       item.title.toLowerCase().includes(normalizedPrereq)
