@@ -281,7 +281,7 @@ function PlannerYearContent(): React.ReactElement {
     getPlannerAnalysis()
       .then(setPlannerAnalysis)
       .catch(() => setPlannerAnalysis(null));
-  }, [completedCourses]);
+  }, [allPlanners, completedCourses]);
 
   const loadPlanners = useCallback(async () => {
     try {
