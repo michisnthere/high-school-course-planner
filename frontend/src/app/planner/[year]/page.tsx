@@ -239,6 +239,7 @@ function PlannerYearContent(): React.ReactElement {
     warning: PlannerWarning;
   } | null>(null);
   const [ignoredWarnings, setIgnoredWarnings] = useState<Set<string>>(new Set());
+  const [highlightedPlannedCourseId, setHighlightedPlannedCourseId] = useState<number | null>(null);
 
   useEffect(() => {
     try {
@@ -368,6 +369,14 @@ function PlannerYearContent(): React.ReactElement {
   const handleCloseModal = useCallback(() => {
     setActiveSlot(null);
   }, []);
+
+  const handleGoToCourse = useCallback((year: number, plannedCourseId: number) => {
+    setHighlightedPlannedCourseId(plannedCourseId);
+    router.push(`/planner/${year}`);
+    window.setTimeout(() => {
+      setHighlightedPlannedCourseId((current) => (current === plannedCourseId ? null : current));
+    }, 2000);
+  }, [router]);
 
   const handleCourseClick = useCallback((planned: PlannedCourse) => {
     const slug = getCourseSlug({
@@ -557,6 +566,7 @@ function PlannerYearContent(): React.ReactElement {
           )}
           isDragging={draggingId === planned.id}
           isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
+          isHighlighted={highlightedPlannedCourseId === planned.id}
           onRemove={() => handleRemoveCourse(planned)}
           onClick={() => handleCourseClick(planned)}
           onWarningClick={(w) => setSelectedWarning({ planned, warning: w })}
@@ -689,6 +699,8 @@ function PlannerYearContent(): React.ReactElement {
           onSelect={handleCourseSelected}
           isSaved={isSaved}
           grade={year}
+          allPlanners={allPlanners}
+          onGoToCourse={handleGoToCourse}
         />
       )}
 
@@ -950,6 +962,7 @@ function PlannedCourseCard({
   warnings,
   isDragging,
   isDragOver,
+  isHighlighted,
   onRemove,
   onClick,
   onWarningClick,
@@ -963,6 +976,7 @@ function PlannedCourseCard({
   warnings: PlannerWarning[];
   isDragging: boolean;
   isDragOver: boolean;
+  isHighlighted: boolean;
   onRemove: () => void;
   onClick: () => void;
   onWarningClick: (warning: PlannerWarning) => void;
@@ -1027,8 +1041,12 @@ function PlannedCourseCard({
         cursor: "move",
         opacity: isDragging ? 0.5 : 1,
         transition: "transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease",
-        transform: isDragOver ? "scale(1.02)" : "scale(1)",
-        boxShadow: isDragOver ? "0 0 0 2px rgba(59, 130, 246, 0.3)" : "none",
+        transform: isDragOver ? "scale(1.02)" : isHighlighted ? "scale(1.03)" : "scale(1)",
+        boxShadow: isDragOver
+          ? "0 0 0 2px rgba(59, 130, 246, 0.3)"
+          : isHighlighted
+          ? "0 0 0 4px rgba(59, 130, 246, 0.8), 0 6px 16px rgba(0,0,0,0.2)"
+          : "none",
         position: "relative",
       }}
       onMouseEnter={(e) => {
@@ -1200,21 +1218,55 @@ function PlannedCourseCard({
   );
 }
 
+function getPlannedCourseLocation(allPlanners: Planner[], courseId: number) {
+  for (const planner of allPlanners) {
+    const entries = planner.plannedCourses.filter((pc) => pc.courseId === courseId);
+    if (entries.length > 0) {
+      const sorted = [...entries].sort((a, b) => a.semester - b.semester);
+      const slot = sorted[0].slot;
+      const isFullYear =
+        sorted.length >= 2 && sorted[0].semester === 1 && sorted[sorted.length - 1].semester === 2;
+      return {
+        year: planner.schoolYear,
+        label: YEAR_LABELS[planner.schoolYear],
+        semester: isFullYear ? ("Full Year" as const) : (sorted[0].semester as 1 | 2),
+        slot,
+        plannedCourseId: sorted[0].id,
+      };
+    }
+  }
+  return null;
+}
+
+function isDuplicateCourse(course: PlannerCourseDetails, allPlanners: Planner[]): boolean {
+  if (course.id < 0) return false;
+  return allPlanners.some((planner) => planner.plannedCourses.some((pc) => pc.courseId === course.id));
+}
+
 function CourseSearchModal({
   onClose,
   onSelect,
   isSaved,
   grade,
+  allPlanners,
+  onGoToCourse,
 }: {
   onClose: () => void;
   onSelect: (selection: { courseId: number } | { plannerOptionId: number }) => void;
   isSaved: (courseId: number) => boolean;
   grade: number;
+  allPlanners: Planner[];
+  onGoToCourse: (year: number, plannedCourseId: number) => void;
 }): React.ReactElement {
   const [query, setQuery] = useState("");
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
+  const [duplicateCourse, setDuplicateCourse] = useState<PlannerCourseDetails | null>(null);
+  const duplicateLocation = useMemo(
+    () => (duplicateCourse ? getPlannedCourseLocation(allPlanners, duplicateCourse.id) : null),
+    [duplicateCourse, allPlanners]
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -1392,15 +1444,21 @@ function CourseSearchModal({
             </p>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {sortedResults.map((course) => (
+              {sortedResults.map((course) => {
+                const isDuplicate = isDuplicateCourse(course, allPlanners);
+                return (
                 <button
                   key={course.id}
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
+                    if (isDuplicate) {
+                      setDuplicateCourse(course);
+                      return;
+                    }
                     onSelect(
                       course.id < 0 ? { plannerOptionId: -course.id } : { courseId: course.id }
-                    )
-                  }
+                    );
+                  }}
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
@@ -1410,14 +1468,17 @@ function CourseSearchModal({
                     backgroundColor: "#111827",
                     border: "1px solid #374151",
                     borderRadius: "12px",
-                    cursor: "pointer",
+                    cursor: isDuplicate ? "not-allowed" : "pointer",
                     textAlign: "left",
                     color: "inherit",
                     width: "100%",
-                    transition: "border-color 0.15s ease",
+                    opacity: isDuplicate ? 0.5 : 1,
+                    transition: "border-color 0.15s ease, opacity 0.15s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#4b5563";
+                    if (!isDuplicate) {
+                      e.currentTarget.style.borderColor = "#4b5563";
+                    }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = "#374151";
@@ -1512,16 +1573,130 @@ function CourseSearchModal({
                     style={{
                       fontSize: "14px",
                       fontWeight: 600,
-                      color: "#3b82f6",
+                      color: isDuplicate ? "#6b7280" : "#3b82f6",
                       whiteSpace: "nowrap",
                     }}
                   >
-                    Add →
+                    {isDuplicate ? "Already planned" : "Add →"}
                   </span>
                 </button>
-              ))}
+              );
+              })}
             </div>
           )}
+        </div>
+      </div>
+
+      {duplicateCourse && duplicateLocation && (
+        <DuplicateCourseDialog
+          course={duplicateCourse}
+          location={duplicateLocation}
+          onGoToCourse={() => {
+            onGoToCourse(duplicateLocation.year, duplicateLocation.plannedCourseId);
+            onClose();
+          }}
+          onClose={() => setDuplicateCourse(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+function DuplicateCourseDialog({
+  course,
+  location,
+  onGoToCourse,
+  onClose,
+}: {
+  course: PlannerCourseDetails;
+  location: { label: string; semester: "Full Year" | 1 | 2; slot: number };
+  onGoToCourse: () => void;
+  onClose: () => void;
+}): React.ReactElement {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 60,
+        padding: "24px",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          backgroundColor: "#1f2937",
+          border: "1px solid #374151",
+          borderRadius: "16px",
+          padding: "24px",
+          color: "#ffffff",
+          fontFamily:
+            `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3
+          style={{
+            margin: "0 0 16px",
+            fontSize: "20px",
+            fontWeight: 600,
+          }}
+        >
+          This course is already planned
+        </h3>
+        <div style={{ marginBottom: "24px", lineHeight: 1.5, color: "#d1d5db" }}>
+          <p style={{ margin: "0 0 12px", fontWeight: 500, color: "#ffffff" }}>{course.title}</p>
+          <div style={{ fontSize: "14px", color: "#9ca3af" }}>
+            <div>
+              Location: <strong style={{ color: "#ffffff" }}>{location.label}</strong>
+            </div>
+            <div>
+              Semester: <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
+            </div>
+            <div>
+              Slot: <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              padding: "10px 16px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#d1d5db",
+              backgroundColor: "transparent",
+              border: "1px solid #4b5563",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={onGoToCourse}
+            style={{
+              padding: "10px 16px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#ffffff",
+              backgroundColor: "#3b82f6",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Go to Course
+          </button>
         </div>
       </div>
     </div>

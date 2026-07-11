@@ -379,6 +379,17 @@ router.post("/courses", requireAuth, async (req, res) => {
       return res.status(404).json({ error: "Course not found" });
     }
 
+    const existingDuplicate = await prisma.plannedCourse.findFirst({
+      where: {
+        planner: { userId },
+        courseId: course.id,
+      },
+    });
+
+    if (existingDuplicate) {
+      return res.status(409).json({ error: "This course is already planned in your schedule" });
+    }
+
     duration = deriveCourseDuration(course);
     createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum };
   } else {
