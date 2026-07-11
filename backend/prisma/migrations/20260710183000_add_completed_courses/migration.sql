@@ -3,8 +3,7 @@ CREATE TABLE "CompletedCourse" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "courseId" INTEGER NOT NULL,
-    "gradeLevelTaken" INTEGER NOT NULL,
-    "yearTaken" INTEGER NOT NULL,
+    "gradeCompleted" TEXT NOT NULL,
     "credits" DOUBLE PRECISION,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -13,7 +12,7 @@ CREATE TABLE "CompletedCourse" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "CompletedCourse_userId_courseId_gradeLevelTaken_yearTaken_key" ON "CompletedCourse"("userId", "courseId", "gradeLevelTaken", "yearTaken");
+CREATE UNIQUE INDEX "CompletedCourse_userId_courseId_key" ON "CompletedCourse"("userId", "courseId");
 
 -- CreateIndex
 CREATE INDEX "CompletedCourse_userId_idx" ON "CompletedCourse"("userId");
