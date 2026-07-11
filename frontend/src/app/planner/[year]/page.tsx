@@ -39,8 +39,10 @@ import {
   addCompletedCourse,
   getCompletedCourses,
   type CompletedCourse,
+  type GradeCompleted,
 } from "@/lib/completedCourses";
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
+import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -269,13 +271,21 @@ function PlannerYearContent(): React.ReactElement {
   const router = useRouter();
 
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
+  const [completedCoursePicker, setCompletedCoursePicker] = useState<{ open: boolean; excludeCourseIds?: number[] }>({ open: false });
   const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
 
-  useEffect(() => {
-    getCompletedCourses()
-      .then(setCompletedCourses)
-      .catch(() => setCompletedCourses([]));
+  const loadCompletedCourses = useCallback(async () => {
+    try {
+      const courses = await getCompletedCourses();
+      setCompletedCourses(courses);
+    } catch {
+      setCompletedCourses([]);
+    }
   }, []);
+
+  useEffect(() => {
+    loadCompletedCourses();
+  }, [loadCompletedCourses]);
 
   useEffect(() => {
     getPlannerAnalysis()
@@ -365,6 +375,21 @@ function PlannerYearContent(): React.ReactElement {
   const handleOpenModal = useCallback((semester: number, slot: number) => {
     setActiveSlot({ semester, slot });
   }, []);
+
+  const handleCompletedCourseSubmit = useCallback(
+    async ({ courseId, gradeCompleted }: { courseId: number; gradeCompleted: GradeCompleted }) => {
+      try {
+        await addCompletedCourse(courseId, gradeCompleted);
+        setCompletedCoursePicker({ open: false });
+        await loadCompletedCourses();
+        showToast("Course marked as completed.", "success");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to mark course as completed";
+        showToast(message, "warning");
+      }
+    },
+    [loadCompletedCourses, showToast]
+  );
 
   const handleCloseModal = useCallback(() => {
     setActiveSlot(null);
@@ -1829,7 +1854,7 @@ function getWarnings(
 
     const completedIndex = completedCourses.findIndex((cc) => {
       const normalizedTitle = cc.course.title.toLowerCase();
-      const courseCode = cc.course.options?.[0]?.offerings?.[0]?.courseCode?.toLowerCase() ?? "";
+      const courseCode = cc.course.courseCode?.toLowerCase() ?? "";
       return (
         normalizedTitle.includes(normalizedPrereq) ||
         normalizedPrereq.includes(normalizedTitle) ||
@@ -1957,11 +1982,15 @@ function WarningActionModal({
     if (!selectedCourse) return;
     setLoading(true);
     try {
-      const completed = await addCompletedCourse({
-        courseId: selectedCourse.id,
-        gradeLevelTaken: currentYear,
-        yearTaken: new Date().getFullYear(),
-      });
+      const gradeCompleted: GradeCompleted =
+        currentYear === 9
+          ? "Freshman (9)"
+          : currentYear === 10
+          ? "Sophomore (10)"
+          : currentYear === 11
+          ? "Junior (11)"
+          : "Senior (12)";
+      const completed = await addCompletedCourse(selectedCourse.id, gradeCompleted);
       onMarkCompleted(completed);
       showToast("Marked as completed.", "success");
       onClose();

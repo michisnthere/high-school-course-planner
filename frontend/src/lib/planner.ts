@@ -3,6 +3,8 @@
 const API_URL =
   typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
 
+import type { Course } from "@/types/course";
+
 export type CourseDuration = number;
 
 export type PlannerCourseDetails = {
@@ -18,6 +20,8 @@ export type PlannerCourseDetails = {
   fulfillsRequirements: string[];
   prerequisites: string[];
   courseCode: string | null;
+  gradeMin: number | null;
+  gradeMax: number | null;
 };
 
 export type PlannerOption = {
@@ -79,6 +83,21 @@ export async function getPlannerOptions(grade: number): Promise<PlannerOption[]>
 
   if (!response.ok) {
     throw new Error("Failed to fetch planner options");
+  }
+
+  return response.json();
+}
+
+export async function searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]> {
+  const response = await fetch(
+    `${API_URL}/api/planner/courses?search=${encodeURIComponent(query)}`,
+    {
+      credentials: "include",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to search courses");
   }
 
   return response.json();
@@ -160,7 +179,88 @@ export async function movePlannedCourse(
   return response.json();
 }
 
-import type { Course } from "@/types/course";
+function escapeRegExp(text: string): string {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&");
+}
+
+export function sortPickerCourses(courses: PlannerCourseDetails[]): PlannerCourseDetails[] {
+  if (courses.length <= 1) return [...courses];
+
+  const list = [...courses];
+  const byCode = new Map<string, PlannerCourseDetails>();
+  for (const course of list) {
+    if (course.courseCode) {
+      byCode.set(course.courseCode.toLowerCase(), course);
+    }
+  }
+
+  const titleMatchers = [...list].sort((a, b) => b.title.length - a.title.length);
+  const prereqMap = new Map<PlannerCourseDetails, PlannerCourseDetails[]>();
+
+  for (const course of list) {
+    const matches = new Set<PlannerCourseDetails>();
+
+    for (const prereqText of course.prerequisites) {
+      const normalized = prereqText.toLowerCase();
+      if (normalized === "none" || normalized === "n/a") continue;
+
+      for (const candidate of titleMatchers) {
+        if (candidate === course) continue;
+        if (candidate.title.length === 0) continue;
+        const pattern = new RegExp(`\\b${escapeRegExp(candidate.title)}\\b`, "i");
+        if (pattern.test(normalized)) {
+          matches.add(candidate);
+        }
+      }
+
+      const codeMatches = normalized.match(/\b[a-z]{3}\d{3}\b/gi);
+      for (const code of codeMatches ?? []) {
+        const matched = byCode.get(code.toLowerCase());
+        if (matched && matched !== course) {
+          matches.add(matched);
+        }
+      }
+    }
+
+    prereqMap.set(course, Array.from(matches));
+  }
+
+  const memo = new Map<PlannerCourseDetails, number>();
+  function computeDepth(
+    course: PlannerCourseDetails,
+    visiting: Set<PlannerCourseDetails>
+  ): number {
+    if (memo.has(course)) return memo.get(course)!;
+    if (visiting.has(course)) return 0;
+
+    visiting.add(course);
+    const prereqs = prereqMap.get(course) ?? [];
+    let maxDepth = 0;
+    for (const prereq of prereqs) {
+      maxDepth = Math.max(maxDepth, computeDepth(prereq, visiting) + 1);
+    }
+    visiting.delete(course);
+    memo.set(course, maxDepth);
+    return maxDepth;
+  }
+
+  const grades = new Map<PlannerCourseDetails, number>();
+  for (const course of list) {
+    grades.set(course, course.gradeMin ?? 9);
+  }
+
+  return list.sort((a, b) => {
+    const gradeA = grades.get(a) ?? 9;
+    const gradeB = grades.get(b) ?? 9;
+    if (gradeA !== gradeB) return gradeA - gradeB;
+
+    const depthA = computeDepth(a, new Set());
+    const depthB = computeDepth(b, new Set());
+    if (depthA !== depthB) return depthA - depthB;
+
+    return a.title.localeCompare(b.title);
+  });
+}
 
 function normalizeDuration(value: unknown): number {
   if (typeof value === "number" && value === 2) return 2;
@@ -195,10 +295,17 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
   }
 
   let courseCode: string | null = null;
+  let gradeMin: number | null = null;
+  let gradeMax: number | null = null;
   for (const offering of offerings) {
-    if (typeof offering.courseCode === "string" && offering.courseCode) {
+    if (typeof offering.courseCode === "string" && offering.courseCode && !courseCode) {
       courseCode = offering.courseCode;
-      break;
+    }
+    if (offering.gradeMin != null && (gradeMin === null || offering.gradeMin < gradeMin)) {
+      gradeMin = offering.gradeMin;
+    }
+    if (offering.gradeMax != null && (gradeMax === null || offering.gradeMax > gradeMax)) {
+      gradeMax = offering.gradeMax;
     }
   }
 
@@ -217,6 +324,8 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
       : [],
     prerequisites: Array.from(prerequisites),
     courseCode,
+    gradeMin,
+    gradeMax,
   };
 }
 
@@ -234,5 +343,7 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     fulfillsRequirements: [],
     prerequisites: [],
     courseCode: null,
+    gradeMin: null,
+    gradeMax: null,
   };
 }

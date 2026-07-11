@@ -1,33 +1,79 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
+import { deriveCourseDetails } from "./planner.js";
 
 const router = Router();
 
-const MIN_YEAR = 1900;
-const MAX_YEAR = 2100;
+export const GRADE_COMPLETED_OPTIONS = [
+  "Middle School",
+  "Freshman (9)",
+  "Sophomore (10)",
+  "Junior (11)",
+  "Senior (12)",
+] as const;
 
-function getCourseCredits(
-  course: {
-    options?: Array<{
-      credits?: number | null;
-      offerings?: Array<{ credits?: number | null }>;
-    }>;
-  }
-): number | null {
-  const option = course.options?.[0];
-  if (option?.credits != null) {
-    return option.credits;
-  }
-  const offering = option?.offerings?.[0];
-  if (offering?.credits != null) {
-    return offering.credits;
-  }
-  return null;
-}
+type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
 
-const completedCourseInclude = {
-  course: {
+type CompletedCourseResponse = {
+  id: number;
+  userId: number;
+  courseId: number;
+  gradeCompleted: string;
+  credits: number | null;
+  course: ReturnType<typeof deriveCourseDetails>;
+};
+
+router.get("/", requireAuth, async (req, res) => {
+  const userId = req.user!.id;
+
+  const completed = await prisma.completedCourse.findMany({
+    where: { userId },
+    include: {
+      course: {
+        include: {
+          department: {
+            include: {
+              division: true,
+            },
+          },
+          options: {
+            include: {
+              offerings: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const response: CompletedCourseResponse[] = completed.map((cc) => ({
+    id: cc.id,
+    userId: cc.userId,
+    courseId: cc.courseId,
+    gradeCompleted: cc.gradeCompleted,
+    credits: cc.credits ?? null,
+    course: deriveCourseDetails(cc.course),
+  }));
+
+  res.json(response);
+});
+
+router.post("/", requireAuth, async (req, res) => {
+  const userId = req.user!.id;
+  const { courseId, gradeCompleted } = req.body;
+
+  if (!courseId || !gradeCompleted) {
+    return res.status(400).json({ error: "courseId and gradeCompleted are required" });
+  }
+
+  if (!GRADE_COMPLETED_OPTIONS.includes(gradeCompleted)) {
+    return res.status(400).json({ error: "Invalid gradeCompleted value" });
+  }
+
+  const course = await prisma.course.findUnique({
+    where: { id: Number(courseId) },
     include: {
       department: {
         include: {
@@ -40,90 +86,57 @@ const completedCourseInclude = {
         },
       },
     },
-  },
-} as const;
+  });
 
-router.get("/", requireAuth, async (req, res) => {
-  const userId = req.user!.id;
-
-  try {
-    const completed = await prisma.completedCourse.findMany({
-      where: { userId },
-      orderBy: [{ yearTaken: "asc" }, { gradeLevelTaken: "asc" }],
-      include: completedCourseInclude,
-    });
-    res.json(completed);
-  } catch (err) {
-    console.error("Failed to fetch completed courses:", err);
-    res.status(500).json({ error: "Failed to fetch completed courses" });
-  }
-});
-
-router.post("/", requireAuth, async (req, res) => {
-  const userId = req.user!.id;
-  const courseId = Number(req.body.courseId);
-  const gradeLevelTaken = Number(req.body.gradeLevelTaken);
-  const yearTaken = Number(req.body.yearTaken);
-  let credits = req.body.credits != null ? Number(req.body.credits) : undefined;
-
-  if (!courseId || !gradeLevelTaken || !yearTaken) {
-    return res.status(400).json({
-      error: "courseId, gradeLevelTaken, and yearTaken are required",
-    });
+  if (!course) {
+    return res.status(404).json({ error: "Course not found" });
   }
 
-  if (gradeLevelTaken < 9 || gradeLevelTaken > 12) {
-    return res.status(400).json({
-      error: "gradeLevelTaken must be between 9 and 12",
-    });
+  const details = deriveCourseDetails(course);
+
+  const existing = await prisma.completedCourse.findUnique({
+    where: { userId_courseId: { userId, courseId: course.id } },
+  });
+
+  if (existing) {
+    return res.status(409).json({ error: "Course already marked as completed" });
   }
 
-  if (yearTaken < MIN_YEAR || yearTaken > MAX_YEAR) {
-    return res.status(400).json({
-      error: `yearTaken must be between ${MIN_YEAR} and ${MAX_YEAR}`,
-    });
-  }
-
-  if (credits != null && Number.isNaN(credits)) {
-    credits = undefined;
-  }
-
-  try {
-    const course = await prisma.course.findUnique({
-      where: { id: courseId },
-      include: {
-        options: {
-          include: {
-            offerings: true,
+  const created = await prisma.completedCourse.create({
+    data: {
+      userId,
+      courseId: course.id,
+      gradeCompleted: gradeCompleted as GradeCompleted,
+      credits: details.credits,
+    },
+    include: {
+      course: {
+        include: {
+          department: {
+            include: {
+              division: true,
+            },
+          },
+          options: {
+            include: {
+              offerings: true,
+            },
           },
         },
       },
-    });
+    },
+  });
 
-    if (!course) {
-      return res.status(404).json({ error: "Course not found" });
-    }
+  const response: CompletedCourseResponse = {
+    id: created.id,
+    userId: created.userId,
+    courseId: created.courseId,
+    gradeCompleted: created.gradeCompleted,
+    credits: created.credits ?? null,
+    course: deriveCourseDetails(created.course),
+  };
 
-    const completed = await prisma.completedCourse.create({
-      data: {
-        userId,
-        courseId,
-        gradeLevelTaken,
-        yearTaken,
-        credits: credits ?? getCourseCredits(course),
-      },
-      include: completedCourseInclude,
-    });
-    res.status(201).json(completed);
-  } catch (err: any) {
-    if (err.code === "P2002") {
-      return res.status(409).json({
-        error: "Course already recorded as completed for this grade and year",
-      });
-    }
-    console.error("Failed to record completed course:", err);
-    res.status(500).json({ error: "Failed to record completed course" });
-  }
+  res.status(201).json(response);
 });
 
 router.delete("/:id", requireAuth, async (req, res) => {
@@ -131,27 +144,22 @@ router.delete("/:id", requireAuth, async (req, res) => {
   const id = Number(req.params.id);
 
   if (!id) {
-    return res.status(400).json({ error: "id is required" });
+    return res.status(400).json({ error: "Invalid completed course id" });
   }
 
-  try {
-    const existing = await prisma.completedCourse.findFirst({
-      where: { id, userId },
-    });
+  const existing = await prisma.completedCourse.findUnique({
+    where: { id },
+  });
 
-    if (!existing) {
-      return res.status(404).json({ error: "Completed course not found" });
-    }
-
-    await prisma.completedCourse.delete({
-      where: { id },
-    });
-
-    res.json({ success: true });
-  } catch (err) {
-    console.error("Failed to delete completed course:", err);
-    res.status(500).json({ error: "Failed to delete completed course" });
+  if (!existing || existing.userId !== userId) {
+    return res.status(404).json({ error: "Completed course not found" });
   }
+
+  await prisma.completedCourse.delete({
+    where: { id },
+  });
+
+  res.json({ success: true });
 });
 
 export default router;

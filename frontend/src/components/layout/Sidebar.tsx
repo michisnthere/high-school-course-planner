@@ -9,6 +9,7 @@ const navItems = [
   { label: "Saved Courses", href: "/saved" },
   { label: "Completed Courses", href: "/completed-courses" },
   { label: "My Planner", href: "/planner" },
+  { label: "Completed Courses", href: "/completed" },
   { label: "Graduation Requirements", href: "/requirements" },
 ];
 

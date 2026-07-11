@@ -63,9 +63,6 @@ model Course {
 
   description String?
 
-  // Normalized duration in semester units: 1 = one semester, 2 = full year.
-  duration Int?
-
   attributes           Json    @default("[]")
   fulfillsRequirements Json    @default("[]")
   isRepeatable         Boolean @default(false)
@@ -207,9 +204,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  savedCourses       SavedCourse[]
-  planners           Planner[]
-  completedCourses   CompletedCourse[]
+  savedCourses     SavedCourse[]
+  planners         Planner[]
+  completedCourses CompletedCourse[]
 }
 
 //
@@ -222,6 +219,28 @@ model SavedCourse {
   userId    Int
   courseId  Int
   createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+//
+// =========================
+// COMPLETED COURSE
+// =========================
+//
+model CompletedCourse {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  courseId       Int
+  gradeCompleted String
+  credits        Float?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -252,68 +271,21 @@ model Planner {
 
 //
 // =========================
-// PLANNER-ONLY OPTIONS
-// =========================
-//
-// Non-catalog items (e.g., Study Hall, Free Period) that can occupy a planner
-// slot without being stored as academic courses.
-//
-model PlannerOption {
-  id              Int      @id @default(autoincrement())
-  name            String   @unique
-  duration        Int      @default(1) // 1 = one semester, 2 = full year
-  credits         Int      @default(0)
-  availableGrades Int[]    @default([])
-  maxPerYear      Int? // null = unlimited
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  plannedCourses PlannedCourse[]
-}
-
-//
-// =========================
 // PLANNED COURSE
 // =========================
 //
 model PlannedCourse {
-  id              Int      @id @default(autoincrement())
-  plannerId       Int
-  courseId        Int?
-  plannerOptionId Int?
-  semester        Int
-  slot            Int
-  createdAt       DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  plannerId Int
+  courseId  Int
+  semester  Int
+  slot      Int
+  createdAt DateTime @default(now())
 
-  planner       Planner        @relation(fields: [plannerId], references: [id], onDelete: Cascade)
-  course        Course?        @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  plannerOption PlannerOption? @relation(fields: [plannerOptionId], references: [id], onDelete: Cascade)
+  planner Planner @relation(fields: [plannerId], references: [id], onDelete: Cascade)
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([plannerId, semester, slot])
   @@index([plannerId])
-  @@index([courseId])
-  @@index([plannerOptionId])
-}
-
-//
-// =========================
-// COMPLETED COURSE
-// =========================
-//
-model CompletedCourse {
-  id              Int      @id @default(autoincrement())
-  userId          Int
-  courseId        Int
-  gradeLevelTaken Int
-  yearTaken       Int
-  credits         Float?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, courseId, gradeLevelTaken, yearTaken])
-  @@index([userId])
   @@index([courseId])
 }

@@ -12,7 +12,7 @@ const YEAR_LABELS: Record<number, string> = {
   12: "Senior",
 };
 
-type CourseDetails = {
+export type CourseDetails = {
   id: number;
   title: string;
   normalizedTitle: string | null;
@@ -25,6 +25,8 @@ type CourseDetails = {
   fulfillsRequirements: string[];
   prerequisites: string[];
   courseCode: string | null;
+  gradeMin: number | null;
+  gradeMax: number | null;
 };
 
 type PlannedCourseResponse = {
@@ -74,7 +76,7 @@ function deriveCourseDuration(
   return durations.some((duration) => normalizeDuration(duration) === 2) ? 2 : 1;
 }
 
-function deriveCourseDetails(
+export function deriveCourseDetails(
   course: Course & {
     department?: { name: string; division?: { name: string } | null } | null;
     options?: Array<{
@@ -84,6 +86,8 @@ function deriveCourseDetails(
         duration?: string | number | null;
         courseCode?: string | null;
         prerequisites?: unknown;
+        gradeMin?: number | null;
+        gradeMax?: number | null;
       }>;
     }>;
   }
@@ -103,10 +107,17 @@ function deriveCourseDetails(
   }
 
   let courseCode: string | null = null;
+  let gradeMin: number | null = null;
+  let gradeMax: number | null = null;
   for (const offering of offerings) {
-    if (typeof offering.courseCode === "string" && offering.courseCode) {
+    if (typeof offering.courseCode === "string" && offering.courseCode && !courseCode) {
       courseCode = offering.courseCode;
-      break;
+    }
+    if (offering.gradeMin != null && (gradeMin === null || offering.gradeMin < gradeMin)) {
+      gradeMin = offering.gradeMin;
+    }
+    if (offering.gradeMax != null && (gradeMax === null || offering.gradeMax > gradeMax)) {
+      gradeMax = offering.gradeMax;
     }
   }
 
@@ -123,6 +134,8 @@ function deriveCourseDetails(
     fulfillsRequirements: Array.isArray(course.fulfillsRequirements) ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string") : [],
     prerequisites: Array.from(prerequisites),
     courseCode,
+    gradeMin,
+    gradeMax,
   };
 }
 
@@ -140,6 +153,8 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     fulfillsRequirements: [],
     prerequisites: [],
     courseCode: null,
+    gradeMin: null,
+    gradeMax: null,
   };
 }
 
