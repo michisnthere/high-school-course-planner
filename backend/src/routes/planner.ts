@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
-import type { Course } from "@prisma/client";
+import type { Course, PlannerOption } from "@prisma/client";
 
 const router = Router();
 
@@ -32,7 +32,8 @@ export type CourseDetails = {
 type PlannedCourseResponse = {
   id: number;
   plannerId: number;
-  courseId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
   semester: number;
   slot: number;
   course: CourseDetails;
@@ -46,8 +47,8 @@ type PlannerResponse = {
 };
 
 function normalizeDuration(value: unknown): number {
-  if (typeof value === "number" && (value === 1 || value === 2)) {
-    return value;
+  if (typeof value === "number" && value === 2) {
+    return 2;
   }
   if (typeof value === "string") {
     const num = Number(value.trim());
@@ -56,7 +57,19 @@ function normalizeDuration(value: unknown): number {
   return 1;
 }
 
-function deriveCourseDuration(course: Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }): number {
+function deriveCourseDuration(
+  course: Course & {
+    duration?: number | null;
+    options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }>;
+  }
+): number {
+  if (course.duration === 2) {
+    return 2;
+  }
+  if (course.duration === 1) {
+    return 1;
+  }
+
   const durations =
     course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
 
@@ -126,21 +139,92 @@ export function deriveCourseDetails(
   };
 }
 
+function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
+  return {
+    id: -option.id,
+    title: option.name,
+    normalizedTitle: null,
+    duration: option.duration,
+    creditType: null,
+    credits: option.credits,
+    division: null,
+    department: null,
+    description: null,
+    fulfillsRequirements: [],
+    prerequisites: [],
+    courseCode: null,
+    gradeMin: null,
+    gradeMax: null,
+  };
+}
+
+function getPlannedDuration(plannedCourse: {
+  course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+  plannerOption: PlannerOption | null;
+}): number {
+  if (plannedCourse.course) {
+    return deriveCourseDuration(plannedCourse.course);
+  }
+  return plannedCourse.plannerOption?.duration ?? 1;
+}
+
+function computeShiftChain(
+  existingCourses: Array<{
+    id: number;
+    semester: number;
+    slot: number;
+    course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+    plannerOption: PlannerOption | null;
+  }>,
+  semester: number,
+  startSlot: number
+): Array<{ id: number; newSlot: number }> | null {
+  const semCourses = existingCourses
+    .filter((pc) => pc.semester === semester)
+    .sort((a, b) => a.slot - b.slot);
+
+  const occupant = semCourses.find((pc) => pc.slot === startSlot);
+  if (!occupant) return [];
+
+  if (getPlannedDuration(occupant) === 2) return null;
+
+  let emptySlot = startSlot;
+  while (emptySlot <= 7) {
+    if (!semCourses.some((pc) => pc.slot === emptySlot)) break;
+    emptySlot++;
+  }
+  if (emptySlot > 7) return null;
+
+  const chain: Array<{ id: number; newSlot: number }> = [];
+  for (let slot = startSlot; slot < emptySlot; slot++) {
+    const pc = semCourses.find((c) => c.slot === slot);
+    if (!pc) return null;
+    if (getPlannedDuration(pc) === 2) return null;
+    chain.push({ id: pc.id, newSlot: slot + 1 });
+  }
+  return chain;
+}
+
 function serializePlannedCourse(plannedCourse: {
   id: number;
   plannerId: number;
-  courseId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
   semester: number;
   slot: number;
-  course: Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> };
+  course: (Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> }) | null;
+  plannerOption: PlannerOption | null;
 }): PlannedCourseResponse {
   return {
     id: plannedCourse.id,
     plannerId: plannedCourse.plannerId,
     courseId: plannedCourse.courseId,
+    plannerOptionId: plannedCourse.plannerOptionId,
     semester: plannedCourse.semester,
     slot: plannedCourse.slot,
-    course: deriveCourseDetails(plannedCourse.course),
+    course: plannedCourse.course
+      ? deriveCourseDetails(plannedCourse.course)
+      : derivePlannerOptionDetails(plannedCourse.plannerOption!),
   };
 }
 
@@ -164,6 +248,7 @@ async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
               },
             },
           },
+          plannerOption: true,
         },
       },
     },
@@ -180,6 +265,18 @@ async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
     plannedCourses: planner.plannedCourses.map(serializePlannedCourse),
   };
 }
+
+import { analyzePlanners } from "../lib/plannerAnalysis.js";
+
+router.get("/analysis", requireAuth, async (req, res) => {
+  try {
+    const analysis = await analyzePlanners(req.user!.id);
+    res.json(analysis);
+  } catch (err) {
+    console.error("Failed to analyze planners:", err);
+    res.status(500).json({ error: "Failed to analyze planners" });
+  }
+});
 
 router.get("/", requireAuth, async (req, res) => {
   const userId = req.user!.id;
@@ -214,6 +311,7 @@ router.get("/", requireAuth, async (req, res) => {
               },
             },
           },
+          plannerOption: true,
         },
       },
     },
@@ -230,41 +328,27 @@ router.get("/", requireAuth, async (req, res) => {
   res.json(response);
 });
 
-router.get("/courses", requireAuth, async (req, res) => {
-  const search = typeof req.query.search === "string" ? req.query.search.trim() : "";
+router.get("/options", requireAuth, async (req, res) => {
+  const grade = Number(req.query.grade);
 
-  const courses = await prisma.course.findMany({
-    where: search
-      ? {
-          title: { contains: search, mode: "insensitive" },
-        }
-      : undefined,
-    include: {
-      department: {
-        include: {
-          division: true,
-        },
-      },
-      options: {
-        include: {
-          offerings: true,
-        },
-      },
-    },
-    orderBy: { title: "asc" },
-    take: 50,
+  const options = await prisma.plannerOption.findMany({
+    where: Number.isFinite(grade) ? { availableGrades: { has: grade } } : {},
+    orderBy: { name: "asc" },
   });
 
-  const response: CourseDetails[] = courses.map(deriveCourseDetails);
-  res.json(response);
+  res.json(options);
 });
 
 router.post("/courses", requireAuth, async (req, res) => {
   const userId = req.user!.id;
-  const { plannerId, courseId, semester, slot } = req.body;
+  const { plannerId, courseId, plannerOptionId, semester, slot } = req.body;
 
-  if (!plannerId || !courseId || !semester || !slot) {
-    return res.status(400).json({ error: "plannerId, courseId, semester, and slot are required" });
+  if (!plannerId || (!courseId && !plannerOptionId) || semester == null || slot == null) {
+    return res.status(400).json({ error: "plannerId, one of courseId or plannerOptionId, semester, and slot are required" });
+  }
+
+  if (courseId && plannerOptionId) {
+    return res.status(400).json({ error: "Cannot provide both courseId and plannerOptionId" });
   }
 
   const semesterNum = Number(semester);
@@ -286,72 +370,125 @@ router.post("/courses", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Planner not found" });
   }
 
-  const course = await prisma.course.findUnique({
-    where: { id: Number(courseId) },
+  let duration: number;
+  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number };
+
+  if (courseId) {
+    const course = await prisma.course.findUnique({
+      where: { id: Number(courseId) },
+      include: {
+        department: {
+          include: {
+            division: true,
+          },
+        },
+        options: {
+          include: {
+            offerings: true,
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    const existingDuplicate = await prisma.plannedCourse.findFirst({
+      where: {
+        planner: { userId },
+        courseId: course.id,
+      },
+    });
+
+    if (existingDuplicate) {
+      return res.status(409).json({ error: "This course is already planned in your schedule" });
+    }
+
+    duration = deriveCourseDuration(course);
+    createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum };
+  } else {
+    const option = await prisma.plannerOption.findUnique({
+      where: { id: Number(plannerOptionId) },
+    });
+
+    if (!option) {
+      return res.status(404).json({ error: "Planner option not found" });
+    }
+
+    if (!option.availableGrades.includes(planner.schoolYear)) {
+      return res.status(409).json({ error: `${option.name} is not available for grade ${planner.schoolYear}` });
+    }
+
+    const existingCount = await prisma.plannedCourse.count({
+      where: { plannerId: planner.id, plannerOptionId: option.id },
+    });
+
+    if (option.maxPerYear != null && existingCount >= option.maxPerYear) {
+      return res.status(409).json({
+        error: `You can only add ${option.name} ${option.maxPerYear} time${option.maxPerYear === 1 ? "" : "s"} per year`,
+      });
+    }
+
+    duration = option.duration;
+    createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum };
+  }
+
+  const existingCourses = await prisma.plannedCourse.findMany({
+    where: { plannerId: planner.id },
     include: {
-      department: {
+      course: {
         include: {
-          division: true,
-        },
-      },
-      options: {
-        include: {
-          offerings: true,
-        },
-      },
-    },
-  });
-
-  if (!course) {
-    return res.status(404).json({ error: "Course not found" });
-  }
-
-  const duration = deriveCourseDuration(course);
-
-  const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
-
-  const occupied = await prisma.plannedCourse.findMany({
-    where: {
-      plannerId: planner.id,
-      semester: { in: targetSemesters },
-      slot: slotNum,
-    },
-  });
-
-  if (occupied.length > 0) {
-    return res.status(409).json({ error: "Slot is already occupied" });
-  }
-
-  const created = await prisma.$transaction(
-    targetSemesters.map((sem) =>
-      prisma.plannedCourse.create({
-        data: {
-          plannerId: planner.id,
-          courseId: course.id,
-          semester: sem,
-          slot: slotNum,
-        },
-        include: {
-          course: {
+          department: {
             include: {
-              department: {
-                include: {
-                  division: true,
-                },
-              },
-              options: {
-                include: {
-                  offerings: true,
-                },
-              },
+              division: true,
+            },
+          },
+          options: {
+            include: {
+              offerings: true,
             },
           },
         },
-      })
-    )
-  );
+      },
+      plannerOption: true,
+    },
+  });
 
-  res.status(201).json(created.map(serializePlannedCourse));
+  const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
+  const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
+
+  for (const sem of targetSemesters) {
+    const chain = computeShiftChain(existingCourses, sem, slotNum);
+    if (chain === null) {
+      return res.status(409).json({ error: "Not enough room to place this full-year course." });
+    }
+    shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
+  }
+
+  if (duration === 1) {
+    const occupant = existingCourses.find((pc) => pc.semester === semesterNum && pc.slot === slotNum);
+    if (occupant) {
+      return res.status(409).json({ error: "Slot is already occupied" });
+    }
+  }
+
+  await prisma.$transaction(async (tx) => {
+    // Apply shifts from highest new slot to lowest to avoid transient unique-key collisions.
+    for (const shift of shifts.sort((a, b) => b.newSlot - a.newSlot)) {
+      await tx.plannedCourse.update({
+        where: { id: shift.id },
+        data: { slot: shift.newSlot },
+      });
+    }
+    for (const sem of targetSemesters) {
+      await tx.plannedCourse.create({
+        data: { ...createData, semester: sem },
+      });
+    }
+  });
+
+  res.status(201).json(await getPlannerResponse(planner.id));
 });
 
 router.delete("/courses/:id", requireAuth, async (req, res) => {
@@ -380,6 +517,7 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
           },
         },
       },
+      plannerOption: true,
     },
   });
 
@@ -387,9 +525,11 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Planned course not found" });
   }
 
-  const duration = deriveCourseDuration(plannedCourse.course);
+  const duration = getPlannedDuration(plannedCourse);
 
-  if (duration === 2) {
+  if (duration === 2 && plannedCourse.courseId) {
+    // Full-year courses are stored as two PlannedCourse records (one per semester).
+    // Deleting one deletes the whole course; deleteMany is safe and idempotent.
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
@@ -397,13 +537,26 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
         slot: plannedCourse.slot,
       },
     });
+  } else if (duration === 2 && plannedCourse.plannerOptionId) {
+    await prisma.plannedCourse.deleteMany({
+      where: {
+        plannerId: plannedCourse.plannerId,
+        plannerOptionId: plannedCourse.plannerOptionId,
+        slot: plannedCourse.slot,
+      },
+    });
   } else {
-    await prisma.plannedCourse.delete({
-      where: { id: plannedCourseId },
+    // deleteMany will not throw if the record was already removed, so repeated
+    // deletes are idempotent and race conditions do not crash the server.
+    await prisma.plannedCourse.deleteMany({
+      where: {
+        id: plannedCourseId,
+        planner: { userId },
+      },
     });
   }
 
-  res.json({ success: true });
+  res.status(204).send();
 });
 
 router.post("/courses/:id/move", requireAuth, async (req, res) => {
@@ -444,6 +597,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
           },
         },
       },
+      plannerOption: true,
     },
   });
 
@@ -451,7 +605,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Planned course not found" });
   }
 
-  const sourceDuration = deriveCourseDuration(source.course);
+  const sourceDuration = getPlannedDuration(source);
   const sourceSemesters = sourceDuration === 2 ? [1, 2] : [source.semester];
   const targetSemesters = sourceDuration === 2 ? [1, 2] : [semesterNum];
 
@@ -471,6 +625,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
           },
         },
       },
+      plannerOption: true,
     },
   });
 
@@ -491,7 +646,7 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
 
     const allSameCourse = targets.length === 2 && targets.every((t) => t.courseId === targets[0].courseId);
     if (allSameCourse) {
-      const targetDuration = deriveCourseDuration(targets[0].course);
+      const targetDuration = getPlannedDuration(targets[0]);
       if (targetDuration === 2) {
         const targetCourseId = targets[0].courseId;
         await prisma.$transaction([
@@ -540,14 +695,14 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
     return res.json(await getPlannerResponse(source.plannerId));
   }
 
-  const targetDuration = deriveCourseDuration(target.course);
+  const targetDuration = getPlannedDuration(target);
   if (targetDuration === 2) {
     return res.status(409).json({
       error: "Cannot swap a one-semester course with a full-year course.",
     });
   }
 
-  // Swap two one-semester courses. Use a temporary slot to avoid unique-constraint conflicts.
+  // Swap two one-semester items. Use a temporary slot to avoid unique-constraint conflicts.
   await prisma.$transaction([
     prisma.plannedCourse.update({
       where: { id: source.id },

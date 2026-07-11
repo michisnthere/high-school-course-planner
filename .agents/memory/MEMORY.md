@@ -1,3 +1,4 @@
 - [Course extraction department context](course-extraction-department-context.md) — page-level dept detection has no cross-page memory by default; carry-forward must be prefix-validated, not blind, or it mislabels new sections.
 - [Coursebook PDF header quirks](coursebook-pdf-header-quirks.md) — page-number digits often glue directly onto header words (e.g. "ARTS48"), false-matching course-code regexes; some real dept names only appear on a division-intro page far from the course listing.
 - [Academic JSON normalization](academic-json-normalization.md) — keep `creditType` (academic weight) separate from `fulfillsRequirements` (graduation requirements), and don't flatten the DB import feed until its pipeline is ready.
+- [Course duration normalization](course-duration-normalization.md) — planner duration is a numeric value on the Course model; normalize raw strings during import/migration, never in planner logic.

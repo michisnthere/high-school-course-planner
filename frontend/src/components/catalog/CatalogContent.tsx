@@ -2,7 +2,11 @@
 
 import React, { useMemo, useState } from "react";
 import type { Course } from "@/types/course";
-import { sortCoursesByPrerequisites } from "@/lib/catalog";
+import {
+  sortCoursesByPrerequisites,
+  courseMatchesQuery,
+  extractDivisionsFromItems,
+} from "@/lib/catalog";
 import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
@@ -11,23 +15,6 @@ import { EmptyState } from "./EmptyState";
 type CatalogContentProps = {
   courses: Course[];
 };
-
-function courseMatchesQuery(course: Course, query: string): boolean {
-  const normalizedQuery = query.toLowerCase().trim();
-  if (!normalizedQuery) return true;
-  return course.title.toLowerCase().includes(normalizedQuery);
-}
-
-function extractDivisions(courses: Course[]): string[] {
-  const divisions = new Set<string>();
-  for (const course of courses) {
-    const division = course.department?.division?.name;
-    if (division) {
-      divisions.add(division);
-    }
-  }
-  return Array.from(divisions).sort();
-}
 
 function extractDivisionDepartments(courses: Course[]): Map<string, string[]> {
   const map = new Map<string, Set<string>>();
@@ -178,7 +165,10 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     semester: [],
   });
 
-  const divisions = useMemo(() => extractDivisions(courses), [courses]);
+  const divisions = useMemo(
+    () => extractDivisionsFromItems(courses, (course) => course.department?.division?.name),
+    [courses]
+  );
   const divisionDepartments = useMemo(() => extractDivisionDepartments(courses), [courses]);
   const departments = useMemo(() => extractDepartments(courses), [courses]);
   const creditTypes = useMemo(() => extractCreditTypes(courses), [courses]);

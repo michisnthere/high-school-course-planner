@@ -3,6 +3,8 @@
 const API_URL =
   typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
 
+import type { Course } from "@/types/course";
+
 export type CourseDuration = number;
 
 export type PlannerCourseDetails = {
@@ -22,10 +24,20 @@ export type PlannerCourseDetails = {
   gradeMax: number | null;
 };
 
+export type PlannerOption = {
+  id: number;
+  name: string;
+  duration: number;
+  credits: number;
+  availableGrades: number[];
+  maxPerYear: number | null;
+};
+
 export type PlannedCourse = {
   id: number;
   plannerId: number;
-  courseId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
   semester: number;
   slot: number;
   course: PlannerCourseDetails;
@@ -61,6 +73,21 @@ export async function getPlanner(year: number): Promise<Planner> {
   return planner;
 }
 
+export async function getPlannerOptions(grade: number): Promise<PlannerOption[]> {
+  const response = await fetch(
+    `${API_URL}/api/planner/options?grade=${encodeURIComponent(grade)}`,
+    {
+      credentials: "include",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch planner options");
+  }
+
+  return response.json();
+}
+
 export async function searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]> {
   const response = await fetch(
     `${API_URL}/api/planner/courses?search=${encodeURIComponent(query)}`,
@@ -81,17 +108,40 @@ export async function addPlannedCourse(
   courseId: number,
   semester: number,
   slot: number
-): Promise<PlannedCourse[]> {
+): Promise<Planner>;
+
+export async function addPlannedCourse(
+  plannerId: number,
+  item: { plannerOptionId: number; semester: number; slot: number }
+): Promise<Planner>;
+
+export async function addPlannedCourse(
+  plannerId: number,
+  courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number },
+  semester?: number,
+  slot?: number
+): Promise<Planner> {
+  const body: Record<string, unknown> = { plannerId };
+  if (typeof courseIdOrItem === "number") {
+    body.courseId = courseIdOrItem;
+    body.semester = semester;
+    body.slot = slot;
+  } else {
+    body.plannerOptionId = courseIdOrItem.plannerOptionId;
+    body.semester = courseIdOrItem.semester;
+    body.slot = courseIdOrItem.slot;
+  }
+
   const response = await fetch(`${API_URL}/api/planner/courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ plannerId, courseId, semester, slot }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({ error: "Failed to add course" }));
-    throw new Error(body.error || "Failed to add course");
+    const data = await response.json().catch(() => ({ error: "Failed to add course" }));
+    throw new Error(data.error || "Failed to add course");
   }
 
   return response.json();
@@ -210,4 +260,90 @@ export function sortPickerCourses(courses: PlannerCourseDetails[]): PlannerCours
 
     return a.title.localeCompare(b.title);
   });
+}
+
+function normalizeDuration(value: unknown): number {
+  if (typeof value === "number" && value === 2) return 2;
+  if (typeof value === "string") {
+    const num = Number(value.trim());
+    return num === 2 ? 2 : 1;
+  }
+  return 1;
+}
+
+function deriveCourseDuration(course: Course): number {
+  if (course.duration === 2) return 2;
+  if (course.duration === 1) return 1;
+  const durations =
+    course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
+  return durations.some((duration) => normalizeDuration(duration) === 2) ? 2 : 1;
+}
+
+export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
+  const option = course.options?.[0];
+  const offerings = option?.offerings ?? [];
+
+  const prerequisites = new Set<string>();
+  for (const offering of offerings) {
+    if (Array.isArray(offering.prerequisites)) {
+      for (const item of offering.prerequisites) {
+        if (typeof item === "string" && item.trim()) {
+          prerequisites.add(item.trim());
+        }
+      }
+    }
+  }
+
+  let courseCode: string | null = null;
+  let gradeMin: number | null = null;
+  let gradeMax: number | null = null;
+  for (const offering of offerings) {
+    if (typeof offering.courseCode === "string" && offering.courseCode && !courseCode) {
+      courseCode = offering.courseCode;
+    }
+    if (offering.gradeMin != null && (gradeMin === null || offering.gradeMin < gradeMin)) {
+      gradeMin = offering.gradeMin;
+    }
+    if (offering.gradeMax != null && (gradeMax === null || offering.gradeMax > gradeMax)) {
+      gradeMax = offering.gradeMax;
+    }
+  }
+
+  return {
+    id: course.id,
+    title: course.title,
+    normalizedTitle: course.normalizedTitle ?? null,
+    duration: deriveCourseDuration(course),
+    creditType: option?.creditType ?? null,
+    credits: option?.credits ?? null,
+    division: course.department?.division?.name ?? null,
+    department: course.department?.name ?? null,
+    description: course.description ?? null,
+    fulfillsRequirements: Array.isArray(course.fulfillsRequirements)
+      ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string")
+      : [],
+    prerequisites: Array.from(prerequisites),
+    courseCode,
+    gradeMin,
+    gradeMax,
+  };
+}
+
+export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCourseDetails {
+  return {
+    id: -option.id,
+    title: option.name,
+    normalizedTitle: null,
+    duration: option.duration,
+    creditType: null,
+    credits: option.credits,
+    division: null,
+    department: null,
+    description: null,
+    fulfillsRequirements: [],
+    prerequisites: [],
+    courseCode: null,
+    gradeMin: null,
+    gradeMax: null,
+  };
 }

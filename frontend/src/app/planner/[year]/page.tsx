@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -12,17 +19,35 @@ import {
   addPlannedCourse,
   removePlannedCourse,
   movePlannedCourse,
+  getPlannerOptions,
+  courseToPlannerDetails,
+  plannerOptionToPlannerDetails,
   type Planner,
+  type PlannerCourseDetails,
   type PlannedCourse,
+  type PlannerOption,
 } from "@/lib/planner";
+import { getCourses } from "@/lib/api";
+import { getRequirementStatus } from "@/lib/gradeRequirements";
+import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
-  getCompletedCourses,
+  courseMatchesQuery,
+  courseMatchesDivisionFilter,
+  extractDivisionsFromItems,
+} from "@/lib/catalog";
+import {
   addCompletedCourse,
+  getCompletedCourses,
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
-import { CourseSearchModal } from "@/components/planner/CourseSearchModal";
+import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
+
+const PLANNER_OPTION_COLORS = {
+  border: "#6b7280",
+  background: "#374151",
+};
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -30,8 +55,6 @@ const YEAR_LABELS: Record<number, string> = {
   11: "Junior",
   12: "Senior",
 };
-
-const GRADUATION_CREDITS = 24;
 
 export default function PlannerYearPage(): React.ReactElement {
   return (
@@ -54,6 +77,135 @@ function applyIdMap(planners: Planner[], idMap: Map<number, number>): Planner[] 
       return mappedId !== undefined ? { ...pc, id: mappedId } : pc;
     }),
   }));
+}
+
+function clonePlanners(planners: Planner[]): Planner[] {
+  return planners.map((p) => ({ ...p, plannedCourses: p.plannedCourses.map((pc) => ({ ...pc })) }));
+}
+
+function replacePlannerInList(planners: Planner[], updated: Planner): Planner[] {
+  return planners.map((p) => (p.id === updated.id ? updated : p));
+}
+
+function buildAddCourseUndo(
+  beforePlanners: Planner[],
+  afterPlanner: Planner,
+  removeFn: (id: number) => Promise<void>,
+  moveFn: (id: number, semester: number, slot: number) => Promise<Planner>
+): () => Promise<void> {
+  const beforeMap = new Map(
+    beforePlanners
+      .flatMap((p) => p.plannedCourses)
+      .map((pc) => [pc.id, { semester: pc.semester, slot: pc.slot }])
+  );
+
+  const addedCourses = afterPlanner.plannedCourses.filter((pc) => !beforeMap.has(pc.id));
+  const shiftedCourses = afterPlanner.plannedCourses
+    .filter((pc) => beforeMap.has(pc.id))
+    .map((pc) => {
+      const before = beforeMap.get(pc.id)!;
+      return {
+        id: pc.id,
+        newSemester: pc.semester,
+        newSlot: pc.slot,
+        originalSemester: before.semester,
+        originalSlot: before.slot,
+      };
+    })
+    .filter((shift) => shift.newSemester !== shift.originalSemester || shift.newSlot !== shift.originalSlot)
+    .sort((a, b) => a.newSlot - b.newSlot);
+
+  return async () => {
+    if (addedCourses.length > 0) {
+      await removeFn(addedCourses[0].id);
+    }
+    for (const shift of shiftedCourses) {
+      await moveFn(shift.id, shift.originalSemester, shift.originalSlot);
+    }
+  };
+}
+
+function applyOptimisticMove(
+  planners: Planner[],
+  source: PlannedCourse,
+  targetSemester: number,
+  targetSlot: number
+): Planner[] {
+  const plannerIndex = planners.findIndex((p) => p.id === source.plannerId);
+  if (plannerIndex === -1) return planners;
+
+  const planner = planners[plannerIndex];
+  const courses = planner.plannedCourses;
+
+  const replacePlanner = (newCourses: PlannedCourse[]): Planner[] => [
+    ...planners.slice(0, plannerIndex),
+    { ...planner, plannedCourses: newCourses },
+    ...planners.slice(plannerIndex + 1),
+  ];
+
+  if (source.course.duration === 2) {
+    // Full-year: dropping on the same slot is a no-op; semester is ignored by the API.
+    if (source.slot === targetSlot) return planners;
+
+    const targetOccupants = courses.filter((pc) => pc.slot === targetSlot);
+    if (targetOccupants.length === 0) {
+      return replacePlanner(
+        courses.map((pc) =>
+          pc.courseId === source.courseId && pc.slot === source.slot ? { ...pc, slot: targetSlot } : pc
+        )
+      );
+    }
+
+    const allSameCourse = targetOccupants.every((pc) => pc.courseId === targetOccupants[0].courseId);
+    const allFullYear = targetOccupants.every((pc) => pc.course.duration === 2);
+    if (allSameCourse && allFullYear) {
+      const targetCourseId = targetOccupants[0].courseId;
+      if (targetCourseId === source.courseId) return planners;
+      return replacePlanner(
+        courses.map((pc) => {
+          if (pc.courseId === source.courseId && pc.slot === source.slot) {
+            return { ...pc, slot: targetSlot };
+          }
+          if (pc.courseId === targetCourseId && pc.slot === targetSlot) {
+            return { ...pc, slot: source.slot };
+          }
+          return pc;
+        })
+      );
+    }
+
+    // Full-year cannot be dropped onto a slot occupied by a one-semester course.
+    return planners;
+  }
+
+  // One-semester source.
+  if (source.semester === targetSemester && source.slot === targetSlot) return planners;
+
+  const target = courses.find((pc) => pc.semester === targetSemester && pc.slot === targetSlot);
+  if (!target) {
+    return replacePlanner(
+      courses.map((pc) =>
+        pc.id === source.id ? { ...pc, semester: targetSemester, slot: targetSlot } : pc
+      )
+    );
+  }
+
+  if (target.course.duration === 2) {
+    // One-semester courses cannot swap with full-year courses.
+    return planners;
+  }
+
+  return replacePlanner(
+    courses.map((pc) => {
+      if (pc.id === source.id) {
+        return { ...pc, semester: targetSemester, slot: targetSlot };
+      }
+      if (pc.id === target.id) {
+        return { ...pc, semester: source.semester, slot: source.slot };
+      }
+      return pc;
+    })
+  );
 }
 
 type ToastType = "success" | "warning";
@@ -83,14 +235,63 @@ function PlannerYearContent(): React.ReactElement {
   const loadedYearRef = useRef<number | null>(null);
   const historyRef = useRef<HistoryEntry[]>([]);
   const [canUndo, setCanUndo] = useState(false);
-  const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
-  const [completedCoursePicker, setCompletedCoursePicker] = useState<{
-    open: boolean;
-    excludeCourseIds?: number[];
-  }>({ open: false });
+
+  const [selectedWarning, setSelectedWarning] = useState<{
+    planned: PlannedCourse;
+    warning: PlannerWarning;
+  } | null>(null);
+  const [ignoredWarnings, setIgnoredWarnings] = useState<Set<string>>(new Set());
+  const [highlightedPlannedCourseId, setHighlightedPlannedCourseId] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("ignoredPlannerWarnings");
+      if (stored) {
+        setIgnoredWarnings(new Set(JSON.parse(stored)));
+      }
+    } catch {
+      // ignore localStorage failures
+    }
+  }, []);
+
+  const persistIgnoredWarning = useCallback((key: string) => {
+    setIgnoredWarnings((prev) => {
+      const next = new Set(prev);
+      next.add(key);
+      try {
+        localStorage.setItem("ignoredPlannerWarnings", JSON.stringify(Array.from(next)));
+      } catch {
+        // ignore localStorage failures
+      }
+      return next;
+    });
+  }, []);
 
   const { isSaved } = useSavedCourses();
   const router = useRouter();
+
+  const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
+  const [completedCoursePicker, setCompletedCoursePicker] = useState<{ open: boolean; excludeCourseIds?: number[] }>({ open: false });
+  const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
+
+  const loadCompletedCourses = useCallback(async () => {
+    try {
+      const courses = await getCompletedCourses();
+      setCompletedCourses(courses);
+    } catch {
+      setCompletedCourses([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadCompletedCourses();
+  }, [loadCompletedCourses]);
+
+  useEffect(() => {
+    getPlannerAnalysis()
+      .then(setPlannerAnalysis)
+      .catch(() => setPlannerAnalysis(null));
+  }, [allPlanners, completedCourses]);
 
   const loadPlanners = useCallback(async () => {
     try {
@@ -110,15 +311,6 @@ function PlannerYearContent(): React.ReactElement {
     }
   }, [year]);
 
-  const loadCompletedCourses = useCallback(async () => {
-    try {
-      const courses = await getCompletedCourses();
-      setCompletedCourses(courses);
-    } catch {
-      setCompletedCourses([]);
-    }
-  }, []);
-
   useEffect(() => {
     if (!year || !YEAR_LABELS[year]) {
       setError("Invalid school year.");
@@ -135,10 +327,6 @@ function PlannerYearContent(): React.ReactElement {
     loadPlanners();
   }, [year, loadPlanners]);
 
-  useEffect(() => {
-    loadCompletedCourses();
-  }, [loadCompletedCourses]);
-
   useLayoutEffect(() => {
     if (scrollYRef.current !== null) {
       window.scrollTo(0, scrollYRef.current);
@@ -152,21 +340,6 @@ function PlannerYearContent(): React.ReactElement {
       setToast((prev) => ({ ...prev, visible: false }));
     }, 4000);
   }, []);
-
-  const handleCompletedCourseSubmit = useCallback(
-    async ({ courseId, gradeCompleted }: { courseId: number; gradeCompleted: GradeCompleted }) => {
-      try {
-        await addCompletedCourse(courseId, gradeCompleted);
-        setCompletedCoursePicker({ open: false });
-        await loadCompletedCourses();
-        showToast("Course marked as completed.", "success");
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to mark course as completed";
-        showToast(message, "warning");
-      }
-    },
-    [loadCompletedCourses, showToast]
-  );
 
   const pushHistory = useCallback(
     (newPlanners: Planner[], undo: () => Promise<void>) => {
@@ -189,6 +362,10 @@ function PlannerYearContent(): React.ReactElement {
       showToast(message, "warning");
       return;
     }
+    // Pop the undone entry and restore the previous planner state. Each undo
+    // handler is responsible for reverting the backend; this line makes the
+    // in-memory history stack consistent with that reverted state.
+    historyRef.current = historyRef.current.slice(0, -1);
     const previous = historyRef.current[historyRef.current.length - 1];
     setAllPlanners(previous.planners);
     setPlanner(previous.planners.find((p) => p.schoolYear === year) || null);
@@ -199,9 +376,32 @@ function PlannerYearContent(): React.ReactElement {
     setActiveSlot({ semester, slot });
   }, []);
 
+  const handleCompletedCourseSubmit = useCallback(
+    async ({ courseId, gradeCompleted }: { courseId: number; gradeCompleted: GradeCompleted }) => {
+      try {
+        await addCompletedCourse(courseId, gradeCompleted);
+        setCompletedCoursePicker({ open: false });
+        await loadCompletedCourses();
+        showToast("Course marked as completed.", "success");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to mark course as completed";
+        showToast(message, "warning");
+      }
+    },
+    [loadCompletedCourses, showToast]
+  );
+
   const handleCloseModal = useCallback(() => {
     setActiveSlot(null);
   }, []);
+
+  const handleGoToCourse = useCallback((year: number, plannedCourseId: number) => {
+    setHighlightedPlannedCourseId(plannedCourseId);
+    router.push(`/planner/${year}`);
+    window.setTimeout(() => {
+      setHighlightedPlannedCourseId((current) => (current === plannedCourseId ? null : current));
+    }, 2000);
+  }, [router]);
 
   const handleCourseClick = useCallback((planned: PlannedCourse) => {
     const slug = getCourseSlug({
@@ -212,21 +412,30 @@ function PlannerYearContent(): React.ReactElement {
   }, [router, year]);
 
   const handleCourseSelected = useCallback(
-    async (courseId: number) => {
+    async (selection: { courseId: number } | { plannerOptionId: number }) => {
       if (!planner || !activeSlot) return;
 
       try {
         scrollYRef.current = window.scrollY;
-        const added = await addPlannedCourse(planner.id, courseId, activeSlot.semester, activeSlot.slot);
-        const newPlanners = allPlanners.map((p) =>
-          p.id === planner.id ? { ...p, plannedCourses: [...p.plannedCourses, ...added] } : p
+        const beforePlanners = allPlanners;
+        const updatedPlanner =
+          "courseId" in selection
+            ? await addPlannedCourse(
+                planner.id,
+                selection.courseId,
+                activeSlot.semester,
+                activeSlot.slot
+              )
+            : await addPlannedCourse(planner.id, {
+                plannerOptionId: selection.plannerOptionId,
+                semester: activeSlot.semester,
+                slot: activeSlot.slot,
+              });
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(
+          newPlanners,
+          buildAddCourseUndo(beforePlanners, updatedPlanner, removePlannedCourse, movePlannedCourse)
         );
-        pushHistory(newPlanners, async () => {
-          if (added.length > 0) {
-            await removePlannedCourse(added[0].id);
-          }
-          historyRef.current = historyRef.current.slice(0, -1);
-        });
         handleCloseModal();
         showToast("Course added.", "success", handleUndo);
       } catch (err) {
@@ -235,6 +444,32 @@ function PlannerYearContent(): React.ReactElement {
       }
     },
     [planner, activeSlot, allPlanners, handleCloseModal, pushHistory, showToast, handleUndo]
+  );
+
+  const handleAddPrerequisiteToPlanner = useCallback(
+    async (plannerId: number, courseId: number, semester: number, slot: number) => {
+      const targetPlanner = allPlanners.find((p) => p.id === plannerId);
+      if (!targetPlanner) return;
+
+      try {
+        scrollYRef.current = window.scrollY;
+        const beforePlanners = allPlanners;
+        const updatedPlanner = await addPlannedCourse(targetPlanner.id, courseId, semester, slot);
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(
+          newPlanners,
+          buildAddCourseUndo(beforePlanners, updatedPlanner, removePlannedCourse, movePlannedCourse)
+        );
+        setAllPlanners(newPlanners);
+        setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
+        showToast("Prerequisite added.", "success", handleUndo);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to add prerequisite";
+        showToast(message, "warning");
+        throw err;
+      }
+    },
+    [allPlanners, pushHistory, showToast, handleUndo, year]
   );
 
   const handleRemoveCourse = useCallback(
@@ -260,26 +495,31 @@ function PlannerYearContent(): React.ReactElement {
 
         await removePlannedCourse(planned.id);
         pushHistory(newPlanners, async () => {
-          const restored = await addPlannedCourse(
-            planned.plannerId,
-            planned.courseId,
-            planned.semester,
-            planned.slot
+          let restoredPlanner: Planner;
+          if (planned.courseId != null) {
+            restoredPlanner = await addPlannedCourse(
+              planned.plannerId,
+              planned.courseId,
+              planned.semester,
+              planned.slot
+            );
+          } else if (planned.plannerOptionId != null) {
+            restoredPlanner = await addPlannedCourse(planned.plannerId, {
+              plannerOptionId: planned.plannerOptionId,
+              semester: planned.semester,
+              slot: planned.slot,
+            });
+          } else {
+            throw new Error("Cannot restore planned course: missing courseId and plannerOptionId");
+          }
+          // Replace the state we are undoing back into with the freshly restored
+          // planner so the re-added course has the correct ids and shifted positions.
+          const previousEntry = historyRef.current[historyRef.current.length - 1];
+          const updatedPlanners = previousEntry.planners.map((p) =>
+            p.id === restoredPlanner.id ? restoredPlanner : p
           );
-          const previousIndex = historyRef.current.length - 2;
-          const previousEntry = historyRef.current[previousIndex];
-          const updatedPlanners = previousEntry.planners.map((p) => {
-            if (p.id !== planned.plannerId) return p;
-            return {
-              ...p,
-              plannedCourses: [
-                ...p.plannedCourses.filter((pc) => !removedEntries.some((r) => r.id === pc.id)),
-                ...restored,
-              ],
-            };
-          });
           historyRef.current = [
-            ...historyRef.current.slice(0, previousIndex),
+            ...historyRef.current.slice(0, -1),
             { ...previousEntry, planners: updatedPlanners },
           ];
         });
@@ -294,26 +534,36 @@ function PlannerYearContent(): React.ReactElement {
 
   const handleMove = useCallback(
     async (plannedCourseId: number, semester: number, slot: number) => {
-      try {
-        scrollYRef.current = window.scrollY;
-        const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
-        if (!source) return;
+      scrollYRef.current = window.scrollY;
+      const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
+      if (!source) return;
+      if (source.semester === semester && source.slot === slot && source.course.duration !== 2) return;
+      if (source.course.duration === 2 && source.slot === slot) return;
 
+      const originalPlanners = clonePlanners(allPlanners);
+      const optimisticPlanners = applyOptimisticMove(allPlanners, source, semester, slot);
+      if (optimisticPlanners !== originalPlanners) {
+        setAllPlanners(optimisticPlanners);
+        setPlanner(optimisticPlanners.find((p) => p.schoolYear === year) || null);
+      }
+
+      try {
         const updatedPlanner = await movePlannedCourse(plannedCourseId, semester, slot);
         const newPlanners = allPlanners.map((p) =>
           p.schoolYear === updatedPlanner.schoolYear ? updatedPlanner : p
         );
         pushHistory(newPlanners, async () => {
           await movePlannedCourse(plannedCourseId, source.semester, source.slot);
-          historyRef.current = historyRef.current.slice(0, -1);
         });
         showToast("Course moved.", "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to move course";
         showToast(message, "warning");
+        setAllPlanners(originalPlanners);
+        setPlanner(originalPlanners.find((p) => p.schoolYear === year) || null);
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo]
+    [allPlanners, pushHistory, showToast, handleUndo, year]
   );
 
   const handleDrop = useCallback(
@@ -336,12 +586,15 @@ function PlannerYearContent(): React.ReactElement {
         <PlannedCourseCard
           key={`${semester}-${slot}`}
           planned={planned}
-          warnings={getWarnings(planned, allPlanners, semester, year, completedCourses)}
+          warnings={getWarnings(planned, allPlanners, completedCourses, semester, year).filter(
+            (w) => !ignoredWarnings.has(makeWarningKey(planned, w))
+          )}
           isDragging={draggingId === planned.id}
           isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
+          isHighlighted={highlightedPlannedCourseId === planned.id}
           onRemove={() => handleRemoveCourse(planned)}
           onClick={() => handleCourseClick(planned)}
-          onMarkCompleted={() => setCompletedCoursePicker({ open: true, excludeCourseIds: completedCourses.map((c) => c.courseId) })}
+          onWarningClick={(w) => setSelectedWarning({ planned, warning: w })}
           onDragStart={() => setDraggingId(planned.id)}
           onDragEnd={() => setDraggingId(null)}
           onDragOver={() => setDragOverSlot({ semester, slot })}
@@ -470,14 +723,27 @@ function PlannerYearContent(): React.ReactElement {
           onClose={handleCloseModal}
           onSelect={handleCourseSelected}
           isSaved={isSaved}
+          grade={year}
+          allPlanners={allPlanners}
+          onGoToCourse={handleGoToCourse}
         />
       )}
 
-      {completedCoursePicker.open && (
-        <CompletedCoursePicker
-          onClose={() => setCompletedCoursePicker({ open: false })}
-          onSubmit={handleCompletedCourseSubmit}
-          excludeCourseIds={completedCoursePicker.excludeCourseIds}
+      {selectedWarning && (
+        <WarningActionModal
+          planned={selectedWarning.planned}
+          warning={selectedWarning.warning}
+          allPlanners={allPlanners}
+          currentYear={year}
+          onClose={() => setSelectedWarning(null)}
+          onAddToPlanner={handleAddPrerequisiteToPlanner}
+          onIgnore={() =>
+            persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
+          }
+          onMarkCompleted={(completed) =>
+            setCompletedCourses((prev) => [...prev, completed])
+          }
+          showToast={showToast}
         />
       )}
 
@@ -508,10 +774,25 @@ function SummarySidebar({
     (sum, pc) => sum + (pc.course.credits || 0),
     0
   );
-  const currentCourseCount = currentPlanner?.plannedCourses.length || 0;
-  const fullYearCount = currentPlanner?.plannedCourses.filter((pc) => pc.course.duration === 2).length || 0;
+  // A full-year course is stored as two PlannedCourse records (one per semester,
+  // same slot). Count distinct course placements by courseId + slot so full-year
+  // courses are counted once while repeatable courses in different slots are
+  // counted as separate instances.
+  const currentCourseIds = new Set<string>();
+  const fullYearCourseIds = new Set<string>();
+  for (const pc of currentPlanner?.plannedCourses || []) {
+    const instanceKey = `${pc.courseId}-${pc.slot}`;
+    currentCourseIds.add(instanceKey);
+    if (pc.course.duration === 2) {
+      fullYearCourseIds.add(instanceKey);
+    }
+  }
+  const currentCourseCount = currentCourseIds.size;
+  const fullYearCount = fullYearCourseIds.size;
   const semesterCount = currentCourseCount - fullYearCount;
-  const creditsRemaining = Math.max(0, GRADUATION_CREDITS - totalCredits);
+  const totalSlots = 14;
+  const filledSlots = (currentPlanner?.plannedCourses || []).length;
+  const slotPercentage = totalSlots > 0 ? Math.min(100, (filledSlots / totalSlots) * 100) : 0;
 
   return (
     <aside
@@ -544,8 +825,12 @@ function SummarySidebar({
         <SummaryRow label="Full-Year Courses" value={String(fullYearCount)} />
         <SummaryRow label="Semester Courses" value={String(semesterCount)} />
         <SummaryRow label="Overall Credits" value={totalCredits.toFixed(1)} />
-        <SummaryRow label="Credits Remaining" value={creditsRemaining.toFixed(1)} />
       </div>
+
+      <GradeRequirements
+        grade={currentYear}
+        requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
+      />
 
       <div
         style={{
@@ -556,6 +841,21 @@ function SummarySidebar({
       >
         <div
           style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "8px",
+            fontSize: "14px",
+            color: "#d1d5db",
+          }}
+        >
+          <span>Course Slots Filled</span>
+          <span>
+            {filledSlots} / {totalSlots}
+          </span>
+        </div>
+        <div
+          style={{
             height: "8px",
             backgroundColor: "#374151",
             borderRadius: "9999px",
@@ -564,7 +864,7 @@ function SummarySidebar({
         >
           <div
             style={{
-              width: `${Math.min(100, (totalCredits / GRADUATION_CREDITS) * 100)}%`,
+              width: `${slotPercentage}%`,
               height: "100%",
               backgroundColor: "#22c55e",
               borderRadius: "9999px",
@@ -572,16 +872,6 @@ function SummarySidebar({
             }}
           />
         </div>
-        <p
-          style={{
-            margin: "8px 0 0",
-            fontSize: "13px",
-            color: "#9ca3af",
-            textAlign: "center",
-          }}
-        >
-          {totalCredits.toFixed(1)} / {GRADUATION_CREDITS} credits
-        </p>
       </div>
     </aside>
   );
@@ -697,9 +987,10 @@ function PlannedCourseCard({
   warnings,
   isDragging,
   isDragOver,
+  isHighlighted,
   onRemove,
   onClick,
-  onMarkCompleted,
+  onWarningClick,
   onDragStart,
   onDragEnd,
   onDragOver,
@@ -707,12 +998,13 @@ function PlannedCourseCard({
   onDrop,
 }: {
   planned: PlannedCourse;
-  warnings: string[];
+  warnings: PlannerWarning[];
   isDragging: boolean;
   isDragOver: boolean;
+  isHighlighted: boolean;
   onRemove: () => void;
   onClick: () => void;
-  onMarkCompleted: () => void;
+  onWarningClick: (warning: PlannerWarning) => void;
   onDragStart: () => void;
   onDragEnd: () => void;
   onDragOver: () => void;
@@ -774,8 +1066,12 @@ function PlannedCourseCard({
         cursor: "move",
         opacity: isDragging ? 0.5 : 1,
         transition: "transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease",
-        transform: isDragOver ? "scale(1.02)" : "scale(1)",
-        boxShadow: isDragOver ? "0 0 0 2px rgba(59, 130, 246, 0.3)" : "none",
+        transform: isDragOver ? "scale(1.02)" : isHighlighted ? "scale(1.03)" : "scale(1)",
+        boxShadow: isDragOver
+          ? "0 0 0 2px rgba(59, 130, 246, 0.3)"
+          : isHighlighted
+          ? "0 0 0 4px rgba(59, 130, 246, 0.8), 0 6px 16px rgba(0,0,0,0.2)"
+          : "none",
         position: "relative",
       }}
       onMouseEnter={(e) => {
@@ -919,27 +1215,515 @@ function PlannedCourseCard({
           }}
         >
           {warnings.map((w, i) => (
-            <div key={i}>⚠ {w}</div>
+            <div
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                onWarningClick(w);
+              }}
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textDecoration = "underline";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textDecoration = "none";
+              }}
+            >
+              ⚠ {w.message}
+            </div>
           ))}
-          <button
-            type="button"
-            onClick={onMarkCompleted}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function getPlannedCourseLocation(allPlanners: Planner[], courseId: number) {
+  for (const planner of allPlanners) {
+    const entries = planner.plannedCourses.filter((pc) => pc.courseId === courseId);
+    if (entries.length > 0) {
+      const sorted = [...entries].sort((a, b) => a.semester - b.semester);
+      const slot = sorted[0].slot;
+      const isFullYear =
+        sorted.length >= 2 && sorted[0].semester === 1 && sorted[sorted.length - 1].semester === 2;
+      return {
+        year: planner.schoolYear,
+        label: YEAR_LABELS[planner.schoolYear],
+        semester: isFullYear ? ("Full Year" as const) : (sorted[0].semester as 1 | 2),
+        slot,
+        plannedCourseId: sorted[0].id,
+      };
+    }
+  }
+  return null;
+}
+
+function isDuplicateCourse(course: PlannerCourseDetails, allPlanners: Planner[]): boolean {
+  if (course.id < 0) return false;
+  return allPlanners.some((planner) => planner.plannedCourses.some((pc) => pc.courseId === course.id));
+}
+
+function CourseSearchModal({
+  onClose,
+  onSelect,
+  isSaved,
+  grade,
+  allPlanners,
+  onGoToCourse,
+}: {
+  onClose: () => void;
+  onSelect: (selection: { courseId: number } | { plannerOptionId: number }) => void;
+  isSaved: (courseId: number) => boolean;
+  grade: number;
+  allPlanners: Planner[];
+  onGoToCourse: (year: number, plannedCourseId: number) => void;
+}): React.ReactElement {
+  const [query, setQuery] = useState("");
+  const [selectedDivision, setSelectedDivision] = useState("All Divisions");
+  const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [duplicateCourse, setDuplicateCourse] = useState<PlannerCourseDetails | null>(null);
+  const duplicateLocation = useMemo(
+    () => (duplicateCourse ? getPlannedCourseLocation(allPlanners, duplicateCourse.id) : null),
+    [duplicateCourse, allPlanners]
+  );
+
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+      getCourses().then((courses) => courses.map(courseToPlannerDetails)),
+      getPlannerOptions(grade).then((options) => options.map(plannerOptionToPlannerDetails)),
+    ])
+      .then(([courses, options]) => setAllCourses([...options, ...courses]))
+      .catch(() => setAllCourses([]))
+      .finally(() => setLoading(false));
+  }, [grade]);
+
+  const divisions = useMemo(
+    () => extractDivisionsFromItems(allCourses, (course) => course.division),
+    [allCourses]
+  );
+
+  const filteredResults = allCourses.filter(
+    (course) =>
+      courseMatchesQuery(course, query) &&
+      courseMatchesDivisionFilter(
+        course.division,
+        selectedDivision === "All Divisions" ? null : selectedDivision
+      )
+  );
+
+  const sortedResults = [...filteredResults].sort((a, b) => {
+    const aSaved = isSaved(a.id) ? 1 : 0;
+    const bSaved = isSaved(b.id) ? 1 : 0;
+    return bSaved - aSaved;
+  });
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 50,
+        padding: "24px",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "600px",
+          maxHeight: "80vh",
+          backgroundColor: "#1f2937",
+          border: "1px solid #374151",
+          borderRadius: "16px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          fontFamily:
+          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            padding: "24px 24px 16px",
+            borderBottom: "1px solid #374151",
+          }}
+        >
+          <div
             style={{
-              marginTop: "8px",
-              padding: "4px 10px",
-              fontSize: "12px",
-              fontWeight: 600,
-              color: "#111827",
-              backgroundColor: "#facc15",
-              border: "none",
-              borderRadius: "6px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "16px",
+            }}
+          >
+            <h2
+              style={{
+                margin: 0,
+                fontSize: "22px",
+                fontWeight: 600,
+                color: "#ffffff",
+              }}
+            >
+              Add a Course
+            </h2>
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                fontSize: "24px",
+                color: "#9ca3af",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "4px",
+                lineHeight: 1,
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+
+          <input
+            type="text"
+            placeholder="Search by course title..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            autoFocus
+            style={{
+              width: "100%",
+              padding: "14px 16px",
+              fontSize: "16px",
+              color: "#ffffff",
+              backgroundColor: "#111827",
+              border: "1px solid #4b5563",
+              borderRadius: "10px",
+              outline: "none",
+              boxSizing: "border-box",
+            }}
+          />
+
+          <select
+            value={selectedDivision}
+            onChange={(e) => setSelectedDivision(e.target.value)}
+            aria-label="Filter by division"
+            style={{
+              width: "100%",
+              marginTop: "12px",
+              padding: "12px 16px",
+              fontSize: "15px",
+              color: "#ffffff",
+              backgroundColor: "#111827",
+              border: "1px solid #4b5563",
+              borderRadius: "10px",
+              outline: "none",
               cursor: "pointer",
             }}
           >
-            I already completed this course
+            <option value="All Divisions">All Divisions</option>
+            {divisions.map((division) => (
+              <option key={division} value={division}>
+                {division}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            padding: "16px 24px 24px",
+          }}
+        >
+          {loading ? (
+            <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading courses...</p>
+          ) : sortedResults.length === 0 ? (
+            <p style={{ color: "#9ca3af", textAlign: "center" }}>
+              {(() => {
+                const hasQuery = query.trim().length > 0;
+                const hasDivision = selectedDivision !== "All Divisions";
+                if (hasQuery && hasDivision) {
+                  return "No courses match your search and division filter.";
+                }
+                if (hasQuery) {
+                  return "No courses match your search.";
+                }
+                if (hasDivision) {
+                  return "No courses match the selected division.";
+                }
+                return "No courses available.";
+              })()}
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {sortedResults.map((course) => {
+                const isDuplicate = isDuplicateCourse(course, allPlanners);
+                return (
+                <button
+                  key={course.id}
+                  type="button"
+                  onClick={() => {
+                    if (isDuplicate) {
+                      setDuplicateCourse(course);
+                      return;
+                    }
+                    onSelect(
+                      course.id < 0 ? { plannerOptionId: -course.id } : { courseId: course.id }
+                    );
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    gap: "12px",
+                    padding: "16px",
+                    backgroundColor: "#111827",
+                    border: "1px solid #374151",
+                    borderRadius: "12px",
+                    cursor: isDuplicate ? "not-allowed" : "pointer",
+                    textAlign: "left",
+                    color: "inherit",
+                    width: "100%",
+                    opacity: isDuplicate ? 0.5 : 1,
+                    transition: "border-color 0.15s ease, opacity 0.15s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isDuplicate) {
+                      e.currentTarget.style.borderColor = "#4b5563";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "#374151";
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 600,
+                          color: "#ffffff",
+                        }}
+                      >
+                        {course.title}
+                      </span>
+                      {isSaved(course.id) && (
+                        <span
+                          style={{
+                            fontSize: "18px",
+                            color: "#fbbf24",
+                          }}
+                          aria-label="Saved"
+                        >
+                          ★
+                        </span>
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "8px",
+                        fontSize: "13px",
+                        color: "#9ca3af",
+                      }}
+                    >
+                      {course.creditType && (
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            backgroundColor: "#1f2937",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          {course.creditType}
+                        </span>
+                      )}
+                      {course.credits != null && (
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            backgroundColor: "#1f2937",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          {course.credits} credits
+                        </span>
+                      )}
+                      {course.duration === 2 && (
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            backgroundColor: "#1f2937",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          Full Year
+                        </span>
+                      )}
+                      {course.duration === 1 && (
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            backgroundColor: "#1f2937",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          One Semester
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      color: isDuplicate ? "#6b7280" : "#3b82f6",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {isDuplicate ? "Already planned" : "Add →"}
+                  </span>
+                </button>
+              );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {duplicateCourse && duplicateLocation && (
+        <DuplicateCourseDialog
+          course={duplicateCourse}
+          location={duplicateLocation}
+          onGoToCourse={() => {
+            onGoToCourse(duplicateLocation.year, duplicateLocation.plannedCourseId);
+            onClose();
+          }}
+          onClose={() => setDuplicateCourse(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+function DuplicateCourseDialog({
+  course,
+  location,
+  onGoToCourse,
+  onClose,
+}: {
+  course: PlannerCourseDetails;
+  location: { label: string; semester: "Full Year" | 1 | 2; slot: number };
+  onGoToCourse: () => void;
+  onClose: () => void;
+}): React.ReactElement {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 60,
+        padding: "24px",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          backgroundColor: "#1f2937",
+          border: "1px solid #374151",
+          borderRadius: "16px",
+          padding: "24px",
+          color: "#ffffff",
+          fontFamily:
+            `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3
+          style={{
+            margin: "0 0 16px",
+            fontSize: "20px",
+            fontWeight: 600,
+          }}
+        >
+          This course is already planned
+        </h3>
+        <div style={{ marginBottom: "24px", lineHeight: 1.5, color: "#d1d5db" }}>
+          <p style={{ margin: "0 0 12px", fontWeight: 500, color: "#ffffff" }}>{course.title}</p>
+          <div style={{ fontSize: "14px", color: "#9ca3af" }}>
+            <div>
+              Location: <strong style={{ color: "#ffffff" }}>{location.label}</strong>
+            </div>
+            <div>
+              Semester: <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
+            </div>
+            <div>
+              Slot: <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              padding: "10px 16px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#d1d5db",
+              backgroundColor: "transparent",
+              border: "1px solid #4b5563",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={onGoToCourse}
+            style={{
+              padding: "10px 16px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#ffffff",
+              backgroundColor: "#3b82f6",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Go to Course
           </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -1016,14 +1800,24 @@ function Toast({
   );
 }
 
+type PlannerWarning = {
+  message: string;
+  type: "missing_prerequisite" | "later_prerequisite";
+  prerequisite: string;
+};
+
+function makeWarningKey(planned: PlannedCourse, warning: PlannerWarning): string {
+  return `${planned.plannerId}-${planned.id}-${warning.type}-${warning.prerequisite}`;
+}
+
 function getWarnings(
   planned: PlannedCourse,
   allPlanners: Planner[],
+  completedCourses: CompletedCourse[],
   currentSemester: number,
-  currentYear: number,
-  completedCourses: CompletedCourse[]
-): string[] {
-  const warnings: string[] = [];
+  currentYear: number
+): PlannerWarning[] {
+  const warnings: PlannerWarning[] = [];
   const { course } = planned;
 
   if (!course.prerequisites || course.prerequisites.length === 0) {
@@ -1031,13 +1825,14 @@ function getWarnings(
   }
 
   // Build ordered list of all planned courses across all years/semesters.
-  const ordered: Array<{ year: number; semester: number; title: string }> = [];
+  const ordered: Array<{ year: number; semester: number; title: string; courseCode: string | null }> = [];
   for (const p of allPlanners) {
     for (const pc of p.plannedCourses) {
       ordered.push({
         year: p.schoolYear,
         semester: pc.semester,
         title: pc.course.title,
+        courseCode: pc.course.courseCode,
       });
     }
   }
@@ -1057,21 +1852,509 @@ function getWarnings(
     if (!prereq.trim()) continue;
     const normalizedPrereq = prereq.toLowerCase();
 
-    const isCompleted = completedCourses.some((cc) =>
-      cc.course.title.toLowerCase().includes(normalizedPrereq)
-    );
-    if (isCompleted) continue;
+    const completedIndex = completedCourses.findIndex((cc) => {
+      const normalizedTitle = cc.course.title.toLowerCase();
+      const courseCode = cc.course.courseCode?.toLowerCase() ?? "";
+      return (
+        normalizedTitle.includes(normalizedPrereq) ||
+        normalizedPrereq.includes(normalizedTitle) ||
+        normalizedPrereq.includes(courseCode)
+      );
+    });
+    if (completedIndex !== -1) {
+      // Prerequisite is already completed; no warning needed.
+      continue;
+    }
 
-    const prereqIndex = ordered.findIndex((item) =>
-      item.title.toLowerCase().includes(normalizedPrereq)
-    );
+    const prereqIndex = ordered.findIndex((item) => {
+      const normalizedTitle = item.title.toLowerCase();
+      const courseCode = item.courseCode?.toLowerCase() ?? "";
+      return (
+        normalizedTitle.includes(normalizedPrereq) ||
+        normalizedPrereq.includes(normalizedTitle) ||
+        normalizedPrereq.includes(courseCode)
+      );
+    });
 
     if (prereqIndex === -1) {
-      warnings.push(`${course.title} usually requires ${prereq} first.`);
+      warnings.push({
+        message: `${course.title} usually requires ${prereq} first.`,
+        type: "missing_prerequisite",
+        prerequisite: prereq,
+      });
     } else if (plannedIndex !== -1 && prereqIndex > plannedIndex) {
-      warnings.push(`A prerequisite for this course appears later in your plan.`);
+      warnings.push({
+        message: `A prerequisite for this course appears later in your plan.`,
+        type: "later_prerequisite",
+        prerequisite: prereq,
+      });
     }
   }
 
   return warnings;
+}
+
+function WarningActionModal({
+  planned,
+  warning,
+  allPlanners,
+  currentYear,
+  onClose,
+  onAddToPlanner,
+  onIgnore,
+  onMarkCompleted,
+  showToast,
+}: {
+  planned: PlannedCourse;
+  warning: PlannerWarning;
+  allPlanners: Planner[];
+  currentYear: number;
+  onClose: () => void;
+  onAddToPlanner: (plannerId: number, courseId: number, semester: number, slot: number) => Promise<void>;
+  onIgnore: () => void;
+  onMarkCompleted: (completed: CompletedCourse) => void;
+  showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
+}): React.ReactElement {
+  const [loading, setLoading] = useState(false);
+  const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+  const [showConfirmIgnore, setShowConfirmIgnore] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getCourses()
+      .then((courses) => setAllCourses(courses.map(courseToPlannerDetails)))
+      .catch(() => setAllCourses([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const matchedCourses = useMemo(
+    () =>
+      allCourses.filter((c) => {
+        const normalizedPrereq = warning.prerequisite.toLowerCase();
+        const normalizedTitle = c.title.toLowerCase();
+        const courseCode = c.courseCode?.toLowerCase() ?? "";
+        return (
+          normalizedTitle.includes(normalizedPrereq) ||
+          normalizedPrereq.includes(normalizedTitle) ||
+          normalizedPrereq.includes(courseCode)
+        );
+      }),
+    [allCourses, warning.prerequisite]
+  );
+
+  const selectedCourse =
+    matchedCourses.find((c) => c.id === selectedCourseId) ?? matchedCourses[0] ?? null;
+
+  useEffect(() => {
+    if (matchedCourses.length === 0) {
+      setSelectedCourseId(null);
+      return;
+    }
+    if (selectedCourseId == null || !matchedCourses.some((c) => c.id === selectedCourseId)) {
+      setSelectedCourseId(matchedCourses[0].id);
+    }
+  }, [matchedCourses, selectedCourseId]);
+
+  const previousYears = useMemo(() => {
+    return [9, 10, 11, 12].filter((y) => y < currentYear);
+  }, [currentYear]);
+
+  const getFirstEmptySlot = useCallback(
+    (year: number) => {
+      const planner = allPlanners.find((p) => p.schoolYear === year);
+      if (!planner) return null;
+      for (const semester of [1, 2]) {
+        for (const slot of [1, 2, 3, 4, 5, 6, 7]) {
+          const occupied = planner.plannedCourses.find(
+            (pc) => pc.semester === semester && pc.slot === slot
+          );
+          if (!occupied) return { semester, slot };
+        }
+      }
+      return null;
+    },
+    [allPlanners]
+  );
+
+  const handleMarkCompleted = async () => {
+    if (!selectedCourse) return;
+    setLoading(true);
+    try {
+      const gradeCompleted: GradeCompleted =
+        currentYear === 9
+          ? "Freshman (9)"
+          : currentYear === 10
+          ? "Sophomore (10)"
+          : currentYear === 11
+          ? "Junior (11)"
+          : "Senior (12)";
+      const completed = await addCompletedCourse(selectedCourse.id, gradeCompleted);
+      onMarkCompleted(completed);
+      showToast("Marked as completed.", "success");
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to mark completed";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddPrerequisite = async () => {
+    if (!selectedCourse || selectedYear == null) return;
+    const emptySlot = getFirstEmptySlot(selectedYear);
+    if (!emptySlot) return;
+    const targetPlanner = allPlanners.find((p) => p.schoolYear === selectedYear);
+    if (!targetPlanner) return;
+    setLoading(true);
+    try {
+      await onAddToPlanner(targetPlanner.id, selectedCourse.id, emptySlot.semester, emptySlot.slot);
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to add prerequisite";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleIgnore = () => {
+    setShowConfirmIgnore(true);
+  };
+
+  const confirmIgnore = () => {
+    onIgnore();
+    setShowConfirmIgnore(false);
+    onClose();
+  };
+
+  const cancelIgnore = () => {
+    setShowConfirmIgnore(false);
+  };
+
+  const canAddPrerequisite =
+    warning.type === "missing_prerequisite" &&
+    selectedCourse != null &&
+    selectedYear != null &&
+    getFirstEmptySlot(selectedYear) != null;
+
+  const addPrerequisiteHelpText =
+    warning.type === "later_prerequisite"
+      ? "This prerequisite is already planned in a later year. Add it to a previous year if you want to move it earlier."
+      : matchedCourses.length === 0
+      ? "No matching course was found for this prerequisite."
+      : selectedCourse == null
+      ? "Select a matching course to add the prerequisite."
+      : selectedYear == null
+      ? "Select a previous year to add the prerequisite."
+      : getFirstEmptySlot(selectedYear) == null
+      ? "The selected year has no empty slots."
+      : "";
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 50,
+        padding: "24px",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "480px",
+          maxHeight: "80vh",
+          backgroundColor: "#1f2937",
+          border: "1px solid #374151",
+          borderRadius: "16px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            padding: "24px 24px 16px",
+            borderBottom: "1px solid #374151",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "16px",
+            }}
+          >
+            <h2
+              style={{
+                margin: 0,
+                fontSize: "22px",
+                fontWeight: 600,
+                color: "#ffffff",
+              }}
+            >
+              Resolve Warning
+            </h2>
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                fontSize: "24px",
+                color: "#9ca3af",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "4px",
+                lineHeight: 1,
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            padding: "24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
+        >
+          <div
+            style={{
+              padding: "12px 16px",
+              backgroundColor: "rgba(234, 179, 8, 0.12)",
+              border: "1px solid rgba(234, 179, 8, 0.3)",
+              borderRadius: "8px",
+              fontSize: "14px",
+              color: "#fde047",
+              lineHeight: 1.5,
+            }}
+          >
+            ⚠ {warning.message}
+          </div>
+
+          {loading ? (
+            <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading...</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {matchedCourses.length > 1 && (
+                <select
+                  value={selectedCourseId ?? ""}
+                  onChange={(e) =>
+                    setSelectedCourseId(e.target.value ? Number(e.target.value) : null)
+                  }
+                  aria-label="Select prerequisite course"
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    fontSize: "15px",
+                    color: "#ffffff",
+                    backgroundColor: "#111827",
+                    border: "1px solid #4b5563",
+                    borderRadius: "8px",
+                    outline: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <option value="">Select a prerequisite course</option>
+                  {matchedCourses.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.title}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {matchedCourses.length === 0 && (
+                <p style={{ margin: 0, fontSize: "14px", color: "#9ca3af", textAlign: "center" }}>
+                  No matching course was found for this prerequisite.
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={handleMarkCompleted}
+                disabled={loading || selectedCourse == null}
+                style={{
+                  padding: "12px 16px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#ffffff",
+                  backgroundColor: "#2563eb",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: selectedCourse ? "pointer" : "not-allowed",
+                  textAlign: "left",
+                  opacity: selectedCourse ? 1 : 0.5,
+                }}
+              >
+                I already completed this course
+              </button>
+
+              <select
+                value={selectedYear ?? ""}
+                onChange={(e) =>
+                  setSelectedYear(e.target.value ? Number(e.target.value) : null)
+                }
+                disabled={matchedCourses.length === 0 || warning.type === "later_prerequisite"}
+                aria-label="Select previous year"
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  fontSize: "15px",
+                  color: "#ffffff",
+                  backgroundColor: "#111827",
+                  border: "1px solid #4b5563",
+                  borderRadius: "8px",
+                  outline: "none",
+                  cursor:
+                    matchedCourses.length === 0 || warning.type === "later_prerequisite"
+                      ? "not-allowed"
+                      : "pointer",
+                  opacity: matchedCourses.length === 0 || warning.type === "later_prerequisite" ? 0.5 : 1,
+                }}
+              >
+                <option value="">Select previous year</option>
+                {previousYears.map((y) => {
+                  const emptySlot = getFirstEmptySlot(y);
+                  return (
+                    <option key={y} value={y} disabled={!emptySlot}>
+                      {YEAR_LABELS[y]} {emptySlot ? "" : "(no empty slots)"}
+                    </option>
+                  );
+                })}
+              </select>
+
+              <button
+                type="button"
+                onClick={handleAddPrerequisite}
+                disabled={loading || !canAddPrerequisite}
+                style={{
+                  padding: "12px 16px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#ffffff",
+                  backgroundColor: "#16a34a",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: canAddPrerequisite ? "pointer" : "not-allowed",
+                  textAlign: "left",
+                  opacity: canAddPrerequisite ? 1 : 0.5,
+                }}
+              >
+                Add {selectedCourse?.title ?? "prerequisite"} to{" "}
+                {selectedYear ? YEAR_LABELS[selectedYear] : "previous year"}
+              </button>
+
+              {addPrerequisiteHelpText && (
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "13px",
+                    color: "#9ca3af",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {addPrerequisiteHelpText}
+                </p>
+              )}
+            </div>
+          )}
+
+          <div
+            style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid #374151" }}
+          >
+            {!showConfirmIgnore ? (
+              <button
+                type="button"
+                onClick={handleIgnore}
+                disabled={loading}
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#d1d5db",
+                  backgroundColor: "transparent",
+                  border: "1px solid #4b5563",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                Ignore Warning
+              </button>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "14px",
+                    color: "#d1d5db",
+                    textAlign: "center",
+                  }}
+                >
+                  Are you sure you want to ignore this warning?
+                </p>
+                <div style={{ display: "flex", gap: "12px" }}>
+                  <button
+                    type="button"
+                    onClick={confirmIgnore}
+                    disabled={loading}
+                    style={{
+                      flex: 1,
+                      padding: "12px 16px",
+                      fontSize: "15px",
+                      fontWeight: 500,
+                      color: "#ffffff",
+                      backgroundColor: "#dc2626",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Yes, ignore
+                  </button>
+                  <button
+                    type="button"
+                    onClick={cancelIgnore}
+                    disabled={loading}
+                    style={{
+                      flex: 1,
+                      padding: "12px 16px",
+                      fontSize: "15px",
+                      fontWeight: 500,
+                      color: "#d1d5db",
+                      backgroundColor: "#374151",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
