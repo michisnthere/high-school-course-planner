@@ -40,6 +40,7 @@ import {
   getCompletedCourses,
   type CompletedCourse,
 } from "@/lib/completedCourses";
+import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -267,12 +268,19 @@ function PlannerYearContent(): React.ReactElement {
   const router = useRouter();
 
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
+  const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
 
   useEffect(() => {
     getCompletedCourses()
       .then(setCompletedCourses)
       .catch(() => setCompletedCourses([]));
   }, []);
+
+  useEffect(() => {
+    getPlannerAnalysis()
+      .then(setPlannerAnalysis)
+      .catch(() => setPlannerAnalysis(null));
+  }, [completedCourses]);
 
   const loadPlanners = useCallback(async () => {
     try {
@@ -453,12 +461,23 @@ function PlannerYearContent(): React.ReactElement {
 
         await removePlannedCourse(planned.id);
         pushHistory(newPlanners, async () => {
-          const restoredPlanner = await addPlannedCourse(
-            planned.plannerId,
-            planned.courseId,
-            planned.semester,
-            planned.slot
-          );
+          let restoredPlanner: Planner;
+          if (planned.courseId != null) {
+            restoredPlanner = await addPlannedCourse(
+              planned.plannerId,
+              planned.courseId,
+              planned.semester,
+              planned.slot
+            );
+          } else if (planned.plannerOptionId != null) {
+            restoredPlanner = await addPlannedCourse(planned.plannerId, {
+              plannerOptionId: planned.plannerOptionId,
+              semester: planned.semester,
+              slot: planned.slot,
+            });
+          } else {
+            throw new Error("Cannot restore planned course: missing courseId and plannerOptionId");
+          }
           // Replace the state we are undoing back into with the freshly restored
           // planner so the re-added course has the correct ids and shifted positions.
           const previousEntry = historyRef.current[historyRef.current.length - 1];
@@ -1606,13 +1625,14 @@ function getWarnings(
   }
 
   // Build ordered list of all planned courses across all years/semesters.
-  const ordered: Array<{ year: number; semester: number; title: string }> = [];
+  const ordered: Array<{ year: number; semester: number; title: string; courseCode: string | null }> = [];
   for (const p of allPlanners) {
     for (const pc of p.plannedCourses) {
       ordered.push({
         year: p.schoolYear,
         semester: pc.semester,
         title: pc.course.title,
+        courseCode: pc.course.courseCode,
       });
     }
   }
@@ -1632,17 +1652,29 @@ function getWarnings(
     if (!prereq.trim()) continue;
     const normalizedPrereq = prereq.toLowerCase();
 
-    const completedIndex = completedCourses.findIndex((cc) =>
-      cc.course.title.toLowerCase().includes(normalizedPrereq)
-    );
+    const completedIndex = completedCourses.findIndex((cc) => {
+      const normalizedTitle = cc.course.title.toLowerCase();
+      const courseCode = cc.course.options?.[0]?.offerings?.[0]?.courseCode?.toLowerCase() ?? "";
+      return (
+        normalizedTitle.includes(normalizedPrereq) ||
+        normalizedPrereq.includes(normalizedTitle) ||
+        normalizedPrereq.includes(courseCode)
+      );
+    });
     if (completedIndex !== -1) {
       // Prerequisite is already completed; no warning needed.
       continue;
     }
 
-    const prereqIndex = ordered.findIndex((item) =>
-      item.title.toLowerCase().includes(normalizedPrereq)
-    );
+    const prereqIndex = ordered.findIndex((item) => {
+      const normalizedTitle = item.title.toLowerCase();
+      const courseCode = item.courseCode?.toLowerCase() ?? "";
+      return (
+        normalizedTitle.includes(normalizedPrereq) ||
+        normalizedPrereq.includes(normalizedTitle) ||
+        normalizedPrereq.includes(courseCode)
+      );
+    });
 
     if (prereqIndex === -1) {
       warnings.push({
@@ -1699,9 +1731,16 @@ function WarningActionModal({
 
   const matchedCourses = useMemo(
     () =>
-      allCourses.filter((c) =>
-        c.title.toLowerCase().includes(warning.prerequisite.toLowerCase())
-      ),
+      allCourses.filter((c) => {
+        const normalizedPrereq = warning.prerequisite.toLowerCase();
+        const normalizedTitle = c.title.toLowerCase();
+        const courseCode = c.courseCode?.toLowerCase() ?? "";
+        return (
+          normalizedTitle.includes(normalizedPrereq) ||
+          normalizedPrereq.includes(normalizedTitle) ||
+          normalizedPrereq.includes(courseCode)
+        );
+      }),
     [allCourses, warning.prerequisite]
   );
 

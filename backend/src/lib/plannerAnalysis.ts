@@ -34,12 +34,13 @@ type PlannedCourseWithRelations = PlannedCourse & {
 };
 
 type CompletedCourseWithCourse = CompletedCourse & {
-  course: Course;
+  course: CourseWithOptions;
 };
 
 type AnalysisCourse = {
   id: number;
   title: string;
+  courseCode: string | null;
   duration: number;
   credits: number;
   division: string | null;
@@ -160,9 +161,12 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string")
     : [];
 
+  const courseCode = option?.offerings?.[0]?.courseCode ?? null;
+
   return {
     id: course.id,
     title: course.title,
+    courseCode,
     duration: deriveCourseDuration(course),
     credits: getCourseCredits(course),
     division: course.department?.division?.name ?? null,
@@ -279,7 +283,17 @@ async function loadCourseRequirementLinks(): Promise<Map<number, Set<number>>> {
 async function loadCompletedCourses(userId: number): Promise<CompletedCourseWithCourse[]> {
   return prisma.completedCourse.findMany({
     where: { userId },
-    include: { course: true },
+    include: {
+      course: {
+        include: {
+          options: {
+            include: {
+              offerings: true,
+            },
+          },
+        },
+      },
+    },
   });
 }
 
@@ -443,17 +457,27 @@ function computeMissingPrerequisites(
   completedCourses: CompletedCourseWithCourse[]
 ): MissingPrerequisite[] {
   // Build an ordered timeline of all planned course placements.
-  const ordered: Array<{ year: number; semester: number; title: string; placement: CoursePlacement }> = placements
+  const ordered: Array<{
+    year: number;
+    semester: number;
+    title: string;
+    courseCode: string | null;
+    placement: CoursePlacement;
+  }> = placements
     .filter((p) => p.course)
     .map((p) => ({
       year: p.year,
       semester: p.semester,
       title: p.course!.title,
+      courseCode: p.course!.courseCode,
       placement: p,
     }));
   ordered.sort((a, b) => a.year - b.year || a.semester - b.semester);
 
-  const completedTitles = new Set(completedCourses.map((cc) => cc.course.title.toLowerCase()));
+  const completedItems = completedCourses.map((cc) => ({
+    title: cc.course.title.toLowerCase(),
+    courseCode: (cc.course.options?.[0]?.offerings?.[0]?.courseCode ?? "").toLowerCase(),
+  }));
 
   const missing: MissingPrerequisite[] = [];
 
@@ -467,13 +491,23 @@ function computeMissingPrerequisites(
       if (!prereq.trim()) continue;
       const normalizedPrereq = prereq.toLowerCase();
 
-      const completed = completedTitles.has(normalizedPrereq) ||
-        Array.from(completedTitles).some((title) => title.includes(normalizedPrereq));
+      const completed = completedItems.some(
+        (item) =>
+          item.title.includes(normalizedPrereq) ||
+          normalizedPrereq.includes(item.title) ||
+          normalizedPrereq.includes(item.courseCode)
+      );
       if (completed) continue;
 
-      const prereqIndex = ordered.findIndex((item) =>
-        item.title.toLowerCase().includes(normalizedPrereq)
-      );
+      const prereqIndex = ordered.findIndex((item) => {
+        const normalizedTitle = item.title.toLowerCase();
+        const courseCode = item.courseCode?.toLowerCase() ?? "";
+        return (
+          normalizedTitle.includes(normalizedPrereq) ||
+          normalizedPrereq.includes(normalizedTitle) ||
+          normalizedPrereq.includes(courseCode)
+        );
+      });
 
       if (prereqIndex === -1) {
         missing.push({
