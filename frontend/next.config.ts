@@ -14,7 +14,7 @@ const nextConfig = {
       // /planner routes are handled by the Next.js app; /api/planner is proxied to the backend.
       { source: "/courses/:path*", destination: "http://localhost:4000/courses/:path*" },
       { source: "/saved-courses/:path*", destination: "http://localhost:4000/saved-courses/:path*" },
-      { source: "/completed-courses/:path*", destination: "http://localhost:4000/completed-courses/:path*" },
+      { source: "/api/completed-courses/:path*", destination: "http://localhost:4000/api/completed-courses/:path*" },
     ];
   },
 };

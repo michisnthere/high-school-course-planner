@@ -31,7 +31,7 @@ app.use("/courses", coursesRouter);
 app.use("/auth", authRouter);
 app.use("/saved-courses", savedCoursesRouter);
 app.use("/api/planner", plannerRouter);
-app.use("/completed-courses", completedCoursesRouter);
+app.use("/api/completed-courses", completedCoursesRouter);
 
 app.get("/", (_req, res) => {
   res.json({

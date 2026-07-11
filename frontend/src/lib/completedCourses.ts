@@ -24,7 +24,7 @@ export type CompletedCourseInput = {
 };
 
 export async function getCompletedCourses(): Promise<CompletedCourse[]> {
-  const response = await fetch(`${API_URL}/completed-courses`, {
+  const response = await fetch(`${API_URL}/api/completed-courses`, {
     credentials: "include",
   });
 
@@ -36,7 +36,7 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
 }
 
 export async function addCompletedCourse(input: CompletedCourseInput): Promise<CompletedCourse> {
-  const response = await fetch(`${API_URL}/completed-courses`, {
+  const response = await fetch(`${API_URL}/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ export async function addCompletedCourse(input: CompletedCourseInput): Promise<C
 }
 
 export async function removeCompletedCourse(id: number): Promise<void> {
-  const response = await fetch(`${API_URL}/completed-courses/${id}`, {
+  const response = await fetch(`${API_URL}/api/completed-courses/${id}`, {
     method: "DELETE",
     credentials: "include",
   });
