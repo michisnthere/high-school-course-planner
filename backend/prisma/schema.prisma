@@ -63,6 +63,8 @@ model Course {
 
   description String?
 
+  duration Int?
+
   attributes           Json    @default("[]")
   fulfillsRequirements Json    @default("[]")
   isRepeatable         Boolean @default(false)
@@ -145,6 +147,24 @@ model CourseOffering {
   @@unique([courseOptionId, courseCode])
   @@index([courseOptionId])
   @@index([courseCode])
+}
+
+//
+// =========================
+// PLANNER OPTION
+// =========================
+//
+model PlannerOption {
+  id              Int      @id @default(autoincrement())
+  name            String   @unique
+  duration        Int      @default(1)
+  credits         Int      @default(0)
+  availableGrades Int[]    @default([])
+  maxPerYear      Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  plannedCourses PlannedCourse[]
 }
 
 //
@@ -275,17 +295,20 @@ model Planner {
 // =========================
 //
 model PlannedCourse {
-  id        Int      @id @default(autoincrement())
-  plannerId Int
-  courseId  Int
-  semester  Int
-  slot      Int
-  createdAt DateTime @default(now())
+  id              Int      @id @default(autoincrement())
+  plannerId       Int
+  courseId        Int?
+  plannerOptionId Int?
+  semester        Int
+  slot            Int
+  createdAt       DateTime @default(now())
 
-  planner Planner @relation(fields: [plannerId], references: [id], onDelete: Cascade)
-  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  planner       Planner        @relation(fields: [plannerId], references: [id], onDelete: Cascade)
+  course        Course?        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  plannerOption PlannerOption? @relation(fields: [plannerOptionId], references: [id], onDelete: Cascade)
 
   @@unique([plannerId, semester, slot])
   @@index([plannerId])
   @@index([courseId])
+  @@index([plannerOptionId])
 }
