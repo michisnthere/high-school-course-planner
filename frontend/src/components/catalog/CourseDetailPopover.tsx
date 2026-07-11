@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import { getCourseSlug } from "@/lib/normalize";
+import { formatCreditType } from "@/lib/catalog";
 
 type CourseDetailPopoverProps = {
   course: PlannerCourseDetails;
@@ -135,7 +136,7 @@ export function CourseDetailPopover({
                   color: "#1d4ed8",
                 }}
               >
-                {course.creditType}
+                {formatCreditType(course.creditType)}
               </span>
             )}
             {course.credits != null && (

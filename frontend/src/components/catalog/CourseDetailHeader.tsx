@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
+import { formatCreditType } from "@/lib/catalog";
 import { SaveCourseButton } from "./SaveCourseButton";
 
 type CourseDetailHeaderProps = {
@@ -99,7 +100,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
               color: "#1d4ed8",
             }}
           >
-            {creditType}
+            {formatCreditType(creditType)}
           </span>
         )}
 

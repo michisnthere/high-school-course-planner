@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
+import { formatCreditType } from "@/lib/catalog";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
 
 type SavedCoursesContentProps = {
@@ -189,7 +190,7 @@ export function SavedCoursesContent({
               {course.department?.name && (
                 <span style={badgeStyle}>{course.department.name}</span>
               )}
-              {creditType && <span style={badgeStyle}>{creditType}</span>}
+              {creditType && <span style={badgeStyle}>{formatCreditType(creditType)}</span>}
             </div>
 
             <div style={{ display: "flex", gap: "12px" }}>

@@ -211,3 +211,9 @@ export function extractDivisionsFromItems<T>(
   }
   return Array.from(divisions).sort();
 }
+
+export function formatCreditType(creditType: string | null | undefined): string | null {
+  if (!creditType) return null;
+  if (creditType === "Honors") return "AP/Honors";
+  return creditType;
+}

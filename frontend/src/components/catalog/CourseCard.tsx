@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
+import { formatCreditType } from "@/lib/catalog";
 import { SaveCourseButton } from "./SaveCourseButton";
 
 type CourseCardProps = {
@@ -92,7 +93,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
                 fontWeight: 500,
               }}
             >
-              {creditType}
+              {formatCreditType(creditType)}
             </span>
           )}
         </div>

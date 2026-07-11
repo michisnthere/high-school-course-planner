@@ -7,6 +7,7 @@ import {
   sortPickerCourses,
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
+import { formatCreditType } from "@/lib/catalog";
 import { CourseFilters, type ActiveFilters } from "@/components/catalog/CourseFilters";
 
 type CoursePickerProps = {
@@ -186,7 +187,7 @@ export function CoursePicker({
                           borderRadius: "9999px",
                         }}
                       >
-                        {course.creditType}
+                        {formatCreditType(course.creditType)}
                       </span>
                     )}
                     {course.credits != null && (

@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useMemo } from "react";
+import { formatCreditType } from "@/lib/catalog";
+
+const formatCreditTypeFilter = (value: string) => formatCreditType(value) ?? value;
 
 export type ActiveFilters = {
   division: string[];
@@ -53,11 +56,13 @@ function ToggleGroup({
   values,
   selected,
   onToggle,
+  formatLabel,
 }: {
   label: string;
   values: string[];
   selected: string[];
   onToggle: (value: string) => void;
+  formatLabel?: (value: string) => string;
 }): React.ReactElement {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -94,7 +99,7 @@ function ToggleGroup({
                   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               }}
             >
-              {value}
+              {formatLabel ? formatLabel(value) : value}
             </button>
           );
         })}
@@ -208,6 +213,7 @@ export function CourseFilters({
             values={group.values}
             selected={filters[group.key]}
             onToggle={(value) => handleToggle(group.key, value)}
+            formatLabel={group.key === "creditType" ? formatCreditTypeFilter : undefined}
           />
         ))}
       </div>
@@ -235,7 +241,7 @@ export function CourseFilters({
             {otherGroups.flatMap((group) =>
               filters[group.key].map((value) => (
                 <span key={`${group.key}-${value}`} style={activeChipStyle}>
-                  {group.label}: {value}
+                  {group.label}: {group.key === "creditType" ? formatCreditTypeFilter(value) : value}
                 </span>
               ))
             )}

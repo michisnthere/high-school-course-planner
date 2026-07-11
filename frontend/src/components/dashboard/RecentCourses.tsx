@@ -1,5 +1,6 @@
 import React from "react";
 import type { Course } from "@/types/course";
+import { formatCreditType } from "@/lib/catalog";
 
 type RecentCoursesProps = {
   courses: Course[];
@@ -96,7 +97,7 @@ export function RecentCourses({
               )}
 
               {course.options?.[0]?.creditType && (
-                <span>• {course.options[0].creditType}</span>
+                <span>• {formatCreditType(course.options[0].creditType)}</span>
               )}
               </div>
             </li>

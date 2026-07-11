@@ -34,6 +34,7 @@ import {
   courseMatchesQuery,
   courseMatchesDivisionFilter,
   extractDivisionsFromItems,
+  formatCreditType,
 } from "@/lib/catalog";
 import {
   addCompletedCourse,
@@ -273,6 +274,7 @@ function PlannerYearContent(): React.ReactElement {
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
   const [completedCoursePicker, setCompletedCoursePicker] = useState<{ open: boolean; excludeCourseIds?: number[] }>({ open: false });
   const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
+  const [allCatalogCourses, setAllCatalogCourses] = useState<PlannerCourseDetails[]>([]);
 
   const loadCompletedCourses = useCallback(async () => {
     try {
@@ -283,9 +285,19 @@ function PlannerYearContent(): React.ReactElement {
     }
   }, []);
 
+  const loadAllCatalogCourses = useCallback(async () => {
+    try {
+      const courses = await getCourses();
+      setAllCatalogCourses(courses.map(courseToPlannerDetails));
+    } catch {
+      setAllCatalogCourses([]);
+    }
+  }, []);
+
   useEffect(() => {
     loadCompletedCourses();
-  }, [loadCompletedCourses]);
+    loadAllCatalogCourses();
+  }, [loadCompletedCourses, loadAllCatalogCourses]);
 
   useEffect(() => {
     getPlannerAnalysis()
@@ -586,9 +598,14 @@ function PlannerYearContent(): React.ReactElement {
         <PlannedCourseCard
           key={`${semester}-${slot}`}
           planned={planned}
-          warnings={getWarnings(planned, allPlanners, completedCourses, semester, year).filter(
-            (w) => !ignoredWarnings.has(makeWarningKey(planned, w))
-          )}
+          warnings={getWarnings(
+            planned,
+            allPlanners,
+            completedCourses,
+            allCatalogCourses,
+            semester,
+            year
+          ).filter((w) => !ignoredWarnings.has(makeWarningKey(planned, w)))}
           isDragging={draggingId === planned.id}
           isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
           isHighlighted={highlightedPlannedCourseId === planned.id}
@@ -734,6 +751,7 @@ function PlannerYearContent(): React.ReactElement {
           planned={selectedWarning.planned}
           warning={selectedWarning.warning}
           allPlanners={allPlanners}
+          allCatalogCourses={allCatalogCourses}
           currentYear={year}
           onClose={() => setSelectedWarning(null)}
           onAddToPlanner={handleAddPrerequisiteToPlanner}
@@ -1172,7 +1190,7 @@ function PlannedCourseCard({
               fontWeight: 500,
             }}
           >
-            {course.creditType}
+            {formatCreditType(course.creditType)}
           </span>
         )}
         {course.credits != null && (
@@ -1556,7 +1574,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          {course.creditType}
+                          {formatCreditType(course.creditType)}
                         </span>
                       )}
                       {course.credits != null && (
@@ -1814,6 +1832,7 @@ function getWarnings(
   planned: PlannedCourse,
   allPlanners: Planner[],
   completedCourses: CompletedCourse[],
+  allCatalogCourses: PlannerCourseDetails[],
   currentSemester: number,
   currentYear: number
 ): PlannerWarning[] {
@@ -1824,15 +1843,34 @@ function getWarnings(
     return warnings;
   }
 
-  // Build ordered list of all planned courses across all years/semesters.
-  const ordered: Array<{ year: number; semester: number; title: string; courseCode: string | null }> = [];
+  // Exact catalog lookup by title and course code (one-to-many to handle duplicates).
+  const courseIdsByTitle = new Map<string, number[]>();
+  const courseIdsByCode = new Map<string, number[]>();
+  for (const c of allCatalogCourses) {
+    const title = c.title.toLowerCase();
+    const idsForTitle = courseIdsByTitle.get(title) ?? [];
+    idsForTitle.push(c.id);
+    courseIdsByTitle.set(title, idsForTitle);
+
+    if (c.courseCode) {
+      const code = c.courseCode.toLowerCase();
+      const idsForCode = courseIdsByCode.get(code) ?? [];
+      idsForCode.push(c.id);
+      courseIdsByCode.set(code, idsForCode);
+    }
+  }
+
+  const completedCourseIds = new Set(completedCourses.map((cc) => cc.courseId));
+
+  // Build ordered list of all planned course placements across all years/semesters.
+  const ordered: Array<{ year: number; semester: number; courseId: number }> = [];
   for (const p of allPlanners) {
     for (const pc of p.plannedCourses) {
+      if (pc.courseId == null) continue;
       ordered.push({
         year: p.schoolYear,
         semester: pc.semester,
-        title: pc.course.title,
-        courseCode: pc.course.courseCode,
+        courseId: pc.courseId,
       });
     }
   }
@@ -1841,40 +1879,38 @@ function getWarnings(
     return a.semester - b.semester;
   });
 
+  const plannedCourseId = planned.courseId;
+  if (plannedCourseId == null) {
+    return warnings;
+  }
+
   const plannedIndex = ordered.findIndex(
     (item) =>
       item.year === currentYear &&
       item.semester === currentSemester &&
-      item.title === course.title
+      item.courseId === plannedCourseId
   );
 
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
     const normalizedPrereq = prereq.toLowerCase();
 
-    const completedIndex = completedCourses.findIndex((cc) => {
-      const normalizedTitle = cc.course.title.toLowerCase();
-      const courseCode = cc.course.courseCode?.toLowerCase() ?? "";
-      return (
-        normalizedTitle.includes(normalizedPrereq) ||
-        normalizedPrereq.includes(normalizedTitle) ||
-        normalizedPrereq.includes(courseCode)
-      );
-    });
-    if (completedIndex !== -1) {
-      // Prerequisite is already completed; no warning needed.
+    const matchedCourseIds = [
+      ...(courseIdsByTitle.get(normalizedPrereq) ?? []),
+      ...(courseIdsByCode.get(normalizedPrereq) ?? []),
+    ];
+
+    // No exact catalog match for this prerequisite string; skip it.
+    if (matchedCourseIds.length === 0) {
       continue;
     }
 
-    const prereqIndex = ordered.findIndex((item) => {
-      const normalizedTitle = item.title.toLowerCase();
-      const courseCode = item.courseCode?.toLowerCase() ?? "";
-      return (
-        normalizedTitle.includes(normalizedPrereq) ||
-        normalizedPrereq.includes(normalizedTitle) ||
-        normalizedPrereq.includes(courseCode)
-      );
-    });
+    const isCompleted = matchedCourseIds.some((id) => completedCourseIds.has(id));
+    if (isCompleted) {
+      continue;
+    }
+
+    const prereqIndex = ordered.findIndex((item) => matchedCourseIds.includes(item.courseId));
 
     if (prereqIndex === -1) {
       warnings.push({
@@ -1898,6 +1934,7 @@ function WarningActionModal({
   planned,
   warning,
   allPlanners,
+  allCatalogCourses,
   currentYear,
   onClose,
   onAddToPlanner,
@@ -1908,6 +1945,7 @@ function WarningActionModal({
   planned: PlannedCourse;
   warning: PlannerWarning;
   allPlanners: Planner[];
+  allCatalogCourses: PlannerCourseDetails[];
   currentYear: number;
   onClose: () => void;
   onAddToPlanner: (plannerId: number, courseId: number, semester: number, slot: number) => Promise<void>;
@@ -1916,33 +1954,20 @@ function WarningActionModal({
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
   const [loading, setLoading] = useState(false);
-  const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [showConfirmIgnore, setShowConfirmIgnore] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    getCourses()
-      .then((courses) => setAllCourses(courses.map(courseToPlannerDetails)))
-      .catch(() => setAllCourses([]))
-      .finally(() => setLoading(false));
-  }, []);
+  const allCourses = allCatalogCourses;
 
-  const matchedCourses = useMemo(
-    () =>
-      allCourses.filter((c) => {
-        const normalizedPrereq = warning.prerequisite.toLowerCase();
-        const normalizedTitle = c.title.toLowerCase();
-        const courseCode = c.courseCode?.toLowerCase() ?? "";
-        return (
-          normalizedTitle.includes(normalizedPrereq) ||
-          normalizedPrereq.includes(normalizedTitle) ||
-          normalizedPrereq.includes(courseCode)
-        );
-      }),
-    [allCourses, warning.prerequisite]
-  );
+  const matchedCourses = useMemo(() => {
+    const normalizedPrereq = warning.prerequisite.toLowerCase();
+    return allCourses.filter((c) => {
+      const normalizedTitle = c.title.toLowerCase();
+      const courseCode = c.courseCode?.toLowerCase() ?? "";
+      return normalizedTitle === normalizedPrereq || courseCode === normalizedPrereq;
+    });
+  }, [allCourses, warning.prerequisite]);
 
   const selectedCourse =
     matchedCourses.find((c) => c.id === selectedCourseId) ?? matchedCourses[0] ?? null;
@@ -1960,6 +1985,8 @@ function WarningActionModal({
   const previousYears = useMemo(() => {
     return [9, 10, 11, 12].filter((y) => y < currentYear);
   }, [currentYear]);
+
+  const hasPreviousYears = previousYears.length > 0;
 
   const getFirstEmptySlot = useCallback(
     (year: number) => {
@@ -2035,13 +2062,16 @@ function WarningActionModal({
   };
 
   const canAddPrerequisite =
+    hasPreviousYears &&
     warning.type === "missing_prerequisite" &&
     selectedCourse != null &&
     selectedYear != null &&
     getFirstEmptySlot(selectedYear) != null;
 
   const addPrerequisiteHelpText =
-    warning.type === "later_prerequisite"
+    !hasPreviousYears
+      ? "No previous school years are available."
+      : warning.type === "later_prerequisite"
       ? "This prerequisite is already planned in a later year. Add it to a previous year if you want to move it earlier."
       : matchedCourses.length === 0
       ? "No matching course was found for this prerequisite."
@@ -2208,60 +2238,64 @@ function WarningActionModal({
                 I already completed this course
               </button>
 
-              <select
-                value={selectedYear ?? ""}
-                onChange={(e) =>
-                  setSelectedYear(e.target.value ? Number(e.target.value) : null)
-                }
-                disabled={matchedCourses.length === 0 || warning.type === "later_prerequisite"}
-                aria-label="Select previous year"
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  fontSize: "15px",
-                  color: "#ffffff",
-                  backgroundColor: "#111827",
-                  border: "1px solid #4b5563",
-                  borderRadius: "8px",
-                  outline: "none",
-                  cursor:
-                    matchedCourses.length === 0 || warning.type === "later_prerequisite"
-                      ? "not-allowed"
-                      : "pointer",
-                  opacity: matchedCourses.length === 0 || warning.type === "later_prerequisite" ? 0.5 : 1,
-                }}
-              >
-                <option value="">Select previous year</option>
-                {previousYears.map((y) => {
-                  const emptySlot = getFirstEmptySlot(y);
-                  return (
-                    <option key={y} value={y} disabled={!emptySlot}>
-                      {YEAR_LABELS[y]} {emptySlot ? "" : "(no empty slots)"}
-                    </option>
-                  );
-                })}
-              </select>
+              {hasPreviousYears && (
+                <>
+                  <select
+                    value={selectedYear ?? ""}
+                    onChange={(e) =>
+                      setSelectedYear(e.target.value ? Number(e.target.value) : null)
+                    }
+                    disabled={matchedCourses.length === 0 || warning.type === "later_prerequisite"}
+                    aria-label="Select previous year"
+                    style={{
+                      width: "100%",
+                      padding: "12px 16px",
+                      fontSize: "15px",
+                      color: "#ffffff",
+                      backgroundColor: "#111827",
+                      border: "1px solid #4b5563",
+                      borderRadius: "8px",
+                      outline: "none",
+                      cursor:
+                        matchedCourses.length === 0 || warning.type === "later_prerequisite"
+                          ? "not-allowed"
+                          : "pointer",
+                      opacity: matchedCourses.length === 0 || warning.type === "later_prerequisite" ? 0.5 : 1,
+                    }}
+                  >
+                    <option value="">Select previous year</option>
+                    {previousYears.map((y) => {
+                      const emptySlot = getFirstEmptySlot(y);
+                      return (
+                        <option key={y} value={y} disabled={!emptySlot}>
+                          {YEAR_LABELS[y]} {emptySlot ? "" : "(no empty slots)"}
+                        </option>
+                      );
+                    })}
+                  </select>
 
-              <button
-                type="button"
-                onClick={handleAddPrerequisite}
-                disabled={loading || !canAddPrerequisite}
-                style={{
-                  padding: "12px 16px",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: "#ffffff",
-                  backgroundColor: "#16a34a",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: canAddPrerequisite ? "pointer" : "not-allowed",
-                  textAlign: "left",
-                  opacity: canAddPrerequisite ? 1 : 0.5,
-                }}
-              >
-                Add {selectedCourse?.title ?? "prerequisite"} to{" "}
-                {selectedYear ? YEAR_LABELS[selectedYear] : "previous year"}
-              </button>
+                  <button
+                    type="button"
+                    onClick={handleAddPrerequisite}
+                    disabled={loading || !canAddPrerequisite}
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: "15px",
+                      fontWeight: 500,
+                      color: "#ffffff",
+                      backgroundColor: "#16a34a",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: canAddPrerequisite ? "pointer" : "not-allowed",
+                      textAlign: "left",
+                      opacity: canAddPrerequisite ? 1 : 0.5,
+                    }}
+                  >
+                    Add {selectedCourse?.title ?? "prerequisite"} to{" "}
+                    {selectedYear ? YEAR_LABELS[selectedYear] : "previous year"}
+                  </button>
+                </>
+              )}
 
               {addPrerequisiteHelpText && (
                 <p
