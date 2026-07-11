@@ -1,26 +1,32 @@
-import type { Course } from "@/types/course";
+import type { PlannerCourseDetails } from "@/lib/planner";
 
 // Server-side fetches need the backend directly; client-side fetches use relative URLs
 // so they work through the Replit proxy and Next.js rewrites.
 const API_URL =
   typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
 
+export const GRADE_COMPLETED_OPTIONS = [
+  "Middle School",
+  "Freshman (9)",
+  "Sophomore (10)",
+  "Junior (11)",
+  "Senior (12)",
+] as const;
+
+export type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
+
 export type CompletedCourse = {
   id: number;
   userId: number;
   courseId: number;
-  gradeLevelTaken: number;
-  yearTaken: number;
+  gradeCompleted: GradeCompleted;
   credits: number | null;
-  createdAt: string;
-  course: Course;
+  course: PlannerCourseDetails;
 };
 
 export type CompletedCourseInput = {
   courseId: number;
-  gradeLevelTaken: number;
-  yearTaken: number;
-  credits?: number | null;
+  gradeCompleted: GradeCompleted;
 };
 
 export async function getCompletedCourses(): Promise<CompletedCourse[]> {
@@ -35,12 +41,15 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
   return response.json();
 }
 
-export async function addCompletedCourse(input: CompletedCourseInput): Promise<CompletedCourse> {
+export async function addCompletedCourse(
+  courseId: number,
+  gradeCompleted: GradeCompleted
+): Promise<CompletedCourse> {
   const response = await fetch(`${API_URL}/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: JSON.stringify({ courseId, gradeCompleted }),
   });
 
   if (!response.ok) {

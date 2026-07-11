@@ -2,10 +2,11 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  searchPlannerCourses,
+  courseToPlannerDetails,
   type PlannerCourseDetails,
   sortPickerCourses,
 } from "@/lib/planner";
+import { getCourses } from "@/lib/api";
 import { CourseFilters, type ActiveFilters } from "@/components/catalog/CourseFilters";
 
 type CoursePickerProps = {
@@ -36,7 +37,8 @@ export function CoursePicker({
 
   useEffect(() => {
     setLoading(true);
-    searchPlannerCourses("")
+    getCourses()
+      .then((courses) => courses.map(courseToPlannerDetails))
       .then(setAllCourses)
       .catch(() => setAllCourses([]))
       .finally(() => setLoading(false));
