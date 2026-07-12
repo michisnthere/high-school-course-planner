@@ -100,7 +100,7 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
       <CourseDetailHeader course={course} returnUrl={returnUrl} />
       <CourseDescription course={course} />
       <CourseOfferings course={course} />
-      <CoursePrerequisites course={course} />
+      <CoursePrerequisites course={course} allCourses={courses} />
       <CourseAttributes course={course} />
     </div>
   );

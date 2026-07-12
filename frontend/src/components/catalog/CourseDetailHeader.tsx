@@ -18,8 +18,10 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
   let backLabel = "← Back to Catalog";
   if (returnUrl === "/") {
     backLabel = "← Back to Dashboard";
+  } else if (returnUrl?.startsWith("/catalog/")) {
+    backLabel = "← Back";
   } else if (returnUrl) {
-    backLabel = "← Back to Planner";
+    backLabel = "← Back";
   }
 
   return (
