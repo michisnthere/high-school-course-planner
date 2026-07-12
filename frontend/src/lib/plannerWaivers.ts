@@ -1,16 +1,16 @@
 import type { PlannedCourse } from "./planner";
 import { getCourseCredits, getPlacementKey } from "./courseCredits";
 
-export type AcademicPeWaiver = {
-  type: "academic";
-};
+export type AcademicPeWaiver = { type: "academic" };
 
 export type AthleticPeWaiver = {
   type: "athletic";
   variant: "non-credit" | "credit";
 };
 
-export type PeWaiver = AcademicPeWaiver | AthleticPeWaiver;
+export type MarchingBandPeWaiver = { type: "marching-band" };
+
+export type PeWaiver = AcademicPeWaiver | AthleticPeWaiver | MarchingBandPeWaiver;
 
 export type WaiverEligibility = {
   academic: {
@@ -21,7 +21,50 @@ export type WaiverEligibility = {
     eligible: boolean;
     reason: string;
   };
+  marchingBand: {
+    eligible: boolean;
+    reason: string;
+    matchedCourse: string | null;
+  };
 };
+
+const MARCHING_BAND_KEYWORDS = [
+  "freshman band",
+  "wind ensemble",
+  "symphonic band",
+  "wind symphony",
+  "color guard",
+];
+
+function matchesMarchingBand(title: string): string | null {
+  const normalized = title.toLowerCase().replace(/\*/g, "").trim();
+  for (const keyword of MARCHING_BAND_KEYWORDS) {
+    if (
+      normalized === keyword ||
+      normalized.startsWith(keyword) ||
+      normalized.includes(keyword)
+    ) {
+      return keyword;
+    }
+  }
+  return null;
+}
+
+export function findMarchingBandCourse(
+  plannedCourses: PlannedCourse[]
+): { found: boolean; matchedTitle: string | null } {
+  const seen = new Set<string>();
+  for (const pc of plannedCourses) {
+    const key = getPlacementKey(pc);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const match = matchesMarchingBand(pc.course.title);
+    if (match) {
+      return { found: true, matchedTitle: pc.course.title };
+    }
+  }
+  return { found: false, matchedTitle: null };
+}
 
 export function getCreditBearingCount(
   plannedCourses: PlannedCourse[]
@@ -52,28 +95,39 @@ export function getCreditBearingCount(
 
 export function computeWaiverEligibility(
   grade: number,
-  creditBearing: { sem1: number; sem2: number }
+  creditBearing: { sem1: number; sem2: number },
+  plannedCourses?: PlannedCourse[]
 ): WaiverEligibility {
   const minCreditBearing = Math.min(creditBearing.sem1, creditBearing.sem2);
 
-  return {
-    academic: {
-      eligible: grade >= 12 && minCreditBearing >= 6,
-      reason:
-        grade < 12
-          ? "Only available to Seniors"
-          : minCreditBearing < 6
-          ? "Requires six credit-bearing classes per semester"
-          : "Academic PE Waiver may be available.",
-    },
-    athletic: {
-      eligible: grade >= 11,
-      reason:
-        grade < 11
-          ? "Only available to Juniors and Seniors"
-          : "Athletic PE Waiver may be available.",
-    },
+  const academic = {
+    eligible: grade >= 12 && minCreditBearing >= 6,
+    reason:
+      grade < 12
+        ? "Only available to Seniors"
+        : minCreditBearing < 6
+        ? "Requires six credit-bearing classes per semester"
+        : "Academic PE Waiver may be available.",
   };
+
+  const athletic = {
+    eligible: grade >= 11,
+    reason:
+      grade < 11
+        ? "Only available to Juniors and Seniors"
+        : "Athletic PE Waiver may be available.",
+  };
+
+  const mb = plannedCourses ? findMarchingBandCourse(plannedCourses) : { found: false, matchedTitle: null };
+  const marchingBand = {
+    eligible: mb.found,
+    reason: mb.found
+      ? "Marching Band course found."
+      : "Marching Band course not found in planner.",
+    matchedCourse: mb.matchedTitle,
+  };
+
+  return { academic, athletic, marchingBand };
 }
 
 export function computeAthleticVariantEligibility(

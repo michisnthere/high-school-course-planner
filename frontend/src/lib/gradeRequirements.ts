@@ -132,6 +132,26 @@ export function getRequirementStatus(
   });
 }
 
+export function computeEffectivePeStatus(
+  pePerSemester: PeSemesterStatus[],
+  peWaivers: { type: string }[]
+): PeSemesterStatus[] {
+  if (peWaivers.length === 0) return pePerSemester;
+
+  const hasFullWaiver = peWaivers.some((w) => w.type === "academic" || w.type === "athletic");
+  const hasMarchingBand = peWaivers.some((w) => w.type === "marching-band");
+
+  return pePerSemester.map((sem) => {
+    if (hasFullWaiver) {
+      return { ...sem, isMet: true };
+    }
+    if (hasMarchingBand && sem.semester === 1) {
+      return { ...sem, isMet: true };
+    }
+    return sem;
+  });
+}
+
 function courseMatchesPeDanceDriverEd(course: PlannerCourseDetails): boolean {
   const terms = ["Physical Education", "Dance", "Driver Education"];
   const tokens = [
