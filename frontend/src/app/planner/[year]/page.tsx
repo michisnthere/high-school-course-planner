@@ -46,6 +46,8 @@ import {
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
+import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
+import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -861,6 +863,13 @@ function SummarySidebar({
       <GradeRequirements
         grade={currentYear}
         requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
+      />
+
+      <CourseLoadRequirements
+        requirements={computeCourseLoadRequirements(
+          currentPlanner?.plannedCourses ?? [],
+          currentYear
+        )}
       />
 
       <div

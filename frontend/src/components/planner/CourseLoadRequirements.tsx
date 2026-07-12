@@ -1,0 +1,180 @@
+import React from "react";
+import type { CourseLoadRequirements } from "@/lib/courseLoadRequirements";
+
+type Props = {
+  requirements: CourseLoadRequirements;
+};
+
+function ProgressBar({
+  earned,
+  required,
+}: {
+  earned: number;
+  required: number;
+}): React.ReactElement {
+  const percent = required > 0 ? Math.min(100, (earned / required) * 100) : 0;
+  const isMet = earned >= required;
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        fontSize: "13px",
+        color: "#9ca3af",
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          height: "6px",
+          backgroundColor: "#374151",
+          borderRadius: "3px",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            width: `${percent}%`,
+            height: "100%",
+            backgroundColor: isMet ? "#22c55e" : "#f59e0b",
+            borderRadius: "3px",
+            transition: "width 400ms ease",
+          }}
+        />
+      </div>
+      <span style={{ minWidth: "70px", textAlign: "right", fontWeight: 500 }}>
+        {earned.toFixed(1)} / {required} cr
+      </span>
+    </div>
+  );
+}
+
+export function CourseLoadRequirements({
+  requirements,
+}: Props): React.ReactElement | null {
+  const { semesterCredits, sixthPeriod, peDanceDriverEd } = requirements;
+  const allMet =
+    semesterCredits.every((s) => s.isMet) &&
+    sixthPeriod.every((s) => s.isMet) &&
+    peDanceDriverEd.isMet;
+
+  return (
+    <div
+      style={{
+        marginTop: "24px",
+        paddingTop: "20px",
+        borderTop: "1px solid #374151",
+      }}
+    >
+      <h3
+        style={{
+          margin: "0 0 12px",
+          fontSize: "16px",
+          fontWeight: 700,
+          color: "#ffffff",
+        }}
+      >
+        Course Load Requirements
+      </h3>
+
+      <ul
+        style={{
+          listStyle: "none",
+          margin: 0,
+          padding: 0,
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+        }}
+      >
+        <li>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "14px",
+              color: "#d1d5db",
+              marginBottom: "8px",
+            }}
+          >
+            <span style={{ fontSize: "16px" }}>
+              {semesterCredits.every((s) => s.isMet) ? "✓" : "⚠"}
+            </span>
+            <span>At least five credits of coursework</span>
+          </div>
+          <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "4px" }}>
+            {semesterCredits.map((s) => (
+              <div key={s.semester} style={{ fontSize: "13px", color: "#9ca3af" }}>
+                <span style={{ fontWeight: 500, color: "#d1d5db" }}>Semester {s.semester}:</span>{" "}
+                <ProgressBar earned={s.earnedCredits} required={s.requiredCredits} />
+              </div>
+            ))}
+          </div>
+        </li>
+
+        <li>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "14px",
+              color: "#d1d5db",
+              marginBottom: "8px",
+            }}
+          >
+            <span style={{ fontSize: "16px" }}>
+              {sixthPeriod.every((s) => s.isMet) ? "✓" : "⚠"}
+            </span>
+            <span>A sixth supervised period</span>
+          </div>
+          <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "4px" }}>
+            {sixthPeriod.map((s) => (
+              <div
+                key={s.semester}
+                style={{
+                  fontSize: "13px",
+                  color: s.isMet ? "#22c55e" : "#f59e0b",
+                }}
+              >
+                Semester {s.semester}: {s.filledCount} / {s.requiredCount} periods filled
+              </div>
+            ))}
+          </div>
+        </li>
+
+        <li>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "14px",
+              color: peDanceDriverEd.isMet ? "#d1d5db" : "#fbbf24",
+            }}
+          >
+            <span style={{ fontSize: "16px" }}>
+              {peDanceDriverEd.isMet ? "✓" : "⚠"}
+            </span>
+            <span>Physical Welfare, Dance, and/or Driver Education</span>
+          </div>
+          {peDanceDriverEd.detail && (
+            <div
+              style={{
+                paddingLeft: "24px",
+                fontSize: "13px",
+                color: peDanceDriverEd.isMet ? "#22c55e" : "#9ca3af",
+                marginTop: "4px",
+              }}
+            >
+              {peDanceDriverEd.detail}
+            </div>
+          )}
+        </li>
+      </ul>
+    </div>
+  );
+}
