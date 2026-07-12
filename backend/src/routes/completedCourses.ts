@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
 import { deriveCourseDetails } from "./planner.js";
+import { calculateTotalCredits } from "../lib/plannerAnalysis.js";
 
 const router = Router();
 
@@ -101,7 +102,7 @@ router.post("/", requireAuth, async (req, res) => {
   }
 
   const details = deriveCourseDetails(course);
-  const calculatedCredits = details.credits ?? course.duration ?? 1;
+  const calculatedCredits = details.credits ?? calculateTotalCredits(course);
 
   const existing = await prisma.completedCourse.findUnique({
     where: { userId_courseId: { userId, courseId: course.id } },

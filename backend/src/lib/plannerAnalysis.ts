@@ -154,10 +154,24 @@ function deriveCourseDuration(course: CourseWithOptions): number {
   return hasFullYear ? 2 : 1;
 }
 
-function getCourseCredits(course: CourseWithOptions): number {
-  const option = course.options[0];
+export function calculateTotalCredits(course: {
+  options?: Array<{
+    credits?: number | null;
+    offerings?: Array<{ duration?: string | number | null }>;
+  }> | null;
+  duration?: number | null;
+}): number {
+  const option = course.options?.[0];
   if (option?.credits != null) return option.credits;
-  return deriveCourseDuration(course) / 2;
+  if (course.duration === 2) return 2;
+  if (course.duration === 1) return 1;
+  const hasFullYear = option?.offerings?.some((offering) => {
+    const value = offering.duration;
+    if (typeof value === "number") return value === 2;
+    if (typeof value === "string") return Number(value.trim()) === 2;
+    return false;
+  });
+  return hasFullYear ? 2 : 1;
 }
 
 function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
@@ -183,7 +197,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     title: course.title,
     courseCode,
     duration: deriveCourseDuration(course),
-    credits: getCourseCredits(course),
+    credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     fulfillsRequirements,

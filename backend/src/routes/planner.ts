@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
 import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
+import { calculateTotalCredits } from "../lib/plannerAnalysis.js";
 import type { Course, PlannerOption } from "@prisma/client";
 
 const router = Router();
@@ -128,7 +129,7 @@ export function deriveCourseDetails(
     normalizedTitle: course.normalizedTitle ?? null,
     duration: deriveCourseDuration(course),
     creditType: option?.creditType ?? null,
-    credits: option?.credits ?? course.duration ?? 1,
+    credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     description: course.description ?? null,
