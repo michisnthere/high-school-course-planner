@@ -113,7 +113,9 @@ function RequirementsContent(): React.ReactElement {
           {summary && (
             <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
               <SummaryCard title="Overall Completion" value={`${summary.percentage}%`}>
-                <ProgressBar percent={summary.percentage} />
+                <div style={{ marginTop: "8px" }}>
+                  <ProgressBar percent={summary.percentage} height={10} showLabel />
+                </div>
               </SummaryCard>
               <SummaryCard title="Credits Earned" value={formatNumber(summary.earned)} />
               <SummaryCard title="Credits Required" value={formatNumber(summary.required)} />
@@ -224,6 +226,19 @@ function RequirementsContent(): React.ReactElement {
                         </strong>
                       </span>
                     </div>
+                    <div style={{ marginTop: "12px" }}>
+                      <ProgressBar
+                        percent={
+                          (req.requiredValue ?? 0) > 0
+                            ? Math.min(100, (req.earnedValue / (req.requiredValue ?? 0)) * 100)
+                            : req.status === "satisfied"
+                            ? 100
+                            : 0
+                        }
+                        color={config.badge}
+                        showLabel
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -316,27 +331,59 @@ function SummaryCard({
   );
 }
 
-function ProgressBar({ percent }: { percent: number }): React.ReactElement {
+function ProgressBar({
+  percent,
+  color = "#2563eb",
+  height = 8,
+  showLabel = false,
+}: {
+  percent: number;
+  color?: string;
+  height?: number;
+  showLabel?: boolean;
+}): React.ReactElement {
+  const [animatedWidth, setAnimatedWidth] = useState(0);
   const clamped = Math.min(100, Math.max(0, percent));
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimatedWidth(clamped), 50);
+    return () => clearTimeout(timer);
+  }, [clamped]);
+
   return (
-    <div
-      style={{
-        marginTop: "12px",
-        height: "8px",
-        backgroundColor: "#e5e7eb",
-        borderRadius: "4px",
-        overflow: "hidden",
-      }}
-    >
+    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <div
         style={{
-          width: `${clamped}%`,
-          height: "100%",
-          backgroundColor: "#2563eb",
-          borderRadius: "4px",
-          transition: "width 300ms ease",
+          flex: 1,
+          height,
+          backgroundColor: "#e5e7eb",
+          borderRadius: height / 2,
+          overflow: "hidden",
         }}
-      />
+      >
+        <div
+          style={{
+            width: `${animatedWidth}%`,
+            height: "100%",
+            backgroundColor: color,
+            borderRadius: height / 2,
+            transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        />
+      </div>
+      {showLabel && (
+        <span
+          style={{
+            fontSize: "13px",
+            fontWeight: 600,
+            color: "#374151",
+            minWidth: "42px",
+            textAlign: "right",
+          }}
+        >
+          {Math.round(clamped)}%
+        </span>
+      )}
     </div>
   );
 }

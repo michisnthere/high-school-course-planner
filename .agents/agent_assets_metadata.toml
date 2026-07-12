@@ -6,3 +6,9 @@ id = "qs64A20Vd3waIYsj6XKRK"
 uri = "file://screenshots/requirements.png"
 type = "image"
 title = "Graduation Requirements page"
+
+[[outputs]]
+id = "xDX0jMxGie4NJiVIKQW6z"
+uri = "file://screenshots/requirements_progress.png"
+type = "image"
+title = "Graduation Requirements with progress bars"
