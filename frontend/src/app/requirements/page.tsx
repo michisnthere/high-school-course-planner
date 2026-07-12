@@ -113,7 +113,7 @@ function RequirementsContent(): React.ReactElement {
   const plannedIds = useMemo(() => {
     const ids = new Set<number>();
     for (const planner of planners) {
-      for (const pc of planner.plannedCourses) {
+      for (const pc of planner.plannedCourses ?? []) {
         if (pc.courseId != null) {
           ids.add(pc.courseId);
         }

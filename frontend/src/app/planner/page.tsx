@@ -116,8 +116,8 @@ function PlannerContent(): React.ReactElement {
                   color: "#9ca3af",
                 }}
               >
-                {planner.plannedCourses.length} course
-                {planner.plannedCourses.length === 1 ? "" : "s"} planned
+                {(planner.plannedCourses ?? []).length} course
+                {(planner.plannedCourses ?? []).length === 1 ? "" : "s"} planned
               </p>
             </Link>
           ))}
