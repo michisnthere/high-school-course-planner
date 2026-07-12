@@ -43,13 +43,14 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
 
 export async function addCompletedCourse(
   courseId: number,
-  gradeCompleted: GradeCompleted
+  gradeCompleted: GradeCompleted,
+  yearCompleted?: string
 ): Promise<CompletedCourse> {
   const response = await fetch(`${API_URL}/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ courseId, gradeCompleted }),
+    body: JSON.stringify({ courseId, gradeCompleted, yearCompleted }),
   });
 
   if (!response.ok) {

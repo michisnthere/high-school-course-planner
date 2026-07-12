@@ -16,6 +16,7 @@ type CoursePickerProps = {
   actionLabel?: string;
   excludeCourseIds?: number[];
   selectedCourseId?: number | null;
+  simple?: boolean;
 };
 
 export function CoursePicker({
@@ -24,6 +25,7 @@ export function CoursePicker({
   actionLabel = "Select",
   excludeCourseIds,
   selectedCourseId,
+  simple = false,
 }: CoursePickerProps): React.ReactElement {
   const [query, setQuery] = useState("");
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
@@ -59,7 +61,7 @@ export function CoursePicker({
       const excludeSet = new Set(excludeCourseIds);
       result = result.filter((c) => !excludeSet.has(c.id));
     }
-    if (filters.division.length > 0) {
+    if (!simple && filters.division.length > 0) {
       const selected = filters.division[0];
       result = result.filter((c) => c.division === selected);
     }
@@ -68,7 +70,7 @@ export function CoursePicker({
       result = result.filter((c) => c.title.toLowerCase().includes(q));
     }
     return sortPickerCourses(result);
-  }, [allCourses, excludeCourseIds, filters.division, query]);
+  }, [allCourses, excludeCourseIds, simple, filters.division, query]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
@@ -92,16 +94,18 @@ export function CoursePicker({
             marginBottom: "16px",
           }}
         />
-        <CourseFilters
-          divisions={divisions}
-          divisionDepartments={new Map()}
-          departments={[]}
-          creditTypes={[]}
-          gradeLevels={[]}
-          semesters={[]}
-          filters={filters}
-          onFilterChange={setFilters}
-        />
+        {!simple && (
+          <CourseFilters
+            divisions={divisions}
+            divisionDepartments={new Map()}
+            departments={[]}
+            creditTypes={[]}
+            gradeLevels={[]}
+            semesters={[]}
+            filters={filters}
+            onFilterChange={setFilters}
+          />
+        )}
       </div>
 
       <div style={{ flex: 1, overflowY: "auto", padding: "0 24px 24px" }}>

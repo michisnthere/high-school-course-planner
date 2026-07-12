@@ -44,9 +44,17 @@ function CompletedCoursesContent(): React.ReactElement {
   }, [load]);
 
   const handleAdd = useCallback(
-    async ({ courseId, gradeCompleted }: { courseId: number; gradeCompleted: GradeCompleted }) => {
+    async ({
+      courseId,
+      gradeCompleted,
+      yearCompleted,
+    }: {
+      courseId: number;
+      gradeCompleted: GradeCompleted;
+      yearCompleted: string;
+    }) => {
       try {
-        await addCompletedCourse(courseId, gradeCompleted);
+        await addCompletedCourse(courseId, gradeCompleted, yearCompleted);
         setPickerOpen(false);
         await load();
       } catch (err) {
@@ -132,8 +140,18 @@ function CompletedCoursesContent(): React.ReactElement {
                       gap: "16px",
                       padding: "16px",
                       backgroundColor: bgTint,
-                      border: `1px solid ${accentColor}`,
+                      borderTopWidth: "1px",
+                      borderRightWidth: "1px",
+                      borderBottomWidth: "1px",
                       borderLeftWidth: "4px",
+                      borderTopStyle: "solid",
+                      borderRightStyle: "solid",
+                      borderBottomStyle: "solid",
+                      borderLeftStyle: "solid",
+                      borderTopColor: accentColor,
+                      borderRightColor: accentColor,
+                      borderBottomColor: accentColor,
+                      borderLeftColor: accentColor,
                       borderRadius: "12px",
                     }}
                   >

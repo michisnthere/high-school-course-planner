@@ -389,9 +389,17 @@ function PlannerYearContent(): React.ReactElement {
   }, []);
 
   const handleCompletedCourseSubmit = useCallback(
-    async ({ courseId, gradeCompleted }: { courseId: number; gradeCompleted: GradeCompleted }) => {
+    async ({
+      courseId,
+      gradeCompleted,
+      yearCompleted,
+    }: {
+      courseId: number;
+      gradeCompleted: GradeCompleted;
+      yearCompleted: string;
+    }) => {
       try {
-        await addCompletedCourse(courseId, gradeCompleted);
+        await addCompletedCourse(courseId, gradeCompleted, yearCompleted);
         setCompletedCoursePicker({ open: false });
         await loadCompletedCourses();
         showToast("Course marked as completed.", "success");
@@ -1073,8 +1081,18 @@ function PlannedCourseCard({
       style={{
         padding: "16px",
         backgroundColor: isDragOver ? "rgba(37, 99, 235, 0.15)" : bgTint,
-        border: `1px solid ${isDragOver ? "#3b82f6" : accentColor}`,
+        borderTopWidth: "1px",
+        borderRightWidth: "1px",
+        borderBottomWidth: "1px",
         borderLeftWidth: "4px",
+        borderTopStyle: "solid",
+        borderRightStyle: "solid",
+        borderBottomStyle: "solid",
+        borderLeftStyle: "solid",
+        borderTopColor: isDragOver ? "#3b82f6" : accentColor,
+        borderRightColor: isDragOver ? "#3b82f6" : accentColor,
+        borderBottomColor: isDragOver ? "#3b82f6" : accentColor,
+        borderLeftColor: isDragOver ? "#3b82f6" : accentColor,
         borderRadius: "12px",
         fontFamily:
           `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
