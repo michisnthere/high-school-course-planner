@@ -45,7 +45,7 @@ function ProgressBar({
         />
       </div>
       <span style={{ minWidth: "70px", textAlign: "right", fontWeight: 500 }}>
-        {earned.toFixed(1)} / {required} cr
+        {earned.toFixed(1)} / {required}
       </span>
     </div>
   );

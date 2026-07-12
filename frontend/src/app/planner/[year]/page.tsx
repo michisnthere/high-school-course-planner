@@ -1864,8 +1864,15 @@ type PlannerWarning = {
   };
 };
 
+function getCourseInstanceKey(planned: PlannedCourse): string {
+  if (planned.course.duration === 2 && planned.courseId != null) {
+    return `${planned.plannerId}-fy-${planned.courseId}-${planned.slot}`;
+  }
+  return `${planned.plannerId}-sem-${planned.id}`;
+}
+
 function makeWarningKey(planned: PlannedCourse, warning: PlannerWarning): string {
-  return `${planned.plannerId}-${planned.id}-${warning.type}-${warning.prerequisite}`;
+  return `${getCourseInstanceKey(planned)}-${warning.type}-${warning.prerequisite}`;
 }
 
 function getWarnings(
@@ -1918,6 +1925,8 @@ function getWarnings(
     return warnings;
   }
 
+  const effectiveSemester = course.duration === 2 ? 1 : currentSemester;
+
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
 
@@ -1941,7 +1950,7 @@ function getWarnings(
     const isPrerequisiteSatisfied = prereqPlacements.some(
       (item) =>
         item.year < currentYear ||
-        (item.year === currentYear && item.semester === 1 && currentSemester === 2)
+        (item.year === currentYear && item.semester === 1 && effectiveSemester === 2)
     );
 
     if (prereqPlacements.length === 0) {
@@ -1954,7 +1963,7 @@ function getWarnings(
       const prerequisitePlacement =
         prereqPlacements.find(
           (item) =>
-            item.year === currentYear && item.semester === 2 && currentSemester === 1
+            item.year === currentYear && item.semester === 2 && effectiveSemester === 1
         ) ?? prereqPlacements[0];
       warnings.push({
         message: `A prerequisite for this course is not scheduled before it.`,

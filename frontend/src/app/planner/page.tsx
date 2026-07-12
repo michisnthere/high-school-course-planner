@@ -109,16 +109,28 @@ function PlannerContent(): React.ReactElement {
               >
                 {YEAR_LABELS[planner.schoolYear]}
               </h2>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: "15px",
-                  color: "#9ca3af",
-                }}
-              >
-                {(planner.plannedCourses ?? []).length} course
-                {(planner.plannedCourses ?? []).length === 1 ? "" : "s"} planned
-              </p>
+              {(() => {
+                const uniqueIds = new Set<number | string>();
+                for (const pc of planner.plannedCourses ?? []) {
+                  if (pc.courseId != null) {
+                    uniqueIds.add(pc.courseId);
+                  } else {
+                    uniqueIds.add(`opt-${pc.id}`);
+                  }
+                }
+                const count = uniqueIds.size;
+                return (
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "15px",
+                      color: "#9ca3af",
+                    }}
+                  >
+                    {count} course{count === 1 ? "" : "s"} planned
+                  </p>
+                );
+              })()}
             </Link>
           ))}
         </div>
