@@ -26,6 +26,7 @@ export type PlannerAnalysis = {
     requirementType: string | null;
     notes: unknown;
     sourceReference: string | null;
+    explanation: string;
   }>;
   yearRequirements: Array<{
     grade: number;

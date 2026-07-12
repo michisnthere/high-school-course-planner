@@ -46,11 +46,23 @@ export type GpaProjection = {
   projected: GpaSummary;
 };
 
-const POINTS_BY_LEVEL: Record<string, number> = {
-  "college prep": 4.0,
-  accelerated: 4.5,
-  honors: 5.0,
-  ap: 5.0,
+const LETTER_GRADE_POINTS: Record<string, number> = {
+  A: 4.0,
+  B: 3.0,
+  C: 2.0,
+  D: 1.0,
+  F: 0,
+};
+
+const WEIGHTED_MULTIPLIERS: Record<string, Record<string, number>> = {
+  "college prep": { A: 4.0, B: 3.0, C: 2.0, D: 1.0, F: 0 },
+  accelerated: { A: 4.5, B: 3.5, C: 2.5, D: 1.5, F: 0 },
+  honors: { A: 5.0, B: 4.0, C: 3.0, D: 2.0, F: 0 },
+  ap: { A: 5.0, B: 4.0, C: 3.0, D: 2.0, F: 0 },
+};
+
+const DEFAULT_WEIGHTED: Record<string, number> = {
+  A: 4.0, B: 3.0, C: 2.0, D: 1.0, F: 0,
 };
 
 function normalizeCreditType(value: string | null | undefined): string | null {
@@ -65,27 +77,40 @@ function normalizeCreditType(value: string | null | undefined): string | null {
   return trimmed;
 }
 
-function getBasePoints(creditType: string | null): number {
-  if (!creditType) return POINTS_BY_LEVEL["college prep"];
+function getWeightedPoints(creditType: string | null, letterGrade: string | null): number {
+  if (!letterGrade) return 0;
+  const grade = letterGrade.toUpperCase();
+  const points = LETTER_GRADE_POINTS[grade];
+  if (points == null) return 0;
+  if (!creditType) return points;
   const normalized = creditType.toLowerCase();
-  if (normalized.includes("ap") || normalized.includes("honors")) return POINTS_BY_LEVEL.ap;
-  if (normalized.includes("accelerated")) return POINTS_BY_LEVEL.accelerated;
-  return POINTS_BY_LEVEL["college prep"];
+  let multiplier: Record<string, number> | undefined;
+  if (normalized.includes("ap") || normalized.includes("honors")) {
+    multiplier = WEIGHTED_MULTIPLIERS.ap;
+  } else if (normalized.includes("accelerated")) {
+    multiplier = WEIGHTED_MULTIPLIERS.accelerated;
+  } else {
+    multiplier = WEIGHTED_MULTIPLIERS["college prep"];
+  }
+  return multiplier?.[grade] ?? DEFAULT_WEIGHTED[grade] ?? 0;
 }
 
-function deriveCourseCredits(course: CourseWithOptions, fallbackDuration: number | null): number {
+function getUnweightedPoints(letterGrade: string | null): number {
+  if (!letterGrade) return 0;
+  return LETTER_GRADE_POINTS[letterGrade.toUpperCase()] ?? 0;
+}
+
+function deriveCourseCredits(course: CourseWithOptions): number {
   const option = course.options[0];
   if (option?.credits != null) return option.credits;
-  if (course.duration != null) return course.duration / 2;
-  if (fallbackDuration != null) return fallbackDuration / 2;
-  return 0.5;
+  if (course.duration != null) return course.duration;
+  return 1;
 }
 
-function toAnalysisCourse(course: CourseWithOptions): GpaEntry {
+function toAnalysisCourse(course: CourseWithOptions, letterGrade: string | null): GpaEntry {
   const option = course.options[0];
   const creditType = normalizeCreditType(option?.creditType ?? null);
-  const credits = deriveCourseCredits(course, course.duration ?? null);
-  const weightedPoints = getBasePoints(creditType);
+  const credits = deriveCourseCredits(course);
 
   return {
     courseId: course.id,
@@ -93,8 +118,8 @@ function toAnalysisCourse(course: CourseWithOptions): GpaEntry {
     credits,
     creditType,
     gpaWaiverOption: Boolean(option?.gpaWaiverOption),
-    weightedPoints,
-    unweightedPoints: 4.0,
+    weightedPoints: getWeightedPoints(creditType, letterGrade),
+    unweightedPoints: getUnweightedPoints(letterGrade),
   };
 }
 
@@ -117,8 +142,8 @@ function dedupePlannedCourses(placements: PlannedCourseWithRelations[]): GpaEntr
 
   for (const placement of placements) {
     if (!placement.course) continue;
-    const course = toAnalysisCourse(placement.course);
-    const key = course.weightedPoints === 4.0 && course.credits <= 0 ? `${placement.id}` : "";
+    const course = toAnalysisCourse(placement.course, "A");
+    const key = course.weightedPoints === 0 && course.credits <= 0 ? `${placement.id}` : "";
     const dedupeKey =
       placement.course.duration === 2
         ? `${placement.course.id}-${placement.plannerId}-${placement.slot}`
@@ -194,7 +219,9 @@ export async function analyzeGpa(userId: number): Promise<GpaProjection> {
     loadPlannedCourses(userId),
   ]);
 
-  const completedEntries = completedCourses.map((cc) => toAnalysisCourse(cc.course));
+  const completedEntries = completedCourses.map((cc) =>
+    toAnalysisCourse(cc.course, cc.letterGrade)
+  );
   const plannedEntries = dedupePlannedCourses(plannedCourses);
 
   return {

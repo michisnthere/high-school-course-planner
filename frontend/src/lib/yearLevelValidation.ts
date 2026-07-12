@@ -18,6 +18,12 @@ export type YearLevelCard = {
   items: YearLevelItem[];
 };
 
+export type PeYearStatus = {
+  met: boolean;
+  grade: number;
+  label: string;
+};
+
 type CourseLike = PlannerCourseDetails;
 
 type PlannedCourseLike = {
@@ -35,17 +41,6 @@ const GRADE_LABELS: Record<number, string> = {
   10: "Sophomore",
   11: "Junior",
   12: "Senior",
-};
-
-const RECOMMENDATION_RULES: Record<string, string[]> = {
-  English: ["English"],
-  Math: ["Mathematics"],
-  Mathematics: ["Mathematics"],
-  Science: ["Biology", "Physical Science"],
-  Health: ["Health"],
-  "Driver Education": ["Driver Education"],
-  "Physical Education": ["Physical Education"],
-  "Economics / Personal Finance": ["Economics", "Personal Finance", "Consumer Education", "AP Macroeconomics", "AP Microeconomics"],
 };
 
 const ACADEMIC_CREDITS_MATCHERS = [
@@ -105,17 +100,7 @@ function getCompletedInstances(completedCourses: CompletedCourse[], lookup: Map<
 }
 
 function countCredits(courses: CourseLike[]): number {
-  return courses.reduce((sum, course) => sum + (course.credits ?? course.duration / 2), 0);
-}
-
-function uniqueRecommendations(courses: CourseLike[], terms: string[]): string[] {
-  const titles = new Set<string>();
-  for (const course of courses) {
-    if (matchesAnyCourse(course, terms)) {
-      titles.add(course.title);
-    }
-  }
-  return Array.from(titles).sort((a, b) => a.localeCompare(b));
+  return courses.reduce((sum, course) => sum + (course.credits ?? course.duration), 0);
 }
 
 function buildItem(
@@ -123,13 +108,12 @@ function buildItem(
   satisfied: boolean,
   warning: boolean,
   detail: string,
-  recommendations: string[]
 ): YearLevelItem {
   return {
     label,
     status: satisfied ? "satisfied" : warning ? "warning" : "missing",
     detail,
-    recommendations,
+    recommendations: [],
   };
 }
 
@@ -168,7 +152,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -177,7 +160,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Math)
         )
       );
       items.push(
@@ -187,7 +169,6 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Science)
         )
       );
       items.push(
@@ -196,7 +177,6 @@ export function computeYearLevelCards(
           academicCredits >= 8,
           academicCredits > 0 && academicCredits < 8,
           `${academicCredits.toFixed(1)} academic credits scheduled`,
-          []
         )
       );
     } else if (grade === 10) {
@@ -206,7 +186,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -215,7 +194,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Math)
         )
       );
       items.push(
@@ -225,7 +203,6 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Science)
         )
       );
       items.push(
@@ -234,7 +211,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Health"]) || matchesAnyCourseSet(gradeCompleted, ["Health"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Health"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Health)
         )
       );
       items.push(
@@ -244,17 +220,6 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Driver Education"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Driver Education"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Driver Education"])
-        )
-      );
-      items.push(
-        buildItem(
-          "Physical Education",
-          matchesAnyCourseSet(gradePlanned, ["Physical Education"]) ||
-            matchesAnyCourseSet(gradeCompleted, ["Physical Education"]),
-          false,
-          semesterCourseText([...gradePlanned, ...gradeCompleted], ["Physical Education"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Physical Education"])
         )
       );
     } else if (grade === 11) {
@@ -264,7 +229,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -273,19 +237,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Mathematics)
-        )
-      );
-      const peSatisfied =
-        matchesAnyCourseSet(gradePlanned, ["Physical Education"]) ||
-        matchesAnyCourseSet(gradeCompleted, ["Physical Education"]);
-      items.push(
-        buildItem(
-          "Physical Education or approved waiver",
-          peSatisfied,
-          false,
-          semesterCourseText([...gradePlanned, ...gradeCompleted], ["Physical Education"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Physical Education"])
         )
       );
     } else {
@@ -295,7 +246,6 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -309,19 +259,6 @@ export function computeYearLevelCards(
             "Personal Finance",
             "Consumer Education",
           ]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Economics / Personal Finance"])
-        )
-      );
-      const peSatisfied =
-        matchesAnyCourseSet(gradePlanned, ["Physical Education"]) ||
-        matchesAnyCourseSet(gradeCompleted, ["Physical Education"]);
-      items.push(
-        buildItem(
-          "Physical Education or approved waiver",
-          peSatisfied,
-          false,
-          semesterCourseText([...gradePlanned, ...gradeCompleted], ["Physical Education"]),
-          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Physical Education"])
         )
       );
     }
@@ -335,5 +272,45 @@ export function computeYearLevelCards(
       totalCount: items.length,
       items,
     };
+  });
+}
+
+export function computePeYears(
+  planners: Planner[] | null | undefined,
+  completedCourses: CompletedCourse[] | null | undefined,
+  courses: CourseLike[]
+): PeYearStatus[] {
+  const safePlanners = asArray(planners);
+  const safeCompletedCourses = asArray(completedCourses);
+  const safeCourses = asArray(courses);
+  const courseById = new Map(safeCourses.map((course) => [course.id, course] as const));
+  const completedCourseList = getCompletedInstances(safeCompletedCourses, courseById);
+
+  return [9, 10, 11, 12].map((grade) => {
+    const gradePlanner = safePlanners.find((planner) => planner.schoolYear === grade);
+    const gradePlanned = getPlannerPlannedCourses(gradePlanner);
+    const allCourses = [...gradePlanned, ...completedCourseList];
+
+    const peDivision = allCourses.filter((c) =>
+      (c.division ?? "").toLowerCase() === "physical education"
+    );
+    const peSemesters = new Set<number>();
+    let peSlotCount = 0;
+    if (gradePlanner) {
+      for (const pc of gradePlanner.plannedCourses ?? []) {
+        if (!pc.course) continue;
+        if ((pc.course.division ?? "").toLowerCase() === "physical education") {
+          peSemesters.add(pc.semester);
+          peSlotCount++;
+        }
+      }
+    }
+
+    const hasDance = matchesAnyCourseSet(allCourses, ["Dance"]);
+    const hasTwoSemesters = peSemesters.size >= 2 || peSlotCount >= 2;
+
+    const met = hasTwoSemesters || hasDance;
+
+    return { grade, label: GRADE_LABELS[grade], met };
   });
 }

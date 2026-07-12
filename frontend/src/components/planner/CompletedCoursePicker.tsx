@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { CoursePicker } from "./CoursePicker";
 import {
   GRADE_COMPLETED_OPTIONS,
+  LETTER_GRADE_OPTIONS,
   type GradeCompleted,
 } from "@/lib/completedCourses";
 
@@ -20,6 +21,7 @@ type CompletedCoursePickerProps = {
     courseId: number;
     gradeCompleted: GradeCompleted;
     yearCompleted: string;
+    letterGrade: string | null;
   }) => void;
   excludeCourseIds?: number[];
   defaultGrade?: GradeCompleted;
@@ -36,6 +38,7 @@ export function CompletedCoursePicker({
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
   const [yearCompleted, setYearCompleted] = useState<string>(defaultYear);
+  const [letterGrade, setLetterGrade] = useState<string>("A");
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -47,7 +50,7 @@ export function CompletedCoursePicker({
 
   const handleSubmit = () => {
     if (selectedCourseId == null) return;
-    onSubmit({ courseId: selectedCourseId, gradeCompleted, yearCompleted });
+    onSubmit({ courseId: selectedCourseId, gradeCompleted, yearCompleted, letterGrade });
   };
 
   return (
@@ -144,6 +147,33 @@ export function CompletedCoursePicker({
                 }}
               >
                 {GRADE_COMPLETED_OPTIONS.map((grade) => (
+                  <option key={grade} value={grade}>
+                    {grade}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+              <label
+                htmlFor="letter-grade"
+                style={{ color: "#d1d5db", fontSize: "14px", fontWeight: 500 }}
+              >
+                Letter grade:
+              </label>
+              <select
+                id="letter-grade"
+                value={letterGrade}
+                onChange={(e) => setLetterGrade(e.target.value)}
+                style={{
+                  padding: "8px 12px",
+                  fontSize: "14px",
+                  color: "#ffffff",
+                  backgroundColor: "#111827",
+                  border: "1px solid #4b5563",
+                  borderRadius: "8px",
+                }}
+              >
+                {LETTER_GRADE_OPTIONS.map((grade) => (
                   <option key={grade} value={grade}>
                     {grade}
                   </option>

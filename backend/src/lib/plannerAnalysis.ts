@@ -355,14 +355,23 @@ function computeCredits(placements: CoursePlacement[]) {
 function toInformationItems(requirements: GraduationRequirement[]): InformationItem[] {
   return requirements
     .filter((req) => isInformationItem(req))
-    .map((req) => ({
-      id: req.id,
-      name: canonicalRequirementName(req.name),
-      category: req.category,
-      requirementType: req.requirementType,
-      notes: req.notes,
-      sourceReference: req.sourceReference,
-    }))
+    .map((req) => {
+      let explanation = "";
+      if (Array.isArray(req.notes)) {
+        explanation = req.notes.map((n: unknown) => String(n)).join("; ");
+      } else if (typeof req.notes === "object" && req.notes !== null) {
+        explanation = JSON.stringify(req.notes);
+      }
+      return {
+        id: req.id,
+        name: canonicalRequirementName(req.name),
+        category: req.category,
+        requirementType: req.requirementType,
+        notes: req.notes,
+        sourceReference: req.sourceReference,
+        explanation,
+      };
+    })
     .filter((item, index, items) => items.findIndex((candidate) => candidate.name === item.name) === index);
 }
 
@@ -809,21 +818,6 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   ]);
 
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements);
-  const mergedCourseRequirementLinks = mergeCourseRequirementLinksByCanonicalRequirement(
-    requirements,
-    courseRequirementLinks
-  );
-  const recommendations = computeRecommendations(
-    graduationRequirements,
-    mergedCourseRequirementLinks,
-    placements,
-    completedCourses,
-    allCourses
-  );
-
-  for (const req of graduationRequirements) {
-    req.recommendedCourses = recommendations.get(req.id) ?? [];
-  }
 
   return {
     credits: computeCredits(placements),

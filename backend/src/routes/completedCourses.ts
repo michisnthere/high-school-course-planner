@@ -13,6 +13,8 @@ export const GRADE_COMPLETED_OPTIONS = [
   "Senior (12)",
 ] as const;
 
+export const LETTER_GRADE_OPTIONS = ["A", "B", "C", "D", "F"] as const;
+
 type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
 
 type CompletedCourseResponse = {
@@ -20,6 +22,7 @@ type CompletedCourseResponse = {
   userId: number;
   courseId: number;
   gradeCompleted: string;
+  letterGrade: string | null;
   credits: number | null;
   course: ReturnType<typeof deriveCourseDetails>;
 };
@@ -53,6 +56,7 @@ router.get("/", requireAuth, async (req, res) => {
     userId: cc.userId,
     courseId: cc.courseId,
     gradeCompleted: cc.gradeCompleted,
+    letterGrade: cc.letterGrade ?? null,
     credits: cc.credits ?? null,
     course: deriveCourseDetails(cc.course),
   }));
@@ -62,7 +66,7 @@ router.get("/", requireAuth, async (req, res) => {
 
 router.post("/", requireAuth, async (req, res) => {
   const userId = req.user!.id;
-  const { courseId, gradeCompleted } = req.body;
+  const { courseId, gradeCompleted, letterGrade } = req.body;
 
   if (!courseId || !gradeCompleted) {
     return res.status(400).json({ error: "courseId and gradeCompleted are required" });
@@ -70,6 +74,10 @@ router.post("/", requireAuth, async (req, res) => {
 
   if (!GRADE_COMPLETED_OPTIONS.includes(gradeCompleted)) {
     return res.status(400).json({ error: "Invalid gradeCompleted value" });
+  }
+
+  if (letterGrade != null && !LETTER_GRADE_OPTIONS.includes(letterGrade)) {
+    return res.status(400).json({ error: "Invalid letterGrade value" });
   }
 
   const course = await prisma.course.findUnique({
@@ -93,6 +101,7 @@ router.post("/", requireAuth, async (req, res) => {
   }
 
   const details = deriveCourseDetails(course);
+  const calculatedCredits = details.credits ?? course.duration ?? 1;
 
   const existing = await prisma.completedCourse.findUnique({
     where: { userId_courseId: { userId, courseId: course.id } },
@@ -107,7 +116,8 @@ router.post("/", requireAuth, async (req, res) => {
       userId,
       courseId: course.id,
       gradeCompleted: gradeCompleted as GradeCompleted,
-      credits: details.credits,
+      letterGrade: letterGrade ?? null,
+      credits: calculatedCredits,
     },
     include: {
       course: {
@@ -132,11 +142,91 @@ router.post("/", requireAuth, async (req, res) => {
     userId: created.userId,
     courseId: created.courseId,
     gradeCompleted: created.gradeCompleted,
+    letterGrade: created.letterGrade ?? null,
     credits: created.credits ?? null,
     course: deriveCourseDetails(created.course),
   };
 
   res.status(201).json(response);
+});
+
+router.put("/:id", requireAuth, async (req, res) => {
+  const userId = req.user!.id;
+  const id = Number(req.params.id);
+
+  if (!id) {
+    return res.status(400).json({ error: "Invalid completed course id" });
+  }
+
+  const existing = await prisma.completedCourse.findUnique({
+    where: { id },
+    include: {
+      course: {
+        include: {
+          department: {
+            include: {
+              division: true,
+            },
+          },
+          options: {
+            include: {
+              offerings: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!existing || existing.userId !== userId) {
+    return res.status(404).json({ error: "Completed course not found" });
+  }
+
+  const { letterGrade, gradeCompleted } = req.body;
+
+  if (letterGrade != null && !LETTER_GRADE_OPTIONS.includes(letterGrade)) {
+    return res.status(400).json({ error: "Invalid letterGrade value" });
+  }
+
+  if (gradeCompleted != null && !GRADE_COMPLETED_OPTIONS.includes(gradeCompleted)) {
+    return res.status(400).json({ error: "Invalid gradeCompleted value" });
+  }
+
+  const updated = await prisma.completedCourse.update({
+    where: { id },
+    data: {
+      ...(letterGrade !== undefined ? { letterGrade: letterGrade ?? null } : {}),
+      ...(gradeCompleted !== undefined ? { gradeCompleted: gradeCompleted as GradeCompleted } : {}),
+    },
+    include: {
+      course: {
+        include: {
+          department: {
+            include: {
+              division: true,
+            },
+          },
+          options: {
+            include: {
+              offerings: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const response: CompletedCourseResponse = {
+    id: updated.id,
+    userId: updated.userId,
+    courseId: updated.courseId,
+    gradeCompleted: updated.gradeCompleted,
+    letterGrade: updated.letterGrade ?? null,
+    credits: updated.credits ?? null,
+    course: deriveCourseDetails(updated.course),
+  };
+
+  res.json(response);
 });
 
 router.delete("/:id", requireAuth, async (req, res) => {

@@ -258,6 +258,7 @@ model CompletedCourse {
   userId         Int
   courseId       Int
   gradeCompleted String
+  letterGrade    String?
   credits        Float?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

@@ -14,6 +14,7 @@ export type InformationItem = {
   requirementType: string | null;
   notes: unknown;
   sourceReference: string | null;
+  explanation: string;
 };
 
 export const REQUIREMENT_NAME_ALIASES = new Map<string, string>([
@@ -47,6 +48,7 @@ export const NON_GRADUATION_REQUIREMENT_NAMES = new Set([
 ]);
 
 export const INFORMATION_ITEM_NAMES = new Set([
+  "Civics & Patriotism",
   "FAFSA",
   "NCAA",
   "Illinois Public University Admission Requirements",
@@ -84,7 +86,6 @@ const MEASURABLE_REQUIREMENT_NAMES = new Set([
   "Physical Science",
   "Health",
   "Consumer Education",
-  "Civics & Patriotism",
   "Driver Education",
   "Fine Arts",
   "Physical Education",

@@ -11,7 +11,7 @@ import {
   type Planner,
   type PlannerCourseDetails,
 } from "@/lib/planner";
-import { computeYearLevelCards, type YearLevelCard } from "@/lib/yearLevelValidation";
+import { computeYearLevelCards, computePeYears, type YearLevelCard, type PeYearStatus } from "@/lib/yearLevelValidation";
 import type { Course } from "@/types/course";
 
 export default function RequirementsPage(): React.ReactElement {
@@ -45,12 +45,6 @@ const STATUS_CONFIG = {
     badge: "#ef4444",
     light: "#fef2f2",
   },
-};
-
-const COURSE_STATUS_COLORS = {
-  completed: "#10b981",
-  planned: "#2563eb",
-  notYetTaken: "#6b7280",
 };
 
 function formatNumber(n: number): string {
@@ -127,20 +121,34 @@ function RequirementsContent(): React.ReactElement {
     [planners, completedCourses, courses]
   );
 
-  const summary = useMemo(() => {
-    if (!analysis) return null;
-    const earned = analysis.graduationRequirements.reduce(
-      (sum, req) => sum + req.earnedValue,
+  const peYearStatuses = useMemo(
+    () => computePeYears(planners, completedCourses, courses),
+    [planners, completedCourses, courses]
+  );
+
+  const peYearsMet = peYearStatuses.filter((y) => y.met).length;
+
+  const creditSummary = useMemo(() => {
+    const completedCredits = completedCourses.reduce(
+      (sum, cc) => sum + (cc.credits ?? cc.course.credits ?? cc.course.duration ?? 0),
       0
     );
-    const required = analysis.graduationRequirements.reduce(
-      (sum, req) => sum + (req.requiredValue ?? 0),
+    const plannedCredits = planners.reduce(
+      (sum, p) =>
+        sum +
+        (p.plannedCourses ?? []).reduce(
+          (s, pc) => s + (pc.course?.credits ?? pc.course?.duration ?? 0),
+          0
+        ),
       0
     );
-    const remaining = Math.max(0, required - earned);
-    const percentage = required > 0 ? Math.round((earned / required) * 100) : 0;
-    return { earned, required, remaining, percentage };
-  }, [analysis]);
+    const earned = completedCredits + plannedCredits;
+    const totalReq =
+      analysis?.graduationRequirements.find(
+        (r) => r.name.toLowerCase() === "total credits"
+      )?.requiredValue ?? 0;
+    return { earned, required: totalReq };
+  }, [completedCourses, planners, analysis]);
 
   return (
     <div
@@ -172,16 +180,38 @@ function RequirementsContent(): React.ReactElement {
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          {summary && (
-            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-              <SummaryCard title="Overall Completion" value={`${summary.percentage}%`}>
-                <div style={{ marginTop: "8px" }}>
-                  <ProgressBar percent={summary.percentage} height={10} showLabel />
-                </div>
-              </SummaryCard>
-              <SummaryCard title="Credits Earned" value={formatNumber(summary.earned)} />
-              <SummaryCard title="Credits Required" value={formatNumber(summary.required)} />
-              <SummaryCard title="Remaining Credits" value={formatNumber(summary.remaining)} />
+          {creditSummary.required > 0 && (
+            <div
+              style={{
+                padding: "24px",
+                backgroundColor: "#ffffff",
+                borderRadius: "12px",
+                marginBottom: "12px",
+              }}
+            >
+              <p
+                style={{
+                  margin: "0 0 4px",
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  fontWeight: 500,
+                }}
+              >
+                {formatNumber(creditSummary.required)} Credit Requirement
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "32px",
+                  fontWeight: 700,
+                  color: "#111827",
+                }}
+              >
+                {formatNumber(creditSummary.earned)}{" "}
+                <span style={{ fontSize: "24px", fontWeight: 400, color: "#6b7280" }}>
+                  / {formatNumber(creditSummary.required)} credits
+                </span>
+              </p>
             </div>
           )}
 
@@ -206,6 +236,11 @@ function RequirementsContent(): React.ReactElement {
               {yearCards.map((year) => (
                 <YearLevelCardView key={year.grade} card={year} />
               ))}
+              <PeYearsCard
+                peYearStatuses={peYearStatuses}
+                peYearsMet={peYearsMet}
+                totalYears={4}
+              />
             </div>
           </section>
 
@@ -231,9 +266,6 @@ function RequirementsContent(): React.ReactElement {
                 <RequirementCard
                   key={req.id}
                   req={req}
-                  courses={courses}
-                  completedIds={completedIds}
-                  plannedIds={plannedIds}
                   isExpanded={expandedIds.has(req.id)}
                   onToggle={() => toggleExpand(req.id)}
                 />
@@ -280,6 +312,18 @@ function RequirementsContent(): React.ReactElement {
                     >
                       {item.name}
                     </h3>
+                    {item.explanation && (
+                      <p
+                        style={{
+                          margin: "8px 0 0",
+                          fontSize: "14px",
+                          color: "#6b7280",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {item.explanation}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -293,9 +337,6 @@ function RequirementsContent(): React.ReactElement {
 
 type RequirementCardProps = {
   req: PlannerAnalysis["graduationRequirements"][number];
-  courses: PlannerCourseDetails[];
-  completedIds: Set<number>;
-  plannedIds: Set<number>;
   isExpanded: boolean;
   onToggle: () => void;
 };
@@ -408,9 +449,6 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
 
 function RequirementCard({
   req,
-  courses,
-  completedIds,
-  plannedIds,
   isExpanded,
   onToggle,
 }: RequirementCardProps): React.ReactElement {
@@ -421,22 +459,6 @@ function RequirementCard({
       : req.status === "satisfied"
       ? 100
       : 0;
-
-  const reqCourses = useMemo(() => {
-    const name = req.name.toLowerCase();
-    return courses
-      .filter((c) => c.fulfillsRequirements.some((r) => r.toLowerCase() === name))
-      .sort((a, b) => {
-        const aCompleted = completedIds.has(a.id);
-        const aPlanned = plannedIds.has(a.id);
-        const bCompleted = completedIds.has(b.id);
-        const bPlanned = plannedIds.has(b.id);
-        const aPriority = aCompleted ? 0 : aPlanned ? 1 : 2;
-        const bPriority = bCompleted ? 0 : bPlanned ? 1 : 2;
-        if (aPriority !== bPriority) return aPriority - bPriority;
-        return a.title.localeCompare(b.title);
-      });
-  }, [courses, req.name, completedIds, plannedIds]);
 
   return (
     <div
@@ -532,61 +554,7 @@ function RequirementCard({
         <ProgressBar percent={percent} color={config.badge} showLabel />
       </div>
 
-      {req.status !== "satisfied" && (
-        <div style={{ marginTop: "16px" }}>
-          <p
-            style={{
-              margin: "0 0 8px",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "#374151",
-            }}
-          >
-            Recommended courses
-          </p>
-          {req.recommendedCourses.length === 0 ? (
-            <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
-              No recommended courses available.
-            </p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              {req.recommendedCourses.map((rec) => (
-                <div
-                  key={rec.courseId}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: "12px",
-                    padding: "10px 12px",
-                    backgroundColor: "#f9fafb",
-                    borderRadius: "8px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "#111827",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                    title={rec.title}
-                  >
-                    {rec.title}
-                  </span>
-                  <span style={{ fontSize: "12px", color: "#6b7280", whiteSpace: "nowrap" }}>
-                    {rec.reason}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {isExpanded && (
+      {isExpanded && req.requiredValue != null && (
         <div
           style={{
             marginTop: "16px",
@@ -594,130 +562,12 @@ function RequirementCard({
             borderTop: "1px solid #f3f4f6",
           }}
         >
-          {reqCourses.length === 0 ? (
-            <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
-              No catalog courses are linked to this requirement.
-            </p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              {reqCourses.map((course) => (
-                <CourseStatusRow
-                  key={course.id}
-                  course={course}
-                  completedIds={completedIds}
-                  plannedIds={plannedIds}
-                />
-              ))}
-            </div>
-          )}
+          <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
+            This requirement requires {formatNumber(req.requiredValue)} credits.
+            You have earned {formatNumber(req.earnedValue)} credits so far.
+          </p>
         </div>
       )}
-    </div>
-  );
-}
-
-type CourseStatusRowProps = {
-  course: PlannerCourseDetails;
-  completedIds: Set<number>;
-  plannedIds: Set<number>;
-};
-
-function CourseStatusRow({
-  course,
-  completedIds,
-  plannedIds,
-}: CourseStatusRowProps): React.ReactElement {
-  const isCompleted = completedIds.has(course.id);
-  const isPlanned = plannedIds.has(course.id);
-  const isNotYetTaken = !isCompleted && !isPlanned;
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: "12px",
-        padding: "10px 0",
-        borderBottom: "1px solid #f3f4f6",
-      }}
-    >
-      <div style={{ minWidth: 0, flex: 1 }}>
-        <p
-          style={{
-            margin: 0,
-            fontSize: "15px",
-            fontWeight: 500,
-            color: "#111827",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-          title={course.title}
-        >
-          {course.title}
-        </p>
-        <p style={{ margin: "2px 0 0", fontSize: "13px", color: "#6b7280" }}>
-          {course.credits != null ? `${formatNumber(course.credits)} credits` : "Credits unknown"}
-        </p>
-      </div>
-      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-        {isCompleted && (
-          <StatusBadge label="Completed" color={COURSE_STATUS_COLORS.completed} />
-        )}
-        {isPlanned && (
-          <StatusBadge label="Planned" color={COURSE_STATUS_COLORS.planned} />
-        )}
-        {isNotYetTaken && (
-          <StatusBadge label="Not yet taken" color={COURSE_STATUS_COLORS.notYetTaken} />
-        )}
-      </div>
-    </div>
-  );
-}
-
-function StatusBadge({ label, color }: { label: string; color: string }): React.ReactElement {
-  return (
-    <span
-      style={{
-        padding: "3px 8px",
-        fontSize: "12px",
-        fontWeight: 600,
-        color: "#ffffff",
-        backgroundColor: color,
-        borderRadius: "6px",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {label}
-    </span>
-  );
-}
-
-function SummaryCard({
-  title,
-  value,
-  children,
-}: {
-  title: string;
-  value: string;
-  children?: React.ReactNode;
-}): React.ReactElement {
-  return (
-    <div
-      style={{
-        flex: "1 1 200px",
-        minWidth: "180px",
-        padding: "20px",
-        backgroundColor: "#ffffff",
-        borderRadius: "12px",
-      }}
-    >
-      <p style={{ margin: "0 0 8px", fontSize: "14px", color: "#6b7280" }}>{title}</p>
-      <p style={{ margin: 0, fontSize: "28px", fontWeight: 700, color: "#111827" }}>
-        {value}
-      </p>
-      {children}
     </div>
   );
 }
@@ -779,35 +629,105 @@ function ProgressBar({
   );
 }
 
-function YearRequirementRow({
-  label,
-  status,
+function PeYearsCard({
+  peYearStatuses,
+  peYearsMet,
+  totalYears,
 }: {
-  label: string;
-  status: { required: boolean; met: boolean; earnedCredits: number };
-}): React.ReactElement | null {
-  if (!status.required) return null;
+  peYearStatuses: PeYearStatus[];
+  peYearsMet: number;
+  totalYears: number;
+}): React.ReactElement {
+  const [expanded, setExpanded] = useState(false);
+  const allMet = peYearsMet === totalYears;
+  const statusColor = allMet ? "#10b981" : "#ef4444";
+  const statusMark = allMet ? "✓" : "•";
+
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        fontSize: "15px",
-        color: "#374151",
+        padding: "18px 20px",
+        backgroundColor: "#ffffff",
+        borderRadius: "12px",
       }}
     >
-      <span>{label}</span>
-      <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        {status.met ? (
-          <span style={{ color: "#10b981", fontWeight: 700 }}>✓</span>
-        ) : (
-          <span style={{ color: "#ef4444", fontWeight: 700 }}>✗</span>
-        )}
-        <span style={{ fontSize: "13px", color: "#6b7280" }}>
-          {formatNumber(status.earnedCredits)} cr
-        </span>
-      </span>
+      <button
+        type="button"
+        onClick={() => setExpanded((prev) => !prev)}
+        style={{
+          width: "100%",
+          border: "none",
+          background: "transparent",
+          padding: 0,
+          cursor: "pointer",
+          textAlign: "left",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}>
+          <div>
+            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#111827" }}>
+              Physical Education
+            </h3>
+            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
+              {peYearsMet}/{totalYears} years met
+            </p>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 700 }}>{statusMark}</span>
+            <span
+              aria-hidden="true"
+              style={{
+                color: "#6b7280",
+                transition: "transform 200ms ease",
+                transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            >
+              ▶
+            </span>
+          </div>
+        </div>
+      </button>
+
+      <div style={{ marginTop: "10px", fontSize: "13px", color: statusColor, fontWeight: 600 }}>
+        {allMet ? "Satisfied" : `${totalYears - peYearsMet} year(s) remaining`}
+      </div>
+
+      {expanded && (
+        <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+          <p style={{ margin: 0, fontSize: "13px", color: "#6b7280" }}>
+            Each year requires two semesters of Physical Education division courses, an approved
+            waiver, or a dance option.
+          </p>
+          {peYearStatuses.map((year) => (
+            <div
+              key={year.grade}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "12px",
+                padding: "10px 0",
+                borderTop: "1px solid #f3f4f6",
+              }}
+            >
+              <span style={{ fontSize: "15px", fontWeight: 600, color: "#111827" }}>
+                {year.label}
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  color: year.met ? "#10b981" : "#ef4444",
+                }}
+              >
+                {year.met ? "Met" : "Not met"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
+

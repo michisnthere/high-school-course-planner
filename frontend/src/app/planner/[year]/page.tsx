@@ -393,13 +393,15 @@ function PlannerYearContent(): React.ReactElement {
       courseId,
       gradeCompleted,
       yearCompleted,
+      letterGrade,
     }: {
       courseId: number;
       gradeCompleted: GradeCompleted;
       yearCompleted: string;
+      letterGrade: string | null;
     }) => {
       try {
-        await addCompletedCourse(courseId, gradeCompleted, yearCompleted);
+        await addCompletedCourse(courseId, gradeCompleted, yearCompleted, letterGrade);
         setCompletedCoursePicker({ open: false });
         await loadCompletedCourses();
         showToast("Course marked as completed.", "success");

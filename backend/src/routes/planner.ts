@@ -128,7 +128,7 @@ export function deriveCourseDetails(
     normalizedTitle: course.normalizedTitle ?? null,
     duration: deriveCourseDuration(course),
     creditType: option?.creditType ?? null,
-    credits: option?.credits ?? null,
+    credits: option?.credits ?? course.duration ?? 1,
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     description: course.description ?? null,
