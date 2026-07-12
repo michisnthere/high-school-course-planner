@@ -78,11 +78,21 @@ export function AcademicSnapshot(): React.ReactElement {
             title="Projected GPA"
             weighted={projected.weighted}
             unweighted={projected.unweighted}
-            creditsLabel="Credits After Plan"
-            credits={projected.credits}
           />
         </div>
       )}
+      <p
+        style={{
+          margin: "16px 0 0",
+          fontSize: "13px",
+          lineHeight: "1.5",
+          color: "#6b7280",
+        }}
+      >
+        Your projected GPA is calculated using your completed courses and planned coursework. The
+        projection updates as you adjust your four-year plan, including course selection and
+        difficulty level.
+      </p>
     </div>
   );
 }
@@ -97,15 +107,17 @@ function ProjectionBlock({
   title: string;
   weighted: number;
   unweighted: number;
-  creditsLabel: string;
-  credits: number;
+  creditsLabel?: string;
+  credits?: number;
 }): React.ReactElement {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       <p style={{ margin: 0, fontSize: "14px", fontWeight: 700, color: "#374151" }}>{title}</p>
       <MetricRow label="Weighted" value={formatGpa(weighted)} />
       <MetricRow label="Unweighted" value={formatGpa(unweighted)} />
-      <MetricRow label={creditsLabel} value={credits.toFixed(1)} />
+      {creditsLabel !== undefined && credits !== undefined && (
+        <MetricRow label={creditsLabel} value={credits.toFixed(1)} />
+      )}
     </div>
   );
 }
