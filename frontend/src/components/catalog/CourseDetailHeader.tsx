@@ -15,7 +15,12 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
   const department = course.department?.name;
 
   const backHref = returnUrl && returnUrl.startsWith("/") ? returnUrl : "/catalog";
-  const backLabel = returnUrl ? "← Back to Planner" : "← Back to Catalog";
+  let backLabel = "← Back to Catalog";
+  if (returnUrl === "/") {
+    backLabel = "← Back to Dashboard";
+  } else if (returnUrl) {
+    backLabel = "← Back to Planner";
+  }
 
   return (
     <div

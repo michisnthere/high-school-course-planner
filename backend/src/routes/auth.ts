@@ -12,6 +12,10 @@ const CALLBACK_URL = `${BACKEND_URL}/auth/google/callback`;
 const router = Router();
 
 router.get("/google", (req, res, next) => {
+  const redirect = typeof req.query.redirect === "string" ? req.query.redirect : "";
+  if (redirect.startsWith("/")) {
+    req.session.returnTo = redirect;
+  }
   const strategy = createGoogleStrategy(CALLBACK_URL);
   passport.authenticate(strategy, { scope: ["profile", "email"] })(req, res, next);
 });
@@ -34,7 +38,10 @@ router.get("/google/callback", (req, res, next) => {
         if (loginErr) {
           return next(loginErr);
         }
-        res.redirect(FRONTEND_URL);
+        const returnTo = req.session.returnTo;
+        delete req.session.returnTo;
+        const redirectPath = returnTo && returnTo.startsWith("/") ? returnTo : "";
+        res.redirect(`${FRONTEND_URL}${redirectPath}`);
       });
     }
   )(req, res, next);

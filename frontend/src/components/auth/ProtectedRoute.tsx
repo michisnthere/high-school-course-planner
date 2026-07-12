@@ -40,7 +40,9 @@ export function ProtectedRoute({
     if (fallback) {
       return <>{fallback}</>;
     }
-    window.location.href = "/login";
+    const currentPath = window.location.pathname + window.location.search;
+    const returnParam = encodeURIComponent(currentPath);
+    window.location.href = `/login?return=${returnParam}`;
     return null;
   }
 

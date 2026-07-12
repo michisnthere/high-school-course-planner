@@ -59,6 +59,7 @@ function RequirementsContent(): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
+  const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -293,44 +294,194 @@ function RequirementsContent(): React.ReactElement {
                 }}
               >
                 {analysis.informationItems.map((item) => (
-                  <div
+                  <InfoCard
                     key={item.id}
-                    style={{
-                      padding: "20px",
-                      backgroundColor: "#ffffff",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    <h3
-                      style={{
-                        margin: 0,
-                        fontSize: "16px",
-                        fontWeight: 600,
-                        color: "#111827",
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {item.name}
-                    </h3>
-                    {item.explanation && (
-                      <p
-                        style={{
-                          margin: "8px 0 0",
-                          fontSize: "14px",
-                          color: "#6b7280",
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        {item.explanation}
-                      </p>
-                    )}
-                  </div>
+                    item={item}
+                    onOpen={() => setModalItem(item)}
+                  />
                 ))}
+                {modalItem && (
+                  <InfoModal
+                    item={modalItem}
+                    onClose={() => setModalItem(null)}
+                  />
+                )}
               </div>
             </section>
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+type InfoCardProps = {
+  item: PlannerAnalysis["informationItems"][number];
+  onOpen: () => void;
+};
+
+function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
+  const [hovered, setHovered] = React.useState(false);
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onOpen(); }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: "20px",
+        backgroundColor: hovered ? "#f9fafb" : "#ffffff",
+        borderRadius: "12px",
+        cursor: "pointer",
+        transition: "background-color 0.15s ease",
+        outline: "none",
+        border: hovered ? "1px solid #e5e7eb" : "1px solid transparent",
+      }}
+    >
+      <h3
+        style={{
+          margin: 0,
+          fontSize: "16px",
+          fontWeight: 600,
+          color: "#111827",
+          lineHeight: 1.3,
+        }}
+      >
+        {item.name}
+      </h3>
+      {item.explanation && (
+        <p
+          style={{
+            margin: "8px 0 0",
+            fontSize: "14px",
+            color: "#6b7280",
+            lineHeight: 1.5,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item.explanation}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function InfoModal({
+  item,
+  onClose,
+}: {
+  item: PlannerAnalysis["informationItems"][number];
+  onClose: () => void;
+}): React.ReactElement {
+  React.useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        padding: "32px",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: "560px",
+          width: "100%",
+          maxHeight: "80vh",
+          overflowY: "auto",
+          backgroundColor: "#ffffff",
+          borderRadius: "16px",
+          padding: "28px",
+          position: "relative",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        }}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: "16px",
+            right: "16px",
+            width: "32px",
+            height: "32px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "none",
+            borderRadius: "8px",
+            backgroundColor: "#f3f4f6",
+            color: "#6b7280",
+            fontSize: "18px",
+            fontWeight: 700,
+            cursor: "pointer",
+            lineHeight: 1,
+          }}
+        >
+          ✕
+        </button>
+
+        <h2
+          style={{
+            margin: "0 0 16px",
+            fontSize: "22px",
+            fontWeight: 700,
+            color: "#111827",
+            lineHeight: 1.3,
+            paddingRight: "40px",
+          }}
+        >
+          {item.name}
+        </h2>
+
+        {item.explanation && (
+          <p
+            style={{
+              margin: "0 0 16px",
+              fontSize: "15px",
+              color: "#374151",
+              lineHeight: 1.7,
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {item.explanation}
+          </p>
+        )}
+
+        {item.sourceReference && (
+          <p
+            style={{
+              margin: 0,
+              fontSize: "13px",
+              color: "#9ca3af",
+            }}
+          >
+            Source: {item.sourceReference}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
