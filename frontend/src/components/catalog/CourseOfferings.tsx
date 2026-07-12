@@ -26,23 +26,36 @@ function getGradeLevels(course: Course): string | null {
   return `Grade ${gMin ?? gMax}`;
 }
 
-function getDuration(course: Course): string | null {
+function getNormalizedDuration(course: Course): number | null {
   for (const option of course.options ?? []) {
     for (const offering of option.offerings ?? []) {
-      if (offering.duration) return offering.duration;
+      if (offering.duration != null) {
+        const n = parseFloat(offering.duration);
+        if (!isNaN(n)) return n;
+      }
     }
   }
-  return course.duration != null ? `${course.duration} years` : null;
+  if (course.duration != null) return course.duration;
+  return null;
 }
 
-function getCredits(course: Course): number | null {
-  for (const option of course.options ?? []) {
-    if (option.credits != null) return option.credits;
-    for (const offering of option.offerings ?? []) {
-      if (offering.credits != null) return offering.credits;
-    }
-  }
+function formatDuration(raw: number | null): string | null {
+  if (raw == null) return null;
+  if (raw === 1) return "One Semester";
+  if (raw === 2) return "Full Year";
+  return `${raw} Semesters`;
+}
+
+function totalCredits(duration: number | null): number | null {
+  if (duration == null) return null;
+  if (duration === 1) return 1;
+  if (duration === 2) return 2;
   return null;
+}
+
+function isMathCourse(course: Course): boolean {
+  const name = course.department?.name?.toLowerCase() ?? "";
+  return name.includes("math");
 }
 
 function groupOfferingsBySemester(course: Course): Map<string, string[]> {
@@ -59,9 +72,11 @@ function groupOfferingsBySemester(course: Course): Map<string, string[]> {
 
 export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.ReactElement {
   const gradeLevels = getGradeLevels(course);
-  const duration = getDuration(course);
-  const credits = getCredits(course);
+  const rawDuration = getNormalizedDuration(course);
+  const durationLabel = formatDuration(rawDuration);
+  const creditsRaw = totalCredits(rawDuration);
   const semesterGroups = groupOfferingsBySemester(course);
+  const showMathNote = gradeLevels != null && isMathCourse(course);
 
   return (
     <div
@@ -97,21 +112,38 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
         {gradeLevels && (
           <>
             <div style={{ color: "#6b7280", fontWeight: 500 }}>Grades</div>
-            <div style={{ color: "#111827", fontWeight: 600 }}>{gradeLevels}</div>
+            <div style={{ color: "#111827", fontWeight: 600 }}>
+              {gradeLevels}
+              {showMathNote && (
+                <p
+                  style={{
+                    margin: "8px 0 0",
+                    fontSize: "13px",
+                    color: "#6b7280",
+                    fontWeight: 400,
+                    lineHeight: 1.5,
+                    fontStyle: "italic",
+                  }}
+                >
+                  Students who complete the prerequisite course earlier may enroll
+                  in this course in an earlier grade.
+                </p>
+              )}
+            </div>
           </>
         )}
 
-        {duration && (
+        {durationLabel && (
           <>
             <div style={{ color: "#6b7280", fontWeight: 500 }}>Duration</div>
-            <div style={{ color: "#111827", fontWeight: 600 }}>{duration}</div>
+            <div style={{ color: "#111827", fontWeight: 600 }}>{durationLabel}</div>
           </>
         )}
 
-        {credits != null && (
+        {creditsRaw != null && (
           <>
-            <div style={{ color: "#6b7280", fontWeight: 500 }}>Credits</div>
-            <div style={{ color: "#111827", fontWeight: 600 }}>{credits}</div>
+            <div style={{ color: "#6b7280", fontWeight: 500 }}>Total Credits</div>
+            <div style={{ color: "#111827", fontWeight: 600 }}>{creditsRaw}</div>
           </>
         )}
 
