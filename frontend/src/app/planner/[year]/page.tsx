@@ -28,7 +28,7 @@ import {
   type PlannerOption,
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
-import { getRequirementStatus } from "@/lib/gradeRequirements";
+import { getRequirementStatus, computePePerSemester } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
   courseMatchesQuery,
@@ -48,6 +48,8 @@ import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicke
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
+import { WaiverSection } from "@/components/planner/WaiverSection";
+import type { PeWaiver } from "@/lib/plannerWaivers";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -279,6 +281,7 @@ function PlannerYearContent(): React.ReactElement {
   const [completedCoursePicker, setCompletedCoursePicker] = useState<{ open: boolean; excludeCourseIds?: number[] }>({ open: false });
   const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
   const [allCatalogCourses, setAllCatalogCourses] = useState<PlannerCourseDetails[]>([]);
+  const [peWaivers, setPeWaivers] = useState<PeWaiver[]>([]);
 
   const loadCompletedCourses = useCallback(async () => {
     try {
@@ -745,7 +748,13 @@ function PlannerYearContent(): React.ReactElement {
         </div>
 
         {!loading && planner && (
-          <SummarySidebar planners={allPlanners} currentYear={year} />
+          <SummarySidebar
+            planners={allPlanners}
+            currentYear={year}
+            peWaivers={peWaivers}
+            onAddWaiver={(w) => setPeWaivers((prev) => [...prev, w])}
+            onRemoveWaiver={(i) => setPeWaivers((prev) => prev.filter((_, idx) => idx !== i))}
+          />
         )}
       </div>
 
@@ -795,9 +804,15 @@ function PlannerYearContent(): React.ReactElement {
 function SummarySidebar({
   planners,
   currentYear,
+  peWaivers,
+  onAddWaiver,
+  onRemoveWaiver,
 }: {
   planners: Planner[];
   currentYear: number;
+  peWaivers: PeWaiver[];
+  onAddWaiver: (waiver: PeWaiver) => void;
+  onRemoveWaiver: (index: number) => void;
 }): React.ReactElement {
   const currentPlanner = planners.find((p) => p.schoolYear === currentYear);
   const allCourses = planners.flatMap((p) => p.plannedCourses);
@@ -863,6 +878,16 @@ function SummarySidebar({
       <GradeRequirements
         grade={currentYear}
         requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
+        pePerSemester={computePePerSemester(currentPlanner?.plannedCourses ?? [])}
+        peWaivers={peWaivers}
+      />
+
+      <WaiverSection
+        grade={currentYear}
+        plannedCourses={currentPlanner?.plannedCourses ?? []}
+        waivers={peWaivers}
+        onAddWaiver={onAddWaiver}
+        onRemoveWaiver={onRemoveWaiver}
       />
 
       <CourseLoadRequirements

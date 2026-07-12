@@ -1,4 +1,4 @@
-import type { PlannerCourseDetails, PlannedCourse } from "./planner";
+import type { PlannedCourse } from "./planner";
 
 export type SemesterCreditStatus = {
   semester: number;
@@ -17,34 +17,7 @@ export type SixthPeriodStatus = {
 export type CourseLoadRequirements = {
   semesterCredits: SemesterCreditStatus[];
   sixthPeriod: SixthPeriodStatus[];
-  peDanceDriverEd: {
-    isMet: boolean;
-    detail: string;
-  };
 };
-
-function normalize(text: string): string {
-  return text.trim().toLowerCase();
-}
-
-function courseTokens(course: PlannerCourseDetails): string[] {
-  return [
-    course.title,
-    ...(course.fulfillsRequirements ?? []),
-    course.department ?? "",
-    course.division ?? "",
-  ]
-    .map(normalize)
-    .filter(Boolean);
-}
-
-function matchesAny(course: PlannerCourseDetails, terms: string[]): boolean {
-  const tokens = courseTokens(course);
-  return terms.some((term) => {
-    const needle = normalize(term);
-    return tokens.some((token) => token === needle || token.includes(needle) || needle.includes(token));
-  });
-}
 
 export function computeSemesterCredits(plannedCourses: PlannedCourse[]): SemesterCreditStatus[] {
   const credits: Record<number, number> = { 1: 0, 2: 0 };
@@ -105,30 +78,6 @@ export function computeSixthPeriod(plannedCourses: PlannedCourse[], grade: numbe
   }));
 }
 
-export function computePeDanceDriverEd(plannedCourses: PlannedCourse[]): {
-  isMet: boolean;
-  detail: string;
-} {
-  const matchedCourses: string[] = [];
-  const countedIds = new Set<number>();
-
-  for (const pc of plannedCourses) {
-    if (pc.courseId == null) continue;
-    if (countedIds.has(pc.courseId)) continue;
-
-    if (matchesAny(pc.course, ["Physical Education", "Dance", "Driver Education"])) {
-      countedIds.add(pc.courseId);
-      matchedCourses.push(pc.course.title);
-    }
-  }
-
-  const uniqueTitles = [...new Set(matchedCourses)];
-  return {
-    isMet: uniqueTitles.length > 0,
-    detail: uniqueTitles.length > 0 ? uniqueTitles.join(", ") : "None planned",
-  };
-}
-
 export function computeCourseLoadRequirements(
   plannedCourses: PlannedCourse[],
   grade: number
@@ -136,6 +85,5 @@ export function computeCourseLoadRequirements(
   return {
     semesterCredits: computeSemesterCredits(plannedCourses),
     sixthPeriod: computeSixthPeriod(plannedCourses, grade),
-    peDanceDriverEd: computePeDanceDriverEd(plannedCourses),
   };
 }

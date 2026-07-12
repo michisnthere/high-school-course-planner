@@ -1,4 +1,4 @@
-import type { PlannedCourse } from "./planner";
+import type { PlannedCourse, PlannerCourseDetails } from "./planner";
 
 export type GradeRequirement = {
   category: string;
@@ -99,10 +99,6 @@ export function getRequirementStatus(
     return [];
   }
 
-  // A full-year course is stored as two PlannedCourse records (one per semester,
-  // same slot). Count each distinct course placement once so full-year courses
-  // contribute only once toward requirements, while semester courses placed in
-  // both semesters are counted as separate instances.
   const instanceMap = new Map<string, PlannedCourse>();
   for (const plannedCourse of plannedCourses) {
     if (plannedCourse.courseId == null) continue;
@@ -136,4 +132,59 @@ export function getRequirementStatus(
       isMet: earnedCredits >= requirement.credits,
     };
   });
+}
+
+function courseMatchesPeDanceDriverEd(course: PlannerCourseDetails): boolean {
+  const terms = ["Physical Education", "Dance", "Driver Education"];
+  const tokens = [
+    course.title,
+    ...(course.fulfillsRequirements ?? []),
+    course.department ?? "",
+    course.division ?? "",
+  ]
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  return terms.some((term) => {
+    const needle = term.toLowerCase();
+    return tokens.some(
+      (token) => token === needle || token.includes(needle) || needle.includes(token)
+    );
+  });
+}
+
+export type PeSemesterStatus = {
+  semester: number;
+  isMet: boolean;
+  courseTitle: string | null;
+};
+
+export function computePePerSemester(
+  plannedCourses: PlannedCourse[]
+): PeSemesterStatus[] {
+  const semTitles: Record<number, string | null> = { 1: null, 2: null };
+  const fullYearDone = new Set<string>();
+
+  for (const pc of plannedCourses) {
+    if (pc.courseId == null) continue;
+    if (!courseMatchesPeDanceDriverEd(pc.course)) continue;
+
+    if (pc.course.duration === 2) {
+      const key = `${pc.courseId}-${pc.slot}`;
+      if (fullYearDone.has(key)) continue;
+      fullYearDone.add(key);
+      const title = pc.course.title;
+      if (!semTitles[1]) semTitles[1] = title;
+      if (!semTitles[2]) semTitles[2] = title;
+    } else {
+      if (!semTitles[pc.semester]) {
+        semTitles[pc.semester] = pc.course.title;
+      }
+    }
+  }
+
+  return [1, 2].map((sem) => ({
+    semester: sem,
+    isMet: semTitles[sem] != null,
+    courseTitle: semTitles[sem],
+  }));
 }

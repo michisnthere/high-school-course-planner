@@ -54,11 +54,10 @@ function ProgressBar({
 export function CourseLoadRequirements({
   requirements,
 }: Props): React.ReactElement | null {
-  const { semesterCredits, sixthPeriod, peDanceDriverEd } = requirements;
+  const { semesterCredits, sixthPeriod } = requirements;
   const allMet =
     semesterCredits.every((s) => s.isMet) &&
-    sixthPeriod.every((s) => s.isMet) &&
-    peDanceDriverEd.isMet;
+    sixthPeriod.every((s) => s.isMet);
 
   return (
     <div
@@ -144,35 +143,6 @@ export function CourseLoadRequirements({
               </div>
             ))}
           </div>
-        </li>
-
-        <li>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              fontSize: "14px",
-              color: peDanceDriverEd.isMet ? "#d1d5db" : "#fbbf24",
-            }}
-          >
-            <span style={{ fontSize: "16px" }}>
-              {peDanceDriverEd.isMet ? "✓" : "⚠"}
-            </span>
-            <span>Physical Welfare, Dance, and/or Driver Education</span>
-          </div>
-          {peDanceDriverEd.detail && (
-            <div
-              style={{
-                paddingLeft: "24px",
-                fontSize: "13px",
-                color: peDanceDriverEd.isMet ? "#22c55e" : "#9ca3af",
-                marginTop: "4px",
-              }}
-            >
-              {peDanceDriverEd.detail}
-            </div>
-          )}
         </li>
       </ul>
     </div>
