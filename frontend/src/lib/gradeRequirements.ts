@@ -176,26 +176,46 @@ export type PeSemesterStatus = {
   courseTitle: string | null;
 };
 
+function courseMatchesFreshmanFF(course: PlannerCourseDetails): boolean {
+  return course.title.toLowerCase().replace(/\*/g, "").trim().includes("foundational fitness");
+}
+
 export function computePePerSemester(
-  plannedCourses: PlannedCourse[]
+  plannedCourses: PlannedCourse[],
+  grade?: number
 ): PeSemesterStatus[] {
   const semTitles: Record<number, string | null> = { 1: null, 2: null };
   const fullYearDone = new Set<string>();
 
+  const isGrade9 = grade === 9;
+
   for (const pc of plannedCourses) {
     if (pc.courseId == null) continue;
-    if (!courseMatchesPeDanceDriverEd(pc.course)) continue;
 
-    if (pc.course.duration === 2) {
-      const key = `${pc.courseId}-${pc.slot}`;
-      if (fullYearDone.has(key)) continue;
-      fullYearDone.add(key);
-      const title = pc.course.title;
-      if (!semTitles[1]) semTitles[1] = title;
-      if (!semTitles[2]) semTitles[2] = title;
+    const isFreshmanFF = courseMatchesFreshmanFF(pc.course);
+    const matchesStandard = courseMatchesPeDanceDriverEd(pc.course);
+
+    if (isGrade9) {
+      if (isFreshmanFF && (pc.semester === 1 || pc.course.duration === 2) && !semTitles[1]) {
+        semTitles[1] = pc.course.title;
+      }
+      if (matchesStandard && (pc.semester === 2 || pc.course.duration === 2) && !semTitles[2]) {
+        semTitles[2] = pc.course.title;
+      }
     } else {
-      if (!semTitles[pc.semester]) {
-        semTitles[pc.semester] = pc.course.title;
+      if (!matchesStandard) continue;
+
+      if (pc.course.duration === 2) {
+        const key = `${pc.courseId}-${pc.slot}`;
+        if (fullYearDone.has(key)) continue;
+        fullYearDone.add(key);
+        const title = pc.course.title;
+        if (!semTitles[1]) semTitles[1] = title;
+        if (!semTitles[2]) semTitles[2] = title;
+      } else {
+        if (!semTitles[pc.semester]) {
+          semTitles[pc.semester] = pc.course.title;
+        }
       }
     }
   }

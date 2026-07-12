@@ -30,6 +30,16 @@ function findCourseByTitle(courses: Course[], title: string): Course | null {
       return course;
     }
   }
+  // Map "A Foundational Fitness class" to the actual Freshman Foundational Fitness course
+  if (
+    (normal === "a foundational fitness class" || normal === "a foundational fitness course") &&
+    !normal.includes("any previous")
+  ) {
+    const ffCourse = courses.find((c) =>
+      c.title.toLowerCase().includes("foundational fitness")
+    );
+    if (ffCourse) return ffCourse;
+  }
   return null;
 }
 

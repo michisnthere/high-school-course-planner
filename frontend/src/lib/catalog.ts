@@ -228,5 +228,10 @@ export function formatPrerequisiteForDisplay(prereq: string): string {
   const lower = prereq.trim().toLowerCase();
   if (lower === "any precalculus course") return "Precalculus";
   if (lower === "any ap precalculus course") return "AP Precalculus";
+  if (lower === "a foundational fitness class") return "Freshman Foundational Fitness";
+  if (lower === "a foundational fitness course") return "Freshman Foundational Fitness";
+  if (lower.includes("foundational fitness") && lower.includes("any previous")) {
+    return "Freshman Foundational Fitness, any previous Physical Education course";
+  }
   return prereq.trim();
 }

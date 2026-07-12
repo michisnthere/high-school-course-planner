@@ -139,7 +139,28 @@ function semesterCourseText(courses: CourseLike[], terms: string[]): string {
   return title ? title : "Missing";
 }
 
-function checkPeMet(gradePlanned: CourseLike[], gradeCompleted: CourseLike[], planner: PlannerLike | null | undefined): boolean {
+function hasFreshmanFF(courses: CourseLike[]): boolean {
+  return courses.some((c) =>
+    c.title.toLowerCase().replace(/\*/g, "").trim().includes("foundational fitness")
+  );
+}
+
+function checkPeMet(grade: number, gradePlanned: CourseLike[], gradeCompleted: CourseLike[], planner: PlannerLike | null | undefined): boolean {
+  if (grade === 9) {
+    const allCourses = [...gradePlanned, ...gradeCompleted];
+    if (!hasFreshmanFF(allCourses)) return false;
+    const hasDance = matchesAnyCourseSet(allCourses, ["Dance"]);
+    let peCount = 0;
+    if (planner) {
+      for (const pc of planner.plannedCourses ?? []) {
+        if (!pc.course) continue;
+        if ((pc.course.division ?? "").toLowerCase() === "physical education") {
+          peCount++;
+        }
+      }
+    }
+    return peCount >= 2 || hasDance;
+  }
   const allCourses = [...gradePlanned, ...gradeCompleted];
   const hasDance = matchesAnyCourseSet(allCourses, ["Dance"]);
   let peCount = 0;
@@ -154,8 +175,27 @@ function checkPeMet(gradePlanned: CourseLike[], gradeCompleted: CourseLike[], pl
   return peCount >= 2 || hasDance;
 }
 
-function detailPeText(gradePlanned: CourseLike[], gradeCompleted: CourseLike[], planner: PlannerLike | null | undefined): string {
+function detailPeText(grade: number, gradePlanned: CourseLike[], gradeCompleted: CourseLike[], planner: PlannerLike | null | undefined): string {
   const allCourses = [...gradePlanned, ...gradeCompleted];
+  if (grade === 9) {
+    const ffTitle = allCourses.find((c) =>
+      c.title.toLowerCase().replace(/\*/g, "").trim().includes("foundational fitness")
+    )?.title;
+    if (ffTitle) {
+      const otherTitles = allCourses
+        .filter((c) =>
+          (c.division ?? "").toLowerCase() === "physical education" &&
+          !c.title.toLowerCase().includes("foundational fitness")
+        )
+        .map((c) => c.title);
+      if (otherTitles.length > 0) {
+        return `${ffTitle}, ${otherTitles.join(", ")}`;
+      }
+      return ffTitle;
+    }
+    if (matchesAnyCourseSet(allCourses, ["Dance"])) return "Dance";
+    return "Missing";
+  }
   const peCourses = allCourses.filter((c) =>
     (c.division ?? "").toLowerCase() === "physical education"
   );
@@ -297,13 +337,13 @@ export function computeYearLevelCards(
       );
     }
 
-    const peMet = checkPeMet(gradePlanned, gradeCompleted, gradePlanner);
+    const peMet = checkPeMet(grade, gradePlanned, gradeCompleted, gradePlanner);
     items.push(
       buildItem(
-        "Physical Education",
+        grade === 9 ? "Freshman Foundational Fitness" : "Physical Education",
         peMet,
         false,
-        detailPeText(gradePlanned, gradeCompleted, gradePlanner),
+        detailPeText(grade, gradePlanned, gradeCompleted, gradePlanner),
       )
     );
 

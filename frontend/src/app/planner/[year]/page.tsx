@@ -876,7 +876,7 @@ function SummarySidebar({
       <GradeRequirements
         grade={currentYear}
         requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
-        pePerSemester={computePePerSemester(currentPlanner?.plannedCourses ?? [])}
+        pePerSemester={computePePerSemester(currentPlanner?.plannedCourses ?? [], currentYear)}
         peWaivers={peWaivers}
       />
 
