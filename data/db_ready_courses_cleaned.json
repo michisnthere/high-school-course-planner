@@ -2447,7 +2447,11 @@
             12
           ],
           "prerequisites": [
-            "PLTW Digital Electronics"
+            "PLTW Digital Electronics",
+            "Electrical Engineering–PLTW",
+            "Principles of Engineering–PLTW",
+            "Computer Integrated Manufacturing–PLTW",
+            "Civil Engineering and Architecture–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2462,7 +2466,11 @@
             12
           ],
           "prerequisites": [
-            "PLTW Digital Electronics"
+            "PLTW Digital Electronics",
+            "Electrical Engineering–PLTW",
+            "Principles of Engineering–PLTW",
+            "Computer Integrated Manufacturing–PLTW",
+            "Civil Engineering and Architecture–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5703,7 +5711,7 @@
             12
           ],
           "prerequisites": [
-            "ANY PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5718,7 +5726,7 @@
             12
           ],
           "prerequisites": [
-            "ANY PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5836,7 +5844,7 @@
             12
           ],
           "prerequisites": [
-            "Completion of Precalculus"
+            "Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5852,7 +5860,7 @@
             12
           ],
           "prerequisites": [
-            "Completion of Precalculus"
+            "Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5881,7 +5889,7 @@
             12
           ],
           "prerequisites": [
-            "ANY AP PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5896,7 +5904,7 @@
             12
           ],
           "prerequisites": [
-            "ANY AP PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
