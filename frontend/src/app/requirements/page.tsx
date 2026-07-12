@@ -11,6 +11,7 @@ import {
   type Planner,
   type PlannerCourseDetails,
 } from "@/lib/planner";
+import { computeYearLevelCards, type YearLevelCard } from "@/lib/yearLevelValidation";
 import type { Course } from "@/types/course";
 
 export default function RequirementsPage(): React.ReactElement {
@@ -121,6 +122,11 @@ function RequirementsContent(): React.ReactElement {
     return ids;
   }, [planners]);
 
+  const yearCards = useMemo(
+    () => computeYearLevelCards(planners, completedCourses, courses),
+    [planners, completedCourses, courses]
+  );
+
   const summary = useMemo(() => {
     if (!analysis) return null;
     const earned = analysis.graduationRequirements.reduce(
@@ -188,6 +194,30 @@ function RequirementsContent(): React.ReactElement {
                 color: "#ffffff",
               }}
             >
+              Year-Level Requirements
+            </h2>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              }}
+            >
+              {yearCards.map((year) => (
+                <YearLevelCardView key={year.grade} card={year} />
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2
+              style={{
+                margin: "0 0 16px",
+                fontSize: "20px",
+                fontWeight: 600,
+                color: "#ffffff",
+              }}
+            >
               Graduation Requirements
             </h2>
             <div
@@ -221,7 +251,7 @@ function RequirementsContent(): React.ReactElement {
                   color: "#ffffff",
                 }}
               >
-                Information
+                Helpful Information
               </h2>
               <div
                 style={{
@@ -255,59 +285,6 @@ function RequirementsContent(): React.ReactElement {
               </div>
             </section>
           )}
-
-          <section>
-            <h2
-              style={{
-                margin: "0 0 16px",
-                fontSize: "20px",
-                fontWeight: 600,
-                color: "#ffffff",
-              }}
-            >
-              Year-Level Requirements
-            </h2>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-                gap: "16px",
-              }}
-            >
-              {analysis.yearRequirements.map((year) => (
-                <div
-                  key={year.grade}
-                  style={{
-                    padding: "20px",
-                    backgroundColor: "#ffffff",
-                    borderRadius: "12px",
-                  }}
-                >
-                  <h3
-                    style={{
-                      margin: "0 0 14px",
-                      fontSize: "18px",
-                      fontWeight: 600,
-                      color: "#111827",
-                    }}
-                  >
-                    {YEAR_LABELS[year.grade]}
-                  </h3>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "10px",
-                    }}
-                  >
-                    <YearRequirementRow label="English" status={year.english} />
-                    <YearRequirementRow label="Math" status={year.math} />
-                    <YearRequirementRow label="Science" status={year.science} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         </div>
       )}
     </div>
@@ -322,6 +299,112 @@ type RequirementCardProps = {
   isExpanded: boolean;
   onToggle: () => void;
 };
+
+type YearLevelCardProps = {
+  card: YearLevelCard;
+};
+
+function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
+  const [expanded, setExpanded] = useState(false);
+  const allMet = card.satisfiedCount === card.totalCount;
+  const hasWarnings = card.items.some((item) => item.status === "warning");
+  const statusLabel = allMet ? "Satisfied" : hasWarnings ? "Warning" : "Missing";
+  const statusColor = allMet ? "#10b981" : hasWarnings ? "#f59e0b" : "#ef4444";
+  const statusMark = allMet ? "✓" : hasWarnings ? "!" : "•";
+
+  return (
+    <div
+      style={{
+        padding: "18px 20px",
+        backgroundColor: "#ffffff",
+        borderRadius: "12px",
+      }}
+    >
+      <button
+        type="button"
+        onClick={() => setExpanded((prev) => !prev)}
+        style={{
+          width: "100%",
+          border: "none",
+          background: "transparent",
+          padding: 0,
+          cursor: "pointer",
+          textAlign: "left",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}>
+          <div>
+            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#111827" }}>
+              {card.label}
+            </h3>
+            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
+              {card.satisfiedCount}/{card.totalCount} requirements met
+            </p>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 700 }}>{statusMark}</span>
+            <span
+              aria-hidden="true"
+              style={{
+                color: "#6b7280",
+                transition: "transform 200ms ease",
+                transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            >
+              ▶
+            </span>
+          </div>
+        </div>
+      </button>
+
+      <div style={{ marginTop: "10px", fontSize: "13px", color: statusColor, fontWeight: 600 }}>
+        {statusLabel}
+      </div>
+
+      {expanded && (
+        <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          {card.items.map((item) => (
+            <div
+              key={item.label}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "12px",
+                padding: "12px 0",
+                borderTop: "1px solid #f3f4f6",
+              }}
+            >
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: "#111827" }}>
+                  {item.label}
+                </p>
+                <p style={{ margin: "4px 0 0", fontSize: "13px", color: "#6b7280" }}>
+                  {item.detail}
+                </p>
+                {item.recommendations.length > 0 && item.status !== "satisfied" && (
+                  <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#374151" }}>
+                    Recommended: {item.recommendations.join(", ")}
+                  </p>
+                )}
+              </div>
+              <span
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  color: item.status === "satisfied" ? "#10b981" : item.status === "warning" ? "#f59e0b" : "#ef4444",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {item.status === "satisfied" ? "Satisfied" : item.status === "warning" ? "Warning" : "Missing"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function RequirementCard({
   req,
