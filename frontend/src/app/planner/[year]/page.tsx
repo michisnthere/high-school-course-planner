@@ -823,7 +823,9 @@ function SummarySidebar({
   const courseKeys = new Set<string>();
   const fullYearKeys = new Set<string>();
   for (const pc of currentPlanner?.plannedCourses || []) {
-    const key = pc.courseId != null ? `c${pc.courseId}` : `p${pc.plannerOptionId}`;
+    const key = pc.courseId != null
+      ? `c${pc.courseId}`
+      : (pc.plannerOptionId != null ? `c${-pc.plannerOptionId}` : `i${pc.id}`);
     courseKeys.add(key);
     if (pc.course.duration === 2) {
       fullYearKeys.add(key);
