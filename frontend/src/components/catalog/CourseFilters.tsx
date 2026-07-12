@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { formatCreditType } from "@/lib/catalog";
+import { formatCreditType, formatSemesterLabel } from "@/lib/catalog";
 
 const formatCreditTypeFilter = (value: string) => formatCreditType(value) ?? value;
 
@@ -213,7 +213,13 @@ export function CourseFilters({
             values={group.values}
             selected={filters[group.key]}
             onToggle={(value) => handleToggle(group.key, value)}
-            formatLabel={group.key === "creditType" ? formatCreditTypeFilter : undefined}
+            formatLabel={
+              group.key === "creditType"
+                ? formatCreditTypeFilter
+                : group.key === "semester"
+                  ? formatSemesterLabel
+                  : undefined
+            }
           />
         ))}
       </div>
@@ -241,7 +247,7 @@ export function CourseFilters({
             {otherGroups.flatMap((group) =>
               filters[group.key].map((value) => (
                 <span key={`${group.key}-${value}`} style={activeChipStyle}>
-                  {group.label}: {group.key === "creditType" ? formatCreditTypeFilter(value) : value}
+                  {group.label}: {group.key === "creditType" ? formatCreditTypeFilter(value) : group.key === "semester" ? formatSemesterLabel(value) : value}
                 </span>
               ))
             )}

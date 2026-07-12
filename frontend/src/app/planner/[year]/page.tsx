@@ -35,6 +35,7 @@ import {
   courseMatchesDivisionFilter,
   extractDivisionsFromItems,
   formatCreditType,
+  formatPrerequisiteForDisplay,
 } from "@/lib/catalog";
 import {
   addCompletedCourse,
@@ -1936,7 +1937,7 @@ function getWarnings(
 
     if (prereqPlacements.length === 0) {
       warnings.push({
-        message: `${course.title} usually requires ${prereq} first.`,
+        message: `${course.title} usually requires ${formatPrerequisiteForDisplay(prereq)} first.`,
         type: "missing_prerequisite",
         prerequisite: prereq,
       });

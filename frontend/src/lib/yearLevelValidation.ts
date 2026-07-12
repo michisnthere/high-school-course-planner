@@ -27,6 +27,9 @@ export type PeYearStatus = {
 type CourseLike = PlannerCourseDetails;
 
 type PlannedCourseLike = {
+  id?: number;
+  semester?: number;
+  slot?: number;
   courseId: number | null;
   course?: CourseLike | null;
 };
@@ -127,6 +130,37 @@ function semesterCourseText(courses: CourseLike[], terms: string[]): string {
   return title ? title : "Missing";
 }
 
+function checkPeMet(gradePlanned: CourseLike[], gradeCompleted: CourseLike[], planner: PlannerLike | null | undefined): boolean {
+  const allCourses = [...gradePlanned, ...gradeCompleted];
+  const hasDance = matchesAnyCourseSet(allCourses, ["Dance"]);
+  let peCount = 0;
+  if (planner) {
+    for (const pc of planner.plannedCourses ?? []) {
+      if (!pc.course) continue;
+      if ((pc.course.division ?? "").toLowerCase() === "physical education") {
+        peCount++;
+      }
+    }
+  }
+  return peCount >= 2 || hasDance;
+}
+
+function detailPeText(gradePlanned: CourseLike[], gradeCompleted: CourseLike[], planner: PlannerLike | null | undefined): string {
+  const allCourses = [...gradePlanned, ...gradeCompleted];
+  const peCourses = allCourses.filter((c) =>
+    (c.division ?? "").toLowerCase() === "physical education"
+  );
+  const peTitles = peCourses.map((c) => c.title).filter(Boolean);
+  const uniqueTitles = [...new Set(peTitles)];
+  if (uniqueTitles.length > 0) {
+    return uniqueTitles.join(", ");
+  }
+  if (matchesAnyCourseSet(allCourses, ["Dance"])) {
+    return "Dance";
+  }
+  return "Missing";
+}
+
 export function computeYearLevelCards(
   planners: Planner[] | null | undefined,
   completedCourses: CompletedCourse[] | null | undefined,
@@ -142,7 +176,6 @@ export function computeYearLevelCards(
     const gradePlanner = safePlanners.find((planner) => planner.schoolYear === grade);
     const gradePlanned = getPlannerPlannedCourses(gradePlanner);
     const gradeCompleted = completedCourseList;
-    const academicCredits = countCredits(gradePlanned.filter(isAcademicCourse));
 
     const items: YearLevelItem[] = [];
     if (grade === 9) {
@@ -169,14 +202,6 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
-        )
-      );
-      items.push(
-        buildItem(
-          "Minimum academic credits",
-          academicCredits >= 8,
-          academicCredits > 0 && academicCredits < 8,
-          `${academicCredits.toFixed(1)} academic credits scheduled`,
         )
       );
     } else if (grade === 10) {
@@ -262,6 +287,16 @@ export function computeYearLevelCards(
         )
       );
     }
+
+    const peMet = checkPeMet(gradePlanned, gradeCompleted, gradePlanner);
+    items.push(
+      buildItem(
+        "Physical Education",
+        peMet,
+        false,
+        detailPeText(gradePlanned, gradeCompleted, gradePlanner),
+      )
+    );
 
     const satisfiedCount = items.filter((item) => item.status === "satisfied").length;
 

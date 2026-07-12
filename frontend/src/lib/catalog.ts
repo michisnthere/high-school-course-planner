@@ -217,3 +217,16 @@ export function formatCreditType(creditType: string | null | undefined): string 
   if (creditType === "Honors") return "AP/Honors";
   return creditType;
 }
+
+export function formatSemesterLabel(semester: string): string {
+  if (semester === "1") return "Semester 1";
+  if (semester === "2") return "Semester 2";
+  return semester;
+}
+
+export function formatPrerequisiteForDisplay(prereq: string): string {
+  const lower = prereq.trim().toLowerCase();
+  if (lower === "any precalculus course") return "Precalculus";
+  if (lower === "any ap precalculus course") return "AP Precalculus";
+  return prereq.trim();
+}

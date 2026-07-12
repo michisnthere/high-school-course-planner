@@ -1,5 +1,6 @@
 import React from "react";
 import type { Course } from "@/types/course";
+import { formatSemesterLabel } from "@/lib/catalog";
 
 type CourseAdditionalInfoProps = {
   course: Course;
@@ -163,7 +164,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
             </div>
             {Array.from(semesterGroups.entries()).map(([semester, codes]) => (
               <React.Fragment key={semester}>
-                <div style={{ color: "#6b7280", fontWeight: 500 }}>{semester}</div>
+                <div style={{ color: "#6b7280", fontWeight: 500 }}>{formatSemesterLabel(semester)}</div>
                 <div style={{ color: "#111827", fontWeight: 600 }}>
                   {codes.join(", ")}
                 </div>

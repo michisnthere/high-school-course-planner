@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
+import { formatPrerequisiteForDisplay } from "@/lib/catalog";
 
 type CoursePrerequisitesProps = {
   course: Course;
@@ -90,6 +91,7 @@ function PrereqChip({
   part: PrereqPart;
   returnUrl: string;
 }): React.ReactElement {
+  const displayText = formatPrerequisiteForDisplay(part.text);
   if (!part.matchedCourse) {
     return (
       <span
@@ -103,7 +105,7 @@ function PrereqChip({
           borderRadius: "8px",
         }}
       >
-        {part.text}
+        {displayText}
       </span>
     );
   }
@@ -127,7 +129,7 @@ function PrereqChip({
           cursor: "pointer",
         }}
       >
-        {part.text}
+        {displayText}
       </span>
     </Link>
   );

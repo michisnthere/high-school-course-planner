@@ -11,7 +11,7 @@ import {
   type Planner,
   type PlannerCourseDetails,
 } from "@/lib/planner";
-import { computeYearLevelCards, computePeYears, type YearLevelCard, type PeYearStatus } from "@/lib/yearLevelValidation";
+import { computeYearLevelCards, type YearLevelCard } from "@/lib/yearLevelValidation";
 import type { Course } from "@/types/course";
 
 export default function RequirementsPage(): React.ReactElement {
@@ -122,13 +122,6 @@ function RequirementsContent(): React.ReactElement {
     [planners, completedCourses, courses]
   );
 
-  const peYearStatuses = useMemo(
-    () => computePeYears(planners, completedCourses, courses),
-    [planners, completedCourses, courses]
-  );
-
-  const peYearsMet = peYearStatuses.filter((y) => y.met).length;
-
   const creditSummary = useMemo(() => {
     const completedCredits = completedCourses.reduce(
       (sum, cc) => sum + (cc.credits ?? cc.course.credits ?? cc.course.duration ?? 0),
@@ -237,11 +230,6 @@ function RequirementsContent(): React.ReactElement {
               {yearCards.map((year) => (
                 <YearLevelCardView key={year.grade} card={year} />
               ))}
-              <PeYearsCard
-                peYearStatuses={peYearStatuses}
-                peYearsMet={peYearsMet}
-                totalYears={4}
-              />
             </div>
           </section>
 
@@ -263,7 +251,9 @@ function RequirementsContent(): React.ReactElement {
                 gap: "16px",
               }}
             >
-              {analysis.graduationRequirements.map((req) => (
+              {analysis.graduationRequirements
+                .filter((req) => req.name.toLowerCase() !== "physical education")
+                .map((req) => (
                 <RequirementCard
                   key={req.id}
                   req={req}
@@ -780,105 +770,6 @@ function ProgressBar({
   );
 }
 
-function PeYearsCard({
-  peYearStatuses,
-  peYearsMet,
-  totalYears,
-}: {
-  peYearStatuses: PeYearStatus[];
-  peYearsMet: number;
-  totalYears: number;
-}): React.ReactElement {
-  const [expanded, setExpanded] = useState(false);
-  const allMet = peYearsMet === totalYears;
-  const statusColor = allMet ? "#10b981" : "#ef4444";
-  const statusMark = allMet ? "✓" : "•";
 
-  return (
-    <div
-      style={{
-        padding: "18px 20px",
-        backgroundColor: "#ffffff",
-        borderRadius: "12px",
-      }}
-    >
-      <button
-        type="button"
-        onClick={() => setExpanded((prev) => !prev)}
-        style={{
-          width: "100%",
-          border: "none",
-          background: "transparent",
-          padding: 0,
-          cursor: "pointer",
-          textAlign: "left",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}>
-          <div>
-            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#111827" }}>
-              Physical Education
-            </h3>
-            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
-              {peYearsMet}/{totalYears} years met
-            </p>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
-            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 700 }}>{statusMark}</span>
-            <span
-              aria-hidden="true"
-              style={{
-                color: "#6b7280",
-                transition: "transform 200ms ease",
-                transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-                display: "inline-block",
-              }}
-            >
-              ▶
-            </span>
-          </div>
-        </div>
-      </button>
-
-      <div style={{ marginTop: "10px", fontSize: "13px", color: statusColor, fontWeight: 600 }}>
-        {allMet ? "Satisfied" : `${totalYears - peYearsMet} year(s) remaining`}
-      </div>
-
-      {expanded && (
-        <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
-          <p style={{ margin: 0, fontSize: "13px", color: "#6b7280" }}>
-            Each year requires two semesters of Physical Education division courses, an approved
-            waiver, or a dance option.
-          </p>
-          {peYearStatuses.map((year) => (
-            <div
-              key={year.grade}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-                padding: "10px 0",
-                borderTop: "1px solid #f3f4f6",
-              }}
-            >
-              <span style={{ fontSize: "15px", fontWeight: 600, color: "#111827" }}>
-                {year.label}
-              </span>
-              <span
-                style={{
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: year.met ? "#10b981" : "#ef4444",
-                }}
-              >
-                {year.met ? "Met" : "Not met"}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 

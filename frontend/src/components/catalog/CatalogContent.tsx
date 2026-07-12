@@ -9,6 +9,7 @@ import {
 } from "@/lib/catalog";
 import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
+import { formatSemesterLabel } from "@/lib/catalog";
 import { CourseGrid } from "./CourseGrid";
 import { EmptyState } from "./EmptyState";
 

@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import { getCourseSlug } from "@/lib/normalize";
-import { formatCreditType } from "@/lib/catalog";
+import { formatCreditType, formatPrerequisiteForDisplay } from "@/lib/catalog";
 
 type CourseDetailPopoverProps = {
   course: PlannerCourseDetails;
@@ -224,7 +224,7 @@ export function CourseDetailPopover({
                 }}
               >
                 {course.prerequisites.map((item, index) => (
-                  <li key={`${item}-${index}`}>{item}</li>
+                  <li key={`${item}-${index}`}>{formatPrerequisiteForDisplay(item)}</li>
                 ))}
               </ul>
             </div>
