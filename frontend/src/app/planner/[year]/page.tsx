@@ -820,21 +820,17 @@ function SummarySidebar({
 
   const totalCredits = sumPlannedCredits(allCourses);
   const currentCredits = sumPlannedCredits(currentPlanner?.plannedCourses || []);
-  // A full-year course is stored as two PlannedCourse records (one per semester,
-  // same slot). Count distinct course placements by courseId + slot so full-year
-  // courses are counted once while repeatable courses in different slots are
-  // counted as separate instances.
-  const currentCourseIds = new Set<string>();
-  const fullYearCourseIds = new Set<string>();
+  const courseKeys = new Set<string>();
+  const fullYearKeys = new Set<string>();
   for (const pc of currentPlanner?.plannedCourses || []) {
-    const instanceKey = `${pc.courseId}-${pc.slot}`;
-    currentCourseIds.add(instanceKey);
+    const key = pc.courseId != null ? `c${pc.courseId}` : `p${pc.plannerOptionId}`;
+    courseKeys.add(key);
     if (pc.course.duration === 2) {
-      fullYearCourseIds.add(instanceKey);
+      fullYearKeys.add(key);
     }
   }
-  const currentCourseCount = currentCourseIds.size;
-  const fullYearCount = fullYearCourseIds.size;
+  const currentCourseCount = courseKeys.size;
+  const fullYearCount = fullYearKeys.size;
   const semesterCount = currentCourseCount - fullYearCount;
   const totalSlots = 14;
   const filledSlots = (currentPlanner?.plannedCourses || []).length;
@@ -1887,15 +1883,13 @@ type PlannerWarning = {
   };
 };
 
-function getCourseInstanceKey(planned: PlannedCourse): string {
-  if (planned.course.duration === 2 && planned.courseId != null) {
-    return `${planned.plannerId}-fy-${planned.courseId}-${planned.slot}`;
-  }
-  return `${planned.plannerId}-sem-${planned.id}`;
+function getCourseIdentityKey(planned: PlannedCourse): string {
+  const id = planned.courseId ?? (planned.plannerOptionId != null ? -planned.plannerOptionId : null);
+  return id != null ? `c${id}` : `i${planned.id}`;
 }
 
 function makeWarningKey(planned: PlannedCourse, warning: PlannerWarning): string {
-  return `${getCourseInstanceKey(planned)}-${warning.type}-${warning.prerequisite}`;
+  return `${getCourseIdentityKey(planned)}-${warning.type}-${warning.prerequisite}`;
 }
 
 function getWarnings(
