@@ -39,6 +39,12 @@ export function ExploreCoursesSection({
         Top Courses
       </h2>
 
+      <style>{`
+        .explore-course-card:hover {
+          background-color: #f3f4f6 !important;
+        }
+      `}</style>
+
       {preview.length === 0 ? (
         <p
           style={{
@@ -66,18 +72,12 @@ export function ExploreCoursesSection({
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div
+                  className="explore-course-card"
                   style={{
                     padding: "12px",
                     backgroundColor: "#f9fafb",
                     borderRadius: "8px",
-                    transition: "background-color 0.15s ease",
                     cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = "#f3f4f6";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.backgroundColor = "#f9fafb";
                   }}
                 >
                   <p

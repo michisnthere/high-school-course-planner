@@ -115,6 +115,7 @@ function PrereqChip({
       style={{ textDecoration: "none" }}
     >
       <span
+        className="prereq-chip"
         style={{
           display: "inline-block",
           padding: "6px 14px",
@@ -124,13 +125,6 @@ function PrereqChip({
           backgroundColor: "#eff6ff",
           borderRadius: "8px",
           cursor: "pointer",
-          transition: "background-color 0.15s ease",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.backgroundColor = "#dbeafe";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.backgroundColor = "#eff6ff";
         }}
       >
         {part.text}
@@ -168,6 +162,12 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
       >
         Prerequisites
       </h2>
+
+      <style>{`
+        .prereq-chip:hover {
+          background-color: #dbeafe !important;
+        }
+      `}</style>
 
       {groups.length === 0 ? (
         <p
