@@ -404,6 +404,60 @@ function RequirementCard({
         <ProgressBar percent={percent} color={config.badge} showLabel />
       </div>
 
+      {req.status !== "satisfied" && (
+        <div style={{ marginTop: "16px" }}>
+          <p
+            style={{
+              margin: "0 0 8px",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#374151",
+            }}
+          >
+            Recommended courses
+          </p>
+          {req.recommendedCourses.length === 0 ? (
+            <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
+              No recommended courses available.
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {req.recommendedCourses.map((rec) => (
+                <div
+                  key={rec.courseId}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: "12px",
+                    padding: "10px 12px",
+                    backgroundColor: "#f9fafb",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#111827",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                    title={rec.title}
+                  >
+                    {rec.title}
+                  </span>
+                  <span style={{ fontSize: "12px", color: "#6b7280", whiteSpace: "nowrap" }}>
+                    {rec.reason}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {isExpanded && (
         <div
           style={{

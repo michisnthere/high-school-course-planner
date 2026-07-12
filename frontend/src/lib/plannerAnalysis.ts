@@ -13,6 +13,11 @@ export type PlannerAnalysis = {
     earnedValue: number;
     remainingValue: number;
     status: "satisfied" | "partial" | "notStarted";
+    recommendedCourses: Array<{
+      courseId: number;
+      title: string;
+      reason: string;
+    }>;
   }>;
   yearRequirements: Array<{
     grade: number;

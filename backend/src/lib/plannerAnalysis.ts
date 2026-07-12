@@ -59,6 +59,12 @@ type CoursePlacement = {
   credits: number;
 };
 
+export type RecommendedCourse = {
+  courseId: number;
+  title: string;
+  reason: string;
+};
+
 export type RequirementStatus = {
   id: number;
   name: string;
@@ -68,6 +74,7 @@ export type RequirementStatus = {
   earnedValue: number;
   remainingValue: number;
   status: "satisfied" | "partial" | "notStarted";
+  recommendedCourses: RecommendedCourse[];
 };
 
 export type YearRequirementStatus = {
@@ -280,6 +287,24 @@ async function loadCourseRequirementLinks(): Promise<Map<number, Set<number>>> {
   return map;
 }
 
+async function loadAllCourses(): Promise<CourseWithOptions[]> {
+  return prisma.course.findMany({
+    include: {
+      department: {
+        include: {
+          division: true,
+        },
+      },
+      options: {
+        include: {
+          offerings: true,
+        },
+      },
+    },
+    orderBy: { title: "asc" },
+  }) as Promise<CourseWithOptions[]>;
+}
+
 async function loadCompletedCourses(userId: number): Promise<CompletedCourseWithCourse[]> {
   return prisma.completedCourse.findMany({
     where: { userId },
@@ -350,8 +375,152 @@ function computeGraduationRequirements(
       earnedValue: earned,
       remainingValue: Math.max(0, required - earned),
       status: getRequirementStatus(earned, required),
+      recommendedCourses: [],
     };
   });
+}
+
+function prerequisiteMatches(
+  prereq: string,
+  item: { title: string; courseCode: string }
+): boolean {
+  const normalizedPrereq = prereq.toLowerCase();
+  const normalizedTitle = item.title.toLowerCase();
+  return (
+    normalizedTitle.includes(normalizedPrereq) ||
+    normalizedPrereq.includes(normalizedTitle) ||
+    normalizedPrereq.includes(item.courseCode)
+  );
+}
+
+function checkPrerequisiteStatus(
+  prerequisites: string[],
+  completedItems: { title: string; courseCode: string }[],
+  plannedItems: { title: string; courseCode: string }[]
+): {
+  count: number;
+  completedCount: number;
+  plannedCount: number;
+  allCompleted: boolean;
+  allMetOrPlanned: boolean;
+} {
+  let completedCount = 0;
+  let plannedCount = 0;
+  const count = prerequisites.filter((p) => p.trim()).length;
+
+  for (const prereq of prerequisites) {
+    if (!prereq.trim()) continue;
+
+    const isCompleted = completedItems.some((item) => prerequisiteMatches(prereq, item));
+    if (isCompleted) {
+      completedCount++;
+      continue;
+    }
+
+    const isPlanned = plannedItems.some((item) => prerequisiteMatches(prereq, item));
+    if (isPlanned) {
+      plannedCount++;
+    }
+  }
+
+  return {
+    count,
+    completedCount,
+    plannedCount,
+    allCompleted: count > 0 && completedCount === count,
+    allMetOrPlanned: completedCount + plannedCount >= count,
+  };
+}
+
+function computeRecommendations(
+  graduationRequirements: RequirementStatus[],
+  courseRequirementLinks: Map<number, Set<number>>,
+  placements: CoursePlacement[],
+  completedCourses: CompletedCourseWithCourse[],
+  allCourses: CourseWithOptions[]
+): Map<number, RecommendedCourse[]> {
+  const scheduledCourseIds = new Set<number>();
+  const analysisCourseById = new Map<number, AnalysisCourse>();
+
+  for (const placement of placements) {
+    if (placement.course) {
+      scheduledCourseIds.add(placement.course.id);
+      if (!analysisCourseById.has(placement.course.id)) {
+        analysisCourseById.set(placement.course.id, placement.course);
+      }
+    }
+  }
+
+  for (const course of allCourses) {
+    if (!analysisCourseById.has(course.id)) {
+      analysisCourseById.set(course.id, toAnalysisCourse(course));
+    }
+  }
+
+  const completedCourseIds = new Set(completedCourses.map((cc) => cc.course.id));
+  const completedItems = completedCourses.map((cc) => ({
+    title: cc.course.title,
+    courseCode: (cc.course.options?.[0]?.offerings?.[0]?.courseCode ?? "").toLowerCase(),
+  }));
+  const plannedItems = placements
+    .filter((p) => p.course)
+    .map((p) => ({
+      title: p.course!.title,
+      courseCode: (p.course!.courseCode ?? "").toLowerCase(),
+    }));
+
+  const recommendations = new Map<number, RecommendedCourse[]>();
+
+  for (const req of graduationRequirements) {
+    if (req.status === "satisfied") {
+      recommendations.set(req.id, []);
+      continue;
+    }
+
+    const eligibleIds = courseRequirementLinks.get(req.id);
+    if (!eligibleIds) {
+      recommendations.set(req.id, []);
+      continue;
+    }
+
+    const list: Array<RecommendedCourse & { priority: number }> = [];
+    for (const courseId of eligibleIds) {
+      if (completedCourseIds.has(courseId)) continue;
+      if (scheduledCourseIds.has(courseId)) continue;
+
+      const course = analysisCourseById.get(courseId);
+      if (!course) continue;
+
+      const status = checkPrerequisiteStatus(course.prerequisites, completedItems, plannedItems);
+      if (!status.allMetOrPlanned) continue;
+
+      let reason: string;
+      if (status.count === 0) {
+        reason = "No prerequisites required";
+      } else if (status.allCompleted) {
+        reason = "Prerequisites met";
+      } else if (status.plannedCount > 0 && status.completedCount === 0) {
+        reason = "Prerequisites planned";
+      } else {
+        reason = "Prerequisites met or planned";
+      }
+
+      const priority = status.allCompleted ? 0 : status.plannedCount > 0 ? 1 : 2;
+      list.push({ courseId, title: course.title, reason, priority });
+    }
+
+    const sorted = list
+      .sort((a, b) => {
+        if (a.priority !== b.priority) return a.priority - b.priority;
+        return a.title.localeCompare(b.title);
+      })
+      .slice(0, 5)
+      .map(({ priority, ...rec }) => rec);
+
+    recommendations.set(req.id, sorted);
+  }
+
+  return recommendations;
 }
 
 const YEARLY_REQUIREMENTS: Record<number, Array<{ category: string; requiredCredits: number; matches: string[] }>> = {
@@ -564,16 +733,30 @@ function computePlannerStatistics(placements: CoursePlacement[]): PlannerStatist
 }
 
 export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> {
-  const [placements, requirements, courseRequirementLinks, completedCourses] = await Promise.all([
+  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses] = await Promise.all([
     loadPlacements(userId),
     loadGraduationRequirements(),
     loadCourseRequirementLinks(),
     loadCompletedCourses(userId),
+    loadAllCourses(),
   ]);
+
+  const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements);
+  const recommendations = computeRecommendations(
+    graduationRequirements,
+    courseRequirementLinks,
+    placements,
+    completedCourses,
+    allCourses
+  );
+
+  for (const req of graduationRequirements) {
+    req.recommendedCourses = recommendations.get(req.id) ?? [];
+  }
 
   return {
     credits: computeCredits(placements),
-    graduationRequirements: computeGraduationRequirements(requirements, courseRequirementLinks, placements),
+    graduationRequirements,
     yearRequirements: computeYearRequirements(placements),
     duplicateCourses: computeDuplicateCourses(placements),
     missingPrerequisites: computeMissingPrerequisites(placements, completedCourses),
