@@ -144,7 +144,9 @@ export async function addPlannedCourse(
     throw new Error(data.error || "Failed to add course");
   }
 
-  return response.json();
+  const data = await response.json();
+  window.dispatchEvent(new Event("planner:changed"));
+  return data;
 }
 
 export async function removePlannedCourse(plannedCourseId: number): Promise<void> {
@@ -157,6 +159,8 @@ export async function removePlannedCourse(plannedCourseId: number): Promise<void
     const body = await response.json().catch(() => ({ error: "Failed to remove course" }));
     throw new Error(body.error || "Failed to remove course");
   }
+
+  window.dispatchEvent(new Event("planner:changed"));
 }
 
 export async function movePlannedCourse(
@@ -172,11 +176,13 @@ export async function movePlannedCourse(
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({ error: "Failed to move course" }));
+    const body = await response.json().catch(() => ({ error: "Failed to move course" })); 
     throw new Error(body.error || "Failed to move course");
   }
 
-  return response.json();
+  const data = await response.json();
+  window.dispatchEvent(new Event("planner:changed"));
+  return data;
 }
 
 function escapeRegExp(text: string): string {

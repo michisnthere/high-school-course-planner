@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.js";
 import savedCoursesRouter from "./routes/savedCourses.js";
 import plannerRouter from "./routes/planner.js";
 import completedCoursesRouter from "./routes/completedCourses.js";
+import gpaRouter from "./routes/gpa.js";
 import {
   sessionMiddleware,
   passportInit,
@@ -32,6 +33,7 @@ app.use("/auth", authRouter);
 app.use("/saved-courses", savedCoursesRouter);
 app.use("/api/planner", plannerRouter);
 app.use("/api/completed-courses", completedCoursesRouter);
+app.use("/api/gpa", gpaRouter);
 
 app.get("/", (_req, res) => {
   res.json({

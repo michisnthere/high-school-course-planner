@@ -58,7 +58,9 @@ export async function addCompletedCourse(
     throw new Error(data.error || "Failed to add completed course");
   }
 
-  return response.json();
+  const data = await response.json();
+  window.dispatchEvent(new Event("completed-courses:changed"));
+  return data;
 }
 
 export async function removeCompletedCourse(id: number): Promise<void> {
@@ -73,4 +75,6 @@ export async function removeCompletedCourse(id: number): Promise<void> {
       .catch(() => ({ error: "Failed to remove completed course" }));
     throw new Error(data.error || "Failed to remove completed course");
   }
+
+  window.dispatchEvent(new Event("completed-courses:changed"));
 }

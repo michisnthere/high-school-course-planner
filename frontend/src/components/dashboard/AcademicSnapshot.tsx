@@ -1,15 +1,44 @@
-import React from "react";
+"use client";
 
-const fields = [
-  { label: "Unweighted GPA", value: "—" },
-  { label: "Weighted GPA", value: "—" },
-  { label: "Credits Earned", value: "—" },
-  { label: "Current Grade", value: "—" },
-  { label: "Planner Status", value: "Not Started" },
-  { label: "Graduation Progress", value: "—" },
-];
+import React, { useCallback, useEffect, useState } from "react";
+import { getGpaProjection, type GpaProjection } from "@/lib/gpaProjection";
+
+function formatGpa(value: number): string {
+  return value.toFixed(2);
+}
 
 export function AcademicSnapshot(): React.ReactElement {
+  const [projection, setProjection] = useState<GpaProjection | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const load = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await getGpaProjection();
+      setProjection(data);
+    } catch {
+      setProjection(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    load();
+    const handler = () => {
+      load();
+    };
+    window.addEventListener("planner:changed", handler);
+    window.addEventListener("completed-courses:changed", handler);
+    return () => {
+      window.removeEventListener("planner:changed", handler);
+      window.removeEventListener("completed-courses:changed", handler);
+    };
+  }, [load]);
+
+  const current = projection?.current ?? { weighted: 0, unweighted: 0, credits: 0 };
+  const projected = projection?.projected ?? { weighted: 0, unweighted: 0, credits: 0 };
+
   return (
     <div
       style={{
@@ -31,45 +60,61 @@ export function AcademicSnapshot(): React.ReactElement {
           color: "#111827",
         }}
       >
-        Academic Snapshot
+        GPA Projection
       </h2>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "14px",
-        }}
-      >
-        {fields.map((field) => (
-          <div
-            key={field.label}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "15px",
-                color: "#6b7280",
-              }}
-            >
-              {field.label}
-            </span>
-            <span
-              style={{
-                fontSize: "15px",
-                fontWeight: 500,
-                color: "#374151",
-              }}
-            >
-              {field.value}
-            </span>
-          </div>
-        ))}
-      </div>
+      {loading && !projection ? (
+        <p style={{ margin: 0, fontSize: "15px", color: "#6b7280" }}>Loading GPA projection...</p>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <ProjectionBlock
+            title="Current GPA"
+            weighted={current.weighted}
+            unweighted={current.unweighted}
+            creditsLabel="Credits Completed"
+            credits={current.credits}
+          />
+          <ProjectionBlock
+            title="Projected GPA"
+            weighted={projected.weighted}
+            unweighted={projected.unweighted}
+            creditsLabel="Credits After Plan"
+            credits={projected.credits}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProjectionBlock({
+  title,
+  weighted,
+  unweighted,
+  creditsLabel,
+  credits,
+}: {
+  title: string;
+  weighted: number;
+  unweighted: number;
+  creditsLabel: string;
+  credits: number;
+}): React.ReactElement {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <p style={{ margin: 0, fontSize: "14px", fontWeight: 700, color: "#374151" }}>{title}</p>
+      <MetricRow label="Weighted" value={formatGpa(weighted)} />
+      <MetricRow label="Unweighted" value={formatGpa(unweighted)} />
+      <MetricRow label={creditsLabel} value={credits.toFixed(1)} />
+    </div>
+  );
+}
+
+function MetricRow({ label, value }: { label: string; value: string }): React.ReactElement {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <span style={{ fontSize: "15px", color: "#6b7280" }}>{label}</span>
+      <span style={{ fontSize: "15px", fontWeight: 600, color: "#111827" }}>{value}</span>
     </div>
   );
 }
