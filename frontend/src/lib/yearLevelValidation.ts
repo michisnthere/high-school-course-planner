@@ -20,6 +20,16 @@ export type YearLevelCard = {
 
 type CourseLike = PlannerCourseDetails;
 
+type PlannedCourseLike = {
+  courseId: number | null;
+  course?: CourseLike | null;
+};
+
+type PlannerLike = {
+  schoolYear: number;
+  plannedCourses?: PlannedCourseLike[] | null;
+};
+
 const GRADE_LABELS: Record<number, string> = {
   9: "Freshman",
   10: "Sophomore",
@@ -49,6 +59,16 @@ const ACADEMIC_CREDITS_MATCHERS = [
 
 function normalize(text: string): string {
   return text.trim().toLowerCase();
+}
+
+function asArray<T>(value: T[] | null | undefined): T[] {
+  return Array.isArray(value) ? value : [];
+}
+
+function getPlannerPlannedCourses(planner: PlannerLike | null | undefined): CourseLike[] {
+  return asArray(planner?.plannedCourses)
+    .map((pc) => pc?.course ?? null)
+    .filter((course): course is CourseLike => Boolean(course));
 }
 
 function courseTokens(course: CourseLike): string[] {
@@ -124,19 +144,19 @@ function semesterCourseText(courses: CourseLike[], terms: string[]): string {
 }
 
 export function computeYearLevelCards(
-  planners: Planner[],
-  completedCourses: CompletedCourse[],
+  planners: Planner[] | null | undefined,
+  completedCourses: CompletedCourse[] | null | undefined,
   courses: CourseLike[]
 ): YearLevelCard[] {
-  const courseById = new Map(courses.map((course) => [course.id, course] as const));
-  const completedCourseList = getCompletedInstances(completedCourses, courseById);
+  const safePlanners = asArray(planners);
+  const safeCompletedCourses = asArray(completedCourses);
+  const safeCourses = asArray(courses);
+  const courseById = new Map(safeCourses.map((course) => [course.id, course] as const));
+  const completedCourseList = getCompletedInstances(safeCompletedCourses, courseById);
 
   return [9, 10, 11, 12].map((grade) => {
-    const gradePlanner = planners.find((planner) => planner.schoolYear === grade);
-    const gradePlanned = gradePlanner?.plannedCourses
-      .filter((pc) => pc.courseId != null)
-      .map((pc) => pc.course)
-      .filter(Boolean) as CourseLike[];
+    const gradePlanner = safePlanners.find((planner) => planner.schoolYear === grade);
+    const gradePlanned = getPlannerPlannedCourses(gradePlanner);
     const gradeCompleted = completedCourseList;
     const academicCredits = countCredits(gradePlanned.filter(isAcademicCourse));
 
@@ -148,7 +168,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.English)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -157,7 +177,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.Math)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Math)
         )
       );
       items.push(
@@ -167,7 +187,7 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.Science)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Science)
         )
       );
       items.push(
@@ -186,7 +206,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.English)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -195,7 +215,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.Math)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Math)
         )
       );
       items.push(
@@ -205,7 +225,7 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.Science)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Science)
         )
       );
       items.push(
@@ -214,7 +234,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Health"]) || matchesAnyCourseSet(gradeCompleted, ["Health"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Health"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.Health)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Health)
         )
       );
       items.push(
@@ -224,7 +244,7 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Driver Education"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Driver Education"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES["Driver Education"])
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Driver Education"])
         )
       );
       items.push(
@@ -234,7 +254,7 @@ export function computeYearLevelCards(
             matchesAnyCourseSet(gradeCompleted, ["Physical Education"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Physical Education"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES["Physical Education"])
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Physical Education"])
         )
       );
     } else if (grade === 11) {
@@ -244,7 +264,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.English)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -253,7 +273,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.Mathematics)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.Mathematics)
         )
       );
       const peSatisfied =
@@ -265,7 +285,7 @@ export function computeYearLevelCards(
           peSatisfied,
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Physical Education"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES["Physical Education"])
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Physical Education"])
         )
       );
     } else {
@@ -275,7 +295,7 @@ export function computeYearLevelCards(
           matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES.English)
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES.English)
         )
       );
       items.push(
@@ -289,7 +309,7 @@ export function computeYearLevelCards(
             "Personal Finance",
             "Consumer Education",
           ]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES["Economics / Personal Finance"])
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Economics / Personal Finance"])
         )
       );
       const peSatisfied =
@@ -301,7 +321,7 @@ export function computeYearLevelCards(
           peSatisfied,
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Physical Education"]),
-          uniqueRecommendations(courses, RECOMMENDATION_RULES["Physical Education"])
+          uniqueRecommendations(safeCourses, RECOMMENDATION_RULES["Physical Education"])
         )
       );
     }
