@@ -9,6 +9,7 @@ import {
   isNonGraduationRequirementName,
   normalizeRequirementNames,
 } from "../src/lib/requirementsCleanup.js";
+import { normalizePrerequisites } from "../src/lib/prerequisiteNormalization.js";
 
 // ---------------------------------------------------------------------------
 // Input types — matches the cleaned academic-data JSON produced by the
@@ -631,7 +632,7 @@ async function main() {
             duration: String(normalizedOfferingDuration),
             gradeMin,
             gradeMax,
-            prerequisites: requireArray(offering.prerequisites),
+            prerequisites: normalizePrerequisites(requireArray(offering.prerequisites)),
             corequisites: requireArray(offering.corequisites),
             creditType: offering.creditType ?? option.creditType ?? null,
             credits: offering.credits ?? option.credits ?? null,
@@ -642,7 +643,7 @@ async function main() {
             duration: String(normalizedOfferingDuration),
             gradeMin,
             gradeMax,
-            prerequisites: requireArray(offering.prerequisites),
+            prerequisites: normalizePrerequisites(requireArray(offering.prerequisites)),
             corequisites: requireArray(offering.corequisites),
             creditType: offering.creditType ?? option.creditType ?? null,
             credits: offering.credits ?? option.credits ?? null,

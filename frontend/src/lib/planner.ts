@@ -4,6 +4,7 @@ const API_URL =
   typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
 
 import type { Course } from "@/types/course";
+import { normalizePrerequisite } from "@/lib/prerequisiteNormalization";
 
 export type CourseDuration = number;
 
@@ -294,7 +295,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     if (Array.isArray(offering.prerequisites)) {
       for (const item of offering.prerequisites) {
         if (typeof item === "string" && item.trim()) {
-          prerequisites.add(item.trim());
+          prerequisites.add(normalizePrerequisite(item.trim()));
         }
       }
     }

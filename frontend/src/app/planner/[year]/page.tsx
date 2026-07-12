@@ -44,6 +44,7 @@ import {
 } from "@/lib/completedCourses";
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
+import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
 
 const PLANNER_OPTION_COLORS = {
   border: "#6b7280",
@@ -1872,23 +1873,6 @@ function getWarnings(
     return warnings;
   }
 
-  // Exact catalog lookup by title and course code (one-to-many to handle duplicates).
-  const courseIdsByTitle = new Map<string, number[]>();
-  const courseIdsByCode = new Map<string, number[]>();
-  for (const c of allCatalogCourses) {
-    const title = c.title.toLowerCase();
-    const idsForTitle = courseIdsByTitle.get(title) ?? [];
-    idsForTitle.push(c.id);
-    courseIdsByTitle.set(title, idsForTitle);
-
-    if (c.courseCode) {
-      const code = c.courseCode.toLowerCase();
-      const idsForCode = courseIdsByCode.get(code) ?? [];
-      idsForCode.push(c.id);
-      courseIdsByCode.set(code, idsForCode);
-    }
-  }
-
   const completedCourseIds = new Set(completedCourses.map((cc) => cc.courseId));
 
   const plannedPlacements: Array<{
@@ -1926,14 +1910,12 @@ function getWarnings(
 
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
-    const normalizedPrereq = prereq.toLowerCase();
 
-    const matchedCourseIds = [
-      ...(courseIdsByTitle.get(normalizedPrereq) ?? []),
-      ...(courseIdsByCode.get(normalizedPrereq) ?? []),
-    ];
+    const matchedCourses = allCatalogCourses.filter((c) =>
+      prerequisiteMatches(prereq, c.title, c.courseCode)
+    );
+    const matchedCourseIds = matchedCourses.map((c) => c.id);
 
-    // No exact catalog match for this prerequisite string; skip it.
     if (matchedCourseIds.length === 0) {
       continue;
     }
@@ -2009,12 +1991,9 @@ function WarningActionModal({
   const allCourses = allCatalogCourses;
 
   const matchedCourses = useMemo(() => {
-    const normalizedPrereq = warning.prerequisite.toLowerCase();
-    return allCourses.filter((c) => {
-      const normalizedTitle = c.title.toLowerCase();
-      const courseCode = c.courseCode?.toLowerCase() ?? "";
-      return normalizedTitle === normalizedPrereq || courseCode === normalizedPrereq;
-    });
+    return allCourses.filter((c) =>
+      prerequisiteMatches(warning.prerequisite, c.title, c.courseCode)
+    );
   }, [allCourses, warning.prerequisite]);
 
   const selectedCourse =

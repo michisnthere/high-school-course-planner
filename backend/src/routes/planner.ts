@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
 import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
+import { normalizePrerequisite } from "../lib/prerequisiteNormalization.js";
 import { calculateTotalCredits } from "../lib/plannerAnalysis.js";
 import type { Course, PlannerOption } from "@prisma/client";
 
@@ -102,7 +103,7 @@ export function deriveCourseDetails(
     if (Array.isArray(offering.prerequisites)) {
       for (const item of offering.prerequisites) {
         if (typeof item === "string" && item.trim()) {
-          prerequisites.add(item.trim());
+          prerequisites.add(normalizePrerequisite(item.trim()));
         }
       }
     }

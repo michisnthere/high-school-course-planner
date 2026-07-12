@@ -27,6 +27,7 @@ import {
   normalizeRequirementNames,
   type InformationItem,
 } from "./requirementsCleanup.js";
+import { normalizePrerequisite } from "./prerequisiteNormalization.js";
 
 type CourseOptionWithOfferings = CourseOption & { offerings: CourseOffering[] };
 type CourseWithOptions = Course & {
@@ -181,7 +182,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
   if (Array.isArray(rawPrereqs)) {
     for (const item of rawPrereqs) {
       if (typeof item === "string" && item.trim()) {
-        prerequisites.add(item.trim());
+        prerequisites.add(normalizePrerequisite(item.trim()));
       }
     }
   }
@@ -472,15 +473,26 @@ function mergeCourseRequirementLinksByCanonicalRequirement(
 
 function prerequisiteMatches(
   prereq: string,
-  item: { title: string; courseCode: string }
+  item: { title: string; courseCode?: string | null }
 ): boolean {
-  const normalizedPrereq = prereq.toLowerCase();
+  const normalized = normalizePrerequisite(prereq).toLowerCase();
   const normalizedTitle = item.title.toLowerCase();
-  return (
-    normalizedTitle.includes(normalizedPrereq) ||
-    normalizedPrereq.includes(normalizedTitle) ||
-    normalizedPrereq.includes(item.courseCode)
-  );
+  const normalizedCode = (item.courseCode ?? "").toLowerCase();
+
+  const alternatives = normalized.split(/\s+or\s+/);
+  for (const alt of alternatives) {
+    const trimmed = alt.trim();
+    if (!trimmed) continue;
+    if (
+      normalizedTitle.includes(trimmed) ||
+      trimmed.includes(normalizedTitle) ||
+      trimmed.includes(normalizedCode)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function checkPrerequisiteStatus(
@@ -715,7 +727,6 @@ function computeMissingPrerequisites(
   placements: CoursePlacement[],
   completedCourses: CompletedCourseWithCourse[]
 ): MissingPrerequisite[] {
-  // Build an ordered timeline of all planned course placements.
   const ordered: Array<{
     year: number;
     semester: number;
@@ -734,8 +745,8 @@ function computeMissingPrerequisites(
   ordered.sort((a, b) => a.year - b.year || a.semester - b.semester);
 
   const completedItems = completedCourses.map((cc) => ({
-    title: cc.course.title.toLowerCase(),
-    courseCode: (cc.course.options?.[0]?.offerings?.[0]?.courseCode ?? "").toLowerCase(),
+    title: cc.course.title,
+    courseCode: cc.course.options?.[0]?.offerings?.[0]?.courseCode ?? "",
   }));
 
   const missing: MissingPrerequisite[] = [];
@@ -748,25 +759,15 @@ function computeMissingPrerequisites(
 
     for (const prereq of placement.course.prerequisites) {
       if (!prereq.trim()) continue;
-      const normalizedPrereq = prereq.toLowerCase();
 
-      const completed = completedItems.some(
-        (item) =>
-          item.title.includes(normalizedPrereq) ||
-          normalizedPrereq.includes(item.title) ||
-          normalizedPrereq.includes(item.courseCode)
+      const completed = completedItems.some((item) =>
+        prerequisiteMatches(prereq, item)
       );
       if (completed) continue;
 
-      const prereqIndex = ordered.findIndex((item) => {
-        const normalizedTitle = item.title.toLowerCase();
-        const courseCode = item.courseCode?.toLowerCase() ?? "";
-        return (
-          normalizedTitle.includes(normalizedPrereq) ||
-          normalizedPrereq.includes(normalizedTitle) ||
-          normalizedPrereq.includes(courseCode)
-        );
-      });
+      const prereqIndex = ordered.findIndex((item) =>
+        prerequisiteMatches(prereq, item)
+      );
 
       if (prereqIndex === -1) {
         missing.push({
