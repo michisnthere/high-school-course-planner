@@ -1,9 +1,11 @@
 import { Router } from "express";
 import passport from "passport";
-import { createGoogleStrategy } from "../lib/auth.js";
+import { createGoogleStrategy, type SessionUser } from "../lib/auth.js";
+import { prisma } from "../lib/prisma.js";
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+const NODE_ENV = process.env.NODE_ENV || "development";
 
 const CALLBACK_URL = `${BACKEND_URL}/auth/google/callback`;
 
@@ -60,5 +62,40 @@ router.post("/logout", (req, res, next) => {
     });
   });
 });
+
+if (NODE_ENV !== "production") {
+  // Dev-only login for testing when Google OAuth is not configured or for
+  // quick local verification. Not available in production.
+  router.get("/dev", async (req, res, next) => {
+    try {
+      const user = await prisma.user.upsert({
+        where: { googleId: "dev-google-id" },
+        update: {},
+        create: {
+          googleId: "dev-google-id",
+          email: "dev@example.com",
+          name: "Dev User",
+        },
+      });
+      const sessionUser: SessionUser = {
+        id: user.id,
+        googleId: user.googleId,
+        email: user.email,
+        name: user.name,
+        picture: null,
+      };
+      req.logIn(sessionUser, (loginErr) => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        const redirect = typeof req.query.redirect === "string" ? req.query.redirect : "";
+        const safeRedirect = redirect.startsWith("/") ? redirect : "/";
+        res.redirect(`${FRONTEND_URL}${safeRedirect}`);
+      });
+    } catch (err) {
+      next(err);
+    }
+  });
+}
 
 export default router;
