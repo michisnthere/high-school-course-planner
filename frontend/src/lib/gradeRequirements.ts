@@ -23,7 +23,7 @@ export const GRADE_REQUIREMENTS: GradeRequirements[] = [
       {
         category: "Mathematics",
         credits: 1,
-        matches: ["Mathematics Graduation Requirement"],
+        matches: ["Mathematics"],
       },
       {
         category: "Science",
@@ -43,7 +43,7 @@ export const GRADE_REQUIREMENTS: GradeRequirements[] = [
       {
         category: "Mathematics",
         credits: 1,
-        matches: ["Mathematics Graduation Requirement"],
+        matches: ["Mathematics"],
       },
       {
         category: "Science",
@@ -63,7 +63,7 @@ export const GRADE_REQUIREMENTS: GradeRequirements[] = [
       {
         category: "Mathematics",
         credits: 1,
-        matches: ["Mathematics Graduation Requirement"],
+        matches: ["Mathematics"],
       },
     ],
   },

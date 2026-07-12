@@ -2,6 +2,13 @@ import { PrismaClient } from "@prisma/client";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { parseSemester, parseDurationUnits } from "./lib/normalize";
+import {
+  canonicalRequirementName,
+  isInformationItemName,
+  isMeasurableGraduationRequirementName,
+  isNonGraduationRequirementName,
+  normalizeRequirementNames,
+} from "../src/lib/requirementsCleanup.js";
 
 // ---------------------------------------------------------------------------
 // Input types — matches the cleaned academic-data JSON produced by the
@@ -335,24 +342,36 @@ async function importGraduationRequirements(
 ): Promise<{ imported: number; failed: FailedRecord[] }> {
   const failed: FailedRecord[] = [];
   let imported = 0;
+  const seenCanonical = new Set<string>();
 
   for (const req of requirements) {
     if (!req.name?.trim()) {
       failed.push({ reason: "missing graduation requirement name" });
       continue;
     }
+    const canonicalName = canonicalRequirementName(req.name);
+    if (isNonGraduationRequirementName(canonicalName)) {
+      continue;
+    }
+    if (isInformationItemName(canonicalName) || !isMeasurableGraduationRequirementName(canonicalName)) {
+      continue;
+    }
+    if (seenCanonical.has(canonicalName)) {
+      continue;
+    }
+    seenCanonical.add(canonicalName);
 
     const saved = await prisma.graduationRequirement.upsert({
       where: {
         name_category_requirementType: {
-          name: req.name,
+          name: canonicalName,
           category: req.category ?? null,
           requirementType: req.requirementType ?? null,
         },
       },
       create: {
-        name: req.name,
-        normalizedName: normalizeTitle(req.name),
+        name: canonicalName,
+        normalizedName: normalizeTitle(canonicalName),
         category: req.category ?? null,
         requirementType: req.requirementType ?? null,
         requiredValue: req.requiredValue ?? null,
@@ -360,7 +379,7 @@ async function importGraduationRequirements(
         sourceReference: req.sourceReference ?? null,
       },
       update: {
-        normalizedName: normalizeTitle(req.name),
+        normalizedName: normalizeTitle(canonicalName),
         category: req.category ?? null,
         requirementType: req.requirementType ?? null,
         requiredValue: req.requiredValue ?? null,
@@ -371,6 +390,7 @@ async function importGraduationRequirements(
     });
 
     graduationRequirementCache.set(saved.name, saved.id);
+    graduationRequirementCache.set(req.name, saved.id);
     imported += 1;
   }
 
@@ -378,14 +398,18 @@ async function importGraduationRequirements(
 }
 
 function resolveRequirementId(reqName: string): number | null {
-  const exact = graduationRequirementCache.get(reqName);
+  const canonical = canonicalRequirementName(reqName);
+  if (isNonGraduationRequirementName(canonical) || isInformationItemName(canonical)) {
+    return null;
+  }
+  const exact = graduationRequirementCache.get(canonical) ?? graduationRequirementCache.get(reqName);
   if (exact !== undefined) return exact;
 
   const stripped = reqName
     .replace(/\s+Graduation Requirement\s+and\s+Waivers$/i, "")
     .replace(/\s+Graduation Requirement$/i, "");
   if (stripped !== reqName) {
-    const suffixMatch = graduationRequirementCache.get(stripped);
+    const suffixMatch = graduationRequirementCache.get(canonicalRequirementName(stripped));
     if (suffixMatch !== undefined) return suffixMatch;
   }
 
@@ -543,7 +567,7 @@ async function main() {
           description: course.description ?? null,
           duration: courseDuration ?? null,
           attributes,
-          fulfillsRequirements: requireArray(course.fulfillsRequirements),
+          fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
           notes: requireArray(course.notes),
           sourceReference: course.sourceReference ?? null,
@@ -555,7 +579,7 @@ async function main() {
           description: course.description ?? null,
           duration: courseDuration ?? null,
           attributes,
-          fulfillsRequirements: requireArray(course.fulfillsRequirements),
+          fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
           notes: requireArray(course.notes),
           departmentId,
@@ -629,7 +653,7 @@ async function main() {
     }
 
     // -- Graduation requirement links ----------------------------------------
-    for (const reqName of requireArray(course.fulfillsRequirements)) {
+    for (const reqName of normalizeRequirementNames(course.fulfillsRequirements)) {
       const reqId = resolveRequirementId(reqName);
       if (reqId === null) {
         missingRequirements += 1;

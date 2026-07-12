@@ -211,6 +211,51 @@ function RequirementsContent(): React.ReactElement {
             </div>
           </section>
 
+          {analysis.informationItems.length > 0 && (
+            <section>
+              <h2
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: "20px",
+                  fontWeight: 600,
+                  color: "#ffffff",
+                }}
+              >
+                Information
+              </h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                  gap: "16px",
+                }}
+              >
+                {analysis.informationItems.map((item) => (
+                  <div
+                    key={item.id}
+                    style={{
+                      padding: "20px",
+                      backgroundColor: "#ffffff",
+                      borderRadius: "12px",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        margin: 0,
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        color: "#111827",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {item.name}
+                    </h3>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section>
             <h2
               style={{

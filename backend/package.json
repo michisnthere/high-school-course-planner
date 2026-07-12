@@ -6,7 +6,8 @@
   "dev": "tsx src/server.ts",
   "prisma:generate": "prisma generate",
   "prisma:migrate": "prisma migrate deploy",
-  "import:courses": "tsx scripts/import_courses.ts"
+  "import:courses": "tsx scripts/import_courses.ts",
+  "cleanup:graduation-requirements": "tsx scripts/graduation_requirements_cleanup.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

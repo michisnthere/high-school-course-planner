@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
+import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
 import type { Course, PlannerOption } from "@prisma/client";
 
 const router = Router();
@@ -131,7 +132,7 @@ export function deriveCourseDetails(
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     description: course.description ?? null,
-    fulfillsRequirements: Array.isArray(course.fulfillsRequirements) ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string") : [],
+    fulfillsRequirements: Array.isArray(course.fulfillsRequirements) ? normalizeRequirementNames(course.fulfillsRequirements.filter((r): r is string => typeof r === "string")) : [],
     prerequisites: Array.from(prerequisites),
     courseCode,
     gradeMin,

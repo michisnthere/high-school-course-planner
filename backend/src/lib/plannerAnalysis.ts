@@ -20,6 +20,13 @@ import type {
   Planner,
   PlannerOption,
 } from "@prisma/client";
+import {
+  canonicalRequirementName,
+  isInformationItem,
+  isMeasurableGraduationRequirement,
+  normalizeRequirementNames,
+  type InformationItem,
+} from "./requirementsCleanup.js";
 
 type CourseOptionWithOfferings = CourseOption & { offerings: CourseOffering[] };
 type CourseWithOptions = Course & {
@@ -114,6 +121,7 @@ export type PlannerAnalysis = {
     byDivision: Record<string, number>;
   };
   graduationRequirements: RequirementStatus[];
+  informationItems: InformationItem[];
   yearRequirements: YearRequirementStatus[];
   duplicateCourses: DuplicateCourse[];
   missingPrerequisites: MissingPrerequisite[];
@@ -165,7 +173,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
   }
 
   const fulfillsRequirements = Array.isArray(course.fulfillsRequirements)
-    ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string")
+    ? normalizeRequirementNames(course.fulfillsRequirements.filter((r): r is string => typeof r === "string"))
     : [];
 
   const courseCode = option?.offerings?.[0]?.courseCode ?? null;
@@ -344,6 +352,20 @@ function computeCredits(placements: CoursePlacement[]) {
   return { total, byRequirementCategory, byDivision };
 }
 
+function toInformationItems(requirements: GraduationRequirement[]): InformationItem[] {
+  return requirements
+    .filter((req) => isInformationItem(req))
+    .map((req) => ({
+      id: req.id,
+      name: canonicalRequirementName(req.name),
+      category: req.category,
+      requirementType: req.requirementType,
+      notes: req.notes,
+      sourceReference: req.sourceReference,
+    }))
+    .filter((item, index, items) => items.findIndex((candidate) => candidate.name === item.name) === index);
+}
+
 function computeGraduationRequirements(
   requirements: GraduationRequirement[],
   courseRequirementLinks: Map<number, Set<number>>,
@@ -356,19 +378,36 @@ function computeGraduationRequirements(
     courseIdToCredits.set(placement.course.id, existing + placement.credits);
   }
 
-  return requirements.map((req) => {
+  const canonicalByName = new Map<string, GraduationRequirement>();
+  for (const req of requirements) {
+    if (!isMeasurableGraduationRequirement(req)) continue;
+    const canonicalName = canonicalRequirementName(req.name);
+    const existing = canonicalByName.get(canonicalName);
+    if (!existing || (existing.requiredValue == null && req.requiredValue != null)) {
+      canonicalByName.set(canonicalName, req);
+    }
+  }
+
+  return Array.from(canonicalByName.values()).map((req) => {
     const required = req.requiredValue ?? 0;
     let earned = 0;
-    const eligibleCourseIds = courseRequirementLinks.get(req.id);
-    if (eligibleCourseIds) {
-      for (const courseId of eligibleCourseIds) {
-        earned += courseIdToCredits.get(courseId) ?? 0;
+    const canonicalName = canonicalRequirementName(req.name);
+    const eligibleCourseIds = new Set<number>();
+    for (const sourceReq of requirements) {
+      if (canonicalRequirementName(sourceReq.name) !== canonicalName) continue;
+      const links = courseRequirementLinks.get(sourceReq.id);
+      if (!links) continue;
+      for (const courseId of links) {
+        eligibleCourseIds.add(courseId);
       }
+    }
+    for (const courseId of eligibleCourseIds) {
+      earned += courseIdToCredits.get(courseId) ?? 0;
     }
 
     return {
       id: req.id,
-      name: req.name,
+      name: canonicalName,
       category: req.category,
       requirementType: req.requirementType,
       requiredValue: req.requiredValue,
@@ -378,6 +417,34 @@ function computeGraduationRequirements(
       recommendedCourses: [],
     };
   });
+}
+
+function mergeCourseRequirementLinksByCanonicalRequirement(
+  requirements: GraduationRequirement[],
+  courseRequirementLinks: Map<number, Set<number>>
+): Map<number, Set<number>> {
+  const canonicalIdByName = new Map<string, number>();
+  for (const req of requirements) {
+    if (!isMeasurableGraduationRequirement(req)) continue;
+    const canonicalName = canonicalRequirementName(req.name);
+    if (!canonicalIdByName.has(canonicalName)) {
+      canonicalIdByName.set(canonicalName, req.id);
+    }
+  }
+
+  const merged = new Map<number, Set<number>>();
+  for (const req of requirements) {
+    const canonicalId = canonicalIdByName.get(canonicalRequirementName(req.name));
+    if (canonicalId === undefined) continue;
+    const sourceLinks = courseRequirementLinks.get(req.id);
+    if (!sourceLinks) continue;
+    const targetLinks = merged.get(canonicalId) ?? new Set<number>();
+    for (const courseId of sourceLinks) {
+      targetLinks.add(courseId);
+    }
+    merged.set(canonicalId, targetLinks);
+  }
+  return merged;
 }
 
 function prerequisiteMatches(
@@ -526,17 +593,17 @@ function computeRecommendations(
 const YEARLY_REQUIREMENTS: Record<number, Array<{ category: string; requiredCredits: number; matches: string[] }>> = {
   9: [
     { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics Graduation Requirement"] },
+    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics"] },
     { category: "Science", requiredCredits: 1, matches: ["Biology", "Physical Science"] },
   ],
   10: [
     { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics Graduation Requirement"] },
+    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics"] },
     { category: "Science", requiredCredits: 1, matches: ["Biology", "Physical Science"] },
   ],
   11: [
     { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics Graduation Requirement"] },
+    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics"] },
   ],
   12: [{ category: "Communication Arts", requiredCredits: 1, matches: ["English"] }],
 };
@@ -742,9 +809,13 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   ]);
 
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements);
+  const mergedCourseRequirementLinks = mergeCourseRequirementLinksByCanonicalRequirement(
+    requirements,
+    courseRequirementLinks
+  );
   const recommendations = computeRecommendations(
     graduationRequirements,
-    courseRequirementLinks,
+    mergedCourseRequirementLinks,
     placements,
     completedCourses,
     allCourses
@@ -757,6 +828,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   return {
     credits: computeCredits(placements),
     graduationRequirements,
+    informationItems: toInformationItems(requirements),
     yearRequirements: computeYearRequirements(placements),
     duplicateCourses: computeDuplicateCourses(placements),
     missingPrerequisites: computeMissingPrerequisites(placements, completedCourses),

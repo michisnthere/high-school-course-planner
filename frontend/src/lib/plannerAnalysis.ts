@@ -19,6 +19,14 @@ export type PlannerAnalysis = {
       reason: string;
     }>;
   }>;
+  informationItems: Array<{
+    id: number;
+    name: string;
+    category: string | null;
+    requirementType: string | null;
+    notes: unknown;
+    sourceReference: string | null;
+  }>;
   yearRequirements: Array<{
     grade: number;
     english: { required: boolean; met: boolean; earnedCredits: number };

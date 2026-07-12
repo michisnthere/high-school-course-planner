@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
+import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
 
 const router = Router();
 
@@ -20,7 +21,14 @@ router.get("/", async (_req, res) => {
       },
     });
 
-    res.json(courses);
+    res.json(
+      courses.map((course) => ({
+        ...course,
+        fulfillsRequirements: Array.isArray(course.fulfillsRequirements)
+          ? normalizeRequirementNames(course.fulfillsRequirements.filter((req): req is string => typeof req === "string"))
+          : [],
+      }))
+    );
     } catch (error) {
     console.error("Failed to fetch courses:", error);
     res.status(500).json({
