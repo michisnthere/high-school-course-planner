@@ -12,3 +12,9 @@ id = "xDX0jMxGie4NJiVIKQW6z"
 uri = "file://screenshots/requirements_progress.png"
 type = "image"
 title = "Graduation Requirements with progress bars"
+
+[[outputs]]
+id = "pVOShvTcqoOOPSqUL50Vi"
+uri = "file://screenshots/requirements_expandable.png"
+type = "image"
+title = "Graduation Requirements with expandable cards"

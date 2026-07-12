@@ -3,6 +3,15 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
+import { getCourses } from "@/lib/api";
+import { getCompletedCourses, type CompletedCourse } from "@/lib/completedCourses";
+import {
+  getPlanners,
+  courseToPlannerDetails,
+  type Planner,
+  type PlannerCourseDetails,
+} from "@/lib/planner";
+import type { Course } from "@/types/course";
 
 export default function RequirementsPage(): React.ReactElement {
   return (
@@ -37,20 +46,38 @@ const STATUS_CONFIG = {
   },
 };
 
+const COURSE_STATUS_COLORS = {
+  completed: "#10b981",
+  planned: "#2563eb",
+  notYetTaken: "#6b7280",
+};
+
 function formatNumber(n: number): string {
   return Number.isInteger(n) ? String(n) : n.toFixed(2);
 }
 
 function RequirementsContent(): React.ReactElement {
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
+  const [courses, setCourses] = useState<PlannerCourseDetails[]>([]);
+  const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
+  const [planners, setPlanners] = useState<Planner[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
 
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getPlannerAnalysis();
-      setAnalysis(data);
+      const [analysisData, rawCourses, completedData, plannerData] = await Promise.all([
+        getPlannerAnalysis(),
+        getCourses(),
+        getCompletedCourses(),
+        getPlanners(),
+      ]);
+      setAnalysis(analysisData);
+      setCourses((rawCourses as Course[]).map(courseToPlannerDetails));
+      setCompletedCourses(completedData);
+      setPlanners(plannerData);
       setError(null);
     } catch (err) {
       setError(
@@ -64,6 +91,35 @@ function RequirementsContent(): React.ReactElement {
   useEffect(() => {
     load();
   }, [load]);
+
+  const toggleExpand = useCallback((id: number) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const completedIds = useMemo(
+    () => new Set(completedCourses.map((c) => c.courseId)),
+    [completedCourses]
+  );
+
+  const plannedIds = useMemo(() => {
+    const ids = new Set<number>();
+    for (const planner of planners) {
+      for (const pc of planner.plannedCourses) {
+        if (pc.courseId != null) {
+          ids.add(pc.courseId);
+        }
+      }
+    }
+    return ids;
+  }, [planners]);
 
   const summary = useMemo(() => {
     if (!analysis) return null;
@@ -137,111 +193,21 @@ function RequirementsContent(): React.ReactElement {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
                 gap: "16px",
               }}
             >
-              {analysis.graduationRequirements.map((req) => {
-                const config = STATUS_CONFIG[req.status];
-                return (
-                  <div
-                    key={req.id}
-                    style={{
-                      position: "relative",
-                      padding: "20px 20px 20px 24px",
-                      backgroundColor: "#ffffff",
-                      borderRadius: "12px",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        bottom: 0,
-                        width: "4px",
-                        backgroundColor: config.badge,
-                      }}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                        gap: "12px",
-                        marginBottom: "12px",
-                      }}
-                    >
-                      <h3
-                        style={{
-                          margin: 0,
-                          fontSize: "16px",
-                          fontWeight: 600,
-                          color: "#111827",
-                          lineHeight: 1.3,
-                        }}
-                      >
-                        {req.name}
-                      </h3>
-                      <span
-                        style={{
-                          flexShrink: 0,
-                          padding: "4px 10px",
-                          fontSize: "12px",
-                          fontWeight: 600,
-                          color: "#ffffff",
-                          backgroundColor: config.badge,
-                          borderRadius: "9999px",
-                        }}
-                      >
-                        {config.label}
-                      </span>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "16px",
-                        fontSize: "14px",
-                        color: "#6b7280",
-                      }}
-                    >
-                      <span>
-                        Earned:{" "}
-                        <strong style={{ color: "#111827" }}>
-                          {formatNumber(req.earnedValue)}
-                        </strong>
-                      </span>
-                      <span>
-                        Required:{" "}
-                        <strong style={{ color: "#111827" }}>
-                          {formatNumber(req.requiredValue ?? 0)}
-                        </strong>
-                      </span>
-                      <span>
-                        Remaining:{" "}
-                        <strong style={{ color: "#111827" }}>
-                          {formatNumber(req.remainingValue)}
-                        </strong>
-                      </span>
-                    </div>
-                    <div style={{ marginTop: "12px" }}>
-                      <ProgressBar
-                        percent={
-                          (req.requiredValue ?? 0) > 0
-                            ? Math.min(100, (req.earnedValue / (req.requiredValue ?? 0)) * 100)
-                            : req.status === "satisfied"
-                            ? 100
-                            : 0
-                        }
-                        color={config.badge}
-                        showLabel
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+              {analysis.graduationRequirements.map((req) => (
+                <RequirementCard
+                  key={req.id}
+                  req={req}
+                  courses={courses}
+                  completedIds={completedIds}
+                  plannedIds={plannedIds}
+                  isExpanded={expandedIds.has(req.id)}
+                  onToggle={() => toggleExpand(req.id)}
+                />
+              ))}
             </div>
           </section>
 
@@ -300,6 +266,249 @@ function RequirementsContent(): React.ReactElement {
         </div>
       )}
     </div>
+  );
+}
+
+type RequirementCardProps = {
+  req: PlannerAnalysis["graduationRequirements"][number];
+  courses: PlannerCourseDetails[];
+  completedIds: Set<number>;
+  plannedIds: Set<number>;
+  isExpanded: boolean;
+  onToggle: () => void;
+};
+
+function RequirementCard({
+  req,
+  courses,
+  completedIds,
+  plannedIds,
+  isExpanded,
+  onToggle,
+}: RequirementCardProps): React.ReactElement {
+  const config = STATUS_CONFIG[req.status];
+  const percent =
+    (req.requiredValue ?? 0) > 0
+      ? Math.min(100, (req.earnedValue / (req.requiredValue ?? 0)) * 100)
+      : req.status === "satisfied"
+      ? 100
+      : 0;
+
+  const reqCourses = useMemo(() => {
+    const name = req.name.toLowerCase();
+    return courses
+      .filter((c) => c.fulfillsRequirements.some((r) => r.toLowerCase() === name))
+      .sort((a, b) => {
+        const aCompleted = completedIds.has(a.id);
+        const aPlanned = plannedIds.has(a.id);
+        const bCompleted = completedIds.has(b.id);
+        const bPlanned = plannedIds.has(b.id);
+        const aPriority = aCompleted ? 0 : aPlanned ? 1 : 2;
+        const bPriority = bCompleted ? 0 : bPlanned ? 1 : 2;
+        if (aPriority !== bPriority) return aPriority - bPriority;
+        return a.title.localeCompare(b.title);
+      });
+  }, [courses, req.name, completedIds, plannedIds]);
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        padding: "20px 20px 20px 24px",
+        backgroundColor: "#ffffff",
+        borderRadius: "12px",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: "4px",
+          backgroundColor: config.badge,
+        }}
+      />
+      <div onClick={onToggle} style={{ cursor: "pointer" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: "12px",
+            marginBottom: "12px",
+          }}
+        >
+          <h3
+            style={{
+              margin: 0,
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "#111827",
+              lineHeight: 1.3,
+            }}
+          >
+            {req.name}
+          </h3>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            <span
+              style={{
+                padding: "4px 10px",
+                fontSize: "12px",
+                fontWeight: 600,
+                color: "#ffffff",
+                backgroundColor: config.badge,
+                borderRadius: "9999px",
+              }}
+            >
+              {config.label}
+            </span>
+            <span
+              aria-hidden="true"
+              style={{
+                fontSize: "12px",
+                color: "#6b7280",
+                transition: "transform 200ms ease",
+                transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            >
+              ▶
+            </span>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "16px",
+            fontSize: "14px",
+            color: "#6b7280",
+            marginBottom: "12px",
+          }}
+        >
+          <span>
+            Earned:{" "}
+            <strong style={{ color: "#111827" }}>{formatNumber(req.earnedValue)}</strong>
+          </span>
+          <span>
+            Required:{" "}
+            <strong style={{ color: "#111827" }}>{formatNumber(req.requiredValue ?? 0)}</strong>
+          </span>
+          <span>
+            Remaining:{" "}
+            <strong style={{ color: "#111827" }}>{formatNumber(req.remainingValue)}</strong>
+          </span>
+        </div>
+        <ProgressBar percent={percent} color={config.badge} showLabel />
+      </div>
+
+      {isExpanded && (
+        <div
+          style={{
+            marginTop: "16px",
+            paddingTop: "16px",
+            borderTop: "1px solid #f3f4f6",
+          }}
+        >
+          {reqCourses.length === 0 ? (
+            <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
+              No catalog courses are linked to this requirement.
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              {reqCourses.map((course) => (
+                <CourseStatusRow
+                  key={course.id}
+                  course={course}
+                  completedIds={completedIds}
+                  plannedIds={plannedIds}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+type CourseStatusRowProps = {
+  course: PlannerCourseDetails;
+  completedIds: Set<number>;
+  plannedIds: Set<number>;
+};
+
+function CourseStatusRow({
+  course,
+  completedIds,
+  plannedIds,
+}: CourseStatusRowProps): React.ReactElement {
+  const isCompleted = completedIds.has(course.id);
+  const isPlanned = plannedIds.has(course.id);
+  const isNotYetTaken = !isCompleted && !isPlanned;
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: "12px",
+        padding: "10px 0",
+        borderBottom: "1px solid #f3f4f6",
+      }}
+    >
+      <div style={{ minWidth: 0, flex: 1 }}>
+        <p
+          style={{
+            margin: 0,
+            fontSize: "15px",
+            fontWeight: 500,
+            color: "#111827",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+          title={course.title}
+        >
+          {course.title}
+        </p>
+        <p style={{ margin: "2px 0 0", fontSize: "13px", color: "#6b7280" }}>
+          {course.credits != null ? `${formatNumber(course.credits)} credits` : "Credits unknown"}
+        </p>
+      </div>
+      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+        {isCompleted && (
+          <StatusBadge label="Completed" color={COURSE_STATUS_COLORS.completed} />
+        )}
+        {isPlanned && (
+          <StatusBadge label="Planned" color={COURSE_STATUS_COLORS.planned} />
+        )}
+        {isNotYetTaken && (
+          <StatusBadge label="Not yet taken" color={COURSE_STATUS_COLORS.notYetTaken} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function StatusBadge({ label, color }: { label: string; color: string }): React.ReactElement {
+  return (
+    <span
+      style={{
+        padding: "3px 8px",
+        fontSize: "12px",
+        fontWeight: 600,
+        color: "#ffffff",
+        backgroundColor: color,
+        borderRadius: "6px",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label}
+    </span>
   );
 }
 
