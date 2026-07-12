@@ -11,6 +11,7 @@ import {
   type Planner,
   type PlannerCourseDetails,
 } from "@/lib/planner";
+import { sumPlannedCredits, getCourseCredits } from "@/lib/courseCredits";
 import { computeYearLevelCards, type YearLevelCard } from "@/lib/yearLevelValidation";
 import type { Course } from "@/types/course";
 
@@ -124,16 +125,11 @@ function RequirementsContent(): React.ReactElement {
 
   const creditSummary = useMemo(() => {
     const completedCredits = completedCourses.reduce(
-      (sum, cc) => sum + (cc.credits ?? cc.course.credits ?? cc.course.duration ?? 0),
+      (sum, cc) => sum + (cc.credits ?? getCourseCredits(cc.course)),
       0
     );
     const plannedCredits = planners.reduce(
-      (sum, p) =>
-        sum +
-        (p.plannedCourses ?? []).reduce(
-          (s, pc) => s + (pc.course?.credits ?? pc.course?.duration ?? 0),
-          0
-        ),
+      (sum, p) => sum + sumPlannedCredits(p.plannedCourses ?? []),
       0
     );
     const earned = completedCredits + plannedCredits;

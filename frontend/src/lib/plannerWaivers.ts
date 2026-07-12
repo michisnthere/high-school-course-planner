@@ -1,4 +1,5 @@
 import type { PlannedCourse } from "./planner";
+import { getCourseCredits, getPlacementKey } from "./courseCredits";
 
 export type AcademicPeWaiver = {
   type: "academic";
@@ -27,26 +28,22 @@ export function getCreditBearingCount(
 ): { sem1: number; sem2: number } {
   const sem1Courses = new Set<string>();
   const sem2Courses = new Set<string>();
-  const fullYearDedup = new Set<string>();
+  const seen = new Set<string>();
 
   for (const pc of plannedCourses) {
-    const credits = pc.course.credits ?? pc.course.duration;
+    const credits = getCourseCredits(pc.course);
     if (credits <= 0) continue;
     if (pc.course.title === "Study Hall" || pc.course.title === "Free Period") continue;
 
-    if (pc.course.duration === 2) {
-      const key = `${pc.courseId}-${pc.slot}`;
-      if (fullYearDedup.has(key)) continue;
-      fullYearDedup.add(key);
+    const key = getPlacementKey(pc);
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    if (pc.course.duration === 2 || pc.semester === 1) {
       sem1Courses.add(key);
+    }
+    if (pc.course.duration === 2 || pc.semester === 2) {
       sem2Courses.add(key);
-    } else {
-      const key = `${pc.courseId}-${pc.slot}-${pc.semester}`;
-      if (pc.semester === 1) {
-        sem1Courses.add(key);
-      } else {
-        sem2Courses.add(key);
-      }
     }
   }
 

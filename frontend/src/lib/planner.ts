@@ -316,13 +316,15 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     }
   }
 
+  const courseDuration = deriveCourseDuration(course);
+
   return {
     id: course.id,
     title: course.title,
     normalizedTitle: course.normalizedTitle ?? null,
-    duration: deriveCourseDuration(course),
+    duration: courseDuration,
     creditType: option?.creditType ?? null,
-    credits: option?.credits ?? course.duration ?? 1,
+    credits: option?.credits != null ? option.credits * (courseDuration === 2 ? 2 : 1) : course.duration ?? 1,
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     description: course.description ?? null,

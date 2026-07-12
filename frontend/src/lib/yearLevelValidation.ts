@@ -1,5 +1,6 @@
 import type { CompletedCourse } from "@/lib/completedCourses";
 import type { Planner, PlannerCourseDetails } from "@/lib/planner";
+import { getCourseCredits } from "@/lib/courseCredits";
 
 export type YearLevelStatus = "satisfied" | "warning" | "missing";
 
@@ -64,8 +65,16 @@ function asArray<T>(value: T[] | null | undefined): T[] {
 }
 
 function getPlannerPlannedCourses(planner: PlannerLike | null | undefined): CourseLike[] {
+  const seen = new Set<string>();
   return asArray(planner?.plannedCourses)
-    .map((pc) => pc?.course ?? null)
+    .filter((pc) => {
+      if (!pc?.course) return false;
+      const key = pc.course.duration === 2 ? `${pc.courseId}-${pc.slot}` : `${pc.courseId}-${pc.slot}-${pc.semester}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((pc) => pc.course!)
     .filter((course): course is CourseLike => Boolean(course));
 }
 
@@ -103,7 +112,7 @@ function getCompletedInstances(completedCourses: CompletedCourse[], lookup: Map<
 }
 
 function countCredits(courses: CourseLike[]): number {
-  return courses.reduce((sum, course) => sum + (course.credits ?? course.duration), 0);
+  return courses.reduce((sum, course) => sum + getCourseCredits(course), 0);
 }
 
 function buildItem(

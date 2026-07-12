@@ -28,6 +28,7 @@ import {
   type PlannerOption,
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
+import { sumPlannedCredits } from "@/lib/courseCredits";
 import { getRequirementStatus, computePePerSemester } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -817,11 +818,8 @@ function SummarySidebar({
   const currentPlanner = planners.find((p) => p.schoolYear === currentYear);
   const allCourses = planners.flatMap((p) => p.plannedCourses);
 
-  const totalCredits = allCourses.reduce((sum, pc) => sum + (pc.course.credits || 0), 0);
-  const currentCredits = (currentPlanner?.plannedCourses || []).reduce(
-    (sum, pc) => sum + (pc.course.credits || 0),
-    0
-  );
+  const totalCredits = sumPlannedCredits(allCourses);
+  const currentCredits = sumPlannedCredits(currentPlanner?.plannedCourses || []);
   // A full-year course is stored as two PlannedCourse records (one per semester,
   // same slot). Count distinct course placements by courseId + slot so full-year
   // courses are counted once while repeatable courses in different slots are

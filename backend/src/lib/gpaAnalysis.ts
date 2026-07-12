@@ -102,7 +102,10 @@ function getUnweightedPoints(letterGrade: string | null): number {
 
 function deriveCourseCredits(course: CourseWithOptions): number {
   const option = course.options[0];
-  if (option?.credits != null) return option.credits;
+  if (option?.credits != null) {
+    const semesters = course.duration === 2 ? 2 : 1;
+    return option.credits * semesters;
+  }
   if (course.duration != null) return course.duration;
   return 1;
 }

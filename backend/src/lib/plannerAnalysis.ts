@@ -163,7 +163,10 @@ export function calculateTotalCredits(course: {
   duration?: number | null;
 }): number {
   const option = course.options?.[0];
-  if (option?.credits != null) return option.credits;
+  if (option?.credits != null) {
+    const semesters = course.duration === 2 ? 2 : 1;
+    return option.credits * semesters;
+  }
   if (course.duration === 2) return 2;
   if (course.duration === 1) return 1;
   const hasFullYear = option?.offerings?.some((offering) => {
@@ -345,14 +348,26 @@ async function loadCompletedCourses(userId: number): Promise<CompletedCourseWith
   });
 }
 
+function getBackendPlacementKey(p: CoursePlacement): string {
+  if (p.course?.duration === 2) {
+    return `fy:${p.course.id}:${p.slot}`;
+  }
+  return `sem:${p.course!.id}:${p.slot}:${p.semester}`;
+}
+
 function computeCredits(placements: CoursePlacement[]) {
   let total = 0;
   const byRequirementCategory: Record<string, number> = {};
   const byDivision: Record<string, number> = {};
+  const seen = new Set<string>();
 
   for (const placement of placements) {
     const course = placement.course;
     if (!course) continue;
+
+    const key = getBackendPlacementKey(placement);
+    if (seen.has(key)) continue;
+    seen.add(key);
 
     total += placement.credits;
 
@@ -396,8 +411,12 @@ function computeGraduationRequirements(
   placements: CoursePlacement[]
 ): RequirementStatus[] {
   const courseIdToCredits = new Map<number, number>();
+  const seen = new Set<string>();
   for (const placement of placements) {
     if (!placement.course) continue;
+    const key = getBackendPlacementKey(placement);
+    if (seen.has(key)) continue;
+    seen.add(key);
     const existing = courseIdToCredits.get(placement.course.id) ?? 0;
     courseIdToCredits.set(placement.course.id, existing + placement.credits);
   }
@@ -647,9 +666,13 @@ function computeYearRequirements(placements: CoursePlacement[]): YearRequirement
   return YEARS.map((grade) => {
     const reqs = YEARLY_REQUIREMENTS[grade] ?? [];
     const byCategory: Record<string, number> = {};
+    const seen = new Set<string>();
 
     for (const placement of placements) {
       if (placement.year !== grade || !placement.course) continue;
+      const key = getBackendPlacementKey(placement);
+      if (seen.has(key)) continue;
+      seen.add(key);
       for (const req of reqs) {
         if (courseMatchesCategory(placement.course, req.matches)) {
           byCategory[req.category] = (byCategory[req.category] ?? 0) + placement.credits;

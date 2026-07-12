@@ -1,4 +1,5 @@
 import type { PlannedCourse } from "./planner";
+import { getCourseCredits, getPlacementKey, getSemesterCredits } from "./courseCredits";
 
 export type SemesterCreditStatus = {
   semester: number;
@@ -21,23 +22,18 @@ export type CourseLoadRequirements = {
 
 export function computeSemesterCredits(plannedCourses: PlannedCourse[]): SemesterCreditStatus[] {
   const credits: Record<number, number> = { 1: 0, 2: 0 };
-  const countedFullYear = new Set<string>();
+  const seen = new Set<string>();
 
   for (const pc of plannedCourses) {
     if (pc.course.title === "Study Hall" || pc.course.title === "Free Period") continue;
 
+    const key = getPlacementKey(pc);
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    credits[pc.semester] += getSemesterCredits(pc);
     if (pc.course.duration === 2) {
-      const key = `${pc.courseId}-${pc.slot}`;
-      if (!countedFullYear.has(key)) {
-        countedFullYear.add(key);
-        const totalCredits = pc.course.credits ?? pc.course.duration;
-        const perSemester = totalCredits / 2;
-        credits[1] += perSemester;
-        credits[2] += perSemester;
-      }
-    } else {
-      const value = pc.course.credits ?? pc.course.duration;
-      credits[pc.semester] += value;
+      credits[pc.semester === 1 ? 2 : 1] += getSemesterCredits(pc);
     }
   }
 

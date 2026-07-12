@@ -560,7 +560,12 @@ async function main() {
     let savedCourse: { id: number };
     try {
       savedCourse = await prisma.course.upsert({
-        where: { importKey },
+        where: {
+          departmentId_title: {
+            departmentId,
+            title: course.title!,
+          },
+        },
         create: {
           title: course.title!,
           normalizedTitle: normalizeTitle(course.title!),
@@ -577,32 +582,26 @@ async function main() {
         update: {
           title: course.title!,
           normalizedTitle: normalizeTitle(course.title!),
+          importKey,
           description: course.description ?? null,
           duration: courseDuration ?? null,
           attributes,
           fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
           notes: requireArray(course.notes),
+          sourceReference: course.sourceReference ?? null,
           departmentId,
         },
         select: { id: true },
       });
     } catch (err: unknown) {
-      const isPrismaUniqueViolation =
-        typeof err === "object" &&
-        err !== null &&
-        (err as { code?: string }).code === "P2002";
-
-      if (isPrismaUniqueViolation) {
-        failedRecords.push({
-          title: course.title,
-          sourceReference: course.sourceReference,
-          importKey,
-          reason: "title already exists under this department (conflicting course, not overwritten)",
-        });
-        continue;
-      }
-      throw err;
+      failedRecords.push({
+        title: course.title,
+        sourceReference: course.sourceReference,
+        importKey,
+        reason: `unexpected error during upsert: ${err instanceof Error ? err.message : String(err)}`,
+      });
+      continue;
     }
     coursesUpserted += 1;
 

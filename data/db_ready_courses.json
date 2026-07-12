@@ -214,7 +214,7 @@
             12
           ],
           "prerequisites": [
-            "One course required from: and One course required from: ■ Introduction to Business ■ Investment Management ■ Business Law ■ Accounting 1 ■ Marketing ■ Accounting 2 Honors ■ Entrepreneurship ■ Advanced Accounting Honors"
+            "One course required from: Introduction to Business, Investment Management, Business Law, Accounting 1, Marketing, Accounting 2 Honors, Entrepreneurship, Advanced Accounting Honors"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -229,7 +229,7 @@
             12
           ],
           "prerequisites": [
-            "One course required from: and One course required from: ■ Introduction to Business ■ Investment Management ■ Business Law ■ Accounting 1 ■ Marketing ■ Accounting 2 Honors ■ Entrepreneurship ■ Advanced Accounting Honors"
+            "One course required from: Introduction to Business, Investment Management, Business Law, Accounting 1, Marketing, Accounting 2 Honors, Entrepreneurship, Advanced Accounting Honors"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -1426,7 +1426,7 @@
             12
           ],
           "prerequisites": [
-            "U.S. History and ANY Junior English"
+            "U.S. History and Any Junior English"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1440,7 +1440,7 @@
             12
           ],
           "prerequisites": [
-            "U.S. History and ANY Junior English"
+            "U.S. History and Any Junior English"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1674,9 +1674,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None Not an English graduation credit"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -1691,9 +1689,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None Not an English graduation credit"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -1769,9 +1765,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None Not an English graduation credit"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -1785,9 +1779,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None Not an English graduation credit"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -1907,8 +1899,7 @@
             12
           ],
           "prerequisites": [
-            "Computer Programming 1 (CSC161/162)",
-            "Web"
+            "Computer Programming 1 (CSC161/162)"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -1925,8 +1916,7 @@
             12
           ],
           "prerequisites": [
-            "Computer Programming 1 (CSC161/162)",
-            "Web"
+            "Computer Programming 1 (CSC161/162)"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -2002,7 +1992,7 @@
             12
           ],
           "prerequisites": [
-            "ALGEBRA 1"
+            "Algebra 1"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2018,7 +2008,7 @@
             12
           ],
           "prerequisites": [
-            "ALGEBRA 1"
+            "Algebra 1"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2093,8 +2083,7 @@
             12
           ],
           "prerequisites": [
-            "Computer Programming 1 (CSC161/162)",
-            "Web"
+            "Computer Programming 1 (CSC161/162)"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -2111,8 +2100,7 @@
             12
           ],
           "prerequisites": [
-            "Computer Programming 1 (CSC161/162)",
-            "Web"
+            "Computer Programming 1 (CSC161/162)"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -2186,7 +2174,7 @@
             12
           ],
           "prerequisites": [
-            "Civil Engineering and Architecture–PLTW or"
+            "Civil Engineering and Architecture–PLTW"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -2202,7 +2190,7 @@
             12
           ],
           "prerequisites": [
-            "Civil Engineering and Architecture–PLTW or"
+            "Civil Engineering and Architecture–PLTW"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -2276,7 +2264,7 @@
             12
           ],
           "prerequisites": [
-            "introduction to Engineering Design–PLTW OR"
+            "Introduction to Engineering Design–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2292,7 +2280,7 @@
             12
           ],
           "prerequisites": [
-            "introduction to Engineering Design–PLTW OR"
+            "Introduction to Engineering Design–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2322,7 +2310,7 @@
             12
           ],
           "prerequisites": [
-            "introduction to Engineering Design–PLTW"
+            "Introduction to Engineering Design–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2338,7 +2326,7 @@
             12
           ],
           "prerequisites": [
-            "introduction to Engineering Design–PLTW"
+            "Introduction to Engineering Design–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2414,7 +2402,7 @@
             12
           ],
           "prerequisites": [
-            "introduction to Engineering Design–PLTW"
+            "Introduction to Engineering Design–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2430,7 +2418,7 @@
             12
           ],
           "prerequisites": [
-            "introduction to Engineering Design–PLTW"
+            "Introduction to Engineering Design–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2460,7 +2448,10 @@
           ],
           "prerequisites": [
             "PLTW Digital Electronics",
-            "Electrical"
+            "Electrical Engineering–PLTW",
+            "Principles of Engineering–PLTW",
+            "Computer Integrated Manufacturing–PLTW",
+            "Civil Engineering and Architecture–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2476,7 +2467,10 @@
           ],
           "prerequisites": [
             "PLTW Digital Electronics",
-            "Electrical"
+            "Electrical Engineering–PLTW",
+            "Principles of Engineering–PLTW",
+            "Computer Integrated Manufacturing–PLTW",
+            "Civil Engineering and Architecture–PLTW"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -2871,8 +2865,7 @@
             12
           ],
           "prerequisites": [
-            "Game Development 1 (TEC501",
-            "TEC502)"
+            "Game Development 1 (TEC501/TEC502)"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -2889,8 +2882,7 @@
             12
           ],
           "prerequisites": [
-            "Game Development 1 (TEC501",
-            "TEC502)"
+            "Game Development 1 (TEC501/TEC502)"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -3251,9 +3243,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Art and Design and two of the following courses:"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -3267,9 +3257,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Art and Design and two of the following courses:"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -3297,9 +3285,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Art and Design and two of the following courses:"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -3313,9 +3299,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Art and Design and two of the following courses:"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -3343,7 +3327,7 @@
             12
           ],
           "prerequisites": [
-            "Advanced Drawing, Painting and MIXED MEDIA"
+            "Advanced Drawing, Painting and Mixed Media"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -3358,7 +3342,7 @@
             12
           ],
           "prerequisites": [
-            "Advanced Drawing, Painting and MIXED MEDIA"
+            "Advanced Drawing, Painting and Mixed Media"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -4178,8 +4162,7 @@
             9
           ],
           "prerequisites": [
-            "Prior Band experience",
-            "approval"
+            "Prior Band experience"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -4193,8 +4176,7 @@
             9
           ],
           "prerequisites": [
-            "Prior Band experience",
-            "approval"
+            "Prior Band experience"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -4270,7 +4252,7 @@
             12
           ],
           "prerequisites": [
-            "Audition with BAND FACULTY"
+            "Audition with Band Faculty"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -4286,7 +4268,7 @@
             12
           ],
           "prerequisites": [
-            "Audition with BAND FACULTY"
+            "Audition with Band Faculty"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -4316,7 +4298,7 @@
             12
           ],
           "prerequisites": [
-            "Audition with BAND FACULTY"
+            "Audition with Band Faculty"
           ],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
@@ -4332,7 +4314,7 @@
             12
           ],
           "prerequisites": [
-            "Audition with BAND FACULTY"
+            "Audition with Band Faculty"
           ],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
@@ -4451,9 +4433,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Audition with choir faculty, treble voices need to"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
           "credits": 1
@@ -4467,9 +4447,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Audition with choir faculty, treble voices need to"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
           "credits": 1
@@ -4592,9 +4570,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Auditions are required for all students with the"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -4609,9 +4585,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Auditions are required for all students with the"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -4641,9 +4615,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "All students must have completed one full year"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
           "credits": 1
@@ -4657,9 +4629,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "All students must have completed one full year"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
           "credits": 1
@@ -4783,9 +4753,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Auditions are required for all students WITH THE"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
           "credits": 1
@@ -4799,9 +4767,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Auditions are required for all students WITH THE"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep With Accelerated Option",
           "credits": 1
@@ -5017,10 +4983,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Membership in either Instrumental",
-            "Vocal"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1
@@ -5034,10 +4997,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Membership in either Instrumental",
-            "Vocal"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "Honors",
           "credits": 1
@@ -5303,7 +5263,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 Or Entertainment Production and Design"
+            "Acting 4 or Entertainment Production and Design"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5318,7 +5278,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 Or Entertainment Production and Design"
+            "Acting 4 or Entertainment Production and Design"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5347,7 +5307,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 OR ENTERTAINMENT PRODUCTION AND DESIGN"
+            "Acting 4 or Entertainment Production and Design"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5362,7 +5322,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 OR ENTERTAINMENT PRODUCTION AND DESIGN"
+            "Acting 4 or Entertainment Production and Design"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5660,7 +5620,7 @@
             12
           ],
           "prerequisites": [
-            "PRECALCULUS OR ALGEBRA 2 AB/BC"
+            "Precalculus or Algebra 2 AB/BC"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5676,7 +5636,7 @@
             12
           ],
           "prerequisites": [
-            "PRECALCULUS OR ALGEBRA 2 AB/BC"
+            "Precalculus or Algebra 2 AB/BC"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5751,7 +5711,7 @@
             12
           ],
           "prerequisites": [
-            "ANY PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5766,7 +5726,7 @@
             12
           ],
           "prerequisites": [
-            "ANY PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -5884,7 +5844,7 @@
             12
           ],
           "prerequisites": [
-            "Completion of Precalculus or"
+            "Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5900,7 +5860,7 @@
             12
           ],
           "prerequisites": [
-            "Completion of Precalculus or"
+            "Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5929,7 +5889,7 @@
             12
           ],
           "prerequisites": [
-            "ANY AP PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -5944,7 +5904,7 @@
             12
           ],
           "prerequisites": [
-            "ANY AP PRECALCULUS COURSE"
+            "AP Precalculus or Precalculus"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -6871,8 +6831,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 1",
-            "passing the placement"
+            "Mandarin Chinese 1"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -6889,8 +6848,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 1",
-            "passing the placement"
+            "Mandarin Chinese 1"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -6921,8 +6879,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 2",
-            "passing the placement"
+            "Mandarin Chinese 2"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -6939,8 +6896,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 2",
-            "passing the placement"
+            "Mandarin Chinese 2"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -6970,10 +6926,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Intermediate",
-            "higher proficiency in the domains"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1
@@ -6988,10 +6941,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Intermediate",
-            "higher proficiency in the domains"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1
@@ -7020,8 +6970,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 3",
-            "passing the placement"
+            "Mandarin Chinese 3"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -7037,8 +6986,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 3",
-            "passing the placement"
+            "Mandarin Chinese 3"
           ],
           "corequisites": [],
           "creditType": "Accelerated",
@@ -7067,7 +7015,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 4, THREE YEARS OF HIGH SCHOOL"
+            "Mandarin Chinese 4, Three Years of High School"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -7082,7 +7030,7 @@
             12
           ],
           "prerequisites": [
-            "Mandarin Chinese 4, THREE YEARS OF HIGH SCHOOL"
+            "Mandarin Chinese 4, Three Years of High School"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -7111,7 +7059,7 @@
             12
           ],
           "prerequisites": [
-            "AP Chinese Language and Culture or"
+            "AP Chinese Language and Culture"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -7126,7 +7074,7 @@
             12
           ],
           "prerequisites": [
-            "AP Chinese Language and Culture or"
+            "AP Chinese Language and Culture"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -7394,10 +7342,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Intermediate",
-            "higher proficiency as demonstrated"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1
@@ -7412,10 +7357,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Intermediate",
-            "higher proficiency as demonstrated"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "Accelerated",
           "credits": 1
@@ -7488,7 +7430,7 @@
             12
           ],
           "prerequisites": [
-            "INTERMEDIATE SPANISH LANGUAGE ARTS, Spanish 4"
+            "Intermediate Spanish Language Arts, Spanish 4"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -7504,7 +7446,7 @@
             12
           ],
           "prerequisites": [
-            "INTERMEDIATE SPANISH LANGUAGE ARTS, Spanish 4"
+            "Intermediate Spanish Language Arts, Spanish 4"
           ],
           "corequisites": [],
           "creditType": "Honors",
@@ -7674,9 +7616,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7691,9 +7631,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7722,9 +7660,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7739,9 +7675,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7772,9 +7706,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7789,9 +7721,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7806,9 +7736,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7823,9 +7751,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep",
           "credits": 1
@@ -7939,8 +7865,7 @@
             12
           ],
           "prerequisites": [
-            "A Foundational Fitness class",
-            "any previous"
+            "A Foundational Fitness class"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -7957,8 +7882,7 @@
             12
           ],
           "prerequisites": [
-            "A Foundational Fitness class",
-            "any previous"
+            "A Foundational Fitness class"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -8149,7 +8073,7 @@
             12
           ],
           "prerequisites": [
-            "Students must have AN American Red Cross"
+            "Students must have an American Red Cross"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -8164,7 +8088,7 @@
             12
           ],
           "prerequisites": [
-            "Students must have AN American Red Cross"
+            "Students must have an American Red Cross"
           ],
           "corequisites": [],
           "creditType": "College Prep",
@@ -8583,9 +8507,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None PASS/FAIL COURSE"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep Elective Science",
           "credits": 1
@@ -8599,9 +8521,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None PASS/FAIL COURSE"
-          ],
+          "prerequisites": [],
           "corequisites": [],
           "creditType": "College Prep Elective Science",
           "credits": 1
@@ -9013,8 +8933,7 @@
             12
           ],
           "prerequisites": [
-            "AP Physics 1",
-            "AP Physics 2, and completion or"
+            "AP Physics 1"
           ],
           "corequisites": [],
           "creditType": "Honors Physical Science",
@@ -9029,8 +8948,7 @@
             12
           ],
           "prerequisites": [
-            "AP Physics 1",
-            "AP Physics 2, and completion or"
+            "AP Physics 1"
           ],
           "corequisites": [],
           "creditType": "Honors Physical Science",
@@ -9045,8 +8963,7 @@
             12
           ],
           "prerequisites": [
-            "AP Physics 1",
-            "AP Physics 2, and completion or"
+            "AP Physics 1"
           ],
           "corequisites": [],
           "creditType": "Honors Physical Science",
@@ -9061,8 +8978,7 @@
             12
           ],
           "prerequisites": [
-            "AP Physics 1",
-            "AP Physics 2, and completion or"
+            "AP Physics 1"
           ],
           "corequisites": [],
           "creditType": "Honors Physical Science",

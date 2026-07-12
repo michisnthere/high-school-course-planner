@@ -1,4 +1,5 @@
 import type { PlannedCourse, PlannerCourseDetails } from "./planner";
+import { getCourseCredits, getPlacementKey } from "./courseCredits";
 
 export type GradeRequirement = {
   category: string;
@@ -102,10 +103,7 @@ export function getRequirementStatus(
   const instanceMap = new Map<string, PlannedCourse>();
   for (const plannedCourse of plannedCourses) {
     if (plannedCourse.courseId == null) continue;
-    const key =
-      plannedCourse.course.duration === 2
-        ? `${plannedCourse.courseId}-${plannedCourse.slot}`
-        : `${plannedCourse.courseId}-${plannedCourse.slot}-${plannedCourse.semester}`;
+    const key = getPlacementKey(plannedCourse);
     if (!instanceMap.has(key)) {
       instanceMap.set(key, plannedCourse);
     }
@@ -121,7 +119,7 @@ export function getRequirementStatus(
         continue;
       }
       if (course.fulfillsRequirements.some((requirementName) => matchSet.has(requirementName))) {
-        earnedCredits += course.credits ?? course.duration / 2;
+        earnedCredits += getCourseCredits(course);
       }
     }
 
