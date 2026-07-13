@@ -666,7 +666,7 @@ function PlannerYearContent(): React.ReactElement {
           display: "inline-block",
           marginBottom: "16px",
           fontSize: "14px",
-          color: "#d1d5db",
+          color: "var(--text-secondary)",
           textDecoration: "none",
           fontWeight: 500,
         }}
@@ -688,7 +688,7 @@ function PlannerYearContent(): React.ReactElement {
               margin: "0 0 28px",
               fontSize: "32px",
               fontWeight: 700,
-              color: "#ffffff",
+              color: "#111827",
               lineHeight: 1.2,
             }}
           >
@@ -725,7 +725,7 @@ function PlannerYearContent(): React.ReactElement {
                       margin: "0 0 16px",
                       fontSize: "22px",
                       fontWeight: 600,
-                      color: "#ffffff",
+                      color: "#111827",
                     }}
                   >
                     Semester {semester}
@@ -843,8 +843,8 @@ function SummarySidebar({
         minWidth: "280px",
         maxWidth: "100%",
         padding: "24px",
-        backgroundColor: "#1f2937",
-        border: "1px solid #374151",
+        backgroundColor: "#ffffff",
+        border: "2px solid #275D38",
         borderRadius: "16px",
         fontFamily:
           `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
@@ -855,7 +855,7 @@ function SummarySidebar({
           margin: "0 0 20px",
           fontSize: "18px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "#111827",
         }}
       >
         Planner Summary
@@ -895,7 +895,7 @@ function SummarySidebar({
         style={{
           marginTop: "24px",
           paddingTop: "20px",
-          borderTop: "1px solid #374151",
+          borderTop: "1px solid var(--border-default)",
         }}
       >
         <div
@@ -905,7 +905,7 @@ function SummarySidebar({
             alignItems: "center",
             marginBottom: "8px",
             fontSize: "14px",
-            color: "#d1d5db",
+            color: "var(--text-secondary)",
           }}
         >
           <span>Course Slots Filled</span>
@@ -916,7 +916,7 @@ function SummarySidebar({
         <div
           style={{
             height: "8px",
-            backgroundColor: "#374151",
+            backgroundColor: "var(--bg-muted)",
             borderRadius: "9999px",
             overflow: "hidden",
           }}
@@ -946,8 +946,8 @@ function SummaryRow({ label, value }: { label: string; value: string }): React.R
         fontSize: "15px",
       }}
     >
-      <span style={{ color: "#9ca3af" }}>{label}</span>
-      <span style={{ fontWeight: 700, color: "#ffffff" }}>{value}</span>
+      <span style={{ color: "var(--text-secondary)" }}>{label}</span>
+      <span style={{ fontWeight: 700, color: "#111827" }}>{value}</span>
     </div>
   );
 }
@@ -1137,9 +1137,9 @@ function PlannedCourseCard({
         transition: "transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease",
         transform: isDragOver ? "scale(1.02)" : isHighlighted ? "scale(1.03)" : "scale(1)",
         boxShadow: isDragOver
-          ? "0 0 0 2px rgba(59, 130, 246, 0.3)"
+          ? "0 0 0 2px rgba(236, 186, 43, 0.4)"
           : isHighlighted
-          ? "0 0 0 4px rgba(59, 130, 246, 0.8), 0 6px 16px rgba(0,0,0,0.2)"
+          ? "0 0 0 4px rgba(236, 186, 43, 0.6), 0 6px 16px rgba(0,0,0,0.15)"
           : "none",
         position: "relative",
       }}
@@ -1168,7 +1168,7 @@ function PlannedCourseCard({
           style={{
             fontSize: "13px",
             fontWeight: 600,
-            color: "#9ca3af",
+            color: "var(--text-secondary)",
             textTransform: "uppercase",
             letterSpacing: "0.02em",
           }}
@@ -1200,12 +1200,12 @@ function PlannedCourseCard({
             flex: "0 0 auto",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
+            e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)";
             e.currentTarget.style.color = "#ef4444";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = "transparent";
-            e.currentTarget.style.color = "#9ca3af";
+            e.currentTarget.style.color = "var(--text-secondary)";
           }}
         >
           🗑
@@ -1216,7 +1216,7 @@ function PlannedCourseCard({
         style={{
           fontSize: "16px",
           fontWeight: 600,
-          color: "#ffffff",
+          color: "#111827",
           lineHeight: 1.3,
         }}
       >
@@ -1229,7 +1229,7 @@ function PlannedCourseCard({
           flexWrap: "wrap",
           gap: "8px",
           fontSize: "13px",
-          color: "#9ca3af",
+          color: "var(--text-secondary)",
         }}
       >
         {course.creditType && (

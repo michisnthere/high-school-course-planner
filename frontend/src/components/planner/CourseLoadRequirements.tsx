@@ -64,7 +64,7 @@ export function CourseLoadRequirements({
       style={{
         marginTop: "24px",
         paddingTop: "20px",
-        borderTop: "1px solid #374151",
+        borderTop: "1px solid var(--border-default)",
       }}
     >
       <h3
@@ -72,7 +72,7 @@ export function CourseLoadRequirements({
           margin: "0 0 12px",
           fontSize: "16px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "#275D38",
         }}
       >
         Course Load Requirements
@@ -95,7 +95,7 @@ export function CourseLoadRequirements({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: "#d1d5db",
+              color: "var(--text-secondary)",
               marginBottom: "8px",
             }}
           >
@@ -106,8 +106,8 @@ export function CourseLoadRequirements({
           </div>
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "4px" }}>
             {semesterCredits.map((s) => (
-              <div key={s.semester} style={{ fontSize: "13px", color: "#9ca3af" }}>
-                <span style={{ fontWeight: 500, color: "#d1d5db" }}>Semester {s.semester}:</span>{" "}
+              <div key={s.semester} style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
+                <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>Semester {s.semester}:</span>{" "}
                 <ProgressBar earned={s.earnedCredits} required={s.requiredCredits} />
               </div>
             ))}
@@ -121,7 +121,7 @@ export function CourseLoadRequirements({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: "#d1d5db",
+              color: "var(--text-secondary)",
               marginBottom: "8px",
             }}
           >

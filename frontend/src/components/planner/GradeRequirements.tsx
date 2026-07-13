@@ -39,10 +39,10 @@ export function GradeRequirements({
           margin: "0 0 12px",
           fontSize: "16px",
           fontWeight: 700,
-          color: "var(--text-primary)",
-        }}
-      >
-        Grade {grade} Requirements
+        color: "#275D38",
+      }}
+    >
+      Grade {grade} Requirements
       </h3>
 
       <ul
@@ -63,7 +63,7 @@ export function GradeRequirements({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: requirement.isMet ? "#d1d5db" : "var(--brand-accent)",
+              color: requirement.isMet ? "var(--text-secondary)" : "var(--brand-accent)",
             }}
           >
             <span style={{ fontSize: "16px" }}>{requirement.isMet ? "✓" : "⚠"}</span>
@@ -80,7 +80,7 @@ export function GradeRequirements({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: allSemestersMet ? "#d1d5db" : "var(--brand-accent)",
+              color: allSemestersMet ? "var(--text-secondary)" : "var(--brand-accent)",
               marginBottom: "4px",
             }}
           >

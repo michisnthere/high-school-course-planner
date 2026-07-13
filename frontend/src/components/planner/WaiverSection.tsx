@@ -94,7 +94,7 @@ export function WaiverSection({
       style={{
         marginTop: "24px",
         paddingTop: "20px",
-        borderTop: "1px solid #374151",
+        borderTop: "1px solid var(--border-default)",
       }}
     >
       <h3
@@ -102,14 +102,14 @@ export function WaiverSection({
           margin: "0 0 12px",
           fontSize: "16px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "#275D38",
         }}
       >
         Waivers
       </h3>
 
       {!hasWaiver ? (
-        <p style={{ margin: "0 0 12px", fontSize: "14px", color: "#9ca3af" }}>
+        <p style={{ margin: "0 0 12px", fontSize: "14px", color: "var(--text-secondary)" }}>
           No waivers applied.
         </p>
       ) : (
@@ -139,9 +139,9 @@ export function WaiverSection({
                 onClick={() => onRemoveWaiver(i)}
                 style={{
                   background: "none",
-                  border: "1px solid #6b7280",
+                  border: "1px solid var(--border-default)",
                   borderRadius: "4px",
-                  color: "#9ca3af",
+                  color: "var(--text-secondary)",
                   fontSize: "12px",
                   padding: "2px 8px",
                   cursor: "pointer",
@@ -219,9 +219,9 @@ export function WaiverSection({
                     disabled={!academicConfirmed}
                     style={{
                       background: "none",
-                      border: `1px solid ${academicConfirmed ? "var(--brand-accent)" : "#6b7280"}`,
+                      border: `1px solid ${academicConfirmed ? "var(--brand-accent)" : "var(--border-default)"}`,
                       borderRadius: "4px",
-                      color: academicConfirmed ? "var(--brand-accent)" : "#6b7280",
+                      color: academicConfirmed ? "var(--brand-accent)" : "var(--text-secondary)",
                       fontSize: "12px",
                       padding: "4px 12px",
                       cursor: academicConfirmed ? "pointer" : "not-allowed",

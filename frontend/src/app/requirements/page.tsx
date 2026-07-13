@@ -156,19 +156,19 @@ function RequirementsContent(): React.ReactElement {
           margin: "0 0 28px",
           fontSize: "32px",
           fontWeight: 700,
-          color: "#ffffff",
-          lineHeight: 1.2,
-        }}
-      >
-        Graduation Requirements
-      </h1>
+        color: "#111827",
+        lineHeight: 1.2,
+      }}
+    >
+      Graduation Requirements
+    </h1>
 
-      {loading ? (
-        <p style={{ color: "#d1d5db" }}>Loading graduation requirements...</p>
-      ) : error ? (
-        <p style={{ color: "#ef4444" }}>{error}</p>
-      ) : !analysis || analysis.graduationRequirements.length === 0 ? (
-        <p style={{ color: "#9ca3af" }}>
+    {loading ? (
+      <p style={{ color: "var(--text-secondary)" }}>Loading graduation requirements...</p>
+    ) : error ? (
+      <p style={{ color: "#ef4444" }}>{error}</p>
+    ) : !analysis || analysis.graduationRequirements.length === 0 ? (
+      <p style={{ color: "var(--text-secondary)" }}>
           No graduation requirements found. Requirements are populated from the course catalog.
         </p>
       ) : (
@@ -178,6 +178,7 @@ function RequirementsContent(): React.ReactElement {
               style={{
                 padding: "24px",
                 backgroundColor: "#ffffff",
+                border: "2px solid #275D38",
                 borderRadius: "12px",
                 marginBottom: "12px",
               }}
@@ -214,7 +215,7 @@ function RequirementsContent(): React.ReactElement {
                 margin: "0 0 16px",
                 fontSize: "20px",
                 fontWeight: 600,
-                color: "#ffffff",
+                color: "#111827",
               }}
             >
               Year-Level Requirements
@@ -238,7 +239,7 @@ function RequirementsContent(): React.ReactElement {
                 margin: "0 0 16px",
                 fontSize: "20px",
                 fontWeight: 600,
-                color: "#ffffff",
+                color: "#111827",
               }}
             >
               Graduation Requirements
@@ -270,7 +271,7 @@ function RequirementsContent(): React.ReactElement {
                   margin: "0 0 16px",
                   fontSize: "20px",
                   fontWeight: 600,
-                  color: "#ffffff",
+                  color: "#111827",
                 }}
               >
                 Helpful Information
@@ -322,12 +323,13 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "20px",
-        backgroundColor: hovered ? "#f9fafb" : "#ffffff",
+        backgroundColor: "#ffffff",
+        border: "2px solid #ECBA2B",
         borderRadius: "12px",
         cursor: "pointer",
-        transition: "background-color 0.15s ease",
+        transition: "box-shadow 0.15s ease",
         outline: "none",
-        border: hovered ? "1px solid #e5e7eb" : "1px solid transparent",
+        boxShadow: hovered ? "0 2px 8px rgba(236, 186, 43, 0.2)" : "none",
       }}
     >
       <h3
@@ -606,6 +608,7 @@ function RequirementCard({
         position: "relative",
         padding: "20px 20px 20px 24px",
         backgroundColor: "#ffffff",
+        border: "2px solid #275D38",
         borderRadius: "12px",
         overflow: "hidden",
       }}
