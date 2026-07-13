@@ -355,7 +355,7 @@ async function importGraduationRequirements(
     if (isNonGraduationRequirementName(canonicalName)) {
       continue;
     }
-    if (isInformationItemName(canonicalName) || !isMeasurableGraduationRequirementName(canonicalName)) {
+    if (!isMeasurableGraduationRequirementName(canonicalName) && !isInformationItemName(canonicalName)) {
       continue;
     }
     if (seenCanonical.has(canonicalName)) {

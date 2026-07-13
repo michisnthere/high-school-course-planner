@@ -8,24 +8,16 @@ import {
   type GradeCompleted,
 } from "@/lib/completedCourses";
 
-const YEAR_COMPLETED_OPTIONS = [
-  "2023-2024",
-  "2024-2025",
-  "2025-2026",
-  "2026-2027",
-] as const;
-
 type CompletedCoursePickerProps = {
   onClose: () => void;
   onSubmit: (selection: {
     courseId: number;
     gradeCompleted: GradeCompleted;
-    yearCompleted: string;
+    yearCompleted?: string;
     letterGrade: string | null;
   }) => void;
   excludeCourseIds?: number[];
   defaultGrade?: GradeCompleted;
-  defaultYear?: string;
 };
 
 export function CompletedCoursePicker({
@@ -33,11 +25,9 @@ export function CompletedCoursePicker({
   onSubmit,
   excludeCourseIds,
   defaultGrade = "Freshman (9)",
-  defaultYear = "2025-2026",
 }: CompletedCoursePickerProps): React.ReactElement {
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
-  const [yearCompleted, setYearCompleted] = useState<string>(defaultYear);
   const [letterGrade, setLetterGrade] = useState<string>("A");
 
   useEffect(() => {
@@ -50,7 +40,7 @@ export function CompletedCoursePicker({
 
   const handleSubmit = () => {
     if (selectedCourseId == null) return;
-    onSubmit({ courseId: selectedCourseId, gradeCompleted, yearCompleted, letterGrade });
+    onSubmit({ courseId: selectedCourseId, gradeCompleted, letterGrade });
   };
 
   return (
@@ -176,33 +166,6 @@ export function CompletedCoursePicker({
                 {LETTER_GRADE_OPTIONS.map((grade) => (
                   <option key={grade} value={grade}>
                     {grade}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-              <label
-                htmlFor="completed-year"
-                style={{ color: "#d1d5db", fontSize: "14px", fontWeight: 500 }}
-              >
-                Year completed:
-              </label>
-              <select
-                id="completed-year"
-                value={yearCompleted}
-                onChange={(e) => setYearCompleted(e.target.value)}
-                style={{
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  color: "#ffffff",
-                  backgroundColor: "#111827",
-                  border: "1px solid #4b5563",
-                  borderRadius: "8px",
-                }}
-              >
-                {YEAR_COMPLETED_OPTIONS.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
                   </option>
                 ))}
               </select>

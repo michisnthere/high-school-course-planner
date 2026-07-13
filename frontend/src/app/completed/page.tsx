@@ -7,6 +7,7 @@ import {
   addCompletedCourse,
   updateCompletedCourse,
   removeCompletedCourse,
+  GRADE_COMPLETED_OPTIONS,
   LETTER_GRADE_OPTIONS,
   type CompletedCourse,
   type GradeCompleted,
@@ -28,7 +29,9 @@ function CompletedCoursesContent(): React.ReactElement {
   const [error, setError] = useState<string | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editValue, setEditValue] = useState<string>("");
+  const [editGrade, setEditGrade] = useState<GradeCompleted>("Freshman (9)");
+  const [editYear, setEditYear] = useState<string>("");
+  const [editLetter, setEditLetter] = useState<string>("A");
 
   const load = useCallback(async () => {
     try {
@@ -48,19 +51,14 @@ function CompletedCoursesContent(): React.ReactElement {
   }, [load]);
 
   const handleAdd = useCallback(
-    async ({
-      courseId,
-      gradeCompleted,
-      yearCompleted,
-      letterGrade,
-    }: {
+    async (selection: {
       courseId: number;
       gradeCompleted: GradeCompleted;
-      yearCompleted: string;
+      yearCompleted?: string;
       letterGrade: string | null;
     }) => {
       try {
-        await addCompletedCourse(courseId, gradeCompleted, yearCompleted, letterGrade);
+        await addCompletedCourse(selection.courseId, selection.gradeCompleted, undefined, selection.letterGrade);
         setPickerOpen(false);
         await load();
       } catch (err) {
@@ -70,17 +68,21 @@ function CompletedCoursesContent(): React.ReactElement {
     [load]
   );
 
-  const handleUpdateGrade = useCallback(
-    async (id: number, letterGrade: string | null) => {
+  const handleUpdate = useCallback(
+    async (id: number) => {
       try {
-        await updateCompletedCourse(id, { letterGrade });
+        await updateCompletedCourse(id, {
+          gradeCompleted: editGrade,
+          yearCompleted: editYear || null,
+          letterGrade: editLetter,
+        });
         setEditingId(null);
         await load();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to update grade");
+        setError(err instanceof Error ? err.message : "Failed to update completed course");
       }
     },
-    [load]
+    [load, editGrade, editYear, editLetter]
   );
 
   const handleRemove = useCallback(
@@ -186,7 +188,47 @@ function CompletedCoursesContent(): React.ReactElement {
                         {cc.course.title}
                       </h3>
                       <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db" }}>
-                        {cc.gradeCompleted}
+                        {editingId === cc.id ? (
+                          <>
+                            <select
+                              value={editGrade}
+                              onChange={(e) => setEditGrade(e.target.value as GradeCompleted)}
+                              style={{
+                                padding: "4px 8px",
+                                fontSize: "13px",
+                                color: "#ffffff",
+                                backgroundColor: "#111827",
+                                border: "1px solid #4b5563",
+                                borderRadius: "6px",
+                                marginRight: "8px",
+                              }}
+                            >
+                              {GRADE_COMPLETED_OPTIONS.map((g) => (
+                                <option key={g} value={g}>{g}</option>
+                              ))}
+                            </select>
+                            <input
+                              type="text"
+                              value={editYear}
+                              onChange={(e) => setEditYear(e.target.value)}
+                              placeholder="e.g. 2024-2025"
+                              style={{
+                                padding: "4px 8px",
+                                fontSize: "13px",
+                                color: "#ffffff",
+                                backgroundColor: "#111827",
+                                border: "1px solid #4b5563",
+                                borderRadius: "6px",
+                                width: "120px",
+                              }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            {cc.gradeCompleted}
+                            {cc.yearCompleted ? ` (${cc.yearCompleted})` : ""}
+                          </>
+                        )}
                         {cc.course.credits != null && ` • ${cc.course.credits} credits`}
                         {cc.course.division && ` • ${cc.course.division}`}
                       </p>
@@ -194,8 +236,8 @@ function CompletedCoursesContent(): React.ReactElement {
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       {editingId === cc.id ? (
                         <select
-                          value={editValue}
-                          onChange={(e) => setEditValue(e.target.value)}
+                          value={editLetter}
+                          onChange={(e) => setEditLetter(e.target.value)}
                           style={{
                             padding: "6px 10px",
                             fontSize: "14px",
@@ -238,7 +280,7 @@ function CompletedCoursesContent(): React.ReactElement {
                         <>
                           <button
                             type="button"
-                            onClick={() => handleUpdateGrade(cc.id, editValue)}
+                            onClick={() => handleUpdate(cc.id)}
                             style={{
                               padding: "6px 12px",
                               fontSize: "13px",
@@ -275,9 +317,11 @@ function CompletedCoursesContent(): React.ReactElement {
                             type="button"
                             onClick={() => {
                               setEditingId(cc.id);
-                              setEditValue(cc.letterGrade ?? "A");
+                              setEditGrade(cc.gradeCompleted);
+                              setEditYear(cc.yearCompleted ?? "");
+                              setEditLetter(cc.letterGrade ?? "A");
                             }}
-                            title="Edit grade"
+                            title="Edit"
                             style={{
                               padding: "6px 12px",
                               fontSize: "13px",

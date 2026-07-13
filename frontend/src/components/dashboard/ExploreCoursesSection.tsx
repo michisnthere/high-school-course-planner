@@ -36,7 +36,7 @@ export function ExploreCoursesSection({
           color: "#111827",
         }}
       >
-        Top Courses
+        Explore Courses
       </h2>
 
       <style>{`
