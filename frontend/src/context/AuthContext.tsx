@@ -5,6 +5,8 @@ import React, {
   useContext,
   useEffect,
   useState,
+  useRef,
+  useCallback,
   ReactNode,
 } from "react";
 import { getSession, logout, type AuthUser } from "@/lib/auth";
@@ -21,21 +23,43 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const fetchingRef = useRef(false);
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
+    if (fetchingRef.current) return;
+    fetchingRef.current = true;
     try {
       const session = await getSession();
       setUser(session.authenticated ? session.user ?? null : null);
     } catch {
       setUser(null);
+    } finally {
+      fetchingRef.current = false;
     }
-  };
+  }, []);
 
   useEffect(() => {
     refresh().finally(() => setLoading(false));
-  }, []);
+  }, [refresh]);
 
-  const handleLogout = async () => {
+  useEffect(() => {
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        refresh();
+      }
+    };
+    const onFocus = () => {
+      refresh();
+    };
+    window.addEventListener("pageshow", onPageShow);
+    window.addEventListener("focus", onFocus);
+    return () => {
+      window.removeEventListener("pageshow", onPageShow);
+      window.removeEventListener("focus", onFocus);
+    };
+  }, [refresh]);
+
+  const handleLogout = useCallback(async () => {
     try {
       await logout();
     } catch {
@@ -43,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setUser(null);
     window.location.href = "/";
-  };
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, refresh, logout: handleLogout }}>
