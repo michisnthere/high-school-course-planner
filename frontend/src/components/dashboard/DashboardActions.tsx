@@ -41,30 +41,28 @@ function ActionCard({ action }: ActionCardProps): React.ReactElement {
       href={action.href}
       style={{
         flex: "1 1 0",
-        minWidth: "220px",
+        minWidth: "200px",
         textDecoration: "none",
         color: "inherit",
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       <div
         style={{
-          padding: "24px",
-          backgroundColor: "var(--bg-card)",
-          border: "1px solid",
-          borderColor: hovered ? "var(--border-light)" : "var(--border-default)",
+          padding: "20px",
+          backgroundColor: hovered ? "var(--brand-accent-hover)" : "var(--brand-accent)",
           borderRadius: "12px",
-          transition: "border-color 0.2s ease",
+          transition: "background-color 0.2s ease",
           cursor: "pointer",
           textAlign: "center",
         }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         <span
           style={{
             fontSize: "16px",
             fontWeight: 600,
-            color: "var(--text-primary)",
+            color: "#ffffff",
           }}
         >
           {action.label}

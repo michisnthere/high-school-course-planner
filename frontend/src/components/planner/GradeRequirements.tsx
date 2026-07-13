@@ -30,8 +30,6 @@ export function GradeRequirements({
     <div
       style={{
         marginTop: "24px",
-        paddingTop: "20px",
-        borderTop: "1px solid var(--border-default)",
       }}
     >
       <h3
@@ -39,7 +37,7 @@ export function GradeRequirements({
           margin: "0 0 12px",
           fontSize: "16px",
           fontWeight: 700,
-        color: "#275D38",
+          color: "#275D38",
       }}
     >
       Grade {grade} Requirements

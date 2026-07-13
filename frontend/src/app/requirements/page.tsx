@@ -500,6 +500,7 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
       style={{
         padding: "18px 20px",
         backgroundColor: "#ffffff",
+        border: "2px solid #275D38",
         borderRadius: "12px",
       }}
     >
@@ -554,8 +555,10 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
                 display: "flex",
                 justifyContent: "space-between",
                 gap: "12px",
-                padding: "12px 0",
-                borderTop: "1px solid #f3f4f6",
+                padding: "12px",
+                backgroundColor: "#ffffff",
+                border: "1px solid #ECBA2B",
+                borderRadius: "8px",
               }}
             >
               <div style={{ minWidth: 0, flex: 1 }}>

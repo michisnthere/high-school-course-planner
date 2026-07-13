@@ -158,13 +158,20 @@ export function WaiverSection({
         <button
           onClick={handleAddClick}
           style={{
-            background: "none",
-            border: "1px solid #6b7280",
-            borderRadius: "6px",
-            color: "#d1d5db",
+            backgroundColor: "var(--brand-accent)",
+            border: "none",
+            borderRadius: "8px",
+            color: "#ffffff",
             fontSize: "13px",
-            padding: "6px 14px",
+            fontWeight: 600,
+            padding: "8px 16px",
             cursor: "pointer",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--brand-accent-hover)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--brand-accent)";
           }}
         >
           + Add Waiver
