@@ -33,18 +33,21 @@ const YEAR_LABELS: Record<number, string> = {
 const STATUS_CONFIG = {
   satisfied: {
     label: "Satisfied",
-    badge: "#10b981",
-    light: "#ecfdf5",
+    badge: "#275D38",
+    light: "#E4EFE8",
+    textColor: "#ffffff",
   },
   partial: {
     label: "Partial",
-    badge: "#f59e0b",
-    light: "#fffbeb",
+    badge: "#ECBA2B",
+    light: "#FCF5DF",
+    textColor: "#111827",
   },
   notStarted: {
     label: "Not Started",
     badge: "#ef4444",
     light: "#fef2f2",
+    textColor: "#ffffff",
   },
 };
 
@@ -487,7 +490,7 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
   const allMet = card.satisfiedCount === card.totalCount;
   const hasWarnings = card.items.some((item) => item.status === "warning");
   const statusLabel = allMet ? "Satisfied" : hasWarnings ? "Warning" : "Missing";
-  const statusColor = allMet ? "#10b981" : hasWarnings ? "#f59e0b" : "#ef4444";
+  const statusColor = allMet ? "#275D38" : hasWarnings ? "#D0A426" : "#ef4444";
   const statusMark = allMet ? "✓" : hasWarnings ? "!" : "•";
 
   return (
@@ -570,7 +573,7 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
                 style={{
                   fontSize: "13px",
                   fontWeight: 700,
-                  color: item.status === "satisfied" ? "#10b981" : item.status === "warning" ? "#f59e0b" : "#ef4444",
+                  color: item.status === "satisfied" ? "#275D38" : item.status === "warning" ? "#D0A426" : "#ef4444",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -644,7 +647,7 @@ function RequirementCard({
                 padding: "4px 10px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#ffffff",
+                color: config.textColor ?? "#ffffff",
                 backgroundColor: config.badge,
                 borderRadius: "9999px",
               }}
@@ -711,7 +714,7 @@ function RequirementCard({
 
 function ProgressBar({
   percent,
-  color = "#2563eb",
+  color = "var(--brand-accent)",
   height = 8,
   showLabel = false,
 }: {

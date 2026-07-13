@@ -65,7 +65,7 @@ export function RequirementProgress(): React.ReactElement {
                 style={{
                   width: `${Math.min((req.value / req.total) * 100, 100)}%`,
                   height: "100%",
-                  backgroundColor: "var(--brand-primary)",
+                  backgroundColor: "var(--brand-accent)",
                   borderRadius: "9999px",
                 }}
               />

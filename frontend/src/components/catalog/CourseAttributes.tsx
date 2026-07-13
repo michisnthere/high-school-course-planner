@@ -37,11 +37,11 @@ function TagList({ title, items }: { title: string; items: string[] }): React.Re
             key={`${item}-${index}`}
             style={{
               padding: "6px 12px",
-              backgroundColor: "var(--bg-input)",
+              backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
               fontWeight: 500,
-              color: "var(--text-secondary)",
+              color: "var(--text-primary)",
             }}
           >
             {item}

@@ -100,7 +100,7 @@ export function CompletedCoursePicker({
               onClick={onClose}
               style={{
                 fontSize: "24px",
-                color: "#9ca3af",
+                color: "var(--text-muted)",
                 background: "none",
                 border: "none",
                 cursor: "pointer",
@@ -118,7 +118,7 @@ export function CompletedCoursePicker({
             <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
               <label
                 htmlFor="completed-grade"
-                style={{ color: "#d1d5db", fontSize: "14px", fontWeight: 500 }}
+                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 500 }}
               >
                 Grade completed:
               </label>
@@ -196,7 +196,7 @@ export function CompletedCoursePicker({
               padding: "10px 18px",
               fontSize: "15px",
               fontWeight: 600,
-              color: "var(--btn-primary-text)",
+              color: "#FFFFFF",
               backgroundColor: selectedCourseId == null ? "var(--text-muted)" : "var(--brand-accent)",
               border: "none",
               borderRadius: "8px",

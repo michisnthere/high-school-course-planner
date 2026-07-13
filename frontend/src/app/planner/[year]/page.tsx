@@ -925,7 +925,7 @@ function SummarySidebar({
             style={{
               width: `${slotPercentage}%`,
               height: "100%",
-              backgroundColor: "#22c55e",
+              backgroundColor: "var(--brand-accent)",
               borderRadius: "9999px",
               transition: "width 0.3s ease",
             }}
@@ -994,11 +994,11 @@ function AddCourseCard({
         gap: "8px",
         padding: "20px",
         minHeight: "120px",
-        backgroundColor: isDragOver ? "rgba(37, 99, 235, 0.15)" : "#1f2937",
-        border: `2px dashed ${isDragOver ? "#3b82f6" : "#4b5563"}`,
+        backgroundColor: isDragOver ? "rgba(201, 154, 44, 0.12)" : "#1f2937",
+        border: `2px dashed ${isDragOver ? "var(--brand-accent)" : "#4b5563"}`,
         borderRadius: "12px",
         cursor: "pointer",
-        color: isDragOver ? "#93c5fd" : "#9ca3af",
+        color: isDragOver ? "var(--brand-accent)" : "#9ca3af",
         fontFamily:
           `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         transition: "all 0.2s ease",
@@ -1112,7 +1112,7 @@ function PlannedCourseCard({
       }}
       style={{
         padding: "16px",
-        backgroundColor: isDragOver ? "rgba(37, 99, 235, 0.15)" : bgTint,
+        backgroundColor: isDragOver ? "rgba(201, 154, 44, 0.12)" : bgTint,
         borderTopWidth: "1px",
         borderRightWidth: "1px",
         borderBottomWidth: "1px",
@@ -1121,10 +1121,10 @@ function PlannedCourseCard({
         borderRightStyle: "solid",
         borderBottomStyle: "solid",
         borderLeftStyle: "solid",
-        borderTopColor: isDragOver ? "#3b82f6" : accentColor,
-        borderRightColor: isDragOver ? "#3b82f6" : accentColor,
-        borderBottomColor: isDragOver ? "#3b82f6" : accentColor,
-        borderLeftColor: isDragOver ? "#3b82f6" : accentColor,
+        borderTopColor: isDragOver ? "var(--brand-accent)" : accentColor,
+        borderRightColor: isDragOver ? "var(--brand-accent)" : accentColor,
+        borderBottomColor: isDragOver ? "var(--brand-accent)" : accentColor,
+        borderLeftColor: isDragOver ? "var(--brand-accent)" : accentColor,
         borderRadius: "12px",
         fontFamily:
           `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
@@ -1275,11 +1275,11 @@ function PlannedCourseCard({
           style={{
             marginTop: "4px",
             padding: "8px 10px",
-            backgroundColor: "rgba(234, 179, 8, 0.12)",
-            border: "1px solid rgba(234, 179, 8, 0.3)",
+            backgroundColor: "rgba(236, 186, 43, 0.12)",
+            border: "1px solid rgba(236, 186, 43, 0.3)",
             borderRadius: "8px",
             fontSize: "12px",
-            color: "#fde047",
+            color: "var(--brand-accent)",
             lineHeight: 1.4,
           }}
         >
@@ -1600,7 +1600,7 @@ function CourseSearchModal({
                         <span
                           style={{
                             fontSize: "18px",
-                            color: "#fbbf24",
+                            color: "var(--brand-accent)",
                           }}
                           aria-label="Saved"
                         >
@@ -1667,7 +1667,7 @@ function CourseSearchModal({
                     style={{
                       fontSize: "14px",
                       fontWeight: 600,
-                      color: isDuplicate ? "#6b7280" : "#3b82f6",
+                      color: isDuplicate ? "#6b7280" : "var(--brand-accent)",
                       whiteSpace: "nowrap",
                     }}
                   >
@@ -1783,7 +1783,7 @@ function DuplicateCourseDialog({
               fontSize: "14px",
               fontWeight: 600,
               color: "#ffffff",
-              backgroundColor: "#3b82f6",
+              backgroundColor: "var(--brand-accent)",
               border: "none",
               borderRadius: "8px",
               cursor: "pointer",
@@ -1841,7 +1841,7 @@ function Toast({
             fontSize: "13px",
             fontWeight: 600,
             color: "#ffffff",
-            backgroundColor: "#2563eb",
+            backgroundColor: "var(--brand-accent)",
             border: "none",
             borderRadius: "6px",
             cursor: "pointer",
@@ -2254,11 +2254,11 @@ function WarningActionModal({
           <div
             style={{
               padding: "12px 16px",
-              backgroundColor: "rgba(234, 179, 8, 0.12)",
-              border: "1px solid rgba(234, 179, 8, 0.3)",
+              backgroundColor: "rgba(236, 186, 43, 0.12)",
+              border: "1px solid rgba(236, 186, 43, 0.3)",
               borderRadius: "8px",
               fontSize: "14px",
-              color: "#fde047",
+              color: "var(--brand-accent)",
               lineHeight: 1.5,
             }}
           >
@@ -2312,7 +2312,7 @@ function WarningActionModal({
                   fontSize: "15px",
                   fontWeight: 500,
                   color: "#ffffff",
-                  backgroundColor: "#2563eb",
+                  backgroundColor: "var(--brand-accent)",
                   border: "none",
                   borderRadius: "8px",
                   cursor: selectedCourse ? "pointer" : "not-allowed",
@@ -2333,7 +2333,7 @@ function WarningActionModal({
                     fontSize: "15px",
                     fontWeight: 500,
                     color: "#ffffff",
-                    backgroundColor: "#16a34a",
+                    backgroundColor: "var(--brand-primary)",
                     border: "none",
                     borderRadius: "8px",
                     cursor: loading ? "not-allowed" : "pointer",
@@ -2387,7 +2387,7 @@ function WarningActionModal({
                       fontSize: "15px",
                       fontWeight: 500,
                       color: "#ffffff",
-                      backgroundColor: "#16a34a",
+                      backgroundColor: "var(--brand-accent)",
                       border: "none",
                       borderRadius: "8px",
                       cursor: canAddPrerequisite ? "pointer" : "not-allowed",

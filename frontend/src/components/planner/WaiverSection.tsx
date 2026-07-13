@@ -131,7 +131,7 @@ export function WaiverSection({
                 alignItems: "center",
                 justifyContent: "space-between",
                 fontSize: "14px",
-                color: "#22c55e",
+                color: "var(--brand-accent)",
               }}
             >
               <span>✓ {waiverLabel(w)}</span>
@@ -188,7 +188,7 @@ export function WaiverSection({
             <p style={{ margin: "0 0 2px", fontWeight: 600, color: "#d1d5db" }}>
               Academic Waiver
             </p>
-            <p style={{ margin: "0 0 6px", color: eligibility.academic.eligible ? "#22c55e" : "#9ca3af" }}>
+            <p style={{ margin: "0 0 6px", color: eligibility.academic.eligible ? "var(--brand-accent)" : "#9ca3af" }}>
               {eligibility.academic.reason}
             </p>
             {eligibility.academic.eligible && (
@@ -219,9 +219,9 @@ export function WaiverSection({
                     disabled={!academicConfirmed}
                     style={{
                       background: "none",
-                      border: `1px solid ${academicConfirmed ? "#22c55e" : "#6b7280"}`,
+                      border: `1px solid ${academicConfirmed ? "var(--brand-accent)" : "#6b7280"}`,
                       borderRadius: "4px",
-                      color: academicConfirmed ? "#22c55e" : "#6b7280",
+                      color: academicConfirmed ? "var(--brand-accent)" : "#6b7280",
                       fontSize: "12px",
                       padding: "4px 12px",
                       cursor: academicConfirmed ? "pointer" : "not-allowed",
@@ -255,7 +255,7 @@ export function WaiverSection({
             <p style={{ margin: "0 0 2px", fontWeight: 600, color: "#d1d5db" }}>
               Athletic Waiver
             </p>
-            <p style={{ margin: "0 0 6px", color: eligibility.athletic.eligible ? "#22c55e" : "#9ca3af" }}>
+            <p style={{ margin: "0 0 6px", color: eligibility.athletic.eligible ? "var(--brand-accent)" : "#9ca3af" }}>
               {eligibility.athletic.reason}
             </p>
             {eligibility.athletic.eligible && (
@@ -286,7 +286,7 @@ export function WaiverSection({
             <p style={{ margin: "0 0 2px", color: "#9ca3af" }}>
               Available Grades 9–12
             </p>
-            <p style={{ margin: "0 0 6px", color: eligibility.marchingBand.eligible ? "#22c55e" : "#f59e0b" }}>
+            <p style={{ margin: "0 0 6px", color: eligibility.marchingBand.eligible ? "var(--brand-accent)" : "var(--brand-accent-hover)" }}>
               {eligibility.marchingBand.reason}
             </p>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -466,7 +466,7 @@ export function WaiverSection({
             backgroundColor: "#374151",
             borderRadius: "8px",
             fontSize: "13px",
-            color: "#fbbf24",
+            color: "var(--brand-accent)",
           }}
         >
           <p style={{ margin: "0 0 8px" }}>{confirmMessage}</p>

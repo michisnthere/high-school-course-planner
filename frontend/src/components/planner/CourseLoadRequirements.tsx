@@ -38,7 +38,7 @@ function ProgressBar({
           style={{
             width: `${percent}%`,
             height: "100%",
-            backgroundColor: isMet ? "#22c55e" : "#f59e0b",
+            backgroundColor: isMet ? "var(--brand-primary-hover)" : "var(--brand-accent)",
             borderRadius: "3px",
             transition: "width 400ms ease",
           }}
@@ -136,7 +136,7 @@ export function CourseLoadRequirements({
                 key={s.semester}
                 style={{
                   fontSize: "13px",
-                  color: s.isMet ? "#22c55e" : "#f59e0b",
+                  color: s.isMet ? "var(--brand-primary-hover)" : "var(--brand-accent)",
                 }}
               >
                 Semester {s.semester}: {s.filledCount} / {s.requiredCount} periods filled

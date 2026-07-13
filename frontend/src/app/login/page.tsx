@@ -84,7 +84,7 @@ export default function LoginPage(): React.ReactElement {
             padding: "0 24px",
             fontSize: "16px",
             fontWeight: 600,
-            color: "var(--btn-primary-text)",
+            color: "#FFFFFF",
             backgroundColor: "var(--brand-accent)",
             border: "none",
             borderRadius: "10px",

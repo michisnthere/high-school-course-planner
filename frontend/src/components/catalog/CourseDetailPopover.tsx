@@ -21,11 +21,11 @@ function TagList({ items }: { items: string[] }): React.ReactElement | null {
           key={`${item}-${index}`}
           style={{
             padding: "4px 10px",
-            backgroundColor: "var(--bg-input)",
+            backgroundColor: "var(--brand-accent-light)",
             borderRadius: "9999px",
             fontSize: "13px",
             fontWeight: 500,
-            color: "var(--text-secondary)",
+            color: "var(--text-primary)",
           }}
         >
           {item}
@@ -127,11 +127,11 @@ export function CourseDetailPopover({
               <span
                 style={{
                   padding: "4px 10px",
-                  backgroundColor: "color-mix(in srgb, var(--brand-primary) 20%, transparent)",
+                  backgroundColor: "var(--brand-accent-light)",
                   borderRadius: "9999px",
                   fontSize: "13px",
                   fontWeight: 500,
-                  color: "var(--brand-primary-light)",
+                  color: "var(--text-primary)",
                 }}
               >
                 {formatCreditType(course.creditType)}
@@ -141,11 +141,11 @@ export function CourseDetailPopover({
               <span
                 style={{
                   padding: "4px 10px",
-                  backgroundColor: "var(--bg-input)",
+                  backgroundColor: "var(--brand-accent-light)",
                   borderRadius: "9999px",
                   fontSize: "13px",
                   fontWeight: 500,
-                  color: "var(--text-secondary)",
+                  color: "var(--text-primary)",
                 }}
               >
                 {course.credits} credits
@@ -155,11 +155,11 @@ export function CourseDetailPopover({
               <span
                 style={{
                   padding: "4px 10px",
-                  backgroundColor: "var(--bg-input)",
+                  backgroundColor: "var(--brand-accent-light)",
                   borderRadius: "9999px",
                   fontSize: "13px",
                   fontWeight: 500,
-                  color: "var(--text-secondary)",
+                  color: "var(--text-primary)",
                 }}
               >
                 {course.duration}
@@ -261,17 +261,17 @@ export function CourseDetailPopover({
               padding: "10px 18px",
               fontSize: "14px",
               fontWeight: 600,
-              color: "var(--btn-primary-text)",
-              backgroundColor: "var(--brand-primary)",
+              color: "#FFFFFF",
+              backgroundColor: "var(--brand-accent)",
               borderRadius: "8px",
               textDecoration: "none",
               transition: "background-color 0.2s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--brand-primary-dark)";
+              e.currentTarget.style.backgroundColor = "var(--brand-accent-hover)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--brand-primary)";
+              e.currentTarget.style.backgroundColor = "var(--brand-accent)";
             }}
           >
             Open Full Catalog Page

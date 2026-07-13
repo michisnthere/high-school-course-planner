@@ -84,9 +84,9 @@ function ToggleGroup({
                 padding: "8px 14px",
                 fontSize: "14px",
                 fontWeight: 500,
-                color: isSelected ? "var(--btn-primary-text)" : "var(--text-secondary)",
-                backgroundColor: isSelected ? "var(--brand-primary)" : "transparent",
-                border: `1px solid ${isSelected ? "var(--brand-primary)" : "var(--btn-secondary-border)"}`,
+                color: isSelected ? "#FFFFFF" : "var(--text-secondary)",
+                backgroundColor: isSelected ? "var(--brand-accent)" : "transparent",
+                border: `1px solid ${isSelected ? "var(--brand-accent)" : "var(--btn-secondary-border)"}`,
                 borderRadius: "9999px",
                 cursor: "pointer",
               }}

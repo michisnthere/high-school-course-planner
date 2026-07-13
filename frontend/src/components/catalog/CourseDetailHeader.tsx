@@ -71,11 +71,11 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
           <span
             style={{
               padding: "6px 12px",
-              backgroundColor: "var(--bg-input)",
+              backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
               fontWeight: 500,
-              color: "var(--text-secondary)",
+              color: "var(--text-primary)",
             }}
           >
             {department}
@@ -86,11 +86,11 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
           <span
             style={{
               padding: "6px 12px",
-              backgroundColor: "var(--bg-input)",
+              backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
               fontWeight: 500,
-              color: "var(--text-secondary)",
+              color: "var(--text-primary)",
             }}
           >
             {division}
@@ -101,11 +101,11 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
           <span
             style={{
               padding: "6px 12px",
-              backgroundColor: "color-mix(in srgb, var(--brand-primary) 20%, transparent)",
+              backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
               fontWeight: 500,
-              color: "var(--brand-primary-light)",
+              color: "var(--text-primary)",
             }}
           >
             {formatCreditType(creditType)}

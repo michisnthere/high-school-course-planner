@@ -29,11 +29,11 @@ const titleStyle: React.CSSProperties = {
 
 const badgeStyle: React.CSSProperties = {
   padding: "4px 10px",
-  backgroundColor: "var(--bg-input)",
+  backgroundColor: "var(--brand-accent-light)",
   borderRadius: "9999px",
   fontSize: "14px",
   fontWeight: 500,
-  color: "var(--text-secondary)",
+  color: "var(--text-primary)",
 };
 
 const viewLinkStyle: React.CSSProperties = {
@@ -43,8 +43,8 @@ const viewLinkStyle: React.CSSProperties = {
   padding: "0 16px",
   fontSize: "14px",
   fontWeight: 600,
-  color: "var(--text-primary)",
-  backgroundColor: "var(--brand-primary)",
+  color: "#FFFFFF",
+  backgroundColor: "var(--brand-accent)",
   borderRadius: "8px",
   textDecoration: "none",
 };
@@ -68,8 +68,8 @@ const signInButtonStyle: React.CSSProperties = {
   padding: "0 20px",
   fontSize: "15px",
   fontWeight: 600,
-  color: "var(--btn-primary-text)",
-  backgroundColor: "var(--brand-primary)",
+  color: "#FFFFFF",
+  backgroundColor: "var(--brand-accent)",
   border: "none",
   borderRadius: "8px",
   cursor: "pointer",

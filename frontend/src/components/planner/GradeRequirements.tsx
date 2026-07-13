@@ -63,7 +63,7 @@ export function GradeRequirements({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: requirement.isMet ? "#d1d5db" : "#fbbf24",
+              color: requirement.isMet ? "#d1d5db" : "var(--brand-accent)",
             }}
           >
             <span style={{ fontSize: "16px" }}>{requirement.isMet ? "✓" : "⚠"}</span>
@@ -80,7 +80,7 @@ export function GradeRequirements({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: allSemestersMet ? "#d1d5db" : "#fbbf24",
+              color: allSemestersMet ? "#d1d5db" : "var(--brand-accent)",
               marginBottom: "4px",
             }}
           >
@@ -95,7 +95,7 @@ export function GradeRequirements({
                 key={s.semester}
                 style={{
                   fontSize: "13px",
-                  color: s.isMet ? "#22c55e" : "#f59e0b",
+                  color: s.isMet ? "var(--brand-primary-hover)" : "var(--brand-accent)",
                 }}
               >
                 Semester {s.semester}: {s.isMet ? "✓ " : "⚠ "}

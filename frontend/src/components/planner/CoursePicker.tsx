@@ -130,8 +130,8 @@ export function CoursePicker({
                   justifyContent: "space-between",
                   gap: "12px",
                   padding: "16px",
-                  backgroundColor: selectedCourseId === course.id ? "#1e3a8a" : "#111827",
-                  border: `1px solid ${selectedCourseId === course.id ? "#3b82f6" : "#374151"}`,
+                  backgroundColor: selectedCourseId === course.id ? "#2a2a1a" : "#111827",
+                  border: `1px solid ${selectedCourseId === course.id ? "#ECBA2B" : "#374151"}`,
                   borderRadius: "12px",
                   cursor: "pointer",
                   textAlign: "left",
@@ -169,7 +169,7 @@ export function CoursePicker({
                       {course.title}
                     </span>
                     {isSaved?.(course.id) && (
-                      <span style={{ fontSize: "18px", color: "#fbbf24" }} aria-label="Saved">
+                      <span style={{ fontSize: "18px", color: "var(--brand-accent)" }} aria-label="Saved">
                         ★
                       </span>
                     )}
@@ -233,7 +233,7 @@ export function CoursePicker({
                   style={{
                     fontSize: "14px",
                     fontWeight: 600,
-                    color: "#3b82f6",
+                    color: "var(--brand-accent)",
                     whiteSpace: "nowrap",
                   }}
                 >

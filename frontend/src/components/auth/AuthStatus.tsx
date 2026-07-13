@@ -38,7 +38,7 @@ export function AuthStatus(): React.ReactElement {
           padding: "0 16px",
           fontSize: "0.9375rem",
           fontWeight: 600,
-          color: "var(--btn-primary-text)",
+          color: "#FFFFFF",
           backgroundColor: "var(--brand-accent)",
           border: "none",
           borderRadius: "8px",
