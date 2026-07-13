@@ -87,7 +87,7 @@ export function GradeRequirements({
             <span style={{ fontSize: "16px" }}>
               {allSemestersMet ? "✓" : "⚠"}
             </span>
-            <span>{grade === 9 ? "Freshman Foundational Fitness" : "Physical Welfare / Dance / Driver Education"}</span>
+            <span>{grade === 9 ? "Physical Education" : "Physical Welfare / Dance / Driver Education"}</span>
           </div>
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "2px" }}>
             {effectivePe!.map((s) => (
@@ -99,7 +99,7 @@ export function GradeRequirements({
                 }}
               >
                 Semester {s.semester}: {s.isMet ? "✓ " : "⚠ "}
-                {s.courseTitle ?? "Missing"}
+                {s.courseTitle ?? (grade === 9 && s.semester === 1 ? "Missing Freshman Foundational Fitness" : "Missing")}
                 {!s.courseTitle && s.isMet && (peWaivers ?? []).length > 0 && " (waiver)"}
               </div>
             ))}

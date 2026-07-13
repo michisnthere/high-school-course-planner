@@ -2363,7 +2363,7 @@
             12
           ],
           "prerequisites": [
-            "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
+            "Advanced Drawing, Painting and Mixed Media or Advanced Ceramics, Metals and Sculpture"
           ]
         },
         {
@@ -2375,7 +2375,7 @@
             12
           ],
           "prerequisites": [
-            "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
+            "Advanced Drawing, Painting and Mixed Media or Advanced Ceramics, Metals and Sculpture"
           ]
         }
       ],
@@ -2509,7 +2509,7 @@
             12
           ],
           "prerequisites": [
-            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
+            "Photography 1, Photography 2 or Digital Art and Design 1, Digital Art and Design 2 or 2D Animation and/or 3D Animation"
           ]
         },
         {
@@ -2522,7 +2522,7 @@
             12
           ],
           "prerequisites": [
-            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
+            "Photography 1, Photography 2 or Digital Art and Design 1, Digital Art and Design 2 or 2D Animation and/or 3D Animation"
           ]
         }
       ],
@@ -3054,7 +3054,7 @@
             12
           ],
           "prerequisites": [
-            "Dance 4 OR a Senior who has completed Dance 3"
+            "Dance 4 or a Senior who has completed Dance 3"
           ]
         },
         {
@@ -3067,7 +3067,7 @@
             12
           ],
           "prerequisites": [
-            "Dance 4 OR a Senior who has completed Dance 3"
+            "Dance 4 or a Senior who has completed Dance 3"
           ]
         }
       ],
@@ -4698,7 +4698,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 OR Entertainment Production and Design and Instructor Approval"
+            "Acting 4 or Entertainment Production and Design and Instructor Approval"
           ]
         },
         {
@@ -4711,7 +4711,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 OR Entertainment Production and Design and Instructor Approval"
+            "Acting 4 or Entertainment Production and Design and Instructor Approval"
           ]
         }
       ],
@@ -4742,9 +4742,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "FRE102",
@@ -4756,9 +4754,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "notes": [],
@@ -4924,9 +4920,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "GRE102",
@@ -4938,9 +4932,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "notes": [],
@@ -5106,9 +5098,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "HBR102",
@@ -5120,9 +5110,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "notes": [],
@@ -5288,9 +5276,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "LAT102",
@@ -5302,9 +5288,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "notes": [],
@@ -5470,9 +5454,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "CHI102",
@@ -5484,9 +5466,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "notes": [],
@@ -5789,9 +5769,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "SPA102",
@@ -5803,9 +5781,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "notes": [],
@@ -6489,9 +6465,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "ELD562",
@@ -6503,9 +6477,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "None"
-          ]
+          "prerequisites": []
         }
       ],
       "attributes": {
@@ -7317,7 +7289,7 @@
             12
           ],
           "prerequisites": [
-            "A Foundational Fitness class or any previous physical education course"
+            "A Foundational Fitness class or any previous Physical Education course"
           ]
         },
         {
@@ -7331,7 +7303,7 @@
             12
           ],
           "prerequisites": [
-            "A Foundational Fitness class or any previous physical education course"
+            "A Foundational Fitness class or any previous Physical Education course"
           ]
         }
       ],
@@ -7409,7 +7381,7 @@
                 12
               ],
               "prerequisites": [
-                "A Foundational Fitness course, any physical education class or director approval"
+                "A Foundational Fitness course, any Physical Education class or director approval"
               ]
             },
             {
@@ -7422,7 +7394,7 @@
                 12
               ],
               "prerequisites": [
-                "A Foundational Fitness course, any physical education class or director approval"
+                "A Foundational Fitness course, any Physical Education class or director approval"
               ]
             }
           ]
@@ -7496,7 +7468,7 @@
             12
           ],
           "prerequisites": [
-            "Physical education Leadership Training"
+            "Physical Education Leadership Training"
           ]
         },
         {
@@ -7507,7 +7479,7 @@
             12
           ],
           "prerequisites": [
-            "Physical education Leadership Training"
+            "Physical Education Leadership Training"
           ]
         }
       ],
@@ -11521,4 +11493,3 @@
     }
   ]
 }
-

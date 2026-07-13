@@ -34,6 +34,7 @@ export function WaiverSection({
   const [showSportCount, setShowSportCount] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState<string | null>(null);
   const [academicConfirmed, setAcademicConfirmed] = useState(false);
+  const [showBandModal, setShowBandModal] = useState(false);
 
   const creditBearing = getCreditBearingCount(plannedCourses);
   const eligibility = computeWaiverEligibility(grade, creditBearing, plannedCourses);
@@ -288,22 +289,38 @@ export function WaiverSection({
             <p style={{ margin: "0 0 6px", color: eligibility.marchingBand.eligible ? "#22c55e" : "#f59e0b" }}>
               {eligibility.marchingBand.reason}
             </p>
-            {eligibility.marchingBand.eligible && (
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {eligibility.marchingBand.eligible && (
+                <button
+                  onClick={handleMarchingBandConfirm}
+                  style={{
+                    background: "none",
+                    border: "1px solid #6b7280",
+                    borderRadius: "4px",
+                    color: "#d1d5db",
+                    fontSize: "12px",
+                    padding: "4px 12px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Apply Marching Band Waiver
+                </button>
+              )}
               <button
-                onClick={handleMarchingBandConfirm}
+                onClick={() => setShowBandModal(true)}
                 style={{
                   background: "none",
                   border: "1px solid #6b7280",
                   borderRadius: "4px",
-                  color: "#d1d5db",
+                  color: "#93c5fd",
                   fontSize: "12px",
                   padding: "4px 12px",
                   cursor: "pointer",
                 }}
               >
-                Apply Marching Band Waiver
+                Learn More
               </button>
-            )}
+            </div>
           </div>
 
           <button
@@ -467,6 +484,102 @@ export function WaiverSection({
           >
             OK
           </button>
+        </div>
+      )}
+
+      {/* Marching Band info modal */}
+      {showBandModal && (
+        <div
+          onClick={() => setShowBandModal(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 1000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            padding: "24px",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "480px",
+              width: "100%",
+              backgroundColor: "#1f2937",
+              border: "1px solid #374151",
+              borderRadius: "16px",
+              padding: "28px",
+              fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`,
+            }}
+          >
+            <h3
+              style={{
+                margin: "0 0 16px",
+                fontSize: "20px",
+                fontWeight: 700,
+                color: "#ffffff",
+              }}
+            >
+              Marching Band PE Waiver
+            </h3>
+
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontSize: "14px",
+                color: "#d1d5db",
+                lineHeight: 1.6,
+              }}
+            >
+              Any student in grades 9–12 who is enrolled in one of these courses
+              and is a member of the Marching Band may waive their Physical
+              Education requirement during first semester.
+            </p>
+
+            <p
+              style={{
+                margin: "0 0 8px",
+                fontSize: "14px",
+                fontWeight: 600,
+                color: "#ffffff",
+              }}
+            >
+              Eligible courses:
+            </p>
+
+            <ul
+              style={{
+                margin: "0 0 20px",
+                padding: "0 0 0 20px",
+                fontSize: "14px",
+                color: "#d1d5db",
+                lineHeight: 1.8,
+              }}
+            >
+              <li>Freshman Band</li>
+              <li>Wind Ensemble</li>
+              <li>Symphonic Band</li>
+              <li>Wind Symphony</li>
+              <li>Color Guard</li>
+            </ul>
+
+            <button
+              onClick={() => setShowBandModal(false)}
+              style={{
+                background: "none",
+                border: "1px solid #6b7280",
+                borderRadius: "6px",
+                color: "#d1d5db",
+                fontSize: "13px",
+                padding: "6px 16px",
+                cursor: "pointer",
+              }}
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -340,7 +340,7 @@ export function computeYearLevelCards(
     const peMet = checkPeMet(grade, gradePlanned, gradeCompleted, gradePlanner);
     items.push(
       buildItem(
-        grade === 9 ? "Freshman Foundational Fitness" : "Physical Education",
+        "Physical Education",
         peMet,
         false,
         detailPeText(grade, gradePlanned, gradeCompleted, gradePlanner),
