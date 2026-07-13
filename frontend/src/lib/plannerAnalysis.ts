@@ -56,8 +56,7 @@ export type PlannerAnalysis = {
   };
 };
 
-const API_URL =
-  typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export async function getPlannerAnalysis(): Promise<PlannerAnalysis> {
   const response = await fetch(`${API_URL}/api/planner/analysis`, {

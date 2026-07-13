@@ -6,7 +6,7 @@ export default function LoginPage(): React.ReactElement {
   const handleSignIn = () => {
     const params = new URLSearchParams(window.location.search);
     const returnUrl = params.get("return") || "";
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
     const redirectParam = returnUrl ? `?redirect=${encodeURIComponent(returnUrl)}` : "";
     window.location.href = `${apiUrl}/auth/google${redirectParam}`;
   };

@@ -1,7 +1,6 @@
 import type { PlannerCourseDetails } from "@/lib/planner";
 
-const API_URL =
-  typeof window === "undefined" ? "http://localhost:4000" : process.env.NEXT_PUBLIC_API_URL || "";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",

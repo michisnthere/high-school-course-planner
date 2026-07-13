@@ -1,5 +1,7 @@
 import path from "path";
 
+const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 const replitDevDomain = process.env.REPLIT_DEV_DOMAIN;
 
 const nextConfig = {
@@ -8,13 +10,13 @@ const nextConfig = {
   },
   allowedDevOrigins: replitDevDomain ? [replitDevDomain] : [],
   async rewrites() {
+    if (!backendUrl) return [];
     return [
-      { source: "/api/:path*", destination: "http://localhost:4000/api/:path*" },
-      { source: "/auth/:path*", destination: "http://localhost:4000/auth/:path*" },
-      // /planner routes are handled by the Next.js app; /api/planner is proxied to the backend.
-      { source: "/courses/:path*", destination: "http://localhost:4000/courses/:path*" },
-      { source: "/saved-courses/:path*", destination: "http://localhost:4000/saved-courses/:path*" },
-      { source: "/api/completed-courses/:path*", destination: "http://localhost:4000/api/completed-courses/:path*" },
+      { source: "/api/:path*", destination: `${backendUrl}/api/:path*` },
+      { source: "/auth/:path*", destination: `${backendUrl}/auth/:path*` },
+      { source: "/courses/:path*", destination: `${backendUrl}/courses/:path*` },
+      { source: "/saved-courses/:path*", destination: `${backendUrl}/saved-courses/:path*` },
+      { source: "/api/completed-courses/:path*", destination: `${backendUrl}/api/completed-courses/:path*` },
     ];
   },
 };

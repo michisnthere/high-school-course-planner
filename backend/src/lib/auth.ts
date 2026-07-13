@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import type { Request, Response, NextFunction } from "express";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import { prisma } from "./prisma.js";
 
 export interface SessionUser {
@@ -88,8 +89,14 @@ passport.deserializeUser((id: number, done) => {
     .catch((err) => done(err));
 });
 
+const PgStore = connectPgSimple(session);
+
 export const sessionMiddleware = session({
-  secret: SESSION_SECRET,
+  store: new PgStore({
+    conString: process.env.DATABASE_URL,
+    createTableIfMissing: true,
+  }),
+  secret: SESSION_SECRET!,
   resave: false,
   saveUninitialized: false,
   name: "courseplanner.sid",
