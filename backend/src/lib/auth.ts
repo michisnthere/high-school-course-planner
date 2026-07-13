@@ -101,9 +101,9 @@ export const sessionMiddleware = session({
   saveUninitialized: false,
   name: "courseplanner.sid",
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    secure: NODE_ENV === "production",
-    sameSite: "lax",
+  maxAge: 24 * 60 * 60 * 1000,
+  secure: true,
+  sameSite: "none",
   },
 });
 
