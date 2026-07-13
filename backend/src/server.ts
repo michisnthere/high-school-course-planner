@@ -1,13 +1,3 @@
-process.on("uncaughtException", (err) => {
-  console.error("UNCAUGHT EXCEPTION");
-  console.error(err);
-});
-
-process.on("unhandledRejection", (err) => {
-  console.error("UNHANDLED REJECTION");
-  console.error(err);
-});
-console.log("SERVER FILE LOADED");
 import express from "express";
 import cors from "cors";
 import "dotenv/config";

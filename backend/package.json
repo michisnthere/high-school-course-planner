@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "tsx src/server.ts",
     "build": "tsc",
-    "start": "node -e \"console.log('START SCRIPT RUNNING'); require('./dist/server.js')\"",
+    "start": "node dist/server.js",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
