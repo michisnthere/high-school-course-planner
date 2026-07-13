@@ -5,6 +5,7 @@ const API_URL =
 
 import type { Course } from "@/types/course";
 import { normalizePrerequisite } from "@/lib/prerequisiteNormalization";
+import { deriveCourseDuration, calculateTotalCredits } from "@/lib/courseCredits";
 
 export type CourseDuration = number;
 
@@ -269,23 +270,6 @@ export function sortPickerCourses(courses: PlannerCourseDetails[]): PlannerCours
   });
 }
 
-function normalizeDuration(value: unknown): number {
-  if (typeof value === "number" && value === 2) return 2;
-  if (typeof value === "string") {
-    const num = Number(value.trim());
-    return num === 2 ? 2 : 1;
-  }
-  return 1;
-}
-
-function deriveCourseDuration(course: Course): number {
-  if (course.duration === 2) return 2;
-  if (course.duration === 1) return 1;
-  const durations =
-    course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
-  return durations.some((duration) => normalizeDuration(duration) === 2) ? 2 : 1;
-}
-
 export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
   const option = course.options?.[0];
   const offerings = option?.offerings ?? [];
@@ -324,7 +308,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     normalizedTitle: course.normalizedTitle ?? null,
     duration: courseDuration,
     creditType: option?.creditType ?? null,
-    credits: option?.credits != null ? option.credits * (courseDuration === 2 ? 2 : 1) : course.duration ?? 1,
+    credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     description: course.description ?? null,

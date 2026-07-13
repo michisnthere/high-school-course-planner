@@ -1,4 +1,5 @@
 import { prisma } from "./prisma.js";
+import { calculateTotalCredits } from "./courseCredits.js";
 import type {
   Course,
   CourseOffering,
@@ -100,20 +101,10 @@ function getUnweightedPoints(letterGrade: string | null): number {
   return LETTER_GRADE_POINTS[letterGrade.toUpperCase()] ?? 0;
 }
 
-function deriveCourseCredits(course: CourseWithOptions): number {
-  const option = course.options[0];
-  if (option?.credits != null) {
-    const semesters = course.duration === 2 ? 2 : 1;
-    return option.credits * semesters;
-  }
-  if (course.duration != null) return course.duration;
-  return 1;
-}
-
 function toAnalysisCourse(course: CourseWithOptions, letterGrade: string | null): GpaEntry {
   const option = course.options[0];
   const creditType = normalizeCreditType(option?.creditType ?? null);
-  const credits = deriveCourseCredits(course);
+  const credits = calculateTotalCredits(course);
 
   return {
     courseId: course.id,

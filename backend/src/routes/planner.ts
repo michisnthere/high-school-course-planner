@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
 import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
 import { normalizePrerequisite } from "../lib/prerequisiteNormalization.js";
-import { calculateTotalCredits } from "../lib/plannerAnalysis.js";
+import { deriveCourseDuration, calculateTotalCredits } from "../lib/courseCredits.js";
 import type { Course, PlannerOption } from "@prisma/client";
 
 const router = Router();
@@ -48,36 +48,6 @@ type PlannerResponse = {
   label: string;
   plannedCourses: PlannedCourseResponse[];
 };
-
-function normalizeDuration(value: unknown): number {
-  if (typeof value === "number" && value === 2) {
-    return 2;
-  }
-  if (typeof value === "string") {
-    const num = Number(value.trim());
-    return num === 2 ? 2 : 1;
-  }
-  return 1;
-}
-
-function deriveCourseDuration(
-  course: Course & {
-    duration?: number | null;
-    options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }>;
-  }
-): number {
-  if (course.duration === 2) {
-    return 2;
-  }
-  if (course.duration === 1) {
-    return 1;
-  }
-
-  const durations =
-    course.options?.flatMap((option) => option.offerings?.map((offering) => offering.duration) ?? []) ?? [];
-
-  return durations.some((duration) => normalizeDuration(duration) === 2) ? 2 : 1;
-}
 
 export function deriveCourseDetails(
   course: Course & {

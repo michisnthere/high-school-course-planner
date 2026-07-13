@@ -1,11 +1,56 @@
 import type { PlannedCourse } from "./planner";
 
+export function deriveCourseDuration(course: {
+  duration?: number | null;
+  options?: Array<{
+    offerings?: Array<{ duration?: string | number | null }>;
+  }> | null;
+}): number {
+  if (course.duration === 2) return 2;
+  if (course.duration === 1) return 1;
+
+  const hasFullYear = course.options?.some((option) =>
+    option.offerings?.some((offering) => {
+      const value = offering.duration;
+      if (typeof value === "number") return value === 2;
+      if (typeof value === "string") return Number(value.trim()) === 2;
+      return false;
+    })
+  );
+  return hasFullYear ? 2 : 1;
+}
+
+export function calculateTotalCredits(course: {
+  options?: Array<{
+    credits?: number | null;
+    offerings?: Array<{ duration?: string | number | null }>;
+  }> | null;
+  duration?: number | null;
+}): number {
+  const option = course.options?.[0];
+  if (option?.credits != null) {
+    const semesters = deriveCourseDuration(course) === 2 ? 2 : 1;
+    return option.credits * semesters;
+  }
+
+  const duration = deriveCourseDuration(course);
+  return duration === 2 ? 2 : 1;
+}
+
+function getSemesterCreditsFromTotal(totalCredits: number, duration: number): number {
+  return duration === 2 ? totalCredits / 2 : totalCredits;
+}
+
 /** Total credits for a course entity (full-year = 2, semester = 1) */
 export function getCourseCredits(course: {
   credits?: number | null;
   duration?: number | null;
+  options?: Array<{
+    credits?: number | null;
+    offerings?: Array<{ duration?: string | number | null }>;
+  }> | null;
 }): number {
-  return course.credits ?? course.duration ?? 1;
+  return calculateTotalCredits(course);
 }
 
 /** Deduplication key for a planned course placement.
@@ -49,9 +94,10 @@ export function sumPlannedCredits(pcs: PlannedCourse[]): number {
 }
 
 /** Per-semester credit value: full-year splits evenly (2 → 1+1), semester is full value in its semester */
-export function getSemesterCredits(pc: PlannedCourse): number {
-  if (pc.course.duration === 2) {
-    return getCourseCredits(pc.course) / 2;
-  }
-  return getCourseCredits(pc.course);
+export function getSemesterCredits(pc: {
+  course: { credits?: number | null; duration?: number | null; options?: Array<{ credits?: number | null; offerings?: Array<{ duration?: string | number | null }> }> | null };
+}): number {
+  const totalCredits = getCourseCredits(pc.course);
+  const duration = pc.course.duration === 2 ? 2 : 1;
+  return getSemesterCreditsFromTotal(totalCredits, duration);
 }

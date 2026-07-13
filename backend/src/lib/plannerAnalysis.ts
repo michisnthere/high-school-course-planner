@@ -28,6 +28,7 @@ import {
   type InformationItem,
 } from "./requirementsCleanup.js";
 import { normalizePrerequisite } from "./prerequisiteNormalization.js";
+import { deriveCourseDuration, calculateTotalCredits } from "./courseCredits.js";
 
 type CourseOptionWithOfferings = CourseOption & { offerings: CourseOffering[] };
 type CourseWithOptions = Course & {
@@ -140,43 +141,7 @@ const SLOTS_PER_SEMESTER = 7;
 const SEMESTERS_PER_YEAR = 2;
 const YEARS = [9, 10, 11, 12] as const;
 
-function deriveCourseDuration(course: CourseWithOptions): number {
-  if (course.duration === 2) return 2;
-  if (course.duration === 1) return 1;
 
-  const hasFullYear = course.options.some((option) =>
-    option.offerings?.some((offering) => {
-      const value = offering.duration;
-      if (typeof value === "number") return value === 2;
-      if (typeof value === "string") return Number(value.trim()) === 2;
-      return false;
-    })
-  );
-  return hasFullYear ? 2 : 1;
-}
-
-export function calculateTotalCredits(course: {
-  options?: Array<{
-    credits?: number | null;
-    offerings?: Array<{ duration?: string | number | null }>;
-  }> | null;
-  duration?: number | null;
-}): number {
-  const option = course.options?.[0];
-  if (option?.credits != null) {
-    const semesters = course.duration === 2 ? 2 : 1;
-    return option.credits * semesters;
-  }
-  if (course.duration === 2) return 2;
-  if (course.duration === 1) return 1;
-  const hasFullYear = option?.offerings?.some((offering) => {
-    const value = offering.duration;
-    if (typeof value === "number") return value === 2;
-    if (typeof value === "string") return Number(value.trim()) === 2;
-    return false;
-  });
-  return hasFullYear ? 2 : 1;
-}
 
 function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
   const option = course.options[0];
