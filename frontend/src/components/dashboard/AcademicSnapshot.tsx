@@ -45,11 +45,9 @@ export function AcademicSnapshot(): React.ReactElement {
         flex: 1,
         minWidth: "300px",
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -57,14 +55,14 @@ export function AcademicSnapshot(): React.ReactElement {
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         GPA Projection
       </h2>
 
       {loading && !projection ? (
-        <p style={{ margin: 0, fontSize: "15px", color: "#6b7280" }}>Loading GPA projection...</p>
+        <p style={{ margin: 0, fontSize: "15px", color: "var(--text-muted)" }}>Loading GPA projection...</p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <ProjectionBlock
@@ -86,7 +84,7 @@ export function AcademicSnapshot(): React.ReactElement {
           margin: "16px 0 0",
           fontSize: "13px",
           lineHeight: "1.5",
-          color: "#6b7280",
+          color: "var(--text-muted)",
         }}
       >
         Your projected GPA is calculated using your completed courses and planned coursework. The
@@ -112,7 +110,7 @@ function ProjectionBlock({
 }): React.ReactElement {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-      <p style={{ margin: 0, fontSize: "14px", fontWeight: 700, color: "#374151" }}>{title}</p>
+      <p style={{ margin: 0, fontSize: "14px", fontWeight: 700, color: "var(--text-secondary)" }}>{title}</p>
       <MetricRow label="Weighted" value={formatGpa(weighted)} />
       <MetricRow label="Unweighted" value={formatGpa(unweighted)} />
       {creditsLabel !== undefined && credits !== undefined && (
@@ -125,8 +123,8 @@ function ProjectionBlock({
 function MetricRow({ label, value }: { label: string; value: string }): React.ReactElement {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-      <span style={{ fontSize: "15px", color: "#6b7280" }}>{label}</span>
-      <span style={{ fontSize: "15px", fontWeight: 600, color: "#111827" }}>{value}</span>
+      <span style={{ fontSize: "15px", color: "var(--text-muted)" }}>{label}</span>
+      <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }

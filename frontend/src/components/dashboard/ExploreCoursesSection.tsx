@@ -21,11 +21,9 @@ export function ExploreCoursesSection({
         flex: 1,
         minWidth: "300px",
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -33,7 +31,7 @@ export function ExploreCoursesSection({
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Explore Courses
@@ -41,7 +39,7 @@ export function ExploreCoursesSection({
 
       <style>{`
         .explore-course-card:hover {
-          background-color: #f3f4f6 !important;
+          background-color: var(--bg-card-hover) !important;
         }
       `}</style>
 
@@ -50,7 +48,7 @@ export function ExploreCoursesSection({
           style={{
             margin: 0,
             fontSize: "15px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
           }}
         >
           No courses available.
@@ -75,7 +73,7 @@ export function ExploreCoursesSection({
                   className="explore-course-card"
                   style={{
                     padding: "12px",
-                    backgroundColor: "#f9fafb",
+                    backgroundColor: "var(--bg-input)",
                     borderRadius: "8px",
                     cursor: "pointer",
                   }}
@@ -85,7 +83,7 @@ export function ExploreCoursesSection({
                       margin: 0,
                       fontSize: "15px",
                       fontWeight: 600,
-                      color: "#111827",
+                      color: "var(--text-primary)",
                     }}
                   >
                     {course.title}
@@ -96,7 +94,7 @@ export function ExploreCoursesSection({
                       gap: "8px",
                       marginTop: "4px",
                       fontSize: "13px",
-                      color: "#6b7280",
+                      color: "var(--text-muted)",
                     }}
                   >
                     {course.department?.name && (

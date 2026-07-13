@@ -19,7 +19,7 @@ export default function ProfilePage(): React.ReactElement {
             margin: "0 0 24px",
             fontSize: "28px",
             fontWeight: 700,
-            color: "#111827",
+            color: "var(--text-primary)",
           }}
         >
           Your Profile
@@ -28,7 +28,7 @@ export default function ProfilePage(): React.ReactElement {
           style={{
             margin: "0 0 24px",
             fontSize: "16px",
-            color: "#6b7280",
+            color: "var(--text-secondary)",
           }}
         >
           This page is only visible to signed-in users. More account settings

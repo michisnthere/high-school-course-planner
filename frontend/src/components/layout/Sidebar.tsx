@@ -22,8 +22,8 @@ export function Sidebar(): React.ReactElement {
         display: "flex",
         flexDirection: "column",
         padding: "24px 16px",
-        backgroundColor: "#f9fafb",
-        borderRight: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-sidebar)",
+        borderRight: "1px solid var(--border-default)",
         boxSizing: "border-box",
       }}
     >
@@ -37,12 +37,10 @@ export function Sidebar(): React.ReactElement {
               padding: "10px 12px",
               fontSize: "0.9375rem",
               fontWeight: 500,
-              color: "#374151",
+              color: "var(--text-secondary)",
               textDecoration: "none",
               borderRadius: "8px",
               cursor: "pointer",
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
             }}
           >
             {item.label}

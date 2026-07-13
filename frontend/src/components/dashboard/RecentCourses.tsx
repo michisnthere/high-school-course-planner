@@ -20,10 +20,10 @@ export function RecentCourses({
       style={{
         flex: 1,
         minWidth: "280px",
-        border: "1px solid #e5e7eb",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         padding: "20px",
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--bg-card)",
       }}
     >
       <h2
@@ -31,9 +31,7 @@ export function RecentCourses({
           margin: "0 0 16px",
           fontSize: "18px",
           fontWeight: 600,
-          color: "#111827",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-primary)",
         }}
       >
         Recent Courses
@@ -42,10 +40,8 @@ export function RecentCourses({
       {preview.length === 0 ? (
         <p
           style={{
-            color: "#6b7280",
+            color: "var(--text-muted)",
             fontSize: "14px",
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           }}
         >
           No courses available.
@@ -68,9 +64,9 @@ export function RecentCourses({
                 key={`${course.title}-${index}`}
                 style={{
                   padding: "12px",
-                  border: "1px solid #f3f4f6",
+                  border: "1px solid var(--border-default)",
                   borderRadius: "8px",
-                  backgroundColor: "#f9fafb",
+                  backgroundColor: "var(--bg-input)",
                 }}
               >
                 <Link
@@ -82,9 +78,7 @@ export function RecentCourses({
                       margin: 0,
                       fontSize: "14px",
                       fontWeight: 600,
-                      color: "#111827",
-                      fontFamily:
-                        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                      color: "var(--text-primary)",
                     }}
                   >
                     {course.title}
@@ -95,9 +89,7 @@ export function RecentCourses({
                       gap: "8px",
                       marginTop: "4px",
                       fontSize: "13px",
-                      color: "#6b7280",
-                      fontFamily:
-                        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                      color: "var(--text-muted)",
                     }}
                   >
                     {course.department?.name && (

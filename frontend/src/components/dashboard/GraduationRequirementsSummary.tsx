@@ -18,11 +18,9 @@ export function GraduationRequirementsSummary({
         flex: 1,
         minWidth: "300px",
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -30,7 +28,7 @@ export function GraduationRequirementsSummary({
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Graduation Requirements
@@ -41,7 +39,7 @@ export function GraduationRequirementsSummary({
           style={{
             margin: 0,
             fontSize: "15px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
           }}
         >
           No graduation requirements found.
@@ -65,7 +63,7 @@ export function GraduationRequirementsSummary({
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "12px",
-                backgroundColor: "#f9fafb",
+                backgroundColor: "var(--bg-input)",
                 borderRadius: "8px",
               }}
             >
@@ -73,7 +71,7 @@ export function GraduationRequirementsSummary({
                 style={{
                   fontSize: "15px",
                   fontWeight: 500,
-                  color: "#374151",
+                  color: "var(--text-primary)",
                 }}
               >
                 {requirement.name}
@@ -81,7 +79,7 @@ export function GraduationRequirementsSummary({
               <span
                 style={{
                   fontSize: "14px",
-                  color: "#6b7280",
+                  color: "var(--text-muted)",
                 }}
               >
                 {requirement.count} course{requirement.count === 1 ? "" : "s"}

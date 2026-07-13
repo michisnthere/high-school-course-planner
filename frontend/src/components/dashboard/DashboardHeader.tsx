@@ -8,10 +8,8 @@ export function DashboardHeader(): React.ReactElement {
           margin: 0,
           fontSize: "32px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           lineHeight: 1.2,
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         Dashboard
@@ -20,9 +18,7 @@ export function DashboardHeader(): React.ReactElement {
         style={{
           margin: "8px 0 0",
           fontSize: "16px",
-          color: "#d1d5db",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-secondary)",
         }}
       >
         Explore courses, plan your schedule, and track graduation requirements all in one place.
