@@ -10,6 +10,7 @@ import {
   normalizeRequirementNames,
 } from "../src/lib/requirementsCleanup.js";
 import { normalizePrerequisites } from "../src/lib/prerequisiteNormalization.js";
+import { backfillFulfillsRequirements } from "../src/lib/backfillFulfillsRequirements.js";
 
 // ---------------------------------------------------------------------------
 // Input types — matches the cleaned academic-data JSON produced by the
@@ -87,7 +88,7 @@ type FailedRecord = {
 // Constants
 // ---------------------------------------------------------------------------
 
-const INPUT_PATH = process.argv[2] ?? path.resolve("extractor", "output", "academic-data.json");
+const INPUT_PATH = process.argv[2] ?? path.resolve("..", "data", "academic_data.json");
 
 const prisma = new PrismaClient();
 
@@ -709,6 +710,20 @@ async function main() {
         missingRequirements,
         coursesWithNoDepartment,
         failedRecords,
+      },
+      null,
+      2
+    )
+  );
+
+  // -- Restore JSON cache from CourseRequirement join table ------------------
+  const backfillResult = await backfillFulfillsRequirements(prisma);
+  console.log(
+    JSON.stringify(
+      {
+        backfillUpdated: backfillResult.updatedCount,
+        backfillAlreadyCorrect: backfillResult.alreadyCorrectCount,
+        backfillNoMapping: backfillResult.noMappingCount,
       },
       null,
       2
