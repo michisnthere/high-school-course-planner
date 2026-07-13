@@ -19,7 +19,7 @@ export default function LoginPage(): React.ReactElement {
         justifyContent: "center",
         minHeight: "calc(100vh - 64px)",
         padding: "32px",
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "var(--bg-page)",
         boxSizing: "border-box",
       }}
     >
@@ -28,8 +28,8 @@ export default function LoginPage(): React.ReactElement {
           width: "100%",
           maxWidth: "420px",
           padding: "40px",
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
+          backgroundColor: "var(--bg-card)",
+          border: "1px solid var(--border-default)",
           borderRadius: "16px",
           textAlign: "center",
           boxSizing: "border-box",
@@ -40,25 +40,32 @@ export default function LoginPage(): React.ReactElement {
             margin: "0 0 12px",
             fontSize: "28px",
             fontWeight: 700,
-            color: "#111827",
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            color: "var(--brand-secondary)",
+            lineHeight: 1.2,
           }}
         >
-          Sign In
+          Stevenson Course Planner
         </h1>
         <p
           style={{
-            margin: "0 0 32px",
+            margin: "0 0 8px",
             fontSize: "16px",
-            color: "#6b7280",
+            color: "var(--text-secondary)",
             lineHeight: 1.5,
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           }}
         >
           Sign in with your Google account to access your personalized course
           planner.
+        </p>
+        <p
+          style={{
+            margin: "0 0 32px",
+            fontSize: "14px",
+            color: "var(--text-muted)",
+            lineHeight: 1.5,
+          }}
+        >
+          Powered by Adlai E. Stevenson High School
         </p>
         <button
           type="button"
@@ -69,14 +76,12 @@ export default function LoginPage(): React.ReactElement {
             padding: "0 24px",
             fontSize: "16px",
             fontWeight: 600,
-            color: "#ffffff",
-            backgroundColor: "#111827",
+            color: "var(--btn-primary-text)",
+            backgroundColor: "var(--brand-primary)",
             border: "none",
             borderRadius: "10px",
             cursor: "pointer",
             boxSizing: "border-box",
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           }}
         >
           Sign in with Google

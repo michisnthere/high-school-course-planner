@@ -32,9 +32,9 @@ export function SaveCourseButton({
         padding: "0 16px",
         fontSize: "14px",
         fontWeight: 600,
-        color: saved ? "#ffffff" : "#374151",
-        backgroundColor: saved ? "#2563eb" : "#ffffff",
-        border: `1px solid ${saved ? "#2563eb" : "#e5e7eb"}`,
+        color: saved ? "var(--btn-primary-text)" : "var(--text-secondary)",
+        backgroundColor: saved ? "var(--brand-primary)" : "transparent",
+        border: `1px solid ${saved ? "var(--brand-primary)" : "var(--btn-secondary-border)"}`,
         borderRadius: "8px",
         cursor: "pointer",
         fontFamily:

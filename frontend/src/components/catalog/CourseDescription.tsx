@@ -19,19 +19,17 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
       <div
         style={{
           padding: "24px",
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
+          backgroundColor: "var(--bg-card)",
+          border: "1px solid var(--border-default)",
           borderRadius: "12px",
           marginBottom: "24px",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         <p
           style={{
             margin: 0,
             fontSize: "15px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
           }}
         >
           No description available.
@@ -44,12 +42,10 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
     <div
       style={{
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         marginBottom: "24px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -57,7 +53,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Description
@@ -68,7 +64,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
           style={{
             margin: "0 0 16px",
             fontSize: "16px",
-            color: "#374151",
+            color: "var(--text-secondary)",
             lineHeight: 1.6,
           }}
         >
@@ -83,7 +79,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
               margin: "0 0 10px",
               fontSize: "16px",
               fontWeight: 600,
-              color: "#111827",
+              color: "var(--text-primary)",
             }}
           >
             Notes
@@ -93,7 +89,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
               margin: 0,
               paddingLeft: "20px",
               fontSize: "15px",
-              color: "#374151",
+              color: "var(--text-secondary)",
               lineHeight: 1.6,
             }}
           >

@@ -25,19 +25,17 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
   return (
     <div
       style={{
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         padding: "20px",
         transition: "border-color 0.2s ease",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "#d1d5db";
+        e.currentTarget.style.borderColor = "var(--border-light)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "#e5e7eb";
+        e.currentTarget.style.borderColor = "var(--border-default)";
       }}
     >
       <Link
@@ -54,7 +52,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
             margin: "0 0 10px",
             fontSize: "18px",
             fontWeight: 600,
-            color: "#111827",
+            color: "var(--text-primary)",
             lineHeight: 1.3,
           }}
         >
@@ -68,14 +66,14 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
             gap: "8px",
             marginBottom: "12px",
             fontSize: "14px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
           }}
         >
           {course.department?.name && (
             <span
               style={{
                 padding: "4px 10px",
-                backgroundColor: "#f3f4f6",
+                backgroundColor: "var(--bg-input)",
                 borderRadius: "9999px",
                 fontWeight: 500,
               }}
@@ -88,7 +86,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
             <span
               style={{
                 padding: "4px 10px",
-                backgroundColor: "#f3f4f6",
+                backgroundColor: "var(--bg-input)",
                 borderRadius: "9999px",
                 fontWeight: 500,
               }}
@@ -103,7 +101,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
             style={{
               margin: 0,
               fontSize: "15px",
-              color: "#374151",
+              color: "var(--text-secondary)",
               lineHeight: 1.5,
             }}
           >

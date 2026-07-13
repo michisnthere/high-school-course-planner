@@ -30,11 +30,9 @@ const activeChipStyle: React.CSSProperties = {
   padding: "6px 12px",
   fontSize: "14px",
   fontWeight: 500,
-  color: "#374151",
-  backgroundColor: "#f3f4f6",
+  color: "var(--text-secondary)",
+  backgroundColor: "var(--bg-input)",
   borderRadius: "9999px",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 const clearButtonStyle: React.CSSProperties = {
@@ -42,13 +40,11 @@ const clearButtonStyle: React.CSSProperties = {
   padding: "0 14px",
   fontSize: "14px",
   fontWeight: 500,
-  color: "#374151",
-  backgroundColor: "#ffffff",
-  border: "1px solid #e5e7eb",
+  color: "var(--text-secondary)",
+  backgroundColor: "transparent",
+  border: "1px solid var(--btn-secondary-border)",
   borderRadius: "8px",
   cursor: "pointer",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 function ToggleGroup({
@@ -70,9 +66,7 @@ function ToggleGroup({
         style={{
           fontSize: "14px",
           fontWeight: 600,
-          color: "#ffffff",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-primary)",
         }}
       >
         {label}
@@ -90,13 +84,11 @@ function ToggleGroup({
                 padding: "8px 14px",
                 fontSize: "14px",
                 fontWeight: 500,
-                color: isSelected ? "#ffffff" : "#374151",
-                backgroundColor: isSelected ? "#2563eb" : "#ffffff",
-                border: `1px solid ${isSelected ? "#2563eb" : "#e5e7eb"}`,
+                color: isSelected ? "var(--btn-primary-text)" : "var(--text-secondary)",
+                backgroundColor: isSelected ? "var(--brand-primary)" : "transparent",
+                border: `1px solid ${isSelected ? "var(--brand-primary)" : "var(--btn-secondary-border)"}`,
                 borderRadius: "9999px",
                 cursor: "pointer",
-                fontFamily:
-                  '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               }}
             >
               {formatLabel ? formatLabel(value) : value}
@@ -118,45 +110,28 @@ export function CourseFilters({
   filters,
   onFilterChange,
 }: CourseFiltersProps): React.ReactElement {
-  const activeFilterCount = Object.values(filters).reduce(
-    (sum, values) => sum + values.length,
-    0
+  const hasActiveFilters = useMemo(
+    () =>
+      filters.division.length > 0 ||
+      filters.department.length > 0 ||
+      filters.creditType.length > 0 ||
+      filters.gradeLevel.length > 0 ||
+      filters.semester.length > 0,
+    [filters]
   );
 
-  const selectedDivision = filters.division[0] ?? null;
-
-  const availableDepartments = useMemo(() => {
-    if (!selectedDivision) return [];
-    return divisionDepartments.get(selectedDivision) ?? [];
-  }, [selectedDivision, divisionDepartments]);
-
-  const isDepartmentRedundant =
-    selectedDivision != null &&
-    availableDepartments.length === 1 &&
-    availableDepartments[0] === selectedDivision;
-
-  const handleDivisionToggle = (value: string) => {
-    if (selectedDivision === value) {
-      // Clearing the division hides the department selector again.
-      onFilterChange({ ...filters, division: [], department: [] });
-      return;
-    }
-
-    // Only one division may be selected at a time. Changing divisions replaces
-    // the department list and clears the current department selection.
-    onFilterChange({ ...filters, division: [value], department: [] });
-  };
-
-  const handleToggle = (key: keyof ActiveFilters, value: string) => {
-    const current = filters[key];
+  const toggleFilter = (
+    category: keyof ActiveFilters,
+    value: string
+  ) => {
+    const current = filters[category];
     const next = current.includes(value)
       ? current.filter((v) => v !== value)
       : [...current, value];
-
-    onFilterChange({ ...filters, [key]: next });
+    onFilterChange({ ...filters, [category]: next });
   };
 
-  const clearFilters = () => {
+  const clearAll = () => {
     onFilterChange({
       division: [],
       department: [],
@@ -166,94 +141,84 @@ export function CourseFilters({
     });
   };
 
-  const otherGroups: Array<{
-    key: keyof ActiveFilters;
-    label: string;
-    values: string[];
-  }> = [
-    { key: "creditType", label: "Credit Type", values: creditTypes },
-    {
-      key: "gradeLevel",
-      label: "Grade Level",
-      values: gradeLevels.map(String),
-    },
-    { key: "semester", label: "Semester", values: semesters },
-  ];
+  const activeCount =
+    filters.division.length +
+    filters.department.length +
+    filters.creditType.length +
+    filters.gradeLevel.length +
+    filters.semester.length;
 
   return (
-    <div style={{ marginBottom: "32px" }}>
+    <div
+      style={{
+        marginBottom: "24px",
+        padding: "20px",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
+        borderRadius: "12px",
+      }}
+    >
       <div
         style={{
           display: "flex",
-          gap: "24px",
           flexWrap: "wrap",
-          marginBottom: activeFilterCount > 0 ? "16px" : "0",
+          gap: "24px",
+          alignItems: "flex-start",
         }}
       >
         <ToggleGroup
           label="Division"
           values={divisions}
           selected={filters.division}
-          onToggle={handleDivisionToggle}
+          onToggle={(value) => toggleFilter("division", value)}
         />
-
-        {selectedDivision != null && !isDepartmentRedundant && (
-          <ToggleGroup
-            label="Department"
-            values={availableDepartments}
-            selected={filters.department}
-            onToggle={(value) => handleToggle("department", value)}
-          />
-        )}
-
-        {otherGroups.map((group) => (
-          <ToggleGroup
-            key={group.key}
-            label={group.label}
-            values={group.values}
-            selected={filters[group.key]}
-            onToggle={(value) => handleToggle(group.key, value)}
-            formatLabel={
-              group.key === "creditType"
-                ? formatCreditTypeFilter
-                : group.key === "semester"
-                  ? formatSemesterLabel
-                  : undefined
-            }
-          />
-        ))}
+        <ToggleGroup
+          label="Department"
+          values={departments}
+          selected={filters.department}
+          onToggle={(value) => toggleFilter("department", value)}
+        />
+        <ToggleGroup
+          label="Credit Type"
+          values={creditTypes}
+          selected={filters.creditType}
+          onToggle={(value) => toggleFilter("creditType", value)}
+          formatLabel={formatCreditTypeFilter}
+        />
+        <ToggleGroup
+          label="Grade Level"
+          values={gradeLevels.map(String)}
+          selected={filters.gradeLevel}
+          onToggle={(value) => toggleFilter("gradeLevel", value)}
+          formatLabel={(v) => `Grade ${v}`}
+        />
+        <ToggleGroup
+          label="Semester"
+          values={semesters}
+          selected={filters.semester}
+          onToggle={(value) => toggleFilter("semester", value)}
+          formatLabel={formatSemesterLabel}
+        />
       </div>
 
-      {activeFilterCount > 0 && (
+      {hasActiveFilters && (
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            gap: "12px",
             flexWrap: "wrap",
+            gap: "8px",
+            alignItems: "center",
+            marginTop: "20px",
+            paddingTop: "16px",
+            borderTop: "1px solid var(--border-default)",
           }}
         >
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            {filters.division.map((value) => (
-              <span key={`division-${value}`} style={activeChipStyle}>
-                Division: {value}
-              </span>
-            ))}
-            {filters.department.map((value) => (
-              <span key={`department-${value}`} style={activeChipStyle}>
-                Department: {value}
-              </span>
-            ))}
-            {otherGroups.flatMap((group) =>
-              filters[group.key].map((value) => (
-                <span key={`${group.key}-${value}`} style={activeChipStyle}>
-                  {group.label}: {group.key === "creditType" ? formatCreditTypeFilter(value) : group.key === "semester" ? formatSemesterLabel(value) : value}
-                </span>
-              ))
-            )}
-          </div>
-          <button type="button" onClick={clearFilters} style={clearButtonStyle}>
-            Clear Filters
+          <span style={{ fontSize: "14px", color: "var(--text-muted)" }}>
+            Active filters ({activeCount})
+          </span>
+          <span style={{ color: "var(--border-default)" }}>|</span>
+          <button type="button" onClick={clearAll} style={clearButtonStyle}>
+            Clear all
           </button>
         </div>
       )}

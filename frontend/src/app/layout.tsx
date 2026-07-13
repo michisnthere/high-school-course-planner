@@ -5,8 +5,8 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "High School Course Planner",
-  description: "Plan your high school courses",
+  title: "Stevenson Course Planner",
+  description: "Plan your courses at Stevenson High School",
 };
 
 export default function RootLayout({

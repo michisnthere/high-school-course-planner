@@ -8,19 +8,13 @@ export default async function SavedCoursesPage() {
   const courses: Course[] = await getCourses();
 
   return (
-    <div
-      style={{
-        padding: "32px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-      }}
-    >
+    <div style={{ padding: "32px" }}>
       <h1
         style={{
           margin: "0 0 8px",
           fontSize: "32px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           lineHeight: 1.2,
         }}
       >
@@ -30,7 +24,7 @@ export default async function SavedCoursesPage() {
         style={{
           margin: "0 0 24px",
           fontSize: "16px",
-          color: "#d1d5db",
+          color: "var(--text-secondary)",
         }}
       >
         Courses you have saved for later.

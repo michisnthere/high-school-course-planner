@@ -83,12 +83,10 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
     <div
       style={{
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         marginBottom: "24px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -96,7 +94,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Additional Information
@@ -112,15 +110,15 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
       >
         {gradeLevels && (
           <>
-            <div style={{ color: "#6b7280", fontWeight: 500 }}>Grades</div>
-            <div style={{ color: "#111827", fontWeight: 600 }}>
+            <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>Grades</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>
               {gradeLevels}
               {showMathNote && (
                 <p
                   style={{
                     margin: "8px 0 0",
                     fontSize: "13px",
-                    color: "#6b7280",
+                    color: "var(--text-muted)",
                     fontWeight: 400,
                     lineHeight: 1.5,
                     fontStyle: "italic",
@@ -136,15 +134,15 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
 
         {durationLabel && (
           <>
-            <div style={{ color: "#6b7280", fontWeight: 500 }}>Duration</div>
-            <div style={{ color: "#111827", fontWeight: 600 }}>{durationLabel}</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>Duration</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>{durationLabel}</div>
           </>
         )}
 
         {creditsRaw != null && (
           <>
-            <div style={{ color: "#6b7280", fontWeight: 500 }}>Total Credits</div>
-            <div style={{ color: "#111827", fontWeight: 600 }}>{creditsRaw}</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>Total Credits</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>{creditsRaw}</div>
           </>
         )}
 
@@ -152,11 +150,11 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
           <>
             <div
               style={{
-                color: "#6b7280",
+                color: "var(--text-muted)",
                 fontWeight: 500,
                 gridColumn: "1 / -1",
                 marginTop: "8px",
-                borderTop: "1px solid #f3f4f6",
+                borderTop: "1px solid var(--border-default)",
                 paddingTop: "12px",
               }}
             >
@@ -164,8 +162,8 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
             </div>
             {Array.from(semesterGroups.entries()).map(([semester, codes]) => (
               <React.Fragment key={semester}>
-                <div style={{ color: "#6b7280", fontWeight: 500 }}>{formatSemesterLabel(semester)}</div>
-                <div style={{ color: "#111827", fontWeight: 600 }}>
+                <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>{formatSemesterLabel(semester)}</div>
+                <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>
                   {codes.join(", ")}
                 </div>
               </React.Fragment>

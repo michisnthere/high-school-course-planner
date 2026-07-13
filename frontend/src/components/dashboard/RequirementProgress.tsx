@@ -13,10 +13,10 @@ export function RequirementProgress(): React.ReactElement {
       style={{
         flex: 1,
         minWidth: "280px",
-        border: "1px solid #e5e7eb",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         padding: "20px",
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--bg-card)",
       }}
     >
       <h2
@@ -24,9 +24,7 @@ export function RequirementProgress(): React.ReactElement {
           margin: "0 0 16px",
           fontSize: "18px",
           fontWeight: 600,
-          color: "#111827",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-primary)",
         }}
       >
         Requirement Progress
@@ -47,9 +45,7 @@ export function RequirementProgress(): React.ReactElement {
                 justifyContent: "space-between",
                 marginBottom: "6px",
                 fontSize: "14px",
-                color: "#374151",
-                fontFamily:
-                  '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                color: "var(--text-secondary)",
               }}
             >
               <span>{req.label}</span>
@@ -60,7 +56,7 @@ export function RequirementProgress(): React.ReactElement {
             <div
               style={{
                 height: "8px",
-                backgroundColor: "#e5e7eb",
+                backgroundColor: "var(--bg-input)",
                 borderRadius: "9999px",
                 overflow: "hidden",
               }}
@@ -69,7 +65,7 @@ export function RequirementProgress(): React.ReactElement {
                 style={{
                   width: `${Math.min((req.value / req.total) * 100, 100)}%`,
                   height: "100%",
-                  backgroundColor: "#3b82f6",
+                  backgroundColor: "var(--brand-primary)",
                   borderRadius: "9999px",
                 }}
               />

@@ -98,7 +98,6 @@ function CompletedCoursesContent(): React.ReactElement {
     <div
       style={{
         padding: "32px",
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         minHeight: "calc(100vh - 64px)",
       }}
     >
@@ -107,7 +106,7 @@ function CompletedCoursesContent(): React.ReactElement {
           margin: "0 0 28px",
           fontSize: "32px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           lineHeight: 1.2,
         }}
       >
@@ -115,9 +114,9 @@ function CompletedCoursesContent(): React.ReactElement {
       </h1>
 
       {loading ? (
-        <p style={{ color: "#d1d5db" }}>Loading completed courses...</p>
+        <p style={{ color: "var(--text-muted)" }}>Loading completed courses...</p>
       ) : error ? (
-        <p style={{ color: "#ef4444" }}>{error}</p>
+        <p style={{ color: "var(--status-error)" }}>{error}</p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
           <button
@@ -128,8 +127,8 @@ function CompletedCoursesContent(): React.ReactElement {
               padding: "12px 20px",
               fontSize: "15px",
               fontWeight: 600,
-              color: "#ffffff",
-              backgroundColor: "#2563eb",
+              color: "var(--btn-primary-text)",
+              backgroundColor: "var(--brand-primary)",
               border: "none",
               borderRadius: "10px",
               cursor: "pointer",
@@ -139,7 +138,7 @@ function CompletedCoursesContent(): React.ReactElement {
           </button>
 
           {courses.length === 0 ? (
-            <p style={{ color: "#9ca3af" }}>
+            <p style={{ color: "var(--text-muted)" }}>
               No completed courses yet. Add courses you have already finished to improve your
               planner warnings.
             </p>

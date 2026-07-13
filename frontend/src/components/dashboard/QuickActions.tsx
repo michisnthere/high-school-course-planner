@@ -10,9 +10,7 @@ export function QuickActions(): React.ReactElement {
           margin: "0 0 16px",
           fontSize: "18px",
           fontWeight: 600,
-          color: "#111827",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-primary)",
         }}
       >
         Quick Actions
@@ -32,13 +30,11 @@ export function QuickActions(): React.ReactElement {
               padding: "14px 20px",
               fontSize: "14px",
               fontWeight: 500,
-              color: "#374151",
-              backgroundColor: "#ffffff",
-              border: "1px solid #e5e7eb",
+              color: "var(--text-secondary)",
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border-default)",
               borderRadius: "12px",
               cursor: "pointer",
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
             }}
           >
             {action}

@@ -12,30 +12,28 @@ type SavedCoursesContentProps = {
 };
 
 const cardStyle: React.CSSProperties = {
-  backgroundColor: "#ffffff",
-  border: "1px solid #e5e7eb",
+  backgroundColor: "var(--bg-card)",
+  border: "1px solid var(--border-default)",
   borderRadius: "12px",
   padding: "20px",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 const titleStyle: React.CSSProperties = {
   margin: "0 0 10px",
   fontSize: "18px",
   fontWeight: 600,
-  color: "#111827",
+  color: "var(--text-primary)",
   lineHeight: 1.3,
   textDecoration: "none",
 };
 
 const badgeStyle: React.CSSProperties = {
   padding: "4px 10px",
-  backgroundColor: "#f3f4f6",
+  backgroundColor: "var(--bg-input)",
   borderRadius: "9999px",
   fontSize: "14px",
   fontWeight: 500,
-  color: "#374151",
+  color: "var(--text-secondary)",
 };
 
 const viewLinkStyle: React.CSSProperties = {
@@ -45,12 +43,10 @@ const viewLinkStyle: React.CSSProperties = {
   padding: "0 16px",
   fontSize: "14px",
   fontWeight: 600,
-  color: "#374151",
-  backgroundColor: "#f3f4f6",
+  color: "var(--text-primary)",
+  backgroundColor: "var(--brand-primary)",
   borderRadius: "8px",
   textDecoration: "none",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 const removeButtonStyle: React.CSSProperties = {
@@ -58,13 +54,11 @@ const removeButtonStyle: React.CSSProperties = {
   padding: "0 16px",
   fontSize: "14px",
   fontWeight: 600,
-  color: "#dc2626",
-  backgroundColor: "#ffffff",
-  border: "1px solid #e5e7eb",
+  color: "var(--btn-danger-text)",
+  backgroundColor: "transparent",
+  border: "1px solid var(--btn-danger-border)",
   borderRadius: "8px",
   cursor: "pointer",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 const signInButtonStyle: React.CSSProperties = {
@@ -74,14 +68,12 @@ const signInButtonStyle: React.CSSProperties = {
   padding: "0 20px",
   fontSize: "15px",
   fontWeight: 600,
-  color: "#ffffff",
-  backgroundColor: "#2563eb",
+  color: "var(--btn-primary-text)",
+  backgroundColor: "var(--brand-primary)",
   border: "none",
   borderRadius: "8px",
   cursor: "pointer",
   textDecoration: "none",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 export function SavedCoursesContent({
@@ -96,10 +88,8 @@ export function SavedCoursesContent({
       <div
         style={{
           padding: "24px",
-          backgroundColor: "#1f2937",
+          backgroundColor: "var(--bg-card)",
           borderRadius: "12px",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         <h2
@@ -107,7 +97,7 @@ export function SavedCoursesContent({
             margin: "0 0 8px",
             fontSize: "20px",
             fontWeight: 600,
-            color: "#ffffff",
+            color: "var(--text-primary)",
           }}
         >
           Sign in to save courses
@@ -116,7 +106,7 @@ export function SavedCoursesContent({
           style={{
             margin: "0 0 16px",
             fontSize: "15px",
-            color: "#d1d5db",
+            color: "var(--text-secondary)",
             lineHeight: 1.5,
           }}
         >
@@ -135,9 +125,7 @@ export function SavedCoursesContent({
         style={{
           margin: 0,
           fontSize: "16px",
-          color: "#d1d5db",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-muted)",
         }}
       >
         Loading saved courses...
@@ -151,9 +139,7 @@ export function SavedCoursesContent({
         style={{
           margin: 0,
           fontSize: "16px",
-          color: "#d1d5db",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-muted)",
         }}
       >
         No saved courses yet.

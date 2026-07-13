@@ -18,13 +18,11 @@ const cardStyle: React.CSSProperties = {
   justifyContent: "center",
   minHeight: "160px",
   padding: "28px",
-  backgroundColor: "#1f2937",
-  border: "1px solid #374151",
+  backgroundColor: "var(--bg-card)",
+  border: "1px solid var(--border-default)",
   borderRadius: "16px",
   textDecoration: "none",
   transition: "transform 0.15s ease, box-shadow 0.15s ease",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 };
 
 export default function PlannerPage(): React.ReactElement {
@@ -47,19 +45,13 @@ function PlannerContent(): React.ReactElement {
   }, []);
 
   return (
-    <div
-      style={{
-        padding: "32px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-      }}
-    >
+    <div style={{ padding: "32px" }}>
       <h1
         style={{
           margin: "0 0 8px",
           fontSize: "32px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           lineHeight: 1.2,
         }}
       >
@@ -69,14 +61,14 @@ function PlannerContent(): React.ReactElement {
         style={{
           margin: "0 0 28px",
           fontSize: "16px",
-          color: "#d1d5db",
+          color: "var(--text-secondary)",
         }}
       >
         Select a year to start planning your courses.
       </p>
 
       {loading ? (
-        <p style={{ color: "#d1d5db" }}>Loading planners...</p>
+        <p style={{ color: "var(--text-muted)" }}>Loading planners...</p>
       ) : (
         <div
           style={{
@@ -104,7 +96,7 @@ function PlannerContent(): React.ReactElement {
                   margin: "0 0 8px",
                   fontSize: "26px",
                   fontWeight: 700,
-                  color: "#ffffff",
+                  color: "var(--text-primary)",
                 }}
               >
                 {YEAR_LABELS[planner.schoolYear]}
@@ -124,7 +116,7 @@ function PlannerContent(): React.ReactElement {
                     style={{
                       margin: 0,
                       fontSize: "15px",
-                      color: "#9ca3af",
+                      color: "var(--text-muted)",
                     }}
                   >
                     {count} course{count === 1 ? "" : "s"} planned

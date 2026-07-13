@@ -30,7 +30,6 @@ function findCourseByTitle(courses: Course[], title: string): Course | null {
       return course;
     }
   }
-  // Map "A Foundational Fitness class" to the actual Freshman Foundational Fitness course
   if (
     (normal === "a foundational fitness class" || normal === "a foundational fitness course") &&
     !normal.includes("any previous")
@@ -74,7 +73,6 @@ function parsePrereqGroups(prereqStrings: string[], courses: Course[]): PrereqGr
       };
     }
 
-    // single-element groups might still be AND-based internally or simple
     const andParts = text.split(/\s+AND\s+/i).map((s) => s.trim()).filter(Boolean);
     if (andParts.length > 1) {
       return {
@@ -86,7 +84,6 @@ function parsePrereqGroups(prereqStrings: string[], courses: Course[]): PrereqGr
       };
     }
 
-    // simple single prerequisite
     return {
       connector: null,
       parts: [{ text, matchedCourse: findCourseByTitle(courses, text) }],
@@ -110,8 +107,8 @@ function PrereqChip({
           padding: "6px 14px",
           fontSize: "14px",
           fontWeight: 500,
-          color: "#374151",
-          backgroundColor: "#f3f4f6",
+          color: "var(--text-secondary)",
+          backgroundColor: "var(--bg-input)",
           borderRadius: "8px",
         }}
       >
@@ -133,8 +130,8 @@ function PrereqChip({
           padding: "6px 14px",
           fontSize: "14px",
           fontWeight: 500,
-          color: "#1d4ed8",
-          backgroundColor: "#eff6ff",
+          color: "var(--brand-primary-light)",
+          backgroundColor: "color-mix(in srgb, var(--brand-primary) 15%, transparent)",
           borderRadius: "8px",
           cursor: "pointer",
         }}
@@ -156,12 +153,10 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
     <div
       style={{
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         marginBottom: "24px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -169,7 +164,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Prerequisites
@@ -177,7 +172,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
 
       <style>{`
         .prereq-chip:hover {
-          background-color: #dbeafe !important;
+          opacity: 0.8 !important;
         }
       `}</style>
 
@@ -186,7 +181,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
           style={{
             margin: 0,
             fontSize: "15px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
           }}
         >
           No prerequisites.
@@ -210,7 +205,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
                       style={{
                         fontSize: "13px",
                         fontWeight: 600,
-                        color: "#6b7280",
+                        color: "var(--text-muted)",
                         textTransform: "uppercase",
                         letterSpacing: "0.03em",
                       }}

@@ -20,7 +20,7 @@ function TagList({ title, items }: { title: string; items: string[] }): React.Re
           margin: "0 0 10px",
           fontSize: "16px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         {title}
@@ -37,11 +37,11 @@ function TagList({ title, items }: { title: string; items: string[] }): React.Re
             key={`${item}-${index}`}
             style={{
               padding: "6px 12px",
-              backgroundColor: "#f3f4f6",
+              backgroundColor: "var(--bg-input)",
               borderRadius: "9999px",
               fontSize: "14px",
               fontWeight: 500,
-              color: "#374151",
+              color: "var(--text-secondary)",
             }}
           >
             {item}
@@ -64,12 +64,10 @@ export function CourseAttributes({ course }: CourseAttributesProps): React.React
     <div
       style={{
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         marginBottom: "24px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <h2
@@ -77,7 +75,7 @@ export function CourseAttributes({ course }: CourseAttributesProps): React.React
           margin: "0 0 16px",
           fontSize: "20px",
           fontWeight: 600,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Attributes

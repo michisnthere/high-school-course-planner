@@ -2,7 +2,7 @@ import React from "react";
 import { AuthStatus } from "@/components/auth/AuthStatus";
 
 /**
- * Header — top navigation bar for the High School Course Planner dashboard.
+ * Header — top navigation bar for the Stevenson Course Planner dashboard.
  */
 export function Header(): React.ReactElement {
   return (
@@ -13,8 +13,8 @@ export function Header(): React.ReactElement {
         justifyContent: "space-between",
         height: "64px",
         padding: "0 24px",
-        backgroundColor: "#0a0a0a",
-        borderBottom: "1px solid #374151",
+        backgroundColor: "var(--bg-header)",
+        borderBottom: "1px solid var(--border-default)",
         boxSizing: "border-box",
       }}
     >
@@ -25,13 +25,11 @@ export function Header(): React.ReactElement {
             margin: 0,
             fontSize: "1.25rem",
             fontWeight: 700,
-            color: "#ffffff",
+            color: "var(--text-primary)",
             lineHeight: 1.2,
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           }}
         >
-          High School Course Planner
+          Stevenson Course Planner
         </h1>
       </div>
 

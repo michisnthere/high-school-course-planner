@@ -51,22 +51,20 @@ function ActionCard({ action }: ActionCardProps): React.ReactElement {
       <div
         style={{
           padding: "24px",
-          backgroundColor: "#ffffff",
+          backgroundColor: "var(--bg-card)",
           border: "1px solid",
-          borderColor: hovered ? "#d1d5db" : "#e5e7eb",
+          borderColor: hovered ? "var(--border-light)" : "var(--border-default)",
           borderRadius: "12px",
           transition: "border-color 0.2s ease",
           cursor: "pointer",
           textAlign: "center",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         <span
           style={{
             fontSize: "16px",
             fontWeight: 600,
-            color: "#111827",
+            color: "var(--text-primary)",
           }}
         >
           {action.label}

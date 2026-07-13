@@ -3,42 +3,72 @@
 :root {
   color-scheme: dark;
 
-  /* Backgrounds */
-  --bg-page: #111827;
-  --bg-card: #1f2937;
-  --bg-card-hover: #374151;
-  --bg-sidebar: #0f172a;
-  --bg-header: #0a0a0a;
-  --bg-input: #111827;
+  /* ── Stevenson High School Brand Colors ── */
+  --brand-primary: #2E7D32;
+  --brand-primary-dark: #1B5E20;
+  --brand-primary-light: #4CAF50;
+  --brand-secondary: #AE9142;
+  --brand-secondary-light: #C7A951;
+  --brand-secondary-dark: #8B7535;
+  --brand-gold: #AE9142;
+
+  /* ── Backgrounds ── */
+  --bg-page: #0B140B;
+  --bg-card: #162816;
+  --bg-card-hover: #1E3A1E;
+  --bg-sidebar: #0A120A;
+  --bg-header: #071207;
+  --bg-input: #1A2E1A;
   --bg-overlay: rgba(0, 0, 0, 0.7);
 
-  /* Text */
-  --text-primary: #ffffff;
-  --text-secondary: #d1d5db;
-  --text-muted: #9ca3af;
-  --text-on-light: #111827;
+  /* ── Text ── */
+  --text-primary: #FFFFFF;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+  --text-on-brand: #FFFFFF;
 
-  /* Borders */
-  --border-default: #374151;
-  --border-light: #4b5563;
+  /* ── Borders ── */
+  --border-default: #2D4A2D;
+  --border-light: #3D5E3D;
 
-  /* Buttons */
-  --btn-primary-bg: #2563eb;
-  --btn-primary-text: #ffffff;
-  --btn-secondary-border: #4b5563;
-  --btn-danger-border: #fca5a5;
-  --btn-danger-text: #fca5a5;
+  /* ── Buttons ── */
+  --btn-primary-bg: var(--brand-primary);
+  --btn-primary-bg-hover: var(--brand-primary-dark);
+  --btn-primary-text: #FFFFFF;
+  --btn-secondary-bg: transparent;
+  --btn-secondary-border: var(--border-light);
+  --btn-secondary-text: var(--text-secondary);
+  --btn-ghost-text: var(--text-secondary);
+  --btn-ghost-hover-bg: var(--bg-card-hover);
+  --btn-danger-bg: transparent;
+  --btn-danger-border: #FCA5A5;
+  --btn-danger-text: #FCA5A5;
 
-  /* Status */
-  --status-success: #22c55e;
-  --status-warning: #f59e0b;
-  --status-error: #ef4444;
+  /* ── Accent ── */
+  --accent-blue: #3B82F6;
+  --accent-green: var(--brand-primary-light);
+  --accent-yellow: #F59E0B;
+  --accent-red: #EF4444;
+  --accent-orange: #F97316;
 
-  /* Brand placeholders (Stevenson High School) */
-  --brand-primary: #003366;
-  --brand-secondary: #c7a951;
+  /* ── Status ── */
+  --status-success: var(--brand-primary-light);
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
+  --status-info: #3B82F6;
 
-  /* Font */
+  /* ── Navigation ── */
+  --nav-bg: var(--bg-header);
+  --nav-border: var(--border-default);
+  --nav-text: var(--text-primary);
+  --sidebar-bg: var(--bg-sidebar);
+  --sidebar-border: var(--border-default);
+  --sidebar-text: var(--text-secondary);
+  --sidebar-text-hover: var(--text-primary);
+  --sidebar-active-bg: var(--brand-primary);
+  --sidebar-active-text: #FFFFFF;
+
+  /* ── Font ── */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 

@@ -39,14 +39,12 @@ export function AuthStatus(): React.ReactElement {
           padding: "0 16px",
           fontSize: "0.9375rem",
           fontWeight: 500,
-          color: "#ffffff",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
+          color: "var(--btn-primary-text)",
+          backgroundColor: "var(--brand-primary)",
+          border: "none",
           borderRadius: "8px",
           cursor: "pointer",
           boxSizing: "border-box",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         Sign In
@@ -66,9 +64,7 @@ export function AuthStatus(): React.ReactElement {
         style={{
           fontSize: "0.9375rem",
           fontWeight: 500,
-          color: "#ffffff",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--text-primary)",
         }}
       >
         {user.name || user.email}
@@ -81,14 +77,12 @@ export function AuthStatus(): React.ReactElement {
           padding: "0 16px",
           fontSize: "0.9375rem",
           fontWeight: 500,
-          color: "#ffffff",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
+          color: "var(--text-primary)",
+          backgroundColor: "var(--bg-card)",
+          border: "1px solid var(--border-default)",
           borderRadius: "8px",
           cursor: "pointer",
           boxSizing: "border-box",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         Sign Out
