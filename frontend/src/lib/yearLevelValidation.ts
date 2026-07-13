@@ -1,6 +1,7 @@
 import type { CompletedCourse } from "@/lib/completedCourses";
 import type { Planner, PlannerCourseDetails } from "@/lib/planner";
 import { getCourseCredits } from "@/lib/courseCredits";
+import { courseFulfillsRequirement } from "@/lib/gradeRequirements";
 
 export type YearLevelStatus = "satisfied" | "warning" | "missing";
 
@@ -47,15 +48,6 @@ const GRADE_LABELS: Record<number, string> = {
   12: "Senior",
 };
 
-const ACADEMIC_CREDITS_MATCHERS = [
-  "English",
-  "Mathematics",
-  "Biology",
-  "Physical Science",
-  "Social Studies",
-  "Multilingual Learning",
-];
-
 function normalize(text: string): string {
   return text.trim().toLowerCase();
 }
@@ -101,15 +93,21 @@ function matchesAnyCourseSet(courses: CourseLike[], terms: string[]): boolean {
   return courses.some((course) => matchesAnyCourse(course, terms));
 }
 
-function isAcademicCourse(course: CourseLike): boolean {
-  return matchesAnyCourse(course, ACADEMIC_CREDITS_MATCHERS);
-}
-
-function getCompletedInstances(completedCourses: CompletedCourse[], lookup: Map<number, CourseLike>): CourseLike[] {
+function getCompletedForGrade(completedCourses: CompletedCourse[], lookup: Map<number, CourseLike>, grade: number): CourseLike[] {
+  const gradePattern = GRADE_PATTERNS[grade];
+  if (!gradePattern) return [];
   return completedCourses
-    .map((completed) => lookup.get(completed.courseId))
+    .filter((cc) => gradePattern.test((cc.gradeCompleted ?? "").trim().toLowerCase()))
+    .map((cc) => lookup.get(cc.courseId))
     .filter((course): course is CourseLike => Boolean(course));
 }
+
+const GRADE_PATTERNS: Record<number, RegExp> = {
+  9: /^freshman\s*\(9\)$/,
+  10: /^sophomore\s*\(10\)$/,
+  11: /^junior\s*\(11\)$/,
+  12: /^senior\s*\(12\)$/,
+};
 
 function countCredits(courses: CourseLike[]): number {
   return courses.reduce((sum, course) => sum + getCourseCredits(course), 0);
@@ -130,7 +128,7 @@ function buildItem(
 }
 
 function firstMatchingCourseTitle(courses: CourseLike[], terms: string[]): string | null {
-  const match = courses.find((course) => matchesAnyCourse(course, terms));
+  const match = courses.find((course) => courseFulfillsRequirement(course, terms));
   return match?.title ?? null;
 }
 
@@ -219,19 +217,19 @@ export function computeYearLevelCards(
   const safeCompletedCourses = asArray(completedCourses);
   const safeCourses = asArray(courses);
   const courseById = new Map(safeCourses.map((course) => [course.id, course] as const));
-  const completedCourseList = getCompletedInstances(safeCompletedCourses, courseById);
 
   return [9, 10, 11, 12].map((grade) => {
     const gradePlanner = safePlanners.find((planner) => planner.schoolYear === grade);
     const gradePlanned = getPlannerPlannedCourses(gradePlanner);
-    const gradeCompleted = completedCourseList;
+    const gradeCompleted = getCompletedForGrade(safeCompletedCourses, courseById, grade);
 
     const items: YearLevelItem[] = [];
     if (grade === 9) {
       items.push(
         buildItem(
           "English",
-          matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["English"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["English"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
         )
@@ -239,7 +237,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Math",
-          matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Mathematics"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Mathematics"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
         )
@@ -247,8 +246,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Science",
-          matchesAnyCourseSet(gradePlanned, ["Biology", "Physical Science"]) ||
-            matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Biology", "Physical Science"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Biology", "Physical Science"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
         )
@@ -257,7 +256,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "English",
-          matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["English"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["English"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
         )
@@ -265,7 +265,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Math",
-          matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Mathematics"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Mathematics"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
         )
@@ -273,8 +274,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Science",
-          matchesAnyCourseSet(gradePlanned, ["Biology", "Physical Science"]) ||
-            matchesAnyCourseSet(gradeCompleted, ["Biology", "Physical Science"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Biology", "Physical Science"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Biology", "Physical Science"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Biology", "Physical Science"]),
         )
@@ -282,7 +283,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Health",
-          matchesAnyCourseSet(gradePlanned, ["Health"]) || matchesAnyCourseSet(gradeCompleted, ["Health"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Health"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Health"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Health"]),
         )
@@ -290,8 +292,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Driver Education",
-          matchesAnyCourseSet(gradePlanned, ["Driver Education"]) ||
-            matchesAnyCourseSet(gradeCompleted, ["Driver Education"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Driver Education"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Driver Education"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Driver Education"]),
         )
@@ -300,7 +302,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "English",
-          matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["English"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["English"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
         )
@@ -308,7 +311,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Mathematics",
-          matchesAnyCourseSet(gradePlanned, ["Mathematics"]) || matchesAnyCourseSet(gradeCompleted, ["Mathematics"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Mathematics"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Mathematics"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["Mathematics"]),
         )
@@ -317,7 +321,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "English",
-          matchesAnyCourseSet(gradePlanned, ["English"]) || matchesAnyCourseSet(gradeCompleted, ["English"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["English"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["English"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], ["English"]),
         )
@@ -325,8 +330,8 @@ export function computeYearLevelCards(
       items.push(
         buildItem(
           "Economics / Personal Finance",
-          matchesAnyCourseSet(gradePlanned, ["Economics", "Personal Finance", "Consumer Education"]) ||
-            matchesAnyCourseSet(gradeCompleted, ["Economics", "Personal Finance", "Consumer Education"]),
+          gradePlanned.some((c) => courseFulfillsRequirement(c, ["Economics", "Personal Finance", "Consumer Education"])) ||
+            gradeCompleted.some((c) => courseFulfillsRequirement(c, ["Economics", "Personal Finance", "Consumer Education"])),
           false,
           semesterCourseText([...gradePlanned, ...gradeCompleted], [
             "Economics",
@@ -368,12 +373,12 @@ export function computePeYears(
   const safeCompletedCourses = asArray(completedCourses);
   const safeCourses = asArray(courses);
   const courseById = new Map(safeCourses.map((course) => [course.id, course] as const));
-  const completedCourseList = getCompletedInstances(safeCompletedCourses, courseById);
 
   return [9, 10, 11, 12].map((grade) => {
     const gradePlanner = safePlanners.find((planner) => planner.schoolYear === grade);
     const gradePlanned = getPlannerPlannedCourses(gradePlanner);
-    const allCourses = [...gradePlanned, ...completedCourseList];
+    const gradeCompleted = getCompletedForGrade(safeCompletedCourses, courseById, grade);
+    const allCourses = [...gradePlanned, ...gradeCompleted];
 
     const peDivision = allCourses.filter((c) =>
       (c.division ?? "").toLowerCase() === "physical education"

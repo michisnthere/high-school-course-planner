@@ -1,6 +1,14 @@
 import type { PlannedCourse, PlannerCourseDetails } from "./planner";
 import { getCourseCredits, getPlacementKey } from "./courseCredits";
 
+export function courseFulfillsRequirement(course: PlannerCourseDetails, matchTerms: string[]): boolean {
+  if (course.title === "Study Hall" || course.title === "Free Period") return false;
+  const normalizedTerms = matchTerms.map((t) => t.trim().toLowerCase());
+  return (course.fulfillsRequirements ?? []).some((req) =>
+    normalizedTerms.includes(req.trim().toLowerCase())
+  );
+}
+
 export type GradeRequirement = {
   category: string;
   credits: number;
@@ -110,15 +118,12 @@ export function getRequirementStatus(
   }
 
   return requirements.map((requirement) => {
-    const matchSet = new Set(requirement.matches ?? [requirement.category]);
+    const matchTerms = requirement.matches ?? [requirement.category];
     let earnedCredits = 0;
 
     for (const plannedCourse of instanceMap.values()) {
       const { course } = plannedCourse;
-      if (course.title === "Study Hall" || course.title === "Free Period") {
-        continue;
-      }
-      if (course.fulfillsRequirements.some((requirementName) => matchSet.has(requirementName))) {
+      if (courseFulfillsRequirement(course, matchTerms)) {
         earnedCredits += getCourseCredits(course);
       }
     }
