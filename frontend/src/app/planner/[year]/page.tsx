@@ -400,16 +400,14 @@ function PlannerYearContent(): React.ReactElement {
     async ({
       courseId,
       gradeCompleted,
-      yearCompleted,
       letterGrade,
     }: {
       courseId: number;
       gradeCompleted: GradeCompleted;
-      yearCompleted: string;
       letterGrade: string | null;
     }) => {
       try {
-        await addCompletedCourse(courseId, gradeCompleted, yearCompleted, letterGrade);
+        await addCompletedCourse(courseId, gradeCompleted, letterGrade);
         setCompletedCoursePicker({ open: false });
         await loadCompletedCourses();
         showToast("Course marked as completed.", "success");
@@ -2076,7 +2074,7 @@ function WarningActionModal({
     try {
       const gradeCompleted: GradeCompleted =
         currentYear === 9
-          ? "Freshman (9)"
+          ? "Middle School"
           : currentYear === 10
           ? "Sophomore (10)"
           : currentYear === 11

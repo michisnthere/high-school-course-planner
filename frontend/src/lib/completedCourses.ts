@@ -21,7 +21,6 @@ export type CompletedCourse = {
   userId: number;
   courseId: number;
   gradeCompleted: GradeCompleted;
-  yearCompleted: string | null;
   letterGrade: string | null;
   credits: number | null;
   course: PlannerCourseDetails;
@@ -30,7 +29,6 @@ export type CompletedCourse = {
 export type CompletedCourseInput = {
   courseId: number;
   gradeCompleted: GradeCompleted;
-  yearCompleted?: string | null;
   letterGrade?: string | null;
 };
 
@@ -49,14 +47,13 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
 export async function addCompletedCourse(
   courseId: number,
   gradeCompleted: GradeCompleted,
-  yearCompleted?: string,
   letterGrade?: string | null
 ): Promise<CompletedCourse> {
   const response = await fetch(`${API_URL}/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ courseId, gradeCompleted, yearCompleted, letterGrade }),
+    body: JSON.stringify({ courseId, gradeCompleted, letterGrade }),
   });
 
   if (!response.ok) {
@@ -71,7 +68,7 @@ export async function addCompletedCourse(
 
 export async function updateCompletedCourse(
   id: number,
-  updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted; yearCompleted?: string | null }
+  updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }
 ): Promise<CompletedCourse> {
   const response = await fetch(`${API_URL}/api/completed-courses/${id}`, {
     method: "PUT",

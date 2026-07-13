@@ -13,7 +13,6 @@ type CompletedCoursePickerProps = {
   onSubmit: (selection: {
     courseId: number;
     gradeCompleted: GradeCompleted;
-    yearCompleted?: string;
     letterGrade: string | null;
   }) => void;
   excludeCourseIds?: number[];

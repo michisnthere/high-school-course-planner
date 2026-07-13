@@ -30,7 +30,6 @@ function CompletedCoursesContent(): React.ReactElement {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editGrade, setEditGrade] = useState<GradeCompleted>("Freshman (9)");
-  const [editYear, setEditYear] = useState<string>("");
   const [editLetter, setEditLetter] = useState<string>("A");
 
   const load = useCallback(async () => {
@@ -54,11 +53,10 @@ function CompletedCoursesContent(): React.ReactElement {
     async (selection: {
       courseId: number;
       gradeCompleted: GradeCompleted;
-      yearCompleted?: string;
       letterGrade: string | null;
     }) => {
       try {
-        await addCompletedCourse(selection.courseId, selection.gradeCompleted, undefined, selection.letterGrade);
+        await addCompletedCourse(selection.courseId, selection.gradeCompleted, selection.letterGrade);
         setPickerOpen(false);
         await load();
       } catch (err) {
@@ -73,7 +71,6 @@ function CompletedCoursesContent(): React.ReactElement {
       try {
         await updateCompletedCourse(id, {
           gradeCompleted: editGrade,
-          yearCompleted: editYear || null,
           letterGrade: editLetter,
         });
         setEditingId(null);
@@ -82,7 +79,7 @@ function CompletedCoursesContent(): React.ReactElement {
         setError(err instanceof Error ? err.message : "Failed to update completed course");
       }
     },
-    [load, editGrade, editYear, editLetter]
+    [load, editGrade, editLetter]
   );
 
   const handleRemove = useCallback(
@@ -189,45 +186,25 @@ function CompletedCoursesContent(): React.ReactElement {
                       </h3>
                       <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db" }}>
                         {editingId === cc.id ? (
-                          <>
-                            <select
-                              value={editGrade}
-                              onChange={(e) => setEditGrade(e.target.value as GradeCompleted)}
-                              style={{
-                                padding: "4px 8px",
-                                fontSize: "13px",
-                                color: "#ffffff",
-                                backgroundColor: "#111827",
-                                border: "1px solid #4b5563",
-                                borderRadius: "6px",
-                                marginRight: "8px",
-                              }}
-                            >
-                              {GRADE_COMPLETED_OPTIONS.map((g) => (
-                                <option key={g} value={g}>{g}</option>
-                              ))}
-                            </select>
-                            <input
-                              type="text"
-                              value={editYear}
-                              onChange={(e) => setEditYear(e.target.value)}
-                              placeholder="e.g. 2024-2025"
-                              style={{
-                                padding: "4px 8px",
-                                fontSize: "13px",
-                                color: "#ffffff",
-                                backgroundColor: "#111827",
-                                border: "1px solid #4b5563",
-                                borderRadius: "6px",
-                                width: "120px",
-                              }}
-                            />
-                          </>
+                          <select
+                            value={editGrade}
+                            onChange={(e) => setEditGrade(e.target.value as GradeCompleted)}
+                            style={{
+                              padding: "4px 8px",
+                              fontSize: "13px",
+                              color: "#ffffff",
+                              backgroundColor: "#111827",
+                              border: "1px solid #4b5563",
+                              borderRadius: "6px",
+                              marginRight: "8px",
+                            }}
+                          >
+                            {GRADE_COMPLETED_OPTIONS.map((g) => (
+                              <option key={g} value={g}>{g}</option>
+                            ))}
+                          </select>
                         ) : (
-                          <>
-                            {cc.gradeCompleted}
-                            {cc.yearCompleted ? ` (${cc.yearCompleted})` : ""}
-                          </>
+                          cc.gradeCompleted
                         )}
                         {cc.course.credits != null && ` • ${cc.course.credits} credits`}
                         {cc.course.division && ` • ${cc.course.division}`}
@@ -318,7 +295,6 @@ function CompletedCoursesContent(): React.ReactElement {
                             onClick={() => {
                               setEditingId(cc.id);
                               setEditGrade(cc.gradeCompleted);
-                              setEditYear(cc.yearCompleted ?? "");
                               setEditLetter(cc.letterGrade ?? "A");
                             }}
                             title="Edit"

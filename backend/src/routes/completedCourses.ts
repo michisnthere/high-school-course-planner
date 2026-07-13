@@ -23,7 +23,6 @@ type CompletedCourseResponse = {
   userId: number;
   courseId: number;
   gradeCompleted: string;
-  yearCompleted: string | null;
   letterGrade: string | null;
   credits: number | null;
   course: ReturnType<typeof deriveCourseDetails>;
@@ -58,7 +57,6 @@ router.get("/", requireAuth, async (req, res) => {
     userId: cc.userId,
     courseId: cc.courseId,
     gradeCompleted: cc.gradeCompleted,
-    yearCompleted: cc.yearCompleted ?? null,
     letterGrade: cc.letterGrade ?? null,
     credits: cc.credits ?? null,
     course: deriveCourseDetails(cc.course),
@@ -69,7 +67,7 @@ router.get("/", requireAuth, async (req, res) => {
 
 router.post("/", requireAuth, async (req, res) => {
   const userId = req.user!.id;
-  const { courseId, gradeCompleted, yearCompleted, letterGrade } = req.body;
+  const { courseId, gradeCompleted, letterGrade } = req.body;
 
   if (!courseId || !gradeCompleted) {
     return res.status(400).json({ error: "courseId and gradeCompleted are required" });
@@ -118,7 +116,6 @@ router.post("/", requireAuth, async (req, res) => {
       userId,
       courseId: course.id,
       gradeCompleted: gradeCompleted as GradeCompleted,
-      yearCompleted: yearCompleted ?? null,
       letterGrade: letterGrade ?? null,
       credits: calculatedCredits,
     },
@@ -145,7 +142,6 @@ router.post("/", requireAuth, async (req, res) => {
     userId: created.userId,
     courseId: created.courseId,
     gradeCompleted: created.gradeCompleted,
-    yearCompleted: created.yearCompleted ?? null,
     letterGrade: created.letterGrade ?? null,
     credits: created.credits ?? null,
     course: deriveCourseDetails(created.course),
@@ -186,7 +182,7 @@ router.put("/:id", requireAuth, async (req, res) => {
     return res.status(404).json({ error: "Completed course not found" });
   }
 
-  const { letterGrade, gradeCompleted, yearCompleted } = req.body;
+  const { letterGrade, gradeCompleted } = req.body;
 
   if (letterGrade != null && !LETTER_GRADE_OPTIONS.includes(letterGrade)) {
     return res.status(400).json({ error: "Invalid letterGrade value" });
@@ -201,7 +197,6 @@ router.put("/:id", requireAuth, async (req, res) => {
     data: {
       ...(letterGrade !== undefined ? { letterGrade: letterGrade ?? null } : {}),
       ...(gradeCompleted !== undefined ? { gradeCompleted: gradeCompleted as GradeCompleted } : {}),
-      ...(yearCompleted !== undefined ? { yearCompleted: yearCompleted ?? null } : {}),
     },
     include: {
       course: {
@@ -226,7 +221,6 @@ router.put("/:id", requireAuth, async (req, res) => {
     userId: updated.userId,
     courseId: updated.courseId,
     gradeCompleted: updated.gradeCompleted,
-    yearCompleted: updated.yearCompleted ?? null,
     letterGrade: updated.letterGrade ?? null,
     credits: updated.credits ?? null,
     course: deriveCourseDetails(updated.course),

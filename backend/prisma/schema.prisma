@@ -258,7 +258,6 @@ model CompletedCourse {
   userId         Int
   courseId       Int
   gradeCompleted String
-  yearCompleted  String?
   letterGrade    String?
   credits        Float?
   createdAt      DateTime @default(now())
