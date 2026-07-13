@@ -12,8 +12,7 @@ export default async function CatalogPage() {
     <div
       style={{
         padding: "32px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+
       }}
     >
       <CatalogHeader />

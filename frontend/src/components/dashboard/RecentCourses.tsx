@@ -30,11 +30,11 @@ export function RecentCourses({
         style={{
           margin: "0 0 16px",
           fontSize: "18px",
-          fontWeight: 600,
-          color: "var(--text-primary)",
-        }}
-      >
-        Recent Courses
+        fontWeight: 700,
+        color: "var(--text-primary)",
+      }}
+    >
+      Recent Courses
       </h2>
 
       {preview.length === 0 ? (
@@ -77,7 +77,7 @@ export function RecentCourses({
                     style={{
                       margin: 0,
                       fontSize: "14px",
-                      fontWeight: 600,
+                      fontWeight: 700,
                       color: "var(--text-primary)",
                     }}
                   >

@@ -93,7 +93,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "var(--text-primary)",
         }}
       >
@@ -110,8 +110,8 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
       >
         {gradeLevels && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>Grades</div>
-            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>Grades</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>
               {gradeLevels}
               {showMathNote && (
                 <p
@@ -134,15 +134,15 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
 
         {durationLabel && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>Duration</div>
-            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>{durationLabel}</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>Duration</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>{durationLabel}</div>
           </>
         )}
 
         {creditsRaw != null && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>Total Credits</div>
-            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>{creditsRaw}</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>Total Credits</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>{creditsRaw}</div>
           </>
         )}
 
@@ -151,8 +151,8 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
             <div
               style={{
                 color: "var(--text-muted)",
-                fontWeight: 500,
-                gridColumn: "1 / -1",
+                  fontWeight: 600,
+                  gridColumn: "1 / -1",
                 marginTop: "8px",
                 borderTop: "1px solid var(--border-default)",
                 paddingTop: "12px",
@@ -162,8 +162,8 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
             </div>
             {Array.from(semesterGroups.entries()).map(([semester, codes]) => (
               <React.Fragment key={semester}>
-                <div style={{ color: "var(--text-muted)", fontWeight: 500 }}>{formatSemesterLabel(semester)}</div>
-                <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>
+                <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>{formatSemesterLabel(semester)}</div>
+                <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>
                   {codes.join(", ")}
                 </div>
               </React.Fragment>

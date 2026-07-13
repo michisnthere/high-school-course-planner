@@ -14,8 +14,6 @@ export default async function Home() {
     <div
       style={{
         padding: "32px",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
       <DashboardHeader />

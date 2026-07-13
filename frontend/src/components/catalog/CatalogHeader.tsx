@@ -44,7 +44,7 @@ export function CatalogHeader(): React.ReactElement {
           height: "40px",
           padding: "0 18px",
           fontSize: "14px",
-          fontWeight: 600,
+          fontWeight: 500,
           color: "var(--btn-primary-text)",
           backgroundColor: "var(--brand-primary)",
           borderRadius: "8px",

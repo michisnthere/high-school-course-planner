@@ -9,7 +9,7 @@ export function QuickActions(): React.ReactElement {
         style={{
           margin: "0 0 16px",
           fontSize: "18px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "var(--text-primary)",
         }}
       >

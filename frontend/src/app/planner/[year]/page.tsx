@@ -655,8 +655,6 @@ function PlannerYearContent(): React.ReactElement {
     <div
       style={{
         padding: "32px",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         minHeight: "calc(100vh - 64px)",
       }}
     >
@@ -724,7 +722,7 @@ function PlannerYearContent(): React.ReactElement {
                     style={{
                       margin: "0 0 16px",
                       fontSize: "22px",
-                      fontWeight: 600,
+                      fontWeight: 700,
                       color: "#111827",
                     }}
                   >
@@ -846,8 +844,6 @@ function SummarySidebar({
         backgroundColor: "#ffffff",
         border: "2px solid #275D38",
         borderRadius: "16px",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
       }}
     >
       <h2
@@ -947,7 +943,7 @@ function SummaryRow({ label, value }: { label: string; value: string }): React.R
       }}
     >
       <span style={{ color: "var(--text-secondary)" }}>{label}</span>
-      <span style={{ fontWeight: 700, color: "#111827" }}>{value}</span>
+      <span style={{ fontWeight: 400, color: "#111827" }}>{value}</span>
     </div>
   );
 }
@@ -999,8 +995,6 @@ function AddCourseCard({
         borderRadius: "12px",
         cursor: "pointer",
         color: isDragOver ? "var(--brand-accent)" : "#9ca3af",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         transition: "all 0.2s ease",
         textAlign: "center",
       }}
@@ -1126,8 +1120,6 @@ function PlannedCourseCard({
         borderBottomColor: isDragOver ? "var(--brand-accent)" : accentColor,
         borderLeftColor: isDragOver ? "var(--brand-accent)" : accentColor,
         borderRadius: "12px",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         display: "flex",
         flexDirection: "column",
         gap: "8px",
@@ -1250,7 +1242,7 @@ function PlannedCourseCard({
               padding: "4px 10px",
               backgroundColor: "rgba(0,0,0,0.2)",
               borderRadius: "9999px",
-              fontWeight: 500,
+              fontWeight: 600,
             }}
           >
             {course.credits} credits
@@ -1262,7 +1254,7 @@ function PlannedCourseCard({
               padding: "4px 10px",
               backgroundColor: "rgba(0,0,0,0.2)",
               borderRadius: "9999px",
-              fontWeight: 500,
+              fontWeight: 600,
             }}
           >
             Full Year
@@ -1418,8 +1410,7 @@ function CourseSearchModal({
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -1441,7 +1432,7 @@ function CourseSearchModal({
               style={{
                 margin: 0,
                 fontSize: "22px",
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#ffffff",
               }}
             >
@@ -1666,7 +1657,7 @@ function CourseSearchModal({
                   <span
                     style={{
                       fontSize: "14px",
-                      fontWeight: 600,
+                      fontWeight: 500,
                       color: isDuplicate ? "#6b7280" : "var(--brand-accent)",
                       whiteSpace: "nowrap",
                     }}
@@ -1730,8 +1721,6 @@ function DuplicateCourseDialog({
           borderRadius: "16px",
           padding: "24px",
           color: "#ffffff",
-          fontFamily:
-            `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -1739,7 +1728,7 @@ function DuplicateCourseDialog({
           style={{
             margin: "0 0 16px",
             fontSize: "20px",
-            fontWeight: 600,
+            fontWeight: 700,
           }}
         >
           This course is already planned
@@ -1765,7 +1754,7 @@ function DuplicateCourseDialog({
             style={{
               padding: "10px 16px",
               fontSize: "14px",
-              fontWeight: 600,
+              fontWeight: 500,
               color: "#d1d5db",
               backgroundColor: "transparent",
               border: "1px solid #4b5563",
@@ -1781,7 +1770,7 @@ function DuplicateCourseDialog({
             style={{
               padding: "10px 16px",
               fontSize: "14px",
-              fontWeight: 600,
+              fontWeight: 500,
               color: "#ffffff",
               backgroundColor: "var(--brand-accent)",
               border: "none",
@@ -1824,8 +1813,7 @@ function Toast({
         borderRadius: "12px",
         boxShadow: "0 10px 24px rgba(0,0,0,0.25)",
         zIndex: 200,
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
       }}
     >
       <span style={{ fontSize: "14px", color: "#ffffff" }}>{message}</span>
@@ -1839,7 +1827,7 @@ function Toast({
           style={{
             padding: "6px 12px",
             fontSize: "13px",
-            fontWeight: 600,
+            fontWeight: 500,
             color: "#ffffff",
             backgroundColor: "var(--brand-accent)",
             border: "none",
@@ -2193,8 +2181,6 @@ function WarningActionModal({
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -2216,7 +2202,7 @@ function WarningActionModal({
               style={{
                 margin: 0,
                 fontSize: "22px",
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#ffffff",
               }}
             >

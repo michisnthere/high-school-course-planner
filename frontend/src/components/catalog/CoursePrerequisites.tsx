@@ -129,7 +129,7 @@ function PrereqChip({
           display: "inline-block",
           padding: "6px 14px",
           fontSize: "14px",
-          fontWeight: 500,
+          fontWeight: 600,
           color: "var(--brand-primary-light)",
           backgroundColor: "color-mix(in srgb, var(--brand-primary) 15%, transparent)",
           borderRadius: "8px",
@@ -163,7 +163,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "var(--text-primary)",
         }}
       >

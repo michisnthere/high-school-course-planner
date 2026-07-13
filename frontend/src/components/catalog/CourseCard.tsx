@@ -51,7 +51,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
           style={{
             margin: "0 0 10px",
             fontSize: "18px",
-            fontWeight: 600,
+            fontWeight: 700,
             color: "var(--text-primary)",
             lineHeight: 1.3,
           }}
@@ -75,7 +75,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
                 padding: "4px 10px",
                 backgroundColor: "var(--bg-input)",
                 borderRadius: "9999px",
-                fontWeight: 500,
+                fontWeight: 600,
               }}
             >
               {course.department.name}
@@ -88,7 +88,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
                 padding: "4px 10px",
                 backgroundColor: "var(--bg-input)",
                 borderRadius: "9999px",
-                fontWeight: 500,
+                fontWeight: 600,
               }}
             >
               {formatCreditType(creditType)}

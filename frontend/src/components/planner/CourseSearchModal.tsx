@@ -39,7 +39,7 @@ export function CourseSearchModal({
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -61,7 +61,7 @@ export function CourseSearchModal({
               style={{
                 margin: 0,
                 fontSize: "22px",
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#ffffff",
               }}
             >

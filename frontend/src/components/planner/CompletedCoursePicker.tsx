@@ -67,7 +67,7 @@ export function CompletedCoursePicker({
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -89,7 +89,7 @@ export function CompletedCoursePicker({
               style={{
                 margin: 0,
                 fontSize: "22px",
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "var(--text-primary)",
               }}
             >
@@ -118,7 +118,7 @@ export function CompletedCoursePicker({
             <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
               <label
                 htmlFor="completed-grade"
-                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 500 }}
+                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 600 }}
               >
                 Grade completed:
               </label>
@@ -145,7 +145,7 @@ export function CompletedCoursePicker({
             <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
               <label
                 htmlFor="letter-grade"
-                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 500 }}
+                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 600 }}
               >
                 Letter grade:
               </label>
@@ -195,7 +195,7 @@ export function CompletedCoursePicker({
             style={{
               padding: "10px 18px",
               fontSize: "15px",
-              fontWeight: 600,
+              fontWeight: 500,
               color: "#FFFFFF",
               backgroundColor: selectedCourseId == null ? "var(--text-muted)" : "var(--brand-accent)",
               border: "none",

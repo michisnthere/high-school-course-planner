@@ -44,7 +44,7 @@ function ProgressBar({
           }}
         />
       </div>
-      <span style={{ minWidth: "70px", textAlign: "right", fontWeight: 500 }}>
+      <span style={{ minWidth: "70px", textAlign: "right", fontWeight: 400 }}>
         {earned.toFixed(1)} / {required}
       </span>
     </div>
@@ -107,7 +107,7 @@ export function CourseLoadRequirements({
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "4px" }}>
             {semesterCredits.map((s) => (
               <div key={s.semester} style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
-                <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>Semester {s.semester}:</span>{" "}
+                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>Semester {s.semester}:</span>{" "}
                 <ProgressBar earned={s.earnedCredits} required={s.requiredCredits} />
               </div>
             ))}

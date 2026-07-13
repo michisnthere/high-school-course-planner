@@ -61,7 +61,7 @@ function ActionCard({ action }: ActionCardProps): React.ReactElement {
         <span
           style={{
             fontSize: "16px",
-            fontWeight: 600,
+            fontWeight: 500,
             color: "#ffffff",
           }}
         >

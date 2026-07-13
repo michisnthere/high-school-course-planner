@@ -28,8 +28,7 @@ export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React
           borderRadius: "9999px",
           outline: "none",
           boxSizing: "border-box",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+
         }}
       />
     </div>

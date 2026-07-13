@@ -27,11 +27,11 @@ export function GraduationRequirementsSummary({
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
-          color: "var(--text-primary)",
-        }}
-      >
-        Graduation Requirements
+        fontWeight: 700,
+        color: "var(--text-primary)",
+      }}
+    >
+      Graduation Requirements
       </h2>
 
       {requirements.length === 0 ? (
@@ -70,7 +70,7 @@ export function GraduationRequirementsSummary({
               <span
                 style={{
                   fontSize: "15px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   color: "var(--text-primary)",
                 }}
               >

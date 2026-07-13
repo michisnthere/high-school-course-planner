@@ -30,11 +30,11 @@ export function ExploreCoursesSection({
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
-          color: "var(--text-primary)",
-        }}
-      >
-        Explore Courses
+        fontWeight: 700,
+        color: "var(--text-primary)",
+      }}
+    >
+      Explore Courses
       </h2>
 
       <style>{`

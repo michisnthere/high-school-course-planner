@@ -29,8 +29,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
     <div
       style={{
         marginBottom: "32px",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
       }}
     >
       <Link
@@ -74,7 +73,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
               backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
-              fontWeight: 500,
+              fontWeight: 600,
               color: "var(--text-primary)",
             }}
           >
@@ -89,7 +88,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
               backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
-              fontWeight: 500,
+              fontWeight: 600,
               color: "var(--text-primary)",
             }}
           >
@@ -104,7 +103,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
               backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
-              fontWeight: 500,
+              fontWeight: 600,
               color: "var(--text-primary)",
             }}
           >

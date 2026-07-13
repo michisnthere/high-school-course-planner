@@ -31,14 +31,13 @@ export function SaveCourseButton({
         height: "36px",
         padding: "0 16px",
         fontSize: "14px",
-        fontWeight: 600,
+        fontWeight: 500,
         color: saved ? "#FFFFFF" : "var(--text-secondary)",
         backgroundColor: saved ? "var(--brand-accent)" : "transparent",
         border: `1px solid ${saved ? "var(--brand-accent)" : "var(--btn-secondary-border)"}`,
         borderRadius: "8px",
         cursor: "pointer",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+
       }}
     >
       {saved ? "Saved" : "Save Course"}

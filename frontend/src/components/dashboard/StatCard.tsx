@@ -30,7 +30,7 @@ export function StatCard({
       <p
         style={{
           fontSize: "28px",
-          fontWeight: 700,
+          fontWeight: 400,
         }}
       >
         {value}

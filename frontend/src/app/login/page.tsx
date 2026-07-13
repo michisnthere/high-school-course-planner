@@ -83,7 +83,7 @@ export default function LoginPage(): React.ReactElement {
             height: "48px",
             padding: "0 24px",
             fontSize: "16px",
-            fontWeight: 600,
+            fontWeight: 500,
             color: "#FFFFFF",
             backgroundColor: "var(--brand-accent)",
             border: "none",

@@ -232,7 +232,7 @@ export function CoursePicker({
                 <span
                   style={{
                     fontSize: "14px",
-                    fontWeight: 600,
+                    fontWeight: 500,
                     color: "var(--brand-accent)",
                     whiteSpace: "nowrap",
                   }}

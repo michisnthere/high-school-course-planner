@@ -37,7 +37,7 @@ export function AuthStatus(): React.ReactElement {
           height: "40px",
           padding: "0 16px",
           fontSize: "0.9375rem",
-          fontWeight: 600,
+          fontWeight: 500,
           color: "#FFFFFF",
           backgroundColor: "var(--brand-accent)",
           border: "none",
@@ -62,7 +62,7 @@ export function AuthStatus(): React.ReactElement {
       <span
         style={{
           fontSize: "0.875rem",
-          fontWeight: 500,
+          fontWeight: 400,
           color: "var(--nav-text)",
         }}
       >

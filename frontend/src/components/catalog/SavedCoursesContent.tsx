@@ -21,7 +21,7 @@ const cardStyle: React.CSSProperties = {
 const titleStyle: React.CSSProperties = {
   margin: "0 0 10px",
   fontSize: "18px",
-  fontWeight: 600,
+  fontWeight: 700,
   color: "var(--text-primary)",
   lineHeight: 1.3,
   textDecoration: "none",
@@ -32,7 +32,7 @@ const badgeStyle: React.CSSProperties = {
   backgroundColor: "var(--brand-accent-light)",
   borderRadius: "9999px",
   fontSize: "14px",
-  fontWeight: 500,
+  fontWeight: 600,
   color: "var(--text-primary)",
 };
 
@@ -42,7 +42,7 @@ const viewLinkStyle: React.CSSProperties = {
   height: "36px",
   padding: "0 16px",
   fontSize: "14px",
-  fontWeight: 600,
+  fontWeight: 500,
   color: "#FFFFFF",
   backgroundColor: "var(--brand-accent)",
   borderRadius: "8px",
@@ -53,7 +53,7 @@ const removeButtonStyle: React.CSSProperties = {
   height: "36px",
   padding: "0 16px",
   fontSize: "14px",
-  fontWeight: 600,
+  fontWeight: 500,
   color: "var(--btn-danger-text)",
   backgroundColor: "transparent",
   border: "1px solid var(--btn-danger-border)",
@@ -67,7 +67,7 @@ const signInButtonStyle: React.CSSProperties = {
   height: "40px",
   padding: "0 20px",
   fontSize: "15px",
-  fontWeight: 600,
+  fontWeight: 500,
   color: "#FFFFFF",
   backgroundColor: "var(--brand-accent)",
   border: "none",
@@ -96,7 +96,7 @@ export function SavedCoursesContent({
           style={{
             margin: "0 0 8px",
             fontSize: "20px",
-            fontWeight: 600,
+            fontWeight: 700,
             color: "var(--text-primary)",
           }}
         >

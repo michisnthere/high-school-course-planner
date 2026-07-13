@@ -24,7 +24,7 @@ function TagList({ items }: { items: string[] }): React.ReactElement | null {
             backgroundColor: "var(--brand-accent-light)",
             borderRadius: "9999px",
             fontSize: "13px",
-            fontWeight: 500,
+            fontWeight: 600,
             color: "var(--text-primary)",
           }}
         >
@@ -130,7 +130,7 @@ export function CourseDetailPopover({
                   backgroundColor: "var(--brand-accent-light)",
                   borderRadius: "9999px",
                   fontSize: "13px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   color: "var(--text-primary)",
                 }}
               >
@@ -144,7 +144,7 @@ export function CourseDetailPopover({
                   backgroundColor: "var(--brand-accent-light)",
                   borderRadius: "9999px",
                   fontSize: "13px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   color: "var(--text-primary)",
                 }}
               >
@@ -158,7 +158,7 @@ export function CourseDetailPopover({
                   backgroundColor: "var(--brand-accent-light)",
                   borderRadius: "9999px",
                   fontSize: "13px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   color: "var(--text-primary)",
                 }}
               >
@@ -179,13 +179,13 @@ export function CourseDetailPopover({
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
-                  margin: "0 0 8px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                }}
-              >
-                Description
+              margin: "0 0 8px",
+              fontSize: "16px",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+            }}
+          >
+            Description
               </h3>
               <p
                 style={{
@@ -204,13 +204,13 @@ export function CourseDetailPopover({
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
-                  margin: "0 0 8px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                }}
-              >
-                Prerequisites
+                margin: "0 0 8px",
+                fontSize: "16px",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+              }}
+            >
+              Prerequisites
               </h3>
               <ul
                 style={{
@@ -232,13 +232,13 @@ export function CourseDetailPopover({
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
-                  margin: "0 0 8px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                }}
-              >
-                Fulfills Graduation Requirements
+                margin: "0 0 8px",
+                fontSize: "16px",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+              }}
+            >
+              Fulfills Graduation Requirements
               </h3>
               <TagList items={course.fulfillsRequirements} />
             </div>
@@ -260,7 +260,7 @@ export function CourseDetailPopover({
               alignItems: "center",
               padding: "10px 18px",
               fontSize: "14px",
-              fontWeight: 600,
+              fontWeight: 500,
               color: "#FFFFFF",
               backgroundColor: "var(--brand-accent)",
               borderRadius: "8px",

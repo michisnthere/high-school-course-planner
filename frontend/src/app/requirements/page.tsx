@@ -147,7 +147,6 @@ function RequirementsContent(): React.ReactElement {
     <div
       style={{
         padding: "32px",
-        fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`,
         minHeight: "calc(100vh - 64px)",
       }}
     >
@@ -188,7 +187,7 @@ function RequirementsContent(): React.ReactElement {
                   margin: "0 0 4px",
                   fontSize: "14px",
                   color: "#6b7280",
-                  fontWeight: 500,
+                  fontWeight: 600,
                 }}
               >
                 {formatNumber(creditSummary.required)} Credit Requirement
@@ -197,7 +196,7 @@ function RequirementsContent(): React.ReactElement {
                 style={{
                   margin: 0,
                   fontSize: "32px",
-                  fontWeight: 700,
+                  fontWeight: 400,
                   color: "#111827",
                 }}
               >
@@ -214,7 +213,7 @@ function RequirementsContent(): React.ReactElement {
               style={{
                 margin: "0 0 16px",
                 fontSize: "20px",
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#111827",
               }}
             >
@@ -238,7 +237,7 @@ function RequirementsContent(): React.ReactElement {
               style={{
                 margin: "0 0 16px",
                 fontSize: "20px",
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#111827",
               }}
             >
@@ -270,7 +269,7 @@ function RequirementsContent(): React.ReactElement {
                 style={{
                   margin: "0 0 16px",
                   fontSize: "20px",
-                  fontWeight: 600,
+                  fontWeight: 700,
                   color: "#111827",
                 }}
               >
@@ -336,7 +335,7 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
         style={{
           margin: 0,
           fontSize: "16px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "#111827",
           lineHeight: 1.3,
         }}
@@ -404,8 +403,6 @@ function InfoModal({
           borderRadius: "16px",
           padding: "28px",
           position: "relative",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         <button
@@ -426,7 +423,7 @@ function InfoModal({
             backgroundColor: "#f3f4f6",
             color: "#6b7280",
             fontSize: "18px",
-            fontWeight: 700,
+            fontWeight: 500,
             cursor: "pointer",
             lineHeight: 1,
           }}
@@ -526,7 +523,7 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
-            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 700 }}>{statusMark}</span>
+            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 400 }}>{statusMark}</span>
             <span
               aria-hidden="true"
               style={{
@@ -574,11 +571,11 @@ function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
                   </p>
                 )}
               </div>
-              <span
-                style={{
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: item.status === "satisfied" ? "#275D38" : item.status === "warning" ? "#D0A426" : "#ef4444",
+                <span
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    color: item.status === "satisfied" ? "#275D38" : item.status === "warning" ? "#D0A426" : "#ef4444",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -640,7 +637,7 @@ function RequirementCard({
             style={{
               margin: 0,
               fontSize: "16px",
-              fontWeight: 600,
+              fontWeight: 700,
               color: "#111827",
               lineHeight: 1.3,
             }}
@@ -762,7 +759,7 @@ function ProgressBar({
         <span
           style={{
             fontSize: "13px",
-            fontWeight: 600,
+            fontWeight: 400,
             color: "#374151",
             minWidth: "42px",
             textAlign: "right",

@@ -29,7 +29,7 @@ const activeChipStyle: React.CSSProperties = {
   alignItems: "center",
   padding: "6px 12px",
   fontSize: "14px",
-  fontWeight: 500,
+  fontWeight: 600,
   color: "var(--text-secondary)",
   backgroundColor: "var(--bg-input)",
   borderRadius: "9999px",

@@ -35,8 +35,7 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
       <div
         style={{
           padding: "32px",
-          fontFamily:
-            `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
         }}
       >
         <div
@@ -93,8 +92,7 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
     <div
       style={{
         padding: "32px",
-        fontFamily:
-          `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif`,
+
       }}
     >
       <CourseDetailHeader course={course} returnUrl={returnUrl} />

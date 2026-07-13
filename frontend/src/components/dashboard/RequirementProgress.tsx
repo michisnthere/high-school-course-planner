@@ -23,11 +23,11 @@ export function RequirementProgress(): React.ReactElement {
         style={{
           margin: "0 0 16px",
           fontSize: "18px",
-          fontWeight: 600,
-          color: "var(--text-primary)",
-        }}
-      >
-        Requirement Progress
+        fontWeight: 700,
+        color: "var(--text-primary)",
+      }}
+    >
+      Requirement Progress
       </h2>
 
       <div

@@ -52,7 +52,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "var(--text-primary)",
         }}
       >
@@ -78,7 +78,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
             style={{
               margin: "0 0 10px",
               fontSize: "16px",
-              fontWeight: 600,
+              fontWeight: 700,
               color: "var(--text-primary)",
             }}
           >

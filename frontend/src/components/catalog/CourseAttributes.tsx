@@ -19,7 +19,7 @@ function TagList({ title, items }: { title: string; items: string[] }): React.Re
         style={{
           margin: "0 0 10px",
           fontSize: "16px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "var(--text-primary)",
         }}
       >
@@ -40,7 +40,7 @@ function TagList({ title, items }: { title: string; items: string[] }): React.Re
               backgroundColor: "var(--brand-accent-light)",
               borderRadius: "9999px",
               fontSize: "14px",
-              fontWeight: 500,
+              fontWeight: 600,
               color: "var(--text-primary)",
             }}
           >
@@ -74,7 +74,7 @@ export function CourseAttributes({ course }: CourseAttributesProps): React.React
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
+          fontWeight: 700,
           color: "var(--text-primary)",
         }}
       >

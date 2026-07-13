@@ -126,7 +126,7 @@ function CompletedCoursesContent(): React.ReactElement {
               alignSelf: "flex-start",
               padding: "12px 20px",
               fontSize: "15px",
-              fontWeight: 600,
+              fontWeight: 500,
               color: "#FFFFFF",
               backgroundColor: "var(--brand-accent)",
               border: "none",
@@ -177,7 +177,7 @@ function CompletedCoursesContent(): React.ReactElement {
                         style={{
                           margin: "0 0 6px",
                           fontSize: "17px",
-                          fontWeight: 600,
+                          fontWeight: 700,
                           color: accentColor,
                         }}
                       >
@@ -233,7 +233,7 @@ function CompletedCoursesContent(): React.ReactElement {
                           style={{
                             padding: "4px 12px",
                             fontSize: "14px",
-                            fontWeight: 700,
+                            fontWeight: 600,
                             color: cc.letterGrade
                               ? cc.letterGrade === "A"
                                 ? "var(--status-success)"
@@ -260,7 +260,7 @@ function CompletedCoursesContent(): React.ReactElement {
                             style={{
                               padding: "6px 12px",
                               fontSize: "13px",
-                              fontWeight: 600,
+                              fontWeight: 500,
                               color: "var(--btn-primary-text)",
                               backgroundColor: "var(--brand-accent)",
                               border: "none",
@@ -276,7 +276,7 @@ function CompletedCoursesContent(): React.ReactElement {
                             style={{
                               padding: "6px 12px",
                               fontSize: "13px",
-                              fontWeight: 600,
+                              fontWeight: 500,
                               color: "var(--text-secondary)",
                               backgroundColor: "transparent",
                               border: "1px solid var(--border-default)",
@@ -300,7 +300,7 @@ function CompletedCoursesContent(): React.ReactElement {
                             style={{
                               padding: "6px 12px",
                               fontSize: "13px",
-                              fontWeight: 600,
+                              fontWeight: 500,
                               color: "var(--text-secondary)",
                               backgroundColor: "transparent",
                               border: "1px solid var(--border-default)",
@@ -316,7 +316,7 @@ function CompletedCoursesContent(): React.ReactElement {
                             style={{
                               padding: "6px 12px",
                               fontSize: "13px",
-                              fontWeight: 600,
+                              fontWeight: 500,
                               color: "var(--btn-danger-text)",
                               backgroundColor: "transparent",
                               border: "1px solid var(--btn-danger-border)",

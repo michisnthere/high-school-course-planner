@@ -163,7 +163,7 @@ export function WaiverSection({
             borderRadius: "8px",
             color: "#ffffff",
             fontSize: "13px",
-            fontWeight: 600,
+            fontWeight: 500,
             padding: "8px 16px",
             cursor: "pointer",
           }}
@@ -518,7 +518,7 @@ export function WaiverSection({
               border: "1px solid #374151",
               borderRadius: "16px",
               padding: "28px",
-              fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`,
+
             }}
           >
             <h3

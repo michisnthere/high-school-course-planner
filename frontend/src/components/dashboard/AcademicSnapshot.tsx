@@ -54,8 +54,8 @@ export function AcademicSnapshot(): React.ReactElement {
         style={{
           margin: "0 0 16px",
           fontSize: "20px",
-          fontWeight: 600,
-          color: "var(--text-primary)",
+        fontWeight: 700,
+        color: "var(--text-primary)",
         }}
       >
         GPA Projection
@@ -110,7 +110,7 @@ function ProjectionBlock({
 }): React.ReactElement {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-      <p style={{ margin: 0, fontSize: "14px", fontWeight: 700, color: "var(--text-secondary)" }}>{title}</p>
+      <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "var(--text-secondary)" }}>{title}</p>
       <MetricRow label="Weighted" value={formatGpa(weighted)} />
       <MetricRow label="Unweighted" value={formatGpa(unweighted)} />
       {creditsLabel !== undefined && credits !== undefined && (
@@ -124,7 +124,7 @@ function MetricRow({ label, value }: { label: string; value: string }): React.Re
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
       <span style={{ fontSize: "15px", color: "var(--text-muted)" }}>{label}</span>
-      <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-primary)" }}>{value}</span>
+      <span style={{ fontSize: "15px", fontWeight: 400, color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }
