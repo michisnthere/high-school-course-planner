@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "Dashboard", href: "/" },
@@ -13,6 +14,8 @@ const navItems = [
 ];
 
 export function Sidebar(): React.ReactElement {
+  const pathname = usePathname();
+
   return (
     <aside
       style={{
@@ -23,29 +26,31 @@ export function Sidebar(): React.ReactElement {
         flexDirection: "column",
         padding: "24px 16px",
         backgroundColor: "var(--bg-sidebar)",
-        borderRight: "1px solid var(--border-default)",
         boxSizing: "border-box",
       }}
     >
-      <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {navItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            style={{
-              display: "block",
-              padding: "10px 12px",
-              fontSize: "0.9375rem",
-              fontWeight: 500,
-              color: "var(--text-secondary)",
-              textDecoration: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            {item.label}
-          </Link>
-        ))}
+      <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              style={{
+                display: "block",
+                padding: "10px 12px",
+                fontSize: "0.9375rem",
+                fontWeight: isActive ? 600 : 500,
+                color: isActive ? "var(--sidebar-active-text)" : "var(--sidebar-text)",
+                textDecoration: "none",
+                borderRadius: "8px",
+                backgroundColor: isActive ? "var(--sidebar-active-bg)" : "transparent",
+              }}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );

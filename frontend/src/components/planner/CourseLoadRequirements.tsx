@@ -22,14 +22,14 @@ function ProgressBar({
         alignItems: "center",
         gap: "8px",
         fontSize: "13px",
-        color: "#9ca3af",
+        color: "var(--text-muted)",
       }}
     >
       <div
         style={{
           flex: 1,
           height: "6px",
-          backgroundColor: "#374151",
+          backgroundColor: "var(--bg-muted)",
           borderRadius: "3px",
           overflow: "hidden",
         }}

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 export default function LoginPage(): React.ReactElement {
   const handleSignIn = () => {
@@ -19,7 +20,7 @@ export default function LoginPage(): React.ReactElement {
         justifyContent: "center",
         minHeight: "calc(100vh - 64px)",
         padding: "32px",
-        backgroundColor: "var(--bg-page)",
+        backgroundColor: "var(--bg-muted)",
         boxSizing: "border-box",
       }}
     >
@@ -27,7 +28,7 @@ export default function LoginPage(): React.ReactElement {
         style={{
           width: "100%",
           maxWidth: "420px",
-          padding: "40px",
+          padding: "48px 40px 40px",
           backgroundColor: "var(--bg-card)",
           border: "1px solid var(--border-default)",
           borderRadius: "16px",
@@ -35,12 +36,19 @@ export default function LoginPage(): React.ReactElement {
           boxSizing: "border-box",
         }}
       >
+        <Image
+          src="/stevensonlogo.png"
+          alt="Stevenson High School"
+          width={64}
+          height={64}
+          style={{ margin: "0 auto 16px" }}
+        />
         <h1
           style={{
-            margin: "0 0 12px",
-            fontSize: "28px",
+            margin: "0 0 8px",
+            fontSize: "26px",
             fontWeight: 700,
-            color: "var(--brand-secondary)",
+            color: "var(--brand-primary)",
             lineHeight: 1.2,
           }}
         >
@@ -49,18 +57,18 @@ export default function LoginPage(): React.ReactElement {
         <p
           style={{
             margin: "0 0 8px",
-            fontSize: "16px",
+            fontSize: "15px",
             color: "var(--text-secondary)",
             lineHeight: 1.5,
           }}
         >
-          Sign in with your Google account to access your personalized course
-          planner.
+          Sign in with your Google account to plan your courses, track requirements, and explore the
+          Stevenson course catalog.
         </p>
         <p
           style={{
             margin: "0 0 32px",
-            fontSize: "14px",
+            fontSize: "13px",
             color: "var(--text-muted)",
             lineHeight: 1.5,
           }}
@@ -77,7 +85,7 @@ export default function LoginPage(): React.ReactElement {
             fontSize: "16px",
             fontWeight: 600,
             color: "var(--btn-primary-text)",
-            backgroundColor: "var(--brand-primary)",
+            backgroundColor: "var(--brand-accent)",
             border: "none",
             borderRadius: "10px",
             cursor: "pointer",

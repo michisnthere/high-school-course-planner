@@ -61,8 +61,8 @@ export function CompletedCoursePicker({
           width: "100%",
           maxWidth: "600px",
           maxHeight: "calc(100vh - 48px)",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
+          backgroundColor: "var(--bg-card)",
+          border: "1px solid var(--border-default)",
           borderRadius: "16px",
           display: "flex",
           flexDirection: "column",
@@ -74,7 +74,7 @@ export function CompletedCoursePicker({
         <div
           style={{
             padding: "24px 24px 16px",
-            borderBottom: "1px solid #374151",
+            borderBottom: "1px solid var(--border-default)",
           }}
         >
           <div
@@ -90,7 +90,7 @@ export function CompletedCoursePicker({
                 margin: 0,
                 fontSize: "22px",
                 fontWeight: 600,
-                color: "#ffffff",
+                color: "var(--text-primary)",
               }}
             >
               Mark a course as completed
@@ -129,9 +129,9 @@ export function CompletedCoursePicker({
                 style={{
                   padding: "8px 12px",
                   fontSize: "14px",
-                  color: "#ffffff",
-                  backgroundColor: "#111827",
-                  border: "1px solid #4b5563",
+                  color: "var(--text-primary)",
+                  backgroundColor: "var(--bg-input)",
+                  border: "1px solid var(--border-default)",
                   borderRadius: "8px",
                 }}
               >
@@ -145,7 +145,7 @@ export function CompletedCoursePicker({
             <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
               <label
                 htmlFor="letter-grade"
-                style={{ color: "#d1d5db", fontSize: "14px", fontWeight: 500 }}
+                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 500 }}
               >
                 Letter grade:
               </label>
@@ -156,9 +156,9 @@ export function CompletedCoursePicker({
                 style={{
                   padding: "8px 12px",
                   fontSize: "14px",
-                  color: "#ffffff",
-                  backgroundColor: "#111827",
-                  border: "1px solid #4b5563",
+                  color: "var(--text-primary)",
+                  backgroundColor: "var(--bg-input)",
+                  border: "1px solid var(--border-default)",
                   borderRadius: "8px",
                 }}
               >
@@ -183,7 +183,7 @@ export function CompletedCoursePicker({
         <div
           style={{
             padding: "16px 24px",
-            borderTop: "1px solid #374151",
+            borderTop: "1px solid var(--border-default)",
             display: "flex",
             justifyContent: "flex-end",
           }}
@@ -196,8 +196,8 @@ export function CompletedCoursePicker({
               padding: "10px 18px",
               fontSize: "15px",
               fontWeight: 600,
-              color: "#ffffff",
-              backgroundColor: selectedCourseId == null ? "#4b5563" : "#2563eb",
+              color: "var(--btn-primary-text)",
+              backgroundColor: selectedCourseId == null ? "var(--text-muted)" : "var(--brand-accent)",
               border: "none",
               borderRadius: "8px",
               cursor: selectedCourseId == null ? "not-allowed" : "pointer",

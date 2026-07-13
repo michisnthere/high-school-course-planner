@@ -178,12 +178,12 @@ function CompletedCoursesContent(): React.ReactElement {
                           margin: "0 0 6px",
                           fontSize: "17px",
                           fontWeight: 600,
-                          color: "#ffffff",
+                          color: accentColor,
                         }}
                       >
                         {cc.course.title}
                       </h3>
-                      <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db" }}>
+                      <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)" }}>
                         {editingId === cc.id ? (
                           <select
                             value={editGrade}
@@ -191,9 +191,9 @@ function CompletedCoursesContent(): React.ReactElement {
                             style={{
                               padding: "4px 8px",
                               fontSize: "13px",
-                              color: "#ffffff",
-                              backgroundColor: "#111827",
-                              border: "1px solid #4b5563",
+                              color: "var(--text-primary)",
+                              backgroundColor: "var(--bg-card)",
+                              border: "1px solid var(--border-default)",
                               borderRadius: "6px",
                               marginRight: "8px",
                             }}
@@ -217,9 +217,9 @@ function CompletedCoursesContent(): React.ReactElement {
                           style={{
                             padding: "6px 10px",
                             fontSize: "14px",
-                            color: "#ffffff",
-                            backgroundColor: "#111827",
-                            border: "1px solid #4b5563",
+                            color: "var(--text-primary)",
+                            backgroundColor: "var(--bg-card)",
+                            border: "1px solid var(--border-default)",
                             borderRadius: "8px",
                           }}
                           autoFocus
@@ -236,14 +236,14 @@ function CompletedCoursesContent(): React.ReactElement {
                             fontWeight: 700,
                             color: cc.letterGrade
                               ? cc.letterGrade === "A"
-                                ? "#22c55e"
+                                ? "var(--status-success)"
                                 : cc.letterGrade === "B"
-                                ? "#3b82f6"
+                                ? "var(--status-info)"
                                 : cc.letterGrade === "C"
-                                ? "#f59e0b"
-                                : "#ef4444"
-                              : "#6b7280",
-                            backgroundColor: "#111827",
+                                ? "var(--status-warning)"
+                                : "var(--status-error)"
+                              : "var(--text-muted)",
+                            backgroundColor: "var(--bg-muted)",
                             borderRadius: "8px",
                             minWidth: "32px",
                             textAlign: "center",
@@ -261,8 +261,8 @@ function CompletedCoursesContent(): React.ReactElement {
                               padding: "6px 12px",
                               fontSize: "13px",
                               fontWeight: 600,
-                              color: "#ffffff",
-                              backgroundColor: "#2563eb",
+                              color: "var(--btn-primary-text)",
+                              backgroundColor: "var(--brand-accent)",
                               border: "none",
                               borderRadius: "8px",
                               cursor: "pointer",
@@ -277,9 +277,9 @@ function CompletedCoursesContent(): React.ReactElement {
                               padding: "6px 12px",
                               fontSize: "13px",
                               fontWeight: 600,
-                              color: "#9ca3af",
+                              color: "var(--text-secondary)",
                               backgroundColor: "transparent",
-                              border: "1px solid #4b5563",
+                              border: "1px solid var(--border-default)",
                               borderRadius: "8px",
                               cursor: "pointer",
                             }}
@@ -301,9 +301,9 @@ function CompletedCoursesContent(): React.ReactElement {
                               padding: "6px 12px",
                               fontSize: "13px",
                               fontWeight: 600,
-                              color: "#d1d5db",
+                              color: "var(--text-secondary)",
                               backgroundColor: "transparent",
-                              border: "1px solid #4b5563",
+                              border: "1px solid var(--border-default)",
                               borderRadius: "8px",
                               cursor: "pointer",
                             }}
@@ -317,9 +317,9 @@ function CompletedCoursesContent(): React.ReactElement {
                               padding: "6px 12px",
                               fontSize: "13px",
                               fontWeight: 600,
-                              color: "#fca5a5",
+                              color: "var(--btn-danger-text)",
                               backgroundColor: "transparent",
-                              border: "1px solid #fca5a5",
+                              border: "1px solid var(--btn-danger-border)",
                               borderRadius: "8px",
                               cursor: "pointer",
                             }}

@@ -1,9 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import { AuthStatus } from "@/components/auth/AuthStatus";
 
-/**
- * Header — top navigation bar for the Stevenson Course Planner dashboard.
- */
 export function Header(): React.ReactElement {
   return (
     <header
@@ -18,22 +16,26 @@ export function Header(): React.ReactElement {
         boxSizing: "border-box",
       }}
     >
-      {/* Left: title */}
-      <div style={{ flex: "0 0 auto" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <Image
+          src="/stevensonlogo.png"
+          alt="Stevenson High School"
+          width={36}
+          height={36}
+          style={{ flexShrink: 0 }}
+        />
         <h1
           style={{
             margin: 0,
             fontSize: "1.25rem",
             fontWeight: 700,
-            color: "var(--text-primary)",
+            color: "var(--nav-text)",
             lineHeight: 1.2,
           }}
         >
           Stevenson Course Planner
         </h1>
       </div>
-
-      {/* Right: actions */}
       <div
         style={{
           flex: "0 0 auto",

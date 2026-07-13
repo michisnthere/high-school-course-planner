@@ -19,9 +19,8 @@ export function AuthStatus(): React.ReactElement {
       <span
         style={{
           fontSize: "0.9375rem",
-          color: "#9ca3af",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          color: "var(--nav-text)",
+          opacity: 0.7,
         }}
       >
         Loading...
@@ -38,9 +37,9 @@ export function AuthStatus(): React.ReactElement {
           height: "40px",
           padding: "0 16px",
           fontSize: "0.9375rem",
-          fontWeight: 500,
+          fontWeight: 600,
           color: "var(--btn-primary-text)",
-          backgroundColor: "var(--brand-primary)",
+          backgroundColor: "var(--brand-accent)",
           border: "none",
           borderRadius: "8px",
           cursor: "pointer",
@@ -62,9 +61,9 @@ export function AuthStatus(): React.ReactElement {
     >
       <span
         style={{
-          fontSize: "0.9375rem",
+          fontSize: "0.875rem",
           fontWeight: 500,
-          color: "var(--text-primary)",
+          color: "var(--nav-text)",
         }}
       >
         {user.name || user.email}
@@ -73,13 +72,13 @@ export function AuthStatus(): React.ReactElement {
         type="button"
         onClick={handleSignOut}
         style={{
-          height: "40px",
-          padding: "0 16px",
-          fontSize: "0.9375rem",
+          height: "36px",
+          padding: "0 14px",
+          fontSize: "0.875rem",
           fontWeight: 500,
-          color: "var(--text-primary)",
-          backgroundColor: "var(--bg-card)",
-          border: "1px solid var(--border-default)",
+          color: "var(--nav-text)",
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
           borderRadius: "8px",
           cursor: "pointer",
           boxSizing: "border-box",

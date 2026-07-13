@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en" style={{ colorScheme: "dark" }}>
+      <html lang="en">
       <body>
         <AuthProvider>
           <Header />
