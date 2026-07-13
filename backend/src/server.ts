@@ -1,3 +1,12 @@
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION");
+  console.error(err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED REJECTION");
+  console.error(err);
+});
 console.log("SERVER FILE LOADED");
 import express from "express";
 import cors from "cors";
@@ -25,9 +34,9 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(sessionMiddleware);
-app.use(passportInit);
-app.use(passportSession);
+// app.use(sessionMiddleware);
+// app.use(passportInit);
+// app.use(passportSession);
 
 app.use("/courses", coursesRouter);
 app.use("/auth", authRouter);
@@ -40,6 +49,10 @@ app.get("/", (_req, res) => {
   res.json({
     message: "High School Course Planner API running",
   });
+});
+
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
 const PORT = process.env.PORT || 4000;
