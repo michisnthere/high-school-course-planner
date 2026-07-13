@@ -13,6 +13,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
   const creditType = course.options?.[0]?.creditType ?? null;
   const division = course.department?.division?.name;
   const department = course.department?.name;
+  const showDepartment = department && division && department.trim().toLowerCase() !== division.trim().toLowerCase();
 
   const backHref = returnUrl && returnUrl.startsWith("/") ? returnUrl : "/catalog";
   let backLabel = "← Back to Catalog";
@@ -66,7 +67,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
           alignItems: "center",
         }}
       >
-        {department && (
+        {showDepartment && (
           <span
             style={{
               padding: "6px 12px",
