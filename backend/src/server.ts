@@ -24,9 +24,9 @@ app.use(
   })
 );
 app.use(express.json());
-// app.use(sessionMiddleware);
-// app.use(passportInit);
-// app.use(passportSession);
+app.use(sessionMiddleware);
+app.use(passportInit);
+app.use(passportSession);
 
 app.use("/courses", coursesRouter);
 app.use("/auth", authRouter);
