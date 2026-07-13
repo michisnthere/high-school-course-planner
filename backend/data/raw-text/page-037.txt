@@ -1,0 +1,82 @@
+COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 35
+COMPUTER SCIENCE 
+COMPUTER SCIENCE COURSES ARE DESIGNED TO 
+ENGAGE STUDENTS IN THE WORLD OF COMPUTER 
+PROGRAMMING, NO EXPERIENCE REQUIRED. THE HANDS-ON 
+COMPUTER-BASED CURRICULA INTRODUCES STUDENTS 
+TO PROGRAMMING LANGUAGES LIKE PYTHON AND JAVA, 
+AS WELL AS PROVIDING OPPORTUNITIES TO EXPLORE 
+HOW CODING CONNECTS TO THEIR OWN LIVES. ADVANCED 
+PLACEMENT (AP) COURSE OPTIONS ARE AVAILABLE  
+WITHIN THIS PROGRAM. 
+COMPUTER PROGRAMMING 1
+GPA WAIVER OPTION 
+CSC161–Semester 1 CSC162–Semester 2
+Open to: 9-10-11-12 One Semester
+Prerequisite: none Credit: College prep 
+This one-semester course introduces students to the 
+foundations of computer programming using Python. 
+Python’s syntax is easy to read and write for those with limited 
+experience with programming, making it an ideal language 
+for those looking for an introduction to the field of computer 
+science. In addition, Python is widely used across a range of 
+industries such as business, web application development, 
+project management, data analysis and machine learning. 
+Python is an excellent choice for anyone who wants to be 
+prepared for the technical demands their career might 
+include.
+The course introduces students to the foundational ideas of 
+computer programming and computational thinking with 
+an emphasis on problem-solving. Students will learn both 
+how to read and write computer programs for a variety of 
+applications. Topics for this course include input and output 
+commands, making decisions with conditional statements and 
+repeating a set of steps with looping structures. Successful 
+completion of this one-semester course prepares the student 
+for Computer Programming 2 (CSC181/182) and Mobile App 
+Development (CSC251/252).
+COMPUTER PROGRAMMING 2
+GPA WAIVER OPTION 
+CSC181–Semester 1 CSC182–Semester 2
+Open to: 9-10-11-12 One Semester
+Prerequisite: Computer Programming 1 (CSC161/162) or Web 
+Development 2 (TEC281/282) or Principles of Engineering  
+(TEC301/302), or AP Computer Science Principles (CSC371/372)
+Credit: College prep 
+This one-semester course is intended for students who 
+possess some programming experience or who have 
+successfully completed Computer Programming 1 (CSC161 
+or CSC162) and seek a deeper understanding of computer 
+programming concepts. The Java language continues to 
+enjoy worldwide popularity. Due to Java’s longevity, available 
+support for Java is extensive and many industries make use 
+of Java-based applications. Java developers continue to 
+be in high demand. Java is highly portable (as it can run on 
+many computer platforms) and provides an easy-to-learn 
+introduction to the world of object-oriented program design. 
+This course reviews foundational coding frameworks 
+and concepts and introduces students to object-oriented 
+design using the Java programming language. Students will 
+explore and work with various data types, input and output 
+commands, conditional statements, Boolean operators  
+(and, or, not), looping structures, common algorithms 
+and arrays. Successful completion of this one-semester 
+course prepares the student for Mobile App Development 
+(CSC251/252) and AP Computer Science A (CSC391/392).
+AP COMPUTER SCIENCE A 
+CSC391–Semester 1 CSC392–Semester 2  
+Open to: 10-11-12 Full Year
+Prerequisite: Computer Programming 2 (CSC181/182)
+Credit: honors
+This course introduces students to object-oriented 
+programming methodology with an emphasis on problem 
+solving and algorithm development. It is meant to be the 
+equivalent of a first-semester college course in Computer 
+Science. Students will learn how to code more sophisticated 
+concepts in Java. The course emphasizes the design issues 
+that make programs understandable, adaptable and reusable. 
+It also includes the study of fundamental data structures, 
+abstraction and recursion. Students who enroll in this course 
+will be prepared to take the AP Computer Science A exam in 
+May. Successful completion of this full-year course prepares 
+the student for Computer Science Algorithms (CSC421/422).

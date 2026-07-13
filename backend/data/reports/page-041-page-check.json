@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 5126,
+  "courseSignalCount": 25,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 10,
+    "duration": 5,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 39 CIVIL ENGINEERING AND ARCHITECTURE–PL TW TEC261–Semester 1 TEC262–Semester 2 Open to: 10-11-12 Full Year Prerequisite: introduction to Engineering Design–PLTW OR Engineering Design or Architectural Design Credit: honors Students will learn the art and science of planning, designing and constructing buildings. The major focus of this course is completing long-term projects that involve the design and development of residential and commercial "
+}

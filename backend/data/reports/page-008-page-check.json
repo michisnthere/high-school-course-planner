@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4312,
+  "courseSignalCount": 9,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 9,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 4,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "NCAA ELIGIBILITY REQUIREMENTS FOR DIVISION I AND II ATHLETES Students who are interested in competing in athletics at the Division I or Division II collegiate level must meet the academic eligibility requirements of the National Collegiate Athletic Association (NCAA). For more information on the Division I and Division II eligibility requirements, please visit: www.ncaa.org/ student-athletes/future/academic-standards-initial-eligibility. For the most up-to-date list of Stevenson High School’s ap"
+}

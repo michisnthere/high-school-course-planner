@@ -1,0 +1,57 @@
+You are extracting structured academic data from one page of a high school coursebook.
+Return only valid JSON. Do not invent missing information.
+
+Extract any courses, course offerings, departments, graduation requirements, requirement rules,
+waivers, prerequisites, co-requisites, credits, grade levels, and notes visible on this page.
+
+Use this JSON shape:
+{
+  "sourcePage": 1,
+  "departments": [
+    {
+      "name": "string or null",
+      "description": "string or null"
+    }
+  ],
+  "courses": [
+    {
+      "title": "string",
+      "department": "string or null",
+      "description": "string or null",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "string or null",
+          "semesterLabel": "string or null",
+          "duration": "string or null",
+          "gradeLevels": [9, 10, 11, 12],
+          "prerequisites": ["string"],
+          "corequisites": ["string"],
+          "creditType": "string or null",
+          "credits": null
+        }
+      ],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "graduationRequirements": [
+    {
+      "name": "string",
+      "category": "string or null",
+      "requirementType": "credits | semesters | completion | waiver | policy | unknown",
+      "requiredValue": "number, string, or null",
+      "eligibleCourses": ["string"],
+      "waiverRules": ["string"],
+      "notes": ["string"],
+      "sourceReference": "string or null"
+    }
+  ],
+  "warnings": ["string"]
+}
+
+Page text:
+Our Mission: Success for every student.
+Coursebook
+Adlai E. Stevenson High School  |  2026-27 Edition  
+ D125.ORG ADLAI E. STEVENSON  @STEVENSONHS

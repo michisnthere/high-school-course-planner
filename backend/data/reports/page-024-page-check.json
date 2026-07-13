@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3617,
+  "courseSignalCount": 35,
+  "policySignalCount": 5,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 15,
+    "duration": 5,
+    "gpa_waiver": 5
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 5,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPLIED ARTS–FAMILY AND CONSUMER SCIENCES22 FOOD AND NUTRITION GPA WAIVER OPTION FCS111–Semester 1 FCS112–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None credit: College prep Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness. The course is centered on healthy food and lifestyle choices to engage student awareness of personal food choices, physical activity, dietary needs and engagemen"
+}

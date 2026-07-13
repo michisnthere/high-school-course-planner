@@ -1,0 +1,182 @@
+{
+  "sourcePage": 83,
+  "departments": [],
+  "courses": [
+    {
+      "title": "English Language Development (ELD) Language",
+      "department": null,
+      "description": "Note: May be taken concurrently with English Language Development (ELD) 3 Literature This is one of two courses available for students in the ELD program at the advanced level. This course may be taken concurrently with English Language Development (ELD) 3 leverage their own cultural and linguistic assets as they work to expand their English language proficiency. In addition to a focus on the development of advanced literacy skills, including argumentative writing and literary analysis, students will foster their listening and speaking skills by participating in discussions, debates and oral presentations.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ELD361",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD362",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "May be taken concurrently with English Language Development (ELD) 3 Literature"
+      ],
+      "sourceReference": "Page 83",
+      "isOnline": false
+    },
+    {
+      "title": "English Language Development (ELD) Literature",
+      "department": null,
+      "description": "This is an English course for students who are transitioning out of the ELD program. Students are expected to produce work with ELD support similar to that of a student in a Communication Arts English course. Students’ proficiencies will advance in the areas of literary analysis, writing, grammar, oral communication and research. Students will explore literary works from their own cultural backgrounds and experiences and use literature as a pathway to greater understanding of diverse perspectives and narratives.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ELD371",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD372",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD461",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD462",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "May be taken concurrently with English Language Development (ELD) 3 Language"
+      ],
+      "sourceReference": "Page 83",
+      "isOnline": false
+    },
+    {
+      "title": "Current Events",
+      "department": null,
+      "description": "This one-semester elective course is designed to develop students’ academic, social and instructional language across the five WIDA Standards (Social and Instructional Language, the Language of Language Arts, the Language of Mathematics, the Language of Science and the Language of Social Studies) through discussion and guided written reflection around current events and students’ own experiences. Special focus will not only be given to written, audio and visual sources that are connected with the WIDA Standards, but also to students’ own cultural and linguistic experiences across these standards. Additionally, added focus will be given to academic, social and instructional language for WIDA’s five complementary strands (the Language of Music and Performing Arts, the Language of Humanities, the Language of Visual Arts, the Language of Health and Physical Education and the Language of Technology and Engineering.) This course may be repeated for credit. MUL TILINGUAL LEARNING—ENGLISH LANGUAGE DEVELOPMENT (ELD) 81",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ELD561",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD562",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 83",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 83: Missing department context for course 'English Language Development (ELD) Language' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: Missing department context for course 'English Language Development (ELD) Literature' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: Missing department context for course 'Current Events' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 83: credit inference count = 8"
+  ]
+}

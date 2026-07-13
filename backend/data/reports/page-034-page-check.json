@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3039,
+  "courseSignalCount": 27,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 12,
+    "duration": 4,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 3,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS32 JOURNALISTIC WRITING GPA WAIVER OPTION JRN901–Semester 1 JRN902–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None Not an English graduation credit Credit: College prep This course includes interviewing students and adults, writing stories that could get published in the student newspaper or yearbook and solving problems that typically face reporters and editors. Designed to offer students background and practice in basic journalism concepts and skills, Journalis"
+}

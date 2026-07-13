@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4681,
+  "courseSignalCount": 2,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "STUDENT LEARNING PROGRAMS102 ACADEMIC LITERACY 1 The focus of this course provides instruction in the skills needed for success in high school and beyond. This course emphasizes fundamental literacy within all academic disciplines with a focus on those subjects and skills most appropriate to freshman year. Students will learn strategies to support reading, writing and listening and speaking skills in Science, Communication Arts, Social Studies and Mathematics. Depending on their benchmark and/or"
+}

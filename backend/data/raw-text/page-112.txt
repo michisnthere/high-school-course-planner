@@ -1,0 +1,123 @@
+COURSE LIST BY NAME
+APPLIED ARTS
+BUSINESS EDUCATION COURSE OFFERINGS
+BUS251    —  ACCOUNTING 1 (CP) ..................................................................................17
+   —  BUS252 ACCOUNTING 2 (H) ....................................................................................17
+BUS351    —  ADVANCED ACCOUNTING (H) ..............................................................17
+BUS131 BUS132 BUSINESS APPLICATIONS AND  
+  TECHNOLOGY 1 (CP) ................................................................................16
+   —  BUS142 BUSINESS APPLICATIONS AND  
+  TECHNOLOGY 2 (CP) ..............................................................................16
+BUS371 BUS372 BUSINESS LAW (CP) ................................................................................17
+BUS411 BUS412 ENTREPRENEURIAL TACTICS (A).....................................................17
+BUS231 BUS232 ENTREPRENEURSHIP (CP) ..................................................................16
+BUS171 BUS172 INTRODUCTION TO BUSINESS (CP) ..............................................16
+BUS361 BUS362 INVESTMENT MANAGEMENT (CP) ..................................................18
+BUS281 BUS282 MARKETING (CP) ........................................................................................16
+BUS301 BUS302 PERSONAL FINANCE (CP) ....................................................................18
+BUS3Q1 BUS3Q2 PERSONAL FINANCE Online (CP) ................................................18
+DRIVER EDUCATION COURSE OFFERING
+D/E231 D/E232 DRIVER EDUCATION (CP) ......................................................................19
+FAMILY AND CONSUMER SCIENCES COURSE OFFERINGS
+FCS241 FCS242 BUSINESS OF FASHION AND DESIGN (CP, H) ........................21
+FCS251 FCS252 CLOTHING AND DESIGN 1 (CP) ........................................................21
+FCS291 FCS292 CLOTHING AND DESIGN 2 (CP) (H) ...............................................21
+FCS111 FCS112 FOOD AND NUTRITION (CP)...............................................................22
+FCS221 FCS222 FOOD PREPARATION (CP) ...................................................................22
+FCS321 FCS322 GOURMET FOODS (CP) .........................................................................22
+FCS211 FCS212 HUMAN GROWTH AND DEVELOPMENT (CP) .........................22
+FCS231 FCS232 INTERIOR DESIGN (CP) ..........................................................................21
+FCS411 FCS412 LIFE BY DESIGN (CP) .............................................................................22
+FCS311 FCS312 TEACHING YOUNG CHILDREN 1 (CP) ...........................................23
+FCS331 FCS332 TEACHING YOUNG CHILDREN 2 (CP) (H) .................................23
+LAKE COUNTY HIGH SCHOOL TECHNOLOGY CAMPUS  
+COURSE OFFERINGS
+VOC431 VOC432 AUTOMOTIVE COLLISION REPAIR 1 ..............................................24
+VOC451 VOC452 AUTOMOTIVE COLLISION REPAIR 2 .............................................24
+VOC471 VOC472 AUTOMOTIVE SERVICE 1 ......................................................................24
+VOC491 VOC492 AUTOMOTIVE SERVICE 2.....................................................................24
+VOC291 VOC292 CERTIFIED NURSE ASSISTING ........................................................24
+VOC071 VOC072 COMPUTER SUPPORT SERVICES ..................................................24
+VOC511 VOC512 CONSTRUCTION SKILLS AND MANAGEMENT 1 ...................24
+VOC531 VOC532 CONSTRUCTION SKILLS AND MANAGEMENT 2 ..................24
+VOC591 VOC592 COSMETOLOGY 1 .......................................................................................24
+VOC611 VOC612 COSMETOLOGY 2 .....................................................................................24
+VOC111 VOC112 CRIMINAL JUSTICE ..................................................................................24
+VOC951 VOC952 CULINARY ARTS 1 .....................................................................................24
+VOC971 VOC972 CULINARY ARTS 2 ...................................................................................24
+VOC191 VOC192 cybersecurity .......................................................................................24
+VOC911 VOC912 EARLY EDUCATION AND TEACHING 1 .........................................24
+VOC931 VOC932 EARLY EDUCATION AND TEACHING 2........................................24
+VOC311 VOC312 EMERGENCY MEDICAL SERVICES .................................................24
+VOC221 VOC222 FIRE FIGHTING............................................................................................24
+VOC171 VOC172 GAME PROGRAMMING AND VIRTUALIZATION ........................24
+VOC121 VOC122 LAW ENFORCEMENT AND CSI .......................................................24
+VOC321 VOC322 MEDICAL ASSISTING ..............................................................................24
+VOC671 VOC672 MULTIMEDIA DESIGN 1 ..........................................................................24
+VOC691 VOC692 MULTIMEDIA DESIGN 2 .........................................................................24
+VOC711 voc712 Principles of biomedical science ....................................24
+VOC871 VOC872 WELDING AND FABRICATION 1 .......................................................24
+VOC891 VOC892 WELDING AND FABRICATION 2 ......................................................24
+COMMUNICATION ARTS
+JRN921 JRN922 ADVANCED JOURNALISTIC WRITING (CP)...............................32
+ENG341 ENG342 American Studies (AP English Language  
+  and Composition and AP U.S. History) (H) .....................29
+ENG371 ENG372 AP English Language and Composition (H) ...............28 
+ENG451 ENG452 AP Literature and Composition (H) ..................................29
+JRN911 JRN912 Broadcast Journalism (CP) ..................................................... 32
+ENG501 ENG502 CREATIVE WRITING (CP, A) ................................................................30
+   —  ENG522 CREATIVE WRITING SEMINAR (CP, A) .........................................30
+ENG141 ENG142 ENGLISH 9: BELONGING AND BECOMING: 
+  STORIES, CULTURE AND POSSIBILITY.......................................27
+ENG161 ENG162 ENGLISH 9: MIRRORS AND SHADOWS:  
+  REFLECTION, PERCEPTION AND CHOICES ............................27
+ENG171  ENG172 ENGLISH 9: REIMAGINING THE FUTURE: 
+  INNOVATION, IDENTITY AND OUR WORLD ..............................27
+ENG151 ENG152 ENGLISH 9: THREADS OF LOYALTY: RELATIONSHIPS,
+  COMMUNITY AND SOCIAL DYNAMICS .........................................27 
+JRN901 JRN902 JOURNALISTIC WRITING (CP) ..........................................................32
+ENG381 ENG382 JUNIOR ENGLISH (A) ..............................................................................28
+ENG311 ENG312 JUNIOR ENGLISH (CP)...........................................................................28
+ENG681 ENG682 Mythology and Folklore (CP) ................................................31
+ENG601 ENG602 POLITICAL THOUGHT AND ITS LITERATURE (CP) .............30
+JRN951 JRN952 PUBLICATION DESIGN AND PRODUCTION (A) .......................32
+ENG761 ENG762 PUBLIC SPEAKING (CP) ........................................................................30
+ENG231 ENG232 SOPHOMORE ENGLISH (A) .................................................................28
+ENG211 ENG212 SOPHOMORE ENGLISH (CP) ..............................................................28
+   —  ENG722 TOPICS IN COMPOSITION: FILM GENRES (CP, A) ................31 
+ENG691    —  TOPICS IN COMPOSITION: MEDIA ANALYSIS  
+  (CP, A) ................................................................................................................31 
+ENG431 ENG432 WORLD Literature (CP, A) ............................................................29
+ENG541 ENG542 WRITING FOR COLLEGE (CP) ...........................................................31
+COMPUTER SCIENCE, ENGINEERING AND 
+TECHNOLOGY COURSE OFFERINGS
+COMPUTER SCIENCE COURSE OFFERINGS
+CSC391 CSC392 AP COMPUTER SCIENCE A (H)........................................................35
+CSC371 CSC372 AP COMPUTER SCIENCE PRINCIPLES (H) ..............................36
+CSC161 CSC162  Computer Programming 1 (CP) ................................................35
+CSC181 CSC182  Computer Programming 2 (CP)...............................................35
+CSC421 CSC422 Computer Science Algorithms (H) ....................................36 
+CSC251 CSC252  MOBILE APP DEVELOPMENT (CP) ................................................36
+ENGINEERING COURSE OFFERINGS
+TEC241 TEC242 ADVANCED ARCHITECTURAL DESIGN (CP) ............................38
+TEC141 TEC142 ARCHITECTURAL DESIGN (CP) ........................................................38
+TEC261 TEC262 Civil Engineering and Architecture–PLTW (H) ....39
+TEC351 TEC352 Computer Integrated Manufacturing– 
+  PLTW (H) ........................................................................................................39
+TEC291 TEC292 Electrical Engineering–PLTW (H) .....................................39
+TEC401 TEC402 ENGINEERING DESIGN AND  
+  DEVELOPMENT–PLTW (H) .................................................................39
+TEC151 TEC152 introduction to Engineering Design–PLTW (CP) 38
+TEC301 TEC302 Principles of Engineering–PLTW (H) ..............................39
+TECHNOLOGY COURSE OFFERINGS
+TEC501 TEC502 GAME DEVELOPMENT 1 (CP) .............................................................41
+TEC511 TEC512 GAME DEVELOPMENT 2 (CP) ............................................................41
+TEC111 TEC112 Motion Graphics and Visual Effects (CP) ................42
+TEC181 TEC182 PRINT MEDIA 1 (CP) .................................................................................41
+TEC251 TEC252 PRINT MEDIA 2 (CP) ................................................................................41
+TEC121 TEC122 Video Editing and Production (CP) ...................................42
+TEC191 TEC192 Virtual Reality (CP) .........................................................................42
+TEC171 TEC172 WEB DEVELOPMENT 1 (CP) ...............................................................41
+TEC281 TEC282 WEB DEVELOPMENT 2 (CP) .............................................................41
+KEY: (CP) College Prep, (A) Accelerated, (H) Honors
+COURSE LIST BY NAME110

@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1639,
+  "courseSignalCount": 56,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 45,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 11,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "English 9: Belonging and Becoming* Full-Year Course ENG141/ENG142 English 9: Threads of Loyalty* Full-Year Course ENG151/ENG152 English 9: Reimagining the Future* Full-Year Course ENG171/ENG172 English 9: Mirrors and Shadows* Full-Year Course ENG161/ENG162 COMMUNICATION ARTS26 COMMUNICATION ARTS COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK Journalistic Writing One-Semester Course JRN901 or JRN902 Advanced Journalistic Writing One-Semester Course JRN921 or JRN922 Publication Design and Prod"
+}

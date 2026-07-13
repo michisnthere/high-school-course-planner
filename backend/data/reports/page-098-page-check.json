@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3958,
+  "courseSignalCount": 21,
+  "policySignalCount": 9,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 11,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 3,
+    "requirement": 5,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 1,
+    "economics": 0
+  },
+  "preview": "AP COMPARATIVE GOVERNMENT AND POLITICS SOC631–Semester 1 SOC632–Semester 2 Open to: 10-11-12 ONE SEMESTER Prerequisite: World History and Geography Credit: honors This one-semester elective course introduces students to the rich diversity of political life outside the United States. Students use a comparative approach to examine the political structures; policies; and political, economic and social challenges of six selected countries: China, Iran, Mexico, Nigeria, Russia and the United Kingdom."
+}

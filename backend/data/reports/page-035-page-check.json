@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 803,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 33 COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) DIVISION JACQUELINE KING, DIRECTOR | JKING/at.caseD125.ORG | 847-415-4179 The Computer Science, Engineering and Technology Division (CSET) offers a robust program of electives in the areas of computer science, engineering and technology. Within these project-based courses, students will develop an innovative and problem-solving mindset while pursuing professional and personal endeavors. The"
+}

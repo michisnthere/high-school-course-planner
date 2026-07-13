@@ -1,0 +1,219 @@
+{
+  "sourcePage": 24,
+  "departments": [
+    {
+      "name": "Applied Arts–family and Consumer Sciences",
+      "description": "APPLIED ARTS–FAMILY AND CONSUMER SCIENCES22"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Food and Nutrition",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "Food and Nutrition is a lab-based course where students gain the basic principles of food preparation in its relationship to nutrition and wellness. The course is centered on healthy food and lifestyle choices to engage student awareness of personal food choices, physical activity, dietary needs and engagement of athletic and academic performance. Students apply course content to analyze nutritional choices for themselves and others.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS111",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS112",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 24",
+      "isOnline": false
+    },
+    {
+      "title": "Food Preparation",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "Food Preparation is a lab-based course where students enhance their culinary skills in a hands-on environment. Students learn culinary techniques, making a wide variety of recipes that align with course skills. In this course, students will gain an understanding of food science principles in order to adapt recipes, sharpen culinary techniques and create culturally diverse recipes. Students will also tackle real life skills such as; budgeting, safety and sanitation, dietary needs, environmentally conscious methods of handling, storing and preparing food all while maintaining responsible lab usage and team collaboration.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS221",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS222",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 24",
+      "isOnline": false
+    },
+    {
+      "title": "Gourmet Foods",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "Gourmet Foods is a lab-based course where students develop advanced food preparation skills in baking and cooking while also exploring U.S. regional cuisine and gaining global perspectives of international cuisine. Students compete in culinary competitions, examine the culinary industry, hospitality, current food trends and our food supply while investigating major influences and controversies associated with producing and distributing food. Students focus on plating food in an aesthetically pleasing way, while considering flavor pairing and the development of innovative recipes.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS321",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Food Preparation"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS322",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Food Preparation"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 24",
+      "isOnline": false
+    },
+    {
+      "title": "Life By Design",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "In Life by Design, students explore a variety of topics designed to help them meet the challenges of life. Curriculum topics work to enhance the social and emotional development of young adults. Students gain an enhanced understanding of self, increase awareness of others, learn to develop healthy relationships and heighten responsible decision-making skills. Students improve communication skills, reduce stress, build positive relationships with others, gain independence, express emotions, set goals, improve time management and make decisions based on personal values. Live a life by design, not a life by default.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS411",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS412",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 24",
+      "isOnline": false
+    },
+    {
+      "title": "Human Growth and Development",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "Human Growth and Development explores the world of the developing individual. Students will examine the physical, intellectual, social, emotional and moral development of humans from prenatal development through adolescence. This course will investigate the psychological concepts that apply to everyday life, while exploring the dynamic interactions between individuals and the diverse contexts that shape our growth and development. This course is a prerequisite for the course Teaching Young Children 1.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS211",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS212",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 24",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 24: credit inference count = 10",
+    "Page 24: no graduation requirement headings found."
+  ]
+}

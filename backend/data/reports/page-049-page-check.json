@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2337,
+  "courseSignalCount": 26,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 11,
+    "duration": 4,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 3,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—VISUAL ARTS 47 METALS AND JEWELRY GPA WAIVER OPTION ART241–Semester 1 ART242–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: Art and Design credit: College prep This course is designed to introduce students to the principles of design as applied to metalwork, wire and jewelry. Students will learn to cut, file, texture and polish metal pieces. They will also solder with a torch and set a cabochon stone. ADVANCED DRAWING, PAINTING AND MIXED MEDIA GPA WAIVER OPTION ART621–Semest"
+}

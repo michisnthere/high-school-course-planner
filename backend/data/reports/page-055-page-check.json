@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1176,
+  "courseSignalCount": 41,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 38,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 3,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MUSIC 53 SCAN QR CODE TO READ MORE ABOUT FINE ARTS ONLINE: www.d125.org/arts MUSIC COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK Symphonic Band Full-Year Course MUS121/MUS122 Wind Symphony Full-Year Course MUS131/MUS132 Wind Ensemble Full-Year Course MUS141/MUS142 BAND COURSES CHORAL COURSES General MUSIC COURSES ORCHESTRA COURSES GUITAR COURSES Freshman Band Full-Year Course MUS101/MUS102 Stevenson Singers Full-Year Course MUS201/MUS202 Stevenson Orchestra Full-Year Course MUS301"
+}

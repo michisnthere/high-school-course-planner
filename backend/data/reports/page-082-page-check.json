@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 2980,
+  "courseSignalCount": 23,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 16,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 5,
+    "duration": 2,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "English Language Development (ELD) 3 Literature Full-Year Course ELD371/ELD372 ELD COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK English Language Development (ELD) 3 Language Full-Year Course ELD361/ELD362 English Language Development (ELD) 2 Full-Year Course ELD261/ELD262 English Language Development (ELD) 1 Full-Year Course ELD161/ELD162 Current Events One-Semester Course ELD561 or ELD562 English Language Development (ELD) 4 Full-Year Course ELD461/ELD462 ENGLISH LANGUAGE DEVELOPMENT (ELD"
+}

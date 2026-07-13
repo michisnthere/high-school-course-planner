@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1195,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "SPECIAL EDUCATION SERVICES104 SPECIAL EDUCATION SERVICES TRACI WALLEN, DIRECTOR | TWALLEN/at.caseD125.ORG | 847-415-4801 Stevenson High School provides all students with special education needs a free and appropriate public education. Students and their parents/guardians serve as members of the IEP team and fully participate in determining the eligibility for Special Education Services. Once a student has been found eligible for special education and/or related services, an individualized educat"
+}

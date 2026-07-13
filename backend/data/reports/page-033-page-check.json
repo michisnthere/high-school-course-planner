@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3950,
+  "courseSignalCount": 23,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 13,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 2,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS 31 TOPICS IN COMPOSITION: MEDIA ANALYSIS ENG691–Semester 1 Only Open to: 11-12 One Semester Prerequisite: None Credit: College Prep with Accelerated Option This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries—advertising, news and entertainment— and the print and non-print messages created by these industries. Students will be required to w"
+}

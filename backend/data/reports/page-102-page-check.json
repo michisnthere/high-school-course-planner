@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2151,
+  "courseSignalCount": 12,
+  "policySignalCount": 6,
+  "courseSignals": {
+    "course_code": 2,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 7,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 3,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 2,
+    "economics": 0
+  },
+  "preview": "SOCIAL STUDIES100 AP GOVERNMENT–UNITED STATES SOC681–Semester 1 SOC682–Semester 2 Open to: 12 One Semester Prerequisite: World History and Geography, U.S. History Credit: honors This course gives students the tools to engage meaningfully in the local, state and national political process. This course involves both the study of general concepts used to interpret U.S. politics and the analysis of specific case studies. It also requires familiarity with the various institutions, groups, beliefs and"
+}

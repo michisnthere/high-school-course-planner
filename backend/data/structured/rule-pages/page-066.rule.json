@@ -1,0 +1,138 @@
+{
+  "sourcePage": 66,
+  "departments": [
+    {
+      "name": "Mathematics",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Algebra 1",
+      "department": "Mathematics",
+      "description": "in algebraic thinking. Students will explore overarching ideas of patterns of change (constant, linear and multiplicative), mathematical representations (verbal, algebraic, graphical and numeric), models (real-world scenarios in and out of context) and solutions (that validate equalities/inequalities). Creating equivalence through strategic and purposeful manipulation of algebraic forms will support students’ procedural fluency. Conceptual understanding is developed by creating and connecting representations when exploring linear, exponential and quadratic functions. Students will begin to explain and perform transformations on these functions. This course also develops students’ statistical literacy through the descriptive and analytic critique of data. Successfully completing this demonstrated proficiency in all the course skills of Algebra 1.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "MTH151",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10
+          ],
+          "prerequisites": [
+            "Completion and proficiency in Common Core"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MTH152",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10
+          ],
+          "prerequisites": [
+            "Completion and proficiency in Common Core"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 66",
+      "isOnline": false
+    },
+    {
+      "title": "Geometry",
+      "department": "Mathematics",
+      "description": "in deductive reasoning and geometric thinking. Students will rely on exploration, conjecture, deduction, justification and abstraction to strengthen their reasoning skills. Geometric thinking is supported by exploring the idea of measures (geometric magnitudes, lengths, areas and volumes), transformations (effects on congruence, scaling and symmetry on geometric properties) and composition (the role simple objects play in constructing and deconstructing complex objects). This course leverages algebra to explore the properties of triangles, quadrilaterals, polygons, circles, right triangle trigonometry and conic sections. Working with 2D objects and 3D solids in kinesthetic and digital environments strengthens students’ spatial reasoning. Communicating understanding leans on writing explanations and justifying reasoning using informal and formal proof structures. Focusing on terminology, notation and clarity in writing helps prepare students for future studies. Successfully option with consistently demonstrated proficiency in all the",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "MTH251",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10
+          ],
+          "prerequisites": [
+            "Algebra 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MTH252",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10
+          ],
+          "prerequisites": [
+            "Algebra 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 66",
+      "isOnline": false
+    },
+    {
+      "title": "Geometry AB/BC",
+      "department": "Mathematics",
+      "description": "be extended, and students will routinely apply prior learning to unique, non-routine and novel contexts. The course design emphasizes students’ growth in making connections and transferring knowledge between units of study while extending their learning in preparation for future college-level experiences in high school. Successfully completing Geometry",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "MTH271",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10
+          ],
+          "prerequisites": [
+            "Algebra 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MTH272",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10
+          ],
+          "prerequisites": [
+            "Algebra 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 66",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 66: credit inference count = 6"
+  ]
+}

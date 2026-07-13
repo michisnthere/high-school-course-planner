@@ -1,0 +1,188 @@
+{
+  "sourcePage": 49,
+  "departments": [
+    {
+      "name": "Fine Arts—Visual Arts",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Metals and Jewelry",
+      "department": "Fine Arts—Visual Arts",
+      "description": "This course is designed to introduce students to the principles of design as applied to metalwork, wire and jewelry. Students will learn to cut, file, texture and polish metal pieces. They will also solder with a torch and set a cabochon stone.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART241",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART242",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 49",
+      "isOnline": false
+    },
+    {
+      "title": "Advanced Drawing, Painting and Mixed Media",
+      "department": "Fine Arts—Visual Arts",
+      "description": "This course is designed to give students advanced experiences in creative thinking and problem-solving using 2D art media. In this class, students will build upon the concepts and skills learned in their Drawing, Painting, Studio Art and/or Mixed Media classes. Students can choose to focus on drawing, painting or mixed media either in a representational or expressive style, to produce works of art that relate to specific design issues and themes. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART621",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design and two of the following courses:"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART622",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design and two of the following courses:"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 49",
+      "isOnline": false
+    },
+    {
+      "title": "Advanced Ceramics, Metals and Sculpture",
+      "department": "Fine Arts—Visual Arts",
+      "description": "This course gives students advanced experiences in creative thinking and problem solving with 3D art issues and 3D art media. In this class, students can focus on ceramics, sculpture or jewelry and metals to produce works of art that relate to specific design issues and themes. This course may be repeated for credit.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART631",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design and two of the following courses:"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART632",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design and two of the following courses:"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 49",
+      "isOnline": false
+    },
+    {
+      "title": "AP Art: Drawing, 2D and 3D Design",
+      "department": "Fine Arts—Visual Arts",
+      "description": "This course offers students a concentrated program which enables them to apply for college credit in art. Emphasis is centered on studio work, the preparation of a portfolio and the submission of a portfolio for potential AP credit. In the spring, each student will exhibit their work in a one-person show. This course may be repeated for credit.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ART801",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Drawing, Painting and MIXED MEDIA"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART802",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Drawing, Painting and MIXED MEDIA"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 49",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 49: credit inference count = 8",
+    "Page 49: no graduation requirement headings found."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 10919,
+  "courseSignalCount": 176,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 176,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 3,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 1
+  },
+  "preview": "MTH151 MTH152 Algebra 1 (CP) .........................................................................................64 MTH171 MTH172 Algebra 2 AB/BC (CP) .......................................................................65 MTH251 MTH252 Geometry (CP) .........................................................................................64 MTH271 MTH272 Geometry AB/BC (CP) .......................................................................64 MTH351 MTH352 Algebra 2 (CP) ............."
+}

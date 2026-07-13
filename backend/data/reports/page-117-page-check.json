@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 5368,
+  "courseSignalCount": 99,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 99,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "TEC111 TEC112 Motion Graphics and Visual Effects (CP) ................42 TEC121 TEC122 Video Editing and Production (CP) ...................................42 TEC141 TEC142 ARCHITECTURAL DESIGN (CP) ........................................................38 TEC151 TEC152 introduction to Engineering Design–PLTW (CP) ...............................................................................38 TEC171 TEC172 WEB DEVELOPMENT 1 (CP) ...............................................................4"
+}

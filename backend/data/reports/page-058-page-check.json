@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4937,
+  "courseSignalCount": 25,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 5,
+    "gpa_waiver": 4
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 4,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MUSIC56 ORCHESTRA STEVENSON ORCHESTRA GPA WAIVER OPTION MUS301–Semester 1 MUS302–Semester 2 Open to: 9 Full Year Prerequisite: All incoming Freshman Orchestra students should register for this class Credit: College prep Note: All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals. This course is open to students in grade 9, as well as transfer students who demonstrate th"
+}

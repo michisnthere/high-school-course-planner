@@ -1,0 +1,143 @@
+{
+  "sourcePage": 62,
+  "departments": [
+    {
+      "name": "Fine Arts—Theatre",
+      "description": "SELF-AWARENESS AND CONFIDENCE AND TO EXPLORE"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Acting 1: Confidence and Collaboration",
+      "department": "Fine Arts—Theatre",
+      "description": "Acting 1: Confidence and Collaboration is an introductory theatre survey and performance- based class. This course emphasizes the basic skills and techniques of theatre artists including: ensemble collaboration, confidence and risk-taking, imagination, focus, performance, rehearsal and text analysis. These skills also prepare students for careers in all areas of entertainment, education, business, law and STEM. Techniques to be covered include warm-up activities and exercises, ensemble communication and collaboration, improvisation, pantomime, text interpretation, performance critique, character creation, and solo and scene performances, with an emphasis on transferability. Students interested in pursuing public performance opportunities will be encouraged to audition for department productions and to take advanced level theatre courses.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "THR101",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "THR102",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 62",
+      "isOnline": false
+    },
+    {
+      "title": "Entertainment Production and Design",
+      "department": "Fine Arts—Theatre",
+      "description": "Entertainment Production and Design takes students behind the scenes of theatre, film, TV, concerts, events and digital media. Areas of study include scenery, lighting, sound engineering, costumes, special effects makeup and production management. Students will collaborate with professional designers as they learn how to safely work in our state-of-the-art scenic (woodworking), costume and lighting shops. This is a hands-on and collaborative class where students will strengthen communication, problem- solving and leadership skills while gaining a comprehensive understanding of the production process in order to prepare for careers in entertainment, fashion, STEM and other creative and hands-on fields. This course may be repeated for credit; repeating students will have the opportunity to learn digital design programs including CAD, CNC router, laser printers, 3D printers, Illustrator, Cricut and production specific software including QLab, VectorWorks, lighting consoles, sound boards, networking for entertainment control systems, motorized rigging and more.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "THR121",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "THR122",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 62",
+      "isOnline": false
+    },
+    {
+      "title": "Acting 2: Character and Comedy",
+      "department": "Fine Arts—Theatre",
+      "description": "Acting 2: Character and Comedy builds upon the work of Acting 1: Confidence and Collaboration with a greater emphasis on building character through improv comedy as well as diverse scripted scene work. We will continue to build skills in performing, writing, analysis and ensemble. Successful completion of this course prepares students to enroll in Acting 3 and 4.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "THR111",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 1: Confidence and Collaboration"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "THR112",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Acting 1: Confidence and Collaboration"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 62",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 62: credit inference count = 6",
+    "Page 62: no graduation requirement headings found."
+  ]
+}

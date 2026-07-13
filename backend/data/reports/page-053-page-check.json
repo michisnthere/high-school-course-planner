@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3611,
+  "courseSignalCount": 24,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 12,
+    "duration": 3,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 3,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—DANCE 51 DANCE DEPARTMENT STEVENSON HIGH SCHOOL PROVIDES DANCE AS A CREATIVE AND REWARDING ART EXPERIENCE WHERE ARTISTIC INTEGRITY AND APPRECIATION ARE DEVELOPED. DANCE IS A PHYSICAL AND MENTAL DISCIPLINE. STUDENTS ARE PROVIDED OPPORTUNITIES TO DEVELOP BODY STRENGTH, AGILITY, COORDINATION, CREATIVE PROBLEM-SOLVING SKILLS, ORGANIZATIONAL SKILLS AND THE ABILITY TO WORK EFFECTIVELY IN COOPERATIVE LEARNING GROUPS. THEY GAIN SELF-CONFIDENCE, SELF-DISCIPLINE AND SATISFACTION IN MOVEMENT. STU"
+}

@@ -1,0 +1,1762 @@
+{
+  "sourceFile": "C:\\Users\\chell\\Documents\\high_school_course_planner\\Coursebook2026-27INTERACTIVE101725.pdf",
+  "startPage": 1,
+  "endPage": 121,
+  "pagesChecked": 121,
+  "pagesExtracted": 64,
+  "pagesSkipped": 57,
+  "classificationCounts": {
+    "front_matter_or_sparse_page": 1,
+    "unknown_or_non_course_content": 23,
+    "academic_policy_content": 23,
+    "course_listing_summary": 48,
+    "detailed_course_content": 26
+  },
+  "extractedPages": [
+    5,
+    6,
+    7,
+    18,
+    19,
+    20,
+    23,
+    24,
+    25,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    37,
+    38,
+    40,
+    41,
+    43,
+    44,
+    48,
+    49,
+    50,
+    51,
+    53,
+    54,
+    56,
+    57,
+    58,
+    59,
+    60,
+    62,
+    63,
+    66,
+    67,
+    68,
+    69,
+    70,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    86,
+    87,
+    88,
+    91,
+    92,
+    93,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    107,
+    119
+  ],
+  "skippedPages": [
+    {
+      "page": 1,
+      "classification": "front_matter_or_sparse_page"
+    },
+    {
+      "page": 2,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 3,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 4,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 8,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 9,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 10,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 11,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 12,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 13,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 14,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 15,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 16,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 17,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 21,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 22,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 26,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 27,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 28,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 35,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 36,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 39,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 42,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 45,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 46,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 47,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 52,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 55,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 61,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 64,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 65,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 71,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 72,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 73,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 84,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 85,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 89,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 90,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 94,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 95,
+      "classification": "course_listing_summary"
+    },
+    {
+      "page": 103,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 104,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 105,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 106,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 108,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 109,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 110,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 111,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 112,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 113,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 114,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 115,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 116,
+      "classification": "academic_policy_content"
+    },
+    {
+      "page": 117,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 118,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 120,
+      "classification": "unknown_or_non_course_content"
+    },
+    {
+      "page": 121,
+      "classification": "unknown_or_non_course_content"
+    }
+  ],
+  "uncertainPages": [
+    {
+      "page": 4,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 4: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 6,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 6 Civics and Patriotism: requirement value not numeric or not explicit.",
+        "Page 6 Driver Education: requirement value not numeric or not explicit.",
+        "Page 6 Economics or Personal Finance: requirement value not numeric or not explicit.",
+        "Page 6 Physical Welfare: requirement value not numeric or not explicit.",
+        "Page 6 ACT: requirement value not numeric or not explicit."
+      ]
+    },
+    {
+      "page": 8,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 8: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 9,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 9: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 10,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 10: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 11,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 11: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 13,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 13: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 16,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 16: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 18,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 18: credit inference count = 9",
+        "Page 18: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 19,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 19 Entrepreneurial Tactics: complex prerequisite text preserved in notes; review manually.",
+        "Page 19: credit inference count = 7",
+        "Page 19: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 20,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 20: credit inference count = 4",
+        "Page 20: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 21,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 21: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 23,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 23: credit inference count = 8",
+        "Page 23: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 24,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 24: credit inference count = 10",
+        "Page 24: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 25,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 25: credit inference count = 4",
+        "Page 25: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 27,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 27: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 29,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 29: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 30,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 30: credit inference count = 10"
+      ]
+    },
+    {
+      "page": 31,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 31: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 32,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 32: credit inference count = 7"
+      ]
+    },
+    {
+      "page": 33,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 33: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 34,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 34: credit inference count = 8",
+        "Page 34: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 37,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 37: credit inference count = 6",
+        "Page 37: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 38,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 38: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 40,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 40: credit inference count = 6",
+        "Page 40: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 41,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 41: credit inference count = 10"
+      ]
+    },
+    {
+      "page": 43,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 43: credit inference count = 12",
+        "Page 43: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 44,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 44: credit inference count = 6",
+        "Page 44: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 45,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 45: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 48,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 48: credit inference count = 12",
+        "Page 48: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 49,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 49: credit inference count = 8",
+        "Page 49: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 50,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 50: credit inference count = 8",
+        "Page 50: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 51,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 51: credit inference count = 10",
+        "Page 51: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 53,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 53: credit inference count = 6",
+        "Page 53: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 54,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 54: credit inference count = 10",
+        "Page 54: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 56,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 56: credit inference count = 4",
+        "Page 56: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 57,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 57: credit inference count = 10",
+        "Page 57: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 58,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 58: credit inference count = 8",
+        "Page 58: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 59,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 59: credit inference count = 6",
+        "Page 59: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 60,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 60: credit inference count = 10",
+        "Page 60: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 62,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 62: credit inference count = 6",
+        "Page 62: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 63,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 63: credit inference count = 8",
+        "Page 63: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 66,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 66: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 67,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 67: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 68,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 68: credit inference count = 4"
+      ]
+    },
+    {
+      "page": 69,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 69: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 70,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 70: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 71,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 71: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 74,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 74: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 75,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 75: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 76,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 76: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 77,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 77: credit inference count = 10"
+      ]
+    },
+    {
+      "page": 78,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 78: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 79,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 79: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 80,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 80: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 81,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 81: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 82,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 82: Missing department context for course 'Eld Faculty In The Multilingual Learning Division.' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+        "Page 82: Missing department context for course 'English Language Development (ELD) 2' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+        "Page 82: credit inference count = 4"
+      ]
+    },
+    {
+      "page": 83,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 83: Missing department context for course 'English Language Development (ELD) Language' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+        "Page 83: Missing department context for course 'English Language Development (ELD) Literature' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+        "Page 83: Missing department context for course 'Current Events' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+        "Page 83: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 84,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 84: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 86,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 86: credit inference count = 4"
+      ]
+    },
+    {
+      "page": 87,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 87: credit inference count = 7",
+        "Page 87: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 88,
+      "classification": "detailed_course_content",
+      "warnings": [
+        "Page 88: credit inference count = 10",
+        "Page 88: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 91,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 91: credit inference count = 14"
+      ]
+    },
+    {
+      "page": 92,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 92: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 93,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 93: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 94,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 94: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 96,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 96: credit inference count = 10"
+      ]
+    },
+    {
+      "page": 97,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 97: credit inference count = 10"
+      ]
+    },
+    {
+      "page": 98,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 98: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 99,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 99: credit inference count = 6"
+      ]
+    },
+    {
+      "page": 100,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 100: credit inference count = 8"
+      ]
+    },
+    {
+      "page": 101,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 101: credit inference count = 4"
+      ]
+    },
+    {
+      "page": 102,
+      "classification": "course_listing_summary",
+      "warnings": [
+        "Page 102: credit inference count = 2"
+      ]
+    },
+    {
+      "page": 103,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 103: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 107,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 107 Environment For Students To Meet: requirement value not numeric or not explicit."
+      ]
+    },
+    {
+      "page": 108,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 108: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 112,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 112: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 114,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 114: no graduation requirement headings found."
+      ]
+    },
+    {
+      "page": 116,
+      "classification": "academic_policy_content",
+      "warnings": [
+        "Page 116: no graduation requirement headings found."
+      ]
+    }
+  ],
+  "pageSummaries": [
+    {
+      "page": 1,
+      "classification": "front_matter_or_sparse_page",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 2,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 3,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 4,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 5,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 1,
+      "warnings": 0
+    },
+    {
+      "page": 6,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 11,
+      "warnings": 5
+    },
+    {
+      "page": 7,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 2,
+      "warnings": 0
+    },
+    {
+      "page": 8,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 9,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 10,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 11,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 12,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 13,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 14,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 15,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 16,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 17,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 18,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 19,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 3
+    },
+    {
+      "page": 20,
+      "classification": "detailed_course_content",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 21,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 22,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 23,
+      "classification": "detailed_course_content",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 24,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 25,
+      "classification": "detailed_course_content",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 26,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 27,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 28,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 29,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 30,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 31,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 32,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 33,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 34,
+      "classification": "detailed_course_content",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 35,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 36,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 37,
+      "classification": "detailed_course_content",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 38,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 39,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 40,
+      "classification": "detailed_course_content",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 41,
+      "classification": "course_listing_summary",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 42,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 43,
+      "classification": "detailed_course_content",
+      "courses": 6,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 44,
+      "classification": "detailed_course_content",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 45,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 46,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 47,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 48,
+      "classification": "detailed_course_content",
+      "courses": 6,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 49,
+      "classification": "detailed_course_content",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 50,
+      "classification": "detailed_course_content",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 51,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 52,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 53,
+      "classification": "detailed_course_content",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 54,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 55,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 56,
+      "classification": "detailed_course_content",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 57,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 58,
+      "classification": "detailed_course_content",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 59,
+      "classification": "detailed_course_content",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 60,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 61,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 62,
+      "classification": "detailed_course_content",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 63,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 64,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 65,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 66,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 67,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 68,
+      "classification": "course_listing_summary",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 69,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 70,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 71,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 72,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 73,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 74,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 75,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 76,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 77,
+      "classification": "course_listing_summary",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 78,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 79,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 80,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 81,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 82,
+      "classification": "course_listing_summary",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 3
+    },
+    {
+      "page": 83,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 4
+    },
+    {
+      "page": 84,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 85,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 86,
+      "classification": "course_listing_summary",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 87,
+      "classification": "detailed_course_content",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 88,
+      "classification": "detailed_course_content",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 2
+    },
+    {
+      "page": 89,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 90,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 91,
+      "classification": "course_listing_summary",
+      "courses": 7,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 92,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 93,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 94,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 95,
+      "classification": "course_listing_summary",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 96,
+      "classification": "course_listing_summary",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 97,
+      "classification": "course_listing_summary",
+      "courses": 5,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 98,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 99,
+      "classification": "course_listing_summary",
+      "courses": 3,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 100,
+      "classification": "course_listing_summary",
+      "courses": 4,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 101,
+      "classification": "course_listing_summary",
+      "courses": 2,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 102,
+      "classification": "course_listing_summary",
+      "courses": 1,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 103,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 104,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 105,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 106,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 107,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 1,
+      "warnings": 1
+    },
+    {
+      "page": 108,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 109,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 110,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 111,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 112,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 113,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 114,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 115,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 116,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 1
+    },
+    {
+      "page": 117,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 118,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 119,
+      "classification": "academic_policy_content",
+      "courses": 0,
+      "graduationRequirements": 1,
+      "warnings": 0
+    },
+    {
+      "page": 120,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    },
+    {
+      "page": 121,
+      "classification": "unknown_or_non_course_content",
+      "courses": 0,
+      "graduationRequirements": 0,
+      "warnings": 0
+    }
+  ],
+  "totalCourses": 225,
+  "totalCourseOfferings": 452,
+  "totalGraduationRequirements": 16,
+  "totalWarnings": 97,
+  "exportValidation": {
+    "totalCourses": 225,
+    "totalOfferings": 452,
+    "uniqueCourseCodes": 452,
+    "duplicateCourseCodes": 0,
+    "emptyCourseTitles": 0
+  }
+}

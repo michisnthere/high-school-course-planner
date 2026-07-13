@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4048,
+  "courseSignalCount": 26,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 11,
+    "duration": 5,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS28 SOPHOMORE ENGLISH ENG211–Semester 1 ENG212–Semester 2 Open to: 10 Full Year Prerequisite: None Credit: College prep ENG231–Semester 1 ENG232–Semester 2 Open to: 10 Full Year Prerequisite: None Credit: Accelerated In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme— the individual’s interaction and negotiation w"
+}

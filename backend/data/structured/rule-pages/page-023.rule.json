@@ -1,0 +1,180 @@
+{
+  "sourcePage": 23,
+  "departments": [
+    {
+      "name": "Family and Consumer Sciences",
+      "description": "STUDENTS DEVELOP SKILLS THAT ENHANCE THEIR LIVES TODAY AND IN THE FUTURE."
+    }
+  ],
+  "courses": [
+    {
+      "title": "Clothing and Design 1",
+      "department": "Family and Consumer Sciences",
+      "description": "Clothing and Design 1 is a lab-based course where students will learn fashion construction techniques, pattern and fabric selection and fashion presentation skills. Students will apply these techniques to their personal apparel and accessories. Projects include drawstring bag, sweatshirt and a project of student choice. Students who have sewing experience will have the opportunity to expand and improve their clothing construction skills.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS251",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS252",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 23",
+      "isOnline": false
+    },
+    {
+      "title": "Clothing and Design 2",
+      "department": "Family and Consumer Sciences",
+      "description": "Clothing and Design 2 is a continuation of the Clothing and Design 1 course curriculum. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs. Projects include tote bag and three projects of student choice. Clothing and Design 2 can be taken for more than one semester with an honors level and dual college credit option with Harper College. A/f_ter taking Clothing and Design 2 for three semesters, an Independent Study option is available.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS291",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Clothing and Design 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS292",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Clothing and Design 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 23",
+      "isOnline": false
+    },
+    {
+      "title": "Interior Design",
+      "department": "Family and Consumer Sciences",
+      "description": "Interior Design is a project-based course where design is explored as it relates to housing and commercial interiors. It integrates the application of design principles with the living environment, environmentally-friendly design, color and the efficient use of design in the context of individual and family lifestyles. Design projects include personal bedroom redesign, kitchen design, commercial design of a cafe, retail space or hotel lobby and a vacation home remodel. Emphasis is on using available resources effectively to meet individual and housing needs.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS231",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS232",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 23",
+      "isOnline": false
+    },
+    {
+      "title": "Business Of Fashion and Design",
+      "department": "Family and Consumer Sciences",
+      "description": "Business of Fashion and Design is a project-based course which focuses on the business side of the fashion industry, fashion design and the merchandising of fashion-related products. Topics include an overview of the fashion industry, product development, the evolution, trends and movement of the fashion cycle, visual merchandising, fashion promotion, fashion and accessory design. Students interested in learning more about the fashion industry should also consider taking the Clothing and Design courses. Business of Fashion and Design can be taken as a dual college credit course through Harper College and honors credit option is available.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS241",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS242",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 23",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 23: credit inference count = 8",
+    "Page 23: no graduation requirement headings found."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2953,
+  "courseSignalCount": 23,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 9,
+    "duration": 3,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 3,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET)42 MOTION GRAPHICS AND VISUAL EFFECTS GPA WAIVER OPTION TEC111–Semester 1 TEC112–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None credit: College prep In Motion Graphics and Visual Effects, students dive into the world of post-production magic using Adobe A/f_ter Effects. This advanced course focuses on bringing video to life through animation, compositing and special effects. Students will master key tools like keyframing, masking"
+}

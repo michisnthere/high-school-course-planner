@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3815,
+  "courseSignalCount": 0,
+  "policySignalCount": 13,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 3,
+    "requirement": 10,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FAFSA GRADUATION REQUIREMENT The Free Application for Federal Student Aid (FAFSA) is an application used by colleges and other post-secondary institutions to determine a student’s eligibility for need-based federal financial aid such as grants, loans and work-study programs. In accordance with Public Act 101-0180, students must complete one of the following steps in order to graduate from an Illinois public high school: ■ File a FAFSA; OR ■ File an alternative application for Illinois Financial "
+}

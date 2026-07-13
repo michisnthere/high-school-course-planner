@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3890,
+  "courseSignalCount": 35,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 16,
+    "duration": 5,
+    "gpa_waiver": 4
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 4,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MUSIC58 GENERAL MUSIC COURSES PIANO 1 GPA WAIVER OPTION MUS401–Semester 1 MUS402–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None credit: College prep This course is designed for students of all skill levels, from non-experienced through advanced. This class will introduce students to music notation, basic music theory, keyboard technique and music terminology through the study of keyboard repertoire. Students will work independently, collaboratively and with instructor g"
+}

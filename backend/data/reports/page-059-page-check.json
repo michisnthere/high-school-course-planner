@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3422,
+  "courseSignalCount": 19,
+  "policySignalCount": 7,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 7,
+    "duration": 3,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 7,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MUSIC 57 GUITAR GUITAR 1 GPA WAIVER OPTION MUS421–Semester 1 MUS422–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: None credit: College prep This course is designed for students who are interested in learning how to play the guitar and/or develop strong technical skills in guitar performance. While this course is designed for a brand new guitarist, it also supports students with some guitar experience. This course will introduce the techniques and musicianship skills in order t"
+}

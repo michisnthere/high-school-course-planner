@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 1396,
+  "courseSignalCount": 4,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 2,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 1,
+    "economics": 2
+  },
+  "preview": "SOCIAL STUDIES DIVISION BRAD SMITH, DIRECTOR | BSMITH/at.caseD125.ORG | 847-415-4651 Social Studies is the integrated study of the social sciences and humanities to promote civic competence. Within the school program, social studies provides a coordinated, systematic study drawing upon such disciplines as anthropology, archaeology, economics, geography, history, law, philosophy, political science, psychology, religion and sociology, as well as appropriate content from the humanities, mathematics"
+}

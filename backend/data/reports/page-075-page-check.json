@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 5068,
+  "courseSignalCount": 20,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "GERMAN 1 GRE101–Semester 1 GRE102–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: None credit: College prep German 1 is an introduction to German language and culture. Students begin to develop their competence in German across the three modes of communication: interpersonal, presentational and interpretative in the context of the following AP themes: Contemporary Life and Personal and Public Identities. Performance-based assessments in the presentational and interpersonal modes provide t"
+}

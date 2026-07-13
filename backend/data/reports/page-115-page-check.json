@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 11903,
+  "courseSignalCount": 211,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 211,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 1,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COURSE LIST BY NUMBER ART101 ART102 ART AND DESIGN (CP) ..........................................................................46 ART201 ART202 CERAMICS (CP) ...........................................................................................46 ART221 ART222 DRAWING (CP) ............................................................................................46 ART241 ART242 METALS AND JEWELRY (CP) ...........................................................47 ART261 ART262 PAINTING "
+}

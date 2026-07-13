@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4527,
+  "courseSignalCount": 23,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 7,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 12,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS30 PUBLIC SPEAKING ENG761–Semester 1 ENG762–Semester 2 Open to: 10-11-12 One Semester Prerequisite: NONE credit: College prep This course is designed to provide experience and training in public speaking so that students are equipped with the skills essential for success in the business and academic worlds of today and tomorrow. Students learn to tailor a message to suit a particular audience, enhance the message through technology, understand logic and reasoning, develop liste"
+}

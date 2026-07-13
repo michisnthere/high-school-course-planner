@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 736,
+  "courseSignalCount": 29,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 20,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 9,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—VISUAL ARTS44 Art and Design One-Semester Course ART101 or ART102 Drawing One-Semester Course ART221 or ART222 Painting One-Semester Course ART261 or ART262 Ceramics One-Semester Course ART201 or ART202 Sculpture One-Semester Course ART281 or ART282 Metals and Jewelry One-Semester Course ART241 or ART242 AP Art: Drawing, 2D and 3D Design Full-Year Course ART801/ART802 Mixed Media One-Semester Course ART611 or ART612 VISUAL ARTS COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK SCAN QR"
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 9909,
+  "courseSignalCount": 168,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 168,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS DANCE COURSE OFFERINGS DNC501 DNC502 CONCERT DANCE (H) .............................................................................52 DNC101 DNC102 DANCE 1 (CP) ................................................................................................51 DNC201 DNC202 DANCE 2 (CP) ..............................................................................................51 DNC301 DNC302 DANCE 3 (CP) .............................................................................."
+}

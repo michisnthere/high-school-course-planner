@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4259,
+  "courseSignalCount": 35,
+  "policySignalCount": 11,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 15,
+    "duration": 5,
+    "gpa_waiver": 5
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 11,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MUSIC 55 WIND SYMPHONY* GPA WAIVER OPTION MUS131–Semester 1 MUS132–Semester 2 Open to: 10-11-12 (Qualified Students) Full Year Prerequisite: Audition with BAND FACULTY Credit: College Prep Students in grades 10-12 with band experience may audition to enroll in Wind Symphony to continue work on comprehensive musicianship skills. Wind Symphony members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choos"
+}

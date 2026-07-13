@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4554,
+  "courseSignalCount": 26,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 11,
+    "duration": 5,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "LATIN 1 LAT101–Semester 1 LAT102–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: None credit: College prep Latin 1 focuses on learning the basics of Latin grammar, syntax and vocabulary. This course is designed to enable students to read materials in Latin with ease and understanding and to write original Latin sentences employing the vocabulary and grammatical structures learned. Additionally, basic prefixes, suffixes and roots of vocabulary words and word families will be studied. This "
+}

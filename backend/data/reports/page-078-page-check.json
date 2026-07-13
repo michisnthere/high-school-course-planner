@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4234,
+  "courseSignalCount": 20,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MANDARIN CHINESE 2 CHI211–Semester 1 CHI212–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director Credit: Accelerated In this course, students continue to work to develop their competence in Chinese across the three modes of communication in the context of the following AP themes: Contemporary Life, Families and Communities, Beauty and Aesthetics and Science and Technology. Performance- based assess"
+}

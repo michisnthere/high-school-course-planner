@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 1273,
+  "courseSignalCount": 20,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 18,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 1,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—DANCE50 DANCE COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK SCAN QR CODE TO READ MORE ABOUT FINE ARTS ONLINE: www.d125.org/arts Note: All incoming freshmen interested in an upper-level Dance course (Dance 2, 3 or 4) must attend a placement assessment in January. Based off the assessment, students will be given the appropriate level placement. All other students may register for Dance 1 with no audition necessary. All current placements are held in January/early February. Transfer "
+}

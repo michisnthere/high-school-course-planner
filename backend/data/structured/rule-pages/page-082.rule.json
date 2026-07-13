@@ -1,0 +1,102 @@
+{
+  "sourcePage": 82,
+  "departments": [],
+  "courses": [
+    {
+      "title": "Eld Faculty In The Multilingual Learning Division.",
+      "department": null,
+      "description": "This is a two-credit course for students in the ELD program at the beginning level who are new to the English language or have emerging English vocabulary and communication skills. The course meets two periods each day. Students work on developing and expanding their vocabulary, grammar, speaking, listening, reading and writing skills. Students will practice their writing skills in the context of the course readings and will start with basic sentence structures and end with essay writing. Speaking and listening will focus on proper pronunciation as well as interpersonal and presentational communication.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ELD161",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD162",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 82",
+      "isOnline": false
+    },
+    {
+      "title": "English Language Development (ELD) 2",
+      "department": null,
+      "description": "This is a two-credit course for students in the ELD program at the intermediate level. This course will meet two periods each day and instruction is entirely in English. Students will build on all four language domains (listening, speaking, reading and writing) across thematic units. Their writing skills move beyond paragraph construction to composing, revising and editing essays within various writing genres. Speaking and listening is practiced and assessed as students are expected to have conversational and presentational English speaking skills.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ELD261",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ELD262",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Proficiency as demonstrated on WIDA-screener/"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 82",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 82: Missing department context for course 'Eld Faculty In The Multilingual Learning Division.' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 82: Missing department context for course 'English Language Development (ELD) 2' (no header detected, no compatible carry-forward department, no course-code fallback match).",
+    "Page 82: credit inference count = 4"
+  ]
+}

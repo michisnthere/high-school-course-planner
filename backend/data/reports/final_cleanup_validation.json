@@ -1,0 +1,465 @@
+{
+  "pages": 59,
+  "courses": 225,
+  "offerings": 452,
+  "unique_codes": 452,
+  "duplicate_codes": 0,
+  "department_none_pages": [
+    20,
+    82,
+    83
+  ],
+  "remaining_suspicious_departments": [],
+  "department_names_with_digits": [],
+  "remaining_truncated_headers": [],
+  "online_courses": 5,
+  "online_examples": [
+    {
+      "page": 20,
+      "title": "Personal Finance",
+      "department": null,
+      "isOnline": true,
+      "codes": [
+        "BUS301",
+        "BUS302"
+      ]
+    },
+    {
+      "page": 41,
+      "title": "Principles Of Engineering–pl Tw",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "isOnline": true,
+      "codes": [
+        "TEC301",
+        "TEC302"
+      ]
+    },
+    {
+      "page": 44,
+      "title": "Virtual Reality",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "isOnline": true,
+      "codes": [
+        "TEC191",
+        "TEC192"
+      ]
+    },
+    {
+      "page": 98,
+      "title": "AP Comparative Government and Politics—Online",
+      "department": "Social Studies",
+      "isOnline": true,
+      "codes": [
+        "SOC63Q1",
+        "SOC63Q2"
+      ]
+    },
+    {
+      "page": 102,
+      "title": "AP Government–united States",
+      "department": "Social Studies",
+      "isOnline": true,
+      "codes": [
+        "SOC681",
+        "SOC682"
+      ]
+    }
+  ],
+  "examples": {
+    "20": [
+      {
+        "title": "Investment Management",
+        "department": null,
+        "isOnline": false,
+        "codes": [
+          "BUS361",
+          "BUS362"
+        ]
+      },
+      {
+        "title": "Personal Finance",
+        "department": null,
+        "isOnline": true,
+        "codes": [
+          "BUS301",
+          "BUS302"
+        ]
+      }
+    ],
+    "23": [
+      {
+        "title": "Clothing and Design 1",
+        "department": "Family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS251",
+          "FCS252"
+        ]
+      },
+      {
+        "title": "Clothing and Design 2",
+        "department": "Family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS291",
+          "FCS292"
+        ]
+      },
+      {
+        "title": "Interior Design",
+        "department": "Family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS231",
+          "FCS232"
+        ]
+      },
+      {
+        "title": "Business Of Fashion and Design",
+        "department": "Family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS241",
+          "FCS242"
+        ]
+      }
+    ],
+    "24": [
+      {
+        "title": "Food and Nutrition",
+        "department": "Applied Arts–family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS111",
+          "FCS112"
+        ]
+      },
+      {
+        "title": "Food Preparation",
+        "department": "Applied Arts–family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS221",
+          "FCS222"
+        ]
+      },
+      {
+        "title": "Gourmet Foods",
+        "department": "Applied Arts–family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS321",
+          "FCS322"
+        ]
+      },
+      {
+        "title": "Life By Design",
+        "department": "Applied Arts–family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS411",
+          "FCS412"
+        ]
+      },
+      {
+        "title": "Human Growth and Development",
+        "department": "Applied Arts–family and Consumer Sciences",
+        "isOnline": false,
+        "codes": [
+          "FCS211",
+          "FCS212"
+        ]
+      }
+    ],
+    "38": [
+      {
+        "title": "AP Computer Science Principles",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "CSC371",
+          "CSC372"
+        ]
+      },
+      {
+        "title": "Computer Science Algorithms",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "CSC421",
+          "CSC422"
+        ]
+      },
+      {
+        "title": "Mobile App Development",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "CSC251",
+          "CSC252"
+        ]
+      }
+    ],
+    "40": [
+      {
+        "title": "Architectural Design",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "TEC141",
+          "TEC142"
+        ]
+      },
+      {
+        "title": "Advanced Architectural Design",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "TEC241",
+          "TEC242"
+        ]
+      },
+      {
+        "title": "Introduction to Engineering Design–pl Tw",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "TEC151",
+          "TEC152"
+        ]
+      }
+    ],
+    "44": [
+      {
+        "title": "Motion Graphics and Visual Effects",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "TEC111",
+          "TEC112"
+        ]
+      },
+      {
+        "title": "Video Editing and Production",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": false,
+        "codes": [
+          "TEC121",
+          "TEC122"
+        ]
+      },
+      {
+        "title": "Virtual Reality",
+        "department": "Computer Science, Engineering and Technology (CSET)",
+        "isOnline": true,
+        "codes": [
+          "TEC191",
+          "TEC192"
+        ]
+      }
+    ],
+    "62": [
+      {
+        "title": "Acting 1: Confidence and Collaboration",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR101",
+          "THR102"
+        ]
+      },
+      {
+        "title": "Entertainment Production and Design",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR121",
+          "THR122"
+        ]
+      },
+      {
+        "title": "Acting 2: Character and Comedy",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR111",
+          "THR112"
+        ]
+      }
+    ],
+    "63": [
+      {
+        "title": "Acting 3",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR211"
+        ]
+      },
+      {
+        "title": "Acting 4",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR212"
+        ]
+      },
+      {
+        "title": "Advanced Acting",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR401",
+          "THR402"
+        ]
+      },
+      {
+        "title": "Theatre Leadership: Directing and Management",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR301",
+          "THR302"
+        ]
+      },
+      {
+        "title": "Leadership In Theatre Studies",
+        "department": "Fine Arts—Theatre",
+        "isOnline": false,
+        "codes": [
+          "THR601",
+          "THR602"
+        ]
+      }
+    ],
+    "82": [
+      {
+        "title": "Eld Faculty In The Multilingual Learning Division.",
+        "department": null,
+        "isOnline": false,
+        "codes": [
+          "ELD161",
+          "ELD162"
+        ]
+      },
+      {
+        "title": "English Language Development (ELD) 2",
+        "department": null,
+        "isOnline": false,
+        "codes": [
+          "ELD261",
+          "ELD262"
+        ]
+      }
+    ],
+    "83": [
+      {
+        "title": "English Language Development (ELD) Language",
+        "department": null,
+        "isOnline": false,
+        "codes": [
+          "ELD361",
+          "ELD362"
+        ]
+      },
+      {
+        "title": "English Language Development (ELD) Literature",
+        "department": null,
+        "isOnline": false,
+        "codes": [
+          "ELD371",
+          "ELD372",
+          "ELD461",
+          "ELD462"
+        ]
+      },
+      {
+        "title": "Current Events",
+        "department": null,
+        "isOnline": false,
+        "codes": [
+          "ELD561",
+          "ELD562"
+        ]
+      }
+    ],
+    "98": [
+      {
+        "title": "AP Comparative Government and Politics",
+        "department": "Social Studies",
+        "isOnline": false,
+        "codes": [
+          "SOC631",
+          "SOC632"
+        ]
+      },
+      {
+        "title": "AP Comparative Government and Politics—Online",
+        "department": "Social Studies",
+        "isOnline": true,
+        "codes": [
+          "SOC63Q1",
+          "SOC63Q2"
+        ]
+      },
+      {
+        "title": "U.S. History",
+        "department": "Social Studies",
+        "isOnline": false,
+        "codes": [
+          "SOC321",
+          "SOC322"
+        ]
+      },
+      {
+        "title": "AP U.S. History",
+        "department": "Social Studies",
+        "isOnline": false,
+        "codes": [
+          "SOC621",
+          "SOC622"
+        ]
+      }
+    ],
+    "99": [
+      {
+        "title": "AP English Language and Composition)",
+        "department": "Social Studies",
+        "isOnline": false,
+        "codes": [
+          "SOC581",
+          "SOC582"
+        ]
+      },
+      {
+        "title": "Economics",
+        "department": "Social Studies",
+        "isOnline": false,
+        "codes": [
+          "SOC411",
+          "SOC412"
+        ]
+      },
+      {
+        "title": "Sociology",
+        "department": "Social Studies",
+        "isOnline": false,
+        "codes": [
+          "SOC571",
+          "SOC572"
+        ]
+      }
+    ],
+    "102": [
+      {
+        "title": "AP Government–united States",
+        "department": "Social Studies",
+        "isOnline": true,
+        "codes": [
+          "SOC681",
+          "SOC682"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "sourcePage": 6,
+  "departments": [],
+  "courses": [],
+  "graduationRequirements": [
+    {
+      "name": "Civics and Patriotism",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students who pass their required government course satisfy the one-semester state civics requirement. Students must also pass specific assessments on Patriotism and Principles of Representative Government in their required government course to satisfy the state requirement for graduation."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Driver Education",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [
+        "may be satisfied by: completing Driver Education at"
+      ],
+      "notes": [
+        "The State of Illinois Driver Education requirement may be satisfied by: completing Driver Education at Stevenson, submitting a Certificate of Successful Completion from a commercial school or submitting a copy of the student’s Illinois driver’s license if issued prior to age 18. Students must earn eight credits in their previous two semesters in order to be eligible for Driver Education."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Elective",
+      "category": "Graduation Requirement",
+      "requirementType": "credits",
+      "requiredValue": 2.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "At least two elective semester credits must come from any of the following divisions: Applied Arts, Fine Arts, Multilingual Learning and/or Computer Science, Engineering and Technology."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Economics or Personal Finance",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [
+        "Economics, AP Macroeconomics, AP Microeconomics",
+        "Personal Finance"
+      ],
+      "waiverRules": [],
+      "notes": [
+        "Students must complete a semester of economics or personal finance. This requirement can be fulfilled by one of the following courses: Economics, AP Macroeconomics, AP Microeconomics or Personal Finance."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "English",
+      "category": "Graduation Requirement",
+      "requirementType": "credits",
+      "requiredValue": 8.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Eight credits are required for graduation which should be taken one per semester unless a student is planning to graduate early. For these classes, two writing-intensive courses are required. These courses will be detailed in the course descriptions."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Health",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 1.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "One semester/credit of Health Education is required for graduation, including participation in a unit on Adult CPR."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Mathematics",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 6.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "At least six semesters/credits are required for graduation, including algebra and at least one course with geometry content."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Physical Welfare",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [
+        "waiver (see Athletic Waiver Policy)",
+        "Color Guard waiver",
+        "■ The senior student receives an academic waiver",
+        "Refer to the section on waiver policies for more specific",
+        "any waivers."
+      ],
+      "notes": [
+        "AND WAIVERS Students must participate in Physical Education during each semester they are enrolled in school unless: ■ The student is enrolled in Dance ■ The student is enrolled in Health Education (for the first time) ■ The student is enrolled in Applied Health ■ The student is enrolled in Driver Education (for the first time) ■ The junior or senior student receives an athletic waiver (see Athletic Waiver Policy) ■ The student receives a Marching Band or Color Guard waiver ■ The senior student receives an academic waiver Refer to the section on waiver policies for more specific information. Note: Students may elect to stay in Physical Education and forfeit any waivers."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Science",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 4.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Students must complete two semesters of a biological science and two semesters of a physical science in order to graduate."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "Social Studies",
+      "category": "Graduation Requirement",
+      "requirementType": "credits",
+      "requiredValue": 5.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "Social studies graduation requirements are course specific and include two semesters/credits of U.S. History (or AP U.S. History); two semesters/credits of World History and Geography; one semester/credit of Government (or AP United States Government and Politics), including passing specific assessments on Patriotism and Principles of Representative Government in their required government course to satisfy the state requirement for graduation."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    },
+    {
+      "name": "ACT",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "The ACT is the state’s high school accountability exam in Illinois. All students in public high schools are required to participate in the ACT Suite of Assessments. Stevenson High School adheres to the requirements of the Illinois State Board of Education (ISBE) and will administer the Digital PreACT 9 to all freshman students, Digital PreACT to all sophomore students and the Digital School-day ACT to all junior students. It is important to note that the school-day ACT given to juniors in the spring is a graduation requirement in the State of Illinois. No other ACT administration fulfills this requirement. ACT scores are not included on a student’s transcript. For information on the Suite of Assessments and more detail on the timeline of these exams, please visit Stevenson’s website at: www.d125.org."
+      ],
+      "sourceReference": "Graduation Requirements (page 6)"
+    }
+  ],
+  "warnings": [
+    "Page 6 Civics and Patriotism: requirement value not numeric or not explicit.",
+    "Page 6 Driver Education: requirement value not numeric or not explicit.",
+    "Page 6 Economics or Personal Finance: requirement value not numeric or not explicit.",
+    "Page 6 Physical Welfare: requirement value not numeric or not explicit.",
+    "Page 6 ACT: requirement value not numeric or not explicit."
+  ]
+}

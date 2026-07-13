@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2163,
+  "courseSignalCount": 19,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 10,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "SCIENCE 91 AP ENVIRONMENTAL SCIENCE SCI641–Semester 1 SCI642–Semester 2 Open to: 11-12 Full Year Prerequisite: NONE Credit: Honors Biological science, honors physical science In this lab-based course, students explore earth systems, ecology, populations, energy use, global warming and pollution. Students will work collaboratively and engage with the science and engineering practices. This course takes field trips throughout the year. Students who enroll in this course will be prepared to take th"
+}

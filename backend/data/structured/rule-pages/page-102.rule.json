@@ -1,0 +1,54 @@
+{
+  "sourcePage": 102,
+  "departments": [
+    {
+      "name": "Social Studies",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "AP Government–united States",
+      "department": "Social Studies",
+      "description": "AP Government–United States can also be taken in an asynchronous online setting while fulfilling the same curricular requirements. Instructional activities are adjusted for an asynchronous online instructional setting. There will be no regular physical class meeting period or time. Activities and assignments will have daily due dates. Students will receive regular individualized feedback from the teacher. Common AP Government team assessments will be conducted in-person during the school day in the testing center. Daily in-person office hours with the teacher will be available for all students enrolled in the course. In-person remediation may be required by the teacher as needed on an individual student basis during office hours.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC681",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography, U.S. History"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC682",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography, U.S. History"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 102",
+      "isOnline": true
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 102: credit inference count = 2"
+  ]
+}

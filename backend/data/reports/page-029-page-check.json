@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 3979,
+  "courseSignalCount": 20,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS 27 ENGLISH 9: BELONGING AND BECOMING: STORIES, CUL TURE AND POSSIBILITY ENG141–Semester 1 ENG142–Semester 2 Open TO: 9 Full Year Prerequisite: None Credit: COLLEGE PREP Explore how our journey, family and community shape where our stories begin and the paths we might take. Students develop proficiencies in the areas of reading, literary analysis, writing, grammar and usage, oral communication and research. Students explore the overarching themes of the course through short sto"
+}

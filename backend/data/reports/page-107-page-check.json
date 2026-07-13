@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3797,
+  "courseSignalCount": 0,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "STUDY SKILLS PROGRAM Study Skills is a special education course for students with Individualized Education Plans (IEPs). It provides specialized instruction in areas of identified disabilities and fosters independence and self-awareness. Students will work toward achieving their annual IEP goals and post-secondary outcomes. INSTRUCTIONAL COURSES Special education instructional courses are designed to meet the needs of students who require specialized instruction in the courses required for gradu"
+}

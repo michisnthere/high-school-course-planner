@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4469,
+  "courseSignalCount": 22,
+  "policySignalCount": 12,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 22,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 3,
+    "requirement": 4,
+    "waiver": 0,
+    "physical_education": 1,
+    "drivers_ed": 2,
+    "civics": 0,
+    "economics": 2
+  },
+  "preview": "College-bound students should schedule a minimum of four academic units each semester. Academic units include Communication Arts, Mathematics, Science, Social Studies and Multilingual Learning courses. Certain colleges may require additional electives in Fine Arts or Applied Arts for admission. Students are strongly encouraged to contact colleges to determine admission requirements. Students should see their counselor for personalized assistance. FOUR-YEAR COURSE PLAN WORKSHEET NAME DATE COUNSEL"
+}

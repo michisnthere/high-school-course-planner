@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3504,
+  "courseSignalCount": 21,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 9,
+    "duration": 3,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 3,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—THEATRE60 THEATRE DEPARTMENT THEATRE CLASSES AT STEVENSON FEATURE A SEQUENTIAL AND CUMULATIVE CURRICULUM WHICH ALLOWS STUDENTS TO DEVELOP THEATRICAL SKILLS WHILE EXPLORING THEIR UNIQUE CREATIVITY AND CONSIDERING SOCIAL AND HISTORICAL CONTEXT AND IMPACT. SOME COURSES INCLUDE A PUBLIC PERFORMANCE COMPONENT. WHILE THEATRE COURSES CAN PROVIDE PRE-PROFESSIONAL TRAINING FOR STUDENTS, THE ULTIMATE GOALS ARE TO DEVELOP 21ST CENTURY TRANSFER SKILLS, TO HAVE FUN CREATING ART, TO DEVELOP ENSEMBLE"
+}

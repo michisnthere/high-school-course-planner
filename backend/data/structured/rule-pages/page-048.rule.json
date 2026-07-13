@@ -1,0 +1,282 @@
+{
+  "sourcePage": 48,
+  "departments": [
+    {
+      "name": "Fine Arts",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Art and Design",
+      "department": "Fine Arts",
+      "description": "This foundational course introduces students to essential techniques, tools and media across the visual arts. Students will explore drawing, painting, sculpture and ceramics through hands-on studio experiences that emphasize creative thinking and technical development. This course serves as a prerequisite for all advanced art classes.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART101",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART102",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 48",
+      "isOnline": false
+    },
+    {
+      "title": "Drawing",
+      "department": "Fine Arts",
+      "description": "This course provides students with the opportunity to learn more advanced realistic drawing and shading techniques. Observational drawing and inventive design are explored. Various color and black and white media are used in this course.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART221",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART222",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 48",
+      "isOnline": false
+    },
+    {
+      "title": "Painting",
+      "department": "Fine Arts",
+      "description": "This course teaches students the concepts, skills, methods and processes necessary to explore watercolor and oil painting. Students create a variety of compositions through both quick studies and extended complex paintings. There is an emphasis on color theory, design principles, media, tools and a variety of painting techniques.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART261",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART262",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 48",
+      "isOnline": false
+    },
+    {
+      "title": "Mixed Media",
+      "department": "Fine Arts",
+      "description": "This course will help students develop their individual expression through the use of creative visual problem-solving. Students will use colored pencil, pastel, ink pen, watercolor and other media, students will be challenged to think creatively, work more quickly and experiment with different techniques and compositional approaches.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART611",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART612",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 48",
+      "isOnline": false
+    },
+    {
+      "title": "Ceramics",
+      "department": "Fine Arts",
+      "description": "This course is a hands-on class designed for those students who like to work in clay. Students will learn basic and advanced hand-building techniques and how to use a potter’s wheel. They will be introduced to a variety of decorating, glazing and firing techniques and will produce a number of creative stoneware pieces.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART201",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART202",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 48",
+      "isOnline": false
+    },
+    {
+      "title": "Sculpture",
+      "department": "Fine Arts",
+      "description": "This course provides a hands-on approach for understanding contemporary sculpture. Students will have the opportunity to work with a variety of 3D media. Sculptural techniques explored may include additive, subtractive and/or assemblage, with a focus on creative problem-solving.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART281",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART282",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Art and Design"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 48",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 48: credit inference count = 12",
+    "Page 48: no graduation requirement headings found."
+  ]
+}

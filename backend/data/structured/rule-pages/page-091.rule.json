@@ -1,0 +1,294 @@
+{
+  "sourcePage": 91,
+  "departments": [
+    {
+      "name": "Science",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Biology",
+      "department": "Science",
+      "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students’ graduation requirement for two semesters of biological",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI111",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Biological Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI112",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Biological Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    },
+    {
+      "title": "Chemistry",
+      "department": "Science",
+      "description": "In this lab-based course, students explore atomic structure, the periodic table, intermolecular forces, thermodynamics, types of reactions, reaction rates, equilibrium and acids and bases. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI211",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI212",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    },
+    {
+      "title": "Earth Science",
+      "department": "Science",
+      "description": "In this lab-based course, students explore minerals, rocks, plate tectonics, earthquakes, volcanoes, weathering, running water, glaciers, wind, atmospheric science and astronomy. Students will work collaboratively and engage with the science and engineering practices, applying their learning in several hands-on engineering projects across the year. This course can fulfill students’ graduation requirement for two semesters of physical science.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI271",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI272",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    },
+    {
+      "title": "Physics",
+      "department": "Science",
+      "description": "In this lab-based course, students explore constant and changing velocity, forces, energy, momentum, electrostatics, electricity and magnetism, circuits and waves. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical in engineering.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI401",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI402",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    },
+    {
+      "title": "Horticul Ture",
+      "department": "Science",
+      "description": "In this lab-based course, students explore plant structure, function, ecology and cultivation. Students will work collaboratively and engage with the science and engineering practices, including frequent visits and learning in Stevenson’s greenhouse and green roof environments. This course does not satisfy the life science graduation requirement, but it is beneficial for students who are interested in learning more about plants and plant propagation.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI531",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Biological Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI532",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep Biological Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    },
+    {
+      "title": "Science Research",
+      "department": "Science",
+      "description": "In this lab-based course, students explore scientific inquiry and research methods. Students will work collaboratively and engage with the science and engineering practices. In this course, students design and conduct experiments, analyze data and present findings for their original research project that will be entered into symposia, competitions and publications.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI351",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None PASS/FAIL COURSE"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep Elective Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI352",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "None PASS/FAIL COURSE"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep Elective Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    },
+    {
+      "title": "Human Anatomy and Physiology",
+      "department": "Science",
+      "description": "In this lab-based course, students go beyond basic biology of human body systems and delve into the complex relationships required to maintain homeostasis. Students will work collaboratively and engage with the science and engineering practices. In this course students conduct dissections. This course does not satisfy the life science graduation requirement, but it is beneficial for students considering careers in health-related fields.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI521",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Accelerated Biological Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI522",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Accelerated Biological Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 91",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 91: credit inference count = 14"
+  ]
+}

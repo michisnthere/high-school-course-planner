@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3548,
+  "courseSignalCount": 26,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 18,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 5,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 2,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS66 AP PRECALCULUS MTH411–Semester 1 MTH412–Semester 2 Open to: 10-11-12 Full Year Prerequisite: PRECALCULUS OR ALGEBRA 2 AB/BC Credit: Honors AP Precalculus AB (MTH411/412) is aligned with the College Board’s expectations to prepare students for future studies in calculus. The course design prepares students for the College Board AP Precalculus Exam. This course is ideal for students preparing to complete one semester of college calculus in high school or enroll in calculus a/f_ter gr"
+}

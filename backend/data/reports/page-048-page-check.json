@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3589,
+  "courseSignalCount": 42,
+  "policySignalCount": 6,
+  "courseSignals": {
+    "course_code": 12,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 18,
+    "duration": 6,
+    "gpa_waiver": 6
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 6,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—VISUAL ARTS46 VISUAL ARTS DEPARTMENT THE ACTIVITIES IN ART CLASSES ARE DESIGNED TO DEVELOP SKILLS OF PERCEPTION, PROBLEM SOLVING, UNDERSTANDING AND SENSITIVITY THROUGH A VARIETY OF EXPERIENCES. THE AIM OF THE ART CURRICULUM IS TO GIVE STUDENTS AN UNDERSTANDING AND APPRECIATION FOR THE ENDLESS AND CONSTANT RESULTS OF ARTISTIC EFFORTS WHICH SURROUND US IN OUR DAILY LIVES. THE UNIQUE CHARACTER OF THE ART CURRICULUM PROVIDES STUDENTS AN OPPORTUNITY TO EXPRESS AND NURTURE THEIR CREATIVE INS"
+}

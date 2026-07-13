@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 663,
+  "courseSignalCount": 22,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 14,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—THEATRE 59 Acting 1: Confidence and Collaboration One-Semester Course THR101 or THR102 Entertainment Production and Design One-Semester Course THR121 or THR122 Acting 2: Character and Comedy One-Semester Course THR111 or THR112 Acting 3 Semester 1 Course Only THR211 Acting 4 Semester 2 Course Only THR212 Advanced Acting One-Semester Course THR401 or THR402 Theatre Leadership: Directing and Management One-Semester Course THR301 or THR302 Leadership in Theatre Studies One-Semester Course"
+}

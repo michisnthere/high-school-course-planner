@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1079,
+  "courseSignalCount": 30,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 20,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 10,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "TECHNOLOGY TODAY, STUDENTS NEED TO BE PROFICIENT WITH TECHNOLOGY IN ALL ASPECTS OF THEIR PROFESSIONAL AND PERSONAL LIVES. THE TECHNOLOGY COURSES OFFERED WITHIN THIS PROGRAM ARE FOCUSED ON TEACHING STUDENTS THE KNOWLEDGE AND SKILLS THEY NEED TO ADAPT TO NEW TECHNOLOGY AS IT UNFOLDS. STUDENTS CAN FIND THEIR PASSION IN ONE OF THESE FOUR AREAS: PRINT MEDIA, WEB DEVELOPMENT, GAME DEVELOPMENT AND VIDEO PRODUCTION. COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET)40 Virtual Reality One-Semester Cours"
+}

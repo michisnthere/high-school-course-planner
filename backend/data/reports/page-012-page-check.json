@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4126,
+  "courseSignalCount": 0,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "ADLAI E. STEVENSON HIGH SCHOOL10 TRANSCRIPTS Students may request transcripts by logging onto www.parchment.com. Some transcripts might require a fee to be submitted online prior to the request being processed. College admission test scores are not included on the transcripts. Students must request these test scores to be sent directly to colleges and universities. This may be done through the various testing agencies’ websites. For information regarding ACT test scores, visit: https://www.act.o"
+}

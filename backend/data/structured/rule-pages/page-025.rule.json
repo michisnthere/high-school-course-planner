@@ -1,0 +1,102 @@
+{
+  "sourcePage": 25,
+  "departments": [
+    {
+      "name": "Applied Arts–family and Consumer Sciences",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Teaching Young Children 1",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "Teaching Young Children 1 offers students the opportunity to enhance their understanding of child development while interacting with the children in the Little Patriots Lab School. Students will focus on creating and implementing developmentally appropriate lessons, interacting positively with children and observing children’s development. This course provides a valuable opportunity for students to begin their exploration of career fields that work directly with children and families.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS311",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Human Growth and Development"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS312",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Human Growth and Development"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 25",
+      "isOnline": false
+    },
+    {
+      "title": "Teaching Young Children 2",
+      "department": "Applied Arts–family and Consumer Sciences",
+      "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with the children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children’s developmental progress. This course provides a valuable opportunity for students to continue their exploration of education or career fields that work directly with children and families. Teaching Young Children 2 can be taken more than one semester with a dual college credit and honors credit option available.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "FCS331",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Teaching Young Children 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "FCS332",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Teaching Young Children 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 25",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 25: credit inference count = 4",
+    "Page 25: no graduation requirement headings found."
+  ]
+}

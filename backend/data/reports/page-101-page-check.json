@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3830,
+  "courseSignalCount": 15,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 4,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 2,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "SOCIAL STUDIES 99 POLITICAL THOUGHT AND ITS LITERATURE SOC561–Semester 1 SOC562–Semester 2 Open to: 12 One Semester Prerequisite: U.S. History and Junior English Credit: College prep This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching theme"
+}

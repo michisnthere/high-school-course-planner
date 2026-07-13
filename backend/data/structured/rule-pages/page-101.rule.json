@@ -1,0 +1,93 @@
+{
+  "sourcePage": 101,
+  "departments": [
+    {
+      "name": "Social Studies",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Political Thought and Its Literature",
+      "department": "Social Studies",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching themes of the course—the individual’s understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a world view and what it means to be a political scientist.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC561",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History and Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC562",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History and Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 101",
+      "isOnline": false
+    },
+    {
+      "title": "AP Psychology",
+      "department": "Social Studies",
+      "description": "AP Psychology is also offered in a blended learning setting. The same course requirements are met. The blended format is a combination of traditional in-person classroom instruction, small group or individualized sessions and asynchronous learning activities during class time. Students still meet for a period of AP Psychology at a set period each day with the teacher determining for students the type of class setting for the day. Most weeks the course meets in person on two or three days each week for face-to-face instruction. On non-face-to-face days, the instructor will be in the classroom and available to answer questions or offer additional support while students are doing work in the classroom or other designated locations around the school building. If a student is absent on an in-person day they must meet with the instructor on the next non-attendance day. This blended AP Psychology course will involve using technology to provide every student with a more unique learning experience, including greater individual autonomy with regards to the location, pace and time when learning occurs.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC661",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography, U.S. History"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC662",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography, U.S. History"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 101",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 101: credit inference count = 4"
+  ]
+}

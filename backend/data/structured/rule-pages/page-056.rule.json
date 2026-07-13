@@ -1,0 +1,100 @@
+{
+  "sourcePage": 56,
+  "departments": [
+    {
+      "name": "Fine Arts",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Freshman Band*",
+      "department": "Fine Arts",
+      "description": "All incoming freshmen with middle school band experience may enroll in Freshman Band to continue work on their comprehensive musicianship skills. Freshman Band members also perform in three formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Symphonic Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P .E. waiver for the first semester.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "MUS101",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "Prior Band experience",
+            "approval"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS102",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9
+          ],
+          "prerequisites": [
+            "Prior Band experience",
+            "approval"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 56",
+      "isOnline": false
+    },
+    {
+      "title": "Symphonic Band*",
+      "department": "Fine Arts",
+      "description": "Students in grades 10-12 with band experience in Freshman Band may enroll in Symphonic Band to continue work on comprehensive musicianship skills. Symphonic Band members also perform in four formal concerts throughout the year. For the first eight to nine weeks of the first semester, band students may choose to perform in the highly acclaimed Marching Patriots with members of the Freshman Band, Wind Symphony and Wind Ensemble. Students electing to participate in Marching Band may receive a P .E. waiver for the first semester. This course may be repeated for credit. * IMPORTANT NOTE FOR ALL BAND CLASSES: In order to earn a P .E. waiver, all band students who participate in the Marching Patriots must be available for rehearsals during summer and fall evenings. Students must also obtain all necessary GPA waiver approvals.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "MUS121",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MUS122",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Audition with band faculty"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 56",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 56: credit inference count = 4",
+    "Page 56: no graduation requirement headings found."
+  ]
+}

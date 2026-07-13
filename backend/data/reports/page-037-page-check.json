@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4071,
+  "courseSignalCount": 36,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 18,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 13,
+    "duration": 3,
+    "gpa_waiver": 2
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 2,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 35 COMPUTER SCIENCE COMPUTER SCIENCE COURSES ARE DESIGNED TO ENGAGE STUDENTS IN THE WORLD OF COMPUTER PROGRAMMING, NO EXPERIENCE REQUIRED. THE HANDS-ON COMPUTER-BASED CURRICULA INTRODUCES STUDENTS TO PROGRAMMING LANGUAGES LIKE PYTHON AND JAVA, AS WELL AS PROVIDING OPPORTUNITIES TO EXPLORE HOW CODING CONNECTS TO THEIR OWN LIVES. ADVANCED PLACEMENT (AP) COURSE OPTIONS ARE AVAILABLE WITHIN THIS PROGRAM. COMPUTER PROGRAMMING 1 GPA WAIVER OPTION CSC"
+}

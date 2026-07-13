@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 3502,
+  "courseSignalCount": 24,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 13,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 7,
+    "duration": 3,
+    "gpa_waiver": 1
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 1,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET)36 AP COMPUTER SCIENCE PRINCIPLES CSC371–Semester 1 CSC372–Semester 2 Open to: 10-11-12 Full Year Prerequisite: ALGEBRA 1 credit: honors AP Computer Science Principles is a college-level computing course that introduces students to the breadth of the computer science field. Students learn to design/evaluate computing solutions and apply computer science to solve problems through algorithms and event-driven JavaScript program development. Student"
+}

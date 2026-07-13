@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4020,
+  "courseSignalCount": 24,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 10,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 1,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "ENGLISH LANGUAGE DEVELOPMENT (ELD) 3 LANGUAGE ELD361–Semester 1 ELD362–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: Proficiency as demonstrated on WIDA-screener/ ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval Credit: College prep Note: May be taken concurrently with English Language Development (ELD) 3 Literature This is one of two courses available for students in the ELD program at the advanced level. This course may be ta"
+}

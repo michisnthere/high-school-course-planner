@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1394,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "ADLAI E. STEVENSON ADLAI E. STEVENSON HIGH SCHOOL | HOME OF THE PATRIOTS ADLAI E. STEVENSON, THEN GOVERNOR OF ILLINOIS, SPEAKS WITH PRESIDENT HARRY TRUMAN IN THE OVAL OFFICE. WHO WAS ADLAI E. STEVENSON? Adlai Ewing Stevenson II (February 5, 1900–July 14, 1965) was one of the most famous public figures in America during the middle of the 20th century. He was the Democratic Party nominee for president of the United States in 1952 and 1956, served one term as governor of the state of Illinois (1948"
+}

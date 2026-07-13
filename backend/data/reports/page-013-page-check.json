@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2932,
+  "courseSignalCount": 2,
+  "policySignalCount": 22,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 3,
+    "waiver": 12,
+    "physical_education": 6,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "NATIONAL HONOR SOCIETY The four pillars of National Honor Society are: leadership, character, service and scholarship. Sophomores and juniors with a cumulative 3.90 weighted grade point average are reviewed for membership in National Honor Society by a faculty council selected by the principal. The faculty council reviews leadership, service and character for the selection process as per the National Association of Secondary School Principals’ Constitution. Members are expected to attend all gen"
+}

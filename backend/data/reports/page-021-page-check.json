@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3228,
+  "courseSignalCount": 8,
+  "policySignalCount": 16,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 6,
+    "duration": 2,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 2,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 14,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPLIED ARTS–DRIVER EDUCATION 19 DRIVER EDUCATION DRIVER EDUCATION D/E231–Semester 1 D/E232–Semester 2 Open to: 10-11-12 One Semester Prerequisite: AN INSTRUCTION PERMIT ISSUED BY THE SECRETARY OF STATE’S OFFICE THROUGH DRIVER EDUCATION, PARENTAL CONSENT, VERIFICATION OF AGE (ENROLLMENT IS BASED ON CHRONOLOGICAL AGE and GRADE LEVEL) AND ACCUMULATION OF AT LEAST EIGHT CREDITS IN THE PREVIOUS TWO SEMESTERS. Students in the ELD program must be enrolled in ELD 2 or higher to register for Driver Educ"
+}

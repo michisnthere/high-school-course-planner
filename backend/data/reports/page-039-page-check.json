@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 681,
+  "courseSignalCount": 16,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 16,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 37 ENGINEERING AND ARCHITECTURE COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK Principles of Engineering–PL TW Full-Year Course TEC301/TEC302 Introduction to Engineering Design– PL TW Full-Year Course TEC151/TEC152 Electrical Engineering–PL TW Full-Year Course TEC291/TEC292 Architectural Design Full-Year Course TEC141/TEC152 Computer Integrated Manufacturing–PL TW Full-Year Course TEC351/TEC352 Civil Engineering and Architecture– PL TW Full"
+}

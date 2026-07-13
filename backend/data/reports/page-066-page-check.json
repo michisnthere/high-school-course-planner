@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 3351,
+  "courseSignalCount": 28,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 19,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 6,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS64 ALGEBRA 1 MTH151–Semester 1 MTH152–Semester 2 Open to: 9-10 Full Year Prerequisite: Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8) Credit: College prep Algebra 1 (MTH151/152) helps students develop proficiency in algebraic thinking. Students will explore overarching ideas of patterns of change (constant, linear and multiplicative), mathematical representations (verbal, algebraic, graphical and numeric), models (real-world scenarios in and ou"
+}

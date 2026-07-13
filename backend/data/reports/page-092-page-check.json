@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2615,
+  "courseSignalCount": 24,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 12,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 2,
+    "requirement": 2,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "EARTH SCIENCE DUAL CREDIT DUAL CREDIT AVAILABLE AT NO COST THROUGH COLLEGE OF LAKE COUNTY SCI671–Semester 1 SCI672–Semester 2 Open to: 10-11-12 Full Year Prerequisite: NONE Credit: Honors (Dual Credit) Physical Science In this lab-based course, students explore geology, meteorology and astronomy. Students will work collaboratively and engage with the science and engineering practices. This course is a dual-credit, college-level science course where students can earn college credit hours at no co"
+}

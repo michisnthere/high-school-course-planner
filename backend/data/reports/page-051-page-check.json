@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3281,
+  "courseSignalCount": 33,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 14,
+    "duration": 5,
+    "gpa_waiver": 4
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 4,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MEDIA ARTS 49 DIGITAL ART AND DESIGN 1 GPA WAIVER OPTION ART501–Semester 1 ART502–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None credit: College prep Note: Students may use their own Apple Pencil; however, students may check out a school-owned Apple Pencil for assignments. This course is designed to introduce students to Adobe Photoshop and Procreate as drawing and graphic design tools and as a means of producing finished artwork. Students will have the opportunity to d"
+}

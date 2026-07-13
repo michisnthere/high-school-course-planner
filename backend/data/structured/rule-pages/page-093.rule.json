@@ -1,0 +1,198 @@
+{
+  "sourcePage": 93,
+  "departments": [
+    {
+      "name": "Science",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "AP Environmental Science",
+      "department": "Science",
+      "description": "In this lab-based course, students explore earth systems, ecology, populations, energy use, global warming and pollution. Students will work collaboratively and engage with the science and engineering practices. This course takes field trips throughout the year. Students who enroll in this course will be prepared to take the AP Environmental Science exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI641",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Biological Science, Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI642",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Biological Science, Honors Physical Science",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 93",
+      "isOnline": false
+    },
+    {
+      "title": "AP Chemistry",
+      "department": "Science",
+      "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI651",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI652",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI65E1",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.5
+        },
+        {
+          "courseCode": "SCI65E2",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.5
+        }
+      ],
+      "notes": [
+        "Early Bird option listed on page."
+      ],
+      "sourceReference": "Page 93",
+      "isOnline": false
+    },
+    {
+      "title": "AP Physics C",
+      "department": "Science",
+      "description": "In this 1.5 period lab-based course, students explore linear, rotational, and simple harmonic motion; forces; energy; momentum; electrostatics; DC circuits; magnetostatics; and electromagnetic induction. Students will work collaboratively and engage with the science and engineering practices. This course is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take both the AP Physics C Mechanics and AP Physics C Electricity and Magnetism exams in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SCI661",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "AP Physics 1",
+            "AP Physics 2, and completion or"
+          ],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI662",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "AP Physics 1",
+            "AP Physics 2, and completion or"
+          ],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SCI66E1",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "AP Physics 1",
+            "AP Physics 2, and completion or"
+          ],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.5
+        },
+        {
+          "courseCode": "SCI66E2",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "AP Physics 1",
+            "AP Physics 2, and completion or"
+          ],
+          "corequisites": [],
+          "creditType": "Honors Physical Science",
+          "credits": 1.5
+        }
+      ],
+      "notes": [
+        "Early Bird option listed on page."
+      ],
+      "sourceReference": "Page 93",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 93: credit inference count = 6"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 3163,
+  "courseSignalCount": 34,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 25,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 6,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS 65 ALGEBRA 2 MTH351–Semester 1 MTH352–Semester 2 Open to: 10-11 Full Year Prerequisite: Geometry or Geometry AB/BC Credit: College Prep Algebra 2 (MTH351/352) builds upon students’ prior experiences in geometric relationships and deductive reasoning to deepen students’ fluency with algebraic thinking. Overarching ideas from Algebra 1 around patterns of change, mathematical representations, models and solutions are further extended in scope and depth. Students’ prior exposure to linea"
+}

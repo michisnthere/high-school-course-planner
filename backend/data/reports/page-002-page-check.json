@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4316,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMITMENT TO SELF • Pursue a balanced high school experience • Foster responsible, healthy and ethical decision-making skills • Develop a sense of resilience and self-awareness • Demonstrate self-empowered and life-ready skills COMMITMENT TO OTHERS • Celebrate, honor and respect diverse people and perspectives • Develop a sense of empathy for those around them • Serve local, national and global communities • Engage in civic duties and responsibilities COMMITMENT TO LEARNING • Strive for continu"
+}

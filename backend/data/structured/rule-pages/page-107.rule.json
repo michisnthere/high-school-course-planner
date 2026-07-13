@@ -1,0 +1,22 @@
+{
+  "sourcePage": 107,
+  "departments": [],
+  "courses": [],
+  "graduationRequirements": [
+    {
+      "name": "Environment For Students To Meet",
+      "category": "Graduation Requirement",
+      "requirementType": "completion",
+      "requiredValue": null,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "and reach post-secondary transition goals. Through a non- traditional setting, social-emotional learning is emphasized within the context of academic growth and achievement. SPECIAL EDUCATION SERVICES 105"
+      ],
+      "sourceReference": "Graduation Requirements (page 107)"
+    }
+  ],
+  "warnings": [
+    "Page 107 Environment For Students To Meet: requirement value not numeric or not explicit."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3501,
+  "courseSignalCount": 24,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 10,
+    "duration": 4,
+    "gpa_waiver": 2
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 2,
+    "waiver": 2,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MEDIA ARTS48 PHOTOGRAPHY 1 GPA WAIVER OPTION ART401–Semester 1 ART402–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None credit: College prep Note: Students may use their own DSLR; however, students may check out school-owned cameras for assignments. This foundational course covers basic concepts and practice of digital photography, including understanding and use of the camera, lenses and other basic photographic equipment. The course will address aesthetic principles as t"
+}

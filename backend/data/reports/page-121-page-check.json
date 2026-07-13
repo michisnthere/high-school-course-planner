@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 422,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "ADLAI E. STEVENSON HIGH SCHOOL 1 STEVENSON DRIVE | LINCOLNSHIRE, IL 60069 (847) 415-4000 | D125.ORG FOLLOW US ON SOCIAL MEDIA D125.ORG ADLAI E. STEVENSON @STEVENSONHS SERVING THE COMMUNITIES OF: LINCOLNSHIRE • LONG GROVE • PRAIRIE VIEW AND PORTIONS OF: BUFFALO GROVE • DEERFIELD • HAWTHORN WOODS • INDIAN CREEK • KILDEER • LAKE FOREST • METTAWA • MUNDELEIN • PALATINE • RIVERWOODS • VERNON HILLS • WHEELING"
+}

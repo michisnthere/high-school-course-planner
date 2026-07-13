@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4336,
+  "courseSignalCount": 1,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 1,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 4,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "Independent study will count towards the 300-minute supervision requirement and P .E. waivers. Successful completion of an independent study project will result in a grade of “P” (Pass). Projects that are not completed will not receive a grade. Credits will be determined by the director and teacher. COURSE RETAKE POLICY Students may retake any course, however, the original grade will remain on the transcript. The GPA will be determined by using the points from the higher of the two grades. Dupli"
+}

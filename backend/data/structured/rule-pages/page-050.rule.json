@@ -1,0 +1,194 @@
+{
+  "sourcePage": 50,
+  "departments": [
+    {
+      "name": "Fine Arts—Media Arts",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Photography 1",
+      "department": "Fine Arts—Media Arts",
+      "description": "Note: Students may use their own DSLR; however, students may check out school-owned cameras for assignments. This foundational course covers basic concepts and practice of digital photography, including understanding and use of the camera, lenses and other basic photographic equipment. The course will address aesthetic principles as they relate to composition, space, exposure, light and color. An introduction to Adobe Photoshop will be studied in this course. Technological requirements of digital formats will be addressed. Basic digital manipulations of images will be taught in preparation for creating finished art.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART401",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART402",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Students may use their own DSLR; however, students may"
+      ],
+      "sourceReference": "Page 50",
+      "isOnline": false
+    },
+    {
+      "title": "Photography 2",
+      "department": "Fine Arts—Media Arts",
+      "description": "Note: Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments. This course is designed to refine students’ digital photographic skills and aesthetic judgment as they relate to composition, space, exposure, light and color. Special effects, studio lighting, portraiture, night photography, use of Adobe Photoshop, the Creative Suite and Procreate are areas studied in this course. Technological requirements of digital formats and printing will be addressed.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "ART411",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART412",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod;"
+      ],
+      "sourceReference": "Page 50",
+      "isOnline": false
+    },
+    {
+      "title": "Advanced Photography and Digital Design",
+      "department": "Fine Arts—Media Arts",
+      "description": "Note: Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments. This course offers an advanced study of photography and/or digital design for students who want to pursue image making in a serious manner. Students on the photography track are introduced to large format printing, DSLR camera handling skills and advanced techniques using Adobe Photoshop and the Creative Suite. Students on the design track will be developing a portfolio of digital drawings and designs using the Adobe Creative Suite and the Procreate drawing app. Design students will also explore methods of digital photography to enhance their layout, formatting and design skills. Students will explore brainstorming methods to develop stronger concepts and common visual connections through the development of a series of work. Students will compile a portfolio and assemble a one-person show to be exhibited in the spring.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ART421",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1, Photography 2"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART422",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Photography 1, Photography 2"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod;"
+      ],
+      "sourceReference": "Page 50",
+      "isOnline": false
+    },
+    {
+      "title": "AP Photography and Digital Design",
+      "department": "Fine Arts—Media Arts",
+      "description": "Note: Students may use their own DSLR/Apple Pencil/tripod; however, students may check out a school-owned DSLR, Apple Pencil and/or tripod for assignments. This course offers digital 2D design drawing and painting students a concentrated program, which enables them to apply for college credit in art. Emphasis is centered on studio work, the preparation of a portfolio and the submission of a portfolio for potential AP credit. In the spring, each student will exhibit their work in a one-person show. This course may be repeated for credit.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ART871",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Photography and Digital Design"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ART872",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Advanced Photography and Digital Design"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [
+        "Students may use their own DSLR/Apple Pencil/tripod;"
+      ],
+      "sourceReference": "Page 50",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 50: credit inference count = 8",
+    "Page 50: no graduation requirement headings found."
+  ]
+}

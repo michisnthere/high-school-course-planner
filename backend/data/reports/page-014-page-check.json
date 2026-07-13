@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1981,
+  "courseSignalCount": 1,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 1,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "ATHLETIC PROGRAM Stevenson High School is a member of the Illinois High School Association (IHSA) and competes within the North Suburban Conference (NSC). BOYS FALL BOYS WINTER BOYS SPRING Allied Bowling Allied Basketball Allied Soccer Cheerleading Allied Spirit Revolution Baseball Cross Country Basketball Gymnastics Football Bowling Lacrosse Golf Competitive Cheerleading Student Athletic Training Competitive Dance Competitive Dance Tennis Soccer Fencing Track and Field Student Athletic Training"
+}

@@ -1,0 +1,20 @@
+{
+  "sourcePage": 5,
+  "departments": [],
+  "courses": [],
+  "graduationRequirements": [
+    {
+      "name": "Minimum",
+      "category": "Graduation Requirement",
+      "requirementType": "semesters",
+      "requiredValue": 8.0,
+      "eligibleCourses": [],
+      "waiverRules": [],
+      "notes": [
+        "English 8 semesters/credits Mathematics 6 semesters/credits Biology 2 semesters/credits Physical Science 2 semesters/credits U.S. History 2 semesters/credits World History and Geography 2 semesters/credits Government 1 semester/credit Economics or Personal Finance 1 semester/credit Health 1 semester/credit Driver Education 1 semester/credit Required Electives 2 semesters/credits Additional Credits and P .E. 17 semesters/credits Total Credits 45 semesters/credits SUGGESTED COLLEGE ADMISSION SEQUENCE English 8 semesters/credits Mathematics 6-8 semesters/credits Science 6-8 semesters/credits Social Science 6-8 semesters/credits Foreign Language 4-8 semesters/credits"
+      ],
+      "sourceReference": "Graduation Requirements (page 5)"
+    }
+  ],
+  "warnings": []
+}

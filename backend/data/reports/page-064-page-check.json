@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1953,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS62 MATHEMATICS DIVISION DARSHAN JAIN, DIRECTOR | DJAIN/at.caseD125.ORG | 847-415-4600 The Mathematics Division is committed to ensuring all students experience mathematics as accessible, practical and worthwhile. Coursework spans algebra, geometry, advanced mathematics, quantitative literacy and mathematical modeling. Students learn to interpret data, evaluate numerical information and make informed decisions. Through modeling, they connect abstract concepts with real-world contexts, "
+}

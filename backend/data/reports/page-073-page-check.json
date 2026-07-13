@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1116,
+  "courseSignalCount": 34,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 34,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "AP Spanish Literature and Culture Full-Year Course SPA611/SPA612 LANGUAGE LEARNING COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK MANDARIN CHINESE COURSES SPANISH COURSES Mandarin Chinese 1 Full-Year Course CHI101/CHI102 Spanish 1 Full-Year Course SPA101/SPA102 Mandarin Chinese 2 Full-Year Course CHI211/CHI212 Spanish 2 Full-Year Course SPA201/SPA202 Mandarin Chinese 3 Full-Year Course CHI311/CHI312 Spanish 3 Full-Year Course SPA301/SPA302 Spanish 2-3 Full-Year Course SPA211/SPA212 Mandarin "
+}

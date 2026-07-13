@@ -1,0 +1,221 @@
+{
+  "sourcePage": 88,
+  "departments": [
+    {
+      "name": "Physical Welfare",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Pool Leadership",
+      "department": "Physical Welfare",
+      "description": "Students will continue to serve as water safety instructors, lifeguards and pool aides to the aquatics program. Each student will receive ongoing Lifeguard In-Service Training that will keep their certifications current and their skills sharp. At the end of each semester a student must receive a recommendation in their evaluation to continue in the leadership program. Materials for the course are available in the Patriot Superstore. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P .E. Leader Code of Conduct can result in immediate dismissal.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "PED71L",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Students must have AN American Red Cross"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED72L",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Students must have AN American Red Cross"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 88",
+      "isOnline": false
+    },
+    {
+      "title": "Alternative Physical Education Leadership",
+      "department": "Physical Welfare",
+      "description": "New students will engage in training which takes place in class during the first semester. Students will perform one-on-one or in small groups working with individuals who have a variety of special needs. Leaders also participate in work with the students outside of the regular school day. Failure to comply with the Stevenson High School Student Guidebook Code of Conduct and P .E. Leader Code of Conduct can result in immediate dismissal.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "PED41L",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Admission based on written application submitted"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED42L",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Admission based on written application submitted"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 88",
+      "isOnline": false
+    },
+    {
+      "title": "Alternative Physical Education",
+      "department": "Physical Welfare",
+      "description": "Alternative Physical Education is for students with disabilities that merit an adapted curriculum. All curriculum will be modified and adapted so that all students can participate and benefit. The instructor will work with the doctor in an effort to design a program to meet the individual needs of each student. HEAL TH EDUCATION THE EMPHASIS IN HEALTH EDUCATION IS ON CHOICES TO EMPOWER PERSONAL WELLNESS THROUGH EXPERIENTIAL ACTIVITIES. HEALTH EDUCATION INFORMATION IS LINKED TO THE KNOWLEDGE AND UNDERSTANDING EACH STUDENT NEEDS TO IMPROVE THEIR EMOTIONAL AND PHYSICAL HEALTH.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "PED111",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "A physician’s verification must be on file"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED112",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "A physician’s verification must be on file"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 88",
+      "isOnline": false
+    },
+    {
+      "title": "Health Education",
+      "department": "Physical Welfare",
+      "description": "The following Health Education units are taught: ■ Wellness and Mental Health ■ Reality of Drugs ■ Adult CPR and AED ■ Social Health Within the Adult CPR unit, students have the opportunity to receive Adult CPR and AED certification (summer school excluded) through the American Red Cross. (Student participation in the Adult CPR unit is a requirement.) Health Education should be completed by the end of the sophomore year. During the semester that a student takes Health Education, the student is excused from Physical Education. By completing the Reality of Drugs unit, students will be prepared for the “46th Credit” exam which is a graduation requirement.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "PED201",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED202",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 88",
+      "isOnline": false
+    },
+    {
+      "title": "Applied Health",
+      "department": "Physical Welfare",
+      "description": "The purpose of Applied Health is to develop professional skills that can be applied to a career in healthcare. This course empowers students with real usable skills and credentials in the allied medical health field. Topics in the course include professional rescue skills, injury management, health career exploration, functional anatomy and terminology, long-term wellness and personal/professional social/ emotional life skills. The course is lab-based and highly dependent on attendance and participation. A fee is required for any student who wishes to earn the American Red Cross certification. During the semester that a student takes Applied Health, the student is excused from Physical Education. PHYSICAL WELFARE–PHYSICAL EDUCATION AND HEAL TH EDUCATION86",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "PED231",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Health Education"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "PED232",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Health Education"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 88",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 88: credit inference count = 10",
+    "Page 88: no graduation requirement headings found."
+  ]
+}

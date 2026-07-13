@@ -1,0 +1,156 @@
+{
+  "sourcePage": 32,
+  "departments": [
+    {
+      "name": "Communication Arts",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Public Speaking",
+      "department": "Communication Arts",
+      "description": "This course is designed to provide experience and training in public speaking so that students are equipped with the skills essential for success in the business and academic worlds of today and tomorrow. Students learn to tailor a message to suit a particular audience, enhance the message through technology, understand logic and reasoning, develop listening skills, identify propaganda techniques and understand the physical producers of voice to control and vary tone, volume, pitch and rate. Students participate in workshop- oriented groups to develop the various skills listed above. Students present approximately one speech per week and are responsible for constructive feedback of their peers’ speeches.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG761",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ENG762",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 32",
+      "isOnline": false
+    },
+    {
+      "title": "Political Thought and Its Literature",
+      "department": "Communication Arts",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them better be prepared for future education. Students explore the overarching themes of the course—the individual’s understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a worldview and what it means to be a political scientist.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG601",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History and ANY Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ENG602",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "U.S. History and ANY Junior English"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 32",
+      "isOnline": false
+    },
+    {
+      "title": "Creative Writing",
+      "department": "Communication Arts",
+      "description": "Students learn to express their thoughts through writing short stories, poems and plays. Class discussions analyze and implement different writing styles including, but not limited to, fiction, poetry and drama. The course format is a workshop that includes daily writing. Students will give and receive feedback and peer edit in small- and full-class groups. Students are also required to read and annotate fiction. The reading will be assessed in a manner that engages students in a process through which they become more aware of how their reading improves over time. All students participate in a variety of approaches to literacy development and to apply what they learn to the art of writing creatively.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG501",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep With Accelerated Option",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "ENG502",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep With Accelerated Option",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 32",
+      "isOnline": false
+    },
+    {
+      "title": "Creative Writing Seminar",
+      "department": "Communication Arts",
+      "description": "Students will refine their skills in writing and analyzing stories, plays and poetry. Projects, readings and assignments will cover various genres that allow students to pursue individual interests. Class discussions focus on the analysis and consideration of different writing styles and genres including, but not limited to, fiction, poetry and drama. Students explore writing in greater depth than in the prerequisite course, examining how various genres impact writing style and what it means to create voice in writing. The course format is a workshop that includes daily writing. Students will give and receive feedback and peer edit in small and full class groups. Students are also required to read and annotate fiction. The reading will be assessed in a manner that engages students in a process through which they become more aware of how their reading improves over time. All students participate in a wide variety of approaches to literacy development and apply what they learn to the art of writing creatively.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "ENG522",
+          "semesterLabel": "Semester 2 Only",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Creative Writing"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep With Accelerated Option",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 32",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 32: credit inference count = 7"
+  ]
+}

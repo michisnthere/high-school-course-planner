@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 5665,
+  "courseSignalCount": 0,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPENDIX108 3. District employees and school officials who have a current, demonstrable educational or administrative interest in the student may have access to the student records for the purpose of furthering such interest without parent/ guardian consent. A school official is a Board member, attorney, auditor, insurance representative, independent evaluator, contractor, consultant, volunteer, or other person to whom District 125 has outsourced institutional services or functions for which Dis"
+}

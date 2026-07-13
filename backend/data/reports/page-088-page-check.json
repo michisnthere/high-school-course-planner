@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4267,
+  "courseSignalCount": 32,
+  "policySignalCount": 14,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 17,
+    "duration": 6,
+    "gpa_waiver": 3
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 2,
+    "waiver": 3,
+    "physical_education": 8,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "POOL LEADERSHIP GPA WAIVER OPTION PED71L–Semester 1 PED72L–Semester 2 Open to: 11-12 ONE SEMESTER OR FULL YEAR Prerequisite: Students must have AN American Red Cross Lifeguarding certification. Credit: College prep Students will continue to serve as water safety instructors, lifeguards and pool aides to the aquatics program. Each student will receive ongoing Lifeguard In-Service Training that will keep their certifications current and their skills sharp. At the end of each semester a student mus"
+}

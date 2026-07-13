@@ -1,0 +1,201 @@
+{
+  "sourcePage": 78,
+  "departments": [
+    {
+      "name": "Language Learning",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Mandarin Chinese 2",
+      "department": "Language Learning",
+      "description": "In this course, students continue to work to develop their competence in Chinese across the three modes of communication in the context of the following AP themes: Contemporary Life, Families and Communities, Beauty and Aesthetics and Science and Technology. Performance- based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in practiced, familiar contexts with increasing independence. Interpretive listening and reading are focused on the acquisition and recognition of key details in the target language. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Mandarin.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "CHI211",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Mandarin Chinese 1",
+            "passing the placement"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CHI212",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Mandarin Chinese 1",
+            "passing the placement"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 78",
+      "isOnline": false
+    },
+    {
+      "title": "Mandarin Chinese 3",
+      "department": "Language Learning",
+      "description": "This course requires students to engage in interpersonal, presentational and interpretive tasks at more advanced proficiency levels. Students continue to work to develop their competence in Chinese across the three modes of communication in the context of the six AP themes. Performance-based assessments in the presentational and interpersonal modes provide the students the opportunity to use the language in familiar contexts independently. Interpretive listening and reading tasks are focused on literal comprehension with increasing emphasis on inferential interpretation. Students continue to explore the target culture in new contexts. The expectation is that the communication in the classroom (teacher-student and/or student-student) take place primarily in Mandarin.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "CHI311",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Mandarin Chinese 2",
+            "passing the placement"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CHI312",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Mandarin Chinese 2",
+            "passing the placement"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 78",
+      "isOnline": false
+    },
+    {
+      "title": "Intermediate Mandarin Chinese Language Arts",
+      "department": "Language Learning",
+      "description": "This course is designed specifically for students with lived Mandarin Chinese language experience, either from prior schooling in a Chinese-speaking country or as native/heritage speakers of Chinese. Students will develop their literacy skills in Chinese as they explore literature from the Chinese- speaking world and engage in focused development of reading and writing skills. While special focus will be placed on developing foundational literacy skills (e.g., Mandarin character decoding and character writing), students will also develop critical thinking and oracy skills in Chinese as they collaboratively explore topics related to current events, culture and media.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "CHI351",
+          "semesterLabel": "SEMESTER 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Intermediate",
+            "higher proficiency in the domains"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CHI352",
+          "semesterLabel": "SEMESTER 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Intermediate",
+            "higher proficiency in the domains"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 78",
+      "isOnline": false
+    },
+    {
+      "title": "Mandarin Chinese 4",
+      "department": "Language Learning",
+      "description": "Students continue to work to develop their competence in Mandarin Chinese across the three modes of communication in the context of the six AP themes. Performance-based assessments provide the students opportunity to use the language independently in unfamiliar contexts. Interpretive listening and reading tasks are focused on both literal and comprehension and inferential interpretation. Practice is provided regularly, both within the classroom and at home. Cultural information and comparisons are drawn from authentic print, literary works and class discussion. Students will participate in class debates and facilitate classroom discussion through their own student-led presentation. The expectation is that the communication in the classroom take place primarily in Chinese. This course begins preparation for the AP Chinese Language and Culture exam. LANGUAGE LEARNING—MANDARIN CHINESE76",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "CHI411",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Mandarin Chinese 3",
+            "passing the placement"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CHI412",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Mandarin Chinese 3",
+            "passing the placement"
+          ],
+          "corequisites": [],
+          "creditType": "Accelerated",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 78",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 78: credit inference count = 8"
+  ]
+}

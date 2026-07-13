@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3231,
+  "courseSignalCount": 1,
+  "policySignalCount": 11,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 1,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 2,
+    "requirement": 2,
+    "waiver": 5,
+    "physical_education": 1,
+    "drivers_ed": 1,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "EXCLUSIONS The following courses are not included in the calculation of a student’s grade point average: ■ Driver Education ■ Courses with grades of pass (P) or fail (F) ■ Correspondence courses ■ Audit, independent study and GPA-waived courses ■ External credit courses ■ Any course in which the regular outcomes have been significantly modified for an individual student GRADE POINT WAIVER Students have the option of applying to exclude certain courses from the calculation of their grade point av"
+}

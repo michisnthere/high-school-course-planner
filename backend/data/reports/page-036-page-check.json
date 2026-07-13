@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 489,
+  "courseSignalCount": 14,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 12,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "34 COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET)34 COMPUTER SCIENCE COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK AP Computer Science A Full-Year Course CSC391/CSC392 Computer Science Algorithms Full-Year Course CSC421/CSC422 Computer Programming 1 One-Semester Course CSC161 or CSC162 Computer Programming 2 One-Semester Course CSC181 or CSC182 AP Computer Science Principles Full-Year Course CSC371/CSC372 Mobile App Development Full-Year Course CSC251/CSC252"
+}

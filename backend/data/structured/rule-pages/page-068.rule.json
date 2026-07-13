@@ -1,0 +1,101 @@
+{
+  "sourcePage": 68,
+  "departments": [
+    {
+      "name": "Mathematics",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "AP Precalculus",
+      "department": "Mathematics",
+      "description": "College Board’s expectations to prepare students for future studies in calculus. The course design prepares students for the College Board AP Precalculus Exam. This course is ideal for students preparing to complete one semester of college calculus in high school or enroll in calculus a/f_ter graduation. This course represents students’ third course in algebraic thinking and extends students’ previous understanding of polynomial, rational, exponential, logarithmic, trigonometric and polar functions. Learning to model real-world data, connect representations, master symbolic manipulations and apply functions to model dynamic change will prepare students for the future study of calculus. As required by the College Board, please note that this course will appear as AP Precalculus on the student’s transcript. Sophomore and Junior Students: Successfully completing this course with consistently demonstrated proficiency in all the course skills will prepare students to take Students may also elect to take Mathematical Modeling not appropriate for students seeking to take AP Calculus BC Senior Students: Successfully completing this course will prepare students to take calculus or another at-level math course upon entering college. At some institutions, college credit via the AP Precalculus Exam may fulfill college math requirements or serve as a tool to guide college math and",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "MTH411",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "PRECALCULUS OR ALGEBRA 2 AB/BC"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MTH412",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "PRECALCULUS OR ALGEBRA 2 AB/BC"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 68",
+      "isOnline": false
+    },
+    {
+      "title": "AP Precalculus BC",
+      "department": "Mathematics",
+      "description": "College Board’s expectations to prepare students for future studies in calculus. The course design prepares students for the College Board AP Precalculus Exam. This course is ideal for students preparing to complete two semesters of college calculus in high school or enroll in calculus a/f_ter graduation. This course attends to all the as well as functions involving parameters, vectors and matrices. Students will routinely apply prior learning to unique, non-routine and novel contexts. The course design emphasizes students’ growth in making connections and transferring knowledge between units of study while extending their learning in preparation for taking calculus in high school. As required by the College Board, please note that this course will appear as AP Precalculus on the student’s transcript. Sophomore and Junior Students: Successfully completing this course will prepare students to take AP Calculus AB Senior Students: Successfully completing this course will prepare students to take calculus or another at-level math course upon entering college. At some institutions, college credit via the AP Precalculus Exam may fulfill college math requirements or serve as a tool to guide college math and",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "MTH421",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Algebra 2 AB/BC"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "MTH422",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Algebra 2 AB/BC"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 68",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 68: credit inference count = 4"
+  ]
+}

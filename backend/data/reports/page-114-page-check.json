@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 8632,
+  "courseSignalCount": 136,
+  "policySignalCount": 5,
+  "courseSignals": {
+    "course_code": 136,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 4,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 1
+  },
+  "preview": "MANDARIN CHINESE COURSE OFFERINGS CHI601 CHI602 AP CHINESE LANGUAGE AND CULTURE (H) ..........................77 CHI611 CHI612 Chinese Literature, Media and Culture (H) ..............77 CHI351 CHI352 Intermediate Mandarin Chinese Language Arts (A) ..............................................................................76 CHI101 CHI102 MANDARIN CHINESE 1 (CP) ................................................................75 CHI211 CHI212 MANDARIN CHINESE 2 (A) ............................."
+}

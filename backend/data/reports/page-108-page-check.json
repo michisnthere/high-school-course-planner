@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2224,
+  "courseSignalCount": 0,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "SPECIAL EDUCATION SERVICES106 AL TERNATIVE OFF-CAMPUS PROGRAMMING For students requiring intensified support systems and supervision, with extensive, related service programming that needs to be provided in a more immediate and centralized fashion, Stevenson High School supports alternate off-site placement within a variety of therapeutic settings. TRANSITION PROGRAM Stevenson High School’s Transition Service Program provides individualized skill development for Special Education students ages 1"
+}

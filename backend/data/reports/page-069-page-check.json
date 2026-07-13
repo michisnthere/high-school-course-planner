@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 5371,
+  "courseSignalCount": 32,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 19,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 9,
+    "duration": 4,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS 67 MATHEMATICAL MODELING AND DESIGN MTH431–Semester 1 MTH432–Semester 2 Open to: 11-12 Full Year Prerequisite: ANY PRECALCULUS COURSE Credit: College Prep Mathematical Modeling and Design (MTH431/432) is a non-AP introductory study in mathematical modeling and design thinking. Modeling is quantifying and understanding real-world scenarios and phenomena to make informed decisions that help improve the conditions defined within the scenarios. Students will build on prior mathematics kn"
+}

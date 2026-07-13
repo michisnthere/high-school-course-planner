@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4369,
+  "courseSignalCount": 15,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 6,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 3,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS 29 AMERICAN STUDIES (AP ENGLISH LANGUAGE AND COMPOSITION AND AP U.S. HISTORY) ENG341–Semester 1 ENG342–Semester 2 Open to: 11 Full Year Prerequisite: NONE Credit: honors Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country’s history and literature. This course fulfills the College Board’s objectives for both AP English "
+}

@@ -1,0 +1,177 @@
+{
+  "sourcePage": 100,
+  "departments": [
+    {
+      "name": "Social Studies",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "AP Macroeconomics",
+      "department": "Social Studies",
+      "description": "The purpose of an advanced placement course in macroeconomics is to give students a thorough understanding of the principles of economics that apply to an economic system as a whole. The course places particular emphasis on the study of national income and price-level determination, and also develops students’ familiarity with economic performance measures, the financial sector, stabilization policies, economic growth and international economics. It places emphasis on the different philosophies and theories associated with macroeconomic analysis and policy. Students will analyze both basic and extensive economic concepts in order to become informed economic consumers, producers and suppliers. Students who enroll in this course are prepared to take the AP Macroeconomics exam in May. Successful completion of this class fulfills the Economics/Personal Finance graduation requirement.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC641",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC642",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 100",
+      "isOnline": false
+    },
+    {
+      "title": "AP Microeconomics",
+      "department": "Social Studies",
+      "description": "This is an advanced placement level course preparing students for the AP Microeconomics exam. Coursework in AP Microeconomics includes: the basic economic problem, the nature of markets, the firm, the factor markets and the role of government. Successful completion of this class fulfills the Economics/Personal Finance graduation requirement. Students who enroll in this course are prepared to take the AP Microeconomics exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC651",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC652",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 100",
+      "isOnline": false
+    },
+    {
+      "title": "Philosophy and Political Theory",
+      "department": "Social Studies",
+      "description": "Additional fees for dual credit may be imposed by the college/university. What is the meaning of life? What is reality? How do I know what I know? This course introduces philosophies and political theories by which humans have attempted to understand and organize their world. It is a college-level elective that explores major world philosophies, their influence on each other and their influence on the present. Students will contemplate ethical dilemmas to cultivate more thoughtful decision making in their lives. Students will learn the theories of major philosophers and utilize those ideas in discussion, debates and written assignments. Students will synthesize those ideas into a personal philosophy of their own. Upon successful completion of course requirements, students electing to receive dual credit from Loyola University Chicago will receive three credit hours for Philosophy 130: This course introduces students to the fundamental philosophical issues that bear on our understanding of persons in three equally weighted components, namely, Persons & Knowledge, Persons & Values, and Persons & Reality.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC671",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC672",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 100",
+      "isOnline": false
+    },
+    {
+      "title": "Government",
+      "department": "Social Studies",
+      "description": "Topics considered in this course include the fundamental concepts and structure of federal, state and local government; methods of selecting candidates for office; methods by which individuals and groups may influence government officials and mechanics of voting. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the U.S. Constitution and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson’s graduation requirement of one semester of government.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC401",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography, U.S. History"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC402",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography, U.S. History"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 100",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 100: credit inference count = 8"
+  ]
+}

@@ -1,0 +1,100 @@
+TECHNOLOGY COURSES
+COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 41
+PRINT MEDIA 1
+GPA WAIVER OPTION
+TEC181–Semester 1 TEC182–Semester 2
+Open to: 9-10-11-12  One Semester
+Prerequisite: None credit: College prep
+Print Media 1 is a creative, hands-on design lab where 
+students will bring their ideas to life—from rough sketches  
+to real products they can hold, wear or share. Using  
+industry-standard tools like Adobe Illustrator and Photoshop, 
+students will learn how to design for both screens and physical 
+items. They will create everything from stickers, buttons and 
+t-shirts to posters, window clings, laser-cut wood, acrylic and 
+leather goods. Along the way, they’ll tackle design challenges, 
+think like a creator and turn their ideas into finished products. 
+Whether they dream of a design career or just love making 
+things, this class gives the tools to do both.
+PRINT MEDIA 2
+GPA WAIVER OPTION
+TEC251–Semester 1 TEC252–Semester 2
+Open to: 9-10-11-12  One Semester
+Prerequisite: Print Media 1 credit: College prep
+Print Media 2 builds on the skills students learned in  
+Print Media 1 and takes their designs to the next level. This 
+advanced, hands-on design lab introduces Adobe InDesign, 
+alongside Illustrator and Photoshop. Students will dive 
+deeper into designing for both digital and physical products, 
+working on projects like custom apparel, promotional items, 
+and commercial print products such as banners, packaging, 
+marketing materials and large-scale prints. Students will 
+sharpen their creative problem-solving skills, explore 
+advanced production techniques and bring their ideas to life 
+with professional design tools. This class is the perfect fit for 
+students excited about exploring the world of printing and 
+creating high-quality products.
+WEB DEVELOPMENT 1
+GPA WAIVER OPTION
+TEC171–Semester 1 TEC172–Semester 2
+Open to: 9-10-11-12  One Semester
+Prerequisite: None credit: College prep
+Web Development 1 is where design meets code. In this 
+hands-on course, students will learn how to build websites 
+from the ground up using HTML5 and CSS3—no templates, 
+no shortcuts. Students will explore the world of user interface 
+(UI) design, creating visually appealing and accessible layouts 
+with carefully chosen colors, fonts and structure. By the end 
+of the course, students will have a fully functioning, custom-
+designed portfolio website that showcases their work—perfect 
+for sharing with friends, future employers or college programs. 
+If a student is ready to design the web, this is where they start.
+WEB DEVELOPMENT 2
+GPA WAIVER OPTION
+TEC281–Semester 1 TEC282–Semester 2
+Open to: 9-10-11-12  One Semester 
+Prerequisite: Web Development 1 credit: College prep
+Web Development 2 is where students’ websites come to life. 
+This course moves beyond layout and visuals to focus on user 
+experience (UX) and interactivity. Students will learn how to 
+build functional web apps like timers, quizzes, calculators 
+and weather tools—all from scratch using HTML, CSS and 
+JavaScript. Students will bring their ideas to life with real-time 
+features, animations and user input. By the end of the course, 
+they’ll have a collection of polished, interactive projects 
+to showcase in a professional portfolio that stands out to 
+colleges, internships and future employers.
+GAME DEVELOPMENT 1
+GPA WAIVER OPTION
+TEC501–Semester 1 TEC502–Semester 2
+Open to: 9-10-11-12  One Semester
+Prerequisite: None credit: College prep
+This course introduces students to the fundamentals of game 
+design through hands-on experience using the Unreal Game 
+Engine. Students will learn to create their own games across a 
+variety of genres, even with no prior programming experience. 
+The course will explore object-oriented programming 
+concepts alongside essential game development skills 
+such as 3D modeling, lighting and texturing. Students will 
+also implement key gameplay mechanics, including player 
+controls, physics, collision detection and sound integration. 
+By the end of the course, each student will have designed and 
+built fully functional games that showcase their creativity and 
+technical skills.
+GAME DEVELOPMENT 2
+GPA WAIVER OPTION
+TEC511–Semester 1 TEC512–Semester 2
+Open to: 9-10-11-12  One Semester
+Prerequisite: Game Development 1  credit: College prep
+This course builds on the principles introduced in Game 
+Development 1, offering students a deeper exploration into 
+game development using the Unreal Game Engine. Students 
+will expand their skills in object-oriented programming and 
+focus on more advanced techniques for resource creation, 
+including detailed 2D and 3D design. Throughout the 
+course, students will create games across a variety of genres. 
+Emphasis will be placed on developing engaging gameplay 
+mechanics, visual storytelling and immersive environments. 
+The course concludes with a capstone project where students 
+design and build a full game that showcases the creativity, 
+technical skills and design principles they have developed. 

@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 4376,
+  "courseSignalCount": 31,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 16,
+    "duration": 5,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "WORLD HISTORY AND GEOGRAPHY SOC101–Semester 1 SOC102–Semester 2 Open to: 9-10 Full Year Prerequisite: None credit: College prep World History and Geography is a one-year course required for graduation and a prerequisite for all courses in Social Studies. Students taking World History and Geography develop core academic skills in reading and writing while studying history from the origins of human civilizations to the present. Patterns and changes in political and economic systems, social structu"
+}

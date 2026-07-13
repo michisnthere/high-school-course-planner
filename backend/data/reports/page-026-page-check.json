@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 3096,
+  "courseSignalCount": 28,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 26,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPLIED ARTS—TECHNOLOGY CAMPUS24 LAKE COUNTY HIGH SCHOOLS TECHNOLOGY CAMPUS The Lake County Tech Campus, located at the College of Lake County’s Grayslake campus, offers students access to state-of-the-art equipment and hands-on learning experiences. Students can earn both high school and college credit in many programs, preparing them for careers in fields such as cybersecurity, certified nursing assisting, construction skills and more. Known as one of the top career and technical education fac"
+}

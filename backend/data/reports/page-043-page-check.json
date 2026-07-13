@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 5011,
+  "courseSignalCount": 42,
+  "policySignalCount": 6,
+  "courseSignals": {
+    "course_code": 12,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 18,
+    "duration": 6,
+    "gpa_waiver": 6
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 6,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "TECHNOLOGY COURSES COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET) 41 PRINT MEDIA 1 GPA WAIVER OPTION TEC181–Semester 1 TEC182–Semester 2 Open to: 9-10-11-12 One Semester Prerequisite: None credit: College prep Print Media 1 is a creative, hands-on design lab where students will bring their ideas to life—from rough sketches to real products they can hold, wear or share. Using industry-standard tools like Adobe Illustrator and Photoshop, students will learn how to design for both screens and "
+}

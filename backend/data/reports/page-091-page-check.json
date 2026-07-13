@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4085,
+  "courseSignalCount": 36,
+  "policySignalCount": 12,
+  "courseSignals": {
+    "course_code": 14,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 15,
+    "duration": 7,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 6,
+    "requirement": 6,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "SCIENCE 89 BIOLOGY SCI111–Semester 1 SCI112–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: NONE Credit: COLLEGE PREP Biological Science In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practi"
+}

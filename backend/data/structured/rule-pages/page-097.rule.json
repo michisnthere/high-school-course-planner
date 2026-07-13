@@ -1,0 +1,234 @@
+{
+  "sourcePage": 97,
+  "departments": [
+    {
+      "name": "Social Studies",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Sociology",
+      "department": "Social Studies",
+      "description": "The purpose of this course is to provide students with a chance to examine human social interaction and social organization. Sociology focuses on special topics such as groups, culture, socialization, deviance and inequalities (gender, social class, race, ethnicity). This class will explore these areas through sociological readings and engaging in discussing and simulation. Students will learn how to become more reflective of themselves, their community and their society. Students will be required to complete ten community service hours as an alternative to a traditional final exam. Upon completion of this course and required service hours, students should gain a better understanding of themselves and their place in the social world.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC541",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC542",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 97",
+      "isOnline": false
+    },
+    {
+      "title": "World Religions",
+      "department": "Social Studies",
+      "description": "This course is designed to introduce students to the major religions of the world. Students will analyze each religion’s foundations, historical development, principle themes and beliefs and cultural impact. Its primary purpose is to equip students with an understanding of the major ideas and practices of the world’s religions so that they may better understand the world in which they live.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC501",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC502",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 97",
+      "isOnline": false
+    },
+    {
+      "title": "AP European History",
+      "department": "Social Studies",
+      "description": "This course focuses on dominant ideas in the world today (democracy, industrialism, capitalism, communism, the scientific method) through the advanced study of European history, with a focus on understanding how European ideas, culture, politics and economics have shaped the world from 1450 to the present. Students will collaboratively engage with, discuss and debate historical evidence in order to improve their capacities in: 1) historical comprehension, 2) historical analysis and 3) historical argumentation. As a result, students will learn that history is an interpretive, dynamic study of the past that empowers them to impact the future. Students who enroll in this course are prepared to take the AP European History exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC601",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC602",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 97",
+      "isOnline": false
+    },
+    {
+      "title": "AP Human Geography",
+      "department": "Social Studies",
+      "description": "The purpose of the advanced placement course in human geography is to introduce students to the systematic study of patterns and processes that have shaped human understanding, use and alteration of our world. Students employ geographical and spatial concepts and tools to analyze topics such as human population movement and organization, cultural patterns and processes, political organization, agricultural and rural land use, industrialization and economic development and city and urban land use. Students will be expected to integrate college-level reading with maps, graphs and other spatial data sets to conduct analyses, apply models and draw conclusions. A summer reading assignment must be completed prior to beginning this course. Students who enroll in this course are prepared to take the AP Human Geography exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC611",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC612",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 97",
+      "isOnline": false
+    },
+    {
+      "title": "AP African American Studies",
+      "department": "Social Studies",
+      "description": "This year-long Social Studies elective credit course is designed to prepare students to meet the AP College Board interdisciplinary standards on their assessment. The course is designed to examine a diversity of African American experiences using authentic and varied sources of information. Students will study topics from early African kingdoms to the ongoing challenges and accomplishments of the present day. Recurring social studies inquiry skills of questioning, source analysis and argumentation will be developed using a variety of literary, historical, data set and visual forms of evidence. Students are required to complete a research project of their choice, drawn from topics or themes within the course, and submitted to AP as part of the AP Exam and scored by AP graders. Students who enroll in this course will be prepared to take the remainder of the AP African American Studies exam in May.",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "SOC691",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "SOC692",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "World History and Geography"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 97",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 97: credit inference count = 10"
+  ]
+}

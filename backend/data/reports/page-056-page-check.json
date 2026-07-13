@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 2846,
+  "courseSignalCount": 16,
+  "policySignalCount": 6,
+  "courseSignals": {
+    "course_code": 4,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 2,
+    "gpa_waiver": 2
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 6,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—MUSIC54 MUSIC DEPARTMENT MUSIC STUDY HELPS STUDENTS DEVELOP SKILLS IN COMPREHENDING, CREATIVE PROBLEM SOLVING, WORKING AS A TEAM, LOGICAL REASONING, USING SYMBOLS, CONCEPTUALIZING, MAKING VALUE JUDGMENTS AND COMMUNICATING. IT PROMOTES CULTURAL AWARENESS AND PROVIDES UNIQUE OPPORTUNITIES FOR SELF-EXPRESSION AND CREATIVITY. THE STEVENSON MUSIC DEPARTMENT OFFERS A VARIETY OF CLASSES THAT ALLOW STUDENTS TO BEGIN—OR CONTINUE— A STRONG, SEQUENTIAL PROGRAM OF MUSIC STUDY. COURSES ARE OFFERED "
+}

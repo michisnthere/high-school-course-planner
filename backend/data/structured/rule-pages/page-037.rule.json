@@ -1,0 +1,147 @@
+{
+  "sourcePage": 37,
+  "departments": [
+    {
+      "name": "Computer Science, Engineering and Technology (CSET)",
+      "description": "PLACEMENT (AP) COURSE OPTIONS ARE AVAILABLE WITHIN THIS PROGRAM."
+    }
+  ],
+  "courses": [
+    {
+      "title": "Computer Programming 1",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "description": "This one-semester course introduces students to the foundations of computer programming using Python. Python’s syntax is easy to read and write for those with limited experience with programming, making it an ideal language for those looking for an introduction to the field of computer industries such as business, web application development, project management, data analysis and machine learning. Python is an excellent choice for anyone who wants to be prepared for the technical demands their career might include. The course introduces students to the foundational ideas of computer programming and computational thinking with an emphasis on problem-solving. Students will learn both how to read and write computer programs for a variety of applications. Topics for this course include input and output commands, making decisions with conditional statements and repeating a set of steps with looping structures. Successful completion of this one-semester course prepares the student",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "CSC161",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CSC162",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 37",
+      "isOnline": false
+    },
+    {
+      "title": "Computer Programming 2",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "description": "This one-semester course is intended for students who possess some programming experience or who have programming concepts. The Java language continues to enjoy worldwide popularity. Due to Java’s longevity, available support for Java is extensive and many industries make use of Java-based applications. Java developers continue to be in high demand. Java is highly portable (as it can run on many computer platforms) and provides an easy-to-learn introduction to the world of object-oriented program design. This course reviews foundational coding frameworks and concepts and introduces students to object-oriented design using the Java programming language. Students will explore and work with various data types, input and output commands, conditional statements, Boolean operators (and, or, not), looping structures, common algorithms and arrays. Successful completion of this one-semester course prepares the student for Mobile App Development",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "CSC181",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Computer Programming 1 (CSC161/162)",
+            "Web"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CSC182",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Computer Programming 1 (CSC161/162)",
+            "Web"
+          ],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 37",
+      "isOnline": false
+    },
+    {
+      "title": "AP Computer Science A",
+      "department": "Computer Science, Engineering and Technology (CSET)",
+      "description": "This course introduces students to object-oriented programming methodology with an emphasis on problem solving and algorithm development. It is meant to be the equivalent of a first-semester college course in Computer concepts in Java. The course emphasizes the design issues that make programs understandable, adaptable and reusable. It also includes the study of fundamental data structures, abstraction and recursion. Students who enroll in this course will be prepared to take the AP Computer Science A exam in May. Successful completion of this full-year course prepares",
+      "gpaWaiverOption": false,
+      "offerings": [
+        {
+          "courseCode": "CSC391",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Computer Programming 2 (CSC181/182)"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "CSC392",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [
+            10,
+            11,
+            12
+          ],
+          "prerequisites": [
+            "Computer Programming 2 (CSC181/182)"
+          ],
+          "corequisites": [],
+          "creditType": "Honors",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 37",
+      "isOnline": false
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 37: credit inference count = 6",
+    "Page 37: no graduation requirement headings found."
+  ]
+}

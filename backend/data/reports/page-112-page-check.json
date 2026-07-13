@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 10425,
+  "courseSignalCount": 185,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 185,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 2,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COURSE LIST BY NAME APPLIED ARTS BUSINESS EDUCATION COURSE OFFERINGS BUS251 — ACCOUNTING 1 (CP) ..................................................................................17 — BUS252 ACCOUNTING 2 (H) ....................................................................................17 BUS351 — ADVANCED ACCOUNTING (H) ..............................................................17 BUS131 BUS132 BUSINESS APPLICATIONS AND TECHNOLOGY 1 (CP) .................................................."
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 3287,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "STUDENT SERVICES SARAH BOWEN, DIRECTOR | SBOWEN/at.caseD125.ORG | 847-415-4501 The Student Services Division is dedicated to supporting all students in the development of the social-emotional skills: responsible decision-making, relationship skills, social awareness, self awareness and self management, which are necessary to achieve their goals of success in post-secondary endeavors, and to positively contribute to a global society. The Student Services Division is composed of school counselors,"
+}

@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1331,
+  "courseSignalCount": 0,
+  "policySignalCount": 1,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "SCIENCE 87 SCIENCE DIVISION STEVE WOOD, DIRECTOR | SWOOD/at.caseD125.ORG | 847-415-4401 Science is as much a way of knowing as it is a body of knowledge. The Science Division at Stevenson is dedicated to a laboratory approach to science education that will involve each student in the process of discovery. This approach enables students to have practice in the kinds of analytical problem solving that will help them throughout life. Students will engage in the Science and Engineering Practices out"
+}

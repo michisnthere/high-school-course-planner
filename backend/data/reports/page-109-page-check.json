@@ -1,0 +1,29 @@
+{
+  "classification": "unknown_or_non_course_content",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": false,
+  "characterCount": 5777,
+  "courseSignalCount": 0,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 0,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "APPENDIX LEGAL NOTICE TO STUDENTS AND PARENTS/GUARDIANS CONFIDENTIALITY OF STUDENT RECORD INFORMATION In accordance with the provisions of the Family Educational Rights and Privacy Act and its regulations, the Illinois School Student Records Act and its regulations, and Board Policy 7:340, Student Records, and its administrative procedures, each parent/ guardian and student is advised as follows: 1. Directory information may be released to the general public without written consent from a parent"
+}

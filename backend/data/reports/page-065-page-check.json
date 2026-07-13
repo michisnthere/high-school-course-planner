@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": false,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": false,
+  "characterCount": 1568,
+  "courseSignalCount": 40,
+  "policySignalCount": 0,
+  "courseSignals": {
+    "course_code": 38,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 2,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "MATHEMATICS 63 MATHEMATICS COURSE OFFERINGS WWW.D125.ORG/ACADEMICS/COURSEBOOK Calculator recommendation A graphing calculator is required for all mathematics courses. The TI-84 Plus CE graphing calculator is strongly recommended as the preferred calculator for all Stevenson High School mathematics courses. In addition, students will use a Stevenson-issued iPad to access notes, view feedback, engage in learning activities and collaborate. AP Precalculus AB Full-Year Course MTH411/MTH412 AP Precal"
+}

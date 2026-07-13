@@ -1,0 +1,29 @@
+{
+  "classification": "academic_policy_content",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 1177,
+  "courseSignalCount": 4,
+  "policySignalCount": 2,
+  "courseSignals": {
+    "course_code": 0,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 4,
+    "duration": 0,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "COMMUNICATION ARTS 25 COMMUNICATION ARTS DIVISION KIMBERLY MUSOLF | KMUSOLF/at.caseD125.ORG | 847-415-4326 The Communication Arts Department includes the academic areas of English, speech, literacy and journalism. It offers courses on three levels: college preparatory, accelerated and AP/honors. It is the department’s goal to assist students in becoming critical and analytical readers, logical and insightful thinkers and skilled users of written, visual and oral communication. Communication Arts"
+}

@@ -1,0 +1,68 @@
+COMPUTER SCIENCE, ENGINEERING AND TECHNOLOGY (CSET)36
+AP COMPUTER SCIENCE PRINCIPLES
+CSC371–Semester 1 CSC372–Semester 2
+Open to: 10-11-12 Full Year
+Prerequisite: ALGEBRA 1 credit: honors
+AP Computer Science Principles is a college-level  
+computing course that introduces students to the breadth of 
+the computer science field. Students learn to design/evaluate 
+computing solutions and apply computer science to solve 
+problems through algorithms and event-driven JavaScript 
+program development. Students will discover the extensive 
+role of abstraction throughout computing and incorporate it 
+into their programs. They will learn how digital information 
+and the internet work, as well as how encryption protects 
+internet transactions. Students will program utilizing libraries 
+and data sets and learn the importance of data in modern 
+computing in terms of visualizations and machine learning. 
+They will connect computing to today’s world and explore its 
+real-world impact and implications in almost every area of 
+life. Students will find opportunities to be challenged and to 
+discover the creativity within computing, regardless of their 
+programming background. Students who enroll in this course 
+will be prepared to take the AP Computer Science Principles 
+exam in May.
+COMPUTER SCIENCE ALGORITHMS
+CSC421–Semester 1 CSC422–Semester 2 
+Open to: 11-12  Full Year
+Prerequisite: AP Computer Science A (CSC391/CSC392)
+CREDIT: Honors
+This full-year course is intended for students who have 
+successfully completed AP Computer Science A (CSC391/392)
+and are looking to deepen their understanding of computer 
+programming concepts. Algorithms are at the heart of every 
+computer program used in the tech industry today. In order 
+to create applications that run efficiently and correctly, 
+programmers must design and implement algorithms for  
+their programs. This makes the study of algorithms essential 
+for computer programming. The course will introduce 
+students to the fundamentals of designing algorithms, as  
+well as proving their correctness and analyzing their efficiency. 
+A variety of algorithm design techniques will be explored with 
+common problems such as searching and sorting. The design 
+and implementation of elementary data structures such as 
+linked lists, hash tables and binary search trees will be  
+covered as well.
+MOBILE APP DEVELOPMENT
+GPA WAIVER OPTION 
+CSC251–Semester 1 CSC252–Semester 2
+Open to: 9-10-11-12 ONE SEMESTER
+Prerequisite: Computer Programming 1 (CSC161/162), or Web 
+Development 2 (TEC281/282), or Principles of Engineering 
+(TEC301/302) or AP Computer Science Principles (CSC371/372)
+Credit: College prep 
+This full-year course introduces students to the world of  
+app development for mobile devices (such as smartphones 
+and tablets). Students will work in a collaborative, lab-based 
+environment that utilizes industry-standard processes and 
+development strategies similar to those a professional app 
+development company might employ. Each unit begins by 
+introducing students to specific skills and ideas that will be 
+used to modify and redesign existing mobile apps. Each unit 
+concludes with students applying the concepts learned to 
+create an application on their own. Topics include: event-
+driven programming strategies, app structure, algorithm 
+design and user-interface design. Successful completion  
+of this course provides students with a strong command  
+of the fundamental strategies necessary to develop high 
+quality apps. 

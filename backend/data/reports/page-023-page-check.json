@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3855,
+  "courseSignalCount": 30,
+  "policySignalCount": 4,
+  "courseSignals": {
+    "course_code": 8,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 13,
+    "duration": 5,
+    "gpa_waiver": 4
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 4,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FAMILY AND CONSUMER SCIENCES THE FAMILY AND CONSUMER SCIENCES DEPARTMENT OFFERS A SERIES OF COURSES THAT STRIVE TO CREATE LEARNING ENVIRONMENTS THAT ARE SUPPORTIVE, CULTURALLY RESPONSIVE AND FOCUSED ON BUILDING RELATIONSHIPS AND COMMUNITY. TEACHER TEAMS DESIGN CURRICULUM THAT REINFORCES CONNECTIONS TO A VARIETY OF ACADEMIC SUBJECTS, INDIVIDUAL EXPERIENCES AND GLOBAL PERSPECTIVES. TECHNOLOGY IS IMPLEMENTED TO STAY CONSISTENT WITH TEACHING, LEARNING, CURRENT EVENTS AND TRENDS. A STRONG FOCUS IS PL"
+}

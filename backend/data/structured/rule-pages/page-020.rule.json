@@ -1,0 +1,90 @@
+{
+  "sourcePage": 20,
+  "departments": [
+    {
+      "name": "Applied Arts–business Education",
+      "description": null
+    }
+  ],
+  "courses": [
+    {
+      "title": "Investment Management",
+      "department": "Applied Arts–business Education",
+      "description": "Investment Management is designed to help students create a well-rounded investment plan to meet their financial goals. Students will learn techniques used in corporate finance and analyze various financial securities like stocks, futures and options. They will explore the issues faced by today’s corporate financial managers and brokers through the use of a sophisticated, hands-on investment simulation. This course is designed for students who are planning careers in brokerage, investment and other financial fields.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "BUS361",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "BUS362",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 20",
+      "isOnline": false
+    },
+    {
+      "title": "Personal Finance",
+      "department": "Applied Arts–business Education",
+      "description": "Personal Finance will teach students how to manage finances and achieve their goals by utilizing sound decision-making. This student-centered course allows individuals to explore and learn about important facets of their financial life. Specific course topics relate to housing, transportation, wellness, recreation, leisure, saving and investing. Students will gain knowledge and skills by investigating and responding to problems and challenges facing all consumers. The curricular requirements for this course are identical to the traditional Personal Finance course. Instructional activities are adjusted for an online instructional setting. There will be no physical class meeting period or time, though some activities will be available to all enrolled students in-person during the school day. Students will be expected to engage in class activities, projects, discussions and peer feedback frequently within each school week. Assignments will have specific due dates and students will receive individualized feedback from their teacher. Daily in-person office hours will be available for all students enrolled in the course. In-person remediation may be required as needed on an individual student basis with their teacher. Successful completion of this course fulfills the Economics/Personal Finance graduation requirement.",
+      "gpaWaiverOption": true,
+      "offerings": [
+        {
+          "courseCode": "BUS301",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        },
+        {
+          "courseCode": "BUS302",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [
+            11,
+            12
+          ],
+          "prerequisites": [],
+          "corequisites": [],
+          "creditType": "College Prep",
+          "credits": 1.0
+        }
+      ],
+      "notes": [],
+      "sourceReference": "Page 20",
+      "isOnline": true
+    }
+  ],
+  "graduationRequirements": [],
+  "warnings": [
+    "Page 20: credit inference count = 4",
+    "Page 20: no graduation requirement headings found."
+  ]
+}

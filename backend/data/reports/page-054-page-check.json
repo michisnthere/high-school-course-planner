@@ -1,0 +1,29 @@
+{
+  "classification": "detailed_course_content",
+  "shouldExtract": true,
+  "isCourseContent": true,
+  "isCourseListingSummary": false,
+  "isAcademicPolicyContent": true,
+  "characterCount": 4745,
+  "courseSignalCount": 37,
+  "policySignalCount": 5,
+  "courseSignals": {
+    "course_code": 10,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 17,
+    "duration": 5,
+    "gpa_waiver": 5
+  },
+  "policySignals": {
+    "graduation": 0,
+    "requirement": 0,
+    "waiver": 5,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 0
+  },
+  "preview": "FINE ARTS—DANCE52 DANCE 4 GPA WAIVER OPTION DNC401–Semester 1 DNC402–Semester 2 Open to: 9-10-11-12 Full Year Prerequisite: Dance 3 and/or placement by instructor Credit: College prep This course is designed for students who have achieved a high degree of technical skill. The class will work toward developing and enhancing performance qualities. The emphasis is on challenging students’ creative skills in order to strengthen versatility of movement styles through choreographic and compositional s"
+}

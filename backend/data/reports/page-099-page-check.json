@@ -1,0 +1,29 @@
+{
+  "classification": "course_listing_summary",
+  "shouldExtract": true,
+  "isCourseContent": false,
+  "isCourseListingSummary": true,
+  "isAcademicPolicyContent": true,
+  "characterCount": 3518,
+  "courseSignalCount": 17,
+  "policySignalCount": 3,
+  "courseSignals": {
+    "course_code": 6,
+    "open_to": 0,
+    "prerequisite": 0,
+    "credit": 0,
+    "semester": 8,
+    "duration": 3,
+    "gpa_waiver": 0
+  },
+  "policySignals": {
+    "graduation": 1,
+    "requirement": 1,
+    "waiver": 0,
+    "physical_education": 0,
+    "drivers_ed": 0,
+    "civics": 0,
+    "economics": 1
+  },
+  "preview": "SOCIAL STUDIES 97 AMERICAN STUDIES (AP U.S. HISTORY AND AP ENGLISH LANGUAGE AND COMPOSITION) SOC581–Semester 1 SOC582–Semester 2 Open to: 11 Full Year Prerequisite: World History and Geography, Sophomore English Credit: honors Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country’s history and literature. This course fulfills the College B"
+}
