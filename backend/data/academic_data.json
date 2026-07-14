@@ -2363,7 +2363,7 @@
             12
           ],
           "prerequisites": [
-            "Advanced Drawing, Painting and Mixed Media or Advanced Ceramics, Metals and Sculpture"
+            "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
           ]
         },
         {
@@ -2375,7 +2375,7 @@
             12
           ],
           "prerequisites": [
-            "Advanced Drawing, Painting and Mixed Media or Advanced Ceramics, Metals and Sculpture"
+            "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
           ]
         }
       ],
@@ -2509,7 +2509,7 @@
             12
           ],
           "prerequisites": [
-            "Photography 1, Photography 2 or Digital Art and Design 1, Digital Art and Design 2 or 2D Animation and/or 3D Animation"
+            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
           ]
         },
         {
@@ -2522,7 +2522,7 @@
             12
           ],
           "prerequisites": [
-            "Photography 1, Photography 2 or Digital Art and Design 1, Digital Art and Design 2 or 2D Animation and/or 3D Animation"
+            "Photography 1, Photography 2 OR Digital Art and Design 1, Digital Art and Design 2 OR 2D Animation and/or 3D Animation"
           ]
         }
       ],
@@ -3054,7 +3054,7 @@
             12
           ],
           "prerequisites": [
-            "Dance 4 or a Senior who has completed Dance 3"
+            "Dance 4 OR a Senior who has completed Dance 3"
           ]
         },
         {
@@ -3067,7 +3067,7 @@
             12
           ],
           "prerequisites": [
-            "Dance 4 or a Senior who has completed Dance 3"
+            "Dance 4 OR a Senior who has completed Dance 3"
           ]
         }
       ],
@@ -4698,7 +4698,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 or Entertainment Production and Design and Instructor Approval"
+            "Acting 4 OR Entertainment Production and Design and Instructor Approval"
           ]
         },
         {
@@ -4711,7 +4711,7 @@
             12
           ],
           "prerequisites": [
-            "Acting 4 or Entertainment Production and Design and Instructor Approval"
+            "Acting 4 OR Entertainment Production and Design and Instructor Approval"
           ]
         }
       ],
@@ -4742,7 +4742,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "FRE102",
@@ -4754,7 +4756,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "notes": [],
@@ -4920,7 +4924,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "GRE102",
@@ -4932,7 +4938,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "notes": [],
@@ -5098,7 +5106,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "HBR102",
@@ -5110,7 +5120,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "notes": [],
@@ -5276,7 +5288,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "LAT102",
@@ -5288,7 +5302,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "notes": [],
@@ -5454,7 +5470,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "CHI102",
@@ -5466,7 +5484,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "notes": [],
@@ -5769,7 +5789,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "SPA102",
@@ -5781,7 +5803,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "notes": [],
@@ -6272,7 +6296,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or ELD 1, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ]
         },
         {
@@ -6286,7 +6310,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or ELD 1, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ]
         }
       ],
@@ -6321,7 +6345,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or ELD 2, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         },
         {
@@ -6335,7 +6359,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or ELD 2, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
       ],
@@ -6370,7 +6394,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or ELD 2, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         },
         {
@@ -6384,7 +6408,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or ELD 2, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 3.0-3.9 or successful completion of ELD 2, teacher recommendation or director approval"
           ]
         }
       ],
@@ -6416,7 +6440,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ]
         },
         {
@@ -6430,7 +6454,7 @@
             12
           ],
           "prerequisites": [
-            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
+            "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 4.0-4.8 or successful completion of ELD 3: Language and/or ELD 3: Literature, teacher recommendation or director approval"
           ]
         }
       ],
@@ -6465,7 +6489,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         },
         {
           "courseCode": "ELD562",
@@ -6477,7 +6503,9 @@
             11,
             12
           ],
-          "prerequisites": []
+          "prerequisites": [
+            "None"
+          ]
         }
       ],
       "attributes": {
@@ -6511,7 +6539,7 @@
             10
           ],
           "prerequisites": [
-            "Proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
+            "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ]
         },
         {
@@ -6523,7 +6551,7 @@
             10
           ],
           "prerequisites": [
-            "Proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
+            "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ]
         }
       ],
@@ -7033,7 +7061,7 @@
             12
           ],
           "prerequisites": [
-            "Precalculus or AP Precalculus"
+            "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ]
         },
         {
@@ -7046,7 +7074,7 @@
             12
           ],
           "prerequisites": [
-            "Precalculus or AP Precalculus"
+            "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ]
         }
       ],
@@ -7289,7 +7317,7 @@
             12
           ],
           "prerequisites": [
-            "A Foundational Fitness class or any previous Physical Education course"
+            "A Foundational Fitness class or any previous physical education course"
           ]
         },
         {
@@ -7303,7 +7331,7 @@
             12
           ],
           "prerequisites": [
-            "A Foundational Fitness class or any previous Physical Education course"
+            "A Foundational Fitness class or any previous physical education course"
           ]
         }
       ],
@@ -7381,7 +7409,7 @@
                 12
               ],
               "prerequisites": [
-                "A Foundational Fitness course, any Physical Education class or director approval"
+                "A Foundational Fitness course, any physical education class or director approval"
               ]
             },
             {
@@ -7394,7 +7422,7 @@
                 12
               ],
               "prerequisites": [
-                "A Foundational Fitness course, any Physical Education class or director approval"
+                "A Foundational Fitness course, any physical education class or director approval"
               ]
             }
           ]
@@ -7468,7 +7496,7 @@
             12
           ],
           "prerequisites": [
-            "Physical Education Leadership Training"
+            "Physical education Leadership Training"
           ]
         },
         {
@@ -7479,7 +7507,7 @@
             12
           ],
           "prerequisites": [
-            "Physical Education Leadership Training"
+            "Physical education Leadership Training"
           ]
         }
       ],
@@ -7753,6 +7781,58 @@
           ],
           "prerequisites": [
             "Health Education"
+          ]
+        }
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Health Education"
+    },
+    {
+      "title": "Driver Education",
+      "description": "Driver Education provides students with the knowledge and skills necessary to become safe and responsible drivers. This course covers traffic laws, vehicle operation, defensive driving techniques, and the consequences of impaired driving. Students must meet all state and school requirements to enroll. Successful completion satisfies the Illinois state requirement for driver education.",
+      "sourceReference": "page 88",
+      "notes": [
+        "Pass/Fail course.",
+        "This course does not count toward GPA."
+      ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [
+        "Driver Education"
+      ],
+      "offerings": [
+        {
+          "courseCode": "DE231",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [
+            "Valid Illinois Instruction Permit obtained through Driver Education",
+            "Parental consent",
+            "Verification of age",
+            "At least 8 credits earned during the previous two semesters",
+            "ELD students must be enrolled in ELD 2 or higher",
+            "Freshmen are not eligible to take the course"
+          ]
+        },
+        {
+          "courseCode": "DE232",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [
+            "Valid Illinois Instruction Permit obtained through Driver Education",
+            "Parental consent",
+            "Verification of age",
+            "At least 8 credits earned during the previous two semesters",
+            "ELD students must be enrolled in ELD 2 or higher",
+            "Freshmen are not eligible to take the course"
           ]
         }
       ],
@@ -8457,7 +8537,7 @@
                 12
               ],
               "prerequisites": [
-                "AP Physics 1 or AP Physics 2, and AP Calculus AB or BC (or concurrent enrollment), or approval of director"
+                "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ]
             },
             {
@@ -8469,7 +8549,7 @@
                 12
               ],
               "prerequisites": [
-                "AP Physics 1 or AP Physics 2, and AP Calculus AB or BC (or concurrent enrollment), or approval of director"
+                "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ]
             }
           ]
@@ -8490,7 +8570,7 @@
                 12
               ],
               "prerequisites": [
-                "AP Physics 1 or AP Physics 2, and AP Calculus AB or BC (or concurrent enrollment), or approval of director"
+                "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ]
             },
             {
@@ -8502,7 +8582,7 @@
                 12
               ],
               "prerequisites": [
-                "AP Physics 1 or AP Physics 2, and AP Calculus AB or BC (or concurrent enrollment), or approval of director"
+                "AP Physics 1 or AP Physics 2, and completion or concurrent enrollment in AP Calculus AB or BC, or approval of director"
               ]
             }
           ]
@@ -9148,13 +9228,14 @@
       "department": "Social Studies"
     },
     {
-      "title": "American Studies (AP U.S. History and AP English Language and Composition)",
-      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. SAT and AP exam preparation are used to sharpen reading, editing and revising skills. Students who enroll in this course are prepared to take both the AP English Language and Composition and the AP U.S. History exams in May.",
-      "sourceReference": "page 99",
+      "title": "American Studies",
+      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams.\n\nEnglish Component: AP English Language and Composition\nSocial Studies Component: AP United States History\n\nThe AP English Language component features the study of primary source documents, contemporary and historical nonfiction and fiction. Students read to deepen their analysis of rhetoric and to develop their perspective of both history and contemporary society. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes.\n\nStudents who enroll in this course are prepared to take both the AP English Language and Composition and the AP U.S. History exams in May.",
+      "sourceReference": "pages 31, 99",
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 2,
       "fulfillsRequirements": [
+        "English",
         "U.S. History"
       ],
       "offerings": [
@@ -9162,25 +9243,29 @@
           "courseCode": "SOC581",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "Sophomore English"
-          ]
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
         },
         {
           "courseCode": "SOC582",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "Sophomore English"
-          ]
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
+        },
+        {
+          "courseCode": "ENG341",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
+        },
+        {
+          "courseCode": "ENG342",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
         }
       ],
       "notes": [],
@@ -10006,45 +10091,7 @@
         }
       ]
     },
-    {
-      "title": "American Studies (AP English Language and Composition and AP U.S. History)",
-      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. The AP English Language component features the study of primary source documents, contemporary and historical nonfiction and fiction. Students read to deepen their analysis of rhetoric and to develop their perspective of both history and contemporary society. Students write and orally present original arguments—both with and without sources. All forms of writing—analysis, argument, synthesis, creative prose—are influenced by students' awareness of the interdisciplinary content.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 31",
-      "creditType": "Honors",
-      "credits": 1,
-      "fulfillsRequirements": [
-        "English"
-      ],
-      "offerings": [
-        {
-          "courseCode": "ENG341",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
-        },
-        {
-          "courseCode": "ENG342",
-          "semesterLabel": "Semester 2",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
-        }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
-    },
+
     {
       "title": "AP Literature and Composition",
       "description": "This course will provide students with a college-level literary experience that will foster readiness for the AP English Literature and Composition exam. In compliance with College Board requirements, students will study works from the 16th century to the present. During the course of the year, students are expected to continue to develop their knowledge of literary terms related to prose and poetry; demonstrate how the parts and techniques of a literary work contribute to the meaning of the work; actively participate in high-level analytical discourse; and create cogent, sustained and sophisticated expressions of analytical interpretation in written form. Students should expect to write weekly, including response papers, in-class essays and process essays.",
@@ -11493,3 +11540,4 @@
     }
   ]
 }
+

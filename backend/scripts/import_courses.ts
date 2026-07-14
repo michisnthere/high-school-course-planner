@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { parseSemester, parseDurationUnits } from "./lib/normalize";
 import {
   canonicalRequirementName,
@@ -88,7 +89,9 @@ type FailedRecord = {
 // Constants
 // ---------------------------------------------------------------------------
 
-const INPUT_PATH = process.argv[2] ?? path.resolve("..", "data", "academic_data.json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const INPUT_PATH = process.argv[2] ?? path.resolve(__dirname, "..", "data", "academic_data.json");
 
 const prisma = new PrismaClient();
 
@@ -158,11 +161,14 @@ function gradeRange(levels: number[] | undefined): { gradeMin: number | null; gr
 // Pre-write validation
 // ---------------------------------------------------------------------------
 
+function validateCourseCredits(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value > 0;
+}
+
 function validateAll(
   courses: CourseInput[]
 ): { valid: CourseInput[]; failedRecords: FailedRecord[] } {
   const seenImportKeys = new Set<string>();
-  const seenCourseCodes = new Set<string>();
   const valid: CourseInput[] = [];
   const failedRecords: FailedRecord[] = [];
 
@@ -197,6 +203,110 @@ function validateAll(
       continue;
     }
 
+    // Validate credit values at course, choice, and offering level.
+    if (course.credits != null && !validateCourseCredits(course.credits)) {
+      fail(`invalid credit value at course level: ${course.credits}`);
+      continue;
+    }
+    if (Array.isArray(course.choices)) {
+      for (const choice of course.choices) {
+        if (choice.credits != null && !validateCourseCredits(choice.credits)) {
+          fail(`invalid credit value in choice "${choice.name}": ${choice.credits}`);
+          continue;
+        }
+        if (Array.isArray(choice.offerings)) {
+          for (const offering of choice.offerings) {
+            if (offering.credits != null && !validateCourseCredits(offering.credits)) {
+              fail(`invalid credit value in offering "${offering.courseCode}": ${offering.credits}`);
+              continue;
+            }
+          }
+        }
+      }
+    }
+    if (Array.isArray(course.offerings)) {
+      for (const offering of course.offerings) {
+        if (offering.credits != null && !validateCourseCredits(offering.credits)) {
+          fail(`invalid credit value in offering "${offering.courseCode}": ${offering.credits}`);
+          continue;
+        }
+      }
+    }
+
+    // Validate prerequisites are arrays of strings.
+    const checkPrereqs = (offerings: CourseOfferingInput[]) => {
+      for (const offering of offerings) {
+        if (offering.prerequisites != null && !Array.isArray(offering.prerequisites)) {
+          fail(`prerequisites must be an array for offering "${offering.courseCode}"`);
+          return false;
+        }
+        if (offering.corequisites != null && !Array.isArray(offering.corequisites)) {
+          fail(`corequisites must be an array for offering "${offering.courseCode}"`);
+          return false;
+        }
+      }
+      return true;
+    };
+    if (Array.isArray(course.offerings)) {
+      if (!checkPrereqs(course.offerings)) continue;
+    }
+    if (Array.isArray(course.choices)) {
+      let choiceOk = true;
+      for (const choice of course.choices) {
+        if (Array.isArray(choice.offerings)) {
+          if (!checkPrereqs(choice.offerings)) {
+            choiceOk = false;
+            break;
+          }
+        }
+      }
+      if (!choiceOk) continue;
+    }
+
+    // Validate grade levels are arrays of numbers.
+    const checkGradeLevels = (offerings: CourseOfferingInput[]) => {
+      for (const offering of offerings) {
+        if (offering.gradeLevels != null) {
+          if (!Array.isArray(offering.gradeLevels)) {
+            fail(`gradeLevels must be an array for offering "${offering.courseCode}"`);
+            return false;
+          }
+          for (const g of offering.gradeLevels) {
+            if (typeof g !== "number" || g < 9 || g > 12) {
+              fail(`invalid grade level ${g} in offering "${offering.courseCode}"`);
+              return false;
+            }
+          }
+        }
+      }
+      return true;
+    };
+    if (Array.isArray(course.offerings)) {
+      if (!checkGradeLevels(course.offerings)) continue;
+    }
+    if (Array.isArray(course.choices)) {
+      let choiceOk = true;
+      for (const choice of course.choices) {
+        if (Array.isArray(choice.offerings)) {
+          if (!checkGradeLevels(choice.offerings)) {
+            choiceOk = false;
+            break;
+          }
+        }
+      }
+      if (!choiceOk) continue;
+    }
+
+    // Check for empty strings in fulfillsRequirements.
+    if (Array.isArray(course.fulfillsRequirements)) {
+      for (const req of course.fulfillsRequirements) {
+        if (typeof req !== "string" || !req.trim()) {
+          fail(`empty or non-string fulfillsRequirements entry in "${course.title}"`);
+          continue;
+        }
+      }
+    }
+
     let offeringConflict: string | null = null;
 
     // Validate offerings per option group. Duplicate courseCodes are allowed
@@ -215,17 +325,17 @@ function validateAll(
     }
 
     for (const group of optionGroups) {
-      const seenCourseCodes = new Set<string>();
+      const seenGroupCodes = new Set<string>();
       for (const offering of group) {
         if (!offering.courseCode?.trim()) {
           offeringConflict = `missing courseCode for "${course.title}"`;
           break;
         }
-        if (seenCourseCodes.has(offering.courseCode)) {
+        if (seenGroupCodes.has(offering.courseCode)) {
           offeringConflict = `duplicate courseCode in input: ${offering.courseCode}`;
           break;
         }
-        seenCourseCodes.add(offering.courseCode);
+        seenGroupCodes.add(offering.courseCode);
       }
       if (offeringConflict) break;
     }
@@ -506,7 +616,16 @@ async function getOrCreateCourseOption(
 // ---------------------------------------------------------------------------
 
 async function main() {
-  const raw = await readFile(INPUT_PATH, "utf8");
+  let raw: string;
+  try {
+    raw = await readFile(INPUT_PATH, "utf8");
+  } catch {
+    console.error(`Input file not found: ${INPUT_PATH}`);
+    console.error(`Usage: npx tsx scripts/import_courses.ts [path/to/academic_data.json]`);
+    console.error(`Default path resolves to backend/data/academic_data.json`);
+    process.exitCode = 1;
+    return;
+  }
   const catalog = JSON.parse(raw) as ExtractedCatalog;
   const allCourses = Array.isArray(catalog.courses) ? catalog.courses : [];
   const allRequirements = Array.isArray(catalog.graduationRequirements)
