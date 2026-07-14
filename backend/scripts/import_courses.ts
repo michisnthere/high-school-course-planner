@@ -62,6 +62,8 @@ type GraduationRequirementInput = {
   category?: string | null;
   requirementType?: string | null;
   requiredValue?: number | null;
+  gradeLevel?: number | null;
+  isMeasurable?: boolean | null;
   notes?: string[];
   sourceReference?: string | null;
 };
@@ -465,9 +467,6 @@ async function importGraduationRequirements(
     if (isNonGraduationRequirementName(canonicalName)) {
       continue;
     }
-    if (!isMeasurableGraduationRequirementName(canonicalName) && !isInformationItemName(canonicalName)) {
-      continue;
-    }
     if (seenCanonical.has(canonicalName)) {
       continue;
     }
@@ -487,6 +486,8 @@ async function importGraduationRequirements(
         category: req.category ?? null,
         requirementType: req.requirementType ?? null,
         requiredValue: req.requiredValue ?? null,
+        gradeLevel: req.gradeLevel ?? null,
+        isMeasurable: req.isMeasurable ?? (req.requiredValue != null),
         notes: requireArray(req.notes),
         sourceReference: req.sourceReference ?? null,
       },
@@ -495,6 +496,8 @@ async function importGraduationRequirements(
         category: req.category ?? null,
         requirementType: req.requirementType ?? null,
         requiredValue: req.requiredValue ?? null,
+        gradeLevel: req.gradeLevel ?? null,
+        isMeasurable: req.isMeasurable ?? (req.requiredValue != null),
         notes: requireArray(req.notes),
         sourceReference: req.sourceReference ?? null,
       },

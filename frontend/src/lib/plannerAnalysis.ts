@@ -1,3 +1,10 @@
+export type PeSemesterBreakdown = {
+  semester: number;
+  met: boolean;
+  courseTitle: string | null;
+  courseId: number | null;
+};
+
 export type PlannerAnalysis = {
   credits: {
     total: number;
@@ -42,6 +49,7 @@ export type PlannerAnalysis = {
     satisfiedCount: number;
     totalCount: number;
   }>;
+  peSemesterBreakdown: PeSemesterBreakdown[];
   duplicateCourses: Array<{
     courseId: number;
     title: string;

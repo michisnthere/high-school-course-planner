@@ -22,8 +22,6 @@ import type {
 } from "@prisma/client";
 import {
   canonicalRequirementName,
-  isInformationItem,
-  isMeasurableGraduationRequirement,
   normalizeRequirementNames,
   type InformationItem,
 } from "./requirementsCleanup.js";
@@ -56,6 +54,8 @@ type AnalysisCourse = {
   department: string | null;
   fulfillsRequirements: string[];
   prerequisites: string[];
+  peEligible: boolean;
+  isFoundationalFitness: boolean;
 };
 
 type CoursePlacement = {
@@ -133,6 +133,13 @@ export type ResolutionInfo = {
   metadata: Record<string, unknown>;
 };
 
+export type PeSemesterBreakdown = {
+  semester: number;
+  met: boolean;
+  courseTitle: string | null;
+  courseId: number | null;
+};
+
 export type PlannerAnalysis = {
   credits: {
     total: number;
@@ -142,6 +149,7 @@ export type PlannerAnalysis = {
   graduationRequirements: RequirementStatus[];
   informationItems: InformationItem[];
   yearRequirements: YearRequirementStatus[];
+  peSemesterBreakdown: PeSemesterBreakdown[];
   duplicateCourses: DuplicateCourse[];
   missingPrerequisites: MissingPrerequisite[];
   plannerStatistics: PlannerStatistics;
@@ -179,6 +187,19 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
 
   const courseCode = option?.offerings?.[0]?.courseCode ?? null;
 
+  const attrs = Array.isArray(course.attributes)
+    ? course.attributes
+    : typeof course.attributes === "object" && course.attributes !== null
+      ? Object.entries(course.attributes).filter(([, v]) => v === true).map(([k]) => k)
+      : [];
+
+  const fulfillsLower = fulfillsRequirements.map((r) => r.toLowerCase());
+  const peEligible =
+    fulfillsLower.some((r) => r.startsWith("physical") || r === "driver education") ||
+    attrs.includes("satisfiesPeRequirement");
+
+  const isFoundationalFitness = attrs.includes("freshmanFoundationalFitness");
+
   return {
     id: course.id,
     title: course.title,
@@ -189,6 +210,8 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     department: course.department?.name ?? null,
     fulfillsRequirements,
     prerequisites: Array.from(prerequisites),
+    peEligible,
+    isFoundationalFitness,
   };
 }
 
@@ -202,11 +225,6 @@ function isFreePeriod(option: PlannerOption | null): boolean {
 
 function isAcademicCourse(placement: CoursePlacement): boolean {
   return placement.course != null && !isStudyHall(placement.plannerOption) && !isFreePeriod(placement.plannerOption);
-}
-
-function courseMatchesCategory(course: AnalysisCourse, matches: string[]): boolean {
-  const matchSet = new Set(matches.map((m) => m.toLowerCase()));
-  return course.fulfillsRequirements.some((req) => matchSet.has(req.toLowerCase()));
 }
 
 function getPlacementKey(placement: CoursePlacement): string {
@@ -367,7 +385,7 @@ function computeCredits(placements: CoursePlacement[]) {
 
 function toInformationItems(requirements: GraduationRequirement[]): InformationItem[] {
   return requirements
-    .filter((req) => isInformationItem(req))
+    .filter((req) => !req.isMeasurable || req.requiredValue == null)
     .map((req) => {
       let explanation = "";
       if (Array.isArray(req.notes)) {
@@ -419,7 +437,7 @@ function computeGraduationRequirements(
 
   const canonicalByName = new Map<string, GraduationRequirement>();
   for (const req of requirements) {
-    if (!isMeasurableGraduationRequirement(req)) continue;
+    if (req.isMeasurable !== true) continue;
     const canonicalName = canonicalRequirementName(req.name);
     const existing = canonicalByName.get(canonicalName);
     if (!existing || (existing.requiredValue == null && req.requiredValue != null)) {
@@ -473,7 +491,7 @@ function mergeCourseRequirementLinksByCanonicalRequirement(
 ): Map<number, Set<number>> {
   const canonicalIdByName = new Map<string, number>();
   for (const req of requirements) {
-    if (!isMeasurableGraduationRequirement(req)) continue;
+    if (req.isMeasurable !== true) continue;
     const canonicalName = canonicalRequirementName(req.name);
     if (!canonicalIdByName.has(canonicalName)) {
       canonicalIdByName.set(canonicalName, req.id);
@@ -649,56 +667,48 @@ function computeRecommendations(
   return recommendations;
 }
 
-const YEARLY_REQUIREMENTS: Record<number, Array<{ category: string; requiredCredits: number; matches: string[] }>> = {
-  9: [
-    { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics"] },
-    { category: "Science", requiredCredits: 1, matches: ["Biology", "Physical Science"] },
-  ],
-  10: [
-    { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics"] },
-    { category: "Science", requiredCredits: 1, matches: ["Biology", "Physical Science"] },
-    { category: "Health", requiredCredits: 0.5, matches: ["Health"] },
-    { category: "Driver Education", requiredCredits: 0.5, matches: ["Driver Education"] },
-  ],
-  11: [
-    { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Mathematics", requiredCredits: 1, matches: ["Mathematics"] },
-  ],
-  12: [
-    { category: "Communication Arts", requiredCredits: 1, matches: ["English"] },
-    { category: "Economics", requiredCredits: 0.5, matches: ["Economics", "Personal Finance", "Consumer Education"] },
-  ],
-};
+async function loadGradeLevelRequirements(): Promise<Map<number, GraduationRequirement[]>> {
+  const reqs = await prisma.graduationRequirement.findMany({
+    where: { gradeLevel: { not: null } },
+    include: { courses: { include: { course: true } } },
+  });
+  const map = new Map<number, GraduationRequirement[]>();
+  for (const req of reqs) {
+    const gl = req.gradeLevel!;
+    if (!map.has(gl)) map.set(gl, []);
+    map.get(gl)!.push(req);
+  }
+  return map;
+}
 
-function computeYearRequirements(placements: CoursePlacement[]): YearRequirementStatus[] {
+function computeYearRequirements(
+  placements: CoursePlacement[],
+  gradeLevelRequirements: Map<number, GraduationRequirement[]>,
+  courseRequirementLinks: Map<number, Set<number>>,
+): YearRequirementStatus[] {
   return YEARS.map((grade) => {
-    const reqs = YEARLY_REQUIREMENTS[grade] ?? [];
-    const byCategory: Record<string, number> = {};
-    const seen = new Set<string>();
-
-    for (const placement of placements) {
-      if (placement.year !== grade || !placement.course) continue;
-      const key = getBackendPlacementKey(placement);
-      if (seen.has(key)) continue;
-      seen.add(key);
-      for (const req of reqs) {
-        if (courseMatchesCategory(placement.course, req.matches)) {
-          byCategory[req.category] = (byCategory[req.category] ?? 0) + placement.credits;
-        }
-      }
-    }
-
+    const reqs = gradeLevelRequirements.get(grade) ?? [];
     const items: YearRequirementItem[] = reqs.map((req) => {
-      const earned = byCategory[req.category] ?? 0;
+      const eligibleIds = courseRequirementLinks.get(req.id) ?? new Set();
+      let earnedCredits = 0;
+      const seen = new Set<string>();
+
+      for (const placement of placements) {
+        if (placement.year !== grade || !placement.course) continue;
+        if (!eligibleIds.has(placement.course.id)) continue;
+        const key = getBackendPlacementKey(placement);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        earnedCredits += placement.credits;
+      }
+
       return {
-        category: req.category,
+        category: canonicalRequirementName(req.name),
         required: true,
-        met: earned >= req.requiredCredits,
-        earnedCredits: earned,
-        requiredCredits: req.requiredCredits,
-        matches: req.matches,
+        met: req.requiredValue != null ? earnedCredits >= req.requiredValue : earnedCredits > 0,
+        earnedCredits,
+        requiredCredits: req.requiredValue ?? 0,
+        matches: [],
       };
     });
 
@@ -712,6 +722,48 @@ function computeYearRequirements(placements: CoursePlacement[]): YearRequirement
       totalCount: items.length,
     };
   });
+}
+
+function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: ResolutionInfo[]): PeSemesterBreakdown[] {
+  const peWaived = resolutions.some((r) => r.type === "pe_waiver");
+
+  // Build a list of courses eligible for PE, by semester
+  type PeSlot = { year: number; semester: number; courseTitle: string; courseId: number };
+  const peSlots: PeSlot[] = [];
+  const seen = new Set<string>();
+
+  for (const placement of placements) {
+    if (!placement.course) continue;
+    if (!(placement.course as AnalysisCourse).peEligible) continue;
+    const key = getBackendPlacementKey(placement);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    peSlots.push({
+      year: placement.year,
+      semester: placement.semester,
+      courseTitle: placement.course.title,
+      courseId: placement.course.id,
+    });
+  }
+
+  // PE is required for 2 semesters per year for 4 years = 8 semesters
+  const totalSemesters = 8;
+  const breakdown: PeSemesterBreakdown[] = [];
+
+  for (let i = 0; i < totalSemesters; i++) {
+    const year = Math.floor(i / 2) + 9;
+    const semester = (i % 2) + 1;
+    const slot = peSlots.find((ps) => ps.year === year && ps.semester === semester);
+
+    breakdown.push({
+      semester: i + 1,
+      met: peWaived || slot != null,
+      courseTitle: slot?.courseTitle ?? null,
+      courseId: slot?.courseId ?? null,
+    });
+  }
+
+  return breakdown;
 }
 
 function computeDuplicateCourses(placements: CoursePlacement[]): DuplicateCourse[] {
@@ -894,14 +946,16 @@ async function loadResolutions(userId: number): Promise<ResolutionInfo[]> {
 }
 
 export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> {
-  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses, resolutions] = await Promise.all([
-    loadPlacements(userId),
-    loadGraduationRequirements(),
-    loadCourseRequirementLinks(),
-    loadCompletedCourses(userId),
-    loadAllCourses(),
-    loadResolutions(userId),
-  ]);
+  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses, resolutions, gradeLevelRequirements] =
+    await Promise.all([
+      loadPlacements(userId),
+      loadGraduationRequirements(),
+      loadCourseRequirementLinks(),
+      loadCompletedCourses(userId),
+      loadAllCourses(),
+      loadResolutions(userId),
+      loadGradeLevelRequirements(),
+    ]);
 
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, resolutions);
 
@@ -909,7 +963,8 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
     credits: computeCredits(placements),
     graduationRequirements,
     informationItems: toInformationItems(requirements),
-    yearRequirements: computeYearRequirements(placements),
+    yearRequirements: computeYearRequirements(placements, gradeLevelRequirements, courseRequirementLinks),
+    peSemesterBreakdown: computePeSemesterBreakdown(placements, resolutions),
     duplicateCourses: computeDuplicateCourses(placements),
     missingPrerequisites: computeMissingPrerequisites(placements, completedCourses, resolutions),
     plannerStatistics: computePlannerStatistics(placements),

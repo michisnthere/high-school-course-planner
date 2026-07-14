@@ -180,6 +180,8 @@ model GraduationRequirement {
   category        String?
   requirementType String?
   requiredValue   Float?
+  gradeLevel      Int?    // 9-12 for year-specific requirements, null for graduation totals
+  isMeasurable    Boolean @default(true)
   notes           Json    @default("[]")
   sourceReference String?
 
