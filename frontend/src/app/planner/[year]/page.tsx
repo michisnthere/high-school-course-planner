@@ -242,6 +242,7 @@ function PlannerYearContent(): React.ReactElement {
   const scrollYRef = useRef<number | null>(null);
   const loadedYearRef = useRef<number | null>(null);
   const historyRef = useRef<HistoryEntry[]>([]);
+  const undoRestoredPlannerRef = useRef<Planner | null>(null);
   const [canUndo, setCanUndo] = useState(false);
 
   const [selectedWarning, setSelectedWarning] = useState<{
@@ -382,13 +383,22 @@ function PlannerYearContent(): React.ReactElement {
       showToast(message, "warning");
       return;
     }
-    // Pop the undone entry and restore the previous planner state. Each undo
-    // handler is responsible for reverting the backend; this line makes the
-    // in-memory history stack consistent with that reverted state.
+    // Pop the undone entry and restore the previous planner state.
     historyRef.current = historyRef.current.slice(0, -1);
     const previous = historyRef.current[historyRef.current.length - 1];
-    setAllPlanners(previous.planners);
-    setPlanner(previous.planners.find((p) => p.schoolYear === year) || null);
+
+    // If the undo restored a planner entry (e.g. undoing a delete), the
+    // previously-deleted database row was recreated with a new auto-increment
+    // id.  Use the freshly-restored planner data so the UI references the new
+    // id, not the stale id from the history snapshot.
+    const restored = undoRestoredPlannerRef.current;
+    undoRestoredPlannerRef.current = null;
+    const planners = restored
+      ? previous.planners.map((p) => (p.id === restored.id ? restored : p))
+      : previous.planners;
+
+    setAllPlanners(planners);
+    setPlanner(planners.find((p) => p.schoolYear === year) || null);
     setCanUndo(historyRef.current.length > 1);
   }, [year, showToast]);
 
@@ -540,16 +550,7 @@ function PlannerYearContent(): React.ReactElement {
           } else {
             throw new Error("Cannot restore planned course: missing courseId and plannerOptionId");
           }
-          // Replace the state we are undoing back into with the freshly restored
-          // planner so the re-added course has the correct ids and shifted positions.
-          const previousEntry = historyRef.current[historyRef.current.length - 1];
-          const updatedPlanners = previousEntry.planners.map((p) =>
-            p.id === restoredPlanner.id ? restoredPlanner : p
-          );
-          historyRef.current = [
-            ...historyRef.current.slice(0, -1),
-            { ...previousEntry, planners: updatedPlanners },
-          ];
+          undoRestoredPlannerRef.current = restoredPlanner;
         });
         showToast("Course removed.", "success", handleUndo);
       } catch (err) {
