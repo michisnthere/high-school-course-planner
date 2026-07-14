@@ -50,6 +50,7 @@ type AnalysisCourse = {
   courseCode: string | null;
   duration: number;
   credits: number;
+  slotSpan: number;
   division: string | null;
   department: string | null;
   fulfillsRequirements: string[];
@@ -206,6 +207,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     courseCode,
     duration: deriveCourseDuration(course),
     credits: calculateTotalCredits(course),
+    slotSpan: course.slotsPerSemester ?? 1,
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     fulfillsRequirements,

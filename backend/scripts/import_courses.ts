@@ -48,6 +48,7 @@ type CourseInput = {
   isOnline?: boolean;
   creditType?: string | null;
   credits?: number | null;
+  slotsPerSemester?: number | null;
   fulfillsRequirements?: string[];
   isRepeatable?: boolean;
   attributes?: string[] | Record<string, unknown>;
@@ -695,6 +696,7 @@ async function main() {
           importKey,
           description: course.description ?? null,
           duration: courseDuration ?? null,
+          slotsPerSemester: course.slotsPerSemester ?? 1,
           attributes,
           fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
@@ -708,6 +710,7 @@ async function main() {
           importKey,
           description: course.description ?? null,
           duration: courseDuration ?? null,
+          slotsPerSemester: course.slotsPerSemester ?? 1,
           attributes,
           fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,

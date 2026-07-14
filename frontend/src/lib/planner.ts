@@ -11,6 +11,7 @@ export type PlannerCourseDetails = {
   title: string;
   normalizedTitle: string | null;
   duration: CourseDuration;
+  slotsPerSemester: number;
   creditType: string | null;
   credits: number | null;
   division: string | null;
@@ -39,6 +40,7 @@ export type PlannedCourse = {
   plannerOptionId: number | null;
   semester: number;
   slot: number;
+  slotSpan: number;
   course: PlannerCourseDetails;
 };
 
@@ -304,6 +306,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     title: course.title,
     normalizedTitle: course.normalizedTitle ?? null,
     duration: courseDuration,
+    slotsPerSemester: course.slotsPerSemester ?? 1,
     creditType: option?.creditType ?? null,
     credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,
@@ -325,6 +328,7 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     title: option.name,
     normalizedTitle: null,
     duration: option.duration,
+    slotsPerSemester: 1,
     creditType: null,
     credits: option.credits,
     division: null,

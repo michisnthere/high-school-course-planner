@@ -29,7 +29,7 @@ import {
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import { sumPlannedCredits } from "@/lib/courseCredits";
-import { getRequirementStatus, computePePerSemester } from "@/lib/gradeRequirements";
+import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
   courseMatchesQuery,
@@ -152,6 +152,9 @@ function applyOptimisticMove(
     { ...planner, plannedCourses: newCourses },
     ...planners.slice(plannerIndex + 1),
   ];
+
+  // Multi-slot courses cannot be moved via drag-and-drop.
+  if ((source.slotSpan ?? 1) > 1) return planners;
 
   if (source.course.duration === 2) {
     // Full-year: dropping on the same slot is a no-op; semester is ignored by the API.
@@ -441,6 +444,30 @@ function PlannerYearContent(): React.ReactElement {
     [loadCompletedCourses, showToast]
   );
 
+  const handleAddResolution = useCallback(
+    async (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => {
+      try {
+        await createResolution(data);
+        const updated = await getResolutions();
+        setResolutions(updated);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to add resolution";
+        showToast(message, "warning");
+      }
+    },
+    [showToast]
+  );
+
+  const handleRemoveResolution = useCallback(async (id: number) => {
+    try {
+      await deleteResolution(id);
+      setResolutions((prev) => prev.filter((r) => r.id !== id));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to remove resolution";
+      showToast(message, "warning");
+    }
+  }, []);
+
   const handleCloseModal = useCallback(() => {
     setActiveSlot(null);
   }, []);
@@ -526,11 +553,12 @@ function PlannerYearContent(): React.ReactElement {
     async (planned: PlannedCourse) => {
       try {
         scrollYRef.current = window.scrollY;
+        const hasMultiSlot = (planned.slotSpan ?? 1) > 1 || planned.course.duration === 2;
         const removedEntries = allPlanners
           .find((p) => p.id === planned.plannerId)
           ?.plannedCourses.filter((pc) =>
-            planned.course.duration === 2
-              ? pc.courseId === planned.courseId && pc.slot === planned.slot
+            hasMultiSlot
+              ? pc.courseId === planned.courseId
               : pc.id === planned.id
           ) ?? [];
 
@@ -616,13 +644,41 @@ function PlannerYearContent(): React.ReactElement {
     [handleMove]
   );
 
+  const getOccupiedSlots = (planned: PlannedCourse): number[] => {
+    const span = planned.slotSpan ?? 1;
+    return Array.from({ length: span }, (_, i) => planned.slot + i);
+  };
+
   const plannedBySlot = (semester: number, slot: number) =>
-    planner?.plannedCourses.find((course) => course.semester === semester && course.slot === slot);
+    planner?.plannedCourses.find(
+      (course) => course.semester === semester && course.slot <= slot && slot < course.slot + (course.slotSpan ?? 1)
+    );
+
+  const MUTLI_SLOT_PLACEHOLDER_STYLE: React.CSSProperties = {
+    height: "100px",
+    background: "linear-gradient(135deg, rgba(39, 93, 56, 0.04) 0%, rgba(39, 93, 56, 0.02) 100%)",
+    borderRadius: "8px",
+    border: "1px dashed rgba(39, 93, 56, 0.12)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "12px",
+    color: "var(--text-tertiary, #999)",
+    cursor: "default",
+  };
 
   const renderSlot = (semester: number, slot: number) => {
     const planned = plannedBySlot(semester, slot);
 
     if (planned) {
+      // Multi-slot courses only render the card on their primary (first) slot.
+      if ((planned.slotSpan ?? 1) > 1 && planned.slot !== slot) {
+        return (
+          <div key={`${semester}-${slot}`} style={MUTLI_SLOT_PLACEHOLDER_STYLE}>
+            {planned.course.title} (cont.)
+          </div>
+        );
+      }
       return (
         <PlannedCourseCard
           key={`${semester}-${slot}`}
@@ -758,19 +814,14 @@ function PlannerYearContent(): React.ReactElement {
         </div>
 
         {!loading && planner && (
-          <SummarySidebar
-            planners={allPlanners}
-            currentYear={year}
-            resolutions={resolutions}
-            onAddResolution={async (data) => {
-              const created = await createResolution(data);
-              setResolutions((prev) => [...prev, created]);
-            }}
-            onRemoveResolution={async (id) => {
-              await deleteResolution(id);
-              setResolutions((prev) => prev.filter((r) => r.id !== id));
-            }}
-          />
+      <SummarySidebar
+        planners={allPlanners}
+        currentYear={year}
+        resolutions={resolutions}
+        plannerAnalysis={plannerAnalysis}
+        onAddResolution={handleAddResolution}
+        onRemoveResolution={handleRemoveResolution}
+      />
         )}
       </div>
 
@@ -839,12 +890,14 @@ function SummarySidebar({
   planners,
   currentYear,
   resolutions,
+  plannerAnalysis,
   onAddResolution,
   onRemoveResolution,
 }: {
   planners: Planner[];
   currentYear: number;
   resolutions: RequirementResolution[];
+  plannerAnalysis: PlannerAnalysis | null;
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
   onRemoveResolution: (id: number) => void;
 }): React.ReactElement {
@@ -904,8 +957,23 @@ function SummarySidebar({
 
       <GradeRequirements
         grade={currentYear}
-        requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
-        pePerSemester={computePePerSemester(currentPlanner?.plannedCourses ?? [], currentYear)}
+        requirements={
+          plannerAnalysis?.yearRequirements
+            .find((yr) => yr.grade === currentYear)
+            ?.items.map((item) => ({
+              category: item.category,
+              requiredCredits: item.requiredCredits,
+              earnedCredits: item.earnedCredits,
+              isMet: item.met,
+            })) ?? []
+        }
+        pePerSemester={
+          plannerAnalysis?.peSemesterBreakdown.map((s) => ({
+            semester: s.semester,
+            isMet: s.met,
+            courseTitle: s.courseTitle,
+          })) as PeSemesterStatus[] | undefined
+        }
         peWaivers={resolutions
           .filter((r) => r.type === "pe_waiver")
           .map((r) => {

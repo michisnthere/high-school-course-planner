@@ -20,6 +20,7 @@ export type CourseDetails = {
   title: string;
   normalizedTitle: string | null;
   duration: number;
+  slotsPerSemester: number;
   creditType: string | null;
   credits: number | null;
   division: string | null;
@@ -39,6 +40,7 @@ type PlannedCourseResponse = {
   plannerOptionId: number | null;
   semester: number;
   slot: number;
+  slotSpan: number;
   course: CourseDetails;
 };
 
@@ -99,6 +101,7 @@ export function deriveCourseDetails(
     title: course.title,
     normalizedTitle: course.normalizedTitle ?? null,
     duration: deriveCourseDuration(course),
+    slotsPerSemester: course.slotsPerSemester ?? 1,
     creditType: option?.creditType ?? null,
     credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,
@@ -118,6 +121,7 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     title: option.name,
     normalizedTitle: null,
     duration: option.duration,
+    slotsPerSemester: 1,
     creditType: null,
     credits: option.credits,
     division: null,
@@ -141,11 +145,54 @@ function getPlannedDuration(plannedCourse: {
   return plannedCourse.plannerOption?.duration ?? 1;
 }
 
+function getOccupiedSlotCount(plannedCourse: {
+  slotSpan?: number;
+  course: (Course & { slotsPerSemester?: number | null; options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+  plannerOption: PlannerOption | null;
+}): number {
+  // Prefer the explicit slotSpan on the PlannedCourse record; fall back to course metadata.
+  if (plannedCourse.slotSpan != null && plannedCourse.slotSpan >= 1) return plannedCourse.slotSpan;
+  if (plannedCourse.course) {
+    return plannedCourse.course.slotsPerSemester ?? 1;
+  }
+  return 1;
+}
+
+function rangesOverlap(slotA: number, spanA: number, slotB: number, spanB: number): boolean {
+  return slotA < slotB + spanB && slotB < slotA + spanA;
+}
+
+function hasConsecutiveFreeSlots(
+  existingCourses: Array<{
+    id: number;
+    semester: number;
+    slot: number;
+    slotSpan?: number;
+    course: (Course & { slotsPerSemester?: number | null; options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+    plannerOption: PlannerOption | null;
+  }>,
+  semester: number,
+  startSlot: number,
+  count: number
+): boolean {
+  const targetEnd = startSlot + count - 1;
+  if (targetEnd > 7) return false; // slots are 1-7
+
+  const semCourses = existingCourses.filter((pc) => pc.semester === semester);
+
+  for (const pc of semCourses) {
+    const pcSpan = getOccupiedSlotCount(pc);
+    if (rangesOverlap(pc.slot, pcSpan, startSlot, count)) return false;
+  }
+  return true;
+}
+
 function computeShiftChain(
   existingCourses: Array<{
     id: number;
     semester: number;
     slot: number;
+    slotSpan?: number;
     course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
     plannerOption: PlannerOption | null;
   }>,
@@ -156,14 +203,19 @@ function computeShiftChain(
     .filter((pc) => pc.semester === semester)
     .sort((a, b) => a.slot - b.slot);
 
+  // Check if startSlot is occupied
   const occupant = semCourses.find((pc) => pc.slot === startSlot);
   if (!occupant) return [];
 
+  // Cannot shift full-year or multi-slot courses
   if (getPlannedDuration(occupant) === 2) return null;
+  if (getOccupiedSlotCount(occupant) > 1) return null;
 
+  // Find the first empty slot (shift chain)
   let emptySlot = startSlot;
   while (emptySlot <= 7) {
-    if (!semCourses.some((pc) => pc.slot === emptySlot)) break;
+    const occupied = semCourses.some((pc) => rangesOverlap(pc.slot, getOccupiedSlotCount(pc), emptySlot, 1));
+    if (!occupied) break;
     emptySlot++;
   }
   if (emptySlot > 7) return null;
@@ -172,7 +224,7 @@ function computeShiftChain(
   for (let slot = startSlot; slot < emptySlot; slot++) {
     const pc = semCourses.find((c) => c.slot === slot);
     if (!pc) return null;
-    if (getPlannedDuration(pc) === 2) return null;
+    if (getPlannedDuration(pc) === 2 || getOccupiedSlotCount(pc) > 1) return null;
     chain.push({ id: pc.id, newSlot: slot + 1 });
   }
   return chain;
@@ -185,6 +237,7 @@ function serializePlannedCourse(plannedCourse: {
   plannerOptionId: number | null;
   semester: number;
   slot: number;
+  slotSpan: number;
   course: (Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> }) | null;
   plannerOption: PlannerOption | null;
 }): PlannedCourseResponse {
@@ -195,6 +248,7 @@ function serializePlannedCourse(plannedCourse: {
     plannerOptionId: plannedCourse.plannerOptionId,
     semester: plannedCourse.semester,
     slot: plannedCourse.slot,
+    slotSpan: plannedCourse.slotSpan,
     course: plannedCourse.course
       ? deriveCourseDetails(plannedCourse.course)
       : derivePlannerOptionDetails(plannedCourse.plannerOption!),
@@ -344,7 +398,8 @@ router.post("/courses", requireAuth, async (req, res) => {
   }
 
   let duration: number;
-  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number };
+  let slotSpan = 1;
+  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number; slotSpan: number };
 
   if (courseId) {
     const course = await prisma.course.findUnique({
@@ -379,7 +434,8 @@ router.post("/courses", requireAuth, async (req, res) => {
     }
 
     duration = deriveCourseDuration(course);
-    createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum };
+    slotSpan = course.slotsPerSemester ?? 1;
+    createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum, slotSpan };
   } else {
     const option = await prisma.plannerOption.findUnique({
       where: { id: Number(plannerOptionId) },
@@ -404,7 +460,7 @@ router.post("/courses", requireAuth, async (req, res) => {
     }
 
     duration = option.duration;
-    createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum };
+    createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum, slotSpan: 1 };
   }
 
   const existingCourses = await prisma.plannedCourse.findMany({
@@ -431,18 +487,29 @@ router.post("/courses", requireAuth, async (req, res) => {
   const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
 
-  for (const sem of targetSemesters) {
-    const chain = computeShiftChain(existingCourses, sem, slotNum);
-    if (chain === null) {
-      return res.status(409).json({ error: "Not enough room to place this full-year course." });
+  if (slotSpan > 1) {
+    // Multi-slot courses require consecutive free slots; no shifting is performed.
+    for (const sem of targetSemesters) {
+      if (!hasConsecutiveFreeSlots(existingCourses, sem, slotNum, slotSpan)) {
+        return res.status(409).json({
+          error: `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
+        });
+      }
     }
-    shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
-  }
+  } else {
+    for (const sem of targetSemesters) {
+      const chain = computeShiftChain(existingCourses, sem, slotNum);
+      if (chain === null) {
+        return res.status(409).json({ error: "Not enough room to place this full-year course." });
+      }
+      shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
+    }
 
-  if (duration === 1) {
-    const occupant = existingCourses.find((pc) => pc.semester === semesterNum && pc.slot === slotNum);
-    if (occupant) {
-      return res.status(409).json({ error: "Slot is already occupied" });
+    if (duration === 1) {
+      const occupant = existingCourses.find((pc) => pc.semester === semesterNum && pc.slot === slotNum);
+      if (occupant) {
+        return res.status(409).json({ error: "Slot is already occupied" });
+      }
     }
   }
 
@@ -455,6 +522,7 @@ router.post("/courses", requireAuth, async (req, res) => {
       });
     }
     for (const sem of targetSemesters) {
+      // Create ONE record per semester; slotSpan tells the frontend the visual span.
       await tx.plannedCourse.create({
         data: { ...createData, semester: sem },
       });
@@ -500,27 +568,26 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
 
   const duration = getPlannedDuration(plannedCourse);
 
-  if (duration === 2 && plannedCourse.courseId) {
-    // Full-year courses are stored as two PlannedCourse records (one per semester).
-    // Deleting one deletes the whole course; deleteMany is safe and idempotent.
+  // Full-year courses are stored as two PlannedCourse records (one per semester)
+  // with the same courseId + slot. Multi-slot courses (slotSpan > 1) are a single
+  // record per semester. Deleting any one record removes that semester's entry.
+  // Since a course can only exist in one planner per user, we delete all records
+  // for this course/option across both semesters at once.
+  if (plannedCourse.courseId) {
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
         courseId: plannedCourse.courseId,
-        slot: plannedCourse.slot,
       },
     });
-  } else if (duration === 2 && plannedCourse.plannerOptionId) {
+  } else if (plannedCourse.plannerOptionId && duration === 2) {
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
         plannerOptionId: plannedCourse.plannerOptionId,
-        slot: plannedCourse.slot,
       },
     });
   } else {
-    // deleteMany will not throw if the record was already removed, so repeated
-    // deletes are idempotent and race conditions do not crash the server.
     await prisma.plannedCourse.deleteMany({
       where: {
         id: plannedCourseId,
@@ -579,6 +646,12 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
   }
 
   const sourceDuration = getPlannedDuration(source);
+  const sourceOccupiedSlots = getOccupiedSlotCount(source);
+  if (sourceOccupiedSlots > 1) {
+    return res.status(409).json({
+      error: "Multi-slot courses cannot be moved via drag-and-drop. Remove and re-add instead.",
+    });
+  }
   const sourceSemesters = sourceDuration === 2 ? [1, 2] : [source.semester];
   const targetSemesters = sourceDuration === 2 ? [1, 2] : [semesterNum];
 

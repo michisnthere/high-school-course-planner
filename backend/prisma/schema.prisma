@@ -65,9 +65,10 @@ model Course {
 
   duration Int?
 
-  attributes           Json    @default("[]")
-  fulfillsRequirements Json    @default("[]")
-  isRepeatable         Boolean @default(false)
+  slotsPerSemester    Int     @default(1)
+  attributes          Json    @default("[]")
+  fulfillsRequirements Json   @default("[]")
+  isRepeatable        Boolean @default(false)
 
   notes           Json    @default("[]")
   sourceReference String?
@@ -325,6 +326,7 @@ model PlannedCourse {
   plannerOptionId Int?
   semester        Int
   slot            Int
+  slotSpan        Int      @default(1) // 1 = one slot; 2 = occupies slot and slot+1, etc.
   createdAt       DateTime @default(now())
 
   planner       Planner        @relation(fields: [plannerId], references: [id], onDelete: Cascade)
