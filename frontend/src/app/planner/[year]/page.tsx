@@ -50,6 +50,8 @@ import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNo
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
+import type { RequirementResolution } from "@/lib/api";
+import { getResolutions, createResolution, deleteResolution } from "@/lib/api";
 import type { PeWaiver } from "@/lib/plannerWaivers";
 
 const PLANNER_OPTION_COLORS = {
@@ -283,7 +285,7 @@ function PlannerYearContent(): React.ReactElement {
   const [completedCoursePicker, setCompletedCoursePicker] = useState<{ open: boolean; excludeCourseIds?: number[] }>({ open: false });
   const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
   const [allCatalogCourses, setAllCatalogCourses] = useState<PlannerCourseDetails[]>([]);
-  const [peWaivers, setPeWaivers] = useState<PeWaiver[]>([]);
+  const [resolutions, setResolutions] = useState<RequirementResolution[]>([]);
 
   const loadCompletedCourses = useCallback(async () => {
     try {
@@ -303,16 +305,26 @@ function PlannerYearContent(): React.ReactElement {
     }
   }, []);
 
+  const loadResolutions = useCallback(async () => {
+    try {
+      const data = await getResolutions();
+      setResolutions(data);
+    } catch {
+      setResolutions([]);
+    }
+  }, []);
+
   useEffect(() => {
     loadCompletedCourses();
     loadAllCatalogCourses();
-  }, [loadCompletedCourses, loadAllCatalogCourses]);
+    loadResolutions();
+  }, [loadCompletedCourses, loadAllCatalogCourses, loadResolutions]);
 
   useEffect(() => {
     getPlannerAnalysis()
       .then(setPlannerAnalysis)
       .catch(() => setPlannerAnalysis(null));
-  }, [allPlanners, completedCourses]);
+  }, [allPlanners, completedCourses, resolutions]);
 
   const loadPlanners = useCallback(async () => {
     try {
@@ -749,9 +761,15 @@ function PlannerYearContent(): React.ReactElement {
           <SummarySidebar
             planners={allPlanners}
             currentYear={year}
-            peWaivers={peWaivers}
-            onAddWaiver={(w) => setPeWaivers((prev) => [...prev, w])}
-            onRemoveWaiver={(i) => setPeWaivers((prev) => prev.filter((_, idx) => idx !== i))}
+            resolutions={resolutions}
+            onAddResolution={async (data) => {
+              const created = await createResolution(data);
+              setResolutions((prev) => [...prev, created]);
+            }}
+            onRemoveResolution={async (id) => {
+              await deleteResolution(id);
+              setResolutions((prev) => prev.filter((r) => r.id !== id));
+            }}
           />
         )}
       </div>
@@ -783,6 +801,24 @@ function PlannerYearContent(): React.ReactElement {
           onMarkCompleted={(completed) =>
             setCompletedCourses((prev) => [...prev, completed])
           }
+          onPlacementTest={async (courseId, grade) => {
+            const completed = await addCompletedCourse(courseId, grade);
+            setCompletedCourses((prev) => [...prev, completed]);
+          }}
+          onMiddleSchool={async (courseId, grade) => {
+            await createResolution({ type: "middle_school", courseId, metadata: { grade } });
+            const completed = await addCompletedCourse(courseId, grade);
+            setCompletedCourses((prev) => [...prev, completed]);
+            const data = await getResolutions();
+            setResolutions(data);
+          }}
+          onSummerSchool={async (courseId, grade) => {
+            await createResolution({ type: "summer_school", courseId, metadata: { grade } });
+            const completed = await addCompletedCourse(courseId, grade);
+            setCompletedCourses((prev) => [...prev, completed]);
+            const data = await getResolutions();
+            setResolutions(data);
+          }}
           showToast={showToast}
         />
       )}
@@ -802,15 +838,15 @@ function PlannerYearContent(): React.ReactElement {
 function SummarySidebar({
   planners,
   currentYear,
-  peWaivers,
-  onAddWaiver,
-  onRemoveWaiver,
+  resolutions,
+  onAddResolution,
+  onRemoveResolution,
 }: {
   planners: Planner[];
   currentYear: number;
-  peWaivers: PeWaiver[];
-  onAddWaiver: (waiver: PeWaiver) => void;
-  onRemoveWaiver: (index: number) => void;
+  resolutions: RequirementResolution[];
+  onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
+  onRemoveResolution: (id: number) => void;
 }): React.ReactElement {
   const currentPlanner = planners.find((p) => p.schoolYear === currentYear);
   const allCourses = planners.flatMap((p) => p.plannedCourses);
@@ -870,15 +906,25 @@ function SummarySidebar({
         grade={currentYear}
         requirements={getRequirementStatus(currentYear, currentPlanner?.plannedCourses ?? [])}
         pePerSemester={computePePerSemester(currentPlanner?.plannedCourses ?? [], currentYear)}
-        peWaivers={peWaivers}
+        peWaivers={resolutions
+          .filter((r) => r.type === "pe_waiver")
+          .map((r) => {
+            const variant = r.metadata?.variant as string | undefined;
+            if (variant === "athletic") {
+              const av = r.metadata?.athleticVariant as "credit" | "non-credit" | undefined;
+              return { type: "athletic" as const, variant: av ?? "credit" };
+            }
+            if (variant === "marching-band") return { type: "marching-band" as const };
+            return { type: "academic" as const };
+          })}
       />
 
       <WaiverSection
         grade={currentYear}
         plannedCourses={currentPlanner?.plannedCourses ?? []}
-        waivers={peWaivers}
-        onAddWaiver={onAddWaiver}
-        onRemoveWaiver={onRemoveWaiver}
+        resolutions={resolutions}
+        onAddResolution={onAddResolution}
+        onRemoveResolution={onRemoveResolution}
       />
 
       <CourseLoadRequirements
@@ -1994,6 +2040,9 @@ function WarningActionModal({
   onSwapSemesters,
   onIgnore,
   onMarkCompleted,
+  onPlacementTest,
+  onMiddleSchool,
+  onSummerSchool,
   showToast,
 }: {
   planned: PlannedCourse;
@@ -2006,6 +2055,9 @@ function WarningActionModal({
   onSwapSemesters: (plannedCourseId: number, semester: number, slot: number) => Promise<void>;
   onIgnore: () => void;
   onMarkCompleted: (completed: CompletedCourse) => void;
+  onPlacementTest: (courseId: number, grade: GradeCompleted) => Promise<void>;
+  onMiddleSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
+  onSummerSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
   const [loading, setLoading] = useState(false);
@@ -2057,24 +2109,70 @@ function WarningActionModal({
     [allPlanners]
   );
 
+  const getGradeCompleted = (): GradeCompleted =>
+    currentYear === 9
+      ? "Middle School"
+      : currentYear === 10
+      ? "Sophomore (10)"
+      : currentYear === 11
+      ? "Junior (11)"
+      : "Senior (12)";
+
   const handleMarkCompleted = async () => {
     if (!selectedCourse) return;
     setLoading(true);
     try {
-      const gradeCompleted: GradeCompleted =
-        currentYear === 9
-          ? "Middle School"
-          : currentYear === 10
-          ? "Sophomore (10)"
-          : currentYear === 11
-          ? "Junior (11)"
-          : "Senior (12)";
-      const completed = await addCompletedCourse(selectedCourse.id, gradeCompleted);
+      const completed = await addCompletedCourse(selectedCourse.id, getGradeCompleted());
       onMarkCompleted(completed);
       showToast("Marked as completed.", "success");
       onClose();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to mark completed";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePlacementTest = async () => {
+    if (!selectedCourse) return;
+    setLoading(true);
+    try {
+      await onPlacementTest(selectedCourse.id, getGradeCompleted());
+      showToast("Placement test recorded.", "success");
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to record placement test";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMiddleSchool = async () => {
+    if (!selectedCourse) return;
+    setLoading(true);
+    try {
+      await onMiddleSchool(selectedCourse.id, getGradeCompleted());
+      showToast("Marked as completed in middle school.", "success");
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to record middle school completion";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSummerSchool = async () => {
+    if (!selectedCourse) return;
+    setLoading(true);
+    try {
+      await onSummerSchool(selectedCourse.id, getGradeCompleted());
+      showToast("Marked as completed in summer school.", "success");
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to record summer school completion";
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -2141,6 +2239,15 @@ function WarningActionModal({
     prerequisitePlacement?.plannerId === planned.plannerId &&
     prerequisitePlacement.semester === 2 &&
     planned.semester === 1;
+
+  const hasPlacementTestOption = useMemo(() => {
+    const text = warning.prerequisite?.toLowerCase() ?? "";
+    return text.includes("placement exam") || text.includes("placement test");
+  }, [warning.prerequisite]);
+
+  const placementTestHelpText = hasPlacementTestOption
+    ? "You may also satisfy this prerequisite by completing a placement test."
+    : "";
 
   const addPrerequisiteHelpText =
     warning.type !== "missing_prerequisite"
@@ -2290,6 +2397,12 @@ function WarningActionModal({
                 </p>
               )}
 
+              {placementTestHelpText && (
+                <p style={{ margin: 0, fontSize: "13px", color: "#d1d5db", lineHeight: 1.4, textAlign: "center" }}>
+                  {placementTestHelpText}
+                </p>
+              )}
+
               <button
                 type="button"
                 onClick={handleMarkCompleted}
@@ -2308,6 +2421,68 @@ function WarningActionModal({
                 }}
               >
                 I already completed this course
+              </button>
+
+              {hasPlacementTestOption && (
+                <button
+                  type="button"
+                  onClick={handlePlacementTest}
+                  disabled={loading || selectedCourse == null}
+                  style={{
+                    padding: "12px 16px",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                    color: "#ffffff",
+                    backgroundColor: "var(--brand-primary)",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: selectedCourse ? "pointer" : "not-allowed",
+                    textAlign: "left",
+                    opacity: selectedCourse ? 1 : 0.5,
+                  }}
+                >
+                  Completed Placement Test
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={handleMiddleSchool}
+                disabled={loading || selectedCourse == null}
+                style={{
+                  padding: "12px 16px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#ffffff",
+                  backgroundColor: "var(--brand-primary)",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: selectedCourse ? "pointer" : "not-allowed",
+                  textAlign: "left",
+                  opacity: selectedCourse ? 1 : 0.5,
+                }}
+              >
+                Completed in Middle School
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSummerSchool}
+                disabled={loading || selectedCourse == null}
+                style={{
+                  padding: "12px 16px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#ffffff",
+                  backgroundColor: "var(--brand-primary)",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: selectedCourse ? "pointer" : "not-allowed",
+                  textAlign: "left",
+                  opacity: selectedCourse ? 1 : 0.5,
+                }}
+              >
+                Completed in Summer School
               </button>
 
               {canSwapSemesters && (

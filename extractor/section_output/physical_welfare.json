@@ -541,6 +541,58 @@
       },
       "division": "Physical Education",
       "department": "Health Education"
+    },
+    {
+      "title": "Driver Education",
+      "description": "Driver Education provides students with the knowledge and skills necessary to become safe and responsible drivers. This course covers traffic laws, vehicle operation, defensive driving techniques, and the consequences of impaired driving. Students must meet all state and school requirements to enroll. Successful completion satisfies the Illinois state requirement for driver education.",
+      "sourceReference": "page 88",
+      "notes": [
+        "Pass/Fail course.",
+        "This course does not count toward GPA."
+      ],
+      "gpaWaiverOption": false,
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [
+        "Driver Education"
+      ],
+      "offerings": [
+        {
+          "courseCode": "DE231",
+          "semesterLabel": "Semester 1",
+          "duration": "One Semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [
+            "Valid Illinois Instruction Permit obtained through Driver Education",
+            "Parental consent",
+            "Verification of age",
+            "At least 8 credits earned during the previous two semesters",
+            "ELD students must be enrolled in ELD 2 or higher",
+            "Freshmen are not eligible to take the course"
+          ]
+        },
+        {
+          "courseCode": "DE232",
+          "semesterLabel": "Semester 2",
+          "duration": "One Semester",
+          "gradeLevels": [10, 11, 12],
+          "prerequisites": [
+            "Valid Illinois Instruction Permit obtained through Driver Education",
+            "Parental consent",
+            "Verification of age",
+            "At least 8 credits earned during the previous two semesters",
+            "ELD students must be enrolled in ELD 2 or higher",
+            "Freshmen are not eligible to take the course"
+          ]
+        }
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Health Education"
     }
   ],
   "graduationRequirements": [],

@@ -224,9 +224,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  savedCourses     SavedCourse[]
-  planners         Planner[]
-  completedCourses CompletedCourse[]
+  savedCourses         SavedCourse[]
+  planners             Planner[]
+  completedCourses     CompletedCourse[]
+  requirementResolutions RequirementResolution[]
 }
 
 //
@@ -288,6 +289,26 @@ model Planner {
 
   @@unique([userId, schoolYear])
   @@index([userId])
+}
+
+//
+// =========================
+// REQUIREMENT RESOLUTION
+// =========================
+//
+model RequirementResolution {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  type      String   // "pe_waiver" | "middle_school" | "summer_school" | "placement_test" | "admin_override"
+  courseId  Int?     // optional course reference
+  metadata  Json     @default("{}") // flexible payload for any resolution type
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, type])
 }
 
 //

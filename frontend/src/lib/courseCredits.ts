@@ -23,7 +23,7 @@ export function deriveCourseDuration(course: {
 export function calculateTotalCredits(course: {
   options?: Array<{
     credits?: number | null;
-    offerings?: Array<{ duration?: string | number | null }>;
+    offerings?: Array<{ duration?: string | number | null; credits?: number | null }>;
   }> | null;
   duration?: number | null;
 }): number {
@@ -31,6 +31,10 @@ export function calculateTotalCredits(course: {
   if (option?.credits != null) {
     const semesters = deriveCourseDuration(course) === 2 ? 2 : 1;
     return option.credits * semesters;
+  }
+
+  if (option?.offerings?.[0]?.credits != null) {
+    return option.offerings[0].credits;
   }
 
   const duration = deriveCourseDuration(course);
@@ -93,11 +97,11 @@ export function sumPlannedCredits(pcs: PlannedCourse[]): number {
   return total;
 }
 
-/** Per-semester credit value: full-year splits evenly (2 → 1+1), semester is full value in its semester */
+/** Per-semester credit value: full-year splits evenly, semester is full value in its semester */
 export function getSemesterCredits(pc: {
-  course: { credits?: number | null; duration?: number | null; options?: Array<{ credits?: number | null; offerings?: Array<{ duration?: string | number | null }> }> | null };
+  course: { credits?: number | null; duration?: number | null; options?: Array<{ credits?: number | null; offerings?: Array<{ duration?: string | number | null; credits?: number | null }> }> | null };
 }): number {
   const totalCredits = getCourseCredits(pc.course);
-  const duration = pc.course.duration === 2 ? 2 : 1;
+  const duration = deriveCourseDuration(pc.course);
   return getSemesterCreditsFromTotal(totalCredits, duration);
 }

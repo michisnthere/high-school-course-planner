@@ -1,19 +1,8 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
-import { getCourses } from "@/lib/api";
-import { getCompletedCourses, type CompletedCourse } from "@/lib/completedCourses";
-import {
-  getPlanners,
-  courseToPlannerDetails,
-  type Planner,
-  type PlannerCourseDetails,
-} from "@/lib/planner";
-import { sumPlannedCredits, getCourseCredits } from "@/lib/courseCredits";
-import { computeYearLevelCards, type YearLevelCard } from "@/lib/yearLevelValidation";
-import type { Course } from "@/types/course";
 
 export default function RequirementsPage(): React.ReactElement {
   return (
@@ -22,13 +11,6 @@ export default function RequirementsPage(): React.ReactElement {
     </ProtectedRoute>
   );
 }
-
-const YEAR_LABELS: Record<number, string> = {
-  9: "Freshman",
-  10: "Sophomore",
-  11: "Junior",
-  12: "Senior",
-};
 
 const STATUS_CONFIG = {
   satisfied: {
@@ -57,9 +39,6 @@ function formatNumber(n: number): string {
 
 function RequirementsContent(): React.ReactElement {
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
-  const [courses, setCourses] = useState<PlannerCourseDetails[]>([]);
-  const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
-  const [planners, setPlanners] = useState<Planner[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
@@ -68,16 +47,8 @@ function RequirementsContent(): React.ReactElement {
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const [analysisData, rawCourses, completedData, plannerData] = await Promise.all([
-        getPlannerAnalysis(),
-        getCourses(),
-        getCompletedCourses(),
-        getPlanners(),
-      ]);
-      setAnalysis(analysisData);
-      setCourses((rawCourses as Course[]).map(courseToPlannerDetails));
-      setCompletedCourses(completedData);
-      setPlanners(plannerData);
+      const data = await getPlannerAnalysis();
+      setAnalysis(data);
       setError(null);
     } catch (err) {
       setError(
@@ -104,44 +75,7 @@ function RequirementsContent(): React.ReactElement {
     });
   }, []);
 
-  const completedIds = useMemo(
-    () => new Set(completedCourses.map((c) => c.courseId)),
-    [completedCourses]
-  );
-
-  const plannedIds = useMemo(() => {
-    const ids = new Set<number>();
-    for (const planner of planners) {
-      for (const pc of planner.plannedCourses ?? []) {
-        if (pc.courseId != null) {
-          ids.add(pc.courseId);
-        }
-      }
-    }
-    return ids;
-  }, [planners]);
-
-  const yearCards = useMemo(
-    () => computeYearLevelCards(planners, completedCourses, courses),
-    [planners, completedCourses, courses]
-  );
-
-  const creditSummary = useMemo(() => {
-    const completedCredits = completedCourses.reduce(
-      (sum, cc) => sum + (cc.credits ?? getCourseCredits(cc.course)),
-      0
-    );
-    const plannedCredits = planners.reduce(
-      (sum, p) => sum + sumPlannedCredits(p.plannedCourses ?? []),
-      0
-    );
-    const earned = completedCredits + plannedCredits;
-    const totalReq =
-      analysis?.graduationRequirements.find(
-        (r) => r.name.toLowerCase() === "total credits"
-      )?.requiredValue ?? 0;
-    return { earned, required: totalReq };
-  }, [completedCourses, planners, analysis]);
+  const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
 
   return (
     <div
@@ -155,24 +89,24 @@ function RequirementsContent(): React.ReactElement {
           margin: "0 0 28px",
           fontSize: "32px",
           fontWeight: 700,
-        color: "#111827",
-        lineHeight: 1.2,
-      }}
-    >
-      Graduation Requirements
-    </h1>
+          color: "#111827",
+          lineHeight: 1.2,
+        }}
+      >
+        Graduation Progress
+      </h1>
 
-    {loading ? (
-      <p style={{ color: "var(--text-secondary)" }}>Loading graduation requirements...</p>
-    ) : error ? (
-      <p style={{ color: "#ef4444" }}>{error}</p>
-    ) : !analysis || analysis.graduationRequirements.length === 0 ? (
-      <p style={{ color: "var(--text-secondary)" }}>
+      {loading ? (
+        <p style={{ color: "var(--text-secondary)" }}>Loading graduation progress...</p>
+      ) : error ? (
+        <p style={{ color: "#ef4444" }}>{error}</p>
+      ) : !analysis || analysis.graduationRequirements.length === 0 ? (
+        <p style={{ color: "var(--text-secondary)" }}>
           No graduation requirements found. Requirements are populated from the course catalog.
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          {creditSummary.required > 0 && (
+          {analysis.credits.total > 0 && (
             <div
               style={{
                 padding: "24px",
@@ -190,7 +124,7 @@ function RequirementsContent(): React.ReactElement {
                   fontWeight: 600,
                 }}
               >
-                {formatNumber(creditSummary.required)} Credit Requirement
+                Credit Progress
               </p>
               <p
                 style={{
@@ -200,9 +134,9 @@ function RequirementsContent(): React.ReactElement {
                   color: "#111827",
                 }}
               >
-                {formatNumber(creditSummary.earned)}{" "}
+                {formatNumber(analysis.credits.total)}{" "}
                 <span style={{ fontSize: "24px", fontWeight: 400, color: "#6b7280" }}>
-                  / {formatNumber(creditSummary.required)} credits
+                  credits earned
                 </span>
               </p>
             </div>
@@ -219,6 +153,9 @@ function RequirementsContent(): React.ReactElement {
             >
               Year-Level Requirements
             </h2>
+            <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
+              Am I meeting this year&apos;s requirements?
+            </p>
             <div
               style={{
                 display: "flex",
@@ -226,8 +163,8 @@ function RequirementsContent(): React.ReactElement {
                 gap: "12px",
               }}
             >
-              {yearCards.map((year) => (
-                <YearLevelCardView key={year.grade} card={year} />
+              {analysis.yearRequirements.map((year) => (
+                <YearLevelCardView key={year.grade} year={year} />
               ))}
             </div>
           </section>
@@ -243,6 +180,9 @@ function RequirementsContent(): React.ReactElement {
             >
               Graduation Requirements
             </h2>
+            <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
+              Am I on track to graduate?
+            </p>
             <div
               style={{
                 display: "grid",
@@ -250,14 +190,13 @@ function RequirementsContent(): React.ReactElement {
                 gap: "16px",
               }}
             >
-              {analysis.graduationRequirements
-                .filter((req) => req.name.toLowerCase() !== "physical education")
-                .map((req) => (
+              {analysis.graduationRequirements.map((req) => (
                 <RequirementCard
                   key={req.id}
                   req={req}
                   isExpanded={expandedIds.has(req.id)}
                   onToggle={() => toggleExpand(req.id)}
+                  hasPeWaiver={hasPeWaiver}
                 />
               ))}
             </div>
@@ -298,6 +237,250 @@ function RequirementsContent(): React.ReactElement {
               </div>
             </section>
           )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+type YearLevelCardProps = {
+  year: PlannerAnalysis["yearRequirements"][number];
+};
+
+function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
+  const [expanded, setExpanded] = useState(false);
+  const allMet = year.satisfiedCount === year.totalCount;
+  const statusLabel = allMet ? "Satisfied" : "Partial";
+  const statusColor = allMet ? "#275D38" : "#ECBA2B";
+
+  return (
+    <div
+      style={{
+        padding: "18px 20px",
+        backgroundColor: "#ffffff",
+        border: "2px solid #275D38",
+        borderRadius: "12px",
+      }}
+    >
+      <button
+        type="button"
+        onClick={() => setExpanded((prev) => !prev)}
+        style={{
+          width: "100%",
+          border: "none",
+          background: "transparent",
+          padding: 0,
+          cursor: "pointer",
+          textAlign: "left",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}>
+          <div>
+            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#111827" }}>
+              {year.label}
+            </h3>
+            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
+              {year.satisfiedCount}/{year.totalCount} requirements met
+            </p>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 400 }}>
+              {allMet ? "✓" : "!"}
+            </span>
+            <span
+              aria-hidden="true"
+              style={{
+                color: "#6b7280",
+                transition: "transform 200ms ease",
+                transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            >
+              ▶
+            </span>
+          </div>
+        </div>
+      </button>
+
+      <div style={{ marginTop: "10px", fontSize: "13px", color: statusColor, fontWeight: 600 }}>
+        {statusLabel}
+      </div>
+
+      {expanded && (
+        <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          {year.items.map((item) => (
+            <div
+              key={item.category}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "12px",
+                padding: "12px",
+                backgroundColor: "#ffffff",
+                border: "1px solid #ECBA2B",
+                borderRadius: "8px",
+              }}
+            >
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: "#111827" }}>
+                  {item.category}
+                </p>
+                <p style={{ margin: "4px 0 0", fontSize: "13px", color: "#6b7280" }}>
+                  {formatNumber(item.earnedCredits)} / {formatNumber(item.requiredCredits)} credits
+                </p>
+              </div>
+              <span
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  color: item.met ? "#275D38" : "#ECBA2B",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {item.met ? "Satisfied" : "Missing"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+type RequirementCardProps = {
+  req: PlannerAnalysis["graduationRequirements"][number];
+  isExpanded: boolean;
+  onToggle: () => void;
+  hasPeWaiver: boolean;
+};
+
+function RequirementCard({
+  req,
+  isExpanded,
+  onToggle,
+  hasPeWaiver,
+}: RequirementCardProps): React.ReactElement {
+  const isPe = req.name.toLowerCase() === "physical education";
+  const config = STATUS_CONFIG[req.status];
+  const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
+  const effectiveEarned = isPe && hasPeWaiver ? effectiveRequired : req.earnedValue;
+  const percent =
+    effectiveRequired > 0
+      ? Math.min(100, (effectiveEarned / effectiveRequired) * 100)
+      : effectiveRequired === 0 && isPe && hasPeWaiver
+      ? 100
+      : req.status === "satisfied"
+      ? 100
+      : 0;
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        padding: "20px 20px 20px 24px",
+        backgroundColor: "#ffffff",
+        border: "2px solid #275D38",
+        borderRadius: "12px",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: "4px",
+          backgroundColor: config.badge,
+        }}
+      />
+      <div onClick={onToggle} style={{ cursor: "pointer" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: "12px",
+            marginBottom: "12px",
+          }}
+        >
+          <h3
+            style={{
+              margin: 0,
+              fontSize: "16px",
+              fontWeight: 700,
+              color: "#111827",
+              lineHeight: 1.3,
+            }}
+          >
+            {req.name}
+            {isPe && hasPeWaiver && <span style={{ marginLeft: "8px", fontSize: "12px", color: "#275D38", fontWeight: 600 }}>(Waived)</span>}
+          </h3>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            <span
+              style={{
+                padding: "4px 10px",
+                fontSize: "12px",
+                fontWeight: 600,
+                color: config.textColor ?? "#ffffff",
+                backgroundColor: config.badge,
+                borderRadius: "9999px",
+              }}
+            >
+              {config.label}
+            </span>
+            <span
+              aria-hidden="true"
+              style={{
+                fontSize: "12px",
+                color: "#6b7280",
+                transition: "transform 200ms ease",
+                transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
+                display: "inline-block",
+              }}
+            >
+              ▶
+            </span>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "16px",
+            fontSize: "14px",
+            color: "#6b7280",
+            marginBottom: "12px",
+          }}
+        >
+          <span>
+            Earned:{" "}
+            <strong style={{ color: "#111827" }}>{formatNumber(effectiveEarned)}</strong>
+          </span>
+          <span>
+            Required:{" "}
+            <strong style={{ color: "#111827" }}>{formatNumber(effectiveRequired)}</strong>
+          </span>
+          <span>
+            Remaining:{" "}
+            <strong style={{ color: "#111827" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
+          </span>
+        </div>
+        <ProgressBar percent={percent} color={config.badge} showLabel />
+      </div>
+
+      {isExpanded && req.requiredValue != null && (
+        <div
+          style={{
+            marginTop: "16px",
+            paddingTop: "16px",
+            borderTop: "1px solid #f3f4f6",
+          }}
+        >
+          <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
+            This requirement requires {formatNumber(req.requiredValue)} credits.
+            You have earned {formatNumber(req.earnedValue)} credits so far.
+          </p>
         </div>
       )}
     </div>
@@ -430,7 +613,6 @@ function InfoModal({
         >
           ✕
         </button>
-
         <h2
           style={{
             margin: "0 0 16px",
@@ -443,7 +625,6 @@ function InfoModal({
         >
           {item.name}
         </h2>
-
         {item.explanation && (
           <p
             style={{
@@ -457,7 +638,6 @@ function InfoModal({
             {item.explanation}
           </p>
         )}
-
         {item.sourceReference && (
           <p
             style={{
@@ -470,247 +650,6 @@ function InfoModal({
           </p>
         )}
       </div>
-    </div>
-  );
-}
-
-type RequirementCardProps = {
-  req: PlannerAnalysis["graduationRequirements"][number];
-  isExpanded: boolean;
-  onToggle: () => void;
-};
-
-type YearLevelCardProps = {
-  card: YearLevelCard;
-};
-
-function YearLevelCardView({ card }: YearLevelCardProps): React.ReactElement {
-  const [expanded, setExpanded] = useState(false);
-  const allMet = card.satisfiedCount === card.totalCount;
-  const hasWarnings = card.items.some((item) => item.status === "warning");
-  const statusLabel = allMet ? "Satisfied" : hasWarnings ? "Warning" : "Missing";
-  const statusColor = allMet ? "#275D38" : hasWarnings ? "#D0A426" : "#ef4444";
-  const statusMark = allMet ? "✓" : hasWarnings ? "!" : "•";
-
-  return (
-    <div
-      style={{
-        padding: "18px 20px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #275D38",
-        borderRadius: "12px",
-      }}
-    >
-      <button
-        type="button"
-        onClick={() => setExpanded((prev) => !prev)}
-        style={{
-          width: "100%",
-          border: "none",
-          background: "transparent",
-          padding: 0,
-          cursor: "pointer",
-          textAlign: "left",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}>
-          <div>
-            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#111827" }}>
-              {card.label}
-            </h3>
-            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
-              {card.satisfiedCount}/{card.totalCount} requirements met
-            </p>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
-            <span style={{ color: statusColor, fontSize: "18px", fontWeight: 400 }}>{statusMark}</span>
-            <span
-              aria-hidden="true"
-              style={{
-                color: "#6b7280",
-                transition: "transform 200ms ease",
-                transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-                display: "inline-block",
-              }}
-            >
-              ▶
-            </span>
-          </div>
-        </div>
-      </button>
-
-      <div style={{ marginTop: "10px", fontSize: "13px", color: statusColor, fontWeight: 600 }}>
-        {statusLabel}
-      </div>
-
-      {expanded && (
-        <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
-          {card.items.map((item) => (
-            <div
-              key={item.label}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-                padding: "12px",
-                backgroundColor: "#ffffff",
-                border: "1px solid #ECBA2B",
-                borderRadius: "8px",
-              }}
-            >
-              <div style={{ minWidth: 0, flex: 1 }}>
-                <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: "#111827" }}>
-                  {item.label}
-                </p>
-                <p style={{ margin: "4px 0 0", fontSize: "13px", color: "#6b7280" }}>
-                  {item.detail}
-                </p>
-                {item.recommendations.length > 0 && item.status !== "satisfied" && (
-                  <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#374151" }}>
-                    Recommended: {item.recommendations.join(", ")}
-                  </p>
-                )}
-              </div>
-                <span
-                  style={{
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    color: item.status === "satisfied" ? "#275D38" : item.status === "warning" ? "#D0A426" : "#ef4444",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {item.status === "satisfied" ? "Satisfied" : item.status === "warning" ? "Warning" : "Missing"}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function RequirementCard({
-  req,
-  isExpanded,
-  onToggle,
-}: RequirementCardProps): React.ReactElement {
-  const config = STATUS_CONFIG[req.status];
-  const percent =
-    (req.requiredValue ?? 0) > 0
-      ? Math.min(100, (req.earnedValue / (req.requiredValue ?? 0)) * 100)
-      : req.status === "satisfied"
-      ? 100
-      : 0;
-
-  return (
-    <div
-      style={{
-        position: "relative",
-        padding: "20px 20px 20px 24px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #275D38",
-        borderRadius: "12px",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          bottom: 0,
-          width: "4px",
-          backgroundColor: config.badge,
-        }}
-      />
-      <div onClick={onToggle} style={{ cursor: "pointer" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            gap: "12px",
-            marginBottom: "12px",
-          }}
-        >
-          <h3
-            style={{
-              margin: 0,
-              fontSize: "16px",
-              fontWeight: 700,
-              color: "#111827",
-              lineHeight: 1.3,
-            }}
-          >
-            {req.name}
-          </h3>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
-            <span
-              style={{
-                padding: "4px 10px",
-                fontSize: "12px",
-                fontWeight: 600,
-                color: config.textColor ?? "#ffffff",
-                backgroundColor: config.badge,
-                borderRadius: "9999px",
-              }}
-            >
-              {config.label}
-            </span>
-            <span
-              aria-hidden="true"
-              style={{
-                fontSize: "12px",
-                color: "#6b7280",
-                transition: "transform 200ms ease",
-                transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
-                display: "inline-block",
-              }}
-            >
-              ▶
-            </span>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "16px",
-            fontSize: "14px",
-            color: "#6b7280",
-            marginBottom: "12px",
-          }}
-        >
-          <span>
-            Earned:{" "}
-            <strong style={{ color: "#111827" }}>{formatNumber(req.earnedValue)}</strong>
-          </span>
-          <span>
-            Required:{" "}
-            <strong style={{ color: "#111827" }}>{formatNumber(req.requiredValue ?? 0)}</strong>
-          </span>
-          <span>
-            Remaining:{" "}
-            <strong style={{ color: "#111827" }}>{formatNumber(req.remainingValue)}</strong>
-          </span>
-        </div>
-        <ProgressBar percent={percent} color={config.badge} showLabel />
-      </div>
-
-      {isExpanded && req.requiredValue != null && (
-        <div
-          style={{
-            marginTop: "16px",
-            paddingTop: "16px",
-            borderTop: "1px solid #f3f4f6",
-          }}
-        >
-          <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
-            This requirement requires {formatNumber(req.requiredValue)} credits.
-            You have earned {formatNumber(req.earnedValue)} credits so far.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
@@ -771,7 +710,3 @@ function ProgressBar({
     </div>
   );
 }
-
-
-
-

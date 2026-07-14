@@ -4,6 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
+  "Summer School",
   "Freshman (9)",
   "Sophomore (10)",
   "Junior (11)",

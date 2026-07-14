@@ -326,23 +326,7 @@
       ]
     },
     {
-      "title": "American Studies (AP English Language and Composition and AP U.S. History)",
-      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. The AP English Language component features the study of primary source documents, contemporary and historical nonfiction and fiction. Students read to deepen their analysis of rhetoric and to develop their perspective of both history and contemporary society. Students write and orally present original arguments—both with and without sources. All forms of writing—analysis, argument, synthesis, creative prose—are influenced by students' awareness of the interdisciplinary content.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 31",
-      "creditType": "Honors",
-      "credits": 1,
-      "fulfillsRequirements": [],
-      "offerings": [
-        {
-          "courseCode": "ENG341",
-          "semesterLabel": "Semester 1",
-          "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": []
-        },
+
         {
           "courseCode": "ENG342",
           "semesterLabel": "Semester 2",

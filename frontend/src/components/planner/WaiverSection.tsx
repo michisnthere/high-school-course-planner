@@ -1,33 +1,39 @@
 import React, { useState } from "react";
-import type { PeWaiver } from "@/lib/plannerWaivers";
-import {
-  computeWaiverEligibility,
-  computeAthleticVariantEligibility,
-  getCreditBearingCount,
-} from "@/lib/plannerWaivers";
+import { computeWaiverEligibility, computeAthleticVariantEligibility, getCreditBearingCount } from "@/lib/plannerWaivers";
 import type { PlannedCourse } from "@/lib/planner";
+import type { RequirementResolution } from "@/lib/api";
 
 type WaiverSectionProps = {
   grade: number;
   plannedCourses: PlannedCourse[];
-  waivers: PeWaiver[];
-  onAddWaiver: (waiver: PeWaiver) => void;
-  onRemoveWaiver: (index: number) => void;
+  resolutions: RequirementResolution[];
+  onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
+  onRemoveResolution: (id: number) => void;
 };
 
-function waiverLabel(waiver: PeWaiver): string {
-  if (waiver.type === "academic") return "Academic PE Waiver";
-  if (waiver.type === "marching-band") return "Marching Band PE Waiver";
-  if (waiver.variant === "non-credit") return "Athletic PE Waiver (Non-Credit)";
-  return "Athletic PE Waiver (Credit)";
+function waiverLabel(r: RequirementResolution): string {
+  if (r.type === "pe_waiver") {
+    const variant = r.metadata?.variant;
+    if (variant === "academic") return "Academic PE Waiver";
+    if (variant === "athletic") {
+      const sub = (r.metadata?.athleticVariant as string) ?? "";
+      return sub === "credit" ? "Athletic PE Waiver (Credit)" : "Athletic PE Waiver (Non-Credit)";
+    }
+    if (variant === "marching-band") return "Marching Band PE Waiver";
+    return "PE Waiver";
+  }
+  if (r.type === "placement_test") return "Placement Test";
+  if (r.type === "middle_school") return "Middle School Completion";
+  if (r.type === "summer_school") return "Summer School Completion";
+  return "Override";
 }
 
 export function WaiverSection({
   grade,
   plannedCourses,
-  waivers,
-  onAddWaiver,
-  onRemoveWaiver,
+  resolutions,
+  onAddResolution,
+  onRemoveResolution,
 }: WaiverSectionProps): React.ReactElement {
   const [showAddFlow, setShowAddFlow] = useState(false);
   const [showSportQuestion, setShowSportQuestion] = useState(false);
@@ -39,7 +45,8 @@ export function WaiverSection({
   const creditBearing = getCreditBearingCount(plannedCourses);
   const eligibility = computeWaiverEligibility(grade, creditBearing, plannedCourses);
 
-  const hasWaiver = waivers.length > 0;
+  const peWaiverResolutions = resolutions.filter((r) => r.type === "pe_waiver");
+  const hasWaiver = peWaiverResolutions.length > 0;
 
   const handleAddClick = () => {
     setShowAddFlow(true);
@@ -58,12 +65,12 @@ export function WaiverSection({
   };
 
   const handleAcademicConfirm = () => {
-    onAddWaiver({ type: "academic" });
+    onAddResolution({ type: "pe_waiver", metadata: { variant: "academic" } });
     handleCancel();
   };
 
   const handleMarchingBandConfirm = () => {
-    onAddWaiver({ type: "marching-band" });
+    onAddResolution({ type: "pe_waiver", metadata: { variant: "marching-band" } });
     handleCancel();
   };
 
@@ -85,7 +92,7 @@ export function WaiverSection({
       setConfirmMessage(result.reason);
       return;
     }
-    onAddWaiver({ type: "athletic", variant: result.variant! });
+    onAddResolution({ type: "pe_waiver", metadata: { variant: "athletic", athleticVariant: result.variant } });
     handleCancel();
   };
 
@@ -105,7 +112,7 @@ export function WaiverSection({
           color: "#275D38",
         }}
       >
-        Waivers
+        Waivers & Resolutions
       </h3>
 
       {!hasWaiver ? (
@@ -123,9 +130,9 @@ export function WaiverSection({
             gap: "6px",
           }}
         >
-          {waivers.map((w, i) => (
+          {peWaiverResolutions.map((r) => (
             <li
-              key={i}
+              key={r.id}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -134,9 +141,9 @@ export function WaiverSection({
                 color: "var(--brand-accent)",
               }}
             >
-              <span>✓ {waiverLabel(w)}</span>
+              <span>✓ {waiverLabel(r)}</span>
               <button
-                onClick={() => onRemoveWaiver(i)}
+                onClick={() => onRemoveResolution(r.id)}
                 style={{
                   background: "none",
                   border: "1px solid var(--border-default)",
@@ -190,7 +197,6 @@ export function WaiverSection({
             fontSize: "13px",
           }}
         >
-          {/* Academic waiver option */}
           <div>
             <p style={{ margin: "0 0 2px", fontWeight: 600, color: "#d1d5db" }}>
               Academic Waiver
@@ -257,7 +263,6 @@ export function WaiverSection({
 
           <div style={{ borderTop: "1px solid #4b5563" }} />
 
-          {/* Athletic waiver option */}
           <div>
             <p style={{ margin: "0 0 2px", fontWeight: 600, color: "#d1d5db" }}>
               Athletic Waiver
@@ -285,7 +290,6 @@ export function WaiverSection({
 
           <div style={{ borderTop: "1px solid #4b5563" }} />
 
-          {/* Marching Band waiver option */}
           <div>
             <p style={{ margin: "0 0 2px", fontWeight: 600, color: "#d1d5db" }}>
               Marching Band Waiver
@@ -494,7 +498,6 @@ export function WaiverSection({
         </div>
       )}
 
-      {/* Marching Band info modal */}
       {showBandModal && (
         <div
           onClick={() => setShowBandModal(false)}
@@ -518,7 +521,6 @@ export function WaiverSection({
               border: "1px solid #374151",
               borderRadius: "16px",
               padding: "28px",
-
             }}
           >
             <h3

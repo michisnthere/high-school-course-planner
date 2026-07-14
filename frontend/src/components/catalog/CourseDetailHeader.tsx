@@ -38,7 +38,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
           display: "inline-block",
           marginBottom: "16px",
           fontSize: "14px",
-          color: "#d1d5db",
+          color: "var(--text-muted)",
           textDecoration: "none",
           fontWeight: 500,
         }}
@@ -51,7 +51,7 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
           margin: "0 0 12px",
           fontSize: "32px",
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           lineHeight: 1.2,
         }}
       >

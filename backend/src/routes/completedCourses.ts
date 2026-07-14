@@ -8,6 +8,7 @@ const router = Router();
 
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
+  "Summer School",
   "Freshman (9)",
   "Sophomore (10)",
   "Junior (11)",

@@ -30,9 +30,17 @@ export type PlannerAnalysis = {
   }>;
   yearRequirements: Array<{
     grade: number;
-    english: { required: boolean; met: boolean; earnedCredits: number };
-    math: { required: boolean; met: boolean; earnedCredits: number };
-    science: { required: boolean; met: boolean; earnedCredits: number };
+    label: string;
+    items: Array<{
+      category: string;
+      required: boolean;
+      met: boolean;
+      earnedCredits: number;
+      requiredCredits: number;
+      matches: string[];
+    }>;
+    satisfiedCount: number;
+    totalCount: number;
   }>;
   duplicateCourses: Array<{
     courseId: number;
@@ -54,6 +62,12 @@ export type PlannerAnalysis = {
     studyHallCount: number;
     freePeriodCount: number;
   };
+  resolutions: Array<{
+    id: number;
+    type: string;
+    courseId: number | null;
+    metadata: Record<string, unknown>;
+  }>;
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";

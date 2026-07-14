@@ -631,13 +631,14 @@
       "department": "Social Studies"
     },
     {
-      "title": "American Studies (AP U.S. History and AP English Language and Composition)",
-      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes. SAT and AP exam preparation are used to sharpen reading, editing and revising skills. Students who enroll in this course are prepared to take both the AP English Language and Composition and the AP U.S. History exams in May.",
-      "sourceReference": "page 99",
+      "title": "American Studies",
+      "description": "Students are scheduled for consecutive periods of history and English, allowing for an integrated study of the two disciplines, development of skills for informed citizenship and thematic movements in our country's history and literature. This course fulfills the College Board's objectives for both AP English Language and Composition and AP U.S. History, with attention to how a shared focus on both content and skills reinforces the development of the common and separate course objectives, including preparation for both AP exams.\n\nEnglish Component: AP English Language and Composition\nSocial Studies Component: AP United States History\n\nThe AP English Language component features the study of primary source documents, contemporary and historical nonfiction and fiction. Students read to deepen their analysis of rhetoric and to develop their perspective of both history and contemporary society. The AP U.S. History component focuses on the development of historical thinking skills (chronological reasoning, comparing and contextualizing, crafting historical arguments using historical evidence and interpreting and synthesizing historical narrative) and an understanding of content objectives and themes.\n\nStudents who enroll in this course are prepared to take both the AP English Language and Composition and the AP U.S. History exams in May.",
+      "sourceReference": "pages 31, 99",
       "gpaWaiverOption": false,
       "creditType": "Honors",
       "credits": 2,
       "fulfillsRequirements": [
+        "English",
         "U.S. History"
       ],
       "offerings": [
@@ -645,25 +646,29 @@
           "courseCode": "SOC581",
           "semesterLabel": "Semester 1",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "Sophomore English"
-          ]
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
         },
         {
           "courseCode": "SOC582",
           "semesterLabel": "Semester 2",
           "duration": "Full Year",
-          "gradeLevels": [
-            11
-          ],
-          "prerequisites": [
-            "World History and Geography",
-            "Sophomore English"
-          ]
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
+        },
+        {
+          "courseCode": "ENG341",
+          "semesterLabel": "Semester 1",
+          "duration": "Full Year",
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
+        },
+        {
+          "courseCode": "ENG342",
+          "semesterLabel": "Semester 2",
+          "duration": "Full Year",
+          "gradeLevels": [11],
+          "prerequisites": ["World History and Geography", "Sophomore English"]
         }
       ],
       "notes": [],

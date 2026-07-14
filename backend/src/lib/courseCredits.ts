@@ -21,7 +21,7 @@ export function deriveCourseDuration(course: {
 export function calculateTotalCredits(course: {
   options?: Array<{
     credits?: number | null;
-    offerings?: Array<{ duration?: string | number | null }>;
+    offerings?: Array<{ duration?: string | number | null; credits?: number | null }>;
   }> | null;
   duration?: number | null;
 }): number {
@@ -29,6 +29,10 @@ export function calculateTotalCredits(course: {
   if (option?.credits != null) {
     const semesters = deriveCourseDuration(course) === 2 ? 2 : 1;
     return option.credits * semesters;
+  }
+
+  if (option?.offerings?.[0]?.credits != null) {
+    return option.offerings[0].credits;
   }
 
   const duration = deriveCourseDuration(course);

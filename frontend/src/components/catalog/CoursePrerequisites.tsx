@@ -130,8 +130,8 @@ function PrereqChip({
           padding: "6px 14px",
           fontSize: "14px",
           fontWeight: 600,
-          color: "var(--brand-primary-light)",
-          backgroundColor: "color-mix(in srgb, var(--brand-primary) 15%, transparent)",
+          color: "#ffffff",
+          backgroundColor: "var(--brand-accent)",
           borderRadius: "8px",
           cursor: "pointer",
         }}
@@ -172,7 +172,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
 
       <style>{`
         .prereq-chip:hover {
-          opacity: 0.8 !important;
+          background-color: var(--brand-accent-hover) !important;
         }
       `}</style>
 

@@ -47,11 +47,19 @@ function formatDuration(raw: number | null): string | null {
   return `${raw} Semesters`;
 }
 
-function totalCredits(duration: number | null): number | null {
-  if (duration == null) return null;
-  if (duration === 1) return 1;
-  if (duration === 2) return 2;
-  return null;
+function totalCredits(course: Course): number | null {
+  for (const option of course.options ?? []) {
+    if (option.credits != null) {
+      const semCount = getNormalizedDuration(course) === 2 ? 2 : 1;
+      return option.credits * semCount;
+    }
+    for (const offering of option.offerings ?? []) {
+      if (offering.credits != null) return offering.credits;
+    }
+  }
+  const raw = getNormalizedDuration(course);
+  if (raw == null) return null;
+  return raw === 2 ? 2 : 1;
 }
 
 function isMathCourse(course: Course): boolean {
@@ -75,7 +83,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
   const gradeLevels = getGradeLevels(course);
   const rawDuration = getNormalizedDuration(course);
   const durationLabel = formatDuration(rawDuration);
-  const creditsRaw = totalCredits(rawDuration);
+  const creditsRaw = totalCredits(course);
   const semesterGroups = groupOfferingsBySemester(course);
   const showMathNote = gradeLevels != null && isMathCourse(course);
 
