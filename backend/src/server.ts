@@ -16,6 +16,14 @@ import {
 
 const app = express();
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+
+console.log(`[AUTH-DEBUG] === Server startup ===`);
+console.log(`[AUTH-DEBUG] FRONTEND_URL=${FRONTEND_URL}`);
+console.log(`[AUTH-DEBUG] BACKEND_URL=${BACKEND_URL}`);
+console.log(`[AUTH-DEBUG] NODE_ENV=${process.env.NODE_ENV || "not set"}`);
+console.log(`[AUTH-DEBUG] PORT=${process.env.PORT || "not set"}`);
+console.log(`[AUTH-DEBUG] CORS origin=${FRONTEND_URL}, credentials=true`);
 
 app.set("trust proxy", 1);
 app.use(

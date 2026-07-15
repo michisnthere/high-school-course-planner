@@ -30,8 +30,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     fetchingRef.current = true;
     try {
       const session = await getSession();
+      console.log(`[AUTH-DEBUG] AuthContext refresh: authenticated=${session.authenticated}, user=${session.authenticated ? session.user?.email : "null"}`);
       setUser(session.authenticated ? session.user ?? null : null);
-    } catch {
+    } catch (err) {
+      console.error(`[AUTH-DEBUG] AuthContext refresh FAILED:`, err);
       setUser(null);
     } finally {
       fetchingRef.current = false;

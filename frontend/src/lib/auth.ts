@@ -1,4 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+console.log(`[AUTH-DEBUG] frontend auth.ts loaded. NEXT_PUBLIC_API_URL=${process.env.NEXT_PUBLIC_API_URL || "(not set, using empty string)"}, final API_URL=${API_URL || "(empty)"}`);
 
 export interface AuthUser {
   id: number;
@@ -14,19 +15,26 @@ export interface SessionResponse {
 }
 
 export async function getSession(): Promise<SessionResponse> {
-  const response = await fetch(`${API_URL}/auth/session`, {
+  const url = `${API_URL}/auth/session`;
+  console.log(`[AUTH-DEBUG] getSession fetching: ${url}, credentials=include`);
+  const response = await fetch(url, {
     credentials: "include",
   });
 
+  console.log(`[AUTH-DEBUG] getSession response status=${response.status}, ok=${response.ok}`);
   if (!response.ok) {
     throw new Error("Failed to fetch session");
   }
 
-  return response.json();
+  const data = await response.json();
+  console.log(`[AUTH-DEBUG] getSession response body: authenticated=${data.authenticated}${data.authenticated ? `, user.id=${data.user?.id}` : ""}`);
+  return data;
 }
 
 export async function logout(): Promise<SessionResponse> {
-  const response = await fetch(`${API_URL}/auth/logout`, {
+  const url = `${API_URL}/auth/logout`;
+  console.log(`[AUTH-DEBUG] logout fetching: ${url}`);
+  const response = await fetch(url, {
     method: "POST",
     credentials: "include",
   });
