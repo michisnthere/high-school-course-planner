@@ -184,7 +184,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
             color: "var(--text-muted)",
           }}
         >
-          No prerequisites.
+          None
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

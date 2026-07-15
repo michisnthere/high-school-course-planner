@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
 import {
   sortCoursesByPrerequisites,
@@ -9,7 +10,6 @@ import {
 } from "@/lib/catalog";
 import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
-import { formatSemesterLabel } from "@/lib/catalog";
 import { CourseGrid } from "./CourseGrid";
 import { EmptyState } from "./EmptyState";
 
@@ -156,15 +156,56 @@ function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
   return "No courses found.";
 }
 
+function parseSearchParams(sp: URLSearchParams): { query: string; filters: ActiveFilters } {
+  return {
+    query: sp.get("q") || "",
+    filters: {
+      division: sp.getAll("division"),
+      department: sp.getAll("department"),
+      creditType: sp.getAll("creditType"),
+      gradeLevel: sp.getAll("gradeLevel"),
+      semester: sp.getAll("semester"),
+    },
+  };
+}
+
+function buildSearchParams(query: string, filters: ActiveFilters): URLSearchParams {
+  const params = new URLSearchParams();
+  if (query) params.set("q", query);
+  for (const v of filters.division) params.append("division", v);
+  for (const v of filters.department) params.append("department", v);
+  for (const v of filters.creditType) params.append("creditType", v);
+  for (const v of filters.gradeLevel) params.append("gradeLevel", v);
+  for (const v of filters.semester) params.append("semester", v);
+  return params;
+}
+
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
-  const [query, setQuery] = useState("");
-  const [filters, setFilters] = useState<ActiveFilters>({
-    division: [],
-    department: [],
-    creditType: [],
-    gradeLevel: [],
-    semester: [],
-  });
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const { query, filters } = useMemo(
+    () => parseSearchParams(searchParams),
+    [searchParams]
+  );
+
+  const setQuery = useCallback(
+    (q: string) => {
+      const params = buildSearchParams(q, filters);
+      const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
+      router.replace(target, { scroll: false });
+    },
+    [filters, router]
+  );
+
+  const setFilters = useCallback(
+    (newFilters: ActiveFilters) => {
+      const params = buildSearchParams(query, newFilters);
+      const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
+      router.replace(target, { scroll: false });
+    },
+    [query, router]
+  );
 
   const divisions = useMemo(
     () => extractDivisionsFromItems(courses, (course) => course.department?.division?.name),

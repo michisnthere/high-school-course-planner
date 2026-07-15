@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType } from "@/lib/catalog";
@@ -18,9 +19,16 @@ function truncateDescription(text: string | null | undefined, maxLength = 150): 
 }
 
 export function CourseCard({ course }: CourseCardProps): React.ReactElement {
+  const searchParams = useSearchParams();
   const creditType = course.options?.[0]?.creditType ?? null;
   const description = truncateDescription(course.description);
   const slug = getCourseSlug(course);
+
+  const filterQuery = searchParams.toString();
+  const returnParam = filterQuery
+    ? `?return=${encodeURIComponent("/catalog?" + filterQuery)}`
+    : "";
+  const courseHref = `/catalog/${slug}${returnParam}`;
 
   return (
     <div
@@ -39,7 +47,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
       }}
     >
       <Link
-        href={`/catalog/${slug}`}
+        href={courseHref}
         style={{
           display: "block",
           textDecoration: "none",

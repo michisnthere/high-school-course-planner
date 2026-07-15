@@ -7811,7 +7811,7 @@
     },
     {
       "title": "Driver Education",
-      "description": "Driver Education provides students with the knowledge and skills necessary to become safe and responsible drivers. This course covers traffic laws, vehicle operation, defensive driving techniques, and the consequences of impaired driving. Students must meet all state and school requirements to enroll. Successful completion satisfies the Illinois state requirement for driver education.",
+      "description": "This course is normally taken during one semester of sophomore or junior year. Students are enrolled in this course based on chronological age. For the 2026\u201327 school year, students may request enrollment in the course for first semester if they were born on or before Nov. 1, 2010 and for second semester if they were born on or before March 1, 2011.\n\nStudents must take and pass both the classroom phase and the behind-the-wheel phase of Driver Education if they wish to receive a license prior to their 18th birthday. Passing the classroom phase is required for graduation.\n\nThe course consists of classroom instruction and behind-the-wheel instruction. Students learn:\n\n\u2022 Rules of the road\n\u2022 Defensive driving\n\u2022 Vehicle control\n\u2022 Driver responsibility\n\u2022 Impaired driving\n\u2022 Distracted driving\n\nStudents must also complete 50 hours of supervised at-home practice while enrolled.\n\nGrades earned in Driver Education do not count toward GPA.\n\nEnrollment is determined by chronological age. If enrollment exceeds capacity, students are admitted in birth date order.\n\nOther requirements:\n\n\u2022 Students must be at least 15 years old to obtain an Illinois permit.\n\u2022 Students must hold an Illinois permit for nine months before receiving a license.\n\u2022 Students must be enrolled in Driver Education to obtain an Illinois permit.\n\u2022 Freshmen may not enroll until the summer after freshman year regardless of age.\n\u2022 Driver Education teachers begin the permit process before the course starts.\n\u2022 Dropping the course cancels the permit.\n\u2022 Students selecting classroom-only instruction may not later complete behind-the-wheel instruction.\n\nDriver Education fee:\n$400 plus a $20 Illinois Secretary of State fee.\n\nParents/Guardians are notified of enrollment by March 8.",
       "sourceReference": "page 88",
       "notes": [
         "Pass/Fail course.",
@@ -7833,14 +7833,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Valid Illinois Instruction Permit obtained through Driver Education",
-            "Parental consent",
-            "Verification of age",
-            "At least 8 credits earned during the previous two semesters",
-            "ELD students must be enrolled in ELD 2 or higher",
-            "Freshmen are not eligible to take the course"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "DE232",
@@ -7851,14 +7844,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Valid Illinois Instruction Permit obtained through Driver Education",
-            "Parental consent",
-            "Verification of age",
-            "At least 8 credits earned during the previous two semesters",
-            "ELD students must be enrolled in ELD 2 or higher",
-            "Freshmen are not eligible to take the course"
-          ]
+          "prerequisites": []
         }
       ],
       "attributes": {
@@ -7866,8 +7852,8 @@
         "requiresAudition": false,
         "requiresApplication": false
       },
-      "division": "Physical Education",
-      "department": "Health Education"
+      "division": "Applied Arts",
+      "department": "Driver Education"
     },
     {
       "title": "Biology",

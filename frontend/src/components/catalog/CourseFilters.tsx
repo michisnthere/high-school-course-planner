@@ -148,6 +148,26 @@ export function CourseFilters({
     filters.gradeLevel.length +
     filters.semester.length;
 
+  const visibleDepartments = useMemo(() => {
+    if (filters.division.length === 0) return departments;
+    const deptSet = new Set<string>();
+    for (const div of filters.division) {
+      const depts = divisionDepartments.get(div);
+      if (depts) depts.forEach((d) => deptSet.add(d));
+    }
+    return Array.from(deptSet).sort();
+  }, [filters.division, divisionDepartments, departments]);
+
+  const showDepartmentFilter = useMemo(() => {
+    if (filters.division.length === 0) return departments.length > 0;
+    return filters.division.some((div) => {
+      const depts = divisionDepartments.get(div);
+      if (!depts || depts.length === 0) return false;
+      if (depts.length > 1) return true;
+      return depts[0] !== div;
+    });
+  }, [filters.division, divisionDepartments, departments]);
+
   return (
     <div
       style={{
@@ -172,12 +192,14 @@ export function CourseFilters({
           selected={filters.division}
           onToggle={(value) => toggleFilter("division", value)}
         />
-        <ToggleGroup
-          label="Department"
-          values={departments}
-          selected={filters.department}
-          onToggle={(value) => toggleFilter("department", value)}
-        />
+        {showDepartmentFilter && (
+          <ToggleGroup
+            label="Department"
+            values={visibleDepartments}
+            selected={filters.department}
+            onToggle={(value) => toggleFilter("department", value)}
+          />
+        )}
         <ToggleGroup
           label="Credit Type"
           values={creditTypes}

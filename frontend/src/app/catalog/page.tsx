@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getCourses } from "@/lib/api";
 import { CatalogHeader } from "@/components/catalog/CatalogHeader";
 import { CatalogContent } from "@/components/catalog/CatalogContent";
@@ -16,7 +17,9 @@ export default async function CatalogPage() {
       }}
     >
       <CatalogHeader />
-      <CatalogContent courses={courses} />
+      <Suspense fallback={null}>
+        <CatalogContent courses={courses} />
+      </Suspense>
     </div>
   );
 }
