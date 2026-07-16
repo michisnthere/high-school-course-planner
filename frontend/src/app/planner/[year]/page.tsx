@@ -968,11 +968,16 @@ function SummarySidebar({
             })) ?? []
         }
         pePerSemester={
-          plannerAnalysis?.peSemesterBreakdown.map((s) => ({
-            semester: s.semester,
-            isMet: s.met,
-            courseTitle: s.courseTitle,
-          })) as PeSemesterStatus[] | undefined
+          plannerAnalysis?.peSemesterBreakdown
+            .filter((s) => {
+              const gradeStart = (currentYear - 9) * 2 + 1;
+              return s.semester >= gradeStart && s.semester < gradeStart + 2;
+            })
+            .map((s) => ({
+              semester: s.semester - (currentYear - 9) * 2,
+              isMet: s.met,
+              courseTitle: s.courseTitle,
+            })) as PeSemesterStatus[] | undefined
         }
         peWaivers={resolutions
           .filter((r) => r.type === "pe_waiver")

@@ -306,7 +306,7 @@ function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <span style={{ color: statusColor, fontSize: "18px", fontWeight: 400 }}>
-              {allMet ? "\u2713" : "!"}
+              {allMet ? "\u2713" : "\u26A0"}
             </span>
             <span
               aria-hidden="true"
@@ -317,7 +317,7 @@ function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
                 display: "inline-block",
               }}
             >
-              \u25B6
+              {"\u25B6"}
             </span>
           </div>
         </div>
@@ -474,7 +474,7 @@ function RequirementCard({
                 display: "inline-block",
               }}
             >
-              \u25B6
+              {"\u25B6"}
             </span>
           </div>
         </div>
@@ -576,7 +576,7 @@ function RequirementCard({
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
                   >
-                    Explore More \u2192
+                    Explore More {"\u2192"}
                   </Link>
                 )}
               </div>
@@ -712,7 +712,7 @@ function InfoModal({
             lineHeight: 1,
           }}
         >
-          \u2715
+          {"\u2715"}
         </button>
         <h2
           style={{
