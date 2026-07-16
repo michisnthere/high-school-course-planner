@@ -97,7 +97,7 @@ export function GradeRequirements({
                 }}
               >
                 Semester {s.semester}: {s.isMet ? "✓ " : "⚠ "}
-                {s.courseTitle ?? (grade === 9 && s.semester === 1 ? "Missing Freshman Foundational Fitness" : "Missing")}
+                {s.courseTitle ?? s.requiredLabel}
                 {!s.courseTitle && s.isMet && (peWaivers ?? []).length > 0 && " (waiver)"}
               </div>
             ))}

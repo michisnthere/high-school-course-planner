@@ -977,6 +977,7 @@ function SummarySidebar({
               semester: s.semester - (currentYear - 9) * 2,
               isMet: s.met,
               courseTitle: s.courseTitle,
+              requiredLabel: s.requiredLabel,
             })) as PeSemesterStatus[] | undefined
         }
         peWaivers={resolutions

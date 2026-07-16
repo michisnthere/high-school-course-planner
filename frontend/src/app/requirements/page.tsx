@@ -192,6 +192,7 @@ function RequirementsContent(): React.ReactElement {
                     semester: s.semester - (year.grade - 9) * 2,
                     isMet: s.met,
                     courseTitle: s.courseTitle,
+                    requiredLabel: s.requiredLabel,
                   }));
                 const peWaivers = analysis.resolutions
                   .filter((r) => r.type === "pe_waiver")
@@ -404,7 +405,7 @@ function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.R
                     <span>Semester {sem.semester}</span>
                     <span>
                       {sem.isMet ? "\u2713" : "\u26A0"}{" "}
-                      {sem.courseTitle ?? "Missing"}
+                      {sem.courseTitle ?? sem.requiredLabel}
                     </span>
                   </div>
                 ))}

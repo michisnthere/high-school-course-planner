@@ -11,6 +11,7 @@ export type PeSemesterStatus = {
   semester: number;
   isMet: boolean;
   courseTitle: string | null;
+  requiredLabel: string;
 };
 
 export function computeEffectivePeStatus(

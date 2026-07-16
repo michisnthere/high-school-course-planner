@@ -3,6 +3,7 @@ export type PeSemesterBreakdown = {
   met: boolean;
   courseTitle: string | null;
   courseId: number | null;
+  requiredLabel: string;
 };
 
 export type PlannerAnalysis = {

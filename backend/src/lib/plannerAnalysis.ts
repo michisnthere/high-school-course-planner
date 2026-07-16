@@ -140,6 +140,7 @@ export type PeSemesterBreakdown = {
   met: boolean;
   courseTitle: string | null;
   courseId: number | null;
+  requiredLabel: string;
 };
 
 export type PlannerAnalysis = {
@@ -197,7 +198,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
 
   const fulfillsLower = fulfillsRequirements.map((r) => r.toLowerCase());
   const peEligible =
-    fulfillsLower.some((r) => r.startsWith("physical") || r === "driver education") ||
+    fulfillsLower.some((r) => r === "physical education" || r === "driver education") ||
     attrs.includes("satisfiesPeRequirement");
 
   const isFoundationalFitness = attrs.includes("freshmanFoundationalFitness");
@@ -726,42 +727,50 @@ function computeYearRequirements(
   });
 }
 
+type PeSemesterMatcher = {
+  year: number;
+  semester: number;
+  label: string;
+  matches: (course: AnalysisCourse) => boolean;
+};
+
+const PE_SEMESTER_DEFS: PeSemesterMatcher[] = [
+  { year: 9, semester: 1, label: "Freshman Foundational Fitness or waiver", matches: (c) => c.isFoundationalFitness },
+  { year: 9, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
+  { year: 10, semester: 1, label: "Health or waiver", matches: (c) => c.fulfillsRequirements.some((r) => canonicalRequirementName(r) === "Health") },
+  { year: 10, semester: 2, label: "Physical Education, Applied Health, or Driver Education or waiver", matches: (c) => c.peEligible },
+  { year: 11, semester: 1, label: "Physical Education or waiver", matches: (c) => c.peEligible },
+  { year: 11, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
+  { year: 12, semester: 1, label: "Physical Education or waiver", matches: (c) => c.peEligible },
+  { year: 12, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
+];
+
 function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: ResolutionInfo[]): PeSemesterBreakdown[] {
   const peWaived = resolutions.some((r) => r.type === "pe_waiver");
-
-  // Build a list of courses eligible for PE, by semester
-  type PeSlot = { year: number; semester: number; courseTitle: string; courseId: number };
-  const peSlots: PeSlot[] = [];
   const seen = new Set<string>();
 
-  for (const placement of placements) {
-    if (!placement.course) continue;
-    if (!(placement.course as AnalysisCourse).peEligible) continue;
-    const key = getBackendPlacementKey(placement);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    peSlots.push({
-      year: placement.year,
-      semester: placement.semester,
-      courseTitle: placement.course.title,
-      courseId: placement.course.id,
-    });
-  }
-
-  // PE is required for 2 semesters per year for 4 years = 8 semesters
-  const totalSemesters = 8;
   const breakdown: PeSemesterBreakdown[] = [];
 
-  for (let i = 0; i < totalSemesters; i++) {
-    const year = Math.floor(i / 2) + 9;
-    const semester = (i % 2) + 1;
-    const slot = peSlots.find((ps) => ps.year === year && ps.semester === semester);
+  for (let i = 0; i < PE_SEMESTER_DEFS.length; i++) {
+    const def = PE_SEMESTER_DEFS[i];
+
+    const placement = placements.find((p) => {
+      if (!p.course || p.year !== def.year || p.semester !== def.semester) return false;
+      const key = getBackendPlacementKey(p);
+      if (seen.has(key)) return false;
+      return def.matches(p.course as AnalysisCourse);
+    });
+
+    if (placement) {
+      seen.add(getBackendPlacementKey(placement));
+    }
 
     breakdown.push({
       semester: i + 1,
-      met: peWaived || slot != null,
-      courseTitle: slot?.courseTitle ?? null,
-      courseId: slot?.courseId ?? null,
+      met: peWaived || placement != null,
+      courseTitle: placement?.course?.title ?? null,
+      courseId: placement?.course?.id ?? null,
+      requiredLabel: def.label,
     });
   }
 
