@@ -13,6 +13,8 @@ const REQUIREMENTS_TO_HIDE = new Set([
   "Required Electives and P.E.",
   "Additional Credits and P.E.",
   "Total Credits",
+  "External Credits",
+  "46th Credit",
 ]);
 
 const TOTAL_REQUIRED_CREDITS = 45;
@@ -114,7 +116,7 @@ function RequirementsContent(): React.ReactElement {
     (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
   ) ?? [];
   const visibleInformationItems = analysis?.informationItems.filter(
-    (item) => !item.name.toLowerCase().includes("46th")
+    (item) => !item.name.toLowerCase().includes("46th") && !item.name.toLowerCase().includes("external credits")
   ) ?? [];
 
   return (
