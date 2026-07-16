@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
+import { computeEffectivePeStatus, type PeSemesterStatus } from "@/lib/gradeRequirements";
 
 const REQUIREMENTS_TO_HIDE = new Set([
   "Science",
@@ -183,9 +184,27 @@ function RequirementsContent(): React.ReactElement {
                 gap: "12px",
               }}
             >
-              {analysis.yearRequirements.map((year) => (
-                <YearLevelCardView key={year.grade} year={year} />
-              ))}
+              {analysis.yearRequirements.map((year) => {
+                const gradeStart = (year.grade - 9) * 2 + 1;
+                const peSemesters = analysis.peSemesterBreakdown
+                  .filter((s) => s.semester >= gradeStart && s.semester < gradeStart + 2)
+                  .map((s) => ({
+                    semester: s.semester - (year.grade - 9) * 2,
+                    isMet: s.met,
+                    courseTitle: s.courseTitle,
+                  }));
+                const peWaivers = analysis.resolutions
+                  .filter((r) => r.type === "pe_waiver")
+                  .map((r) => ({ type: r.type }));
+                const effectivePe = computeEffectivePeStatus(peSemesters, peWaivers);
+                return (
+                  <YearLevelCardView
+                    key={year.grade}
+                    year={year}
+                    pePerSemester={effectivePe}
+                  />
+                );
+              })}
             </div>
           </section>
 
@@ -266,9 +285,10 @@ function RequirementsContent(): React.ReactElement {
 
 type YearLevelCardProps = {
   year: PlannerAnalysis["yearRequirements"][number];
+  pePerSemester: PeSemesterStatus[];
 };
 
-function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
+function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.ReactElement {
   const [expanded, setExpanded] = useState(false);
   const allMet = year.satisfiedCount === year.totalCount;
   const statusLabel = allMet ? "Satisfied" : "Partial";
@@ -362,6 +382,35 @@ function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
               </span>
             </div>
           ))}
+          {pePerSemester.length > 0 && (
+            <div style={{ marginTop: "8px" }}>
+              <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#111827" }}>
+                Physical Education
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                {pePerSemester.map((sem) => (
+                  <div
+                    key={sem.semester}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "12px",
+                      padding: "8px 12px",
+                      borderRadius: "8px",
+                      fontSize: "13px",
+                      color: sem.isMet ? "#6b7280" : "#ECBA2B",
+                    }}
+                  >
+                    <span>Semester {sem.semester}</span>
+                    <span>
+                      {sem.isMet ? "\u2713" : "\u26A0"}{" "}
+                      {sem.courseTitle ?? "Missing"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
