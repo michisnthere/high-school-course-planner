@@ -159,7 +159,7 @@ export function CourseFilters({
   }, [filters.division, divisionDepartments, departments]);
 
   const showDepartmentFilter = useMemo(() => {
-    if (filters.division.length === 0) return departments.length > 0;
+    if (filters.division.length === 0) return false;
     return filters.division.some((div) => {
       const depts = divisionDepartments.get(div);
       if (!depts || depts.length === 0) return false;

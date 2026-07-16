@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
+import { asyncHandler } from "../lib/asyncHandler.js";
 import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
 import { normalizePrerequisite } from "../lib/prerequisiteNormalization.js";
 import { deriveCourseDuration, calculateTotalCredits } from "../lib/courseCredits.js";
@@ -31,6 +32,8 @@ export type CourseDetails = {
   courseCode: string | null;
   gradeMin: number | null;
   gradeMax: number | null;
+  isNonAcademic: boolean;
+  isMarchingBand: boolean;
 };
 
 type PlannedCourseResponse = {
@@ -112,6 +115,8 @@ export function deriveCourseDetails(
     courseCode,
     gradeMin,
     gradeMax,
+    isNonAcademic: false,
+    isMarchingBand: course.isMarchingBand ?? false,
   };
 }
 
@@ -132,6 +137,8 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     courseCode: null,
     gradeMin: null,
     gradeMax: null,
+    isNonAcademic: option.isNonAcademic ?? false,
+    isMarchingBand: false,
   };
 }
 
@@ -305,7 +312,7 @@ router.get("/analysis", requireAuth, async (req, res) => {
   }
 });
 
-router.get("/", requireAuth, async (req, res) => {
+router.get("/", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const years = [9, 10, 11, 12];
 
@@ -353,9 +360,9 @@ router.get("/", requireAuth, async (req, res) => {
   }));
 
   res.json(response);
-});
+}));
 
-router.get("/options", requireAuth, async (req, res) => {
+router.get("/options", requireAuth, asyncHandler(async (req, res) => {
   const grade = Number(req.query.grade);
 
   const options = await prisma.plannerOption.findMany({
@@ -364,9 +371,9 @@ router.get("/options", requireAuth, async (req, res) => {
   });
 
   res.json(options);
-});
+}));
 
-router.post("/courses", requireAuth, async (req, res) => {
+router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const { plannerId, courseId, plannerOptionId, semester, slot } = req.body;
 
@@ -530,9 +537,9 @@ router.post("/courses", requireAuth, async (req, res) => {
   });
 
   res.status(201).json(await getPlannerResponse(planner.id));
-});
+}));
 
-router.delete("/courses/:id", requireAuth, async (req, res) => {
+router.delete("/courses/:id", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const plannedCourseId = Number(req.params.id);
 
@@ -597,9 +604,9 @@ router.delete("/courses/:id", requireAuth, async (req, res) => {
   }
 
   res.status(204).send();
-});
+}));
 
-router.post("/courses/:id/move", requireAuth, async (req, res) => {
+router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const plannedCourseId = Number(req.params.id);
   const { semester, slot } = req.body;
@@ -765,6 +772,6 @@ router.post("/courses/:id/move", requireAuth, async (req, res) => {
   ]);
 
   res.json(await getPlannerResponse(source.plannerId));
-});
+}));
 
 export default router;

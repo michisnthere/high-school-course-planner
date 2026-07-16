@@ -1,17 +1,18 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
+import { asyncHandler } from "../lib/asyncHandler.js";
 
 const router = Router();
 
-router.get("/", requireAuth, async (req, res) => {
+router.get("/", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const saved = await prisma.savedCourse.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
   });
   res.json(saved);
-});
+}));
 
 router.post("/", requireAuth, async (req, res) => {
   const userId = req.user!.id;
@@ -35,7 +36,7 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
-router.delete("/:courseId", requireAuth, async (req, res) => {
+router.delete("/:courseId", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const courseId = Number(req.params.courseId);
 
@@ -48,6 +49,6 @@ router.delete("/:courseId", requireAuth, async (req, res) => {
   });
 
   res.json({ success: true });
-});
+}));
 
 export default router;

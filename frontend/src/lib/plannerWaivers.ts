@@ -28,38 +28,11 @@ export type WaiverEligibility = {
   };
 };
 
-const MARCHING_BAND_KEYWORDS = [
-  "freshman band",
-  "wind ensemble",
-  "symphonic band",
-  "wind symphony",
-  "color guard",
-];
-
-function matchesMarchingBand(title: string): string | null {
-  const normalized = title.toLowerCase().replace(/\*/g, "").trim();
-  for (const keyword of MARCHING_BAND_KEYWORDS) {
-    if (
-      normalized === keyword ||
-      normalized.startsWith(keyword) ||
-      normalized.includes(keyword)
-    ) {
-      return keyword;
-    }
-  }
-  return null;
-}
-
 export function findMarchingBandCourse(
   plannedCourses: PlannedCourse[]
 ): { found: boolean; matchedTitle: string | null } {
-  const seen = new Set<string>();
   for (const pc of plannedCourses) {
-    const key = getPlacementKey(pc);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    const match = matchesMarchingBand(pc.course.title);
-    if (match) {
+    if (pc.course.isMarchingBand) {
       return { found: true, matchedTitle: pc.course.title };
     }
   }
@@ -76,7 +49,7 @@ export function getCreditBearingCount(
   for (const pc of plannedCourses) {
     const credits = getCourseCredits(pc.course);
     if (credits <= 0) continue;
-    if (pc.course.title === "Study Hall" || pc.course.title === "Free Period") continue;
+    if (pc.course.isNonAcademic) continue;
 
     const key = getPlacementKey(pc);
     if (seen.has(key)) continue;

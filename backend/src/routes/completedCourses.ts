@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
+import { asyncHandler } from "../lib/asyncHandler.js";
 import { deriveCourseDetails } from "./planner.js";
 import { calculateTotalCredits } from "../lib/courseCredits.js";
 
@@ -29,7 +30,7 @@ type CompletedCourseResponse = {
   course: ReturnType<typeof deriveCourseDetails>;
 };
 
-router.get("/", requireAuth, async (req, res) => {
+router.get("/", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
 
   const completed = await prisma.completedCourse.findMany({
@@ -64,9 +65,9 @@ router.get("/", requireAuth, async (req, res) => {
   }));
 
   res.json(response);
-});
+}));
 
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const { courseId, gradeCompleted, letterGrade } = req.body;
 
@@ -149,9 +150,9 @@ router.post("/", requireAuth, async (req, res) => {
   };
 
   res.status(201).json(response);
-});
+}));
 
-router.put("/:id", requireAuth, async (req, res) => {
+router.put("/:id", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const id = Number(req.params.id);
 
@@ -228,9 +229,9 @@ router.put("/:id", requireAuth, async (req, res) => {
   };
 
   res.json(response);
-});
+}));
 
-router.delete("/:id", requireAuth, async (req, res) => {
+router.delete("/:id", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const id = Number(req.params.id);
 
@@ -251,6 +252,6 @@ router.delete("/:id", requireAuth, async (req, res) => {
   });
 
   res.json({ success: true });
-});
+}));
 
 export default router;

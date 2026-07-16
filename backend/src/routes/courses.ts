@@ -32,7 +32,7 @@ router.get("/", async (_req, res) => {
     } catch (error) {
     console.error("Failed to fetch courses:", error);
     res.status(500).json({
-        error: String(error),
+        error: "Failed to fetch courses",
     });
     }
 });

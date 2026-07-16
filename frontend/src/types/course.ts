@@ -36,6 +36,7 @@ export type Course = {
   notes?: string[];
   attributes?: string[];
   fulfillsRequirements?: string[];
+  isMarchingBand?: boolean;
   department?: Department | null;
   options?: CourseOption[];
 };

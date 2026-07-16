@@ -1,8 +1,15 @@
 import path from "path";
 
-const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const replitDevDomain = process.env.REPLIT_DEV_DOMAIN;
+
+if (!backendUrl) {
+  console.warn(
+    "[NEXT] NEXT_PUBLIC_API_URL is not set. API proxy rewrites will not be configured. " +
+    "Set this environment variable in production to point to your Render backend URL."
+  );
+}
 
 const nextConfig = {
   turbopack: {

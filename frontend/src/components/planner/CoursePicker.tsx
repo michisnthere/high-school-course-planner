@@ -130,12 +130,12 @@ export function CoursePicker({
                   justifyContent: "space-between",
                   gap: "12px",
                   padding: "16px",
-                  backgroundColor: selectedCourseId === course.id ? "#2a2a1a" : "#111827",
-                  border: `1px solid ${selectedCourseId === course.id ? "#ECBA2B" : "#374151"}`,
+                  backgroundColor: selectedCourseId === course.id ? "#ffffff" : "#111827",
+                  border: `2px solid ${selectedCourseId === course.id ? "#275D38" : "#374151"}`,
                   borderRadius: "12px",
                   cursor: "pointer",
                   textAlign: "left",
-                  color: "inherit",
+                  color: selectedCourseId === course.id ? "#000000" : "inherit",
                   width: "100%",
                   transition: "border-color 0.15s ease",
                 }}
@@ -163,7 +163,7 @@ export function CoursePicker({
                       style={{
                         fontSize: "16px",
                         fontWeight: 600,
-                        color: "#ffffff",
+                        color: selectedCourseId === course.id ? "#000000" : "#ffffff",
                       }}
                     >
                       {course.title}
@@ -180,7 +180,7 @@ export function CoursePicker({
                       flexWrap: "wrap",
                       gap: "8px",
                       fontSize: "13px",
-                      color: "#9ca3af",
+                      color: selectedCourseId === course.id ? "#4b5563" : "#9ca3af",
                     }}
                   >
                     {course.creditType && (
@@ -229,16 +229,21 @@ export function CoursePicker({
                     )}
                   </div>
                 </div>
-                <span
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    color: "var(--brand-accent)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {actionLabel}
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
+                  {selectedCourseId === course.id && (
+                    <span style={{ fontSize: "16px", color: "#275D38" }}>✓</span>
+                  )}
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: selectedCourseId === course.id ? "#275D38" : "var(--brand-accent)",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {selectedCourseId === course.id ? "Selected" : actionLabel}
+                  </span>
+                </div>
               </button>
             ))}
           </div>

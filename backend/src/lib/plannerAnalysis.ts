@@ -218,15 +218,15 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
 }
 
 function isStudyHall(option: PlannerOption | null): boolean {
-  return option?.name === "Study Hall";
+  return option?.isNonAcademic === true && option?.name === "Study Hall";
 }
 
 function isFreePeriod(option: PlannerOption | null): boolean {
-  return option?.name === "Free Period";
+  return option?.isNonAcademic === true && option?.name === "Free Period";
 }
 
 function isAcademicCourse(placement: CoursePlacement): boolean {
-  return placement.course != null && !isStudyHall(placement.plannerOption) && !isFreePeriod(placement.plannerOption);
+  return placement.course != null && placement.plannerOption?.isNonAcademic !== true;
 }
 
 function getPlacementKey(placement: CoursePlacement): string {
@@ -447,6 +447,18 @@ function computeGraduationRequirements(
     }
   }
 
+  // Build courseId → fulfills canonical names
+  const courseFulfillsMap = new Map<number, Set<string>>();
+  for (const placement of placements) {
+    if (!placement.course) continue;
+    if (!courseFulfillsMap.has(placement.course.id)) {
+      courseFulfillsMap.set(placement.course.id, new Set());
+    }
+    for (const fr of placement.course.fulfillsRequirements) {
+      courseFulfillsMap.get(placement.course.id)!.add(canonicalRequirementName(fr));
+    }
+  }
+
   return Array.from(canonicalByName.values()).map((req) => {
     const required = req.requiredValue ?? 0;
     let earned = 0;
@@ -461,6 +473,8 @@ function computeGraduationRequirements(
       }
     }
     for (const courseId of eligibleCourseIds) {
+      const fulfills = courseFulfillsMap.get(courseId);
+      if (fulfills && !fulfills.has(canonicalName)) continue;
       earned += courseIdToCredits.get(courseId) ?? 0;
     }
 
@@ -691,6 +705,7 @@ function computeYearRequirements(
   return YEARS.map((grade) => {
     const reqs = gradeLevelRequirements.get(grade) ?? [];
     const items: YearRequirementItem[] = reqs.map((req) => {
+      const category = canonicalRequirementName(req.name);
       const eligibleIds = courseRequirementLinks.get(req.id) ?? new Set();
       let earnedCredits = 0;
       const seen = new Set<string>();
@@ -698,6 +713,9 @@ function computeYearRequirements(
       for (const placement of placements) {
         if (placement.year !== grade || !placement.course) continue;
         if (!eligibleIds.has(placement.course.id)) continue;
+        // Verify course actually fulfills this requirement
+        const fulfillsCanonical = placement.course.fulfillsRequirements.map(canonicalRequirementName);
+        if (!fulfillsCanonical.includes(category)) continue;
         const key = getBackendPlacementKey(placement);
         if (seen.has(key)) continue;
         seen.add(key);
@@ -705,7 +723,7 @@ function computeYearRequirements(
       }
 
       return {
-        category: canonicalRequirementName(req.name),
+        category,
         required: true,
         met: req.requiredValue != null ? earnedCredits >= req.requiredValue : earnedCredits > 0,
         earnedCredits,
@@ -960,6 +978,15 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
     ]);
 
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, resolutions);
+
+  const mergedLinks = mergeCourseRequirementLinksByCanonicalRequirement(requirements, courseRequirementLinks);
+  const recommendations = computeRecommendations(graduationRequirements, mergedLinks, placements, completedCourses, allCourses);
+  for (const req of graduationRequirements) {
+    const recs = recommendations.get(req.id);
+    if (recs) {
+      req.recommendedCourses = recs;
+    }
+  }
 
   return {
     credits: computeCredits(placements),

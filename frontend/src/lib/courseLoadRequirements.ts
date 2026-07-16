@@ -25,7 +25,7 @@ export function computeSemesterCredits(plannedCourses: PlannedCourse[]): Semeste
   const seen = new Set<string>();
 
   for (const pc of plannedCourses) {
-    if (pc.course.title === "Study Hall" || pc.course.title === "Free Period") continue;
+    if (pc.course.isNonAcademic) continue;
 
     const key = getPlacementKey(pc);
     if (seen.has(key)) continue;
@@ -51,7 +51,7 @@ export function computeSixthPeriod(plannedCourses: PlannedCourse[], grade: numbe
   const countedFullYear = new Set<string>();
 
   for (const pc of plannedCourses) {
-    if (pc.course.title === "Free Period" && grade < 11) continue;
+    if (pc.course.isNonAcademic && grade < 11) continue;
 
     if (pc.course.duration === 2) {
       const key = `${pc.courseId}-${pc.slot}`;

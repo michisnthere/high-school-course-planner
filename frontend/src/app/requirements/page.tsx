@@ -1,18 +1,32 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { Suspense, useEffect, useState, useCallback } from "react";
+import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
+
+const REQUIREMENTS_TO_HIDE = new Set([
+  "Science",
+  "Social Studies",
+  "Required Electives and P.E.",
+  "Additional Credits and P.E.",
+  "Total Credits",
+]);
+
+const TOTAL_REQUIRED_CREDITS = 45;
 
 export default function RequirementsPage(): React.ReactElement {
   return (
     <ProtectedRoute>
-      <RequirementsContent />
+      <Suspense fallback={null}>
+        <RequirementsContent />
+      </Suspense>
     </ProtectedRoute>
   );
 }
 
-const STATUS_CONFIG = {
+const STATUS_CONFIG: Record<string, { label: string; badge: string; light: string; textColor: string }> = {
   satisfied: {
     label: "Satisfied",
     badge: "#275D38",
@@ -38,11 +52,20 @@ function formatNumber(n: number): string {
 }
 
 function RequirementsContent(): React.ReactElement {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
   const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
+
+  // Initialize expandedIds from URL param
+  const initialIds = React.useMemo(() => {
+    const raw = searchParams.get("expanded");
+    if (!raw) return new Set<number>();
+    return new Set(raw.split(",").map(Number).filter((n) => !isNaN(n)));
+  }, []);
+  const [expandedIds, setExpandedIds] = useState<Set<number>>(initialIds);
 
   const load = useCallback(async () => {
     try {
@@ -71,11 +94,27 @@ function RequirementsContent(): React.ReactElement {
       } else {
         next.add(id);
       }
+      // Update URL with expanded state so Back navigation restores it
+      const ids = Array.from(next);
+      const params = new URLSearchParams(searchParams.toString());
+      if (ids.length > 0) {
+        params.set("expanded", ids.join(","));
+      } else {
+        params.delete("expanded");
+      }
+      const target = params.toString() ? `/requirements?${params.toString()}` : "/requirements";
+      router.replace(target, { scroll: false });
       return next;
     });
-  }, []);
+  }, [router, searchParams]);
 
   const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
+  const visibleRequirements = analysis?.graduationRequirements.filter(
+    (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
+  ) ?? [];
+  const visibleInformationItems = analysis?.informationItems.filter(
+    (item) => !item.name.toLowerCase().includes("46th")
+  ) ?? [];
 
   return (
     <div
@@ -100,46 +139,27 @@ function RequirementsContent(): React.ReactElement {
         <p style={{ color: "var(--text-secondary)" }}>Loading graduation progress...</p>
       ) : error ? (
         <p style={{ color: "#ef4444" }}>{error}</p>
-      ) : !analysis || analysis.graduationRequirements.length === 0 ? (
+      ) : !analysis || visibleRequirements.length === 0 ? (
         <p style={{ color: "var(--text-secondary)" }}>
           No graduation requirements found. Requirements are populated from the course catalog.
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
           {analysis.credits.total > 0 && (
-            <div
+            <p
               style={{
-                padding: "24px",
-                backgroundColor: "#ffffff",
-                border: "2px solid #275D38",
-                borderRadius: "12px",
-                marginBottom: "12px",
+                margin: 0,
+                fontSize: "28px",
+                fontWeight: 700,
+                color: "#111827",
+                lineHeight: 1.3,
               }}
             >
-              <p
-                style={{
-                  margin: "0 0 4px",
-                  fontSize: "14px",
-                  color: "#6b7280",
-                  fontWeight: 600,
-                }}
-              >
-                Credit Progress
-              </p>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: "32px",
-                  fontWeight: 400,
-                  color: "#111827",
-                }}
-              >
-                {formatNumber(analysis.credits.total)}{" "}
-                <span style={{ fontSize: "24px", fontWeight: 400, color: "#6b7280" }}>
-                  credits earned
-                </span>
-              </p>
-            </div>
+              {formatNumber(analysis.credits.total)}{" "}
+              <span style={{ fontSize: "22px", fontWeight: 400, color: "#6b7280" }}>
+                / {TOTAL_REQUIRED_CREDITS} Credits Completed
+              </span>
+            </p>
           )}
 
           <section>
@@ -190,19 +210,20 @@ function RequirementsContent(): React.ReactElement {
                 gap: "16px",
               }}
             >
-              {analysis.graduationRequirements.map((req) => (
+              {visibleRequirements.map((req) => (
                 <RequirementCard
                   key={req.id}
                   req={req}
                   isExpanded={expandedIds.has(req.id)}
                   onToggle={() => toggleExpand(req.id)}
                   hasPeWaiver={hasPeWaiver}
+                  expandedIds={expandedIds}
                 />
               ))}
             </div>
           </section>
 
-          {analysis.informationItems.length > 0 && (
+          {visibleInformationItems.length > 0 && (
             <section>
               <h2
                 style={{
@@ -221,7 +242,7 @@ function RequirementsContent(): React.ReactElement {
                   gap: "16px",
                 }}
               >
-                {analysis.informationItems.map((item) => (
+                {visibleInformationItems.map((item) => (
                   <InfoCard
                     key={item.id}
                     item={item}
@@ -285,7 +306,7 @@ function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <span style={{ color: statusColor, fontSize: "18px", fontWeight: 400 }}>
-              {allMet ? "✓" : "!"}
+              {allMet ? "\u2713" : "!"}
             </span>
             <span
               aria-hidden="true"
@@ -296,7 +317,7 @@ function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
                 display: "inline-block",
               }}
             >
-              ▶
+              \u25B6
             </span>
           </div>
         </div>
@@ -347,11 +368,19 @@ function YearLevelCardView({ year }: YearLevelCardProps): React.ReactElement {
   );
 }
 
+function getCourseSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 type RequirementCardProps = {
   req: PlannerAnalysis["graduationRequirements"][number];
   isExpanded: boolean;
   onToggle: () => void;
   hasPeWaiver: boolean;
+  expandedIds: Set<number>;
 };
 
 function RequirementCard({
@@ -359,6 +388,7 @@ function RequirementCard({
   isExpanded,
   onToggle,
   hasPeWaiver,
+  expandedIds,
 }: RequirementCardProps): React.ReactElement {
   const isPe = req.name.toLowerCase() === "physical education";
   const config = STATUS_CONFIG[req.status];
@@ -372,6 +402,11 @@ function RequirementCard({
       : req.status === "satisfied"
       ? 100
       : 0;
+
+  const recommended = req.recommendedCourses ?? [];
+  const showRecs = recommended.length > 0;
+  const displayRecs = recommended.slice(0, 3);
+  const hasMore = recommended.length > 3;
 
   return (
     <div
@@ -439,7 +474,7 @@ function RequirementCard({
                 display: "inline-block",
               }}
             >
-              ▶
+              \u25B6
             </span>
           </div>
         </div>
@@ -469,7 +504,7 @@ function RequirementCard({
         <ProgressBar percent={percent} color={config.badge} showLabel />
       </div>
 
-      {isExpanded && req.requiredValue != null && (
+      {isExpanded && (
         <div
           style={{
             marginTop: "16px",
@@ -477,10 +512,76 @@ function RequirementCard({
             borderTop: "1px solid #f3f4f6",
           }}
         >
-          <p style={{ margin: 0, fontSize: "14px", color: "#6b7280" }}>
-            This requirement requires {formatNumber(req.requiredValue)} credits.
-            You have earned {formatNumber(req.earnedValue)} credits so far.
-          </p>
+          {req.requiredValue != null && (
+            <p style={{ margin: "0 0 12px", fontSize: "14px", color: "#6b7280" }}>
+              This requirement requires {formatNumber(req.requiredValue)} credits.
+              You have earned {formatNumber(req.earnedValue)} credits so far.
+            </p>
+          )}
+          {showRecs && (
+            <div>
+              <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "#111827" }}>
+                Recommended Courses
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {displayRecs.map((course) => {
+                  const courseReturnParams = new URLSearchParams();
+                  const expandedArr = Array.from(expandedIds);
+                  if (expandedArr.length > 0) {
+                    courseReturnParams.set("expanded", expandedArr.join(","));
+                  }
+                  const courseReturnStr = courseReturnParams.toString();
+                  const courseHref = `/catalog/${getCourseSlug(course.title)}?return=${encodeURIComponent(courseReturnStr ? `/requirements?${courseReturnStr}` : "/requirements")}`;
+                  return (
+                  <Link
+                    key={course.courseId}
+                    href={courseHref}
+                    style={{
+                      display: "block",
+                      padding: "10px 14px",
+                      backgroundColor: "#FCF5DF",
+                      border: "1px solid #ECBA2B",
+                      borderRadius: "8px",
+                      textDecoration: "none",
+                      color: "#111827",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      transition: "border-color 0.15s ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span>{course.title}</span>
+                      <span style={{ fontSize: "12px", color: "#6b7280" }}>{course.reason}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+                {hasMore && (
+                  <Link
+                    href={`/catalog?division=${encodeURIComponent(req.name)}`}
+                    style={{
+                      display: "inline-block",
+                      padding: "10px 14px",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#ECBA2B",
+                      textDecoration: "none",
+                      textAlign: "center",
+                      border: "1px solid #ECBA2B",
+                      borderRadius: "8px",
+                      backgroundColor: "#FCF5DF",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
+                  >
+                    Explore More \u2192
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -611,7 +712,7 @@ function InfoModal({
             lineHeight: 1,
           }}
         >
-          ✕
+          \u2715
         </button>
         <h2
           style={{

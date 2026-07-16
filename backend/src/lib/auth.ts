@@ -100,7 +100,6 @@ const PgStore = connectPgSimple(session);
 
 const pgStore = new PgStore({
   conString: process.env.DATABASE_URL,
-  createTableIfMissing: true,
 });
 
 const originalStoreSet = pgStore.set.bind(pgStore);

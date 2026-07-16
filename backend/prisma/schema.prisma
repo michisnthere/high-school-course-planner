@@ -69,6 +69,7 @@ model Course {
   attributes          Json    @default("[]")
   fulfillsRequirements Json   @default("[]")
   isRepeatable        Boolean @default(false)
+  isMarchingBand      Boolean @default(false)
 
   notes           Json    @default("[]")
   sourceReference String?
@@ -162,6 +163,7 @@ model PlannerOption {
   credits         Int      @default(0)
   availableGrades Int[]    @default([])
   maxPerYear      Int?
+  isNonAcademic   Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

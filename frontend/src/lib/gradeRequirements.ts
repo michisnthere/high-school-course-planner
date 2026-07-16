@@ -34,7 +34,7 @@ export function computeEffectivePeStatus(
 }
 
 export function courseFulfillsRequirement(course: PlannerCourseDetails, matchTerms: string[]): boolean {
-  if (course.title === "Study Hall" || course.title === "Free Period") return false;
+  if (course.isNonAcademic) return false;
   const normalizedTerms = matchTerms.map((t) => t.trim().toLowerCase());
   return (course.fulfillsRequirements ?? []).some((req) =>
     normalizedTerms.includes(req.trim().toLowerCase())

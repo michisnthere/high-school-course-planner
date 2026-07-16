@@ -22,6 +22,8 @@ export type PlannerCourseDetails = {
   courseCode: string | null;
   gradeMin: number | null;
   gradeMax: number | null;
+  isNonAcademic: boolean;
+  isMarchingBand: boolean;
 };
 
 export type PlannerOption = {
@@ -31,6 +33,7 @@ export type PlannerOption = {
   credits: number;
   availableGrades: number[];
   maxPerYear: number | null;
+  isNonAcademic: boolean;
 };
 
 export type PlannedCourse = {
@@ -319,6 +322,8 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     courseCode,
     gradeMin,
     gradeMax,
+    isNonAcademic: false,
+    isMarchingBand: course.isMarchingBand ?? false,
   };
 }
 
@@ -339,5 +344,7 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     courseCode: null,
     gradeMin: null,
     gradeMax: null,
+    isNonAcademic: option.isNonAcademic,
+    isMarchingBand: false,
   };
 }
