@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { getPlanners, type Planner } from "@/lib/planner";
+import { usePlannerService } from "@/services/ServiceContext";
+import type { Planner } from "@/lib/planner";
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -34,15 +35,16 @@ export default function PlannerPage(): React.ReactElement {
 }
 
 function PlannerContent(): React.ReactElement {
+  const plannerService = usePlannerService();
   const [planners, setPlanners] = useState<Planner[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPlanners()
+    plannerService.getPlanners()
       .then(setPlanners)
       .catch(() => setPlanners([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [plannerService]);
 
   return (
     <div style={{ padding: "32px" }}>

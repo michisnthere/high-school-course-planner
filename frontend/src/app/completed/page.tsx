@@ -2,11 +2,8 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useCompletedCoursesService } from "@/services/ServiceContext";
 import {
-  getCompletedCourses,
-  addCompletedCourse,
-  updateCompletedCourse,
-  removeCompletedCourse,
   GRADE_COMPLETED_OPTIONS,
   LETTER_GRADE_OPTIONS,
   type CompletedCourse,
@@ -24,6 +21,7 @@ export default function CompletedCoursesPage(): React.ReactElement {
 }
 
 function CompletedCoursesContent(): React.ReactElement {
+  const completedService = useCompletedCoursesService();
   const [courses, setCourses] = useState<CompletedCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +33,7 @@ function CompletedCoursesContent(): React.ReactElement {
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getCompletedCourses();
+      const data = await completedService.getCompletedCourses();
       setCourses(data);
       setError(null);
     } catch (err) {
@@ -43,7 +41,7 @@ function CompletedCoursesContent(): React.ReactElement {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [completedService]);
 
   useEffect(() => {
     load();
@@ -56,20 +54,20 @@ function CompletedCoursesContent(): React.ReactElement {
       letterGrade: string | null;
     }) => {
       try {
-        await addCompletedCourse(selection.courseId, selection.gradeCompleted, selection.letterGrade);
+        await completedService.addCompletedCourse(selection.courseId, selection.gradeCompleted, selection.letterGrade);
         setPickerOpen(false);
         await load();
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to add completed course");
       }
     },
-    [load]
+    [load, completedService]
   );
 
   const handleUpdate = useCallback(
     async (id: number) => {
       try {
-        await updateCompletedCourse(id, {
+        await completedService.updateCompletedCourse(id, {
           gradeCompleted: editGrade,
           letterGrade: editLetter,
         });
@@ -79,19 +77,19 @@ function CompletedCoursesContent(): React.ReactElement {
         setError(err instanceof Error ? err.message : "Failed to update completed course");
       }
     },
-    [load, editGrade, editLetter]
+    [load, editGrade, editLetter, completedService]
   );
 
   const handleRemove = useCallback(
     async (id: number) => {
       try {
-        await removeCompletedCourse(id);
+        await completedService.removeCompletedCourse(id);
         await load();
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to remove completed course");
       }
     },
-    [load]
+    [load, completedService]
   );
 
   return (

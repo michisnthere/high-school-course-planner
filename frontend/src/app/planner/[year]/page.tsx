@@ -12,14 +12,10 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
+import { useServices } from "@/services/ServiceContext";
 import { getCourseSlug } from "@/lib/normalize";
 import { getDivisionColor, getDivisionBackgroundColor } from "@/lib/divisionColors";
 import {
-  getPlanners,
-  addPlannedCourse,
-  removePlannedCourse,
-  movePlannedCourse,
-  getPlannerOptions,
   courseToPlannerDetails,
   plannerOptionToPlannerDetails,
   type Planner,
@@ -39,8 +35,6 @@ import {
   formatPrerequisiteForDisplay,
 } from "@/lib/catalog";
 import {
-  addCompletedCourse,
-  getCompletedCourses,
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
@@ -282,6 +276,7 @@ function PlannerYearContent(): React.ReactElement {
   }, []);
 
   const { isSaved } = useSavedCourses();
+  const { planner: plannerService, completedCourses: completedService } = useServices();
   const router = useRouter();
 
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
@@ -292,12 +287,12 @@ function PlannerYearContent(): React.ReactElement {
 
   const loadCompletedCourses = useCallback(async () => {
     try {
-      const courses = await getCompletedCourses();
+      const courses = await completedService.getCompletedCourses();
       setCompletedCourses(courses);
     } catch {
       setCompletedCourses([]);
     }
-  }, []);
+  }, [completedService]);
 
   const loadAllCatalogCourses = useCallback(async () => {
     try {
@@ -331,7 +326,7 @@ function PlannerYearContent(): React.ReactElement {
 
   const loadPlanners = useCallback(async () => {
     try {
-      const planners = await getPlanners();
+      const planners = await plannerService.getPlanners();
       setAllPlanners(planners);
       const current = planners.find((p) => p.schoolYear === year);
       setPlanner(current || null);
@@ -345,7 +340,7 @@ function PlannerYearContent(): React.ReactElement {
     } finally {
       setLoading(false);
     }
-  }, [year]);
+  }, [year, plannerService]);
 
   useEffect(() => {
     if (!year || !YEAR_LABELS[year]) {
@@ -432,7 +427,7 @@ function PlannerYearContent(): React.ReactElement {
       letterGrade: string | null;
     }) => {
       try {
-        await addCompletedCourse(courseId, gradeCompleted, letterGrade);
+        await completedService.addCompletedCourse(courseId, gradeCompleted, letterGrade);
         setCompletedCoursePicker({ open: false });
         await loadCompletedCourses();
         showToast("Course marked as completed.", "success");
@@ -441,7 +436,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [loadCompletedCourses, showToast]
+    [loadCompletedCourses, showToast, completedService]
   );
 
   const handleAddResolution = useCallback(
@@ -497,13 +492,13 @@ function PlannerYearContent(): React.ReactElement {
         const beforePlanners = allPlanners;
         const updatedPlanner =
           "courseId" in selection
-            ? await addPlannedCourse(
+            ? await plannerService.addPlannedCourse(
                 planner.id,
                 selection.courseId,
                 activeSlot.semester,
                 activeSlot.slot
               )
-            : await addPlannedCourse(planner.id, {
+            : await plannerService.addPlannedCourse(planner.id, {
                 plannerOptionId: selection.plannerOptionId,
                 semester: activeSlot.semester,
                 slot: activeSlot.slot,
@@ -511,7 +506,7 @@ function PlannerYearContent(): React.ReactElement {
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
           newPlanners,
-          buildAddCourseUndo(beforePlanners, updatedPlanner, removePlannedCourse, movePlannedCourse)
+          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse, plannerService.movePlannedCourse)
         );
         handleCloseModal();
         showToast("Course added.", "success", handleUndo);
@@ -520,7 +515,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [planner, activeSlot, allPlanners, handleCloseModal, pushHistory, showToast, handleUndo]
+    [planner, activeSlot, allPlanners, handleCloseModal, pushHistory, showToast, handleUndo, plannerService]
   );
 
   const handleAddPrerequisiteToPlanner = useCallback(
@@ -531,11 +526,11 @@ function PlannerYearContent(): React.ReactElement {
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
-        const updatedPlanner = await addPlannedCourse(targetPlanner.id, courseId, semester, slot);
+        const updatedPlanner = await plannerService.addPlannedCourse(targetPlanner.id, courseId, semester, slot);
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
           newPlanners,
-          buildAddCourseUndo(beforePlanners, updatedPlanner, removePlannedCourse, movePlannedCourse)
+          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse, plannerService.movePlannedCourse)
         );
         setAllPlanners(newPlanners);
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
@@ -546,7 +541,7 @@ function PlannerYearContent(): React.ReactElement {
         throw err;
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo, year]
+    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
   );
 
   const handleRemoveCourse = useCallback(
@@ -571,18 +566,18 @@ function PlannerYearContent(): React.ReactElement {
             : p
         );
 
-        await removePlannedCourse(planned.id);
+        await plannerService.removePlannedCourse(planned.id);
         pushHistory(newPlanners, async () => {
           let restoredPlanner: Planner;
           if (planned.courseId != null) {
-            restoredPlanner = await addPlannedCourse(
+            restoredPlanner = await plannerService.addPlannedCourse(
               planned.plannerId,
               planned.courseId,
               planned.semester,
               planned.slot
             );
           } else if (planned.plannerOptionId != null) {
-            restoredPlanner = await addPlannedCourse(planned.plannerId, {
+            restoredPlanner = await plannerService.addPlannedCourse(planned.plannerId, {
               plannerOptionId: planned.plannerOptionId,
               semester: planned.semester,
               slot: planned.slot,
@@ -617,12 +612,12 @@ function PlannerYearContent(): React.ReactElement {
       }
 
       try {
-        const updatedPlanner = await movePlannedCourse(plannedCourseId, semester, slot);
+        const updatedPlanner = await plannerService.movePlannedCourse(plannedCourseId, semester, slot);
         const newPlanners = allPlanners.map((p) =>
           p.schoolYear === updatedPlanner.schoolYear ? updatedPlanner : p
         );
         pushHistory(newPlanners, async () => {
-          await movePlannedCourse(plannedCourseId, source.semester, source.slot);
+          await plannerService.movePlannedCourse(plannedCourseId, source.semester, source.slot);
         });
         showToast("Course moved.", "success", handleUndo);
       } catch (err) {
@@ -632,7 +627,7 @@ function PlannerYearContent(): React.ReactElement {
         setPlanner(originalPlanners.find((p) => p.schoolYear === year) || null);
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo, year]
+    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
   );
 
   const handleDrop = useCallback(
@@ -853,19 +848,19 @@ function PlannerYearContent(): React.ReactElement {
             setCompletedCourses((prev) => [...prev, completed])
           }
           onPlacementTest={async (courseId, grade) => {
-            const completed = await addCompletedCourse(courseId, grade);
+            const completed = await completedService.addCompletedCourse(courseId, grade);
             setCompletedCourses((prev) => [...prev, completed]);
           }}
           onMiddleSchool={async (courseId, grade) => {
             await createResolution({ type: "middle_school", courseId, metadata: { grade } });
-            const completed = await addCompletedCourse(courseId, grade);
+            const completed = await completedService.addCompletedCourse(courseId, grade);
             setCompletedCourses((prev) => [...prev, completed]);
             const data = await getResolutions();
             setResolutions(data);
           }}
           onSummerSchool={async (courseId, grade) => {
             await createResolution({ type: "summer_school", courseId, metadata: { grade } });
-            const completed = await addCompletedCourse(courseId, grade);
+            const completed = await completedService.addCompletedCourse(courseId, grade);
             setCompletedCourses((prev) => [...prev, completed]);
             const data = await getResolutions();
             setResolutions(data);
@@ -1475,11 +1470,13 @@ function CourseSearchModal({
     [duplicateCourse, allPlanners]
   );
 
+  const { planner: modalPlannerService } = useServices();
+
   useEffect(() => {
     setLoading(true);
     Promise.all([
       getCourses().then((courses) => courses.map(courseToPlannerDetails)),
-      getPlannerOptions(grade).then((options) => options.map(plannerOptionToPlannerDetails)),
+      modalPlannerService.getPlannerOptions(grade).then((options) => options.map(plannerOptionToPlannerDetails)),
     ])
       .then(([courses, options]) => setAllCourses([...options, ...courses]))
       .catch(() => setAllCourses([]))
@@ -2134,6 +2131,7 @@ function WarningActionModal({
   onSummerSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
+  const { completedCourses: modalCompletedService } = useServices();
   const [loading, setLoading] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
@@ -2196,7 +2194,7 @@ function WarningActionModal({
     if (!selectedCourse) return;
     setLoading(true);
     try {
-      const completed = await addCompletedCourse(selectedCourse.id, getGradeCompleted());
+      const completed = await modalCompletedService.addCompletedCourse(selectedCourse.id, getGradeCompleted());
       onMarkCompleted(completed);
       showToast("Marked as completed.", "success");
       onClose();
