@@ -53,6 +53,8 @@ export function AuthStatus(): React.ReactElement {
     );
   }
 
+  const isGuest = mode === "guest";
+
   return (
     <div
       style={{
@@ -61,15 +63,37 @@ export function AuthStatus(): React.ReactElement {
         gap: "12px",
       }}
     >
-      <span
+      <div
         style={{
-          fontSize: "0.875rem",
-          fontWeight: 400,
-          color: "var(--nav-text)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          gap: "2px",
         }}
       >
-        {user?.name || user?.email}
-      </span>
+        <span
+          style={{
+            fontSize: "0.875rem",
+            fontWeight: 400,
+            color: "var(--nav-text)",
+          }}
+        >
+          {user?.name || user?.email}
+        </span>
+        {isGuest && (
+          <span
+            style={{
+              fontSize: "0.6875rem",
+              color: "var(--brand-accent)",
+              opacity: 0.8,
+              lineHeight: 1.2,
+            }}
+            title="Your changes will not be saved after leaving this session."
+          >
+            Guest Mode
+          </span>
+        )}
+      </div>
       <button
         type="button"
         onClick={handleSignOut}

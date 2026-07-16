@@ -123,6 +123,36 @@ export default function LoginPage(): React.ReactElement {
           >
             Continue as Guest
           </button>
+          <div
+            style={{
+              marginTop: "12px",
+              padding: "12px",
+              backgroundColor: "var(--bg-muted)",
+              borderRadius: "8px",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "var(--text-secondary)",
+              }}
+            >
+              Guest Mode
+            </p>
+            <p
+              style={{
+                margin: "4px 0 0",
+                fontSize: "12px",
+                color: "var(--text-muted)",
+                lineHeight: 1.4,
+              }}
+            >
+              Your changes will not be saved after leaving this session.
+            </p>
+          </div>
         </div>
       </div>
     </div>
