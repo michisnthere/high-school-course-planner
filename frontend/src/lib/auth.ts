@@ -1,5 +1,7 @@
 const API_URL = "";
 
+export type AuthMode = "authenticated" | "guest";
+
 export interface AuthUser {
   id: number;
   googleId: string;
@@ -7,6 +9,14 @@ export interface AuthUser {
   name: string | null;
   picture: string | null;
 }
+
+export const GUEST_USER: AuthUser = {
+  id: -1,
+  googleId: "guest",
+  email: "guest@local",
+  name: "Guest",
+  picture: null,
+};
 
 export interface SessionResponse {
   authenticated: boolean;

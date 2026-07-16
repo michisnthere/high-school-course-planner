@@ -2,13 +2,23 @@
 
 import React from "react";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): React.ReactElement {
+  const { loginAsGuest } = useAuth();
+
   const handleSignIn = () => {
     const params = new URLSearchParams(window.location.search);
     const returnUrl = params.get("return") || "";
     const redirectParam = returnUrl ? `?redirect=${encodeURIComponent(returnUrl)}` : "";
     window.location.href = `/auth/google${redirectParam}`;
+  };
+
+  const handleGuest = () => {
+    loginAsGuest();
+    const params = new URLSearchParams(window.location.search);
+    const returnUrl = params.get("return") || "";
+    window.location.href = returnUrl || "/";
   };
 
   return (
@@ -93,6 +103,27 @@ export default function LoginPage(): React.ReactElement {
         >
           Sign in with Google
         </button>
+        <div style={{ marginTop: "16px" }}>
+          <button
+            type="button"
+            onClick={handleGuest}
+            style={{
+              width: "100%",
+              height: "48px",
+              padding: "0 24px",
+              fontSize: "16px",
+              fontWeight: 500,
+              color: "var(--text-secondary)",
+              backgroundColor: "transparent",
+              border: "1px solid var(--border-default)",
+              borderRadius: "10px",
+              cursor: "pointer",
+              boxSizing: "border-box",
+            }}
+          >
+            Continue as Guest
+          </button>
+        </div>
       </div>
     </div>
   );

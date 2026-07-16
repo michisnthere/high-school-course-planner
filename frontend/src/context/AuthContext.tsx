@@ -9,30 +9,43 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { getSession, logout, type AuthUser } from "@/lib/auth";
+import { getSession, logout, type AuthUser, type AuthMode, GUEST_USER } from "@/lib/auth";
 
 type AuthContextType = {
   user: AuthUser | null;
+  mode: AuthMode | null;
   loading: boolean;
+  isAuthenticated: boolean;
+  isGuest: boolean;
   refresh: () => Promise<void>;
   logout: () => Promise<void>;
+  loginAsGuest: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [mode, setMode] = useState<AuthMode | null>(null);
   const [loading, setLoading] = useState(true);
   const fetchingRef = useRef(false);
+  const modeRef = useRef<AuthMode | null>(null);
+
+  useEffect(() => {
+    modeRef.current = mode;
+  }, [mode]);
 
   const refresh = useCallback(async () => {
     if (fetchingRef.current) return;
     fetchingRef.current = true;
     try {
       const session = await getSession();
-      setUser(session.authenticated ? session.user ?? null : null);
+      if (session.authenticated) {
+        setMode("authenticated");
+        setUser(session.user ?? null);
+      }
     } catch {
-      setUser(null);
+      // Network error — preserve current mode
     } finally {
       fetchingRef.current = false;
     }
@@ -59,18 +72,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [refresh]);
 
+  const handleLoginAsGuest = useCallback(() => {
+    setMode("guest");
+    setUser(GUEST_USER);
+  }, []);
+
   const handleLogout = useCallback(async () => {
-    try {
-      await logout();
-    } catch {
-      // Ignore logout errors; session is cleared on the backend if it exists.
+    if (modeRef.current === "authenticated") {
+      try {
+        await logout();
+      } catch {
+        // Ignore logout errors.
+      }
     }
+    setMode(null);
     setUser(null);
     window.location.href = "/";
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, refresh, logout: handleLogout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        mode,
+        loading,
+        isAuthenticated: mode === "authenticated",
+        isGuest: mode === "guest",
+        refresh,
+        logout: handleLogout,
+        loginAsGuest: handleLoginAsGuest,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

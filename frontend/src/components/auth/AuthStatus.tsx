@@ -4,7 +4,7 @@ import React from "react";
 import { useAuth } from "@/context/AuthContext";
 
 export function AuthStatus(): React.ReactElement {
-  const { user, loading, logout } = useAuth();
+  const { user, mode, loading, logout } = useAuth();
 
   const handleSignIn = () => {
     const currentPath = window.location.pathname + window.location.search;
@@ -30,7 +30,7 @@ export function AuthStatus(): React.ReactElement {
     );
   }
 
-  if (!user) {
+  if (!mode) {
     return (
       <button
         type="button"
@@ -68,7 +68,7 @@ export function AuthStatus(): React.ReactElement {
           color: "var(--nav-text)",
         }}
       >
-        {user.name || user.email}
+        {user?.name || user?.email}
       </span>
       <button
         type="button"

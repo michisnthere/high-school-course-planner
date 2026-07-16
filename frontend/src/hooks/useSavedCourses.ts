@@ -9,12 +9,12 @@ import {
 } from "@/lib/savedCourses";
 
 export function useSavedCourses() {
-  const { user, loading: authLoading } = useAuth();
+  const { mode, loading: authLoading } = useAuth();
   const [savedIds, setSavedIds] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
+    if (mode !== "authenticated") {
       setSavedIds([]);
       setLoading(false);
       return;
@@ -25,11 +25,11 @@ export function useSavedCourses() {
       .then((ids) => setSavedIds(ids))
       .catch(() => setSavedIds([]))
       .finally(() => setLoading(false));
-  }, [user]);
+  }, [mode]);
 
   const toggle = useCallback(
     async (courseId: number) => {
-      if (!user) return;
+      if (mode !== "authenticated") return;
 
       const isSaved = savedIds.includes(courseId);
       try {
@@ -40,11 +40,11 @@ export function useSavedCourses() {
           await saveCourse(courseId);
           setSavedIds((prev) => [...prev, courseId]);
         }
-      } catch (err) {
-        console.error("Failed to toggle saved course:", err);
+      } catch {
+        console.error("Failed to toggle saved course");
       }
     },
-    [user, savedIds]
+    [mode, savedIds]
   );
 
   const isSaved = useCallback(
@@ -55,7 +55,7 @@ export function useSavedCourses() {
   return {
     savedIds,
     loading: loading || authLoading,
-    isAuthenticated: !!user,
+    isAuthenticated: mode === "authenticated",
     toggle,
     isSaved,
   };
