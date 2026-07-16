@@ -1,5 +1,3 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
 import type { Course } from "@/types/course";
 import { normalizePrerequisite } from "@/lib/prerequisiteNormalization";
 import { deriveCourseDuration, calculateTotalCredits } from "@/lib/courseCredits";
@@ -55,7 +53,7 @@ export type Planner = {
 };
 
 export async function getPlanners(): Promise<Planner[]> {
-  const response = await fetch(`${API_URL}/api/planner`, {
+  const response = await fetch(`/api/planner`, {
     credentials: "include",
   });
 
@@ -79,7 +77,7 @@ export async function getPlanner(year: number): Promise<Planner> {
 
 export async function getPlannerOptions(grade: number): Promise<PlannerOption[]> {
   const response = await fetch(
-    `${API_URL}/api/planner/options?grade=${encodeURIComponent(grade)}`,
+    `/api/planner/options?grade=${encodeURIComponent(grade)}`,
     {
       credentials: "include",
     }
@@ -94,7 +92,7 @@ export async function getPlannerOptions(grade: number): Promise<PlannerOption[]>
 
 export async function searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]> {
   const response = await fetch(
-    `${API_URL}/api/planner/courses?search=${encodeURIComponent(query)}`,
+    `/api/planner/courses?search=${encodeURIComponent(query)}`,
     {
       credentials: "include",
     }
@@ -136,7 +134,7 @@ export async function addPlannedCourse(
     body.slot = courseIdOrItem.slot;
   }
 
-  const response = await fetch(`${API_URL}/api/planner/courses`, {
+  const response = await fetch(`/api/planner/courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -154,7 +152,7 @@ export async function addPlannedCourse(
 }
 
 export async function removePlannedCourse(plannedCourseId: number): Promise<void> {
-  const response = await fetch(`${API_URL}/api/planner/courses/${plannedCourseId}`, {
+  const response = await fetch(`/api/planner/courses/${plannedCourseId}`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -172,7 +170,7 @@ export async function movePlannedCourse(
   semester: number,
   slot: number
 ): Promise<Planner> {
-  const response = await fetch(`${API_URL}/api/planner/courses/${plannedCourseId}/move`, {
+  const response = await fetch(`/api/planner/courses/${plannedCourseId}/move`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },

@@ -15,7 +15,8 @@ import {
 } from "./lib/auth.js";
 
 const app = express();
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const RAW_FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = RAW_FRONTEND_URL.replace(/\/$/, "");
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
 
 console.log(`[AUTH-DEBUG] === Server startup ===`);

@@ -1,7 +1,5 @@
 import type { PlannerCourseDetails } from "@/lib/planner";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
   "Summer School",
@@ -34,7 +32,7 @@ export type CompletedCourseInput = {
 };
 
 export async function getCompletedCourses(): Promise<CompletedCourse[]> {
-  const response = await fetch(`${API_URL}/api/completed-courses`, {
+  const response = await fetch(`/api/completed-courses`, {
     credentials: "include",
   });
 
@@ -50,7 +48,7 @@ export async function addCompletedCourse(
   gradeCompleted: GradeCompleted,
   letterGrade?: string | null
 ): Promise<CompletedCourse> {
-  const response = await fetch(`${API_URL}/api/completed-courses`, {
+  const response = await fetch(`/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -71,7 +69,7 @@ export async function updateCompletedCourse(
   id: number,
   updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }
 ): Promise<CompletedCourse> {
-  const response = await fetch(`${API_URL}/api/completed-courses/${id}`, {
+  const response = await fetch(`/api/completed-courses/${id}`, {
     method: "PUT",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -89,7 +87,7 @@ export async function updateCompletedCourse(
 }
 
 export async function removeCompletedCourse(id: number): Promise<void> {
-  const response = await fetch(`${API_URL}/api/completed-courses/${id}`, {
+  const response = await fetch(`/api/completed-courses/${id}`, {
     method: "DELETE",
     credentials: "include",
   });

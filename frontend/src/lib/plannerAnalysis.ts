@@ -79,10 +79,8 @@ export type PlannerAnalysis = {
   }>;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
 export async function getPlannerAnalysis(): Promise<PlannerAnalysis> {
-  const response = await fetch(`${API_URL}/api/planner/analysis`, {
+  const response = await fetch(`/api/planner/analysis`, {
     credentials: "include",
   });
 

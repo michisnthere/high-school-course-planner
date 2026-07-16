@@ -1,5 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-console.log(`[AUTH-DEBUG] frontend auth.ts loaded. NEXT_PUBLIC_API_URL=${process.env.NEXT_PUBLIC_API_URL || "(not set, using empty string)"}, final API_URL=${API_URL || "(empty)"}`);
+const API_URL = "";
 
 export interface AuthUser {
   id: number;

@@ -3,11 +3,15 @@ import passport from "passport";
 import { createGoogleStrategy, type SessionUser } from "../lib/auth.js";
 import { prisma } from "../lib/prisma.js";
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+const RAW_FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = RAW_FRONTEND_URL.replace(/\/$/, "");
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-const CALLBACK_URL = `${BACKEND_URL}/auth/google/callback`;
+// Use the FRONTEND_URL for the OAuth callback so Google redirects through the
+// Next.js proxy. All session cookies are then set on the frontend domain via
+// the proxy's forwarded Set-Cookie headers, making them first-party cookies
+// that mobile browsers will accept.
+const CALLBACK_URL = `${FRONTEND_URL}/auth/google/callback`;
 
 const router = Router();
 
@@ -21,7 +25,7 @@ router.get("/google", (req, res, next) => {
 });
 
 router.get("/google/callback", (req, res, next) => {
-  console.log(`[AUTH-DEBUG] === CALLBACK START === FRONTEND_URL=${FRONTEND_URL}, BACKEND_URL=${BACKEND_URL}, CALLBACK_URL=${CALLBACK_URL}`);
+  console.log(`[AUTH-DEBUG] === CALLBACK START === FRONTEND_URL=${FRONTEND_URL}, CALLBACK_URL=${CALLBACK_URL}`);
   console.log(`[AUTH-DEBUG] callback req.sessionID BEFORE authenticate=${req.sessionID?.substring(0,16) || "NONE"}..., req.session=${JSON.stringify({ passport: (req.session as any)?.passport, cookie: (req.session as any)?.cookie?.expires })}`);
   const strategy = createGoogleStrategy(CALLBACK_URL);
   passport.authenticate(
@@ -82,7 +86,10 @@ router.post("/logout", (req, res, next) => {
       if (sessionErr) {
         return next(sessionErr);
       }
-      res.clearCookie("courseplanner.sid");
+      res.clearCookie("courseplanner.sid", {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
       res.json({ authenticated: false });
     });
   });

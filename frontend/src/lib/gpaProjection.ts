@@ -1,5 +1,3 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
 export type GpaProjection = {
   current: {
     weighted: number;
@@ -14,7 +12,7 @@ export type GpaProjection = {
 };
 
 export async function getGpaProjection(): Promise<GpaProjection> {
-  const response = await fetch(`${API_URL}/api/gpa/projection`, {
+  const response = await fetch(`/api/gpa/projection`, {
     credentials: "include",
   });
 

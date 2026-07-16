@@ -7,12 +7,9 @@ export function AuthStatus(): React.ReactElement {
   const { user, loading, logout } = useAuth();
 
   const handleSignIn = () => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
     const currentPath = window.location.pathname + window.location.search;
     const redirectParam = currentPath !== "/login" ? `?redirect=${encodeURIComponent(currentPath)}` : "";
-    const signInUrl = `${apiUrl}/auth/google${redirectParam}`;
-    console.log(`[AUTH-DEBUG] handleSignIn: NEXT_PUBLIC_API_URL=${apiUrl || "(empty)"}, signInUrl=${signInUrl}`);
-    window.location.href = signInUrl;
+    window.location.href = `/auth/google${redirectParam}`;
   };
 
   const handleSignOut = async () => {
