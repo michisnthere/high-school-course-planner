@@ -85,7 +85,7 @@ export function GradeRequirements({
             <span style={{ fontSize: "16px" }}>
               {allSemestersMet ? "✓" : "⚠"}
             </span>
-            <span>{grade === 9 ? "Physical Education" : "Physical Welfare / Dance / Driver Education"}</span>
+            <span>Physical Education</span>
           </div>
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "2px" }}>
             {effectivePe!.map((s) => (

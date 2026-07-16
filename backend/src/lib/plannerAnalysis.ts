@@ -27,6 +27,7 @@ import {
 } from "./requirementsCleanup.js";
 import { normalizePrerequisite } from "./prerequisiteNormalization.js";
 import { deriveCourseDuration, calculateTotalCredits } from "./courseCredits.js";
+import { GRADE_LEVEL_REQUIREMENTS } from "./gradeLevelRequirements.js";
 
 type CourseOptionWithOfferings = CourseOption & { offerings: CourseOffering[] };
 type CourseWithOptions = Course & {
@@ -683,39 +684,20 @@ function computeRecommendations(
   return recommendations;
 }
 
-async function loadGradeLevelRequirements(): Promise<Map<number, GraduationRequirement[]>> {
-  const reqs = await prisma.graduationRequirement.findMany({
-    where: { gradeLevel: { not: null } },
-    include: { courses: { include: { course: true } } },
-  });
-  const map = new Map<number, GraduationRequirement[]>();
-  for (const req of reqs) {
-    const gl = req.gradeLevel!;
-    if (!map.has(gl)) map.set(gl, []);
-    map.get(gl)!.push(req);
-  }
-  return map;
-}
-
 function computeYearRequirements(
   placements: CoursePlacement[],
-  gradeLevelRequirements: Map<number, GraduationRequirement[]>,
-  courseRequirementLinks: Map<number, Set<number>>,
 ): YearRequirementStatus[] {
   return YEARS.map((grade) => {
-    const reqs = gradeLevelRequirements.get(grade) ?? [];
-    const items: YearRequirementItem[] = reqs.map((req) => {
-      const category = canonicalRequirementName(req.name);
-      const eligibleIds = courseRequirementLinks.get(req.id) ?? new Set();
+    const gradeDef = GRADE_LEVEL_REQUIREMENTS.find((g) => g.grade === grade);
+    const items: YearRequirementItem[] = (gradeDef?.items ?? []).map((item) => {
+      const canonical = item.canonicalName;
       let earnedCredits = 0;
       const seen = new Set<string>();
 
       for (const placement of placements) {
         if (placement.year !== grade || !placement.course) continue;
-        if (!eligibleIds.has(placement.course.id)) continue;
-        // Verify course actually fulfills this requirement
         const fulfillsCanonical = placement.course.fulfillsRequirements.map(canonicalRequirementName);
-        if (!fulfillsCanonical.includes(category)) continue;
+        if (!fulfillsCanonical.includes(canonical)) continue;
         const key = getBackendPlacementKey(placement);
         if (seen.has(key)) continue;
         seen.add(key);
@@ -723,11 +705,11 @@ function computeYearRequirements(
       }
 
       return {
-        category,
+        category: item.displayName,
         required: true,
-        met: req.requiredValue != null ? earnedCredits >= req.requiredValue : earnedCredits > 0,
+        met: earnedCredits >= item.requiredCredits,
         earnedCredits,
-        requiredCredits: req.requiredValue ?? 0,
+        requiredCredits: item.requiredCredits,
         matches: [],
       };
     });
@@ -966,7 +948,7 @@ async function loadResolutions(userId: number): Promise<ResolutionInfo[]> {
 }
 
 export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> {
-  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses, resolutions, gradeLevelRequirements] =
+  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses, resolutions] =
     await Promise.all([
       loadPlacements(userId),
       loadGraduationRequirements(),
@@ -974,7 +956,6 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
       loadCompletedCourses(userId),
       loadAllCourses(),
       loadResolutions(userId),
-      loadGradeLevelRequirements(),
     ]);
 
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, resolutions);
@@ -992,7 +973,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
     credits: computeCredits(placements),
     graduationRequirements,
     informationItems: toInformationItems(requirements),
-    yearRequirements: computeYearRequirements(placements, gradeLevelRequirements, courseRequirementLinks),
+    yearRequirements: computeYearRequirements(placements),
     peSemesterBreakdown: computePeSemesterBreakdown(placements, resolutions),
     duplicateCourses: computeDuplicateCourses(placements),
     missingPrerequisites: computeMissingPrerequisites(placements, completedCourses, resolutions),
