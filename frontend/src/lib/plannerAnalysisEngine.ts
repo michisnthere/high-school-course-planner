@@ -324,16 +324,28 @@ function computeGraduationRequirements(
 }
 
 function computeYearRequirements(placements: CoursePlacement[]): YearRequirementStatus[] {
+  const grCategoryChildren = new Map<string, Set<string>>();
+  for (const gr of GRADUATION_REQUIREMENTS) {
+    if (gr.category) {
+      if (!grCategoryChildren.has(gr.category)) grCategoryChildren.set(gr.category, new Set());
+      grCategoryChildren.get(gr.category)!.add(canonicalRequirementName(gr.name));
+    }
+  }
+
   return YEARS.map((grade) => {
     const gradeDef = GRADE_LEVEL_REQUIREMENTS.find((g) => g.grade === grade);
     const items: YearRequirementItem[] = (gradeDef?.items ?? []).map((item) => {
       const canonical = item.canonicalName;
+      const accepted = new Set<string>([canonical]);
+      const children = grCategoryChildren.get(canonical);
+      if (children) for (const c of children) accepted.add(c);
+
       let earnedCredits = 0;
       const seen = new Set<string>();
       for (const placement of placements) {
         if (placement.year !== grade || !placement.course || placement.isNonAcademic) continue;
         const fulfillsCanonical = placement.course.fulfillsRequirements.map(canonicalRequirementName);
-        if (!fulfillsCanonical.includes(canonical)) continue;
+        if (!fulfillsCanonical.some((fr) => accepted.has(fr))) continue;
         const key = getBackendPlacementKey(placement);
         if (seen.has(key)) continue;
         seen.add(key);

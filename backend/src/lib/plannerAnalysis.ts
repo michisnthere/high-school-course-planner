@@ -687,18 +687,23 @@ function computeRecommendations(
 
 function computeYearRequirements(
   placements: CoursePlacement[],
+  grCategoryChildren?: Map<string, Set<string>>,
 ): YearRequirementStatus[] {
   return YEARS.map((grade) => {
     const gradeDef = GRADE_LEVEL_REQUIREMENTS.find((g) => g.grade === grade);
     const items: YearRequirementItem[] = (gradeDef?.items ?? []).map((item) => {
       const canonical = item.canonicalName;
+      const accepted = new Set<string>([canonical]);
+      const children = grCategoryChildren?.get(canonical);
+      if (children) for (const c of children) accepted.add(c);
+
       let earnedCredits = 0;
       const seen = new Set<string>();
 
       for (const placement of placements) {
         if (placement.year !== grade || !placement.course) continue;
         const fulfillsCanonical = placement.course.fulfillsRequirements.map(canonicalRequirementName);
-        if (!fulfillsCanonical.includes(canonical)) continue;
+        if (!fulfillsCanonical.some((fr) => accepted.has(fr))) continue;
         const key = getBackendPlacementKey(placement);
         if (seen.has(key)) continue;
         seen.add(key);
@@ -969,6 +974,14 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
 
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, resolutions);
 
+  const grCategoryChildren = new Map<string, Set<string>>();
+  for (const req of requirements) {
+    if (req.category) {
+      if (!grCategoryChildren.has(req.category)) grCategoryChildren.set(req.category, new Set());
+      grCategoryChildren.get(req.category)!.add(canonicalRequirementName(req.name));
+    }
+  }
+
   const mergedLinks = mergeCourseRequirementLinksByCanonicalRequirement(requirements, courseRequirementLinks);
   const recommendations = computeRecommendations(graduationRequirements, mergedLinks, placements, completedCourses, allCourses);
   for (const req of graduationRequirements) {
@@ -982,7 +995,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
     credits: computeCredits(placements),
     graduationRequirements,
     informationItems: toInformationItems(requirements),
-    yearRequirements: computeYearRequirements(placements),
+    yearRequirements: computeYearRequirements(placements, grCategoryChildren),
     peSemesterBreakdown: computePeSemesterBreakdown(placements, resolutions),
     duplicateCourses: computeDuplicateCourses(placements),
     missingPrerequisites: computeMissingPrerequisites(placements, completedCourses, resolutions),
