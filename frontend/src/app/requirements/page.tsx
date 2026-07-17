@@ -137,6 +137,23 @@ function RequirementsContent(): React.ReactElement {
 
   return (
     <>
+          <style>{`
+        .rs-req-year-body,
+        .rs-req-card-body-inner {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 350ms ease, opacity 250ms ease, margin 250ms ease;
+          opacity: 0;
+        }
+        .rs-req-year-body.open,
+        .rs-req-card-body-inner.open {
+          max-height: 2000px;
+          opacity: 1;
+        }
+        .rs-req-year-body.open {
+          margin-top: 16px;
+        }
+      `}</style>
       {isMobile && <style>{`
         .rs-req-page {
           padding: 16px;
@@ -177,21 +194,6 @@ function RequirementsContent(): React.ReactElement {
         }
         .rs-req-progress span {
           font-size: 1rem !important;
-        }
-        .rs-req-year-body,
-        .rs-req-card-body-inner {
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 350ms ease, opacity 250ms ease, margin 250ms ease;
-          opacity: 0;
-        }
-        .rs-req-year-body.open,
-        .rs-req-card-body-inner.open {
-          max-height: 2000px;
-          opacity: 1;
-        }
-        .rs-req-year-body.open {
-          margin-top: 16px;
         }
         .rs-req-grid {
           grid-template-columns: 1fr !important;
@@ -354,6 +356,7 @@ function RequirementsContent(): React.ReactElement {
                       key={year.grade}
                       year={year}
                       pePerSemester={effectivePe}
+                      defaultExpanded={year.grade === 9}
                     />
                   );
                 })}
@@ -441,10 +444,11 @@ function RequirementsContent(): React.ReactElement {
 type YearLevelCardProps = {
   year: PlannerAnalysis["yearRequirements"][number];
   pePerSemester: PeSemesterStatus[];
+  defaultExpanded?: boolean;
 };
 
-function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.ReactElement {
-  const [expanded, setExpanded] = useState(false);
+function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: YearLevelCardProps): React.ReactElement {
+  const [expanded, setExpanded] = useState(defaultExpanded);
   const allMet = year.satisfiedCount === year.totalCount;
   const statusLabel = allMet ? "Satisfied" : "Partial";
   const statusColor = allMet ? "#275D38" : "#ECBA2B";
@@ -488,12 +492,13 @@ function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.R
               aria-hidden="true"
               style={{
                 color: "#6b7280",
+                fontSize: "14px",
                 transition: "transform 200ms ease",
-                transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
                 display: "inline-block",
               }}
             >
-              {"\u25B6"}
+              {"\u25BC"}
             </span>
           </div>
         </div>
