@@ -4,6 +4,8 @@ import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useSavedCoursesService } from "@/services/ServiceContext";
 
+const ACTIVE_MODES = new Set(["authenticated", "guest"]);
+
 export function useSavedCourses() {
   const { mode, loading: authLoading } = useAuth();
   const savedService = useSavedCoursesService();
@@ -11,7 +13,7 @@ export function useSavedCourses() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (mode !== "authenticated") {
+    if (!mode || !ACTIVE_MODES.has(mode)) {
       setSavedIds([]);
       setLoading(false);
       return;
@@ -26,7 +28,7 @@ export function useSavedCourses() {
 
   const toggle = useCallback(
     async (courseId: number) => {
-      if (mode !== "authenticated") return;
+      if (!mode || !ACTIVE_MODES.has(mode)) return;
 
       const isSaved = savedIds.includes(courseId);
       try {
@@ -44,7 +46,7 @@ export function useSavedCourses() {
     [mode, savedIds, savedService]
   );
 
-  const isSaved = useCallback(
+  const isSavedFn = useCallback(
     (courseId: number) => savedIds.includes(courseId),
     [savedIds]
   );
@@ -52,8 +54,8 @@ export function useSavedCourses() {
   return {
     savedIds,
     loading: loading || authLoading,
-    isAuthenticated: mode === "authenticated",
+    isAuthenticated: mode === "authenticated" || mode === "guest",
     toggle,
-    isSaved,
+    isSaved: isSavedFn,
   };
 }
