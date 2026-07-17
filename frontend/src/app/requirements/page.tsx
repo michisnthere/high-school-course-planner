@@ -761,7 +761,7 @@ function RequirementCard({
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "4px" }}>
                       <span>{course.title}</span>
-                      <span style={{ fontSize: "12px", color: "#6b7280", whiteSpace: "nowrap" }}>{course.reason}</span>
+                      <span style={{ fontSize: "12px", color: "#6b7280", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "160px" }}>{course.reason}</span>
                     </div>
                   </Link>
                 );

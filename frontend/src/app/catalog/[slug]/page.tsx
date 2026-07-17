@@ -116,7 +116,7 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
             font-size: 18px !important;
             margin-bottom: 12px !important;
           }
-          .rs-detail-offerings > div {
+          .rs-detail-offerings > div > div {
             grid-template-columns: 1fr !important;
           }
         }

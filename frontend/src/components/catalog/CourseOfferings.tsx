@@ -87,13 +87,17 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
   const semesterGroups = groupOfferingsBySemester(course);
   const showMathNote = gradeLevels != null && isMathCourse(course);
 
+  if (!durationLabel && creditsRaw == null && !gradeLevels && semesterGroups.size === 0) {
+    return <></>;
+  }
+
   return (
     <div
       style={{
-        padding: "24px",
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",
         borderRadius: "12px",
+        padding: "24px",
         marginBottom: "24px",
       }}
     >
