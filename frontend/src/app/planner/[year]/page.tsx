@@ -11,6 +11,7 @@ import React, {
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { GuestUpgradePrompt } from "@/components/auth/GuestUpgradePrompt";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
 import { useServices } from "@/services/ServiceContext";
 import { getCourseSlug } from "@/lib/normalize";
@@ -743,6 +744,8 @@ function PlannerYearContent(): React.ReactElement {
       >
         ← Back to Planner
       </Link>
+
+      <GuestUpgradePrompt />
 
       <div
         style={{
