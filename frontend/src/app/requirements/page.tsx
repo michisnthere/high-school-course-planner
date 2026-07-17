@@ -9,6 +9,8 @@ import { courseToPlannerDetails } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import { computeEffectivePeStatus, type PeSemesterStatus } from "@/lib/gradeRequirements";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { breakpoints } from "@/lib/responsive";
 
 const REQUIREMENTS_TO_HIDE = new Set([
   "Science",
@@ -75,6 +77,7 @@ function RequirementsContent(): React.ReactElement {
     return new Set(raw.split(",").map(Number).filter((n) => !isNaN(n)));
   }, []);
   const [expandedIds, setExpandedIds] = useState<Set<number>>(initialIds);
+  const { isMobile } = useBreakpoint();
 
   const load = useCallback(async () => {
     try {
@@ -133,132 +136,184 @@ function RequirementsContent(): React.ReactElement {
   ) ?? [];
 
   return (
-    <div
-      style={{
-        padding: "32px",
-        minHeight: "calc(100vh - 64px)",
-      }}
-    >
-      <h1
-        style={{
-          margin: "0 0 28px",
-          fontSize: "32px",
-          fontWeight: 700,
-          color: "#111827",
-          lineHeight: 1.2,
-        }}
+    <>
+      {isMobile && <style>{`
+        .rs-req-page {
+          padding: 16px;
+          padding-top: calc(16px + var(--safe-area-top));
+          padding-bottom: calc(16px + var(--safe-area-bottom));
+          padding-left: calc(16px + var(--safe-area-left));
+          padding-right: calc(16px + var(--safe-area-right));
+        }
+        .rs-req-back {
+          display: inline-block;
+          position: sticky;
+          top: calc(56px + var(--safe-area-top, 0px));
+          z-index: 40;
+          background: var(--bg-page);
+          padding: 8px 0 4px;
+          margin-bottom: 0;
+          font-size: 14px;
+          color: var(--text-secondary);
+          text-decoration: none;
+          font-weight: 500;
+          cursor: pointer;
+          border: none;
+        }
+        .rs-req-page h1 {
+          margin: 12px 0 20px !important;
+          font-size: 1.5rem !important;
+        }
+        .rs-req-progress {
+          position: sticky;
+          top: calc(80px + var(--safe-area-top, 0px));
+          z-index: 39;
+          background: var(--bg-page);
+          padding: 8px 0 12px;
+          margin: 0 !important;
+        }
+        .rs-req-progress strong {
+          font-size: 1.25rem;
+        }
+        .rs-req-progress span {
+          font-size: 1rem !important;
+        }
+        .rs-req-year-body,
+        .rs-req-card-body-inner {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 350ms ease, opacity 250ms ease, margin 250ms ease;
+          opacity: 0;
+        }
+        .rs-req-year-body.open,
+        .rs-req-card-body-inner.open {
+          max-height: 2000px;
+          opacity: 1;
+        }
+        .rs-req-year-body.open {
+          margin-top: 16px;
+        }
+        .rs-req-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .rs-req-recs {
+          gap: 10px !important;
+        }
+        .rs-req-recs-link {
+          padding: 14px 16px !important;
+          font-size: 15px !important;
+          min-height: 48px;
+          display: flex !important;
+          align-items: center;
+        }
+        .rs-req-recs-link > div {
+          flex-wrap: wrap;
+          gap: 4px;
+        }
+        .rs-req-explore {
+          width: 100% !important;
+          padding: 14px 16px !important;
+          font-size: 15px !important;
+          min-height: 48px;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+        }
+        .rs-req-info-grid {
+          grid-template-columns: 1fr !important;
+        }
+        @media (max-width: ${breakpoints.mobile - 1}px) {
+          .rs-req-year-card {
+            padding: 16px !important;
+          }
+          .rs-req-year-card h3 {
+            font-size: 16px !important;
+          }
+          .rs-req-card {
+            padding: 16px 16px 16px 20px !important;
+          }
+          .rs-req-card h3 {
+            font-size: 15px !important;
+          }
+          .rs-req-card .rs-req-stats {
+            gap: 10px !important;
+            font-size: 13px !important;
+          }
+          .rs-req-card .rs-req-stats strong {
+            font-size: 13px;
+          }
+        }
+      `}</style>}
+      <div
+        className={isMobile ? "rs-req-page" : undefined}
+        style={
+          isMobile
+            ? { minHeight: "calc(100vh - 64px)" }
+            : { padding: "32px", minHeight: "calc(100vh - 64px)" }
+        }
       >
-        Graduation Progress
-      </h1>
+        {isMobile && (
+          <button
+            type="button"
+            className="rs-req-back"
+            onClick={() => router.back()}
+          >
+            ← Back
+          </button>
+        )}
 
-      {loading ? (
-        <p style={{ color: "var(--text-secondary)" }}>Loading graduation progress...</p>
-      ) : error ? (
-        <p style={{ color: "#ef4444" }}>{error}</p>
-      ) : !analysis || visibleRequirements.length === 0 ? (
-        <p style={{ color: "var(--text-secondary)" }}>
-          No graduation requirements found. Requirements are populated from the course catalog.
-        </p>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          {analysis.credits.total > 0 && (
-            <p
-              style={{
-                margin: 0,
-                fontSize: "28px",
-                fontWeight: 700,
-                color: "#111827",
-                lineHeight: 1.3,
-              }}
-            >
-              {formatNumber(analysis.credits.total)}{" "}
-              <span style={{ fontSize: "22px", fontWeight: 400, color: "#6b7280" }}>
-                / {TOTAL_REQUIRED_CREDITS} Credits Completed
-              </span>
-            </p>
-          )}
+        <h1
+          style={{
+            margin: "0 0 28px",
+            fontSize: "32px",
+            fontWeight: 700,
+            color: "#111827",
+            lineHeight: 1.2,
+          }}
+        >
+          Graduation Progress
+        </h1>
 
-          <section>
-            <h2
-              style={{
-                margin: "0 0 16px",
-                fontSize: "20px",
-                fontWeight: 700,
-                color: "#111827",
-              }}
-            >
-              Year-Level Requirements
-            </h2>
-            <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
-              Am I meeting this year&apos;s requirements?
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              {analysis.yearRequirements.map((year) => {
-                const gradeStart = (year.grade - 9) * 2 + 1;
-                const peSemesters = analysis.peSemesterBreakdown
-                  .filter((s) => s.semester >= gradeStart && s.semester < gradeStart + 2)
-                  .map((s) => ({
-                    semester: s.semester - (year.grade - 9) * 2,
-                    isMet: s.met,
-                    courseTitle: s.courseTitle,
-                    requiredLabel: s.requiredLabel,
-                  }));
-                const peWaivers = analysis.resolutions
-                  .filter((r) => r.type === "pe_waiver")
-                  .map((r) => ({ type: r.type }));
-                const effectivePe = computeEffectivePeStatus(peSemesters, peWaivers);
-                return (
-                  <YearLevelCardView
-                    key={year.grade}
-                    year={year}
-                    pePerSemester={effectivePe}
-                  />
-                );
-              })}
-            </div>
-          </section>
+        {loading ? (
+          <p style={{ color: "var(--text-secondary)" }}>Loading graduation progress...</p>
+        ) : error ? (
+          <p style={{ color: "#ef4444" }}>{error}</p>
+        ) : !analysis || visibleRequirements.length === 0 ? (
+          <p style={{ color: "var(--text-secondary)" }}>
+            No graduation requirements found. Requirements are populated from the course catalog.
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+            {analysis.credits.total > 0 && isMobile ? (
+              <div className="rs-req-progress">
+                <strong style={{ fontSize: "28px", fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>
+                  {formatNumber(analysis.credits.total)}{" "}
+                  <span style={{ fontSize: "22px", fontWeight: 400, color: "#6b7280" }}>
+                    / {TOTAL_REQUIRED_CREDITS} Credits Completed
+                  </span>
+                </strong>
+                <p style={{ margin: "2px 0 0", fontSize: "13px", color: "#6b7280" }}>
+                  {formatNumber(Math.max(0, TOTAL_REQUIRED_CREDITS - analysis.credits.total))} credits remaining
+                </p>
+              </div>
+            ) : analysis.credits.total > 0 ? (
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "28px",
+                  fontWeight: 700,
+                  color: "#111827",
+                  lineHeight: 1.3,
+                }}
+              >
+                {formatNumber(analysis.credits.total)}{" "}
+                <span style={{ fontSize: "22px", fontWeight: 400, color: "#6b7280" }}>
+                  / {TOTAL_REQUIRED_CREDITS} Credits Completed
+                </span>
+              </p>
+            ) : null}
 
-          <section>
-            <h2
-              style={{
-                margin: "0 0 16px",
-                fontSize: "20px",
-                fontWeight: 700,
-                color: "#111827",
-              }}
-            >
-              Graduation Requirements
-            </h2>
-            <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
-              Am I on track to graduate?
-            </p>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                gap: "16px",
-              }}
-            >
-              {visibleRequirements.map((req) => (
-                <RequirementCard
-                  key={req.id}
-                  req={req}
-                  isExpanded={expandedIds.has(req.id)}
-                  onToggle={() => toggleExpand(req.id)}
-                  hasPeWaiver={hasPeWaiver}
-                  expandedIds={expandedIds}
-                />
-              ))}
-            </div>
-          </section>
-
-          {visibleInformationItems.length > 0 && (
             <section>
               <h2
                 style={{
@@ -268,34 +323,118 @@ function RequirementsContent(): React.ReactElement {
                   color: "#111827",
                 }}
               >
-                Helpful Information
+                Year-Level Requirements
               </h2>
+              <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
+                Am I meeting this year&apos;s requirements?
+              </p>
               <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                }}
+              >
+                {analysis.yearRequirements.map((year) => {
+                  const gradeStart = (year.grade - 9) * 2 + 1;
+                  const peSemesters = analysis.peSemesterBreakdown
+                    .filter((s) => s.semester >= gradeStart && s.semester < gradeStart + 2)
+                    .map((s) => ({
+                      semester: s.semester - (year.grade - 9) * 2,
+                      isMet: s.met,
+                      courseTitle: s.courseTitle,
+                      requiredLabel: s.requiredLabel,
+                    }));
+                  const peWaivers = analysis.resolutions
+                    .filter((r) => r.type === "pe_waiver")
+                    .map((r) => ({ type: r.type }));
+                  const effectivePe = computeEffectivePeStatus(peSemesters, peWaivers);
+                  return (
+                    <YearLevelCardView
+                      key={year.grade}
+                      year={year}
+                      pePerSemester={effectivePe}
+                    />
+                  );
+                })}
+              </div>
+            </section>
+
+            <section>
+              <h2
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  color: "#111827",
+                }}
+              >
+                Graduation Requirements
+              </h2>
+              <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
+                Am I on track to graduate?
+              </p>
+              <div
+                className={isMobile ? "rs-req-grid" : undefined}
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
                   gap: "16px",
                 }}
               >
-                {visibleInformationItems.map((item) => (
-                  <InfoCard
-                    key={item.id}
-                    item={item}
-                    onOpen={() => setModalItem(item)}
+                {visibleRequirements.map((req) => (
+                  <RequirementCard
+                    key={req.id}
+                    req={req}
+                    isExpanded={expandedIds.has(req.id)}
+                    onToggle={() => toggleExpand(req.id)}
+                    hasPeWaiver={hasPeWaiver}
+                    expandedIds={expandedIds}
                   />
                 ))}
-                {modalItem && (
-                  <InfoModal
-                    item={modalItem}
-                    onClose={() => setModalItem(null)}
-                  />
-                )}
               </div>
             </section>
-          )}
-        </div>
-      )}
-    </div>
+
+            {visibleInformationItems.length > 0 && (
+              <section>
+                <h2
+                  style={{
+                    margin: "0 0 16px",
+                    fontSize: "20px",
+                    fontWeight: 700,
+                    color: "#111827",
+                  }}
+                >
+                  Helpful Information
+                </h2>
+                <div
+                  className={isMobile ? "rs-req-info-grid" : undefined}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                    gap: "16px",
+                  }}
+                >
+                  {visibleInformationItems.map((item) => (
+                    <InfoCard
+                      key={item.id}
+                      item={item}
+                      onOpen={() => setModalItem(item)}
+                    />
+                  ))}
+                  {modalItem && (
+                    <InfoModal
+                      item={modalItem}
+                      onClose={() => setModalItem(null)}
+                    />
+                  )}
+                </div>
+              </section>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -312,6 +451,7 @@ function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.R
 
   return (
     <div
+      className="rs-req-year-card"
       style={{
         padding: "18px 20px",
         backgroundColor: "#ffffff",
@@ -363,8 +503,8 @@ function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.R
         {statusLabel}
       </div>
 
-      {expanded && (
-        <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div className={`rs-req-year-body ${expanded ? "open" : ""}`}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {year.items.map((item) => (
             <div
               key={item.category}
@@ -428,7 +568,7 @@ function YearLevelCardView({ year, pePerSemester }: YearLevelCardProps): React.R
             </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -475,6 +615,7 @@ function RequirementCard({
 
   return (
     <div
+      className="rs-req-card"
       style={{
         position: "relative",
         padding: "20px 20px 20px 24px",
@@ -544,6 +685,7 @@ function RequirementCard({
           </div>
         </div>
         <div
+          className="rs-req-stats"
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -569,7 +711,7 @@ function RequirementCard({
         <ProgressBar percent={percent} color={config.badge} showLabel />
       </div>
 
-      {isExpanded && (
+      <div className={`rs-req-card-body-inner ${isExpanded ? "open" : ""}`}>
         <div
           style={{
             marginTop: "16px",
@@ -588,7 +730,7 @@ function RequirementCard({
               <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "#111827" }}>
                 Recommended Courses
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div className="rs-req-recs" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {displayRecs.map((course) => {
                   const courseReturnParams = new URLSearchParams();
                   const expandedArr = Array.from(expandedIds);
@@ -601,6 +743,7 @@ function RequirementCard({
                   <Link
                     key={course.courseId}
                     href={courseHref}
+                    className="rs-req-recs-link"
                     style={{
                       display: "block",
                       padding: "10px 14px",
@@ -616,9 +759,9 @@ function RequirementCard({
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "4px" }}>
                       <span>{course.title}</span>
-                      <span style={{ fontSize: "12px", color: "#6b7280" }}>{course.reason}</span>
+                      <span style={{ fontSize: "12px", color: "#6b7280", whiteSpace: "nowrap" }}>{course.reason}</span>
                     </div>
                   </Link>
                 );
@@ -626,6 +769,7 @@ function RequirementCard({
                 {hasMore && (
                   <Link
                     href={`/catalog?division=${encodeURIComponent(req.name)}`}
+                    className="rs-req-explore"
                     style={{
                       display: "inline-block",
                       padding: "10px 14px",
@@ -648,7 +792,7 @@ function RequirementCard({
             </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
