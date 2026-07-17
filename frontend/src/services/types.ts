@@ -1,7 +1,10 @@
 import type { Planner, PlannerCourseDetails, PlannerOption } from "@/lib/planner";
 import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
+import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
+import type { StudentPlanningData } from "@/lib/studentData";
 
 export interface IPlannerService {
+  seedCourseCatalog(courses: PlannerCourseDetails[]): void;
   getPlanners(): Promise<Planner[]>;
   getPlanner(year: number): Promise<Planner>;
   getPlannerOptions(grade: number): Promise<PlannerOption[]>;
@@ -17,6 +20,10 @@ export interface ICompletedCoursesService {
   addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, letterGrade?: string | null): Promise<CompletedCourse>;
   updateCompletedCourse(id: number, updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }): Promise<CompletedCourse>;
   removeCompletedCourse(id: number): Promise<void>;
+}
+
+export interface IAnalysisService {
+  getAnalysis(data: StudentPlanningData): Promise<PlannerAnalysis>;
 }
 
 export interface ISavedCoursesService {

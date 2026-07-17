@@ -38,7 +38,8 @@ import {
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
-import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
+import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
+import type { StudentPlanningData } from "@/lib/studentData";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
@@ -276,7 +277,7 @@ function PlannerYearContent(): React.ReactElement {
   }, []);
 
   const { isSaved } = useSavedCourses();
-  const { planner: plannerService, completedCourses: completedService } = useServices();
+  const { planner: plannerService, completedCourses: completedService, analysis: analysisService } = useServices();
   const router = useRouter();
 
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
@@ -297,11 +298,13 @@ function PlannerYearContent(): React.ReactElement {
   const loadAllCatalogCourses = useCallback(async () => {
     try {
       const courses = await getCourses();
-      setAllCatalogCourses(courses.map(courseToPlannerDetails));
+      const details = courses.map(courseToPlannerDetails);
+      setAllCatalogCourses(details);
+      plannerService.seedCourseCatalog(details);
     } catch {
       setAllCatalogCourses([]);
     }
-  }, []);
+  }, [plannerService]);
 
   const loadResolutions = useCallback(async () => {
     try {
@@ -319,10 +322,16 @@ function PlannerYearContent(): React.ReactElement {
   }, [loadCompletedCourses, loadAllCatalogCourses, loadResolutions]);
 
   useEffect(() => {
-    getPlannerAnalysis()
+    const data: StudentPlanningData = {
+      planners: allPlanners,
+      completedCourses,
+      resolutions,
+      allCourses: allCatalogCourses,
+    };
+    analysisService.getAnalysis(data)
       .then(setPlannerAnalysis)
       .catch(() => setPlannerAnalysis(null));
-  }, [allPlanners, completedCourses, resolutions]);
+  }, [allPlanners, completedCourses, resolutions, allCatalogCourses, analysisService]);
 
   const loadPlanners = useCallback(async () => {
     try {

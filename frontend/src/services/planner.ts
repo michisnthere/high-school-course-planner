@@ -13,6 +13,7 @@ import {
 } from "@/lib/planner";
 
 export const authPlannerService: IPlannerService = {
+  seedCourseCatalog: () => {},
   getPlanners: () => authGetPlanners(),
   getPlanner: (year) => authGetPlanner(year),
   getPlannerOptions: (grade) => authGetPlannerOptions(grade),
@@ -23,16 +24,13 @@ export const authPlannerService: IPlannerService = {
   movePlannedCourse: (id, semester, slot) => authMovePlannedCourse(id, semester, slot),
 };
 
-let plannerIdCounter = 0;
-let courseEntryIdCounter = 0;
-
 function buildDefaultPlanners(): Planner[] {
-  plannerIdCounter = 0;
-  courseEntryIdCounter = 0;
-  return [9, 10, 11, 12].map((year) => {
-    plannerIdCounter++;
-    return { id: plannerIdCounter, schoolYear: year, label: `${year}`, plannedCourses: [] };
-  });
+  return [9, 10, 11, 12].map((year, i) => ({
+    id: i + 1,
+    schoolYear: year,
+    label: `${year}`,
+    plannedCourses: [],
+  }));
 }
 
 function clonePlanner(p: Planner): Planner {
@@ -40,13 +38,22 @@ function clonePlanner(p: Planner): Planner {
 }
 
 export function createGuestPlannerService(): IPlannerService {
+  let nextCourseEntryId = 1;
   const planners: Planner[] = buildDefaultPlanners();
+  const catalog = new Map<number, PlannerCourseDetails>();
 
   function save() {
     window.dispatchEvent(new Event("planner:changed"));
   }
 
   return {
+    seedCourseCatalog(courses: PlannerCourseDetails[]) {
+      catalog.clear();
+      for (const course of courses) {
+        catalog.set(course.id, course);
+      }
+    },
+
     async getPlanners() {
       return planners.map(clonePlanner);
     },
@@ -62,61 +69,67 @@ export function createGuestPlannerService(): IPlannerService {
     },
 
     async searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]> {
-      return [];
+      if (catalog.size === 0) return [];
+      const q = query.toLowerCase();
+      return Array.from(catalog.values()).filter(
+        (c) =>
+          c.title.toLowerCase().includes(q) ||
+          (c.courseCode && c.courseCode.toLowerCase().includes(q))
+      );
     },
 
     async addPlannedCourse(plannerId: number, courseIdOrItem: any, semester?: number, slot?: number) {
       const planner = planners.find((p) => p.id === plannerId);
       if (!planner) throw new Error("Planner not found");
 
-      courseEntryIdCounter++;
-      const id = courseEntryIdCounter;
+      const id = nextCourseEntryId++;
 
-      let courseId: number | null;
-      let plannerOptionId: number | null;
-      let actualSemester: number;
-      let actualSlot: number;
+      let entry: PlannedCourse;
 
       if (typeof courseIdOrItem === "number") {
-        courseId = courseIdOrItem;
-        plannerOptionId = null;
-        actualSemester = semester!;
-        actualSlot = slot!;
-      } else {
-        courseId = null;
-        plannerOptionId = courseIdOrItem.plannerOptionId;
-        actualSemester = courseIdOrItem.semester;
-        actualSlot = courseIdOrItem.slot;
-      }
+        const courseDetails = catalog.get(courseIdOrItem);
+        if (!courseDetails) throw new Error(`Course #${courseIdOrItem} not found in catalog. Call seedCourseCatalog first.`);
 
-      const entry: PlannedCourse = {
-        id,
-        plannerId,
-        courseId,
-        plannerOptionId,
-        semester: actualSemester,
-        slot: actualSlot,
-        slotSpan: 1,
-        course: {
-          id: courseId ?? -(plannerOptionId ?? 0),
-          title: courseId ? `Course ${courseId}` : `Option ${plannerOptionId}`,
-          normalizedTitle: null,
-          duration: 1,
-          slotsPerSemester: 1,
-          creditType: null,
-          credits: null,
-          division: null,
-          department: null,
-          description: null,
-          fulfillsRequirements: [],
-          prerequisites: [],
-          courseCode: null,
-          gradeMin: null,
-          gradeMax: null,
-          isNonAcademic: false,
-          isMarchingBand: false,
-        },
-      };
+        entry = {
+          id,
+          plannerId,
+          courseId: courseIdOrItem,
+          plannerOptionId: null,
+          semester: semester!,
+          slot: slot!,
+          slotSpan: 1,
+          course: { ...courseDetails },
+        };
+      } else {
+        entry = {
+          id,
+          plannerId,
+          courseId: null,
+          plannerOptionId: courseIdOrItem.plannerOptionId,
+          semester: courseIdOrItem.semester,
+          slot: courseIdOrItem.slot,
+          slotSpan: 1,
+          course: {
+            id: -(courseIdOrItem.plannerOptionId),
+            title: `Option ${courseIdOrItem.plannerOptionId}`,
+            normalizedTitle: null,
+            duration: 1,
+            slotsPerSemester: 1,
+            creditType: null,
+            credits: null,
+            division: null,
+            department: null,
+            description: null,
+            fulfillsRequirements: [],
+            prerequisites: [],
+            courseCode: null,
+            gradeMin: null,
+            gradeMax: null,
+            isNonAcademic: true,
+            isMarchingBand: false,
+          },
+        };
+      }
 
       planner.plannedCourses.push(entry);
       save();

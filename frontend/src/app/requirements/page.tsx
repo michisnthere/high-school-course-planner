@@ -3,9 +3,14 @@
 import React, { Suspense, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { getPlannerAnalysis, type PlannerAnalysis } from "@/lib/plannerAnalysis";
+import { useAuth } from "@/context/AuthContext";
+import { useServices } from "@/services/ServiceContext";
+import { getCourses } from "@/lib/api";
+import { getResolutions } from "@/lib/api";
+import { courseToPlannerDetails } from "@/lib/planner";
 import { computeEffectivePeStatus, type PeSemesterStatus } from "@/lib/gradeRequirements";
+import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
+import type { StudentPlanningData } from "@/lib/studentData";
 
 const REQUIREMENTS_TO_HIDE = new Set([
   "Science",
@@ -21,11 +26,9 @@ const TOTAL_REQUIRED_CREDITS = 45;
 
 export default function RequirementsPage(): React.ReactElement {
   return (
-    <ProtectedRoute>
-      <Suspense fallback={null}>
-        <RequirementsContent />
-      </Suspense>
-    </ProtectedRoute>
+    <Suspense fallback={null}>
+      <RequirementsContent />
+    </Suspense>
   );
 }
 
@@ -57,10 +60,22 @@ function formatNumber(n: number): string {
 function RequirementsContent(): React.ReactElement {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { mode } = useAuth();
+  const { planner: plannerService, completedCourses: completedService, analysis: analysisService } = useServices();
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
+
+  // Redirect unauthenticated users to login
+  const authLoading = mode === null;
+  useEffect(() => {
+    if (authLoading) return;
+    if (!mode) {
+      const currentPath = window.location.pathname + window.location.search;
+      window.location.href = `/login?return=${encodeURIComponent(currentPath)}`;
+    }
+  }, [mode, authLoading]);
 
   // Initialize expandedIds from URL param
   const initialIds = React.useMemo(() => {
@@ -71,9 +86,22 @@ function RequirementsContent(): React.ReactElement {
   const [expandedIds, setExpandedIds] = useState<Set<number>>(initialIds);
 
   const load = useCallback(async () => {
+    if (!mode) return;
     try {
       setLoading(true);
-      const data = await getPlannerAnalysis();
+      let data: PlannerAnalysis;
+      if (mode === "guest") {
+        const [planners, completedCourses, resolutions, courses] = await Promise.all([
+          plannerService.getPlanners(),
+          completedService.getCompletedCourses(),
+          getResolutions(),
+          getCourses(),
+        ]);
+        const allCourses = courses.map(courseToPlannerDetails);
+        data = await analysisService.getAnalysis({ planners, completedCourses, resolutions, allCourses });
+      } else {
+        data = await analysisService.getAnalysis({ planners: [], completedCourses: [], resolutions: [], allCourses: [] });
+      }
       setAnalysis(data);
       setError(null);
     } catch (err) {
@@ -83,7 +111,7 @@ function RequirementsContent(): React.ReactElement {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [mode, plannerService, completedService, analysisService]);
 
   useEffect(() => {
     load();

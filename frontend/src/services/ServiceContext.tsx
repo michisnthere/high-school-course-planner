@@ -2,21 +2,24 @@
 
 import React, { createContext, useContext, useMemo, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
-import type { IPlannerService, ICompletedCoursesService, ISavedCoursesService } from "./types";
+import type { IPlannerService, ICompletedCoursesService, ISavedCoursesService, IAnalysisService } from "./types";
 import { authPlannerService, createGuestPlannerService } from "./planner";
 import { authCompletedCoursesService, createGuestCompletedCoursesService } from "./completedCourses";
 import { authSavedCoursesService, createGuestSavedCoursesService } from "./savedCourses";
+import { authAnalysisService, createGuestAnalysisService } from "./analysis";
 
 type ServiceBundle = {
   planner: IPlannerService;
   completedCourses: ICompletedCoursesService;
   savedCourses: ISavedCoursesService;
+  analysis: IAnalysisService;
 };
 
 const authBundle: ServiceBundle = {
   planner: authPlannerService,
   completedCourses: authCompletedCoursesService,
   savedCourses: authSavedCoursesService,
+  analysis: authAnalysisService,
 };
 
 const ServiceContext = createContext<ServiceBundle | null>(null);
@@ -31,6 +34,7 @@ export function ServiceProvider({ children }: { children: ReactNode }) {
         planner: createGuestPlannerService(),
         completedCourses: createGuestCompletedCoursesService(),
         savedCourses: createGuestSavedCoursesService(),
+        analysis: createGuestAnalysisService(),
       });
     } else {
       setGuestBundle(null);
@@ -69,8 +73,16 @@ export function useSavedCoursesService(): ISavedCoursesService {
   return ctx.savedCourses;
 }
 
+export function useAnalysisService(): IAnalysisService {
+  const ctx = useContext(ServiceContext);
+  if (!ctx) throw new Error("useAnalysisService must be used within a ServiceProvider");
+  return ctx.analysis;
+}
+
 export function useServices(): ServiceBundle {
   const ctx = useContext(ServiceContext);
   if (!ctx) throw new Error("useServices must be used within a ServiceProvider");
   return ctx;
 }
+
+export type { ServiceBundle };
