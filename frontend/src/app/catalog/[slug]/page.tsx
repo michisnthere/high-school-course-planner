@@ -6,6 +6,8 @@ import { CourseDescription } from "@/components/catalog/CourseDescription";
 import { CourseOfferings } from "@/components/catalog/CourseOfferings";
 import { CoursePrerequisites } from "@/components/catalog/CoursePrerequisites";
 import { CourseAttributes } from "@/components/catalog/CourseAttributes";
+import { ResponsivePage } from "@/components/responsive/ResponsivePage";
+import { breakpoints } from "@/lib/responsive";
 import type { Course } from "@/types/course";
 
 type CatalogDetailPageProps = {
@@ -89,17 +91,53 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
   }
 
   return (
-    <div
-      style={{
-        padding: "32px",
-
-      }}
-    >
-      <CourseDetailHeader course={course} returnUrl={returnUrl} />
-      <CourseDescription course={course} />
-      <CourseOfferings course={course} />
-      <CoursePrerequisites course={course} allCourses={courses} />
-      <CourseAttributes course={course} />
-    </div>
+    <>
+      <style>{`
+        @media (max-width: ${breakpoints.mobile - 1}px) {
+          .rs-detail-header {
+            position: sticky;
+            top: calc(56px + var(--safe-area-top, 0px));
+            z-index: 40;
+            background: var(--bg-page);
+            padding-bottom: 12px;
+            margin-bottom: 20px !important;
+          }
+          .rs-detail-header h1 {
+            font-size: 1.5rem !important;
+          }
+          .rs-detail-header button {
+            min-height: 44px;
+          }
+          .rs-detail-card {
+            padding: 16px !important;
+            margin-bottom: 16px !important;
+          }
+          .rs-detail-card h2 {
+            font-size: 18px !important;
+            margin-bottom: 12px !important;
+          }
+          .rs-detail-offerings > div {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+      <ResponsivePage>
+        <div className="rs-detail-header">
+          <CourseDetailHeader course={course} returnUrl={returnUrl} />
+        </div>
+        <div className="rs-detail-card">
+          <CourseDescription course={course} />
+        </div>
+        <div className="rs-detail-card rs-detail-offerings">
+          <CourseOfferings course={course} />
+        </div>
+        <div className="rs-detail-card">
+          <CoursePrerequisites course={course} allCourses={courses} />
+        </div>
+        <div className="rs-detail-card">
+          <CourseAttributes course={course} />
+        </div>
+      </ResponsivePage>
+    </>
   );
 }
