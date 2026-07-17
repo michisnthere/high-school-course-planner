@@ -20,13 +20,12 @@ export function Sidebar(): React.ReactElement {
     <aside
       style={{
         width: "240px",
-        minHeight: "calc(100vh - 64px)",
-        alignSelf: "stretch",
         display: "flex",
         flexDirection: "column",
         padding: "24px 16px",
         backgroundColor: "var(--bg-sidebar)",
         boxSizing: "border-box",
+        flex: 1,
       }}
     >
       <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>

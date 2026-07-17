@@ -27,9 +27,12 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body>
         <style>{`
-          .rs-layout-header,
-          .rs-layout-sidebar {
+          .rs-layout-header {
             display: block;
+          }
+          .rs-layout-sidebar {
+            display: flex;
+            flex-direction: column;
           }
           .rs-layout-mobile-nav {
             display: none;

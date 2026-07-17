@@ -12,7 +12,6 @@ export function Header(): React.ReactElement {
         height: "64px",
         padding: "0 24px",
         backgroundColor: "var(--bg-header)",
-        borderBottom: "1px solid var(--border-default)",
         boxSizing: "border-box",
       }}
     >
