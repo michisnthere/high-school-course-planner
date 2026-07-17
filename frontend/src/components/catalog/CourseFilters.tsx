@@ -53,15 +53,17 @@ function ToggleGroup({
   selected,
   onToggle,
   formatLabel,
+  className,
 }: {
   label: string;
   values: string[];
   selected: string[];
   onToggle: (value: string) => void;
   formatLabel?: (value: string) => string;
+  className?: string;
 }): React.ReactElement {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+    <div className={className} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
       <span
         style={{
           fontSize: "14px",
@@ -170,6 +172,7 @@ export function CourseFilters({
 
   return (
     <div
+      className="rs-catalog-filters"
       style={{
         marginBottom: "24px",
         padding: "20px",
@@ -191,6 +194,7 @@ export function CourseFilters({
           values={divisions}
           selected={filters.division}
           onToggle={(value) => toggleFilter("division", value)}
+          className="rs-catalog-divisions"
         />
         {showDepartmentFilter && (
           <ToggleGroup

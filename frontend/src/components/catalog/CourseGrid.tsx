@@ -33,6 +33,7 @@ export function CourseGrid({ courses }: CourseGridProps): React.ReactElement {
 
   return (
     <div
+      className="rs-catalog-grid"
       style={{
         display: "grid",
         gap: "24px",

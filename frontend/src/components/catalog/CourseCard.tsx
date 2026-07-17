@@ -32,6 +32,7 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
 
   return (
     <div
+      className="rs-catalog-card"
       style={{
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",

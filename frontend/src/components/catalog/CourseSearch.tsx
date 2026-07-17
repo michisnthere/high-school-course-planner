@@ -9,7 +9,7 @@ type CourseSearchProps = {
 
 export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React.ReactElement {
   return (
-    <div style={{ marginBottom: "24px" }}>
+    <div className="rs-catalog-search" style={{ marginBottom: "24px" }}>
       <input
         type="text"
         aria-label="Search courses"
