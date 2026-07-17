@@ -149,6 +149,7 @@ export function SavedCoursesContent({
 
   return (
     <div
+      className="rs-saved-grid"
       style={{
         display: "grid",
         gap: "24px",

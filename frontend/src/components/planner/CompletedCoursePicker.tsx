@@ -7,6 +7,7 @@ import {
   LETTER_GRADE_OPTIONS,
   type GradeCompleted,
 } from "@/lib/completedCourses";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 type CompletedCoursePickerProps = {
   onClose: () => void;
@@ -28,6 +29,7 @@ export function CompletedCoursePicker({
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
   const [letterGrade, setLetterGrade] = useState<string>("A");
+  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -43,170 +45,192 @@ export function CompletedCoursePicker({
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 50,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
+    <>
+      {isMobile && <style>{`
+        @keyframes mob-sheet-slide-up {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
+      `}</style>}
       <div
         style={{
-          width: "100%",
-          maxWidth: "600px",
-          maxHeight: "calc(100vh - 48px)",
-          backgroundColor: "var(--bg-card)",
-          border: "1px solid var(--border-default)",
-          borderRadius: "16px",
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
           display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-
+          alignItems: isMobile ? "flex-end" : "center",
+          justifyContent: "center",
+          zIndex: 50,
+          padding: isMobile ? 0 : "24px",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={onClose}
       >
         <div
           style={{
-            padding: "24px 24px 16px",
-            borderBottom: "1px solid var(--border-default)",
+            width: "100%",
+            maxWidth: isMobile ? "100%" : "600px",
+            maxHeight: isMobile ? "100%" : "calc(100vh - 48px)",
+            height: isMobile ? "100%" : "auto",
+            backgroundColor: "var(--bg-card)",
+            border: isMobile ? "none" : "1px solid var(--border-default)",
+            borderRadius: isMobile ? 0 : "16px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            animation: isMobile ? "mob-sheet-slide-up 0.25s ease-out" : undefined,
           }}
+          onClick={(e) => e.stopPropagation()}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "16px",
+              padding: isMobile ? "calc(16px + var(--safe-area-top, 0px)) 24px 16px" : "24px 24px 16px",
+              borderBottom: "1px solid var(--border-default)",
+              flexShrink: 0,
             }}
           >
-            <h2
+            <div
               style={{
-                margin: 0,
-                fontSize: "22px",
-                fontWeight: 700,
-                color: "var(--text-primary)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "16px",
               }}
             >
-              Mark a course as completed
-            </h2>
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: "22px",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                }}
+              >
+                Mark a course as completed
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  color: "var(--text-muted)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  lineHeight: 1,
+                  borderRadius: "8px",
+                }}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+            <div
+              style={{ display: "flex", gap: isMobile ? "12px" : "16px", alignItems: "center", flexWrap: "wrap" }}
+            >
+              <div style={{ display: "flex", gap: "12px", alignItems: "center", flex: isMobile ? "1 1 auto" : undefined }}>
+                <label
+                  htmlFor="completed-grade"
+                  style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
+                >
+                  Grade:
+                </label>
+                <select
+                  id="completed-grade"
+                  value={gradeCompleted}
+                  onChange={(e) => setGradeCompleted(e.target.value as GradeCompleted)}
+                  style={{
+                    padding: isMobile ? "10px 12px" : "8px 12px",
+                    fontSize: isMobile ? "14px" : "14px",
+                    color: "var(--text-primary)",
+                    backgroundColor: "var(--bg-input)",
+                    border: "1px solid var(--border-default)",
+                    borderRadius: "8px",
+                    minHeight: isMobile ? "44px" : undefined,
+                    flex: 1,
+                  }}
+                >
+                  {GRADE_COMPLETED_OPTIONS.map((grade) => (
+                    <option key={grade} value={grade}>
+                      {grade}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ display: "flex", gap: "12px", alignItems: "center", flex: isMobile ? "1 1 auto" : undefined }}>
+                <label
+                  htmlFor="letter-grade"
+                  style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
+                >
+                  Letter:
+                </label>
+                <select
+                  id="letter-grade"
+                  value={letterGrade}
+                  onChange={(e) => setLetterGrade(e.target.value)}
+                  style={{
+                    padding: isMobile ? "10px 12px" : "8px 12px",
+                    fontSize: isMobile ? "14px" : "14px",
+                    color: "var(--text-primary)",
+                    backgroundColor: "var(--bg-input)",
+                    border: "1px solid var(--border-default)",
+                    borderRadius: "8px",
+                    minHeight: isMobile ? "44px" : undefined,
+                    flex: 1,
+                  }}
+                >
+                  {LETTER_GRADE_OPTIONS.map((grade) => (
+                    <option key={grade} value={grade}>
+                      {grade}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>
+            <CoursePicker
+              onSelect={setSelectedCourseId}
+              excludeCourseIds={excludeCourseIds}
+              selectedCourseId={selectedCourseId}
+              actionLabel="Select"
+              simple
+            />
+          </div>
+          <div
+            style={{
+              padding: isMobile ? "16px 24px calc(16px + var(--safe-area-bottom, 0px))" : "16px 24px",
+              borderTop: "1px solid var(--border-default)",
+              display: "flex",
+              justifyContent: "flex-end",
+              flexShrink: 0,
+            }}
+          >
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleSubmit}
+              disabled={selectedCourseId == null}
               style={{
-                fontSize: "24px",
-                color: "var(--text-muted)",
-                background: "none",
+                padding: isMobile ? "12px 24px" : "10px 18px",
+                fontSize: isMobile ? "16px" : "15px",
+                fontWeight: 500,
+                color: "#FFFFFF",
+                backgroundColor: selectedCourseId == null ? "var(--text-muted)" : "var(--brand-accent)",
                 border: "none",
-                cursor: "pointer",
-                padding: "4px",
-                lineHeight: 1,
+                borderRadius: "8px",
+                cursor: selectedCourseId == null ? "not-allowed" : "pointer",
+                minHeight: isMobile ? "48px" : undefined,
+                width: isMobile ? "100%" : undefined,
               }}
-              aria-label="Close"
             >
-              ×
+              Save
             </button>
           </div>
-          <div
-            style={{ display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap" }}
-          >
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-              <label
-                htmlFor="completed-grade"
-                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 600 }}
-              >
-                Grade completed:
-              </label>
-              <select
-                id="completed-grade"
-                value={gradeCompleted}
-                onChange={(e) => setGradeCompleted(e.target.value as GradeCompleted)}
-                style={{
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  color: "var(--text-primary)",
-                  backgroundColor: "var(--bg-input)",
-                  border: "1px solid var(--border-default)",
-                  borderRadius: "8px",
-                }}
-              >
-                {GRADE_COMPLETED_OPTIONS.map((grade) => (
-                  <option key={grade} value={grade}>
-                    {grade}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-              <label
-                htmlFor="letter-grade"
-                style={{ color: "var(--text-secondary)", fontSize: "14px", fontWeight: 600 }}
-              >
-                Letter grade:
-              </label>
-              <select
-                id="letter-grade"
-                value={letterGrade}
-                onChange={(e) => setLetterGrade(e.target.value)}
-                style={{
-                  padding: "8px 12px",
-                  fontSize: "14px",
-                  color: "var(--text-primary)",
-                  backgroundColor: "var(--bg-input)",
-                  border: "1px solid var(--border-default)",
-                  borderRadius: "8px",
-                }}
-              >
-                {LETTER_GRADE_OPTIONS.map((grade) => (
-                  <option key={grade} value={grade}>
-                    {grade}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        <div style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>
-          <CoursePicker
-            onSelect={setSelectedCourseId}
-            excludeCourseIds={excludeCourseIds}
-            selectedCourseId={selectedCourseId}
-            actionLabel="Select"
-            simple
-          />
-        </div>
-        <div
-          style={{
-            padding: "16px 24px",
-            borderTop: "1px solid var(--border-default)",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={selectedCourseId == null}
-            style={{
-              padding: "10px 18px",
-              fontSize: "15px",
-              fontWeight: 500,
-              color: "#FFFFFF",
-              backgroundColor: selectedCourseId == null ? "var(--text-muted)" : "var(--brand-accent)",
-              border: "none",
-              borderRadius: "8px",
-              cursor: selectedCourseId == null ? "not-allowed" : "pointer",
-            }}
-          >
-            Save
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

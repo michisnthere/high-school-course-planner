@@ -11,6 +11,7 @@ import {
 } from "@/lib/completedCourses";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 import { getDivisionColor, getDivisionBackgroundColor } from "@/lib/divisionColors";
+import { breakpoints } from "@/lib/responsive";
 
 export default function CompletedCoursesPage(): React.ReactElement {
   return (
@@ -93,255 +94,290 @@ function CompletedCoursesContent(): React.ReactElement {
   );
 
   return (
-    <div
-      style={{
-        padding: "32px",
-        minHeight: "calc(100vh - 64px)",
-      }}
-    >
-      <h1
+    <>
+      <style>{`
+        @media (max-width: ${breakpoints.mobile - 1}px) {
+          .rs-completed-page {
+            padding: 16px !important;
+            padding-top: calc(16px + var(--safe-area-top)) !important;
+            padding-bottom: calc(16px + var(--safe-area-bottom)) !important;
+            padding-left: calc(16px + var(--safe-area-left)) !important;
+            padding-right: calc(16px + var(--safe-area-right)) !important;
+          }
+          .rs-completed-add-btn {
+            width: 100% !important;
+            min-height: 48px !important;
+            font-size: 16px !important;
+          }
+          .rs-completed-card {
+            flex-direction: column !important;
+            gap: 12px !important;
+          }
+          .rs-completed-card-actions {
+            width: 100% !important;
+            justify-content: stretch !important;
+          }
+          .rs-completed-card-actions button,
+          .rs-completed-card-actions select {
+            min-height: 44px !important;
+            flex: 1 !important;
+            font-size: 14px !important;
+          }
+        }
+      `}</style>
+      <div
+        className="rs-completed-page"
         style={{
-          margin: "0 0 28px",
-          fontSize: "32px",
-          fontWeight: 700,
-          color: "var(--text-primary)",
-          lineHeight: 1.2,
+          padding: "32px",
+          minHeight: "calc(100vh - 64px)",
         }}
       >
-        Completed Courses
-      </h1>
+        <h1
+          style={{
+            margin: "0 0 28px",
+            fontSize: "32px",
+            fontWeight: 700,
+            color: "var(--text-primary)",
+            lineHeight: 1.2,
+          }}
+        >
+          Completed Courses
+        </h1>
 
-      {loading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading completed courses...</p>
-      ) : error ? (
-        <p style={{ color: "var(--status-error)" }}>{error}</p>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          <button
-            type="button"
-            onClick={() => setPickerOpen(true)}
-            style={{
-              alignSelf: "flex-start",
-              padding: "12px 20px",
-              fontSize: "15px",
-              fontWeight: 500,
-              color: "#FFFFFF",
-              backgroundColor: "var(--brand-accent)",
-              border: "none",
-              borderRadius: "10px",
-              cursor: "pointer",
-            }}
-          >
-            + Add Completed Course
-          </button>
+        {loading ? (
+          <p style={{ color: "var(--text-muted)" }}>Loading completed courses...</p>
+        ) : error ? (
+          <p style={{ color: "var(--status-error)" }}>{error}</p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            <button
+              type="button"
+              onClick={() => setPickerOpen(true)}
+              className="rs-completed-add-btn"
+              style={{
+                alignSelf: "flex-start",
+                padding: "12px 20px",
+                fontSize: "15px",
+                fontWeight: 500,
+                color: "#FFFFFF",
+                backgroundColor: "var(--brand-accent)",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              + Add Completed Course
+            </button>
 
-          {courses.length === 0 ? (
-            <p style={{ color: "var(--text-muted)" }}>
-              No completed courses yet. Add courses you have already finished to improve your
-              planner warnings.
-            </p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {courses.map((cc) => {
-                const accentColor = getDivisionColor(cc.course.division);
-                const bgTint = getDivisionBackgroundColor(cc.course.division);
-                return (
-                  <div
-                    key={cc.id}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: "16px",
-                      padding: "16px",
-                      backgroundColor: bgTint,
-                      borderTopWidth: "1px",
-                      borderRightWidth: "1px",
-                      borderBottomWidth: "1px",
-                      borderLeftWidth: "4px",
-                      borderTopStyle: "solid",
-                      borderRightStyle: "solid",
-                      borderBottomStyle: "solid",
-                      borderLeftStyle: "solid",
-                      borderTopColor: accentColor,
-                      borderRightColor: accentColor,
-                      borderBottomColor: accentColor,
-                      borderLeftColor: accentColor,
-                      borderRadius: "12px",
-                    }}
-                  >
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <h3
-                        style={{
-                          margin: "0 0 6px",
-                          fontSize: "17px",
-                          fontWeight: 700,
-                          color: accentColor,
-                        }}
-                      >
-                        {cc.course.title}
-                      </h3>
-                      <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)" }}>
+            {courses.length === 0 ? (
+              <p style={{ color: "var(--text-muted)" }}>
+                No completed courses yet. Add courses you have already finished to improve your
+                planner warnings.
+              </p>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {courses.map((cc) => {
+                  const accentColor = getDivisionColor(cc.course.division);
+                  const bgTint = getDivisionBackgroundColor(cc.course.division);
+                  return (
+                    <div
+                      key={cc.id}
+                      className="rs-completed-card"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "16px",
+                        padding: "16px",
+                        backgroundColor: bgTint,
+                        borderTopWidth: "1px",
+                        borderRightWidth: "1px",
+                        borderBottomWidth: "1px",
+                        borderLeftWidth: "4px",
+                        borderTopStyle: "solid",
+                        borderRightStyle: "solid",
+                        borderBottomStyle: "solid",
+                        borderLeftStyle: "solid",
+                        borderTopColor: accentColor,
+                        borderRightColor: accentColor,
+                        borderBottomColor: accentColor,
+                        borderLeftColor: accentColor,
+                        borderRadius: "12px",
+                      }}
+                    >
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <h3
+                          style={{
+                            margin: "0 0 6px",
+                            fontSize: "17px",
+                            fontWeight: 700,
+                            color: accentColor,
+                          }}
+                        >
+                          {cc.course.title}
+                        </h3>
+                        <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)" }}>
+                          {editingId === cc.id ? (
+                            <select
+                              value={editGrade}
+                              onChange={(e) => setEditGrade(e.target.value as GradeCompleted)}
+                              style={{
+                                padding: "4px 8px",
+                                fontSize: "13px",
+                                color: "var(--text-primary)",
+                                backgroundColor: "var(--bg-card)",
+                                border: "1px solid var(--border-default)",
+                                borderRadius: "6px",
+                                marginRight: "8px",
+                              }}
+                            >
+                              {GRADE_COMPLETED_OPTIONS.map((g) => (
+                                <option key={g} value={g}>{g}</option>
+                              ))}
+                            </select>
+                          ) : (
+                            cc.gradeCompleted
+                          )}
+                          {cc.course.credits != null && ` • ${cc.course.credits} credits`}
+                          {cc.course.division && ` • ${cc.course.division}`}
+                        </p>
+                      </div>
+                      <div className="rs-completed-card-actions" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         {editingId === cc.id ? (
                           <select
-                            value={editGrade}
-                            onChange={(e) => setEditGrade(e.target.value as GradeCompleted)}
+                            value={editLetter}
+                            onChange={(e) => setEditLetter(e.target.value)}
                             style={{
-                              padding: "4px 8px",
-                              fontSize: "13px",
+                              padding: "6px 10px",
+                              fontSize: "14px",
                               color: "var(--text-primary)",
                               backgroundColor: "var(--bg-card)",
                               border: "1px solid var(--border-default)",
-                              borderRadius: "6px",
-                              marginRight: "8px",
+                              borderRadius: "8px",
                             }}
+                            autoFocus
                           >
-                            {GRADE_COMPLETED_OPTIONS.map((g) => (
+                            {LETTER_GRADE_OPTIONS.map((g) => (
                               <option key={g} value={g}>{g}</option>
                             ))}
                           </select>
                         ) : (
-                          cc.gradeCompleted
+                          <span
+                            style={{
+                              padding: "4px 12px",
+                              fontSize: "14px",
+                              fontWeight: 600,
+                              color: cc.letterGrade
+                                ? cc.letterGrade === "A"
+                                  ? "var(--status-success)"
+                                  : cc.letterGrade === "B"
+                                  ? "var(--status-info)"
+                                  : cc.letterGrade === "C"
+                                  ? "var(--status-warning)"
+                                  : "var(--status-error)"
+                                : "var(--text-muted)",
+                              backgroundColor: "var(--bg-muted)",
+                              borderRadius: "8px",
+                              minWidth: "32px",
+                              textAlign: "center",
+                            }}
+                          >
+                            {cc.letterGrade ?? "—"}
+                          </span>
                         )}
-                        {cc.course.credits != null && ` • ${cc.course.credits} credits`}
-                        {cc.course.division && ` • ${cc.course.division}`}
-                      </p>
+                        {editingId === cc.id ? (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => handleUpdate(cc.id)}
+                              style={{
+                                padding: "6px 12px",
+                                fontSize: "13px",
+                                fontWeight: 500,
+                                color: "var(--btn-primary-text)",
+                                backgroundColor: "var(--brand-accent)",
+                                border: "none",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Save
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setEditingId(null)}
+                              style={{
+                                padding: "6px 12px",
+                                fontSize: "13px",
+                                fontWeight: 500,
+                                color: "var(--text-secondary)",
+                                backgroundColor: "transparent",
+                                border: "1px solid var(--border-default)",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingId(cc.id);
+                                setEditGrade(cc.gradeCompleted);
+                                setEditLetter(cc.letterGrade ?? "A");
+                              }}
+                              title="Edit"
+                              style={{
+                                padding: "6px 12px",
+                                fontSize: "13px",
+                                fontWeight: 500,
+                                color: "var(--text-secondary)",
+                                backgroundColor: "transparent",
+                                border: "1px solid var(--border-default)",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleRemove(cc.id)}
+                              style={{
+                                padding: "6px 12px",
+                                fontSize: "13px",
+                                fontWeight: 500,
+                                color: "var(--btn-danger-text)",
+                                backgroundColor: "transparent",
+                                border: "1px solid var(--btn-danger-border)",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                            }}
+                            >
+                              Remove
+                            </button>
+                          </>
+                        )}
+                      </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      {editingId === cc.id ? (
-                        <select
-                          value={editLetter}
-                          onChange={(e) => setEditLetter(e.target.value)}
-                          style={{
-                            padding: "6px 10px",
-                            fontSize: "14px",
-                            color: "var(--text-primary)",
-                            backgroundColor: "var(--bg-card)",
-                            border: "1px solid var(--border-default)",
-                            borderRadius: "8px",
-                          }}
-                          autoFocus
-                        >
-                          {LETTER_GRADE_OPTIONS.map((g) => (
-                            <option key={g} value={g}>{g}</option>
-                          ))}
-                        </select>
-                      ) : (
-                        <span
-                          style={{
-                            padding: "4px 12px",
-                            fontSize: "14px",
-                            fontWeight: 600,
-                            color: cc.letterGrade
-                              ? cc.letterGrade === "A"
-                                ? "var(--status-success)"
-                                : cc.letterGrade === "B"
-                                ? "var(--status-info)"
-                                : cc.letterGrade === "C"
-                                ? "var(--status-warning)"
-                                : "var(--status-error)"
-                              : "var(--text-muted)",
-                            backgroundColor: "var(--bg-muted)",
-                            borderRadius: "8px",
-                            minWidth: "32px",
-                            textAlign: "center",
-                          }}
-                        >
-                          {cc.letterGrade ?? "—"}
-                        </span>
-                      )}
-                      {editingId === cc.id ? (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => handleUpdate(cc.id)}
-                            style={{
-                              padding: "6px 12px",
-                              fontSize: "13px",
-                              fontWeight: 500,
-                              color: "var(--btn-primary-text)",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Save
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setEditingId(null)}
-                            style={{
-                              padding: "6px 12px",
-                              fontSize: "13px",
-                              fontWeight: 500,
-                              color: "var(--text-secondary)",
-                              backgroundColor: "transparent",
-                              border: "1px solid var(--border-default)",
-                              borderRadius: "8px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Cancel
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditingId(cc.id);
-                              setEditGrade(cc.gradeCompleted);
-                              setEditLetter(cc.letterGrade ?? "A");
-                            }}
-                            title="Edit"
-                            style={{
-                              padding: "6px 12px",
-                              fontSize: "13px",
-                              fontWeight: 500,
-                              color: "var(--text-secondary)",
-                              backgroundColor: "transparent",
-                              border: "1px solid var(--border-default)",
-                              borderRadius: "8px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleRemove(cc.id)}
-                            style={{
-                              padding: "6px 12px",
-                              fontSize: "13px",
-                              fontWeight: 500,
-                              color: "var(--btn-danger-text)",
-                              backgroundColor: "transparent",
-                              border: "1px solid var(--btn-danger-border)",
-                              borderRadius: "8px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
 
-      {pickerOpen && (
-        <CompletedCoursePicker
-          onClose={() => setPickerOpen(false)}
-          onSubmit={handleAdd}
-          excludeCourseIds={courses.map((c) => c.courseId)}
-        />
-      )}
-    </div>
+        {pickerOpen && (
+          <CompletedCoursePicker
+            onClose={() => setPickerOpen(false)}
+            onSubmit={handleAdd}
+            excludeCourseIds={courses.map((c) => c.courseId)}
+          />
+        )}
+      </div>
+    </>
   );
 }
