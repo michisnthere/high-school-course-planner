@@ -2,17 +2,19 @@
 
 import React, { createContext, useContext, useMemo, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
-import type { IPlannerService, ICompletedCoursesService, ISavedCoursesService, IAnalysisService } from "./types";
+import type { IPlannerService, ICompletedCoursesService, ISavedCoursesService, IAnalysisService, IResolutionsService } from "./types";
 import { authPlannerService, createGuestPlannerService } from "./planner";
 import { authCompletedCoursesService, createGuestCompletedCoursesService } from "./completedCourses";
 import { authSavedCoursesService, createGuestSavedCoursesService } from "./savedCourses";
 import { authAnalysisService, createGuestAnalysisService } from "./analysis";
+import { authResolutionsService, createGuestResolutionsService } from "./resolutions";
 
 type ServiceBundle = {
   planner: IPlannerService;
   completedCourses: ICompletedCoursesService;
   savedCourses: ISavedCoursesService;
   analysis: IAnalysisService;
+  resolutions: IResolutionsService;
 };
 
 const authBundle: ServiceBundle = {
@@ -20,6 +22,7 @@ const authBundle: ServiceBundle = {
   completedCourses: authCompletedCoursesService,
   savedCourses: authSavedCoursesService,
   analysis: authAnalysisService,
+  resolutions: authResolutionsService,
 };
 
 const ServiceContext = createContext<ServiceBundle | null>(null);
@@ -35,6 +38,7 @@ export function ServiceProvider({ children }: { children: ReactNode }) {
         completedCourses: createGuestCompletedCoursesService(),
         savedCourses: createGuestSavedCoursesService(),
         analysis: createGuestAnalysisService(),
+        resolutions: createGuestResolutionsService(),
       });
     } else {
       setGuestBundle(null);
@@ -71,6 +75,12 @@ export function useSavedCoursesService(): ISavedCoursesService {
   const ctx = useContext(ServiceContext);
   if (!ctx) throw new Error("useSavedCoursesService must be used within a ServiceProvider");
   return ctx.savedCourses;
+}
+
+export function useResolutionsService(): IResolutionsService {
+  const ctx = useContext(ServiceContext);
+  if (!ctx) throw new Error("useResolutionsService must be used within a ServiceProvider");
+  return ctx.resolutions;
 }
 
 export function useAnalysisService(): IAnalysisService {

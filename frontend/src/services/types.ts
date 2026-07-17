@@ -2,6 +2,7 @@ import type { Planner, PlannerCourseDetails, PlannerOption } from "@/lib/planner
 import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { StudentPlanningData } from "@/lib/studentData";
+import type { RequirementResolution } from "@/lib/api";
 
 export interface IPlannerService {
   seedCourseCatalog(courses: PlannerCourseDetails[]): void;
@@ -24,6 +25,12 @@ export interface ICompletedCoursesService {
 
 export interface IAnalysisService {
   getAnalysis(data: StudentPlanningData): Promise<PlannerAnalysis>;
+}
+
+export interface IResolutionsService {
+  getResolutions(): Promise<RequirementResolution[]>;
+  createResolution(data: { type: string; courseId?: number; metadata?: Record<string, unknown> }): Promise<RequirementResolution>;
+  deleteResolution(id: number): Promise<void>;
 }
 
 export interface ISavedCoursesService {

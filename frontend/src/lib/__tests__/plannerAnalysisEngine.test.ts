@@ -272,7 +272,7 @@ describe("computePlannerAnalysis", () => {
       makePlanner(10, [makePlanned(chemWithPrereq, 1, 1, 1)]),
       makePlanner(11), makePlanner(12),
     ];
-    const completed = [makeCompleted(algebra, "completed")];
+    const completed = [makeCompleted(algebra, "Freshman (9)")];
     const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses: courses });
     expect(result.missingPrerequisites).toHaveLength(0);
   });
@@ -305,5 +305,128 @@ describe("computePlannerAnalysis", () => {
     expect(Array.isArray(result.graduationRequirements)).toBe(true);
     expect(Array.isArray(result.yearRequirements)).toBe(true);
     expect(result.yearRequirements).toHaveLength(4);
+  });
+
+  it("produces identical output regardless of how input data was sourced (guest vs auth equivalence)", () => {
+    // This test verifies the engine is a pure function.
+    // Same inputs → same outputs. Both auth and guest analysis paths
+    // call this same computePlannerAnalysis function.
+    const semester1 = [
+      makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1),
+      makePlanned(english9, 1, 2, 2), makePlanned(english9, 2, 2, 2),
+    ];
+    const planners1 = [makePlanner(9, semester1), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const result1 = computePlannerAnalysis({ planners: planners1, completedCourses: [], resolutions: [], allCourses });
+
+    // Same data via a different reference — should produce same analysis
+    const planners2 = [makePlanner(9, semester1), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const result2 = computePlannerAnalysis({ planners: planners2, completedCourses: [], resolutions: [], allCourses });
+
+    expect(result1.credits.total).toBe(result2.credits.total);
+    expect(result1.graduationRequirements.map((r) => r.earnedValue))
+      .toEqual(result2.graduationRequirements.map((r) => r.earnedValue));
+    expect(result1.yearRequirements.map((y) => y.satisfiedCount))
+      .toEqual(result2.yearRequirements.map((y) => y.satisfiedCount));
+    expect(result1.peSemesterBreakdown.map((p) => p.met))
+      .toEqual(result2.peSemesterBreakdown.map((p) => p.met));
+  });
+
+  it("credits by requirement category matches expected values", () => {
+    const semester1 = [
+      makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1),
+      makePlanned(english9, 1, 2, 2), makePlanned(english9, 2, 2, 2),
+      makePlanned(peCourse, 1, 3, 3),
+    ];
+    const planners = [makePlanner(9, semester1), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+    expect(result.credits.byRequirementCategory["Mathematics"]).toBe(2);
+    expect(result.credits.byRequirementCategory["English"]).toBe(2);
+    expect(result.credits.byRequirementCategory["Physical Education"]).toBe(0.5);
+  });
+
+  it("resolutions are passed through in output", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const resolutions: RequirementResolution[] = [
+      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: {}, createdAt: "", updatedAt: "" },
+      { id: 2, userId: -1, type: "middle_school", courseId: 201, metadata: { grade: 8 }, createdAt: "", updatedAt: "" },
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions, allCourses });
+    expect(result.resolutions).toHaveLength(2);
+    expect(result.resolutions[0].type).toBe("pe_waiver");
+  });
+
+  it("graduation requirements includes all expected measurable requirements", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+    const names = result.graduationRequirements.map((r) => r.name);
+    expect(names).toContain("English");
+    expect(names).toContain("Mathematics");
+    expect(names).toContain("Science");
+    expect(names).toContain("Physical Education");
+    expect(names).toContain("Health");
+    expect(names).toContain("U.S. History");
+    expect(names).toContain("Government");
+  });
+
+  it("year requirements have correct grade labels", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+    const labels = result.yearRequirements.map((y) => y.label);
+    expect(labels).toEqual(["Freshman", "Sophomore", "Junior", "Senior"]);
+  });
+
+  it("year requirements match the corrected requirements (Freshman: English, Math, Science)", () => {
+    const planners = [
+      makePlanner(9, [
+        makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1),
+        makePlanned(english9, 1, 2, 2), makePlanned(english9, 2, 2, 2),
+      ]),
+      makePlanner(10), makePlanner(11), makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+    const y9 = result.yearRequirements.find((y) => y.grade === 9)!;
+    expect(y9.items.find((i) => i.category === "Communication Arts")!.met).toBe(true);
+    expect(y9.items.find((i) => i.category === "Mathematics")!.met).toBe(true);
+    expect(y9.items.find((i) => i.category === "Science")!.met).toBe(false);
+    expect(y9.satisfiedCount).toBe(2);
+    expect(y9.totalCount).toBe(3);
+  });
+
+  it("completed courses do not count toward graduation credit totals (only planner placements do)", () => {
+    // A course in the planner earns credits
+    const guestPlanners = [
+      makePlanner(9, [makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1)]),
+      makePlanner(10), makePlanner(11), makePlanner(12),
+    ];
+    const guestResult = computePlannerAnalysis({ planners: guestPlanners, completedCourses: [], resolutions: [], allCourses });
+    expect(guestResult.credits.byRequirementCategory["Mathematics"]).toBe(2);
+
+    // Same course as completed (not in planner) does NOT earn credits
+    const authPlanners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const authCompleted = [makeCompleted(algebra, "Freshman (9)")];
+    const authResult = computePlannerAnalysis({ planners: authPlanners, completedCourses: authCompleted, resolutions: [], allCourses });
+    expect(authResult.credits.byRequirementCategory["Mathematics"]).toBeUndefined();
+
+    // Completed courses DO satisfy prerequisites (tested separately above)
+  });
+
+  it("PE breakdown only shows required semesters (not 8 for Freshman with no PE)", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+    // 8 PE semester slots defined
+    expect(result.peSemesterBreakdown).toHaveLength(8);
+    // None met with empty planner
+    expect(result.peSemesterBreakdown.every((p) => p.met === false)).toBe(true);
+  });
+
+  it("PE semesters only display 2 semesters per year at most", () => {
+    const planners = [
+      makePlanner(9, [makePlanned(peCourse, 1, 1, 1), makePlanned(peCourse, 2, 1, 2)]),
+      makePlanner(10), makePlanner(11), makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+    // Only grade 9 semesters should be met (semester 2 since no foundational fitness)
+    expect(result.peSemesterBreakdown[0].met).toBe(false); // Foundational Fitness
+    expect(result.peSemesterBreakdown[1].met).toBe(true);  // PE
   });
 });

@@ -46,7 +46,6 @@ import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
 import type { RequirementResolution } from "@/lib/api";
-import { getResolutions, createResolution, deleteResolution } from "@/lib/api";
 import type { PeWaiver } from "@/lib/plannerWaivers";
 
 const PLANNER_OPTION_COLORS = {
@@ -277,7 +276,7 @@ function PlannerYearContent(): React.ReactElement {
   }, []);
 
   const { isSaved } = useSavedCourses();
-  const { planner: plannerService, completedCourses: completedService, analysis: analysisService } = useServices();
+  const { planner: plannerService, completedCourses: completedService, analysis: analysisService, resolutions: resolutionsService } = useServices();
   const router = useRouter();
 
   const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
@@ -308,12 +307,12 @@ function PlannerYearContent(): React.ReactElement {
 
   const loadResolutions = useCallback(async () => {
     try {
-      const data = await getResolutions();
+      const data = await resolutionsService.getResolutions();
       setResolutions(data);
     } catch {
       setResolutions([]);
     }
-  }, []);
+  }, [resolutionsService]);
 
   useEffect(() => {
     loadCompletedCourses();
@@ -451,26 +450,26 @@ function PlannerYearContent(): React.ReactElement {
   const handleAddResolution = useCallback(
     async (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => {
       try {
-        await createResolution(data);
-        const updated = await getResolutions();
+        await resolutionsService.createResolution(data);
+        const updated = await resolutionsService.getResolutions();
         setResolutions(updated);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to add resolution";
         showToast(message, "warning");
       }
     },
-    [showToast]
+    [showToast, resolutionsService]
   );
 
   const handleRemoveResolution = useCallback(async (id: number) => {
     try {
-      await deleteResolution(id);
+      await resolutionsService.deleteResolution(id);
       setResolutions((prev) => prev.filter((r) => r.id !== id));
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to remove resolution";
       showToast(message, "warning");
     }
-  }, []);
+  }, [resolutionsService]);
 
   const handleCloseModal = useCallback(() => {
     setActiveSlot(null);
@@ -861,17 +860,17 @@ function PlannerYearContent(): React.ReactElement {
             setCompletedCourses((prev) => [...prev, completed]);
           }}
           onMiddleSchool={async (courseId, grade) => {
-            await createResolution({ type: "middle_school", courseId, metadata: { grade } });
+            await resolutionsService.createResolution({ type: "middle_school", courseId, metadata: { grade } });
             const completed = await completedService.addCompletedCourse(courseId, grade);
             setCompletedCourses((prev) => [...prev, completed]);
-            const data = await getResolutions();
+            const data = await resolutionsService.getResolutions();
             setResolutions(data);
           }}
           onSummerSchool={async (courseId, grade) => {
-            await createResolution({ type: "summer_school", courseId, metadata: { grade } });
+            await resolutionsService.createResolution({ type: "summer_school", courseId, metadata: { grade } });
             const completed = await completedService.addCompletedCourse(courseId, grade);
             setCompletedCourses((prev) => [...prev, completed]);
-            const data = await getResolutions();
+            const data = await resolutionsService.getResolutions();
             setResolutions(data);
           }}
           showToast={showToast}
