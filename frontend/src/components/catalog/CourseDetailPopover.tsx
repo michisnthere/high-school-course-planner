@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType, formatPrerequisiteForDisplay } from "@/lib/catalog";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 type CourseDetailPopoverProps = {
   course: PlannerCourseDetails;
@@ -40,80 +41,90 @@ export function CourseDetailPopover({
   returnUrl,
   onClose,
 }: CourseDetailPopoverProps): React.ReactElement {
+  const { isMobile: mobile } = useBreakpoint();
   const slug = getCourseSlug({ title: course.title, normalizedTitle: course.normalizedTitle });
   const fullCatalogUrl = `/catalog/${slug}${returnUrl ? `?return=${encodeURIComponent(returnUrl)}` : ""}`;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 100,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
+    <>
+      {mobile && <style>{`@keyframes cd-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>}
       <div
         style={{
-          width: "100%",
-          maxWidth: "520px",
-          maxHeight: "80vh",
-          backgroundColor: "var(--bg-card)",
-          border: "1px solid var(--border-default)",
-          borderRadius: "16px",
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
           display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
+          alignItems: mobile ? "flex-end" : "center",
+          justifyContent: "center",
+          zIndex: 100,
+          padding: mobile ? 0 : "24px",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={onClose}
       >
         <div
           style={{
-            padding: "24px 24px 16px",
-            borderBottom: "1px solid var(--border-default)",
+            width: "100%",
+            maxWidth: mobile ? "100%" : "520px",
+            maxHeight: mobile ? "100%" : "80vh",
+            height: mobile ? "100%" : "auto",
+            backgroundColor: "var(--bg-card)",
+            border: mobile ? "none" : "1px solid var(--border-default)",
+            borderRadius: mobile ? 0 : "16px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            animation: mobile ? "cd-slide-up 0.25s ease-out" : undefined,
           }}
+          onClick={(e) => e.stopPropagation()}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "space-between",
-              gap: "16px",
+              padding: mobile ? "calc(16px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
+              borderBottom: "1px solid var(--border-default)",
             }}
           >
-            <h2
+            <div
               style={{
-                margin: 0,
-                fontSize: "22px",
-                fontWeight: 700,
-                color: "var(--text-primary)",
-                lineHeight: 1.3,
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                gap: "16px",
               }}
             >
-              {course.title}
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close"
-              style={{
-                flex: "0 0 auto",
-                fontSize: "24px",
-                color: "var(--text-muted)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "4px",
-                lineHeight: 1,
-              }}
-            >
-              ×
-            </button>
-          </div>
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: mobile ? "20px" : "22px",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                  lineHeight: 1.3,
+                }}
+              >
+                {course.title}
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close"
+                style={{
+                  flex: "0 0 auto",
+                  width: mobile ? "44px" : "36px",
+                  height: mobile ? "44px" : "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  color: "var(--text-muted)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: "8px",
+                  lineHeight: 1,
+                }}
+              >
+                ×
+              </button>
+            </div>
 
           <div
             style={{
@@ -172,7 +183,7 @@ export function CourseDetailPopover({
           style={{
             flex: 1,
             overflowY: "auto",
-            padding: "24px",
+            padding: mobile ? "16px 16px" : "24px",
           }}
         >
           {course.description && (
@@ -247,7 +258,7 @@ export function CourseDetailPopover({
 
         <div
           style={{
-            padding: "16px 24px",
+            padding: mobile ? "12px 16px calc(16px + var(--safe-area-bottom, 0px))" : "16px 24px",
             borderTop: "1px solid var(--border-default)",
             display: "flex",
             justifyContent: "flex-end",
@@ -258,6 +269,7 @@ export function CourseDetailPopover({
             style={{
               display: "inline-flex",
               alignItems: "center",
+              minHeight: mobile ? "44px" : "38px",
               padding: "10px 18px",
               fontSize: "14px",
               fontWeight: 500,
@@ -266,6 +278,7 @@ export function CourseDetailPopover({
               borderRadius: "8px",
               textDecoration: "none",
               transition: "background-color 0.2s ease",
+              boxSizing: "border-box",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "var(--brand-accent-hover)";
@@ -279,5 +292,6 @@ export function CourseDetailPopover({
         </div>
       </div>
     </div>
+    </>
   );
 }

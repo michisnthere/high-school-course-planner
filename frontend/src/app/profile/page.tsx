@@ -3,16 +3,12 @@
 import React from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AuthStatus } from "@/components/auth/AuthStatus";
+import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 
 export default function ProfilePage(): React.ReactElement {
   return (
     <ProtectedRoute>
-      <div
-        style={{
-          padding: "32px",
-
-        }}
-      >
+      <ResponsivePage>
         <h1
           style={{
             margin: "0 0 24px",
@@ -34,7 +30,7 @@ export default function ProfilePage(): React.ReactElement {
           will be added here once user accounts are persisted in the database.
         </p>
         <AuthStatus />
-      </div>
+      </ResponsivePage>
     </ProtectedRoute>
   );
 }

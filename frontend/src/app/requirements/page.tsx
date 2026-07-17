@@ -861,6 +861,8 @@ function InfoModal({
   item: PlannerAnalysis["informationItems"][number];
   onClose: () => void;
 }): React.ReactElement {
+  const { isMobile: mobile } = useBreakpoint();
+
   React.useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -870,97 +872,106 @@ function InfoModal({
   }, [onClose]);
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 1000,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "rgba(0,0,0,0.5)",
-        padding: "32px",
-      }}
-    >
+    <>
+      {mobile && <style>{`
+        @keyframes info-slide-up {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
+      `}</style>}
       <div
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        onClick={onClose}
         style={{
-          maxWidth: "560px",
-          width: "100%",
-          maxHeight: "80vh",
-          overflowY: "auto",
-          backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "28px",
-          position: "relative",
+          position: "fixed",
+          inset: 0,
+          zIndex: 1000,
+          display: "flex",
+          alignItems: mobile ? "flex-end" : "center",
+          justifyContent: "center",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          padding: mobile ? 0 : "32px",
         }}
       >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
+        <div
+          onClick={(e) => e.stopPropagation()}
           style={{
-            position: "absolute",
-            top: "16px",
-            right: "16px",
-            width: "32px",
-            height: "32px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "none",
-            borderRadius: "8px",
-            backgroundColor: "#f3f4f6",
-            color: "#6b7280",
-            fontSize: "18px",
-            fontWeight: 500,
-            cursor: "pointer",
-            lineHeight: 1,
+            maxWidth: mobile ? "100%" : "560px",
+            width: "100%",
+            maxHeight: mobile ? "100%" : "80vh",
+            height: mobile ? "100%" : "auto",
+            overflowY: "auto",
+            backgroundColor: "#ffffff",
+            borderRadius: mobile ? 0 : "16px",
+            padding: mobile ? "calc(24px + var(--safe-area-top, 0px)) 24px calc(24px + var(--safe-area-bottom, 0px))" : "28px",
+            position: "relative",
+            animation: mobile ? "info-slide-up 0.25s ease-out" : undefined,
+            boxSizing: "border-box",
           }}
         >
-          {"\u2715"}
-        </button>
-        <h2
-          style={{
-            margin: "0 0 16px",
-            fontSize: "22px",
-            fontWeight: 700,
-            color: "#111827",
-            lineHeight: 1.3,
-            paddingRight: "40px",
-          }}
-        >
-          {item.name}
-        </h2>
-        {item.explanation && (
-          <p
+          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "12px" }}>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              style={{
+                width: mobile ? "44px" : "36px",
+                height: mobile ? "44px" : "36px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "none",
+                borderRadius: "8px",
+                backgroundColor: "#f3f4f6",
+                color: "#6b7280",
+                fontSize: "18px",
+                fontWeight: 500,
+                cursor: "pointer",
+                lineHeight: 1,
+              }}
+            >
+              {"\u2715"}
+            </button>
+          </div>
+          <h2
             style={{
               margin: "0 0 16px",
-              fontSize: "15px",
-              color: "#374151",
-              lineHeight: 1.7,
-              whiteSpace: "pre-wrap",
+              fontSize: mobile ? "20px" : "22px",
+              fontWeight: 700,
+              color: "#111827",
+              lineHeight: 1.3,
             }}
           >
-            {item.explanation}
-          </p>
-        )}
-        {item.sourceReference && (
-          <p
-            style={{
-              margin: 0,
-              fontSize: "13px",
-              color: "#9ca3af",
-            }}
-          >
-            Source: {item.sourceReference}
-          </p>
-        )}
+            {item.name}
+          </h2>
+          {item.explanation && (
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontSize: mobile ? "15px" : "15px",
+                color: "#374151",
+                lineHeight: 1.7,
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {item.explanation}
+            </p>
+          )}
+          {item.sourceReference && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: "13px",
+                color: "#9ca3af",
+              }}
+            >
+              Source: {item.sourceReference}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

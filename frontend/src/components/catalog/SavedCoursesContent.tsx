@@ -39,19 +39,20 @@ const badgeStyle: React.CSSProperties = {
 const viewLinkStyle: React.CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
-  height: "36px",
-  padding: "0 16px",
+  minHeight: "44px",
+  padding: "8px 16px",
   fontSize: "14px",
   fontWeight: 500,
   color: "#FFFFFF",
   backgroundColor: "var(--brand-accent)",
   borderRadius: "8px",
   textDecoration: "none",
+  boxSizing: "border-box",
 };
 
 const removeButtonStyle: React.CSSProperties = {
-  height: "36px",
-  padding: "0 16px",
+  minHeight: "44px",
+  padding: "8px 16px",
   fontSize: "14px",
   fontWeight: 500,
   color: "var(--btn-danger-text)",
@@ -59,13 +60,14 @@ const removeButtonStyle: React.CSSProperties = {
   border: "1px solid var(--btn-danger-border)",
   borderRadius: "8px",
   cursor: "pointer",
+  boxSizing: "border-box",
 };
 
 const signInButtonStyle: React.CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
-  height: "40px",
-  padding: "0 20px",
+  minHeight: "44px",
+  padding: "8px 20px",
   fontSize: "15px",
   fontWeight: 500,
   color: "#FFFFFF",
@@ -74,6 +76,7 @@ const signInButtonStyle: React.CSSProperties = {
   borderRadius: "8px",
   cursor: "pointer",
   textDecoration: "none",
+  boxSizing: "border-box",
 };
 
 export function SavedCoursesContent({

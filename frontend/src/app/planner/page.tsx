@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { usePlannerService } from "@/services/ServiceContext";
+import { ResponsivePage } from "@/components/responsive/ResponsivePage";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 import type { Planner } from "@/lib/planner";
 
 const YEAR_LABELS: Record<number, string> = {
@@ -47,7 +49,7 @@ function PlannerContent(): React.ReactElement {
   }, [plannerService]);
 
   return (
-    <div style={{ padding: "32px" }}>
+    <ResponsivePage>
       <h1
         style={{
           margin: "0 0 8px",
@@ -129,6 +131,6 @@ function PlannerContent(): React.ReactElement {
           ))}
         </div>
       )}
-    </div>
+    </ResponsivePage>
   );
 }

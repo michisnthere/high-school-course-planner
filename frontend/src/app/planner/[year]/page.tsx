@@ -1762,6 +1762,7 @@ function CourseSearchModal({
   allPlanners: Planner[];
   onGoToCourse: (year: number, plannedCourseId: number) => void;
 }): React.ReactElement {
+  const { isMobile: mobile } = useBreakpoint();
   const [query, setQuery] = useState("");
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
@@ -1805,75 +1806,89 @@ function CourseSearchModal({
     return bSaved - aSaved;
   });
 
+  const sheetAnimation = mobile ? `@keyframes cs-slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }` : "";
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 50,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
+    <>
+      {mobile && <style>{sheetAnimation}</style>}
       <div
         style={{
-          width: "100%",
-          maxWidth: "600px",
-          maxHeight: "80vh",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
-          borderRadius: "16px",
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
           display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-
+          alignItems: mobile ? "flex-end" : "center",
+          justifyContent: "center",
+          zIndex: 50,
+          padding: mobile ? 0 : "24px",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={onClose}
       >
         <div
           style={{
-            padding: "24px 24px 16px",
-            borderBottom: "1px solid #374151",
+            width: "100%",
+            maxWidth: mobile ? "100%" : "600px",
+            maxHeight: mobile ? "100%" : "80vh",
+            height: mobile ? "100%" : "auto",
+            backgroundColor: "#1f2937",
+            border: mobile ? "none" : "1px solid #374151",
+            borderRadius: mobile ? 0 : "16px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            animation: mobile ? "cs-slide-up 0.25s ease-out" : undefined,
+
           }}
+          onClick={(e) => e.stopPropagation()}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "16px",
+              padding: mobile ? "calc(16px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
+              borderBottom: "1px solid #374151",
             }}
           >
-            <h2
+            <div
               style={{
-                margin: 0,
-                fontSize: "22px",
-                fontWeight: 700,
-                color: "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "16px",
               }}
             >
-              Add a Course
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                fontSize: "24px",
-                color: "#9ca3af",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "4px",
-                lineHeight: 1,
-              }}
-              aria-label="Close"
-            >
-              ×
-            </button>
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: mobile ? "20px" : "22px",
+                  fontWeight: 700,
+                  color: "#ffffff",
+                }}
+              >
+                Add a Course
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                style={{
+                  width: mobile ? "44px" : "36px",
+                  height: mobile ? "44px" : "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  color: "#9ca3af",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: "8px",
+                  lineHeight: 1,
+                }}
+                aria-label="Close"
+              >
+                ×
+              </button>
           </div>
 
           <input
@@ -1925,7 +1940,7 @@ function CourseSearchModal({
           style={{
             flex: 1,
             overflowY: "auto",
-            padding: "16px 24px 24px",
+            padding: mobile ? "12px 16px calc(24px + var(--safe-area-bottom, 0px))" : "16px 24px 24px",
           }}
         >
           {loading ? (
@@ -2104,6 +2119,7 @@ function CourseSearchModal({
         />
       )}
     </div>
+  </>
   );
 }
 
@@ -2118,91 +2134,99 @@ function DuplicateCourseDialog({
   onGoToCourse: () => void;
   onClose: () => void;
 }): React.ReactElement {
+  const { isMobile: mobile } = useBreakpoint();
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 60,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
+    <>
+      {mobile && <style>{`@keyframes dc-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>}
       <div
         style={{
-          width: "100%",
-          maxWidth: "400px",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
-          borderRadius: "16px",
-          padding: "24px",
-          color: "#ffffff",
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          display: "flex",
+          alignItems: mobile ? "flex-end" : "center",
+          justifyContent: "center",
+          zIndex: 60,
+          padding: mobile ? 0 : "24px",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={onClose}
       >
-        <h3
+        <div
           style={{
-            margin: "0 0 16px",
-            fontSize: "20px",
-            fontWeight: 700,
+            width: "100%",
+            maxWidth: mobile ? "100%" : "400px",
+            backgroundColor: "#1f2937",
+            border: mobile ? "none" : "1px solid #374151",
+            borderRadius: mobile ? "16px 16px 0 0" : "16px",
+            padding: mobile ? "calc(24px + var(--safe-area-top, 0px)) 24px calc(32px + var(--safe-area-bottom, 0px))" : "24px",
+            color: "#ffffff",
+            animation: mobile ? "dc-slide-up 0.25s ease-out" : undefined,
+            boxSizing: "border-box",
           }}
+          onClick={(e) => e.stopPropagation()}
         >
-          This course is already planned
-        </h3>
-        <div style={{ marginBottom: "24px", lineHeight: 1.5, color: "#d1d5db" }}>
-          <p style={{ margin: "0 0 12px", fontWeight: 500, color: "#ffffff" }}>{course.title}</p>
-          <div style={{ fontSize: "14px", color: "#9ca3af" }}>
-            <div>
-              Location: <strong style={{ color: "#ffffff" }}>{location.label}</strong>
-            </div>
-            <div>
-              Semester: <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
-            </div>
-            <div>
-              Slot: <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
+          <h3
+            style={{
+              margin: "0 0 16px",
+              fontSize: mobile ? "20px" : "20px",
+              fontWeight: 700,
+            }}
+          >
+            This course is already planned
+          </h3>
+          <div style={{ marginBottom: "24px", lineHeight: 1.5, color: "#d1d5db" }}>
+            <p style={{ margin: "0 0 12px", fontWeight: 500, color: "#ffffff" }}>{course.title}</p>
+            <div style={{ fontSize: "14px", color: "#9ca3af" }}>
+              <div>
+                Location: <strong style={{ color: "#ffffff" }}>{location.label}</strong>
+              </div>
+              <div>
+                Semester: <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
+              </div>
+              <div>
+                Slot: <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
+              </div>
             </div>
           </div>
-        </div>
-        <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
-          <button
-            type="button"
-            onClick={onClose}
-            style={{
-              padding: "10px 16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "#d1d5db",
-              backgroundColor: "transparent",
-              border: "1px solid #4b5563",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={onGoToCourse}
-            style={{
-              padding: "10px 16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "#ffffff",
-              backgroundColor: "var(--brand-accent)",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Go to Course
-          </button>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                minHeight: mobile ? "44px" : "38px",
+                padding: "10px 16px",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#d1d5db",
+                backgroundColor: "transparent",
+                border: "1px solid #4b5563",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={onGoToCourse}
+              style={{
+                minHeight: mobile ? "44px" : "38px",
+                padding: "10px 16px",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#ffffff",
+                backgroundColor: "var(--brand-accent)",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            >
+              Go to Course
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -2217,6 +2241,7 @@ function Toast({
   onUndo?: () => void;
   onClose: () => void;
 }): React.ReactElement {
+  const { isMobile: mobile } = useBreakpoint();
   return (
     <div
       style={{
@@ -2245,14 +2270,16 @@ function Toast({
             onClose();
           }}
           style={{
+            minHeight: mobile ? "44px" : "28px",
             padding: "6px 12px",
-            fontSize: "13px",
+            fontSize: mobile ? "15px" : "13px",
             fontWeight: 500,
             color: "#ffffff",
             backgroundColor: "var(--brand-accent)",
             border: "none",
             borderRadius: "6px",
             cursor: "pointer",
+            boxSizing: "border-box",
           }}
         >
           Undo
@@ -2263,12 +2290,17 @@ function Toast({
         onClick={onClose}
         aria-label="Dismiss"
         style={{
+          width: "36px",
+          height: "36px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           fontSize: "18px",
           color: "#9ca3af",
           background: "none",
           border: "none",
           cursor: "pointer",
-          padding: "0 4px",
+          borderRadius: "6px",
         }}
       >
         ×
@@ -2472,8 +2504,8 @@ function MobilePlanner({
             }}
             aria-label="Remove course"
             style={{
-              width: "36px",
-              height: "36px",
+              width: "44px",
+              height: "44px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -2809,6 +2841,7 @@ function WarningActionModal({
   onSummerSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
+  const { isMobile: mobile } = useBreakpoint();
   const { completedCourses: modalCompletedService } = useServices();
   const [loading, setLoading] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -3015,85 +3048,94 @@ function WarningActionModal({
       : "";
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 50,
-        padding: "24px",
-      }}
-      onClick={onClose}
-    >
+    <>
+      {mobile && <style>{`@keyframes wa-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>}
       <div
         style={{
-          width: "100%",
-          maxWidth: "480px",
-          maxHeight: "80vh",
-          backgroundColor: "#1f2937",
-          border: "1px solid #374151",
-          borderRadius: "16px",
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
           display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
+          alignItems: mobile ? "flex-end" : "center",
+          justifyContent: "center",
+          zIndex: 50,
+          padding: mobile ? 0 : "24px",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={onClose}
       >
         <div
           style={{
-            padding: "24px 24px 16px",
-            borderBottom: "1px solid #374151",
+            width: "100%",
+            maxWidth: mobile ? "100%" : "480px",
+            maxHeight: mobile ? "100%" : "80vh",
+            height: mobile ? "100%" : "auto",
+            backgroundColor: "#1f2937",
+            border: mobile ? "none" : "1px solid #374151",
+            borderRadius: mobile ? 0 : "16px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            animation: mobile ? "wa-slide-up 0.25s ease-out" : undefined,
           }}
+          onClick={(e) => e.stopPropagation()}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "16px",
+              padding: mobile ? "calc(16px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
+              borderBottom: "1px solid #374151",
             }}
           >
-            <h2
+            <div
               style={{
-                margin: 0,
-                fontSize: "22px",
-                fontWeight: 700,
-                color: "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "16px",
               }}
             >
-              Resolve Warning
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                fontSize: "24px",
-                color: "#9ca3af",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "4px",
-                lineHeight: 1,
-              }}
-              aria-label="Close"
-            >
-              ×
-            </button>
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: mobile ? "20px" : "22px",
+                  fontWeight: 700,
+                  color: "#ffffff",
+                }}
+              >
+                Resolve Warning
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                style={{
+                  width: mobile ? "44px" : "36px",
+                  height: mobile ? "44px" : "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  color: "#9ca3af",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: "8px",
+                  lineHeight: 1,
+                }}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "24px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
+          <div
+            style={{
+              flex: 1,
+              overflowY: "auto",
+              padding: mobile ? "16px 16px calc(24px + var(--safe-area-bottom, 0px))" : "24px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "16px",
+            }}
         >
           <div
             style={{
@@ -3406,5 +3448,6 @@ function WarningActionModal({
         </div>
       </div>
     </div>
+  </>
   );
 }

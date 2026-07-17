@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
+import { breakpoints } from "@/lib/responsive";
 
 export default function LoginPage(): React.ReactElement {
   const { loginAsGuest } = useAuth();
@@ -22,139 +23,157 @@ export default function LoginPage(): React.ReactElement {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "calc(100vh - 64px)",
-        padding: "32px",
-        backgroundColor: "var(--bg-muted)",
-        boxSizing: "border-box",
-      }}
-    >
+    <>
+      <style>{`
+        @media (max-width: ${breakpoints.mobile - 1}px) {
+          .rs-login-wrapper {
+            padding: 16px !important;
+            padding-top: calc(16px + var(--safe-area-top)) !important;
+            padding-bottom: calc(16px + var(--safe-area-bottom)) !important;
+            padding-left: calc(16px + var(--safe-area-left)) !important;
+            padding-right: calc(16px + var(--safe-area-right)) !important;
+          }
+          .rs-login-card {
+            padding: 32px 24px 28px !important;
+          }
+        }
+      `}</style>
       <div
+        className="rs-login-wrapper"
         style={{
-          width: "100%",
-          maxWidth: "420px",
-          padding: "48px 40px 40px",
-          backgroundColor: "var(--bg-card)",
-          border: "1px solid var(--border-default)",
-          borderRadius: "16px",
-          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "calc(100vh - 64px)",
+          padding: "32px",
+          backgroundColor: "var(--bg-muted)",
           boxSizing: "border-box",
         }}
       >
-        <Image
-          src="/stevensonlogo.png"
-          alt="Stevenson High School"
-          width={64}
-          height={64}
-          style={{ margin: "0 auto 16px" }}
-        />
-        <h1
-          style={{
-            margin: "0 0 8px",
-            fontSize: "26px",
-            fontWeight: 700,
-            color: "var(--brand-primary)",
-            lineHeight: 1.2,
-          }}
-        >
-          Stevenson Course Planner
-        </h1>
-        <p
-          style={{
-            margin: "0 0 8px",
-            fontSize: "15px",
-            color: "var(--text-secondary)",
-            lineHeight: 1.5,
-          }}
-        >
-          Sign in with your Google account to plan your courses, track requirements, and explore the
-          Stevenson course catalog.
-        </p>
-        <p
-          style={{
-            margin: "0 0 32px",
-            fontSize: "13px",
-            color: "var(--text-muted)",
-            lineHeight: 1.5,
-          }}
-        >
-          Powered by Adlai E. Stevenson High School
-        </p>
-        <button
-          type="button"
-          onClick={handleSignIn}
+        <div
+          className="rs-login-card"
           style={{
             width: "100%",
-            height: "48px",
-            padding: "0 24px",
-            fontSize: "16px",
-            fontWeight: 500,
-            color: "#FFFFFF",
-            backgroundColor: "var(--brand-accent)",
-            border: "none",
-            borderRadius: "10px",
-            cursor: "pointer",
+            maxWidth: "420px",
+            padding: "48px 40px 40px",
+            backgroundColor: "var(--bg-card)",
+            border: "1px solid var(--border-default)",
+            borderRadius: "16px",
+            textAlign: "center",
             boxSizing: "border-box",
           }}
         >
-          Sign in with Google
-        </button>
-        <div style={{ marginTop: "16px" }}>
+          <Image
+            src="/stevensonlogo.png"
+            alt="Stevenson High School"
+            width={64}
+            height={64}
+            style={{ margin: "0 auto 16px" }}
+          />
+          <h1
+            style={{
+              margin: "0 0 8px",
+              fontSize: "26px",
+              fontWeight: 700,
+              color: "var(--brand-primary)",
+              lineHeight: 1.2,
+            }}
+          >
+            Stevenson Course Planner
+          </h1>
+          <p
+            style={{
+              margin: "0 0 8px",
+              fontSize: "15px",
+              color: "var(--text-secondary)",
+              lineHeight: 1.5,
+            }}
+          >
+            Sign in with your Google account to plan your courses, track requirements, and explore the
+            Stevenson course catalog.
+          </p>
+          <p
+            style={{
+              margin: "0 0 32px",
+              fontSize: "13px",
+              color: "var(--text-muted)",
+              lineHeight: 1.5,
+            }}
+          >
+            Powered by Adlai E. Stevenson High School
+          </p>
           <button
             type="button"
-            onClick={handleGuest}
+            onClick={handleSignIn}
             style={{
               width: "100%",
               height: "48px",
               padding: "0 24px",
               fontSize: "16px",
               fontWeight: 500,
-              color: "var(--text-secondary)",
-              backgroundColor: "transparent",
-              border: "1px solid var(--border-default)",
+              color: "#FFFFFF",
+              backgroundColor: "var(--brand-accent)",
+              border: "none",
               borderRadius: "10px",
               cursor: "pointer",
               boxSizing: "border-box",
             }}
           >
-            Continue as Guest
+            Sign in with Google
           </button>
-          <div
-            style={{
-              marginTop: "12px",
-              padding: "12px",
-              backgroundColor: "var(--bg-muted)",
-              borderRadius: "8px",
-              textAlign: "center",
-            }}
-          >
-            <p
+          <div style={{ marginTop: "16px" }}>
+            <button
+              type="button"
+              onClick={handleGuest}
               style={{
-                margin: 0,
-                fontSize: "13px",
-                fontWeight: 600,
+                width: "100%",
+                height: "48px",
+                padding: "0 24px",
+                fontSize: "16px",
+                fontWeight: 500,
                 color: "var(--text-secondary)",
+                backgroundColor: "transparent",
+                border: "1px solid var(--border-default)",
+                borderRadius: "10px",
+                cursor: "pointer",
+                boxSizing: "border-box",
               }}
             >
-              Guest Mode
-            </p>
-            <p
+              Continue as Guest
+            </button>
+            <div
               style={{
-                margin: "4px 0 0",
-                fontSize: "12px",
-                color: "var(--text-muted)",
-                lineHeight: 1.4,
+                marginTop: "12px",
+                padding: "12px",
+                backgroundColor: "var(--bg-muted)",
+                borderRadius: "8px",
+                textAlign: "center",
               }}
             >
-              Your changes will not be saved after leaving this session.
-            </p>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  color: "var(--text-secondary)",
+                }}
+              >
+                Guest Mode
+              </p>
+              <p
+                style={{
+                  margin: "4px 0 0",
+                  fontSize: "12px",
+                  color: "var(--text-muted)",
+                  lineHeight: 1.4,
+                }}
+              >
+                Your changes will not be saved after leaving this session.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
