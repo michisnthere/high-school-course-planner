@@ -12,6 +12,15 @@ export const spacing = {
   xxl: 48,
 } as const;
 
+export const mobileSpacing = {
+  xs: 2,
+  sm: 6,
+  md: 12,
+  lg: 16,
+  xl: 24,
+  xxl: 32,
+} as const;
+
 export const typography = {
   h1: {
     fontSize: "1.75rem",
@@ -35,6 +44,34 @@ export const typography = {
   },
   small: {
     fontSize: "0.8125rem",
+    fontWeight: 400,
+    lineHeight: 1.5,
+  },
+} as const;
+
+export const mobileTypography = {
+  h1: {
+    fontSize: "1.5rem",
+    fontWeight: 700,
+    lineHeight: 1.2,
+  },
+  h2: {
+    fontSize: "1.25rem",
+    fontWeight: 600,
+    lineHeight: 1.3,
+  },
+  h3: {
+    fontSize: "1.125rem",
+    fontWeight: 600,
+    lineHeight: 1.4,
+  },
+  body: {
+    fontSize: "0.875rem",
+    fontWeight: 400,
+    lineHeight: 1.5,
+  },
+  small: {
+    fontSize: "0.75rem",
     fontWeight: 400,
     lineHeight: 1.5,
   },

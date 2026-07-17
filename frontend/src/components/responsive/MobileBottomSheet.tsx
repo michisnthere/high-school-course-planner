@@ -53,6 +53,7 @@ export function MobileBottomSheet({ isOpen, onClose, children, title }: MobileBo
           overflow-y: auto;
           animation: rs-sheet-slide-up 0.25s ease-out;
           box-sizing: border-box;
+          padding-bottom: var(--safe-area-bottom);
         }
         .rs-sheet-handle {
           width: 36px;

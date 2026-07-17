@@ -57,6 +57,8 @@ export function MobileDrawer({ isOpen, onClose, children, side = "left" }: Mobil
           overflow-y: auto;
           animation: ${slideKey} 0.25s ease-out;
           box-sizing: border-box;
+          padding-top: var(--safe-area-top);
+          padding-bottom: var(--safe-area-bottom);
         }
         @keyframes rs-drawer-fade-in {
           from { opacity: 0; }
