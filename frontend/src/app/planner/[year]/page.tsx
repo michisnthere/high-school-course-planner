@@ -46,6 +46,8 @@ import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNo
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import type { RequirementResolution } from "@/lib/api";
 import type { PeWaiver } from "@/lib/plannerWaivers";
 
@@ -671,6 +673,32 @@ function PlannerYearContent(): React.ReactElement {
     cursor: "default",
   };
 
+  const { isMobile } = useBreakpoint();
+
+  const warningsByCourse = useMemo(() => {
+    if (!planner) return new Map<number, PlannerWarning[]>();
+    const map = new Map<number, PlannerWarning[]>();
+    for (const pc of planner.plannedCourses) {
+      const warnings = getWarnings(pc, allPlanners, completedCourses, allCatalogCourses, pc.semester, year)
+        .filter((w) => !ignoredWarnings.has(makeWarningKey(pc, w)));
+      map.set(pc.id, warnings);
+    }
+    return map;
+  }, [planner, allPlanners, completedCourses, allCatalogCourses, ignoredWarnings, year]);
+
+  const handleMobileOpenModal = useCallback((semester: number) => {
+    if (!planner) return;
+    const occupiedSlots = new Set<number>();
+    for (const pc of planner.plannedCourses.filter(pc => pc.semester === semester)) {
+      const span = pc.slotSpan ?? 1;
+      for (let i = 0; i < span; i++) {
+        occupiedSlots.add(pc.slot + i);
+      }
+    }
+    const slot = [1, 2, 3, 4, 5, 6, 7].find(s => !occupiedSlots.has(s)) ?? 7;
+    handleOpenModal(semester, slot);
+  }, [planner, handleOpenModal]);
+
   const renderSlot = (semester: number, slot: number) => {
     const planned = plannedBySlot(semester, slot);
 
@@ -723,6 +751,269 @@ function PlannerYearContent(): React.ReactElement {
       />
     );
   };
+
+  const mobileContent = planner && (
+    <>
+      <style>{`
+        .mob-planner-header {
+          position: sticky;
+          top: calc(56px + var(--safe-area-top, 0px));
+          z-index: 40;
+          background: var(--bg-page);
+          padding: 16px 0 12px;
+        }
+        .mob-planner-header h1 {
+          margin: 0;
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #111827;
+        }
+        .mob-planner-semester h2 {
+          margin: 0 0 12px;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #111827;
+        }
+        .mob-course-card {
+          padding: 16px;
+          border-radius: 12px;
+          border-left: 4px solid;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          min-height: 80px;
+          cursor: pointer;
+          touch-action: none;
+          user-select: none;
+          -webkit-user-select: none;
+        }
+        .mob-course-card.dragging {
+          opacity: 0.5;
+        }
+        .mob-course-card.drop-target {
+          box-shadow: 0 0 0 2px rgba(236, 186, 43, 0.4);
+          transform: scale(1.02);
+        }
+        .mob-course-card.highlighted {
+          box-shadow: 0 0 0 4px rgba(236, 186, 43, 0.6), 0 6px 16px rgba(0,0,0,0.15);
+          transform: scale(1.03);
+        }
+        .mob-add-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 20px;
+          min-height: 60px;
+          background: #1f2937;
+          border: 2px dashed #4b5563;
+          border-radius: 12px;
+          cursor: pointer;
+          color: #9ca3af;
+          font-size: 16px;
+          font-weight: 500;
+          transition: all 0.2s ease;
+        }
+        .mob-add-btn:active {
+          border-color: #6b7280;
+          color: #d1d5db;
+        }
+        .mob-add-btn.drop-active {
+          border-color: var(--brand-accent);
+          color: var(--brand-accent);
+          background: rgba(201, 154, 44, 0.12);
+        }
+        .mob-fab {
+          position: fixed;
+          bottom: calc(24px + var(--safe-area-bottom, 0px));
+          right: 24px;
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          background: var(--brand-accent);
+          border: none;
+          color: #111827;
+          font-size: 28px;
+          font-weight: 700;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          cursor: pointer;
+          z-index: 30;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .mob-fab:active {
+          transform: scale(0.95);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .mob-semester-section {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .mob-semester-section[data-drop-active] {
+          background: rgba(201, 154, 44, 0.06);
+          border-radius: 12px;
+          padding: 8px;
+          margin: -8px;
+        }
+        .mob-ghost {
+          position: fixed;
+          pointer-events: none;
+          z-index: 100;
+          opacity: 0.9;
+          transform: translate(-50%, -50%) scale(1.05);
+          width: calc(100% - 48px);
+          max-width: 400px;
+          left: 50%;
+        }
+        .mob-summary-toggle {
+          width: 100%;
+          padding: 14px 16px;
+          background: #ffffff;
+          border: 2px solid #275D38;
+          border-radius: 12px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 16px;
+          font-weight: 600;
+          color: #111827;
+          transition: background 0.15s ease;
+        }
+        .mob-summary-toggle:active {
+          background: #f3f4f6;
+        }
+        .mob-drop-zone {
+          min-height: 48px;
+          border: 2px dashed transparent;
+          border-radius: 12px;
+          transition: all 0.2s ease;
+        }
+        .mob-drop-zone.active {
+          border-color: var(--brand-accent);
+          background: rgba(201, 154, 44, 0.08);
+        }
+      `}</style>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div className="mob-planner-header">
+          <h1>{YEAR_LABELS[year] ?? "Year"} Planner</h1>
+        </div>
+
+        <MobilePlanner
+          planner={planner}
+          year={year}
+          warningsByCourse={warningsByCourse}
+          highlightedPlannedCourseId={highlightedPlannedCourseId}
+          plannerAnalysis={plannerAnalysis}
+          resolutions={resolutions}
+          allPlanners={allPlanners}
+          onOpenModal={handleMobileOpenModal}
+          onDrop={handleDrop}
+          onRemoveCourse={handleRemoveCourse}
+          onCourseClick={handleCourseClick}
+          onShowWarningAction={(planned, warning) => setSelectedWarning({ planned, warning })}
+          onAddResolution={handleAddResolution}
+          onRemoveResolution={handleRemoveResolution}
+        />
+      </div>
+    </>
+  );
+
+  if (isMobile && planner) {
+    return (
+      <>
+        <ResponsivePage>
+          <Link
+            href="/planner"
+            style={{
+              display: "inline-block",
+              fontSize: "14px",
+              color: "var(--text-secondary)",
+              textDecoration: "none",
+              fontWeight: 500,
+              marginBottom: "12px",
+            }}
+          >
+            ← Back to Planner
+          </Link>
+
+          <GuestUpgradePrompt />
+
+          {loading ? (
+            <p style={{ color: "#d1d5db" }}>Loading planner...</p>
+          ) : error ? (
+            <p style={{ color: "#ef4444" }}>{error}</p>
+          ) : !planner ? (
+            <p style={{ color: "#d1d5db" }}>Planner not found.</p>
+          ) : (
+            mobileContent
+          )}
+        </ResponsivePage>
+
+        {activeSlot && planner && (
+          <CourseSearchModal
+            onClose={handleCloseModal}
+            onSelect={handleCourseSelected}
+            isSaved={isSaved}
+            grade={year}
+            allPlanners={allPlanners}
+            onGoToCourse={handleGoToCourse}
+          />
+        )}
+
+        {selectedWarning && (
+          <WarningActionModal
+            planned={selectedWarning.planned}
+            warning={selectedWarning.warning}
+            allPlanners={allPlanners}
+            allCatalogCourses={allCatalogCourses}
+            currentYear={year}
+            onClose={() => setSelectedWarning(null)}
+            onAddToPlanner={handleAddPrerequisiteToPlanner}
+            onSwapSemesters={handleMove}
+            onIgnore={() =>
+              persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
+            }
+            onMarkCompleted={(completed) =>
+              setCompletedCourses((prev) => [...prev, completed])
+            }
+            onPlacementTest={async (courseId, grade) => {
+              const completed = await completedService.addCompletedCourse(courseId, grade);
+              setCompletedCourses((prev) => [...prev, completed]);
+            }}
+            onMiddleSchool={async (courseId, grade) => {
+              await resolutionsService.createResolution({ type: "middle_school", courseId, metadata: { grade } });
+              const completed = await completedService.addCompletedCourse(courseId, grade);
+              setCompletedCourses((prev) => [...prev, completed]);
+              const data = await resolutionsService.getResolutions();
+              setResolutions(data);
+            }}
+            onSummerSchool={async (courseId, grade) => {
+              await resolutionsService.createResolution({ type: "summer_school", courseId, metadata: { grade } });
+              const completed = await completedService.addCompletedCourse(courseId, grade);
+              setCompletedCourses((prev) => [...prev, completed]);
+              const data = await resolutionsService.getResolutions();
+              setResolutions(data);
+            }}
+            showToast={showToast}
+          />
+        )}
+
+        {toast.visible && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onUndo={toast.onUndo}
+            onClose={() => setToast((prev) => ({ ...prev, visible: false }))}
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <div
@@ -1983,6 +2274,382 @@ function Toast({
         ×
       </button>
     </div>
+  );
+}
+
+function MobilePlanner({
+  planner,
+  year,
+  warningsByCourse,
+  highlightedPlannedCourseId,
+  plannerAnalysis,
+  resolutions,
+  allPlanners,
+  onOpenModal,
+  onDrop,
+  onRemoveCourse,
+  onCourseClick,
+  onShowWarningAction,
+  onAddResolution,
+  onRemoveResolution,
+}: {
+  planner: Planner;
+  year: number;
+  warningsByCourse: Map<number, PlannerWarning[]>;
+  highlightedPlannedCourseId: number | null;
+  plannerAnalysis: PlannerAnalysis | null;
+  resolutions: RequirementResolution[];
+  allPlanners: Planner[];
+  onOpenModal: (semester: number) => void;
+  onDrop: (plannedCourseId: number, semester: number, slot: number) => void;
+  onRemoveCourse: (planned: PlannedCourse) => void;
+  onCourseClick: (planned: PlannedCourse) => void;
+  onShowWarningAction: (planned: PlannedCourse, warning: PlannerWarning) => void;
+  onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
+  onRemoveResolution: (id: number) => void;
+}): React.ReactElement {
+  const [touchDrag, setTouchDrag] = useState<{
+    plannedCourseId: number;
+    startY: number;
+    currentY: number;
+    isDragging: boolean;
+    card: PlannedCourse;
+  } | null>(null);
+  const [touchDropSemester, setTouchDropSemester] = useState<number | null>(null);
+  const [showSummary, setShowSummary] = useState(false);
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressTriggered = useRef(false);
+
+  const currentPlanner = allPlanners.find((p) => p.schoolYear === year);
+  const totalCredits = sumPlannedCredits(allPlanners.flatMap((p) => p.plannedCourses));
+  const currentCredits = sumPlannedCredits(currentPlanner?.plannedCourses || []);
+
+  const sortedCourses = useMemo(() => {
+    const s1 = planner.plannedCourses.filter((pc) => pc.semester === 1).sort((a, b) => a.slot - b.slot);
+    const s2 = planner.plannedCourses.filter((pc) => pc.semester === 2).sort((a, b) => a.slot - b.slot);
+    return [s1, s2];
+  }, [planner]);
+
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent, planned: PlannedCourse) => {
+      if ((planned.slotSpan ?? 1) > 1) return;
+      if (planned.plannerId !== planner.id) return;
+      const touch = e.touches[0];
+      longPressTriggered.current = false;
+      longPressTimer.current = setTimeout(() => {
+        longPressTriggered.current = true;
+        setTouchDrag({
+          plannedCourseId: planned.id,
+          startY: touch.clientY,
+          currentY: touch.clientY,
+          isDragging: false,
+          card: planned,
+        });
+      }, 200);
+    },
+    [planner.id]
+  );
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!touchDrag) {
+        if (longPressTimer.current) {
+          clearTimeout(longPressTimer.current);
+          longPressTimer.current = null;
+        }
+        return;
+      }
+      e.preventDefault();
+      const touch = e.touches[0];
+      const moved = Math.abs(touch.clientY - touchDrag.startY) > 15;
+      if (moved || touchDrag.isDragging) {
+        setTouchDrag((prev) =>
+          prev ? { ...prev, currentY: touch.clientY, isDragging: prev.isDragging || moved } : prev
+        );
+      }
+      const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (el) {
+        const dropTarget = (el as HTMLElement).closest("[data-semester-drop]");
+        if (dropTarget) {
+          const semester = Number(dropTarget.getAttribute("data-semester-drop"));
+          setTouchDropSemester(semester);
+        } else {
+          setTouchDropSemester(null);
+        }
+      }
+    },
+    [touchDrag]
+  );
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (longPressTimer.current) {
+        clearTimeout(longPressTimer.current);
+        longPressTimer.current = null;
+      }
+      if (!touchDrag || !touchDrag.isDragging) {
+        if (longPressTriggered.current) {
+          longPressTriggered.current = false;
+        }
+        setTouchDrag(null);
+        setTouchDropSemester(null);
+        return;
+      }
+      e.preventDefault();
+      const touch = e.changedTouches[0];
+      const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (el) {
+        const dropTarget = (el as HTMLElement).closest("[data-semester-drop]");
+        if (dropTarget) {
+          const semester = Number(dropTarget.getAttribute("data-semester-drop"));
+          const occupiedSlots = new Set<number>();
+          for (const pc of planner.plannedCourses.filter((pc) => pc.semester === semester)) {
+            const span = pc.slotSpan ?? 1;
+            for (let i = 0; i < span; i++) occupiedSlots.add(pc.slot + i);
+          }
+          const slot = [1, 2, 3, 4, 5, 6, 7].find((s) => !occupiedSlots.has(s)) ?? 7;
+          onDrop(touchDrag.plannedCourseId, semester, slot);
+        }
+      }
+      setTouchDrag(null);
+      setTouchDropSemester(null);
+    },
+    [touchDrag, planner, onDrop]
+  );
+
+  const isDragging =
+    touchDrag !== null && touchDrag.isDragging;
+
+  const renderCourseCard = (planned: PlannedCourse, semesterIdx: number) => {
+    const warnings = warningsByCourse.get(planned.id) ?? [];
+    const isHighlighted = highlightedPlannedCourseId === planned.id;
+    const accentColor = getDivisionColor(planned.course.division);
+    const bgTint = getDivisionBackgroundColor(planned.course.division);
+    const isCurrentlyDragging = touchDrag?.plannedCourseId === planned.id;
+
+    const isMultiSlot = (planned.slotSpan ?? 1) > 1;
+    const slotRange =
+      isMultiSlot
+        ? `Slots ${planned.slot}-${planned.slot + (planned.slotSpan ?? 1) - 1}`
+        : `Slot ${planned.slot}`;
+
+    return (
+      <div
+        key={planned.id}
+        className={`mob-course-card ${isCurrentlyDragging ? "dragging" : ""} ${isHighlighted ? "highlighted" : ""}`}
+        style={{
+          backgroundColor: bgTint,
+          borderLeftColor: accentColor,
+          border: isHighlighted ? `2px solid rgba(236, 186, 43, 0.6)` : undefined,
+        }}
+        onTouchStart={(e) => handleTouchStart(e, planned)}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onClick={() => {
+          if (longPressTriggered.current) {
+            longPressTriggered.current = false;
+            return;
+          }
+          onCourseClick(planned);
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: "8px",
+          }}
+        >
+          <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.02em" }}>
+            {slotRange}
+          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemoveCourse(planned);
+            }}
+            aria-label="Remove course"
+            style={{
+              width: "36px",
+              height: "36px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "transparent",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              color: "#9ca3af",
+              fontSize: "18px",
+              flex: "0 0 auto",
+            }}
+          >
+            🗑
+          </button>
+        </div>
+
+        <div style={{ fontSize: "16px", fontWeight: 600, color: "#111827", lineHeight: 1.3 }}>
+          {planned.course.title}
+        </div>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
+          {planned.course.creditType && (
+            <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 500 }}>
+              {formatCreditType(planned.course.creditType)}
+            </span>
+          )}
+          {planned.course.credits != null && (
+            <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
+              {planned.course.credits} credits
+            </span>
+          )}
+          {planned.course.duration === 2 && (
+            <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
+              Full Year
+            </span>
+          )}
+          {isMultiSlot && (
+            <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
+              Multi-slot
+            </span>
+          )}
+        </div>
+
+        {warnings.length > 0 && (
+          <div
+            style={{
+              marginTop: "4px",
+              padding: "8px 10px",
+              background: "rgba(236, 186, 43, 0.12)",
+              border: "1px solid rgba(236, 186, 43, 0.3)",
+              borderRadius: "8px",
+              fontSize: "12px",
+              color: "var(--brand-accent)",
+              lineHeight: 1.4,
+            }}
+          >
+            {warnings.map((w, i) => (
+              <div
+                key={i}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onShowWarningAction(planned, w);
+                }}
+                style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                ⚠ {w.message}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderSemester = (semester: number, semesterIdx: number) => {
+    const courses = sortedCourses[semesterIdx];
+    return (
+      <div
+        key={semester}
+        data-semester-drop={semester}
+        className={`mob-semester-section ${touchDropSemester === semester ? "mob-drop-zone active" : ""}`}
+        style={{
+          background: touchDropSemester === semester ? "rgba(201, 154, 44, 0.06)" : "transparent",
+          borderRadius: touchDropSemester === semester ? "12px" : undefined,
+          padding: touchDropSemester === semester ? "8px" : undefined,
+          margin: touchDropSemester === semester ? "-8px" : undefined,
+          transition: "all 0.2s ease",
+        }}
+      >
+        <div className="mob-planner-semester">
+          <h2>Semester {semester}</h2>
+        </div>
+        {courses.length === 0 ? (
+          <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: 0, padding: "8px 0" }}>
+            No courses planned.
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            {courses.map((pc) => renderCourseCard(pc, semesterIdx))}
+          </div>
+        )}
+        <button
+          type="button"
+          className="mob-add-btn"
+          onClick={() => onOpenModal(semester)}
+        >
+          + Add Course to Semester {semester}
+        </button>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      {renderSemester(1, 0)}
+      {renderSemester(2, 1)}
+
+      <div style={{ marginTop: "16px" }}>
+        <button
+          type="button"
+          className="mob-summary-toggle"
+          onClick={() => setShowSummary((s) => !s)}
+        >
+          <span>Planner Summary</span>
+          <span style={{ fontSize: "18px", transition: "transform 0.2s", transform: showSummary ? "rotate(180deg)" : "rotate(0deg)" }}>
+            ▼
+          </span>
+        </button>
+        {showSummary && (
+          <div style={{ marginTop: "12px" }}>
+            <SummarySidebar
+              planners={allPlanners}
+              currentYear={year}
+              resolutions={resolutions}
+              plannerAnalysis={plannerAnalysis}
+              onAddResolution={onAddResolution}
+              onRemoveResolution={onRemoveResolution}
+            />
+          </div>
+        )}
+      </div>
+
+      <button
+        type="button"
+        className="mob-fab"
+        onClick={() => onOpenModal(1)}
+        aria-label="Add course"
+      >
+        +
+      </button>
+
+      {isDragging && touchDrag && (
+        <div
+          className="mob-ghost"
+          style={{
+            top: touchDrag.currentY,
+            backgroundColor: getDivisionBackgroundColor(touchDrag.card.course.division),
+            borderLeft: `4px solid ${getDivisionColor(touchDrag.card.course.division)}`,
+            borderRadius: "12px",
+            padding: "16px",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+          }}
+        >
+          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.02em", marginBottom: "4px" }}>
+            Slot {touchDrag.card.slot}
+          </div>
+          <div style={{ fontSize: "16px", fontWeight: 600, color: "#111827" }}>
+            {touchDrag.card.course.title}
+          </div>
+          <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>
+            {touchDrag.card.course.credits != null ? `${touchDrag.card.course.credits} credits` : ""}
+            {touchDrag.card.course.creditType ? ` · ${formatCreditType(touchDrag.card.course.creditType)}` : ""}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
