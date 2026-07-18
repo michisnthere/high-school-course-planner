@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useState, useCallback } from "react";
+import React, { Suspense, useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -77,6 +77,7 @@ function RequirementsContent(): React.ReactElement {
     return new Set(raw.split(",").map(Number).filter((n) => !isNaN(n)));
   }, []);
   const [expandedIds, setExpandedIds] = useState<Set<number>>(initialIds);
+  const isFirstRender = useRef(true);
   const { isMobile } = useBreakpoint();
 
   const load = useCallback(async () => {
@@ -113,19 +114,26 @@ function RequirementsContent(): React.ReactElement {
       } else {
         next.add(id);
       }
-      // Update URL with expanded state so Back navigation restores it
-      const ids = Array.from(next);
-      const params = new URLSearchParams(searchParams.toString());
-      if (ids.length > 0) {
-        params.set("expanded", ids.join(","));
-      } else {
-        params.delete("expanded");
-      }
-      const target = params.toString() ? `/requirements?${params.toString()}` : "/requirements";
-      router.replace(target, { scroll: false });
       return next;
     });
-  }, [router, searchParams]);
+  }, []);
+
+  // Sync expandedIds to URL (skipping initial mount to avoid overwriting URL params)
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    const ids = Array.from(expandedIds);
+    const params = new URLSearchParams(searchParams.toString());
+    if (ids.length > 0) {
+      params.set("expanded", ids.join(","));
+    } else {
+      params.delete("expanded");
+    }
+    const target = params.toString() ? `/requirements?${params.toString()}` : "/requirements";
+    router.replace(target, { scroll: false });
+  }, [expandedIds, searchParams, router]);
 
   const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
   const visibleRequirements = analysis?.graduationRequirements.filter(
