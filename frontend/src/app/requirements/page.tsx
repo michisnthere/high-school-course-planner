@@ -378,7 +378,7 @@ function RequirementsContent(): React.ReactElement {
                       key={year.grade}
                       year={year}
                       pePerSemester={effectivePe}
-                      defaultExpanded={year.grade === 9}
+                      defaultExpanded={false}
                     />
                   );
                 })}
@@ -472,7 +472,21 @@ type YearLevelCardProps = {
 
 function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: YearLevelCardProps): React.ReactElement {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const allMet = year.satisfiedCount === year.totalCount;
+
+  const peItem = pePerSemester.length > 0
+    ? {
+        category: "Physical Education",
+        required: true,
+        met: pePerSemester.every((s) => s.isMet),
+        earnedCredits: pePerSemester.filter((s) => s.isMet).length,
+        requiredCredits: pePerSemester.length,
+        matches: [],
+      }
+    : null;
+  const allItems = peItem ? [...year.items, peItem] : year.items;
+  const satisfiedCount = allItems.filter((i) => i.met).length;
+  const totalCount = allItems.length;
+  const allMet = satisfiedCount === totalCount;
   const statusLabel = allMet ? "Satisfied" : "Partial";
   const statusColor = allMet ? "#275D38" : "#ECBA2B";
 
@@ -504,7 +518,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
               {year.label}
             </h3>
             <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
-              {year.satisfiedCount}/{year.totalCount} requirements met
+              {satisfiedCount}/{totalCount} requirements met
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
@@ -533,7 +547,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
 
       <div className={`rs-req-year-body ${expanded ? "open" : ""}`}>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          {year.items.map((item) => (
+          {allItems.map((item) => (
             <div
               key={item.category}
               style={{
@@ -566,35 +580,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
               </span>
             </div>
           ))}
-          {pePerSemester.length > 0 && (
-            <div style={{ marginTop: "8px" }}>
-              <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#111827" }}>
-                Physical Education
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                {pePerSemester.map((sem) => (
-                  <div
-                    key={sem.semester}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: "12px",
-                      padding: "8px 12px",
-                      borderRadius: "8px",
-                      fontSize: "13px",
-                      color: sem.isMet ? "#6b7280" : "#ECBA2B",
-                    }}
-                  >
-                    <span>Semester {sem.semester}</span>
-                    <span>
-                      {sem.isMet ? "\u2713" : "\u26A0"}{" "}
-                      {sem.courseTitle ?? sem.requiredLabel}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
         </div>
       </div>
     </div>
