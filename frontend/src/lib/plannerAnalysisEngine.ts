@@ -295,6 +295,7 @@ function computeGraduationRequirements(
     }
   }
 
+  let nextId = -1;
   return GRADUATION_REQUIREMENTS.filter((req) => req.isMeasurable && req.requiredValue > 0).map((req) => {
     const canonicalName = canonicalRequirementName(req.name);
     let earned = 0;
@@ -309,8 +310,9 @@ function computeGraduationRequirements(
     );
     if (hasPeWaiver) effectiveRequired = 0;
 
+    const id = nextId--;
     return {
-      id: 0,
+      id,
       name: canonicalName,
       category: req.category,
       requirementType: req.requirementType,
@@ -520,10 +522,106 @@ function computePlannerStatistics(placements: CoursePlacement[]): PlannerStatist
   return { coursesScheduled: distinctCourses.size, freeSlotsRemaining: totalSlots - occupiedSlots.size, studyHallCount, freePeriodCount };
 }
 
+function computeRecommendations(
+  graduationRequirements: PlannerAnalysis["graduationRequirements"],
+  placements: CoursePlacement[],
+  completedCourses: CompletedCourse[],
+  allCourses: PlannerCourseDetails[]
+): Map<number, RecommendedCourse[]> {
+  const scheduledCourseIds = new Set<number>();
+  const completedCourseIds = new Set(completedCourses.map((cc) => cc.course.id));
+
+  for (const placement of placements) {
+    if (placement.course) {
+      scheduledCourseIds.add(placement.course.id);
+    }
+  }
+
+  const completedItems = completedCourses.map((cc) => ({
+    title: cc.course.title,
+    courseCode: cc.course.courseCode ?? "",
+  }));
+
+  const plannedItems = placements
+    .filter((p) => p.course)
+    .map((p) => ({
+      title: p.course!.title,
+      courseCode: p.course!.courseCode ?? "",
+    }));
+
+  const recommendations = new Map<number, RecommendedCourse[]>();
+
+  for (const req of graduationRequirements) {
+    if (req.status === "satisfied") {
+      recommendations.set(req.id, []);
+      continue;
+    }
+
+    const list: Array<RecommendedCourse & { priority: number }> = [];
+
+    for (const course of allCourses) {
+      const fulfills = course.fulfillsRequirements.map(canonicalRequirementName);
+      if (!fulfills.includes(req.name)) continue;
+      if (completedCourseIds.has(course.id)) continue;
+      if (scheduledCourseIds.has(course.id)) continue;
+
+      const prereqs = course.prerequisites ?? [];
+      let count = 0;
+      let allCompleted = true;
+      let anyPlanned = false;
+
+      for (const prereq of prereqs) {
+        if (!prereq.trim()) continue;
+        count++;
+        const completed = completedItems.some((item) => prerequisiteMatches(prereq, item));
+        const planned = plannedItems.some((item) => prerequisiteMatches(prereq, item));
+        if (!completed) allCompleted = false;
+        if (planned) anyPlanned = true;
+      }
+
+      if (count > 0 && !allCompleted && !anyPlanned) continue;
+
+      let reason: string;
+      if (count === 0) {
+        reason = "No prerequisites required";
+      } else if (allCompleted) {
+        reason = "Prerequisites met";
+      } else if (anyPlanned) {
+        reason = "Prerequisites planned";
+      } else {
+        reason = "Prerequisites met or planned";
+      }
+
+      const priority = allCompleted ? 0 : anyPlanned ? 1 : 2;
+      list.push({ courseId: course.id, title: course.title, reason, priority });
+    }
+
+    const sorted = list
+      .sort((a, b) => {
+        if (a.priority !== b.priority) return a.priority - b.priority;
+        return a.title.localeCompare(b.title);
+      })
+      .slice(0, 5)
+      .map(({ priority, ...rec }) => rec);
+
+    recommendations.set(req.id, sorted);
+  }
+
+  return recommendations;
+}
+
 export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalysis {
   const placements = buildPlacements(data.planners, data.allCourses);
 
   const graduationRequirements = computeGraduationRequirements(placements, data.resolutions);
+
+  const recommendations = computeRecommendations(graduationRequirements, placements, data.completedCourses, data.allCourses);
+  for (const req of graduationRequirements) {
+    const recs = recommendations.get(req.id);
+    if (recs) {
+      req.recommendedCourses = recs;
+    }
+  }
 
   return {
     credits: computeCredits(placements),

@@ -751,7 +751,7 @@ function RequirementCard({
                     courseReturnParams.set("expanded", expandedArr.join(","));
                   }
                   const courseReturnStr = courseReturnParams.toString();
-                  const courseHref = `/catalog/${getCourseSlug(course.title)}?return=${encodeURIComponent(courseReturnStr ? `/requirements?${courseReturnStr}` : "/requirements")}`;
+                  const courseHref = `/catalog/${getCourseSlug(course.title)}?return=${encodeURIComponent(courseReturnStr ? `/requirements?${courseReturnStr}` : "/requirements")}&fromRequirement=${encodeURIComponent(req.name)}`;
                   return (
                   <Link
                     key={course.courseId}

@@ -7,9 +7,10 @@ import { SaveCourseButton } from "./SaveCourseButton";
 type CourseDetailHeaderProps = {
   course: Course;
   returnUrl?: string;
+  fromRequirement?: string;
 };
 
-export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProps): React.ReactElement {
+export function CourseDetailHeader({ course, returnUrl, fromRequirement }: CourseDetailHeaderProps): React.ReactElement {
   const creditType = course.options?.[0]?.creditType ?? null;
   const division = course.department?.division?.name;
   const department = course.department?.name;
@@ -46,6 +47,23 @@ export function CourseDetailHeader({ course, returnUrl }: CourseDetailHeaderProp
         {backLabel}
       </Link>
 
+      {fromRequirement && (
+        <div
+          style={{
+            display: "inline-block",
+            padding: "6px 14px",
+            marginBottom: "12px",
+            backgroundColor: "#FCF5DF",
+            border: "1px solid #ECBA2B",
+            borderRadius: "8px",
+            fontSize: "13px",
+            fontWeight: 600,
+            color: "#111827",
+          }}
+        >
+          Recommended for: {fromRequirement}
+        </div>
+      )}
       <h1
         style={{
           margin: "0 0 12px",

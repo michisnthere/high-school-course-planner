@@ -12,7 +12,7 @@ import type { Course } from "@/types/course";
 
 type CatalogDetailPageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ return?: string }>;
+  searchParams: Promise<{ return?: string; fromRequirement?: string }>;
 };
 
 function findCourseBySlug(courses: Course[], slug: string): Course | undefined {
@@ -28,7 +28,7 @@ export const dynamic = "force-dynamic";
 
 export default async function CatalogDetailPage({ params, searchParams }: CatalogDetailPageProps) {
   const { slug } = await params;
-  const { return: returnUrl } = await searchParams;
+  const { return: returnUrl, fromRequirement } = await searchParams;
   const courses: Course[] = await getCourses();
   const course = findCourseBySlug(courses, slug);
 
@@ -123,7 +123,7 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
       `}</style>
       <ResponsivePage>
         <div className="rs-detail-header">
-          <CourseDetailHeader course={course} returnUrl={returnUrl} />
+          <CourseDetailHeader course={course} returnUrl={returnUrl} fromRequirement={fromRequirement} />
         </div>
         <div className="rs-detail-card">
           <CourseDescription course={course} />
