@@ -33,6 +33,9 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+from src.rules.clean_text import clean_text, collapse_spaces
+from src.rules.normalize_catalog import normalize_text, normalize_department_name
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 TARGET_GLOBS = [
@@ -415,8 +418,37 @@ def _choice_from_option(option: Dict[str, Any], shared_offerings: List[Dict[str,
     return choice
 
 
+def _clean_text_fields(obj: Dict[str, Any], *fields: str) -> None:
+    """Apply clean_text to the given fields of a dict, in place."""
+    for field in fields:
+        val = obj.get(field)
+        if isinstance(val, str):
+            obj[field] = normalize_text(val) or val
+        elif isinstance(val, list):
+            obj[field] = [
+                normalize_text(item) or item if isinstance(item, str) else item
+                for item in val
+            ]
+
+
 def _finalize_course(course: Dict[str, Any]) -> Dict[str, Any]:
     """Apply the finalized schema to a single course."""
+    # First pass: normalize all text fields to remove any mojibake encoding artifacts.
+    _clean_text_fields(course, "title", "description", "department", "division")
+    _clean_text_fields(course, "notes")
+    for offering in course.get("offerings", []):
+        _clean_text_fields(offering, "semesterLabel", "duration", "courseCode")
+        _clean_text_fields(offering, "prerequisites", "notes")
+    for choice in course.get("choices", []):
+        _clean_text_fields(choice, "name")
+        _clean_text_fields(choice, "notes")
+        for offering in choice.get("offerings", []):
+            _clean_text_fields(offering, "semesterLabel", "duration", "courseCode")
+            _clean_text_fields(offering, "prerequisites", "notes")
+    for option in course.get("options", []):
+        _clean_text_fields(option, "name")
+        _clean_text_fields(option, "notes")
+
     description = course.get("description")
 
     # Gather the legacy/optional fields that may exist on the parent course.
@@ -640,6 +672,12 @@ def _process_file(path: Path) -> Tuple[int, int, int, List[str], bool]:
     """Return (course_count, modified_count, total_offerings, errors, written)."""
     original_text = path.read_text(encoding="utf-8")
     data = json.loads(original_text)
+
+    # Normalize department and division text fields
+    for dept in _ensure_list(data.get("departments")):
+        _clean_text_fields(dept, "name", "description", "director", "directorEmail", "directorPhone")
+    for div in _ensure_list(data.get("divisions")):
+        _clean_text_fields(div, "name", "description")
 
     raw_courses = _ensure_list(data.get("courses"))
     modified = 0

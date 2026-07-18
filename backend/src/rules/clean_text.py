@@ -8,19 +8,13 @@ MOJIBAKE_REPLACEMENTS = {
     "\u00e2\u20ac\u02dc": "'",
     "\u00e2\u20ac\u0153": '"',
     "\u00e2\u20ac\u009d": '"',
-    "\u00e2\u20ac\u201d": "-",
+    "\u00e2\u20ac\u2013": "-",
+    "\u00e2\u20ac\u2014": "-",
     "\u00e2\u20ac\u201c": "-",
+    "\u00e2\u20ac\u201d": "-",
     "\u00e2\u2013\u00a0": "-",
-    "â€™": "'",
-    "â€˜": "'",
-    "â€œ": '"',
-    "â€": '"',
-    "â€“": "-",
-    "â€”": "-",
-    "â€¦": "...",
-    "â– ": "-",
-    "ï¬€": "ff",
-    "ï¬": "fi",
+    "\u00e2\u20ac\u2018": "'",
+    "\u00e2\u20ac\u2019": "'",
     "\ufb00": "ff",
     "\ufb01": "fi",
 }
@@ -44,9 +38,23 @@ CREDIT_TYPE_OVERRIDES = {
 ACRONYMS = {"AP", "ACT", "CPR", "STEM", "CNC", "CAD", "CEO", "CFO", "U.S.", "US"}
 
 
+SMART_PUNCT_TO_ASCII = {
+    "\u2013": "-",
+    "\u2014": "-",
+    "\u2018": "'",
+    "\u2019": "'",
+    "\u201c": '"',
+    "\u201d": '"',
+    "\u2026": "...",
+    "\u2022": "-",
+}
+
+
 def clean_text(text: str) -> str:
     cleaned = text
     for old, new in MOJIBAKE_REPLACEMENTS.items():
+        cleaned = cleaned.replace(old, new)
+    for old, new in SMART_PUNCT_TO_ASCII.items():
         cleaned = cleaned.replace(old, new)
     for old, new in OCR_WORD_FIXES.items():
         cleaned = cleaned.replace(old, new)

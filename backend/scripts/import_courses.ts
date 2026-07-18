@@ -14,6 +14,53 @@ import { normalizePrerequisites } from "../src/lib/prerequisiteNormalization.js"
 import { backfillFulfillsRequirements } from "../src/lib/backfillFulfillsRequirements.js";
 
 // ---------------------------------------------------------------------------
+// Text normalization — mirrors Python's clean_text + smart punct -> ASCII
+// ---------------------------------------------------------------------------
+
+const NORMALIZE_MAP: Record<string, string> = {
+  "\u00e2\u20ac\u2122": "'",
+  "\u00e2\u20ac\u02dc": "'",
+  "\u00e2\u20ac\u0153": '"',
+  "\u00e2\u20ac\u009d": '"',
+  "\u00e2\u20ac\u2013": "-",
+  "\u00e2\u20ac\u2014": "-",
+  "\u00e2\u20ac\u201c": "-",
+  "\u00e2\u20ac\u201d": "-",
+  "\u00e2\u2013\u00a0": "-",
+  "\u00e2\u20ac\u2018": "'",
+  "\u00e2\u20ac\u2019": "'",
+  "\ufb00": "ff",
+  "\ufb01": "fi",
+  "\u2013": "-",
+  "\u2014": "-",
+  "\u2018": "'",
+  "\u2019": "'",
+  "\u201c": '"',
+  "\u201d": '"',
+  "\u2026": "...",
+};
+
+function normalizeText(value: string): string {
+  let cleaned = value;
+  for (const [pattern, replacement] of Object.entries(NORMALIZE_MAP)) {
+    if (cleaned.includes(pattern)) {
+      cleaned = cleaned.split(pattern).join(replacement);
+    }
+  }
+  return cleaned;
+}
+
+function normalizeTextOptional(value: string | null | undefined): string | null | undefined {
+  if (typeof value !== "string") return value;
+  return normalizeText(value);
+}
+
+function normalizeTextArray(items: unknown[] | null | undefined): unknown[] | null | undefined {
+  if (!Array.isArray(items)) return items;
+  return items.map((item) => (typeof item === "string" ? normalizeText(item) : item));
+}
+
+// ---------------------------------------------------------------------------
 // Input types — matches the cleaned academic-data JSON produced by the
 // extraction/normalization stage.
 // ---------------------------------------------------------------------------
@@ -360,19 +407,20 @@ function validateAll(
 // ---------------------------------------------------------------------------
 
 async function getOrCreateDivision(name: string, description?: string | null): Promise<number> {
-  const cached = divisionCache.get(name);
+  const normalizedName = normalizeText(name);
+  const cached = divisionCache.get(normalizedName);
   if (cached !== undefined) return cached;
 
   const division = await prisma.division.upsert({
-    where: { name },
+    where: { name: normalizedName },
     create: {
-      name,
-      normalizedName: normalizeTitle(name),
-      description: description ?? null,
+      name: normalizedName,
+      normalizedName: normalizeTitle(normalizedName),
+      description: normalizeTextOptional(description) ?? null,
     },
     update: {
-      normalizedName: normalizeTitle(name),
-      description: description ?? null,
+      normalizedName: normalizeTitle(normalizedName),
+      description: normalizeTextOptional(description) ?? null,
     },
     select: { id: true },
   });
@@ -386,21 +434,22 @@ async function getOrCreateDepartment(
   name: string,
   description?: string | null
 ): Promise<number> {
-  const cacheKey = `${divisionId}:${name}`;
+  const normalizedName = normalizeText(name);
+  const cacheKey = `${divisionId}:${normalizedName}`;
   const cached = departmentCache.get(cacheKey);
   if (cached !== undefined) return cached;
 
   const department = await prisma.department.upsert({
-    where: { divisionId_name: { divisionId, name } },
+    where: { divisionId_name: { divisionId, name: normalizedName } },
     create: {
-      name,
-      normalizedName: normalizeTitle(name),
-      description: description ?? null,
+      name: normalizedName,
+      normalizedName: normalizeTitle(normalizedName),
+      description: normalizeTextOptional(description) ?? null,
       divisionId,
     },
     update: {
-      normalizedName: normalizeTitle(name),
-      description: description ?? null,
+      normalizedName: normalizeTitle(normalizedName),
+      description: normalizeTextOptional(description) ?? null,
     },
     select: { id: true },
   });
@@ -553,7 +602,7 @@ function buildCourseOptions(course: CourseInput): BuildOption[] {
     return course.choices.map((choice) => {
       const choiceAttrs = normalizeAttributes(choice.attributes);
       return {
-        name: choice.name?.trim() || "Regular",
+        name: normalizeText(choice.name?.trim() || "Regular"),
         isOnline: Boolean(choice.isOnline),
         creditType: choice.creditType ?? course.creditType ?? null,
         credits: choice.credits ?? course.credits ?? null,
@@ -681,40 +730,45 @@ async function main() {
     const maxDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
     const courseDuration = maxDuration === null ? 1 : maxDuration >= 1.5 ? 2 : 1;
 
+    // Normalize all text fields before storing
+    const normalizedTitle = normalizeText(course.title!);
+    const normalizedDesc = normalizeTextOptional(course.description);
+    const normalizedNotes = normalizeTextArray(course.notes);
+
     let savedCourse: { id: number };
     try {
       savedCourse = await prisma.course.upsert({
         where: {
           departmentId_title: {
             departmentId,
-            title: course.title!,
+            title: normalizedTitle,
           },
         },
         create: {
-          title: course.title!,
-          normalizedTitle: normalizeTitle(course.title!),
+          title: normalizedTitle,
+          normalizedTitle: normalizeTitle(normalizedTitle),
           importKey,
-          description: course.description ?? null,
+          description: normalizedDesc ?? null,
           duration: courseDuration ?? null,
           slotsPerSemester: course.slotsPerSemester ?? 1,
           attributes,
           fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
-          notes: requireArray(course.notes),
+          notes: normalizedNotes ?? [],
           sourceReference: course.sourceReference ?? null,
           departmentId,
         },
         update: {
-          title: course.title!,
-          normalizedTitle: normalizeTitle(course.title!),
+          title: normalizedTitle,
+          normalizedTitle: normalizeTitle(normalizedTitle),
           importKey,
-          description: course.description ?? null,
+          description: normalizedDesc ?? null,
           duration: courseDuration ?? null,
           slotsPerSemester: course.slotsPerSemester ?? 1,
           attributes,
           fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
           isRepeatable: finalIsRepeatable,
-          notes: requireArray(course.notes),
+          notes: normalizedNotes ?? [],
           sourceReference: course.sourceReference ?? null,
           departmentId,
         },
@@ -744,31 +798,40 @@ async function main() {
         // Normalize every offering duration to the planner-supported values 1 or 2.
         const normalizedOfferingDuration = durationUnits === null ? 1 : durationUnits >= 1.5 ? 2 : 1;
 
+        const normalizedPrereqs = normalizePrerequisites(
+          requireArray(offering.prerequisites).map((p: string) => normalizeText(p))
+        );
+        const normalizedCourseCode = normalizeText(offering.courseCode ?? "");
+        const normalizedSemesterLabel =
+          semester !== null
+            ? String(semester)
+            : normalizeTextOptional(offering.semesterLabel) ?? null;
+
         await prisma.courseOffering.upsert({
           where: {
             courseOptionId_courseCode: {
               courseOptionId: savedOption.id,
-              courseCode: offering.courseCode!,
+              courseCode: normalizedCourseCode,
             },
           },
           create: {
-            courseCode: offering.courseCode!,
-            semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
+            courseCode: normalizedCourseCode,
+            semesterLabel: normalizedSemesterLabel,
             duration: String(normalizedOfferingDuration),
             gradeMin,
             gradeMax,
-            prerequisites: normalizePrerequisites(requireArray(offering.prerequisites)),
+            prerequisites: normalizedPrereqs,
             corequisites: requireArray(offering.corequisites),
             creditType: offering.creditType ?? option.creditType ?? null,
             credits: offering.credits ?? option.credits ?? null,
             courseOptionId: savedOption.id,
           },
           update: {
-            semesterLabel: semester !== null ? String(semester) : offering.semesterLabel ?? null,
+            semesterLabel: normalizedSemesterLabel,
             duration: String(normalizedOfferingDuration),
             gradeMin,
             gradeMax,
-            prerequisites: normalizePrerequisites(requireArray(offering.prerequisites)),
+            prerequisites: normalizedPrereqs,
             corequisites: requireArray(offering.corequisites),
             creditType: offering.creditType ?? option.creditType ?? null,
             credits: offering.credits ?? option.credits ?? null,

@@ -4,6 +4,8 @@ import copy
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
+from src.rules.clean_text import clean_text
+
 PAGE_NUMBER_RE = re.compile(r"(.*?)(\d+)$")
 DASH_SPLIT_RE = re.compile(r"\s*[–—]\s*")
 
@@ -34,7 +36,7 @@ KNOWN_DEPARTMENT_FIXES = {
 def normalize_text(value: Optional[str]) -> Optional[str]:
     if value is None:
         return None
-    cleaned = value
+    cleaned = clean_text(value)
     for old, new in TEXT_REPLACEMENTS.items():
         cleaned = cleaned.replace(old, new)
     cleaned = re.sub(r"\bAb/bc\b", "AB/BC", cleaned)
@@ -66,12 +68,39 @@ def split_department(dept: Optional[str]) -> Tuple[Optional[str], Optional[str],
     return normalized, None, normalized
 
 
+def _normalize_text_list(items: Optional[List[Any]]) -> Optional[List[str]]:
+    if not items:
+        return items
+    result = []
+    for item in items:
+        if isinstance(item, str):
+            result.append(normalize_text(item) or "")
+        else:
+            result.append(item)
+    return result
+
+
 def normalize_course(course: Dict[str, Any], db_ready: bool = False) -> Dict[str, Any]:
     normalized = copy.deepcopy(course)
     normalized["title"] = normalize_text(normalized.get("title")) or ""
     normalized["department"] = normalize_department_name(normalized.get("department"))
     normalized["description"] = normalize_text(normalized.get("description"))
     normalized["isOnline"] = bool(normalized.get("isOnline", False))
+    normalized["notes"] = _normalize_text_list(normalized.get("notes"))
+
+    for offering in normalized.get("offerings", []):
+        offering["prerequisites"] = _normalize_text_list(offering.get("prerequisites"))
+        off_notes = _normalize_text_list(offering.get("notes"))
+        if off_notes is not None:
+            offering["notes"] = off_notes
+        for key in ("semesterLabel", "duration", "courseCode"):
+            val = offering.get(key)
+            if isinstance(val, str):
+                offering[key] = normalize_text(val) or val
+
+    for choice in normalized.get("choices", []):
+        choice["name"] = normalize_text(choice.get("name")) or choice.get("name", "")
+        choice["notes"] = _normalize_text_list(choice.get("notes"))
 
     if db_ready:
         dept, subdept, raw = split_department(course.get("department"))
@@ -97,6 +126,9 @@ def normalize_departments(departments: List[Dict[str, Any]]) -> List[Dict[str, A
             **department,
             "name": name,
             "description": normalize_text(department.get("description")),
+            "director": normalize_text(department.get("director")),
+            "directorEmail": normalize_text(department.get("directorEmail")),
+            "directorPhone": normalize_text(department.get("directorPhone")),
         })
         seen.add(name)
     return normalized
