@@ -163,14 +163,14 @@ describe("computePlannerAnalysis", () => {
     const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
     const math = result.graduationRequirements.find((r) => r.name === "Mathematics")!;
     expect(math.earnedValue).toBe(2);
-    expect(math.requiredValue).toBe(3);
+    expect(math.requiredValue).toBe(6);
     expect(math.status).toBe("partial");
     const eng = result.graduationRequirements.find((r) => r.name === "English")!;
     expect(eng.earnedValue).toBe(2);
-    expect(eng.requiredValue).toBe(4);
+    expect(eng.requiredValue).toBe(8);
   });
 
-  it("full four-year plan satisfies graduation requirements", () => {
+  it("full four-year plan computes graduation requirements correctly", () => {
     const y9 = [
       makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1),
       makePlanned(english9, 1, 2, 2), makePlanned(english9, 2, 2, 2),
@@ -194,13 +194,17 @@ describe("computePlannerAnalysis", () => {
 
     expect(result.credits.total).toBeGreaterThan(0);
     const eng = result.graduationRequirements.find((r) => r.name === "English")!;
-    expect(eng.status).toBe("satisfied");
+    expect(eng.earnedValue).toBe(4);
+    expect(eng.requiredValue).toBe(8);
+    expect(eng.status).toBe("partial");
     const mathResult = result.graduationRequirements.find((r) => r.name === "Mathematics")!;
     expect(mathResult.earnedValue).toBe(2);
     const usHistoryReq = result.graduationRequirements.find((r) => r.name === "U.S. History")!;
     expect(usHistoryReq.status).toBe("satisfied");
     const govReq = result.graduationRequirements.find((r) => r.name === "Government")!;
-    expect(govReq.status).toBe("satisfied");
+    expect(govReq.earnedValue).toBe(0.5);
+    expect(govReq.requiredValue).toBe(1);
+    expect(govReq.status).toBe("partial");
   });
 
   it("PE waiver marks all PE semesters as met", () => {
@@ -417,6 +421,102 @@ describe("computePlannerAnalysis", () => {
     expect(result.peSemesterBreakdown).toHaveLength(8);
     // None met with empty planner
     expect(result.peSemesterBreakdown.every((p) => p.met === false)).toBe(true);
+  });
+
+  it("known courses produce correct graduation requirement progress", () => {
+    // Sanity check: verify specific courses map to correct requirement values
+    // English 1 (full year, 2 cred) → English = 2/8
+    // Geometry (full year, 2 cred) → Math = 2/6
+    // Chemistry (full year, 2 cred) + Biology (full year, 2 cred) → Science = 4/4
+    // Biology (full year, 2 cred) → Biology = 2/2
+    // Health (semester, 0.5 cred) → Health = 1/1
+    // Government (semester, 0.5 cred) → Government = 1/1
+    const chemistry: PlannerCourseDetails = {
+      id: 101, title: "Chemistry", normalizedTitle: "chemistry", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
+      department: "Science", description: null, fulfillsRequirements: ["Science", "Lab Science"],
+      prerequisites: [], courseCode: "SCI101", gradeMin: 10, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false,
+    };
+    const geometry: PlannerCourseDetails = {
+      id: 201, title: "Geometry", normalizedTitle: "geometry", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Mathematics",
+      department: "Mathematics", description: null, fulfillsRequirements: ["Mathematics"],
+      prerequisites: [], courseCode: "MATH201", gradeMin: 9, gradeMax: 10,
+      isNonAcademic: false, isMarchingBand: false,
+    };
+    const biology: PlannerCourseDetails = {
+      id: 701, title: "Biology", normalizedTitle: "biology", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
+      department: "Science", description: null, fulfillsRequirements: ["Biology", "Science"],
+      prerequisites: [], courseCode: "SCI001", gradeMin: 9, gradeMax: 9,
+      isNonAcademic: false, isMarchingBand: false,
+    };
+    const english1: PlannerCourseDetails = {
+      id: 801, title: "English I", normalizedTitle: "english i", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "English",
+      department: "English", description: null, fulfillsRequirements: ["English"],
+      prerequisites: [], courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
+      isNonAcademic: false, isMarchingBand: false,
+    };
+    const healthCourse: PlannerCourseDetails = {
+      id: 901, title: "Health", normalizedTitle: "health", duration: 1,
+      slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Health",
+      department: "Health", description: null, fulfillsRequirements: ["Health"],
+      prerequisites: [], courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
+      isNonAcademic: false, isMarchingBand: false,
+    };
+    const govCourse: PlannerCourseDetails = {
+      id: 1001, title: "Government", normalizedTitle: "government", duration: 1,
+      slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Social Studies",
+      department: "Social Studies", description: null, fulfillsRequirements: ["Government", "Social Studies"],
+      prerequisites: [], courseCode: "GOV301", gradeMin: 12, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false,
+    };
+    const allCourses = [chemistry, geometry, biology, english1, healthCourse, govCourse];
+    const planners = [
+      makePlanner(9, [
+        makePlanned(english1, 1, 1, 1), makePlanned(english1, 2, 1, 1),
+        makePlanned(geometry, 1, 2, 2), makePlanned(geometry, 2, 2, 2),
+        makePlanned(chemistry, 1, 3, 3), makePlanned(chemistry, 2, 3, 3),
+        makePlanned(biology, 1, 4, 4), makePlanned(biology, 2, 4, 4),
+      ]),
+      makePlanner(10, [makePlanned(healthCourse, 1, 1, 5)]),
+      makePlanner(11),
+      makePlanner(12, [makePlanned(govCourse, 1, 1, 6)]),
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+
+    const eng = result.graduationRequirements.find((r) => r.name === "English")!;
+    expect(eng.earnedValue).toBe(2);
+    expect(eng.requiredValue).toBe(8);
+    expect(eng.status).toBe("partial");
+
+    const math = result.graduationRequirements.find((r) => r.name === "Mathematics")!;
+    expect(math.earnedValue).toBe(2);
+    expect(math.requiredValue).toBe(6);
+    expect(math.status).toBe("partial");
+
+    const sci = result.graduationRequirements.find((r) => r.name === "Science")!;
+    // Chemistry (2 cred) + Biology (2 cred) = 4, both fulfill "Science"
+    expect(sci.earnedValue).toBe(4);
+    expect(sci.requiredValue).toBe(4);
+    expect(sci.status).toBe("satisfied");
+
+    const bio = result.graduationRequirements.find((r) => r.name === "Biology")!;
+    expect(bio.earnedValue).toBe(2);
+    expect(bio.requiredValue).toBe(2);
+    expect(bio.status).toBe("satisfied");
+
+    const healthReq = result.graduationRequirements.find((r) => r.name === "Health")!;
+    expect(healthReq.earnedValue).toBe(0.5);
+    expect(healthReq.requiredValue).toBe(1);
+    expect(healthReq.status).toBe("partial");
+
+    const govReq = result.graduationRequirements.find((r) => r.name === "Government")!;
+    expect(govReq.earnedValue).toBe(0.5);
+    expect(govReq.requiredValue).toBe(1);
+    expect(govReq.status).toBe("partial");
   });
 
   it("PE semesters only display 2 semesters per year at most", () => {
