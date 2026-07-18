@@ -46,6 +46,7 @@ export default function RootLayout({
               display: block;
             }
             .rs-layout-body {
+              padding-top: calc(56px + var(--safe-area-top, 0px));
               --layout-min-height: calc(100vh - 56px - var(--safe-area-top, 0px));
             }
           }
