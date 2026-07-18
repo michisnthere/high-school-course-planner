@@ -32,7 +32,8 @@ export function calculateTotalCredits(course: {
   }
 
   if (option?.offerings?.[0]?.credits != null) {
-    return option.offerings[0].credits;
+    const semesters = deriveCourseDuration(course) === 2 ? 2 : 1;
+    return option.offerings[0].credits * semesters;
   }
 
   const duration = deriveCourseDuration(course);
