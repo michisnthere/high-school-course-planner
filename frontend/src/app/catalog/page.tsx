@@ -15,6 +15,17 @@ export default async function CatalogPage() {
     <>
       <style>{`
         @media (max-width: ${breakpoints.mobile - 1}px) {
+          .rs-page:has(.rs-catalog-search) {
+            display: flex;
+            flex-direction: column;
+          }
+          .rs-page:has(.rs-catalog-search) .rs-catalog-search {
+            order: -1;
+          }
+          .rs-catalog-header {
+            margin-bottom: 0 !important;
+            padding: 12px 0 28px !important;
+          }
           .rs-catalog-header h1 {
             font-size: 1.5rem !important;
           }

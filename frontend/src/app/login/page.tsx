@@ -28,7 +28,7 @@ export default function LoginPage(): React.ReactElement {
         @media (max-width: ${breakpoints.mobile - 1}px) {
           .rs-login-wrapper {
             padding: 16px !important;
-            padding-top: calc(16px + var(--safe-area-top)) !important;
+            padding-top: 0 !important;
             padding-bottom: calc(16px + var(--safe-area-bottom)) !important;
             padding-left: calc(16px + var(--safe-area-left)) !important;
             padding-right: calc(16px + var(--safe-area-right)) !important;

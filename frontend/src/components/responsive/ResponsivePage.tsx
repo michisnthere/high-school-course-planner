@@ -25,7 +25,7 @@ export function ResponsivePage({ children, maxWidth = 1200 }: ResponsivePageProp
         @media (max-width: ${breakpoints.mobile - 1}px) {
           .rs-page {
             padding: 16px;
-            padding-top: calc(16px + var(--safe-area-top));
+            padding-top: 0;
             padding-bottom: calc(16px + var(--safe-area-bottom));
             padding-left: calc(16px + var(--safe-area-left));
             padding-right: calc(16px + var(--safe-area-right));
