@@ -82,6 +82,7 @@ function RequirementsContent(): React.ReactElement {
 
   const load = useCallback(async () => {
     try {
+      setError(null);
       setLoading(true);
       const [planners, completedCourses, resolutions, courses] = await Promise.all([
         plannerService.getPlanners(),
@@ -300,7 +301,7 @@ function RequirementsContent(): React.ReactElement {
         </h1>
 
         {loading ? (
-          <p style={{ color: "var(--text-secondary)" }}>Loading graduation progress...</p>
+          <p style={{ color: "var(--text-secondary)" }}>Loading graduation requirements...</p>
         ) : error ? (
           <p style={{ color: "#ef4444" }}>{error}</p>
         ) : !analysis || visibleRequirements.length === 0 ? (

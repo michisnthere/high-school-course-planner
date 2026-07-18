@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useMemo, ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
 import type { IPlannerService, ICompletedCoursesService, ISavedCoursesService, IAnalysisService, IResolutionsService } from "./types";
 import { authPlannerService, createGuestPlannerService } from "./planner";
@@ -29,20 +29,18 @@ const ServiceContext = createContext<ServiceBundle | null>(null);
 
 export function ServiceProvider({ children }: { children: ReactNode }) {
   const { mode } = useAuth();
-  const [guestBundle, setGuestBundle] = useState<ServiceBundle | null>(null);
 
-  useEffect(() => {
+  const guestBundle = useMemo(() => {
     if (mode === "guest") {
-      setGuestBundle({
+      return {
         planner: createGuestPlannerService(),
         completedCourses: createGuestCompletedCoursesService(),
         savedCourses: createGuestSavedCoursesService(),
         analysis: createGuestAnalysisService(),
         resolutions: createGuestResolutionsService(),
-      });
-    } else {
-      setGuestBundle(null);
+      };
     }
+    return null;
   }, [mode]);
 
   const value = useMemo(() => {
