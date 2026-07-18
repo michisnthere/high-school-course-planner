@@ -46,7 +46,7 @@ const usHistory: PlannerCourseDetails = {
 
 const government: PlannerCourseDetails = {
   id: 402, title: "Government", normalizedTitle: "government", duration: 1,
-  slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Social Studies",
+  slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Social Studies",
   department: "Social Studies", description: null, fulfillsRequirements: ["Government", "Social Studies"],
   prerequisites: [], courseCode: "GOV201", gradeMin: 12, gradeMax: 12,
   isNonAcademic: false, isMarchingBand: false,
@@ -54,7 +54,7 @@ const government: PlannerCourseDetails = {
 
 const peCourse: PlannerCourseDetails = {
   id: 501, title: "Physical Education I", normalizedTitle: "physical education i", duration: 1,
-  slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Physical Education",
+  slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Physical Education",
   department: "Physical Education", description: null, fulfillsRequirements: ["Physical Education"],
   prerequisites: [], courseCode: "PE101", gradeMin: 9, gradeMax: 12,
   isNonAcademic: false, isMarchingBand: false,
@@ -62,7 +62,7 @@ const peCourse: PlannerCourseDetails = {
 
 const health: PlannerCourseDetails = {
   id: 601, title: "Health", normalizedTitle: "health", duration: 1,
-  slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Health",
+  slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Health",
   department: "Health", description: null, fulfillsRequirements: ["Health"],
   prerequisites: [], courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
   isNonAcademic: false, isMarchingBand: false,
@@ -202,9 +202,9 @@ describe("computePlannerAnalysis", () => {
     const usHistoryReq = result.graduationRequirements.find((r) => r.name === "U.S. History")!;
     expect(usHistoryReq.status).toBe("satisfied");
     const govReq = result.graduationRequirements.find((r) => r.name === "Government")!;
-    expect(govReq.earnedValue).toBe(0.5);
+    expect(govReq.earnedValue).toBe(1);
     expect(govReq.requiredValue).toBe(1);
-    expect(govReq.status).toBe("partial");
+    expect(govReq.status).toBe("satisfied");
   });
 
   it("PE waiver marks all PE semesters as met", () => {
@@ -345,7 +345,7 @@ describe("computePlannerAnalysis", () => {
     const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
     expect(result.credits.byRequirementCategory["Mathematics"]).toBe(2);
     expect(result.credits.byRequirementCategory["English"]).toBe(2);
-    expect(result.credits.byRequirementCategory["Physical Education"]).toBe(0.5);
+    expect(result.credits.byRequirementCategory["Physical Education"]).toBe(1);
   });
 
   it("resolutions are passed through in output", () => {
@@ -429,8 +429,8 @@ describe("computePlannerAnalysis", () => {
     // Geometry (full year, 2 cred) → Math = 2/6
     // Chemistry (full year, 2 cred) + Biology (full year, 2 cred) → Science = 4/4
     // Biology (full year, 2 cred) → Biology = 2/2
-    // Health (semester, 0.5 cred) → Health = 1/1
-    // Government (semester, 0.5 cred) → Government = 1/1
+    // Health (semester, 1 cred) → Health = 1/1
+    // Government (semester, 1 cred) → Government = 1/1
     const chemistry: PlannerCourseDetails = {
       id: 101, title: "Chemistry", normalizedTitle: "chemistry", duration: 2,
       slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
@@ -461,14 +461,14 @@ describe("computePlannerAnalysis", () => {
     };
     const healthCourse: PlannerCourseDetails = {
       id: 901, title: "Health", normalizedTitle: "health", duration: 1,
-      slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Health",
+      slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Health",
       department: "Health", description: null, fulfillsRequirements: ["Health"],
       prerequisites: [], courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
       isNonAcademic: false, isMarchingBand: false,
     };
     const govCourse: PlannerCourseDetails = {
       id: 1001, title: "Government", normalizedTitle: "government", duration: 1,
-      slotsPerSemester: 1, creditType: "regular", credits: 0.5, division: "Social Studies",
+      slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Social Studies",
       department: "Social Studies", description: null, fulfillsRequirements: ["Government", "Social Studies"],
       prerequisites: [], courseCode: "GOV301", gradeMin: 12, gradeMax: 12,
       isNonAcademic: false, isMarchingBand: false,
@@ -509,14 +509,14 @@ describe("computePlannerAnalysis", () => {
     expect(bio.status).toBe("satisfied");
 
     const healthReq = result.graduationRequirements.find((r) => r.name === "Health")!;
-    expect(healthReq.earnedValue).toBe(0.5);
+    expect(healthReq.earnedValue).toBe(1);
     expect(healthReq.requiredValue).toBe(1);
-    expect(healthReq.status).toBe("partial");
+    expect(healthReq.status).toBe("satisfied");
 
     const govReq = result.graduationRequirements.find((r) => r.name === "Government")!;
-    expect(govReq.earnedValue).toBe(0.5);
+    expect(govReq.earnedValue).toBe(1);
     expect(govReq.requiredValue).toBe(1);
-    expect(govReq.status).toBe("partial");
+    expect(govReq.status).toBe("satisfied");
   });
 
   it("PE semesters only display 2 semesters per year at most", () => {
