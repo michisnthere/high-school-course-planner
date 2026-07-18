@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Course } from "@/types/course";
@@ -18,7 +18,7 @@ function truncateDescription(text: string | null | undefined, maxLength = 150): 
   return `${text.slice(0, maxLength)}...`;
 }
 
-export function CourseCard({ course }: CourseCardProps): React.ReactElement {
+const CourseCardInner = React.memo(function CourseCardInner({ course }: CourseCardProps): React.ReactElement {
   const searchParams = useSearchParams();
   const creditType = course.options?.[0]?.creditType ?? null;
   const description = truncateDescription(course.description);
@@ -30,6 +30,14 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
     : "";
   const courseHref = `/catalog/${slug}${returnParam}`;
 
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.borderColor = "var(--border-light)";
+  }, []);
+
+  const handleMouseLeave = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.borderColor = "var(--border-default)";
+  }, []);
+
   return (
     <div
       className="rs-catalog-card"
@@ -40,12 +48,8 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
         padding: "20px",
         transition: "border-color 0.2s ease",
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "var(--border-light)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border-default)";
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Link
         href={courseHref}
@@ -122,4 +126,6 @@ export function CourseCard({ course }: CourseCardProps): React.ReactElement {
       <SaveCourseButton course={course} />
     </div>
   );
-}
+});
+
+export { CourseCardInner as CourseCard };

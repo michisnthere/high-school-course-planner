@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect, useRef, useDeferredValue } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
 import {
@@ -197,23 +197,57 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     [searchParams]
   );
 
-  const setQuery = useCallback(
-    (q: string) => {
-      const params = buildSearchParams(q, filters);
+  // Local input state for immediate responsiveness
+  const [searchInput, setSearchInput] = useState(query);
+
+  // Sync URL changes (back/forward) back to local input
+  useEffect(() => {
+    setSearchInput(query);
+  }, [query]);
+
+  // Debounced value: filtering and URL sync happen 150ms after user stops typing
+  const [debouncedSearch, setDebouncedSearch] = useState(query);
+  const debouncePendingRef = useRef(false);
+
+  useEffect(() => {
+    if (searchInput === query) {
+      if (!debouncePendingRef.current) {
+        setDebouncedSearch(searchInput);
+      }
+      return;
+    }
+    debouncePendingRef.current = true;
+    const timer = setTimeout(() => {
+      debouncePendingRef.current = false;
+      setDebouncedSearch(searchInput);
+      const params = buildSearchParams(searchInput, filters);
       const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
       router.replace(target, { scroll: false });
-    },
-    [filters, router]
-  );
+    }, 150);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchInput, filters, router, query]);
+
+  // Deferred query for lower-priority filtering
+  const deferredQuery = useDeferredValue(debouncedSearch);
+
+  // Stable ref for setFilters to always read the latest searchInput
+  const searchInputRef = useRef(searchInput);
+  searchInputRef.current = searchInput;
 
   const setFilters = useCallback(
     (newFilters: ActiveFilters) => {
-      const params = buildSearchParams(query, newFilters);
+      const params = buildSearchParams(searchInputRef.current, newFilters);
       const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
       router.replace(target, { scroll: false });
     },
-    [query, router]
+    [router]
   );
+
+  const handleQueryChange = useCallback((value: string) => {
+    setSearchInput(value);
+  }, []);
 
   const divisions = useMemo(
     () => extractDivisionsFromItems(courses, (course) => course.department?.division?.name),
@@ -228,9 +262,9 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const filteredCourses = useMemo(() => {
     return courses.filter(
       (course) =>
-        courseMatchesQuery(course, query) && courseMatchesFilters(course, filters)
+        courseMatchesQuery(course, deferredQuery) && courseMatchesFilters(course, filters)
     );
-  }, [courses, query, filters]);
+  }, [courses, deferredQuery, filters]);
 
   const sortedCourses = useMemo(() => {
     return sortCoursesByPrerequisites(filteredCourses);
@@ -238,7 +272,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
 
   return (
     <>
-      <CourseSearch query={query} onQueryChange={setQuery} />
+      <CourseSearch query={searchInput} onQueryChange={handleQueryChange} />
       <CourseFilters
         divisions={divisions}
         divisionDepartments={divisionDepartments}
@@ -251,7 +285,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       />
 
       {sortedCourses.length === 0 ? (
-        <EmptyState message={getEmptyStateMessage(query, filters)} />
+        <EmptyState message={getEmptyStateMessage(searchInput, filters)} />
       ) : (
         <CourseGrid courses={sortedCourses} />
       )}
