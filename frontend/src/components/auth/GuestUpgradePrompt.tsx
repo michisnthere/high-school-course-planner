@@ -49,6 +49,7 @@ export function GuestUpgradePrompt() {
 
   const handleSignIn = () => {
     const redirect = encodeURIComponent(window.location.pathname + window.location.search);
+    sessionStorage.setItem("authToast", JSON.stringify({ type: "signIn" }));
     window.location.href = `/auth/google?redirect=${redirect}`;
   };
 

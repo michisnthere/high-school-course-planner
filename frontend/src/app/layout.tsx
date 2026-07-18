@@ -6,6 +6,7 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { AuthProvider } from "@/context/AuthContext";
 import { ServiceProvider } from "@/services/ServiceContext";
+import { AuthToast } from "@/components/auth/AuthToast";
 import { breakpoints } from "@/lib/responsive";
 
 const inter = Inter({
@@ -76,6 +77,7 @@ export default function RootLayout({
               </main>
             </div>
           </ServiceProvider>
+          <AuthToast />
         </AuthProvider>
       </body>
     </html>

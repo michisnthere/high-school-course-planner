@@ -8,10 +8,22 @@ import { breakpoints } from "@/lib/responsive";
 export default function LoginPage(): React.ReactElement {
   const { loginAsGuest } = useAuth();
 
+  const isValidRedirect = (url: string): boolean => {
+    if (!url || url.startsWith("//")) return false;
+    try {
+      const parsed = new URL(url, window.location.origin);
+      return parsed.origin === window.location.origin;
+    } catch {
+      return false;
+    }
+  };
+
   const handleSignIn = () => {
     const params = new URLSearchParams(window.location.search);
     const returnUrl = params.get("return") || "";
-    const redirectParam = returnUrl ? `?redirect=${encodeURIComponent(returnUrl)}` : "";
+    const safeReturn = isValidRedirect(returnUrl) ? returnUrl : "";
+    const redirectParam = safeReturn ? `?redirect=${encodeURIComponent(safeReturn)}` : "";
+    sessionStorage.setItem("authToast", JSON.stringify({ type: "signIn" }));
     window.location.href = `/auth/google${redirectParam}`;
   };
 
@@ -19,7 +31,9 @@ export default function LoginPage(): React.ReactElement {
     loginAsGuest();
     const params = new URLSearchParams(window.location.search);
     const returnUrl = params.get("return") || "";
-    window.location.href = returnUrl || "/";
+    const safeReturn = isValidRedirect(returnUrl) ? returnUrl : "/";
+    sessionStorage.setItem("authToast", JSON.stringify({ type: "guest" }));
+    window.location.href = safeReturn;
   };
 
   return (
