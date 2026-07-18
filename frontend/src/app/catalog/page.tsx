@@ -15,16 +15,9 @@ export default async function CatalogPage() {
     <>
       <style>{`
         @media (max-width: ${breakpoints.mobile - 1}px) {
-          .rs-page:has(.rs-catalog-search) {
-            display: flex;
-            flex-direction: column;
-          }
-          .rs-page:has(.rs-catalog-search) .rs-catalog-search {
-            order: -1;
-          }
           .rs-catalog-header {
             margin-bottom: 0 !important;
-            padding: 12px 0 28px !important;
+            padding: 80px 0 28px !important;
           }
           .rs-catalog-header h1 {
             font-size: 1.5rem !important;
@@ -35,13 +28,19 @@ export default async function CatalogPage() {
           .rs-catalog-header > a {
             display: none !important;
           }
+          .rs-catalog-header > div {
+            margin-bottom: 0 !important;
+          }
           .rs-catalog-search {
-            position: sticky;
+            position: fixed;
             top: calc(56px + var(--safe-area-top, 0px));
+            left: 0;
+            right: 0;
             z-index: 50;
             background: var(--bg-page);
-            padding: 12px 0;
+            padding: 12px calc(16px + var(--safe-area-right)) 12px calc(16px + var(--safe-area-left));
             margin: 0 !important;
+            box-sizing: border-box;
           }
           .rs-catalog-search input {
             max-width: none !important;

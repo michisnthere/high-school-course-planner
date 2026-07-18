@@ -83,7 +83,7 @@ export function CompletedCoursePicker({
         >
           <div
             style={{
-              padding: isMobile ? "calc(16px + var(--safe-area-top, 0px)) 24px 16px" : "24px 24px 16px",
+              padding: isMobile ? "calc(72px + var(--safe-area-top, 0px)) 24px 16px" : "24px 24px 16px",
               borderBottom: "1px solid var(--border-default)",
               flexShrink: 0,
             }}

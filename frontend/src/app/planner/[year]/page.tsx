@@ -1846,7 +1846,7 @@ function CourseSearchModal({
         >
           <div
             style={{
-              padding: mobile ? "calc(16px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
+              padding: mobile ? "calc(72px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
               borderBottom: "1px solid #374151",
             }}
           >
@@ -3081,7 +3081,7 @@ function WarningActionModal({
         >
           <div
             style={{
-              padding: mobile ? "calc(16px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
+              padding: mobile ? "calc(72px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
               borderBottom: "1px solid #374151",
             }}
           >

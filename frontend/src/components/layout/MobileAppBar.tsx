@@ -31,8 +31,10 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
     <>
       <style>{`
         .rs-mobile-appbar {
-          position: sticky;
+          position: fixed;
           top: 0;
+          left: 0;
+          right: 0;
           z-index: 100;
           display: flex;
           align-items: center;
