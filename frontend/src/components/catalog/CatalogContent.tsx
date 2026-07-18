@@ -92,6 +92,12 @@ function extractSemesters(courses: Course[]): string[] {
 }
 
 function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
+  if (filters.requirement.length > 0) {
+    const fulfills = course.fulfillsRequirements ?? [];
+    const matches = filters.requirement.some((req) => fulfills.includes(req));
+    if (!matches) return false;
+  }
+
   if (filters.division.length > 0) {
     const courseDivision = course.department?.division?.name;
     if (!courseDivision || !filters.division.includes(courseDivision)) {
@@ -165,6 +171,7 @@ function parseSearchParams(sp: URLSearchParams): { query: string; filters: Activ
       creditType: sp.getAll("creditType"),
       gradeLevel: sp.getAll("gradeLevel"),
       semester: sp.getAll("semester"),
+      requirement: sp.getAll("requirement"),
     },
   };
 }
@@ -177,6 +184,7 @@ function buildSearchParams(query: string, filters: ActiveFilters): URLSearchPara
   for (const v of filters.creditType) params.append("creditType", v);
   for (const v of filters.gradeLevel) params.append("gradeLevel", v);
   for (const v of filters.semester) params.append("semester", v);
+  for (const v of filters.requirement) params.append("requirement", v);
   return params;
 }
 

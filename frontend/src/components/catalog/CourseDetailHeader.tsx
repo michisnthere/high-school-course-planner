@@ -22,6 +22,8 @@ export function CourseDetailHeader({ course, returnUrl, fromRequirement }: Cours
     backLabel = "← Back to Dashboard";
   } else if (returnUrl?.startsWith("/catalog/")) {
     backLabel = "← Back";
+  } else if (returnUrl?.startsWith("/requirements")) {
+    backLabel = "← Back to Graduation Requirements";
   } else if (returnUrl) {
     backLabel = "← Back";
   }
@@ -50,18 +52,43 @@ export function CourseDetailHeader({ course, returnUrl, fromRequirement }: Cours
       {fromRequirement && (
         <div
           style={{
-            display: "inline-block",
-            padding: "6px 14px",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            alignItems: "center",
             marginBottom: "12px",
-            backgroundColor: "#FCF5DF",
-            border: "1px solid #ECBA2B",
-            borderRadius: "8px",
-            fontSize: "13px",
-            fontWeight: 600,
-            color: "#111827",
           }}
         >
-          Recommended for: {fromRequirement}
+          <span
+            style={{
+              display: "inline-block",
+              padding: "6px 14px",
+              backgroundColor: "#FCF5DF",
+              border: "1px solid #ECBA2B",
+              borderRadius: "8px",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#111827",
+            }}
+          >
+            Recommended for: {fromRequirement}
+          </span>
+          <Link
+            href={`/catalog?requirement=${encodeURIComponent(fromRequirement)}`}
+            style={{
+              display: "inline-block",
+              padding: "6px 14px",
+              backgroundColor: "#FCF5DF",
+              border: "1px solid #ECBA2B",
+              borderRadius: "8px",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#111827",
+              textDecoration: "none",
+            }}
+          >
+            View all courses that satisfy this requirement
+          </Link>
         </div>
       )}
       <h1

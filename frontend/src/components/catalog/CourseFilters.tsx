@@ -11,6 +11,7 @@ export type ActiveFilters = {
   creditType: string[];
   gradeLevel: string[];
   semester: string[];
+  requirement: string[];
 };
 
 type CourseFiltersProps = {
@@ -114,6 +115,7 @@ export function CourseFilters({
 }: CourseFiltersProps): React.ReactElement {
   const hasActiveFilters = useMemo(
     () =>
+      filters.requirement.length > 0 ||
       filters.division.length > 0 ||
       filters.department.length > 0 ||
       filters.creditType.length > 0 ||
@@ -140,10 +142,12 @@ export function CourseFilters({
       creditType: [],
       gradeLevel: [],
       semester: [],
+      requirement: [],
     });
   };
 
   const activeCount =
+    (filters.requirement.length > 0 ? 1 : 0) +
     filters.division.length +
     filters.department.length +
     filters.creditType.length +

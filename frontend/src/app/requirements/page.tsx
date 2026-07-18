@@ -135,6 +135,20 @@ function RequirementsContent(): React.ReactElement {
     router.replace(target, { scroll: false });
   }, [expandedIds, searchParams, router]);
 
+  // Restore scroll position from sessionStorage after data loads
+  useEffect(() => {
+    if (!analysis) return;
+    const saved = sessionStorage.getItem("requirements-scroll");
+    if (saved) {
+      sessionStorage.removeItem("requirements-scroll");
+      requestAnimationFrame(() => window.scrollTo(0, parseInt(saved, 10)));
+    }
+  }, [analysis]);
+
+  const saveScroll = useCallback(() => {
+    sessionStorage.setItem("requirements-scroll", String(window.scrollY));
+  }, []);
+
   const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
   const visibleRequirements = analysis?.graduationRequirements.filter(
     (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
@@ -401,6 +415,7 @@ function RequirementsContent(): React.ReactElement {
                     onToggle={() => toggleExpand(req.id)}
                     hasPeWaiver={hasPeWaiver}
                     expandedIds={expandedIds}
+                    onNavigate={saveScroll}
                   />
                 ))}
               </div>
@@ -599,6 +614,7 @@ type RequirementCardProps = {
   onToggle: () => void;
   hasPeWaiver: boolean;
   expandedIds: Set<number>;
+  onNavigate: () => void;
 };
 
 function RequirementCard({
@@ -607,6 +623,7 @@ function RequirementCard({
   onToggle,
   hasPeWaiver,
   expandedIds,
+  onNavigate,
 }: RequirementCardProps): React.ReactElement {
   const isPe = req.name.toLowerCase() === "physical education";
   const config = STATUS_CONFIG[req.status];
@@ -769,6 +786,7 @@ function RequirementCard({
                       fontWeight: 500,
                       transition: "border-color 0.15s ease",
                     }}
+                    onClick={onNavigate}
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
                   >

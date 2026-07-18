@@ -36,6 +36,7 @@ export function CoursePicker({
     creditType: [],
     gradeLevel: [],
     semester: [],
+    requirement: [],
   });
 
   useEffect(() => {
