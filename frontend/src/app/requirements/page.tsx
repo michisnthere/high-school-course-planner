@@ -64,11 +64,14 @@ function formatNumber(n: number): string {
 function RequirementsContent(): React.ReactElement {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { planner: plannerService, completedCourses: completedService, resolutions: resolutionsService, analysis: analysisService } = useServices();
+  const services = useServices();
+  const { planner: plannerService, completedCourses: completedService, resolutions: resolutionsService, analysis: analysisService } = services;
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
+
+  const loadIdRef = useRef(0);
 
   // Initialize expandedIds from URL param
   const initialIds = React.useMemo(() => {
@@ -81,31 +84,45 @@ function RequirementsContent(): React.ReactElement {
   const { isMobile } = useBreakpoint();
 
   const load = useCallback(async () => {
+    const id = ++loadIdRef.current;
+    const svcName = (plannerService as any).constructor?.name ?? (plannerService.getPlanners === services.planner.getPlanners ? "auth" : "guest");
+    console.log(`[REQ:${id}] load() START | plannerSvc=${svcName} | mode=${(window as any).__authMode ?? "?"}`);
+    console.log(`[REQ:${id}] plannerService.getPlanners source:`, plannerService.getPlanners.toString().slice(0, 80));
     try {
       setError(null);
       setLoading(true);
+      console.log(`[REQ:${id}] state: loading=true, error=null`);
       const [planners, completedCourses, resolutions, courses] = await Promise.all([
         plannerService.getPlanners(),
         completedService.getCompletedCourses(),
         resolutionsService.getResolutions(),
         getCourses(),
       ]);
+      console.log(`[REQ:${id}] ALL fetches succeeded`);
       const allCourses = courses.map(courseToPlannerDetails);
       const data = await analysisService.getAnalysis({ planners, completedCourses, resolutions, allCourses });
       setAnalysis(data);
       setError(null);
+      console.log(`[REQ:${id}] SUCCESS - analysis loaded`);
     } catch (err) {
+      console.log(`[REQ:${id}] CATCH error:`, err instanceof Error ? err.message : err);
       setError(
         err instanceof Error ? err.message : "Failed to load graduation requirements"
       );
     } finally {
+      console.log(`[REQ:${id}] FINALLY - set loading=false`);
       setLoading(false);
     }
   }, [analysisService, plannerService, completedService, resolutionsService]);
 
   useEffect(() => {
+    console.log("useEffect[load] FIRED - load identity changed");
     load();
   }, [load]);
+
+  useEffect(() => {
+    console.log(`[REQ:state] loading=${loading} error=${error?.slice(0,40)} analysis=${!!analysis}`);
+  });
 
   const toggleExpand = useCallback((id: number) => {
     setExpandedIds((prev) => {

@@ -13,6 +13,8 @@ declare global {
 declare module "express-session" {
   interface SessionData {
     returnTo?: string;
+    authRedirect?: string;
+    passport?: { user?: number };
   }
 }
 

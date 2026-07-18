@@ -14,6 +14,8 @@ export function ProtectedRoute({
 }: ProtectedRouteProps): React.ReactElement | null {
   const { mode, loading } = useAuth();
 
+  console.log(`[ProtectedRoute] loading=${loading} mode=${mode}`);
+
   if (loading) {
     return (
       <div style={{ padding: "32px" }}>
@@ -23,6 +25,7 @@ export function ProtectedRoute({
   }
 
   if (!mode) {
+    console.log("[ProtectedRoute] redirecting to /login");
     if (fallback) {
       return <>{fallback}</>;
     }
@@ -32,5 +35,6 @@ export function ProtectedRoute({
     return null;
   }
 
+  console.log("[ProtectedRoute] rendering children");
   return <>{children}</>;
 }

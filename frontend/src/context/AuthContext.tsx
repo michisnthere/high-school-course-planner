@@ -58,36 +58,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const init = async () => {
+      console.log("[Auth:init] START getSession()");
       // 1. Try to detect an existing authenticated session
       fetchingRef.current = true;
       try {
         const session = await getSession();
+        console.log("[Auth:init] getSession returned:", JSON.stringify(session));
         if (session.authenticated) {
+          console.log("[Auth:init] authenticated → setMode=authenticated");
           setMode("authenticated");
           setUser(session.user ?? null);
           sessionStorage.removeItem(AUTH_MODE_KEY);
           return;
         }
-      } catch {
-        // Network error — fall through to stored mode
+      } catch (e) {
+        console.log("[Auth:init] getSession ERROR:", e);
       } finally {
         fetchingRef.current = false;
       }
 
       // 2. Not authenticated — restore stored guest mode
       const storedMode = sessionStorage.getItem(AUTH_MODE_KEY);
+      console.log("[Auth:init] storedMode =", storedMode);
       if (storedMode === "guest") {
+        console.log("[Auth:init] restoring guest mode");
         setMode("guest");
         setUser(GUEST_USER);
         return;
       }
 
       // 3. Truly unauthenticated
+      console.log("[Auth:init] no session, no guest → mode=null");
       setMode(null);
       setUser(null);
     };
 
-    init().finally(() => setLoading(false));
+    init().finally(() => {
+      console.log("[Auth:init] .finally() → setLoading=false");
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -126,6 +135,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     window.location.href = "/";
   }, []);
+
+  const renderCount = React.useRef(0);
+  renderCount.current++;
+  console.log(`[Auth:render #${renderCount.current}] mode=${mode} loading=${loading}`);
 
   return (
     <AuthContext.Provider

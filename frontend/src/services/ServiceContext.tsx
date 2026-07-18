@@ -29,25 +29,25 @@ const ServiceContext = createContext<ServiceBundle | null>(null);
 
 export function ServiceProvider({ children }: { children: ReactNode }) {
   const { mode } = useAuth();
+  const renderRef = React.useRef(0);
+  renderRef.current++;
 
   const guestBundle = useMemo(() => {
-    if (mode === "guest") {
-      return {
-        planner: createGuestPlannerService(),
-        completedCourses: createGuestCompletedCoursesService(),
-        savedCourses: createGuestSavedCoursesService(),
-        analysis: createGuestAnalysisService(),
-        resolutions: createGuestResolutionsService(),
-      };
-    }
-    return null;
+    const result = mode === "guest" ? {
+      planner: createGuestPlannerService(),
+      completedCourses: createGuestCompletedCoursesService(),
+      savedCourses: createGuestSavedCoursesService(),
+      analysis: createGuestAnalysisService(),
+      resolutions: createGuestResolutionsService(),
+    } : null;
+    if (typeof window !== "undefined") (window as any).__authMode = mode;
+    return result;
   }, [mode]);
 
   const value = useMemo(() => {
-    if (mode === "guest" && guestBundle) {
-      return guestBundle;
-    }
-    return authBundle;
+    const kind = mode === "guest" && guestBundle ? "guest" : "auth";
+    console.log(`[SvcProv value] mode=${mode} hasGuest=${!!guestBundle} → ${kind}Bundle`);
+    return kind === "guest" ? guestBundle : authBundle;
   }, [mode, guestBundle]);
 
   return (
