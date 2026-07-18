@@ -50,6 +50,11 @@ export default function RootLayout({
               --layout-min-height: calc(100vh - 56px - var(--safe-area-top, 0px));
             }
           }
+          @media (max-width: ${breakpoints.mobile - 1}px) {
+            .rs-layout-body {
+              padding-top: calc(56px + var(--safe-area-top, 0px) + 12px);
+            }
+          }
         `}</style>
         <AuthProvider>
           <ServiceProvider>
