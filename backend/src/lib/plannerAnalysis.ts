@@ -685,6 +685,11 @@ function computeRecommendations(
   return recommendations;
 }
 
+const REQUIREMENT_CHILDREN: Record<string, string[]> = {
+  "Science": ["Biology", "Physical Science"],
+  "Social Studies": ["U.S. History", "World History and Geography", "Government"],
+};
+
 function computeYearRequirements(
   placements: CoursePlacement[],
   grCategoryChildren?: Map<string, Set<string>>,
@@ -696,6 +701,8 @@ function computeYearRequirements(
       const accepted = new Set<string>([canonical]);
       const children = grCategoryChildren?.get(canonical);
       if (children) for (const c of children) accepted.add(c);
+      const hierarchyChildren = REQUIREMENT_CHILDREN[canonical];
+      if (hierarchyChildren) for (const c of hierarchyChildren) accepted.add(c);
 
       let earnedCredits = 0;
       const seen = new Set<string>();
