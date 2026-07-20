@@ -43,6 +43,14 @@ export function CourseDetailPopover({
 }: CourseDetailPopoverProps): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
   const slug = getCourseSlug({ title: course.title, normalizedTitle: course.normalizedTitle });
+
+  React.useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
   const fullCatalogUrl = `/catalog/${slug}${returnUrl ? `?return=${encodeURIComponent(returnUrl)}` : ""}`;
 
   return (

@@ -14,6 +14,14 @@ export function CourseSearchModal({
   onSelect,
   isSaved,
 }: CourseSearchModalProps): React.ReactElement {
+  React.useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
   return (
     <div
       style={{
