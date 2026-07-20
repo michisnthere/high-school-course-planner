@@ -1,32 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { usePlannerService } from "@/services/ServiceContext";
+import { useServices } from "@/services/ServiceContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { YearOverviewCard } from "@/components/dashboard/YearOverviewCard";
+import { breakpoints } from "@/lib/responsive";
 import type { Planner } from "@/lib/planner";
+import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 
-const YEAR_LABELS: Record<number, string> = {
-  9: "Freshman",
-  10: "Sophomore",
-  11: "Junior",
-  12: "Senior",
-};
-
-const cardStyle: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  minHeight: "160px",
-  padding: "28px",
-  backgroundColor: "var(--bg-card)",
-  border: "1px solid var(--border-default)",
-  borderRadius: "16px",
-  textDecoration: "none",
-  transition: "transform 0.15s ease, box-shadow 0.15s ease",
-};
+const ALL_YEARS = [9, 10, 11, 12];
 
 export default function PlannerPage(): React.ReactElement {
   return (
@@ -37,16 +20,41 @@ export default function PlannerPage(): React.ReactElement {
 }
 
 function PlannerContent(): React.ReactElement {
-  const plannerService = usePlannerService();
+  const services = useServices();
   const [planners, setPlanners] = useState<Planner[]>([]);
+  const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    plannerService.getPlanners()
-      .then(setPlanners)
-      .catch(() => setPlanners([]))
-      .finally(() => setLoading(false));
-  }, [plannerService]);
+    let cancelled = false;
+
+    async function load() {
+      try {
+        const plannersData = await services.planner.getPlanners();
+        if (cancelled) return;
+        setPlanners(plannersData);
+
+        try {
+          const analysisData = await services.analysis.getAnalysis({
+            planners: plannersData,
+            completedCourses: [],
+            resolutions: [],
+            allCourses: [],
+          });
+          if (!cancelled) setAnalysis(analysisData);
+        } catch {
+          // analysis unavailable
+        }
+      } catch {
+        if (!cancelled) setPlanners([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    load();
+    return () => { cancelled = true; };
+  }, [services]);
 
   return (
     <ResponsivePage>
@@ -68,68 +76,63 @@ function PlannerContent(): React.ReactElement {
           color: "var(--text-secondary)",
         }}
       >
-        Select a year to start planning your courses.
+        Review your four-year plan and edit individual years.
       </p>
 
       {loading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading planners...</p>
+        <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
+          Loading your four-year plan...
+        </p>
       ) : (
-        <div
-          style={{
-            display: "grid",
-            gap: "24px",
-            gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-          }}
-        >
-          {planners.map((planner) => (
-            <Link
-              key={planner.schoolYear}
-              href={`/planner/${planner.schoolYear}`}
-              style={cardStyle}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.25)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              <h2
-                style={{
-                  margin: "0 0 8px",
-                  fontSize: "26px",
-                  fontWeight: 700,
-                  color: "var(--text-primary)",
-                }}
-              >
-                {YEAR_LABELS[planner.schoolYear]}
-              </h2>
-              {(() => {
-                const uniqueIds = new Set<number | string>();
-                for (const pc of planner.plannedCourses ?? []) {
-                  if (pc.courseId != null) {
-                    uniqueIds.add(pc.courseId);
-                  } else {
-                    uniqueIds.add(`opt-${pc.id}`);
+        <>
+          <style>{`
+            .planner-year-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 24px;
+            }
+            @media (max-width: ${breakpoints.mobile - 1}px) {
+              .planner-year-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+              }
+            }
+          `}</style>
+          <div className="planner-year-grid">
+            {ALL_YEARS.map((year) => {
+              const planner = planners.find((p) => p.schoolYear === year);
+              const yr = analysis?.yearRequirements.find((r) => r.grade === year);
+
+              return (
+                <YearOverviewCard
+                  key={year}
+                  planner={
+                    planner ?? {
+                      id: 0,
+                      schoolYear: year,
+                      label: `${year}`,
+                      plannedCourses: [],
+                    }
                   }
-                }
-                const count = uniqueIds.size;
-                return (
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "15px",
-                      color: "var(--text-muted)",
-                    }}
-                  >
-                    {count} course{count === 1 ? "" : "s"} planned
-                  </p>
-                );
-              })()}
-            </Link>
-          ))}
-        </div>
+                  yearAnalysis={
+                    yr
+                      ? {
+                          satisfiedCount: yr.satisfiedCount,
+                          totalCount: yr.totalCount,
+                          items: yr.items.map((i) => ({
+                            category: i.category,
+                            met: i.met,
+                            earnedCredits: i.earnedCredits,
+                            requiredCredits: i.requiredCredits,
+                          })),
+                        }
+                      : undefined
+                  }
+                />
+              );
+            })}
+          </div>
+        </>
       )}
     </ResponsivePage>
   );

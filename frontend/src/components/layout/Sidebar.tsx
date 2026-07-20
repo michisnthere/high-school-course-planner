@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarFooter } from "./SidebarFooter";
@@ -44,27 +43,6 @@ export function Sidebar(): React.ReactElement {
         overflow: "hidden",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px" }}>
-        <Image
-          src="/stevensonlogo.png"
-          alt="Stevenson High School"
-          width={32}
-          height={32}
-          style={{ flexShrink: 0 }}
-        />
-        <h1
-          style={{
-            margin: 0,
-            fontSize: "1rem",
-            fontWeight: 700,
-            color: "var(--nav-text)",
-            lineHeight: 1.2,
-          }}
-        >
-          Stevenson Course Planner
-        </h1>
-      </div>
-
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
           {navItems.map((item) => (
