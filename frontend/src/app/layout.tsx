@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { SidebarFooter } from "@/components/layout/SidebarFooter";
 import { AuthProvider } from "@/context/AuthContext";
 import { ServiceProvider } from "@/services/ServiceContext";
 import { KeyboardShortcutProvider } from "@/context/KeyboardShortcutContext";
@@ -39,12 +40,18 @@ export default function RootLayout({
           .rs-layout-mobile-nav {
             display: none;
           }
+          .rs-layout-mobile-footer {
+            display: none;
+          }
           @media (max-width: ${breakpoints.tablet - 1}px) {
             .rs-layout-header,
             .rs-layout-sidebar {
               display: none;
             }
             .rs-layout-mobile-nav {
+              display: block;
+            }
+            .rs-layout-mobile-footer {
               display: block;
             }
             .rs-layout-body {
@@ -55,6 +62,15 @@ export default function RootLayout({
           @media (max-width: ${breakpoints.mobile - 1}px) {
             .rs-layout-body {
               padding-top: calc(56px + var(--safe-area-top, 0px) + 12px);
+            }
+          }
+          @media (min-width: ${breakpoints.tablet}px) {
+            .rs-layout-body {
+              height: calc(100vh - 64px);
+              overflow: hidden;
+            }
+            .rs-layout-body > main {
+              overflow-y: auto;
             }
           }
         `}</style>
@@ -69,7 +85,7 @@ export default function RootLayout({
             </div>
             <div
               className="rs-layout-body"
-              style={{ display: "flex", minHeight: "var(--layout-min-height, calc(100vh - 64px))" }}
+              style={{ display: "flex" }}
             >
               <div className="rs-layout-sidebar">
                 <Sidebar />
@@ -77,6 +93,17 @@ export default function RootLayout({
               <main style={{ flex: 1 }}>
                 {children}
               </main>
+              <div className="rs-layout-mobile-footer">
+                <div
+                  style={{
+                    borderTop: "1px solid var(--border-default)",
+                    padding: "20px 24px",
+                    backgroundColor: "var(--bg-card)",
+                  }}
+                >
+                  <SidebarFooter />
+                </div>
+              </div>
             </div>
           </ServiceProvider>
           <AuthToast />
