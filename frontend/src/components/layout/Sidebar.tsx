@@ -65,15 +65,15 @@ export function Sidebar(): React.ReactElement {
         </h1>
       </div>
 
-      <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {navItems.map((item) => (
-          <Link key={item.label} href={item.href} style={navLinkStyle(pathname === item.href)}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-
-      <div style={{ flex: 1 }} />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+          {navItems.map((item) => (
+            <Link key={item.label} href={item.href} style={navLinkStyle(pathname === item.href)}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
 
       <div
         style={{
