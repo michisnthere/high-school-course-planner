@@ -8,8 +8,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART101",
@@ -35,15 +42,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Drawing",
@@ -53,8 +52,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART221",
@@ -84,15 +90,7 @@
             "Art and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Painting",
@@ -102,8 +100,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART261",
@@ -133,15 +138,7 @@
             "Art and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Mixed Media",
@@ -151,8 +148,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART611",
@@ -182,15 +186,7 @@
             "Art and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Ceramics",
@@ -200,8 +196,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART201",
@@ -231,15 +234,7 @@
             "Art and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Sculpture",
@@ -249,8 +244,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART281",
@@ -280,15 +282,7 @@
             "Art and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

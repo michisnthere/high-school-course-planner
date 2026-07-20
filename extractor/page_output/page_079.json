@@ -2,12 +2,19 @@
   "courses": [
     {
       "title": "AP Chinese Language and Culture",
-      "description": "This course is designed to prepare students for the AP Chinese Language and Culture exam, i.e. a level comparable to fourth semester (or equivalent) college/university courses in Mandarin Chinese. The course focuses on language proficiency while dealing with level- and age-appropriate cultural content throughout the course. Students engage in readings, conversation and composition and research projects. The expectation is that all communication in the classroom takes place in the target language. By the end of the year, students will be able to understand the spoken language formally (lectures, news, etc.) and in conversation (dialogues…); to acquire vocabulary and structures that enable students to understand, analyze contextualized materials (advertisement, posters, newspaper, magazine articles, letters, etc.); to describe an event or activity in a cohesive and coherent manner with linguistic accuracy; to write appropriately employing the organization, vocabulary and structure appropriate to the purpose of their writing and to demonstrate cultural appropriateness through spoken and written discourse.",
+      "description": "This course is designed to prepare students for the AP Chinese Language and Culture exam, i.e. a level comparable to fourth semester (or equivalent) college/university courses in Mandarin Chinese. The course focuses on language proficiency while dealing with level- and age-appropriate cultural content throughout the course. Students engage in readings, conversation and composition and research projects. The expectation is that all communication in the classroom takes place in the target language. By the end of the year, students will be able to understand the spoken language formally (lectures, news, etc.) and in conversation (dialogues...); to acquire vocabulary and structures that enable students to understand, analyze contextualized materials (advertisement, posters, newspaper, magazine articles, letters, etc.); to describe an event or activity in a cohesive and coherent manner with linguistic accuracy; to write appropriately employing the organization, vocabulary and structure appropriate to the purpose of their writing and to demonstrate cultural appropriateness through spoken and written discourse.",
       "gpaWaiverOption": false,
       "sourceReference": "page 79",
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI601",
@@ -33,15 +40,7 @@
             "Mandarin Chinese 4, three years of high school Mandarin study, or passing the placement exam for AP Chinese Language and Culture and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     },
     {
       "title": "Chinese Literature, Media and Culture",
@@ -51,6 +50,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI611",
@@ -76,15 +82,7 @@
             "AP Chinese Language and Culture or placement test"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     },
     {
       "title": "Spanish 1",
@@ -94,6 +92,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA101",
@@ -123,15 +128,7 @@
             "None"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     },
     {
       "title": "Spanish 2",
@@ -141,6 +138,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA201",
@@ -170,15 +174,7 @@
             "Spanish 1 or passing the placement exam for Spanish 2 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     }
   ],
   "graduationRequirements": [],

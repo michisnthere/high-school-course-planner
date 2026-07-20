@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS142",
@@ -24,15 +31,7 @@
             "BUS131 or BUS132"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Marketing",
@@ -42,6 +41,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS281",
@@ -65,15 +71,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Entrepreneurship",
@@ -83,6 +81,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS231",
@@ -106,15 +111,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     }
   ],
   "graduationRequirements": [],

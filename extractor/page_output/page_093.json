@@ -12,6 +12,13 @@
         "Biology",
         "Physical Science"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Science",
+      "department": "Science",
       "offerings": [
         {
           "courseCode": "SCI641",
@@ -33,23 +40,22 @@
           ],
           "prerequisites": []
         }
+      ]
+    },
+    {
+      "title": "AP Chemistry",
+      "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
+      "sourceReference": "page 93",
+      "fulfillsRequirements": [
+        "Physical Science"
       ],
-      "notes": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Science",
-      "department": "Science"
-    },
-    {
-      "title": "AP Chemistry",
-      "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
-      "sourceReference": "page 93",
-      "fulfillsRequirements": [
-        "Physical Science"
-      ],
+      "department": "Science",
       "choices": [
         {
           "name": "Regular",
@@ -113,15 +119,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Science",
-      "department": "Science"
+      ]
     },
     {
       "title": "AP Physics C",
@@ -130,6 +128,13 @@
       "fulfillsRequirements": [
         "Physical Science"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Science",
+      "department": "Science",
       "choices": [
         {
           "name": "Regular",
@@ -197,15 +202,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Science",
-      "department": "Science"
+      ]
     }
   ],
   "graduationRequirements": [],

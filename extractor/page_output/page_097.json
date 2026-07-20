@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC541",
@@ -38,15 +45,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "AP Human Geography",
@@ -56,6 +55,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC611",
@@ -83,15 +89,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "World Religions",
@@ -101,6 +99,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC501",
@@ -130,15 +135,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "AP African American Studies",
@@ -148,6 +145,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC691",
@@ -175,15 +179,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "AP European History",
@@ -193,6 +189,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC601",
@@ -220,15 +223,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     }
   ],
   "graduationRequirements": [],

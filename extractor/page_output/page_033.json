@@ -3,12 +3,22 @@
   "courses": [
     {
       "title": "Media Analysis",
-      "description": "This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries—advertising, news and entertainment—and the print and non-print messages created by these industries. Students will be required to write weekly response papers, read college-level texts, view a variety of forms of media, participate in class discussions and complete analytical projects.",
+      "description": "This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries-advertising, news and entertainment-and the print and non-print messages created by these industries. Students will be required to write weekly response papers, read college-level texts, view a variety of forms of media, participate in class discussions and complete analytical projects.",
       "gpaWaiverOption": false,
       "sourceReference": "page 33",
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG691",
@@ -20,17 +30,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [
-        "Students may opt into an Accelerated credit by completing accelerated requirements."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Mythology and Folklore",
@@ -40,6 +40,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG681",
@@ -61,15 +68,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Film Genres",
@@ -79,6 +78,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG722",
@@ -90,17 +99,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [
-        "Students may opt into an Accelerated credit by completing accelerated requirements."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Writing for College",
@@ -110,6 +109,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "This course is not focused on college application essays."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG541",
@@ -129,17 +138,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [
-        "This course is not focused on college application essays."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

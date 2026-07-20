@@ -11,8 +11,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH351",
@@ -38,14 +45,7 @@
             "Geometry or Geometry AB/BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "Algebra 2 AB/BC",
@@ -58,8 +58,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH171",
@@ -85,14 +92,7 @@
             "Geometry AB/BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "Precalculus",
@@ -105,8 +105,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH451",
@@ -132,14 +139,7 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     }
   ],
   "graduationRequirements": [],

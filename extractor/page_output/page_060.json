@@ -11,8 +11,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS401",
@@ -38,14 +45,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Music Production 1",
@@ -55,8 +55,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS431",
@@ -82,15 +89,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Music Production 2",
@@ -100,8 +99,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS451",
@@ -131,15 +137,7 @@
             "Music Production 1 or Approval of Instructor"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Advanced Music Production",
@@ -153,8 +151,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS471",
@@ -182,14 +187,7 @@
             "Music Production 2 or Placement by Instructor"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "AP Music Theory",
@@ -199,8 +197,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS801",
@@ -228,15 +233,7 @@
             "Membership in either Instrumental or Vocal Ensemble or Approval of Instructor"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     }
   ],
   "graduationRequirements": [],

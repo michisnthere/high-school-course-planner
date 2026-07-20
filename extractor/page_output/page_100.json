@@ -9,8 +9,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Economics or Personal Finance Graduation Requirement"
+        "Economics or Personal Finance"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC641",
@@ -36,15 +43,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "AP Microeconomics",
@@ -54,8 +53,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Economics or Personal Finance Graduation Requirement"
+        "Economics or Personal Finance"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC651",
@@ -81,15 +87,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Philosophy and Political Theory",
@@ -99,6 +97,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC671",
@@ -124,15 +129,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Government",
@@ -144,6 +141,13 @@
       "fulfillsRequirements": [
         "Government"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC401",
@@ -169,15 +173,7 @@
             "U.S. History"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -11,8 +11,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH411",
@@ -40,14 +47,7 @@
             "Precalculus or Algebra 2 AB/BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "AP Precalculus BC",
@@ -60,8 +60,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH421",
@@ -89,14 +96,7 @@
             "Algebra 2 AB/BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     }
   ],
   "graduationRequirements": [],

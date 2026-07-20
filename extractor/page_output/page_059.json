@@ -12,8 +12,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS421",
@@ -39,14 +46,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Guitar 2",
@@ -60,8 +60,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS461",
@@ -91,14 +98,7 @@
             "Guitar 1 or Per Audition with the Guitar Faculty"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Patriot Guitar Ensemble",
@@ -110,8 +110,15 @@
       ],
       "sourceReference": "page 59",
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "choices": [
         {
           "name": "College Prep",
@@ -183,14 +190,7 @@
           ],
           "credits": 1
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     }
   ],
   "graduationRequirements": [],

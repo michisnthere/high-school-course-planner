@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS221",
@@ -32,15 +39,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Gourmet Foods",
@@ -50,6 +49,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS321",
@@ -77,15 +83,7 @@
             "Food Preparation"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     }
   ],
   "graduationRequirements": [],

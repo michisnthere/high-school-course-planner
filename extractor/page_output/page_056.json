@@ -12,8 +12,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS101",
@@ -37,14 +44,7 @@
             "Prior Band experience or approval of Band faculty"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Symphonic Band",
@@ -59,8 +59,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS121",
@@ -88,14 +95,7 @@
             "Audition with Band Faculty"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     }
   ],
   "graduationRequirements": [],
@@ -107,7 +107,7 @@
       "departments": [
         {
           "name": "Music",
-          "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin—or continue—a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
+          "description": "Music study helps students develop skills in comprehending, creative problem solving, working as a team, logical reasoning, using symbols, conceptualizing, making value judgments and communicating. It promotes cultural awareness and provides unique opportunities for self-expression and creativity. The Stevenson Music Department offers a variety of classes that allow students to begin-or continue-a strong, sequential program of music study. Courses are offered in instrumental music, vocal music and non-performance classes. Though many objectives for music education can be met in the classroom, it is important that students, who are developing music skills, are provided opportunities to display their accomplishments through concerts, recitals, parades, festivals and other performance experiences. These are a direct outgrowth of the nature of the art which is being studied. Therefore, performing ensembles include an emphasis on the importance of participation in occasional after-school rehearsals and performances."
         }
       ]
     }

@@ -8,6 +8,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI211",
@@ -37,15 +44,7 @@
             "Mandarin Chinese 1 or passing the placement exam for Mandarin Chinese 2 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     },
     {
       "title": "Mandarin Chinese 3",
@@ -55,6 +54,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI311",
@@ -84,15 +90,7 @@
             "Mandarin Chinese 2 or passing the placement exam for Mandarin Chinese 3 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     },
     {
       "title": "Intermediate Mandarin Chinese Language Arts",
@@ -102,6 +100,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI351",
@@ -131,15 +136,7 @@
             "Intermediate or higher proficiency in the domains of speaking and listening as demonstrated on Mandarin Chinese language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     },
     {
       "title": "Mandarin Chinese 4",
@@ -149,6 +146,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI411",
@@ -176,15 +180,7 @@
             "Mandarin Chinese 3 or passing the placement exam for Mandarin Chinese 4 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     }
   ],
   "graduationRequirements": [],

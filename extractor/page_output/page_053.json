@@ -12,8 +12,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Dance",
       "offerings": [
         {
           "courseCode": "DNC101",
@@ -39,14 +46,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Dance"
+      ]
     },
     {
       "title": "Dance 2",
@@ -61,8 +61,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Dance",
       "offerings": [
         {
           "courseCode": "DNC201",
@@ -92,14 +99,7 @@
             "Dance 1 and/or Placement by Instructor"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Dance"
+      ]
     },
     {
       "title": "Dance 3",
@@ -114,8 +114,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Dance",
       "offerings": [
         {
           "courseCode": "DNC301",
@@ -145,14 +152,7 @@
             "Dance 2 and/or Placement by Instructor"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Dance"
+      ]
     }
   ],
   "graduationRequirements": [],

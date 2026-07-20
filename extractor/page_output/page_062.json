@@ -8,8 +8,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR101",
@@ -35,15 +42,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     },
     {
       "title": "Entertainment Production and Design",
@@ -56,8 +55,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR121",
@@ -83,14 +89,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     },
     {
       "title": "Acting 2: Character and Comedy",
@@ -100,8 +99,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR111",
@@ -131,15 +137,7 @@
             "Acting 1: Confidence and Collaboration"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS251",
@@ -21,15 +28,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Accounting 2",
@@ -39,6 +38,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS252",
@@ -53,15 +59,7 @@
             "Accounting 1"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Advanced Accounting",
@@ -71,6 +69,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS351",
@@ -85,15 +90,7 @@
             "Accounting 2"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS231",
@@ -32,15 +39,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Business of Fashion and Design",
@@ -50,6 +49,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS241",
@@ -73,15 +79,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     }
   ],
   "graduationRequirements": [],

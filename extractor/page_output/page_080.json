@@ -8,6 +8,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA211",
@@ -37,15 +44,7 @@
             "Spanish 1 or passing the placement exam for Spanish 2-3 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     },
     {
       "title": "Spanish 3",
@@ -55,6 +54,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA301",
@@ -82,15 +88,7 @@
             "Spanish 2"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     },
     {
       "title": "Spanish 3-4",
@@ -100,6 +98,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA311",
@@ -127,15 +132,7 @@
             "Spanish 2-3 or passing the placement exam for Spanish 3-4 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     },
     {
       "title": "Intermediate Spanish Language Arts",
@@ -145,6 +142,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA351",
@@ -174,15 +178,7 @@
             "Intermediate or higher proficiency as demonstrated on Spanish language proficiency assessment (e.g., AAPPL), teacher recommendation, or director approval"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     }
   ],
   "graduationRequirements": [],

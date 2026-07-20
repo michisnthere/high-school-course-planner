@@ -2,12 +2,19 @@
   "courses": [
     {
       "title": "Motion Graphics and Visual Effects",
-      "description": "In Motion Graphics and Visual Effects, students dive into the world of post-production magic using Adobe After Effects. This advanced course focuses on bringing video to life through animation, compositing and special effects. Students will master key tools like keyframing, masking and layering while learning to animate shapes, text and images. They'll also explore how to add realistic visual effects to their own footage—from glowing energy blasts to seamless green screen edits. Projects include animated flags, cinemagraphs, kinetic typography, visual effects scenes and professional-style title sequences. Whether a student is into film, animation or digital design, this course gives them the skills to create the kind of motion graphics one sees in movies, commercials and TV.",
+      "description": "In Motion Graphics and Visual Effects, students dive into the world of post-production magic using Adobe After Effects. This advanced course focuses on bringing video to life through animation, compositing and special effects. Students will master key tools like keyframing, masking and layering while learning to animate shapes, text and images. They'll also explore how to add realistic visual effects to their own footage-from glowing energy blasts to seamless green screen edits. Projects include animated flags, cinemagraphs, kinetic typography, visual effects scenes and professional-style title sequences. Whether a student is into film, animation or digital design, this course gives them the skills to create the kind of motion graphics one sees in movies, commercials and TV.",
       "gpaWaiverOption": true,
       "sourceReference": "page 44",
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "CSET",
+      "department": "Technology",
       "offerings": [
         {
           "courseCode": "TEC111",
@@ -33,24 +40,23 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "Video Editing and Production",
+      "description": "In Video Editing and Production, students will bring their stories to life with the tools and techniques used by media professionals. Students will learn the full video production workflow-from planning and shooting with professional DSLR cameras to editing with Adobe Premiere Pro. The course emphasizes visual storytelling while teaching technical skills like green screen compositing, motion graphics, color grading and visual effects. Students also use Adobe Audition for basic audio cleanup and Foley work to enhance sound quality. Whether a student is interested in filmmaking, digital media or content creation, this course builds the creative and technical foundation to produce compelling, high-quality video content.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 44",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "CSET",
-      "department": "Technology"
-    },
-    {
-      "title": "Video Editing and Production",
-      "description": "In Video Editing and Production, students will bring their stories to life with the tools and techniques used by media professionals. Students will learn the full video production workflow—from planning and shooting with professional DSLR cameras to editing with Adobe Premiere Pro. The course emphasizes visual storytelling while teaching technical skills like green screen compositing, motion graphics, color grading and visual effects. Students also use Adobe Audition for basic audio cleanup and Foley work to enhance sound quality. Whether a student is interested in filmmaking, digital media or content creation, this course builds the creative and technical foundation to produce compelling, high-quality video content.",
-      "gpaWaiverOption": true,
-      "sourceReference": "page 44",
-      "creditType": "College Prep",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Technology",
       "offerings": [
         {
           "courseCode": "TEC121",
@@ -76,24 +82,23 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "Virtual Reality",
+      "description": "Step into the world of virtual reality and learn how to create experiences that are immersive, interactive and impactful. In this hands-on course, students will explore the fundamentals of VR development by designing and building a variety of virtual reality projects. Students will discover how VR is used in a wide range of fields-from gaming and animation to education, training, storytelling and more. Along the way, students will design 3D environments, create custom assets using rendering software and program user interactions. Each project is brought to life and tested using VR headsets, giving students a fully immersive development experience. Whether a student is interested in creating games, exploring emerging technology or building the future of interactive media, this course is the starting point for all things virtual reality.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 44",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "CSET",
-      "department": "Technology"
-    },
-    {
-      "title": "Virtual Reality",
-      "description": "Step into the world of virtual reality and learn how to create experiences that are immersive, interactive and impactful. In this hands-on course, students will explore the fundamentals of VR development by designing and building a variety of virtual reality projects. Students will discover how VR is used in a wide range of fields—from gaming and animation to education, training, storytelling and more. Along the way, students will design 3D environments, create custom assets using rendering software and program user interactions. Each project is brought to life and tested using VR headsets, giving students a fully immersive development experience. Whether a student is interested in creating games, exploring emerging technology or building the future of interactive media, this course is the starting point for all things virtual reality.",
-      "gpaWaiverOption": true,
-      "sourceReference": "page 44",
-      "creditType": "College Prep",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Technology",
       "offerings": [
         {
           "courseCode": "TEC191",
@@ -123,15 +128,7 @@
             "Game Development 1 (TEC501 or TEC502)"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "CSET",
-      "department": "Technology"
+      ]
     }
   ],
   "graduationRequirements": [],

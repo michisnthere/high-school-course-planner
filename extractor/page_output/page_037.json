@@ -8,6 +8,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "CSET",
+      "department": "Computer Science",
       "offerings": [
         {
           "courseCode": "CSC161",
@@ -33,15 +40,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "CSET",
-      "department": "Computer Science"
+      ]
     },
     {
       "title": "Computer Programming 2",
@@ -51,6 +50,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "CSET",
+      "department": "Computer Science",
       "offerings": [
         {
           "courseCode": "CSC181",
@@ -80,15 +86,7 @@
             "Computer Programming 1 (CSC161/162) or Web Development 2 (TEC281/282) or Principles of Engineering (TEC301/302) or AP Computer Science Principles (CSC371/372)"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "CSET",
-      "department": "Computer Science"
+      ]
     },
     {
       "title": "AP Computer Science A",
@@ -98,6 +96,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "CSET",
+      "department": "Computer Science",
       "offerings": [
         {
           "courseCode": "CSC391",
@@ -125,15 +130,7 @@
             "Computer Programming 2 (CSC181/182)"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "CSET",
-      "department": "Computer Science"
+      ]
     }
   ],
   "graduationRequirements": [],

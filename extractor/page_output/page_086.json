@@ -12,8 +12,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED121",
@@ -33,14 +40,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Adventure Education",
@@ -54,8 +54,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED331",
@@ -85,14 +92,7 @@
             "A Foundational Fitness class or any previous physical education course"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     }
   ],
   "graduationRequirements": [],

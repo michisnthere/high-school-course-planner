@@ -11,8 +11,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH471",
@@ -38,14 +45,7 @@
             "Any AP Precalculus course"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "AP Calculus BC",
@@ -58,8 +58,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH491",
@@ -85,14 +92,7 @@
             "AP Precalculus BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "College Multivariable Calculus",
@@ -105,8 +105,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH591",
@@ -120,14 +127,7 @@
             "AP Calculus BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "College Linear Algebra",
@@ -140,8 +140,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH592",
@@ -155,14 +162,7 @@
             "AP Calculus BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     }
   ],
   "graduationRequirements": [],

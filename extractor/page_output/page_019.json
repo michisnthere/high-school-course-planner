@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS371",
@@ -32,15 +39,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Personal Finance",
@@ -50,8 +49,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Economics or Personal Finance Graduation Requirement"
+        "Economics or Personal Finance"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS301",
@@ -75,15 +81,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     }
   ],
   "graduationRequirements": [],

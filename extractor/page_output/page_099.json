@@ -11,6 +11,13 @@
       "fulfillsRequirements": [
         "U.S. History"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC581",
@@ -36,15 +43,7 @@
             "Sophomore English"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Economics",
@@ -54,8 +53,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Economics or Personal Finance Graduation Requirement"
+        "Economics or Personal Finance"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC411",
@@ -81,15 +87,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Sociology Dual Credit",
@@ -99,6 +97,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC571",
@@ -124,15 +129,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     }
   ],
   "graduationRequirements": [],

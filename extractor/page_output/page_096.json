@@ -11,6 +11,13 @@
       "fulfillsRequirements": [
         "World History and Geography"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC101",
@@ -32,15 +39,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Constitutional Law",
@@ -50,6 +49,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC511",
@@ -79,15 +85,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Global Relations",
@@ -97,6 +95,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC531",
@@ -126,15 +131,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Law In American Society",
@@ -144,6 +141,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC431",
@@ -173,15 +177,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "Psychology",
@@ -191,6 +187,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC551",
@@ -220,15 +223,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -11,8 +11,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH151",
@@ -38,14 +45,7 @@
             "Completion and proficiency in Common Core State Standards Mathematics Grade 8 (CCSSM 8)"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "Geometry",
@@ -58,8 +58,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH251",
@@ -85,14 +92,7 @@
             "Algebra 1"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "Geometry AB/BC",
@@ -105,8 +105,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH271",
@@ -132,14 +139,7 @@
             "Algebra 1"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     }
   ],
   "graduationRequirements": [],

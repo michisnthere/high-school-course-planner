@@ -9,6 +9,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "GPA waiver option available."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "JRN901",
@@ -34,17 +44,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [
-        "GPA waiver option available."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Broadcast Journalism",
@@ -54,6 +54,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "JRN911",
@@ -77,17 +87,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [
-        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Advanced Journalistic Writing",
@@ -97,6 +97,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "JRN921",
@@ -126,26 +136,26 @@
             "Journalistic Writing"
           ]
         }
-      ],
-      "notes": [
-        "GPA waiver option available. Listed as an elective credit; not an English graduation credit."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Journalistic Writing and Production",
-      "description": "Students do all the work necessary to produce the Statesman (newspaper and website). Staff positions include executive editors, copy editors, design editors, advertising manager, section editors (news, opinions, sports, in-depth and feature) and reporter. Staff members gather news, research and write copy and help complete pages. Because this is a student publication, all responsibilities—from the planning of the content, to the design of an issue, to the processing of photos and the completion of pages—are handled by students. After-school work is necessary for these publications. This course may be repeated for credit.",
+      "description": "Students do all the work necessary to produce the Statesman (newspaper and website). Staff positions include executive editors, copy editors, design editors, advertising manager, section editors (news, opinions, sports, in-depth and feature) and reporter. Staff members gather news, research and write copy and help complete pages. Because this is a student publication, all responsibilities-from the planning of the content, to the design of an issue, to the processing of photos and the completion of pages-are handled by students. After-school work is necessary for these publications. This course may be repeated for credit.",
       "gpaWaiverOption": false,
       "sourceReference": "page 34",
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "Listed as an elective credit; not an English graduation credit. After-school work is necessary."
+      ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "JRN951",
@@ -173,17 +183,7 @@
             "Advanced Journalistic Writing"
           ]
         }
-      ],
-      "notes": [
-        "Listed as an elective credit; not an English graduation credit. After-school work is necessary."
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

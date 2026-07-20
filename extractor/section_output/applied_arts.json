@@ -8,6 +8,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS171",
@@ -29,15 +36,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Business Applications and Technology 1",
@@ -47,6 +46,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS131",
@@ -70,15 +76,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Business Applications and Technology 2",
@@ -88,6 +86,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS142",
@@ -103,15 +108,7 @@
             "BUS131 or BUS132"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Marketing",
@@ -121,6 +118,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS281",
@@ -144,15 +148,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Entrepreneurship",
@@ -162,6 +158,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS231",
@@ -185,15 +188,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Accounting 1",
@@ -203,6 +198,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS251",
@@ -215,15 +217,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Accounting 2",
@@ -233,6 +227,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS252",
@@ -247,15 +248,7 @@
             "Accounting 1"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Advanced Accounting",
@@ -265,6 +258,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS351",
@@ -279,15 +279,7 @@
             "Accounting 2"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Business Law",
@@ -297,6 +289,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS371",
@@ -320,15 +319,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Personal Finance",
@@ -338,8 +329,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Economics or Personal Finance Graduation Requirement"
+        "Economics or Personal Finance"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Business Education",
       "offerings": [
         {
           "courseCode": "BUS301",
@@ -363,15 +361,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Business Education"
+      ]
     },
     {
       "title": "Food and Nutrition",
@@ -381,6 +371,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS111",
@@ -406,15 +403,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Human Growth and Development",
@@ -424,6 +413,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS211",
@@ -449,15 +445,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Clothing and Design 1",
@@ -467,6 +455,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS251",
@@ -492,21 +487,20 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Clothing and Design 2",
       "description": "Clothing and Design 2 is a continuation of Clothing and Design 1. Advanced clothing construction skills and original projects are a part of the course. Students interested in pattern manipulation and creation of their own patterns are provided the opportunity to use dress forms and fabric to create original designs.",
       "sourceReference": "page 21",
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "choices": [
         {
           "name": "College Prep",
@@ -552,15 +546,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Interior Design",
@@ -570,6 +556,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS231",
@@ -593,15 +586,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Business of Fashion and Design",
@@ -611,6 +596,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS241",
@@ -634,15 +626,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Food Preparation",
@@ -652,6 +636,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS221",
@@ -675,15 +666,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Gourmet Foods",
@@ -693,6 +676,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS321",
@@ -720,15 +710,7 @@
             "Food Preparation"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Teaching Young Children 1",
@@ -738,6 +720,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -765,21 +754,20 @@
             "Human Growth and Development"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Teaching Young Children 2",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
       "sourceReference": "page 24",
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "choices": [
         {
           "name": "College Prep",
@@ -823,15 +811,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Life by Design",
@@ -841,6 +821,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS411",
@@ -866,15 +853,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     }
   ],
   "graduationRequirements": [],

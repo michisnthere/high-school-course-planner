@@ -13,8 +13,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS131",
@@ -42,14 +49,7 @@
             "Audition with Band Faculty"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Wind Ensemble",
@@ -62,8 +62,15 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "choices": [
         {
           "name": "College Prep",
@@ -135,14 +142,7 @@
           ],
           "credits": 1
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Stevenson Singers",
@@ -155,8 +155,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS201",
@@ -182,14 +189,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Advanced Chorus",
@@ -201,8 +201,15 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "choices": [
         {
           "name": "College Prep",
@@ -274,14 +281,7 @@
           ],
           "credits": 1
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Patriot Singers",
@@ -293,8 +293,15 @@
       ],
       "sourceReference": "page 57",
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "choices": [
         {
           "name": "College Prep",
@@ -366,14 +373,7 @@
           ],
           "credits": 1
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     }
   ],
   "graduationRequirements": [],

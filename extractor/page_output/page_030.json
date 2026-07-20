@@ -3,12 +3,19 @@
   "courses": [
     {
       "title": "Sophomore English",
-      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
+      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme-the individual's interaction and negotiation with society-through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
       "gpaWaiverOption": false,
       "sourceReference": "page 30",
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG211",
@@ -28,24 +35,23 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "Sophomore English",
+      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme-the individual's interaction and negotiation with society-through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 30",
+      "creditType": "Accelerated",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Communication Arts",
-      "department": "Communication Arts"
-    },
-    {
-      "title": "Sophomore English",
-      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 30",
-      "creditType": "Accelerated",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG231",
@@ -65,15 +71,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "AP English Language and Composition",
@@ -83,6 +81,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG371",
@@ -102,15 +107,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Junior English",
@@ -120,6 +117,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG311",
@@ -139,15 +143,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Junior English",
@@ -157,6 +153,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG381",
@@ -176,15 +179,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

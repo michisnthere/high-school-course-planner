@@ -36,7 +36,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from src.rules.clean_text import clean_text, collapse_spaces
 from src.rules.normalize_catalog import normalize_text, normalize_department_name
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 TARGET_GLOBS = [
     "extractor/output/academic-data.json",
@@ -678,6 +678,8 @@ def _process_file(path: Path) -> Tuple[int, int, int, List[str], bool]:
         _clean_text_fields(dept, "name", "description", "director", "directorEmail", "directorPhone")
     for div in _ensure_list(data.get("divisions")):
         _clean_text_fields(div, "name", "description")
+        for dept in _ensure_list(div.get("departments")):
+            _clean_text_fields(dept, "name", "description", "director", "directorEmail", "directorPhone")
     for req in _ensure_list(data.get("graduationRequirements")):
         _clean_text_fields(req, "name", "notes")
 

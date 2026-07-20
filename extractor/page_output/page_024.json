@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "offerings": [
         {
           "courseCode": "FCS311",
@@ -36,21 +43,20 @@
             "Human Growth and Development"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     },
     {
       "title": "Teaching Young Children 2",
       "description": "Teaching Young Children 2 offers students the opportunity to further their understanding of early childhood while interacting with children in the Little Patriots Lab School. Students will prepare and teach lessons while observing and assessing individual children's developmental progress.",
       "sourceReference": "page 24",
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Applied Arts",
+      "department": "Family and Consumer Sciences",
       "choices": [
         {
           "name": "College Prep",
@@ -94,15 +100,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Applied Arts",
-      "department": "Family and Consumer Sciences"
+      ]
     }
   ],
   "graduationRequirements": [],

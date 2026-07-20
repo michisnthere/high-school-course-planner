@@ -11,6 +11,13 @@
       "fulfillsRequirements": [
         "Physical Science"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Science",
+      "department": "Science",
       "offerings": [
         {
           "courseCode": "SCI671",
@@ -34,23 +41,22 @@
           ],
           "prerequisites": []
         }
+      ]
+    },
+    {
+      "title": "AP Physics 1",
+      "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
+      "sourceReference": "page 92",
+      "fulfillsRequirements": [
+        "Physical Science"
       ],
-      "notes": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Science",
-      "department": "Science"
-    },
-    {
-      "title": "AP Physics 1",
-      "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
-      "sourceReference": "page 92",
-      "fulfillsRequirements": [
-        "Physical Science"
-      ],
+      "department": "Science",
       "choices": [
         {
           "name": "Regular",
@@ -114,15 +120,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Science",
-      "department": "Science"
+      ]
     },
     {
       "title": "AP Physics 2",
@@ -134,6 +132,13 @@
       "fulfillsRequirements": [
         "Physical Science"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Science",
+      "department": "Science",
       "offerings": [
         {
           "courseCode": "SCI681",
@@ -159,23 +164,22 @@
             "AP Physics 1 or Physics"
           ]
         }
+      ]
+    },
+    {
+      "title": "AP Biology",
+      "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
+      "sourceReference": "page 92",
+      "fulfillsRequirements": [
+        "Biology"
       ],
-      "notes": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Science",
-      "department": "Science"
-    },
-    {
-      "title": "AP Biology",
-      "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
-      "sourceReference": "page 92",
-      "fulfillsRequirements": [
-        "Biology"
-      ],
+      "department": "Science",
       "choices": [
         {
           "name": "Regular",
@@ -239,15 +243,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Science",
-      "department": "Science"
+      ]
     }
   ],
   "graduationRequirements": [],

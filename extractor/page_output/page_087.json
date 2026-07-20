@@ -10,8 +10,15 @@
         "This course may be repeated for credit."
       ],
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "choices": [
         {
           "name": "Regular",
@@ -85,14 +92,7 @@
             }
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Physical Education Leadership Training",
@@ -105,8 +105,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED61L",
@@ -126,14 +133,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Senior Leadership",
@@ -143,8 +143,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED81L",
@@ -168,15 +175,7 @@
             "Physical education Leadership Training"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Lifeguard Training and Certification",
@@ -189,8 +188,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED501",
@@ -206,14 +212,7 @@
             "Students must be at least 15 years old by the end of the course"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     }
   ],
   "graduationRequirements": [],

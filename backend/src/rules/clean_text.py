@@ -15,6 +15,7 @@ MOJIBAKE_REPLACEMENTS = {
     "\u00e2\u2013\u00a0": "-",
     "\u00e2\u20ac\u2018": "'",
     "\u00e2\u20ac\u2019": "'",
+    "\u00c2\u00a0": " ",     # non-breaking space (double-encoded)
     "\ufb00": "ff",
     "\ufb01": "fi",
 }

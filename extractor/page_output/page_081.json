@@ -8,6 +8,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA401",
@@ -33,15 +40,7 @@
             "Spanish 3"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     },
     {
       "title": "AP Spanish Language and Culture",
@@ -51,6 +50,13 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA601",
@@ -78,24 +84,23 @@
             "Intermediate Spanish Language Arts, Spanish 4 or Spanish 3-4"
           ]
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "AP Spanish Literature and Culture",
+      "description": "This course is designed to introduce students to the formal study of Peninsular Spanish, Latin American and U.S. Hispanic literature. The course aims to develop students' critical reading and analytical writing skills in Spanish as well as their ability to make interdisciplinary connections and explore linguistic and cultural comparisons. This course will be conducted entirely in Spanish appropriate to this level and covers the entire official AP Spanish Literature and Culture reading list. Literary texts are grouped by themes and presented in chronological order within each of the following themes: las sociedades en contacto, la construcción del género, el tiempo y el espacio, las relaciones interpersonales, la dualidad del ser and la creación literaria. Students are expected to discuss literary texts and their different historical, sociocultural and geopolitical contexts in a variety of interactive oral and written formats in Spanish. Students who enroll in this course will be prepared to take the AP Spanish Literature and Culture exam in May.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 81",
+      "creditType": "Honors",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Language Learning",
-      "department": "Spanish"
-    },
-    {
-      "title": "AP Spanish Literature and Culture",
-      "description": "This course is designed to introduce students to the formal study of Peninsular Spanish, Latin American and U.S. Hispanic literature. The course aims to develop students’ critical reading and analytical writing skills in Spanish as well as their ability to make interdisciplinary connections and explore linguistic and cultural comparisons. This course will be conducted entirely in Spanish appropriate to this level and covers the entire official AP Spanish Literature and Culture reading list. Literary texts are grouped by themes and presented in chronological order within each of the following themes: las sociedades en contacto, la construcción del género, el tiempo y el espacio, las relaciones interpersonales, la dualidad del ser and la creación literaria. Students are expected to discuss literary texts and their different historical, sociocultural and geopolitical contexts in a variety of interactive oral and written formats in Spanish. Students who enroll in this course will be prepared to take the AP Spanish Literature and Culture exam in May.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 81",
-      "creditType": "Honors",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA611",
@@ -121,15 +126,7 @@
             "AP Spanish Language and Culture"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     },
     {
       "title": "Advanced Spanish Conversation and Culture",
@@ -139,6 +136,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Spanish",
       "offerings": [
         {
           "courseCode": "SPA511",
@@ -166,15 +170,7 @@
             "Spanish 3-4, Spanish 4 or AP Spanish Language and Culture"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Spanish"
+      ]
     }
   ],
   "graduationRequirements": [],

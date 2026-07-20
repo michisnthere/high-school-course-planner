@@ -11,8 +11,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH431",
@@ -38,14 +45,7 @@
             "Any precalculus course"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "Data Science",
@@ -58,8 +58,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH481",
@@ -85,14 +92,7 @@
             "Algebra 2 or Algebra 2 AB/BC"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "Advanced Mathematical Decision Making",
@@ -107,8 +107,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH441",
@@ -132,14 +139,7 @@
             "Algebra 2"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     },
     {
       "title": "AP Statistics",
@@ -152,8 +152,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Mathematics Graduation Requirement"
+        "Mathematics"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Mathematics",
+      "department": "Mathematics",
       "offerings": [
         {
           "courseCode": "MTH461",
@@ -181,14 +188,7 @@
             "Completion of Precalculus or completion/concurrent enrollment in AP Precalculus"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Mathematics",
-      "department": "Mathematics"
+      ]
     }
   ],
   "graduationRequirements": [],

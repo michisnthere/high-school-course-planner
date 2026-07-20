@@ -8,6 +8,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "CSET",
+      "department": "Engineering",
       "offerings": [
         {
           "courseCode": "TEC141",
@@ -33,15 +40,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "CSET",
-      "department": "Engineering"
+      ]
     },
     {
       "title": "Advanced Architectural Design",
@@ -51,6 +50,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "CSET",
+      "department": "Engineering",
       "offerings": [
         {
           "courseCode": "TEC241",
@@ -62,7 +68,7 @@
             12
           ],
           "prerequisites": [
-            "Civil Engineering and Architecture–PLTW or Architectural Design"
+            "Civil Engineering and Architecture-PLTW or Architectural Design"
           ]
         },
         {
@@ -75,27 +81,26 @@
             12
           ],
           "prerequisites": [
-            "Civil Engineering and Architecture–PLTW or Architectural Design"
+            "Civil Engineering and Architecture-PLTW or Architectural Design"
           ]
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "Introduction to Engineering Design-PLTW",
+      "description": "Introduction to Engineering Design-PLTW is a full-year course available to all students. In this course, students use 3D solid modeling design software to help them design solutions to solve proposed problems. Students will then use high-tech equipment including 3D printers, a laser engraver and CNC router to produce their solutions. Students will learn how to document their work and communicate solutions to peers and members of the professional community. The major focus of the Introduction to Engineering Design-PLTW course is to expose students to the design process, research and analysis, collaboration skills, communication methods, global and human impacts, engineering standards and technical documentation. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
+      "gpaWaiverOption": true,
+      "sourceReference": "page 40",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "CSET",
-      "department": "Engineering"
-    },
-    {
-      "title": "Introduction to Engineering Design–PLTW",
-      "description": "Introduction to Engineering Design–PLTW is a full-year course available to all students. In this course, students use 3D solid modeling design software to help them design solutions to solve proposed problems. Students will then use high-tech equipment including 3D printers, a laser engraver and CNC router to produce their solutions. Students will learn how to document their work and communicate solutions to peers and members of the professional community. The major focus of the Introduction to Engineering Design–PLTW course is to expose students to the design process, research and analysis, collaboration skills, communication methods, global and human impacts, engineering standards and technical documentation. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
-      "gpaWaiverOption": true,
-      "sourceReference": "page 40",
-      "creditType": "College Prep",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Engineering",
       "offerings": [
         {
           "courseCode": "TEC151",
@@ -121,15 +126,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "CSET",
-      "department": "Engineering"
+      ]
     }
   ],
   "graduationRequirements": [],

@@ -8,6 +8,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Latin",
       "offerings": [
         {
           "courseCode": "LAT101",
@@ -37,24 +44,23 @@
             "None"
           ]
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "Latin 2",
+      "description": "Latin 2 focuses on refining students' knowledge of grammar and syntax from Latin 1 in order to facilitate the translation of more complex passages. Readings will focus on daily life in Rome, mythology and the heroic ideal. In addition, students will complete a semester of vocabulary study based on Latin roots, which is designed to increase students' English vocabulary. Students will also study prescription writing in Latin abbreviations, Latin in modern law and Latin in medicine and anatomy.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 77",
+      "creditType": "Accelerated",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Language Learning",
-      "department": "Latin"
-    },
-    {
-      "title": "Latin 2",
-      "description": "Latin 2 focuses on refining students’ knowledge of grammar and syntax from Latin 1 in order to facilitate the translation of more complex passages. Readings will focus on daily life in Rome, mythology and the heroic ideal. In addition, students will complete a semester of vocabulary study based on Latin roots, which is designed to increase students’ English vocabulary. Students will also study prescription writing in Latin abbreviations, Latin in modern law and Latin in medicine and anatomy.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 77",
-      "creditType": "Accelerated",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Latin",
       "offerings": [
         {
           "courseCode": "LAT211",
@@ -84,15 +90,7 @@
             "Latin 1 or passing the placement exam for Latin 2 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Latin"
+      ]
     },
     {
       "title": "Latin 3",
@@ -102,6 +100,13 @@
       "creditType": "Accelerated",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Latin",
       "offerings": [
         {
           "courseCode": "LAT311",
@@ -129,24 +134,23 @@
             "Latin 2 or passing the placement exam for Latin 3 and approval of director"
           ]
         }
-      ],
-      "notes": [],
+      ]
+    },
+    {
+      "title": "AP Latin",
+      "description": "Students will complete preparation for the AP Latin exam. Students will continue to refine reading, writing, listening and speaking skills. Training in translation, meter and poetic devices involved in the study of major Latin works of literature will be stressed. The students will become more comfortable in the reading and interpretation of Vergil's Aeneid and Caesar's De Bello Gallico. To achieve this endeavor, both the cultural component (history, politics, social structure and art) and the linguistic aspect (grammar, vocabulary and structure) will be emphasized. Students proceeding to AP Latin will be provided with summer readings by the classroom instructor. Students who enroll in this course will be prepared to take the AP Latin exam in May.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 77",
+      "creditType": "Honors",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Language Learning",
-      "department": "Latin"
-    },
-    {
-      "title": "AP Latin",
-      "description": "Students will complete preparation for the AP Latin exam. Students will continue to refine reading, writing, listening and speaking skills. Training in translation, meter and poetic devices involved in the study of major Latin works of literature will be stressed. The students will become more comfortable in the reading and interpretation of Vergil’s Aeneid and Caesar’s De Bello Gallico. To achieve this endeavor, both the cultural component (history, politics, social structure and art) and the linguistic aspect (grammar, vocabulary and structure) will be emphasized. Students proceeding to AP Latin will be provided with summer readings by the classroom instructor. Students who enroll in this course will be prepared to take the AP Latin exam in May.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 77",
-      "creditType": "Honors",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Latin",
       "offerings": [
         {
           "courseCode": "LAT621",
@@ -172,15 +176,7 @@
             "Latin 3 and approval of director"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Latin"
+      ]
     },
     {
       "title": "Mandarin Chinese 1",
@@ -190,6 +186,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Language Learning",
+      "department": "Mandarin Chinese",
       "offerings": [
         {
           "courseCode": "CHI101",
@@ -219,15 +222,7 @@
             "None"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Language Learning",
-      "department": "Mandarin Chinese"
+      ]
     }
   ],
   "graduationRequirements": [],

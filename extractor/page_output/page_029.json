@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG141",
@@ -28,15 +35,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "English 9: Threads of Loyalty",
@@ -46,6 +45,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG151",
@@ -65,15 +71,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "English 9: Mirrors and Shadows",
@@ -83,6 +81,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG161",
@@ -102,15 +107,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "English 9: Reimagining the Future",
@@ -120,6 +117,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG171",
@@ -139,15 +143,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

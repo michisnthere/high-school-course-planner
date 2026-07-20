@@ -6,6 +6,13 @@
       "description": "This one-semester elective course introduces students to the rich diversity of political life outside the United States. Students use a comparative approach to examine the political structures; policies; and political, economic and social challenges of six selected countries: China, Iran, Mexico, Nigeria, Russia and the United Kingdom. Students compare the effectiveness of approaches to many global issues by examining how different governments solve similar problems by reading and interpreting data, making comparisons and applications and developing evidence-based arguments. This course does not satisfy the Stevenson government graduation requirement, nor the Illinois Civics requirement for graduation for the State of Illinois. Students are prepared to take the AP Comparative Government and Politics exam in May.",
       "sourceReference": "page 98",
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "choices": [
         {
           "name": "Regular",
@@ -77,15 +84,7 @@
             }
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "U.S. History",
@@ -97,6 +96,13 @@
       "fulfillsRequirements": [
         "U.S. History"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC321",
@@ -120,15 +126,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     },
     {
       "title": "AP U.S. History",
@@ -140,6 +138,13 @@
       "fulfillsRequirements": [
         "U.S. History"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Social Studies",
+      "department": "Social Studies",
       "offerings": [
         {
           "courseCode": "SOC621",
@@ -163,15 +168,7 @@
             "World History and Geography"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Social Studies",
-      "department": "Social Studies"
+      ]
     }
   ],
   "graduationRequirements": [],

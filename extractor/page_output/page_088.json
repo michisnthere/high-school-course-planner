@@ -9,8 +9,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED71L",
@@ -36,15 +43,7 @@
             "Students must have an American Red Cross Lifeguarding certification"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Alternative Physical Education Leadership",
@@ -57,8 +56,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": true
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED41L",
@@ -84,14 +90,7 @@
             "Admission based on written application submitted to and approved by the Alternative Physical Education Coordinator during Sophomore year"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": true
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Alternative Physical Education",
@@ -104,8 +103,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Physical Welfare Graduation Requirement and Waivers"
+        "Physical Education"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Physical Education",
       "offerings": [
         {
           "courseCode": "PED111",
@@ -135,14 +141,7 @@
             "A physician's verification must be on file"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Physical Education"
+      ]
     },
     {
       "title": "Health Education",
@@ -157,8 +156,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Health Graduation Requirement"
+        "Health"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Health Education",
       "offerings": [
         {
           "courseCode": "PED201",
@@ -178,14 +184,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Health Education"
+      ]
     },
     {
       "title": "Applied Health",
@@ -198,8 +197,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Health Graduation Requirement"
+        "Health"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Physical Education",
+      "department": "Health Education",
       "offerings": [
         {
           "courseCode": "PED231",
@@ -227,14 +233,7 @@
             "Health Education"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Physical Education",
-      "department": "Health Education"
+      ]
     }
   ],
   "graduationRequirements": [],

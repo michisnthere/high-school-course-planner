@@ -9,6 +9,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG761",
@@ -32,15 +39,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Creative Writing",
@@ -50,6 +49,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG501",
@@ -71,17 +80,7 @@
           ],
           "prerequisites": []
         }
-      ],
-      "notes": [
-        "Students may opt into an Accelerated credit by completing accelerated requirements."
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     },
     {
       "title": "Creative Writing Seminar",
@@ -91,6 +90,16 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "notes": [
+        "Students may opt into an Accelerated credit by completing accelerated requirements."
+      ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Communication Arts",
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG522",
@@ -104,26 +113,23 @@
             "Creative Writing"
           ]
         }
-      ],
-      "notes": [
-        "Students may opt into an Accelerated credit by completing accelerated requirements."
-      ],
+      ]
+    },
+    {
+      "title": "Topics in Political Thought and Its Literature",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them better be prepared for future education. Students explore the overarching themes of the course-the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues-through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a worldview and what it means to be a political scientist.",
+      "gpaWaiverOption": false,
+      "sourceReference": "page 32",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
       "division": "Communication Arts",
-      "department": "Communication Arts"
-    },
-    {
-      "title": "Topics in Political Thought and Its Literature",
-      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them better be prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a worldview and what it means to be a political scientist.",
-      "gpaWaiverOption": false,
-      "sourceReference": "page 32",
-      "creditType": "College Prep",
-      "credits": 1,
-      "fulfillsRequirements": [],
+      "department": "Communication Arts",
       "offerings": [
         {
           "courseCode": "ENG601",
@@ -149,15 +155,7 @@
             "Any Junior English"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Communication Arts",
-      "department": "Communication Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

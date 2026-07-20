@@ -12,8 +12,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS301",
@@ -37,18 +44,11 @@
             "All incoming freshman orchestra students should register for this class"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Concert Orchestra",
-      "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
+      "description": "This course is designed for students in grades 10-12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
         "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals.",
@@ -58,8 +58,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS311",
@@ -87,14 +94,7 @@
             "Prior Orchestra Experience and/or Approval of Orchestra Faculty"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Symphonic Orchestra",
@@ -108,8 +108,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": true,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "offerings": [
         {
           "courseCode": "MUS331",
@@ -139,18 +146,11 @@
             "Auditions are required for all students with the Orchestra Faculty"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": true,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     },
     {
       "title": "Patriot Orchestra",
-      "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
+      "description": "This course is designed for students in grades 10-12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
       "notes": [
         "Open to qualified students in grades 10-11-12.",
         "Seniors enrolled in Patriot Orchestra who have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver.",
@@ -159,8 +159,15 @@
       ],
       "sourceReference": "page 58",
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Music",
       "choices": [
         {
           "name": "College Prep",
@@ -232,14 +239,7 @@
           ],
           "credits": 1
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Music"
+      ]
     }
   ],
   "graduationRequirements": [],

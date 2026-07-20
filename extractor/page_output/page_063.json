@@ -5,14 +5,21 @@
       "description": "Acting 3 is an advanced theatre course with an emphasis on student-generated performance. Specific areas of focus include improv comedy and student written performance relating to contemporary social issues. Acting 3 culminates in an original devised performance, as part of the Patriot Theatre Company season.",
       "gpaWaiverOption": true,
       "notes": [
-        "Semester 1 course only — no Semester 2 offering. THR211 is the sole course code."
+        "Semester 1 course only - no Semester 2 offering. THR211 is the sole course code."
       ],
       "sourceReference": "page 63",
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR211",
@@ -27,6 +34,20 @@
             "Acting 2: Character and Comedy"
           ]
         }
+      ]
+    },
+    {
+      "title": "Acting 4",
+      "description": "Acting 4 is an advanced theatre course which allows students to explore and perform a wide range of theatrical texts and traditions. Students will gain knowledge of influential theatre styles including Greek, Commedia dell'arte, Shakespeare and other global traditions.",
+      "gpaWaiverOption": true,
+      "notes": [
+        "Semester 2 course only - no Semester 1 offering. THR212 is the sole course code."
+      ],
+      "sourceReference": "page 63",
+      "creditType": "College Prep",
+      "credits": 1,
+      "fulfillsRequirements": [
+        "Fine Arts"
       ],
       "attributes": {
         "isRepeatable": false,
@@ -34,21 +55,7 @@
         "requiresApplication": false
       },
       "division": "Fine Arts",
-      "department": "Theatre"
-    },
-    {
-      "title": "Acting 4",
-      "description": "Acting 4 is an advanced theatre course which allows students to explore and perform a wide range of theatrical texts and traditions. Students will gain knowledge of influential theatre styles including Greek, Commedia dell'arte, Shakespeare and other global traditions.",
-      "gpaWaiverOption": true,
-      "notes": [
-        "Semester 2 course only — no Semester 1 offering. THR212 is the sole course code."
-      ],
-      "sourceReference": "page 63",
-      "creditType": "College Prep",
-      "credits": 1,
-      "fulfillsRequirements": [
-        "Elective Graduation Requirement"
-      ],
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR212",
@@ -63,14 +70,7 @@
             "Acting 3"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     },
     {
       "title": "Advanced Acting",
@@ -84,8 +84,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR401",
@@ -111,14 +118,7 @@
             "Acting 4"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     },
     {
       "title": "Theatre Leadership: Directing and Management",
@@ -128,8 +128,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR301",
@@ -155,15 +162,7 @@
             "Acting 4 or Entertainment Production and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     },
     {
       "title": "Leadership in Theatre Studies",
@@ -176,8 +175,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Theatre",
       "offerings": [
         {
           "courseCode": "THR601",
@@ -205,14 +211,7 @@
             "Acting 4 OR Entertainment Production and Design and Instructor Approval"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Theatre"
+      ]
     }
   ],
   "graduationRequirements": [],

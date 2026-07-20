@@ -8,8 +8,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART241",
@@ -39,15 +46,7 @@
             "Art and Design"
           ]
         }
-      ],
-      "notes": [],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Advanced Drawing, Painting and Mixed Media",
@@ -60,8 +59,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART621",
@@ -89,14 +95,7 @@
             "Art and Design AND TWO of the following courses: Drawing, Painting, Studio Art or Mixed Media"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "Advanced Ceramics, Metals and Sculpture",
@@ -109,8 +108,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART631",
@@ -138,14 +144,7 @@
             "Art and Design AND TWO of the following courses: Ceramics, Metals and Jewelry or Sculpture"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     },
     {
       "title": "AP Art: Drawing, 2D and 3D Design",
@@ -158,8 +157,15 @@
       "creditType": "Honors",
       "credits": 1,
       "fulfillsRequirements": [
-        "Elective Graduation Requirement"
+        "Fine Arts"
       ],
+      "attributes": {
+        "isRepeatable": true,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Fine Arts",
+      "department": "Visual Arts",
       "offerings": [
         {
           "courseCode": "ART801",
@@ -185,14 +191,7 @@
             "Advanced Drawing, Painting and Mixed Media OR Advanced Ceramics, Metals and Sculpture"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": true,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Fine Arts",
-      "department": "Visual Arts"
+      ]
     }
   ],
   "graduationRequirements": [],

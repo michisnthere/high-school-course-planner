@@ -11,6 +11,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development",
       "offerings": [
         {
           "courseCode": "ELD161",
@@ -40,14 +47,7 @@
             "WIDA-screener/ACCESS exam COMPOSITE 1.0-1.9"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Multilingual Learning",
-      "department": "English Language Development"
+      ]
     },
     {
       "title": "English Language Development (ELD) 2",
@@ -60,6 +60,13 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [],
+      "attributes": {
+        "isRepeatable": false,
+        "requiresAudition": false,
+        "requiresApplication": false
+      },
+      "division": "Multilingual Learning",
+      "department": "English Language Development",
       "offerings": [
         {
           "courseCode": "ELD261",
@@ -89,14 +96,7 @@
             "Proficiency as demonstrated on WIDA-screener/ACCESS exam COMPOSITE 2.0-2.9 or successful completion of ELD 1, teacher recommendation or director approval"
           ]
         }
-      ],
-      "attributes": {
-        "isRepeatable": false,
-        "requiresAudition": false,
-        "requiresApplication": false
-      },
-      "division": "Multilingual Learning",
-      "department": "English Language Development"
+      ]
     }
   ],
   "graduationRequirements": [],
