@@ -40,11 +40,11 @@ export function KeyboardShortcutProvider({ children }: { children: React.ReactNo
     const handleKeyDown = (e: KeyboardEvent) => {
       if (window.innerWidth < breakpoints.mobile) return;
 
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && !isTextInput(e.target)) {
+        e.preventDefault();
         if (document.activeElement instanceof HTMLElement) {
           document.activeElement.blur();
         }
-        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
         return;
       }
 
