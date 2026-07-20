@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { createGoogleStrategy, type SessionUser } from "../lib/auth.js";
+import { createGoogleStrategy, parseOAuthState, type SessionUser } from "../lib/auth.js";
 import { prisma } from "../lib/prisma.js";
 
 const RAW_FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
@@ -33,42 +33,18 @@ function isValidInternalPath(value: string): boolean {
 
 router.get("/google", (req, res, next) => {
   const rawRedirect = typeof req.query.redirect === "string" ? req.query.redirect : "";
-  const sid = req.sessionID;
-  const cookie = req.headers.cookie ?? "(none)";
   console.log(`[auth:google] ───────────────────────────────`);
-  console.log(`[auth:google] sessionID="${sid}"`);
-  console.log(`[auth:google] cookie="${cookie.slice(0,120)}"`);
   console.log(`[auth:google] redirect param="${rawRedirect}"`);
-  console.log(`[auth:google] authRedirect BEFORE="${req.session.authRedirect}"`);
-  console.log(`[auth:google] passport BEFORE=${JSON.stringify(req.session.passport)}`);
 
-  if (isValidInternalPath(rawRedirect)) {
-    req.session.authRedirect = rawRedirect;
-    console.log(`[auth:google] stored authRedirect="${rawRedirect}"`);
-  } else if (rawRedirect) {
-    console.log(`[auth:google] rejected invalid redirect="${rawRedirect}"`);
-  }
-
-  // Force save to verify the session persists before the redirect
-  req.session.save((err) => {
-    if (err) {
-      console.log(`[auth:google] SESSION SAVE ERROR:`, err);
-    } else {
-      console.log(`[auth:google] session saved OK — ID="${req.sessionID}" authRedirect="${req.session.authRedirect}"`);
-    }
-    const strategy = createGoogleStrategy(CALLBACK_URL);
-    passport.authenticate(strategy, { scope: ["profile", "email"] })(req, res, next);
-  });
+  const redirect = isValidInternalPath(rawRedirect) ? rawRedirect : "/";
+  const strategy = createGoogleStrategy(CALLBACK_URL, redirect);
+  passport.authenticate(strategy, { scope: ["profile", "email"] })(req, res, next);
 });
 
 router.get("/google/callback", (req, res, next) => {
-  const sid = req.sessionID;
-  const cookie = req.headers.cookie ?? "(none)";
+  const returnedState = typeof req.query.state === "string" ? req.query.state : "";
   console.log(`[auth:callback] ───────────────────────────────`);
-  console.log(`[auth:callback] sessionID="${sid}"`);
-  console.log(`[auth:callback] cookie="${cookie.slice(0,120)}"`);
-  console.log(`[auth:callback] authRedirect="${req.session.authRedirect}"`);
-  console.log(`[auth:callback] passport=${JSON.stringify(req.session.passport)}`);
+  console.log(`[auth:callback] state="${returnedState}"`);
 
   const strategy = createGoogleStrategy(CALLBACK_URL);
   passport.authenticate(
@@ -85,19 +61,21 @@ router.get("/google/callback", (req, res, next) => {
         console.log(`[auth:callback] no user`);
         return res.redirect(`${FRONTEND_URL}/login`);
       }
-      console.log(`[auth:callback] user authenticated — sessionID="${req.sessionID}"`);
+      console.log(`[auth:callback] user authenticated`);
       req.logIn(user, (loginErr) => {
         if (loginErr) {
           console.log(`[auth:callback] login error:`, loginErr);
           return next(loginErr);
         }
-        console.log(`[auth:callback] logged in — sessionID="${req.sessionID}" passport=${JSON.stringify(req.session.passport)}`);
-        const authRedirect = req.session.authRedirect;
-        delete req.session.authRedirect;
-        console.log(`[auth:callback] read authRedirect="${authRedirect}" (deleted)`);
-        const redirectPath = isValidInternalPath(authRedirect ?? "") ? authRedirect! : "/dashboard";
-        console.log(`[auth:callback] redirecting to "${redirectPath}"`);
-        res.redirect(`${FRONTEND_URL}${redirectPath}`);
+        console.log(`[auth:callback] logged in`);
+
+        let redirect = "/";
+        const parsed = parseOAuthState(returnedState, process.env.SESSION_SECRET!);
+        if (parsed && isValidInternalPath(parsed)) {
+          redirect = parsed;
+        }
+        console.log(`[auth:callback] redirecting to "${redirect}"`);
+        res.redirect(`${FRONTEND_URL}${redirect}`);
       });
     }
   )(req, res, next);
@@ -156,7 +134,7 @@ if (NODE_ENV !== "production") {
         }
         const rawRedirect = typeof req.query.redirect === "string" ? req.query.redirect : "";
         console.log(`[auth:dev] redirect param="${rawRedirect}"`);
-        const safeRedirect = isValidInternalPath(rawRedirect) ? rawRedirect : "/dashboard";
+        const safeRedirect = isValidInternalPath(rawRedirect) ? rawRedirect : "/";
         console.log(`[auth:dev] redirecting to "${safeRedirect}"`);
         res.redirect(`${FRONTEND_URL}${safeRedirect}`);
       });
