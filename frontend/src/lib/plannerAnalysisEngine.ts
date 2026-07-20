@@ -19,8 +19,9 @@ const REQUIREMENT_NAME_ALIASES = new Map<string, string>([
   ["civics and patriotism", "Civics & Patriotism"],
   ["driver education graduation requirement", "Driver Education"],
   ["elective graduation requirement", "Electives"],
-  ["economics or personal finance graduation requirement", "Consumer Education"],
-  ["economics or personal finance", "Consumer Education"],
+  ["consumer education", "Economics or Personal Finance"],
+  ["economics or personal finance graduation requirement", "Economics or Personal Finance"],
+  ["economics or personal finance", "Economics or Personal Finance"],
   ["health graduation requirement", "Health"],
   ["physical welfare", "Physical Education"],
   ["physical welfare graduation requirement and waivers", "Physical Education"],
@@ -43,7 +44,7 @@ const INFORMATION_ITEM_NAMES = new Set([
 
 const MEASURABLE_REQUIREMENT_NAMES = new Set([
   "English", "Mathematics", "Science", "Biology", "Physical Science",
-  "Health", "Consumer Education", "Driver Education", "Fine Arts",
+  "Health", "Economics or Personal Finance", "Driver Education", "Fine Arts",
   "Electives", "Physical Education", "Social Studies", "U.S. History",
   "World History and Geography", "Government", "Additional Credits and P.E.", "Total Credits",
 ]);
@@ -90,7 +91,7 @@ const GRADUATION_REQUIREMENTS: GraduationRequirementDef[] = [
   { name: "World History and Geography", category: "Social Studies", requirementType: null, requiredValue: 2, isMeasurable: true },
   { name: "Physical Education", category: null, requirementType: null, requiredValue: 3.5, isMeasurable: true },
   { name: "Health", category: null, requirementType: null, requiredValue: 1, isMeasurable: true },
-  { name: "Consumer Education", category: null, requirementType: null, requiredValue: 1, isMeasurable: true },
+  { name: "Economics or Personal Finance", category: null, requirementType: null, requiredValue: 1, isMeasurable: true },
   { name: "Driver Education", category: null, requirementType: null, requiredValue: 1, isMeasurable: true },
   { name: "Fine Arts", category: null, requirementType: null, requiredValue: 1, isMeasurable: true },
   { name: "Electives", category: null, requirementType: null, requiredValue: 2, isMeasurable: true },

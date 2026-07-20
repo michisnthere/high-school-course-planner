@@ -538,7 +538,7 @@ async function importGraduationRequirements(
         requiredValue: req.requiredValue ?? null,
         gradeLevel: req.gradeLevel ?? null,
         isMeasurable: req.isMeasurable ?? (req.requiredValue != null),
-        notes: requireArray(req.notes),
+        notes: normalizeTextArray(requireArray(req.notes)),
         sourceReference: req.sourceReference ?? null,
       },
       update: {
@@ -548,7 +548,7 @@ async function importGraduationRequirements(
         requiredValue: req.requiredValue ?? null,
         gradeLevel: req.gradeLevel ?? null,
         isMeasurable: req.isMeasurable ?? (req.requiredValue != null),
-        notes: requireArray(req.notes),
+        notes: normalizeTextArray(requireArray(req.notes)),
         sourceReference: req.sourceReference ?? null,
       },
       select: { id: true, name: true },

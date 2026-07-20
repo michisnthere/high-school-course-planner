@@ -803,7 +803,7 @@ function RequirementCard({
               })}
                 {hasMore && (
                   <Link
-                    href={`/catalog?division=${encodeURIComponent(req.name)}`}
+                    href={`/catalog?requirement=${encodeURIComponent(req.name)}`}
                     className="rs-req-explore"
                     style={{
                       display: "inline-block",

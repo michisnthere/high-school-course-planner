@@ -38,6 +38,24 @@ export default async function Home() {
       <ResponsivePage>
         <GuestUpgradePrompt />
 
+        <div
+          style={{
+            padding: "16px 20px",
+            marginBottom: "24px",
+            backgroundColor: "#FCF5DF",
+            border: "1px solid #ECBA2B",
+            borderRadius: "12px",
+            fontSize: "14px",
+            color: "#111827",
+            lineHeight: 1.5,
+          }}
+        >
+          <strong style={{ color: "#ECBA2B" }}>Note:</strong> This is a planning tool and is not
+          affiliated with or endorsed by the school district. Course offerings, graduation requirements,
+          and all other information may not reflect the most current data. Always consult your school
+          counselor or the official course catalog for authoritative information.
+        </div>
+
         <div className="rs-dash-header">
           <DashboardHeader />
         </div>

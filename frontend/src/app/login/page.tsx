@@ -106,16 +106,7 @@ export default function LoginPage(): React.ReactElement {
             Sign in with your Google account to plan your courses, track requirements, and explore the
             Stevenson course catalog.
           </p>
-          <p
-            style={{
-              margin: "0 0 32px",
-              fontSize: "13px",
-              color: "var(--text-muted)",
-              lineHeight: 1.5,
-            }}
-          >
-            Powered by Adlai E. Stevenson High School
-          </p>
+          <div style={{ height: "16px" }} />
           <button
             type="button"
             onClick={handleSignIn}

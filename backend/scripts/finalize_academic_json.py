@@ -678,6 +678,8 @@ def _process_file(path: Path) -> Tuple[int, int, int, List[str], bool]:
         _clean_text_fields(dept, "name", "description", "director", "directorEmail", "directorPhone")
     for div in _ensure_list(data.get("divisions")):
         _clean_text_fields(div, "name", "description")
+    for req in _ensure_list(data.get("graduationRequirements")):
+        _clean_text_fields(req, "name", "notes")
 
     raw_courses = _ensure_list(data.get("courses"))
     modified = 0

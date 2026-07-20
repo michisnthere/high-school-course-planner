@@ -1208,7 +1208,7 @@
             12
           ],
           "prerequisites": [
-            "Civil Engineering and Architecture–PLTW or Architectural Design"
+            "Civil Engineering and Architecture-PLTW or Architectural Design"
           ]
         },
         {
@@ -1221,7 +1221,7 @@
             12
           ],
           "prerequisites": [
-            "Civil Engineering and Architecture–PLTW or Architectural Design"
+            "Civil Engineering and Architecture-PLTW or Architectural Design"
           ]
         }
       ],
@@ -1235,8 +1235,8 @@
       "department": "Engineering"
     },
     {
-      "title": "Introduction to Engineering Design–PLTW",
-      "description": "Introduction to Engineering Design–PLTW is a full-year course available to all students. In this course, students use 3D solid modeling design software to help them design solutions to solve proposed problems. Students will then use high-tech equipment including 3D printers, a laser engraver and CNC router to produce their solutions. Students will learn how to document their work and communicate solutions to peers and members of the professional community. The major focus of the Introduction to Engineering Design–PLTW course is to expose students to the design process, research and analysis, collaboration skills, communication methods, global and human impacts, engineering standards and technical documentation. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
+      "title": "Introduction to Engineering Design-PLTW",
+      "description": "Introduction to Engineering Design-PLTW is a full-year course available to all students. In this course, students use 3D solid modeling design software to help them design solutions to solve proposed problems. Students will then use high-tech equipment including 3D printers, a laser engraver and CNC router to produce their solutions. Students will learn how to document their work and communicate solutions to peers and members of the professional community. The major focus of the Introduction to Engineering Design-PLTW course is to expose students to the design process, research and analysis, collaboration skills, communication methods, global and human impacts, engineering standards and technical documentation. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
       "gpaWaiverOption": true,
       "sourceReference": "page 40",
       "creditType": "College Prep",
@@ -1278,7 +1278,7 @@
       "department": "Engineering"
     },
     {
-      "title": "Civil Engineering and Architecture–PLTW",
+      "title": "Civil Engineering and Architecture-PLTW",
       "description": "Students will learn the art and science of planning, designing and constructing buildings. The major focus of this course is completing long-term projects that involve the design and development of residential and commercial structures. Students use Autodesk Revit, a professional grade software, to design a small structure and a home to learn the basic construction systems such as wall, roof, foundation, water and electrical systems. Students design a commercial structure in the surrounding community following local building codes. Within this project, students will also learn about additional topics such as commercial construction systems, sustainable design, universal design and structural engineering. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
       "gpaWaiverOption": false,
       "sourceReference": "page 41",
@@ -1296,7 +1296,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design or Architectural Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design or Architectural Design"
           ]
         },
         {
@@ -1309,7 +1309,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design or Architectural Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design or Architectural Design"
           ]
         }
       ],
@@ -1323,8 +1323,8 @@
       "department": "Engineering"
     },
     {
-      "title": "Principles of Engineering–PLTW",
-      "description": "Principles of Engineering–PLTW is a survey course in which students will be introduced to several elements of engineering including mechanisms, energy, statics, materials and kinematics. Students in Principles of Engineering–PLTW will develop problem-solving skills and collaborate with others to complete design challenges. Students will be using various engineering programs to research and evaluate designs, create code for robotics and develop virtual models of design solutions. Student projects will include: creating a bridge, designing a robotic material sorter and programming and building a projectile launcher. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
+      "title": "Principles of Engineering-PLTW",
+      "description": "Principles of Engineering-PLTW is a survey course in which students will be introduced to several elements of engineering including mechanisms, energy, statics, materials and kinematics. Students in Principles of Engineering-PLTW will develop problem-solving skills and collaborate with others to complete design challenges. Students will be using various engineering programs to research and evaluate designs, create code for robotics and develop virtual models of design solutions. Student projects will include: creating a bridge, designing a robotic material sorter and programming and building a projectile launcher. Students may receive college credit and/or advanced standing for successful completion of this course and a cumulative exam.",
       "gpaWaiverOption": false,
       "sourceReference": "page 41",
       "creditType": "Honors",
@@ -1341,7 +1341,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design"
           ]
         },
         {
@@ -1354,7 +1354,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design"
           ]
         }
       ],
@@ -1368,7 +1368,7 @@
       "department": "Engineering"
     },
     {
-      "title": "Electrical Engineering–PLTW",
+      "title": "Electrical Engineering-PLTW",
       "description": "This Electrical Engineering (EE) course gives students the chance to explore the technology behind everyday electronics. Students will learn the basics of how digital circuits work and dive into topics like logic gates, integrated circuits and programmable devices. They will also learn how to design your own circuits using both hardware and software. Along the way, students will build teamwork, communication and problem-solving skills while learning how engineers document and share their ideas.",
       "gpaWaiverOption": false,
       "sourceReference": "page 41",
@@ -1386,7 +1386,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design"
           ]
         },
         {
@@ -1399,7 +1399,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design"
           ]
         }
       ],
@@ -1413,7 +1413,7 @@
       "department": "Engineering"
     },
     {
-      "title": "Computer Integrated Manufacturing–PLTW",
+      "title": "Computer Integrated Manufacturing-PLTW",
       "description": "Computer Integrated Manufacturing is one of the specialization courses in the PLTW Engineering program. The course deepens the skills and knowledge of an engineering student within the context of efficiently creating the products all around us. Students learn about manufacturing processes, product design, robotics and automation. Students develop their knowledge and skills of Computer Aided Design and Manufacturing to produce products using a Computer Numerical Controlled (CNC) mill. Students apply the knowledge and skills gained in this course as they collaborate to design, build and program factory system models.",
       "gpaWaiverOption": false,
       "sourceReference": "page 41",
@@ -1431,7 +1431,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design"
           ]
         },
         {
@@ -1444,7 +1444,7 @@
             12
           ],
           "prerequisites": [
-            "Introduction to Engineering Design–PLTW or Engineering Design"
+            "Introduction to Engineering Design-PLTW or Engineering Design"
           ]
         }
       ],
@@ -1458,8 +1458,8 @@
       "department": "Engineering"
     },
     {
-      "title": "Engineering Design and Development–PLTW",
-      "description": "In this capstone course of the engineering pathway, students take full ownership of the design process as they identify a real-world problem and develop a meaningful, innovative solution. Drawing on skills from previous engineering classes, students deepen their understanding of design thinking, manufacturing techniques and patterns of innovation. The course begins with a team-based mini-capstone that introduces advanced tools and methods—including 3D printing, laser cutting, CNC machining and traditional fabrication equipment like saws and drills. From there, students explore problem validation, conduct user-focused research and pitch their own project ideas. Once approved, students move from concept to prototype, applying iterative design and testing to refine their solutions. The experience culminates in the Engineering Design Fair, where students present their work to peers and faculty. Projects must focus on creating something that's both approachable and impactful. Past capstones have included a child-proof knife block to reduce kitchen injuries, mobility crutches designed for athletes and a smart recycling sorter that detects and separates overlooked plastics.",
+      "title": "Engineering Design and Development-PLTW",
+      "description": "In this capstone course of the engineering pathway, students take full ownership of the design process as they identify a real-world problem and develop a meaningful, innovative solution. Drawing on skills from previous engineering classes, students deepen their understanding of design thinking, manufacturing techniques and patterns of innovation. The course begins with a team-based mini-capstone that introduces advanced tools and methods-including 3D printing, laser cutting, CNC machining and traditional fabrication equipment like saws and drills. From there, students explore problem validation, conduct user-focused research and pitch their own project ideas. Once approved, students move from concept to prototype, applying iterative design and testing to refine their solutions. The experience culminates in the Engineering Design Fair, where students present their work to peers and faculty. Projects must focus on creating something that's both approachable and impactful. Past capstones have included a child-proof knife block to reduce kitchen injuries, mobility crutches designed for athletes and a smart recycling sorter that detects and separates overlooked plastics.",
       "gpaWaiverOption": false,
       "sourceReference": "page 41",
       "creditType": "Honors",
@@ -1475,7 +1475,7 @@
             12
           ],
           "prerequisites": [
-            "PLTW Digital Electronics or Electrical Engineering–PLTW, Principles of Engineering–PLTW, Computer Integrated Manufacturing–PLTW or Civil Engineering and Architecture–PLTW"
+            "PLTW Digital Electronics or Electrical Engineering-PLTW, Principles of Engineering-PLTW, Computer Integrated Manufacturing-PLTW or Civil Engineering and Architecture-PLTW"
           ]
         },
         {
@@ -1487,7 +1487,7 @@
             12
           ],
           "prerequisites": [
-            "PLTW Digital Electronics or Electrical Engineering–PLTW, Principles of Engineering–PLTW, Computer Integrated Manufacturing–PLTW or Civil Engineering and Architecture–PLTW"
+            "PLTW Digital Electronics or Electrical Engineering-PLTW, Principles of Engineering-PLTW, Computer Integrated Manufacturing-PLTW or Civil Engineering and Architecture-PLTW"
           ]
         }
       ],
@@ -1502,7 +1502,7 @@
     },
     {
       "title": "Print Media 1",
-      "description": "Print Media 1 is a creative, hands-on design lab where students will bring their ideas to life—from rough sketches to real products they can hold, wear or share. Using industry-standard tools like Adobe Illustrator and Photoshop, students will learn how to design for both screens and physical items. They will create everything from stickers, buttons and t-shirts to posters, window clings, laser-cut wood, acrylic and leather goods. Along the way, they'll tackle design challenges, think like a creator and turn their ideas into finished products. Whether they dream of a design career or just love making things, this class gives the tools to do both.",
+      "description": "Print Media 1 is a creative, hands-on design lab where students will bring their ideas to life-from rough sketches to real products they can hold, wear or share. Using industry-standard tools like Adobe Illustrator and Photoshop, students will learn how to design for both screens and physical items. They will create everything from stickers, buttons and t-shirts to posters, window clings, laser-cut wood, acrylic and leather goods. Along the way, they'll tackle design challenges, think like a creator and turn their ideas into finished products. Whether they dream of a design career or just love making things, this class gives the tools to do both.",
       "gpaWaiverOption": true,
       "sourceReference": "page 43",
       "creditType": "College Prep",
@@ -1592,7 +1592,7 @@
     },
     {
       "title": "Web Development 1",
-      "description": "Web Development 1 is where design meets code. In this hands-on course, students will learn how to build websites from the ground up using HTML5 and CSS3”no templates, no shortcuts. Students will explore the world of user interface (UI) design, creating visually appealing and accessible layouts with carefully chosen colors, fonts and structure. By the end of the course, students will have a fully functioning, custom-designed portfolio website that showcases their work—perfect for sharing with friends, future employers or college programs. If a student is ready to design the web, this is where they start.",
+      "description": "Web Development 1 is where design meets code. In this hands-on course, students will learn how to build websites from the ground up using HTML5 and CSS3\"no templates, no shortcuts. Students will explore the world of user interface (UI) design, creating visually appealing and accessible layouts with carefully chosen colors, fonts and structure. By the end of the course, students will have a fully functioning, custom-designed portfolio website that showcases their work-perfect for sharing with friends, future employers or college programs. If a student is ready to design the web, this is where they start.",
       "gpaWaiverOption": true,
       "sourceReference": "page 43",
       "creditType": "College Prep",
@@ -1635,7 +1635,7 @@
     },
     {
       "title": "Web Development 2",
-      "description": "Web Development 2 is where students' websites come to life. This course moves beyond layout and visuals to focus on user experience (UX) and interactivity. Students will learn how to build functional web apps like timers, quizzes, calculators and weather tools—all from scratch using HTML, CSS and JavaScript. Students will bring their ideas to life with real-time features, animations and user input. By the end of the course, they'll have a collection of polished, interactive projects to showcase in a professional portfolio that stands out to colleges, internships and future employers.",
+      "description": "Web Development 2 is where students' websites come to life. This course moves beyond layout and visuals to focus on user experience (UX) and interactivity. Students will learn how to build functional web apps like timers, quizzes, calculators and weather tools-all from scratch using HTML, CSS and JavaScript. Students will bring their ideas to life with real-time features, animations and user input. By the end of the course, they'll have a collection of polished, interactive projects to showcase in a professional portfolio that stands out to colleges, internships and future employers.",
       "gpaWaiverOption": true,
       "sourceReference": "page 43",
       "creditType": "College Prep",
@@ -1772,7 +1772,7 @@
     },
     {
       "title": "Motion Graphics and Visual Effects",
-      "description": "In Motion Graphics and Visual Effects, students dive into the world of post-production magic using Adobe After Effects. This advanced course focuses on bringing video to life through animation, compositing and special effects. Students will master key tools like keyframing, masking and layering while learning to animate shapes, text and images. They'll also explore how to add realistic visual effects to their own footage—from glowing energy blasts to seamless green screen edits. Projects include animated flags, cinemagraphs, kinetic typography, visual effects scenes and professional-style title sequences. Whether a student is into film, animation or digital design, this course gives them the skills to create the kind of motion graphics one sees in movies, commercials and TV.",
+      "description": "In Motion Graphics and Visual Effects, students dive into the world of post-production magic using Adobe After Effects. This advanced course focuses on bringing video to life through animation, compositing and special effects. Students will master key tools like keyframing, masking and layering while learning to animate shapes, text and images. They'll also explore how to add realistic visual effects to their own footage-from glowing energy blasts to seamless green screen edits. Projects include animated flags, cinemagraphs, kinetic typography, visual effects scenes and professional-style title sequences. Whether a student is into film, animation or digital design, this course gives them the skills to create the kind of motion graphics one sees in movies, commercials and TV.",
       "gpaWaiverOption": true,
       "sourceReference": "page 44",
       "creditType": "College Prep",
@@ -1815,7 +1815,7 @@
     },
     {
       "title": "Video Editing and Production",
-      "description": "In Video Editing and Production, students will bring their stories to life with the tools and techniques used by media professionals. Students will learn the full video production workflow—from planning and shooting with professional DSLR cameras to editing with Adobe Premiere Pro. The course emphasizes visual storytelling while teaching technical skills like green screen compositing, motion graphics, color grading and visual effects. Students also use Adobe Audition for basic audio cleanup and Foley work to enhance sound quality. Whether a student is interested in filmmaking, digital media or content creation, this course builds the creative and technical foundation to produce compelling, high-quality video content.",
+      "description": "In Video Editing and Production, students will bring their stories to life with the tools and techniques used by media professionals. Students will learn the full video production workflow-from planning and shooting with professional DSLR cameras to editing with Adobe Premiere Pro. The course emphasizes visual storytelling while teaching technical skills like green screen compositing, motion graphics, color grading and visual effects. Students also use Adobe Audition for basic audio cleanup and Foley work to enhance sound quality. Whether a student is interested in filmmaking, digital media or content creation, this course builds the creative and technical foundation to produce compelling, high-quality video content.",
       "gpaWaiverOption": true,
       "sourceReference": "page 44",
       "creditType": "College Prep",
@@ -1858,7 +1858,7 @@
     },
     {
       "title": "Virtual Reality",
-      "description": "Step into the world of virtual reality and learn how to create experiences that are immersive, interactive and impactful. In this hands-on course, students will explore the fundamentals of VR development by designing and building a variety of virtual reality projects. Students will discover how VR is used in a wide range of fields—from gaming and animation to education, training, storytelling and more. Along the way, students will design 3D environments, create custom assets using rendering software and program user interactions. Each project is brought to life and tested using VR headsets, giving students a fully immersive development experience. Whether a student is interested in creating games, exploring emerging technology or building the future of interactive media, this course is the starting point for all things virtual reality.",
+      "description": "Step into the world of virtual reality and learn how to create experiences that are immersive, interactive and impactful. In this hands-on course, students will explore the fundamentals of VR development by designing and building a variety of virtual reality projects. Students will discover how VR is used in a wide range of fields-from gaming and animation to education, training, storytelling and more. Along the way, students will design 3D environments, create custom assets using rendering software and program user interactions. Each project is brought to life and tested using VR headsets, giving students a fully immersive development experience. Whether a student is interested in creating games, exploring emerging technology or building the future of interactive media, this course is the starting point for all things virtual reality.",
       "gpaWaiverOption": true,
       "sourceReference": "page 44",
       "creditType": "College Prep",
@@ -3761,7 +3761,7 @@
     },
     {
       "title": "Concert Orchestra",
-      "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
+      "description": "This course is designed for students in grades 10-12 who play violin, viola, cello, bass or harp with advanced string technique. Students will study two- and three-octave scales and arpeggios while developing advanced performance techniques, music theory knowledge and comprehensive musicianship skills. The orchestra will perform a wide range of intermediate to advanced string orchestra and chamber music repertoire. Students will participate in four formal concerts as well as additional curricular string events throughout the school year. This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "notes": [
         "All students enrolled in orchestra are expected to own or rent an instrument for home use, although cello and bass students may use school instruments for daily rehearsals.",
@@ -3863,7 +3863,7 @@
     },
     {
       "title": "Patriot Orchestra",
-      "description": "This course is designed for students in grades 10–12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
+      "description": "This course is designed for students in grades 10-12 who play violin, viola, cello, bass or harp and demonstrate advanced string technique. Repertoire includes works for chamber ensemble, string orchestra and full orchestra with a focus on advanced literature ranging from the mid-19th century to contemporary composers. Students will be expected to demonstrate mastery of all three-octave major and minor scales and arpeggios, concerto repertoire, music theory concepts and comprehensive musicianship skills. In addition to performing advanced repertoire, members of this ensemble collaborate annually with the Wind Ensemble to study and present full-orchestra literature. Students are required to attend scheduled rehearsals and performances outside of the school day. Performance commitments include five formal concerts and additional curricular string events throughout the year. Seniors may earn accelerated credit for this course. This course may be repeated for credit.",
       "notes": [
         "Open to qualified students in grades 10-11-12.",
         "Seniors enrolled in Patriot Orchestra who have been active for four semesters in performing ensembles earn accelerated-level grade points unless requesting a GPA waiver.",
@@ -4530,7 +4530,7 @@
       "description": "Acting 3 is an advanced theatre course with an emphasis on student-generated performance. Specific areas of focus include improv comedy and student written performance relating to contemporary social issues. Acting 3 culminates in an original devised performance, as part of the Patriot Theatre Company season.",
       "gpaWaiverOption": true,
       "notes": [
-        "Semester 1 course only ” no Semester 2 offering. THR211 is the sole course code."
+        "Semester 1 course only \" no Semester 2 offering. THR211 is the sole course code."
       ],
       "sourceReference": "page 63",
       "creditType": "College Prep",
@@ -4566,7 +4566,7 @@
       "description": "Acting 4 is an advanced theatre course which allows students to explore and perform a wide range of theatrical texts and traditions. Students will gain knowledge of influential theatre styles including Greek, Commedia dell'arte, Shakespeare and other global traditions.",
       "gpaWaiverOption": true,
       "notes": [
-        "Semester 2 course only ” no Semester 1 offering. THR212 is the sole course code."
+        "Semester 2 course only \" no Semester 1 offering. THR212 is the sole course code."
       ],
       "sourceReference": "page 63",
       "creditType": "College Prep",
@@ -5334,7 +5334,7 @@
     },
     {
       "title": "Latin 2",
-      "description": "Latin 2 focuses on refining students’ knowledge of grammar and syntax from Latin 1 in order to facilitate the translation of more complex passages. Readings will focus on daily life in Rome, mythology and the heroic ideal. In addition, students will complete a semester of vocabulary study based on Latin roots, which is designed to increase students’ English vocabulary. Students will also study prescription writing in Latin abbreviations, Latin in modern law and Latin in medicine and anatomy.",
+      "description": "Latin 2 focuses on refining students' knowledge of grammar and syntax from Latin 1 in order to facilitate the translation of more complex passages. Readings will focus on daily life in Rome, mythology and the heroic ideal. In addition, students will complete a semester of vocabulary study based on Latin roots, which is designed to increase students' English vocabulary. Students will also study prescription writing in Latin abbreviations, Latin in modern law and Latin in medicine and anatomy.",
       "gpaWaiverOption": false,
       "sourceReference": "page 77",
       "creditType": "Accelerated",
@@ -5426,7 +5426,7 @@
     },
     {
       "title": "AP Latin",
-      "description": "Students will complete preparation for the AP Latin exam. Students will continue to refine reading, writing, listening and speaking skills. Training in translation, meter and poetic devices involved in the study of major Latin works of literature will be stressed. The students will become more comfortable in the reading and interpretation of Vergil’s Aeneid and Caesar’s De Bello Gallico. To achieve this endeavor, both the cultural component (history, politics, social structure and art) and the linguistic aspect (grammar, vocabulary and structure) will be emphasized. Students proceeding to AP Latin will be provided with summer readings by the classroom instructor. Students who enroll in this course will be prepared to take the AP Latin exam in May.",
+      "description": "Students will complete preparation for the AP Latin exam. Students will continue to refine reading, writing, listening and speaking skills. Training in translation, meter and poetic devices involved in the study of major Latin works of literature will be stressed. The students will become more comfortable in the reading and interpretation of Vergil's Aeneid and Caesar's De Bello Gallico. To achieve this endeavor, both the cultural component (history, politics, social structure and art) and the linguistic aspect (grammar, vocabulary and structure) will be emphasized. Students proceeding to AP Latin will be provided with summer readings by the classroom instructor. Students who enroll in this course will be prepared to take the AP Latin exam in May.",
       "gpaWaiverOption": false,
       "sourceReference": "page 77",
       "creditType": "Honors",
@@ -5702,7 +5702,7 @@
     },
     {
       "title": "AP Chinese Language and Culture",
-      "description": "This course is designed to prepare students for the AP Chinese Language and Culture exam, i.e. a level comparable to fourth semester (or equivalent) college/university courses in Mandarin Chinese. The course focuses on language proficiency while dealing with level- and age-appropriate cultural content throughout the course. Students engage in readings, conversation and composition and research projects. The expectation is that all communication in the classroom takes place in the target language. By the end of the year, students will be able to understand the spoken language formally (lectures, news, etc.) and in conversation (dialogues…); to acquire vocabulary and structures that enable students to understand, analyze contextualized materials (advertisement, posters, newspaper, magazine articles, letters, etc.); to describe an event or activity in a cohesive and coherent manner with linguistic accuracy; to write appropriately employing the organization, vocabulary and structure appropriate to the purpose of their writing and to demonstrate cultural appropriateness through spoken and written discourse.",
+      "description": "This course is designed to prepare students for the AP Chinese Language and Culture exam, i.e. a level comparable to fourth semester (or equivalent) college/university courses in Mandarin Chinese. The course focuses on language proficiency while dealing with level- and age-appropriate cultural content throughout the course. Students engage in readings, conversation and composition and research projects. The expectation is that all communication in the classroom takes place in the target language. By the end of the year, students will be able to understand the spoken language formally (lectures, news, etc.) and in conversation (dialogues...); to acquire vocabulary and structures that enable students to understand, analyze contextualized materials (advertisement, posters, newspaper, magazine articles, letters, etc.); to describe an event or activity in a cohesive and coherent manner with linguistic accuracy; to write appropriately employing the organization, vocabulary and structure appropriate to the purpose of their writing and to demonstrate cultural appropriateness through spoken and written discourse.",
       "gpaWaiverOption": false,
       "sourceReference": "page 79",
       "creditType": "Honors",
@@ -6154,7 +6154,7 @@
     },
     {
       "title": "AP Spanish Literature and Culture",
-      "description": "This course is designed to introduce students to the formal study of Peninsular Spanish, Latin American and U.S. Hispanic literature. The course aims to develop students’ critical reading and analytical writing skills in Spanish as well as their ability to make interdisciplinary connections and explore linguistic and cultural comparisons. This course will be conducted entirely in Spanish appropriate to this level and covers the entire official AP Spanish Literature and Culture reading list. Literary texts are grouped by themes and presented in chronological order within each of the following themes: las sociedades en contacto, la construcción del género, el tiempo y el espacio, las relaciones interpersonales, la dualidad del ser and la creación literaria. Students are expected to discuss literary texts and their different historical, sociocultural and geopolitical contexts in a variety of interactive oral and written formats in Spanish. Students who enroll in this course will be prepared to take the AP Spanish Literature and Culture exam in May.",
+      "description": "This course is designed to introduce students to the formal study of Peninsular Spanish, Latin American and U.S. Hispanic literature. The course aims to develop students' critical reading and analytical writing skills in Spanish as well as their ability to make interdisciplinary connections and explore linguistic and cultural comparisons. This course will be conducted entirely in Spanish appropriate to this level and covers the entire official AP Spanish Literature and Culture reading list. Literary texts are grouped by themes and presented in chronological order within each of the following themes: las sociedades en contacto, la construcción del género, el tiempo y el espacio, las relaciones interpersonales, la dualidad del ser and la creación literaria. Students are expected to discuss literary texts and their different historical, sociocultural and geopolitical contexts in a variety of interactive oral and written formats in Spanish. Students who enroll in this course will be prepared to take the AP Spanish Literature and Culture exam in May.",
       "gpaWaiverOption": false,
       "sourceReference": "page 81",
       "creditType": "Honors",
@@ -6438,7 +6438,7 @@
     },
     {
       "title": "English Language Development (ELD) 4",
-      "description": "This is an English course for students who are transitioning out of the ELD program. Students are expected to produce work with ELD support similar to that of a student in a Communication Arts English course. Students’ proficiencies will advance in the areas of literary analysis, writing, grammar, oral communication and research. Students will explore literary works from their own cultural backgrounds and experiences and use literature as a pathway to greater understanding of diverse perspectives and narratives.",
+      "description": "This is an English course for students who are transitioning out of the ELD program. Students are expected to produce work with ELD support similar to that of a student in a Communication Arts English course. Students' proficiencies will advance in the areas of literary analysis, writing, grammar, oral communication and research. Students will explore literary works from their own cultural backgrounds and experiences and use literature as a pathway to greater understanding of diverse perspectives and narratives.",
       "gpaWaiverOption": true,
       "sourceReference": "page 83",
       "creditType": "College Prep",
@@ -6485,7 +6485,7 @@
     },
     {
       "title": "Current Events",
-      "description": "This one-semester elective course is designed to develop students’ academic, social and instructional language across the five WIDA Standards (Social and Instructional Language, the Language of Language Arts, the Language of Mathematics, the Language of Science and the Language of Social Studies) through discussion and guided written reflection around current events and students’ own experiences. Special focus will not only be given to written, audio and visual sources that are connected with the WIDA Standards, but also to students’ own cultural and linguistic experiences across these standards. Additionally, added focus will be given to academic, social and instructional language for WIDA’s five complementary strands (the Language of Music and Performing Arts, the Language of Humanities, the Language of Visual Arts, the Language of Health and Physical Education and the Language of Technology and Engineering.) This course may be repeated for credit.",
+      "description": "This one-semester elective course is designed to develop students' academic, social and instructional language across the five WIDA Standards (Social and Instructional Language, the Language of Language Arts, the Language of Mathematics, the Language of Science and the Language of Social Studies) through discussion and guided written reflection around current events and students' own experiences. Special focus will not only be given to written, audio and visual sources that are connected with the WIDA Standards, but also to students' own cultural and linguistic experiences across these standards. Additionally, added focus will be given to academic, social and instructional language for WIDA's five complementary strands (the Language of Music and Performing Arts, the Language of Humanities, the Language of Visual Arts, the Language of Health and Physical Education and the Language of Technology and Engineering.) This course may be repeated for credit.",
       "gpaWaiverOption": true,
       "sourceReference": "page 83",
       "notes": [
@@ -7811,7 +7811,7 @@
     },
     {
       "title": "Driver Education",
-      "description": "This course is normally taken during one semester of sophomore or junior year. Students are enrolled in this course based on chronological age. For the 2026\u201327 school year, students may request enrollment in the course for first semester if they were born on or before Nov. 1, 2010 and for second semester if they were born on or before March 1, 2011.\n\nStudents must take and pass both the classroom phase and the behind-the-wheel phase of Driver Education if they wish to receive a license prior to their 18th birthday. Passing the classroom phase is required for graduation.\n\nThe course consists of classroom instruction and behind-the-wheel instruction. Students learn:\n\n\u2022 Rules of the road\n\u2022 Defensive driving\n\u2022 Vehicle control\n\u2022 Driver responsibility\n\u2022 Impaired driving\n\u2022 Distracted driving\n\nStudents must also complete 50 hours of supervised at-home practice while enrolled.\n\nGrades earned in Driver Education do not count toward GPA.\n\nEnrollment is determined by chronological age. If enrollment exceeds capacity, students are admitted in birth date order.\n\nOther requirements:\n\n\u2022 Students must be at least 15 years old to obtain an Illinois permit.\n\u2022 Students must hold an Illinois permit for nine months before receiving a license.\n\u2022 Students must be enrolled in Driver Education to obtain an Illinois permit.\n\u2022 Freshmen may not enroll until the summer after freshman year regardless of age.\n\u2022 Driver Education teachers begin the permit process before the course starts.\n\u2022 Dropping the course cancels the permit.\n\u2022 Students selecting classroom-only instruction may not later complete behind-the-wheel instruction.\n\nDriver Education fee:\n$400 plus a $20 Illinois Secretary of State fee.\n\nParents/Guardians are notified of enrollment by March 8.",
+      "description": "This course is normally taken during one semester of sophomore or junior year. Students are enrolled in this course based on chronological age. For the 2026-27 school year, students may request enrollment in the course for first semester if they were born on or before Nov. 1, 2010 and for second semester if they were born on or before March 1, 2011.\n\nStudents must take and pass both the classroom phase and the behind-the-wheel phase of Driver Education if they wish to receive a license prior to their 18th birthday. Passing the classroom phase is required for graduation.\n\nThe course consists of classroom instruction and behind-the-wheel instruction. Students learn:\n\n- Rules of the road\n- Defensive driving\n- Vehicle control\n- Driver responsibility\n- Impaired driving\n- Distracted driving\n\nStudents must also complete 50 hours of supervised at-home practice while enrolled.\n\nGrades earned in Driver Education do not count toward GPA.\n\nEnrollment is determined by chronological age. If enrollment exceeds capacity, students are admitted in birth date order.\n\nOther requirements:\n\n- Students must be at least 15 years old to obtain an Illinois permit.\n- Students must hold an Illinois permit for nine months before receiving a license.\n- Students must be enrolled in Driver Education to obtain an Illinois permit.\n- Freshmen may not enroll until the summer after freshman year regardless of age.\n- Driver Education teachers begin the permit process before the course starts.\n- Dropping the course cancels the permit.\n- Students selecting classroom-only instruction may not later complete behind-the-wheel instruction.\n\nDriver Education fee:\n$400 plus a $20 Illinois Secretary of State fee.\n\nParents/Guardians are notified of enrollment by March 8.",
       "sourceReference": "page 88",
       "notes": [
         "Pass/Fail course.",
@@ -7857,7 +7857,7 @@
     },
     {
       "title": "Biology",
-      "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students’ graduation requirement for two semesters of biological science.",
+      "description": "In this lab-based course, students explore macromolecules, comparative anatomy, group behavior, genetics, evolution, DNA technology, ecology, diffusion/osmosis, gene expression, cancer and the cell cycle, human impacts, homeostasis and interactions between body systems. Students will work collaboratively and engage with the science and engineering practices. Students will work together to complete a pig dissection in this course. This course can fulfill students' graduation requirement for two semesters of biological science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
@@ -7902,7 +7902,7 @@
     },
     {
       "title": "Chemistry",
-      "description": "In this lab-based course, students explore atomic structure, the periodic table, intermolecular forces, thermodynamics, types of reactions, reaction rates, equilibrium and acids and bases. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science.",
+      "description": "In this lab-based course, students explore atomic structure, the periodic table, intermolecular forces, thermodynamics, types of reactions, reaction rates, equilibrium and acids and bases. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
@@ -7947,7 +7947,7 @@
     },
     {
       "title": "Earth Science",
-      "description": "In this lab-based course, students explore minerals, rocks, plate tectonics, earthquakes, volcanoes, weathering, running water, glaciers, wind, atmospheric science and astronomy. Students will work collaboratively and engage with the science and engineering practices, applying their learning in several hands-on engineering projects across the year. This course can fulfill students’ graduation requirement for two semesters of physical science.",
+      "description": "In this lab-based course, students explore minerals, rocks, plate tectonics, earthquakes, volcanoes, weathering, running water, glaciers, wind, atmospheric science and astronomy. Students will work collaboratively and engage with the science and engineering practices, applying their learning in several hands-on engineering projects across the year. This course can fulfill students' graduation requirement for two semesters of physical science.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
@@ -7990,7 +7990,7 @@
     },
     {
       "title": "Physics",
-      "description": "In this lab-based course, students explore constant and changing velocity, forces, energy, momentum, electrostatics, electricity and magnetism, circuits and waves. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering careers in engineering.",
+      "description": "In this lab-based course, students explore constant and changing velocity, forces, energy, momentum, electrostatics, electricity and magnetism, circuits and waves. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of physical science and is beneficial for students considering careers in engineering.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
@@ -8033,7 +8033,7 @@
     },
     {
       "title": "Horticulture",
-      "description": "In this lab-based course, students explore plant structure, function, ecology and cultivation. Students will work collaboratively and engage with the science and engineering practices, including frequent visits and learning in Stevenson’s greenhouse and green roof environments. This course does not satisfy the life science graduation requirement, but it is beneficial for students who are interested in learning more about plants and plant propagation.",
+      "description": "In this lab-based course, students explore plant structure, function, ecology and cultivation. Students will work collaboratively and engage with the science and engineering practices, including frequent visits and learning in Stevenson's greenhouse and green roof environments. This course does not satisfy the life science graduation requirement, but it is beneficial for students who are interested in learning more about plants and plant propagation.",
       "gpaWaiverOption": false,
       "sourceReference": "page 91",
       "creditType": "College Prep",
@@ -8199,7 +8199,7 @@
     },
     {
       "title": "AP Physics 1",
-      "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
+      "description": "In this 1.5 period lab-based course, students explore linear, circular and simple harmonic motion, forces, energy, momentum, rotation and fluids. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of physical science and is beneficial for students considering majors or careers in science or engineering. Students who enroll in this course will be prepared to take the AP Physics 1 exam in May.",
       "sourceReference": "page 92",
       "fulfillsRequirements": [
         "Physical Science"
@@ -8324,7 +8324,7 @@
     },
     {
       "title": "AP Biology",
-      "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
+      "description": "In this 1.5 period lab-based course, students explore evolution, proteins, cell evolution, DNA, photosynthesis, ecology, cellular respiration, gene expression, gene regulation, genetics and cell signaling. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of biological science and is beneficial for students considering majors or careers in science or health-related fields. Students who enroll in this course will be prepared to take the AP Biology exam in May.",
       "sourceReference": "page 92",
       "fulfillsRequirements": [
         "Biology"
@@ -8446,7 +8446,7 @@
     },
     {
       "title": "AP Chemistry",
-      "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students’ graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
+      "description": "In this 1.5 period lab-based course, students explore chemical bonding, the behavior of gases, the structure of matter, kinetic theory, solutions, acid-base chemistry, electrochemistry, molecular geometry, thermodynamics and equilibrium. Students will work collaboratively and engage with the science and engineering practices. This course can fulfill students' graduation requirement for two semesters of physical science and is beneficial for students considering majors in science. Students who enroll in this course will be prepared to take the AP Chemistry exam in May.",
       "sourceReference": "page 93",
       "fulfillsRequirements": [
         "Physical Science"
@@ -9577,7 +9577,7 @@
     },
     {
       "title": "Political Thought and Its Literature",
-      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a world view and what it means to be a political scientist.",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them be better prepared for future education. Students explore the overarching themes of the course-the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues-through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a world view and what it means to be a political scientist.",
       "sourceReference": "page 101",
       "gpaWaiverOption": true,
       "creditType": "College Prep",
@@ -9701,7 +9701,7 @@
       "department": "Social Studies"
     },
     {
-      "title": "AP Government–United States",
+      "title": "AP Government-United States",
       "description": "This course gives students the tools to engage meaningfully in the local, state and national political process. This course involves both the study of general concepts used to interpret U.S. politics and the analysis of specific case studies. It also requires familiarity with the various institutions, groups, beliefs and ideas that constitute United States political reality. Civics skills will be acquired to help students learn to use the skills, knowledge and attitudes that will prepare them to be competent and responsible citizens. Instruction and assessment will address the principles of representative government, as enunciated in the American Declaration of Independence, the Constitution of the U.S.A. and the Constitution of the State of Illinois. This course satisfies the Illinois civics requirement for high school graduation and Stevenson's graduation requirement of one semester of government. Students who enroll in this course will be prepared to take the AP United States Government and Politics exam in May.",
       "sourceReference": "page 102",
       "fulfillsRequirements": [
@@ -9942,7 +9942,7 @@
     },
     {
       "title": "Sophomore English",
-      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme—the individual's interaction and negotiation with society—through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
+      "description": "In each of these skills-based courses, students continue to develop their proficiencies in reading, writing, literary analysis, grammar and usage, oral communication and research. Students explore the overarching theme-the individual's interaction and negotiation with society-through the study of short stories, short essays and articles, novels, poetry and drama. Through their exposure to a variety of texts, students build upon the various stylistic techniques introduced in Freshman English as a means of enhancing their literacy skills. A focus on persuasion introduces students to the study of rhetorical analysis. This writing intensive course builds upon the argumentation skills introduced in Freshman English while reinforcing a structured process approach to writing. Sophomore English (College Prep) serves students who will benefit from continued reinforcement of the foundational skills noted above, while Sophomore English (Accelerated) is best suited for students who are prepared for a greater challenge. Both classes are outstanding preparation for college.",
       "division": "Communication Arts",
       "department": "Communication Arts",
       "sourceReference": "page 30",
@@ -10326,7 +10326,7 @@
     },
     {
       "title": "Topics in Political Thought and Its Literature",
-      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them better be prepared for future education. Students explore the overarching themes of the course—the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues—through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a worldview and what it means to be a political scientist.",
+      "description": "This one-semester elective course, which can be taken as an English credit or social studies credit, helps students develop skills in the areas of reading, literary analysis, writing, oral communication and research in order to help them better be prepared for future education. Students explore the overarching themes of the course-the individual's understanding of self and others, individualism v. collectivism in democracy, ethics and morals, political partisanship, race relations, diversity, income inequality, politics and media relations, civil liberties and many other important political issues-through short stories, essays, articles, novels, poetry, drama and other intriguing texts. Through their reading and inquiry, students are introduced to various stylistic techniques that help them learn strategies to improve their reading comprehension, writing, listening and speaking skills. Students write in multiple formats throughout the year, including narrative and argumentative, which is a framework for critical thinking. Authentic class discussion plays a vital role in that students talk in class as a means of enhancing their speaking and listening skills as a critical thinker. Students will participate in a mock trial, reach outside of the community, participate in class discussions and examine what it means to develop a worldview and what it means to be a political scientist.",
       "gpaWaiverOption": false,
       "sourceReference": "page 32",
       "creditType": "College Prep",
@@ -10371,7 +10371,7 @@
     },
     {
       "title": "Media Analysis",
-      "description": "This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries—advertising, news and entertainment—and the print and non-print messages created by these industries. Students will be required to write weekly response papers, read college-level texts, view a variety of forms of media, participate in class discussions and complete analytical projects.",
+      "description": "This one-semester composition course is designed to lead students to a critical understanding of the media that surround us. The course focuses on the analysis of three major media industries-advertising, news and entertainment-and the print and non-print messages created by these industries. Students will be required to write weekly response papers, read college-level texts, view a variety of forms of media, participate in class discussions and complete analytical projects.",
       "gpaWaiverOption": false,
       "sourceReference": "page 33",
       "creditType": "College Prep",
@@ -10662,7 +10662,7 @@
     },
     {
       "title": "Journalistic Writing and Production",
-      "description": "Students do all the work necessary to produce the Statesman (newspaper and website). Staff positions include executive editors, copy editors, design editors, advertising manager, section editors (news, opinions, sports, in-depth and feature) and reporter. Staff members gather news, research and write copy and help complete pages. Because this is a student publication, all responsibilities—from the planning of the content, to the design of an issue, to the processing of photos and the completion of pages—are handled by students. After-school work is necessary for these publications. This course may be repeated for credit.",
+      "description": "Students do all the work necessary to produce the Statesman (newspaper and website). Staff positions include executive editors, copy editors, design editors, advertising manager, section editors (news, opinions, sports, in-depth and feature) and reporter. Staff members gather news, research and write copy and help complete pages. Because this is a student publication, all responsibilities-from the planning of the content, to the design of an issue, to the processing of photos and the completion of pages-are handled by students. After-school work is necessary for these publications. This course may be repeated for credit.",
       "gpaWaiverOption": false,
       "sourceReference": "page 34",
       "creditType": "Accelerated",
@@ -10747,7 +10747,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "The school day at Stevenson High School extends from 8:30 a.m. to 3:25 p.m. Students are expected to be in attendance during these hours. There are eight, 47-minute periods in each school day, including a mandatory lunch period. “Early bird” classes are also offered in Physical Education and certain AP Science classes. Alternate schedules are followed periodically throughout the school year to allow for various activities and meetings."
+        "The school day at Stevenson High School extends from 8:30 a.m. to 3:25 p.m. Students are expected to be in attendance during these hours. There are eight, 47-minute periods in each school day, including a mandatory lunch period. \"Early bird\" classes are also offered in Physical Education and certain AP Science classes. Alternate schedules are followed periodically throughout the school year to allow for various activities and meetings."
       ],
       "sourceReference": "page 5",
       "gradeLevel": null,
@@ -11006,7 +11006,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "The State of Illinois Driver Education requirement may be satisfied by: completing Driver Education at Stevenson, submitting a Certificate of Successful Completion from a commercial school or submitting a copy of the student’s Illinois driver’s license if issued prior to age 18. Students must earn eight credits in their previous two semesters in order to be eligible for Driver Education."
+        "The State of Illinois Driver Education requirement may be satisfied by: completing Driver Education at Stevenson, submitting a Certificate of Successful Completion from a commercial school or submitting a copy of the student's Illinois driver's license if issued prior to age 18. Students must earn eight credits in their previous two semesters in order to be eligible for Driver Education."
       ],
       "sourceReference": "page 6",
       "gradeLevel": 10,
@@ -11157,7 +11157,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "The ACT is the state’s high school accountability exam in Illinois. All students in public high schools are required to participate in the ACT Suite of Assessments. Stevenson High School adheres to the requirements of the Illinois State Board of Education (ISBE) and will administer the Digital PreACT 9 to all freshman students, Digital PreACT to all sophomore students and the Digital School-day ACT to all junior students. It is important to note that the school-day ACT given to juniors in the spring is a graduation requirement in the State of Illinois. No other ACT administration fulfills this requirement. ACT scores are not included on a student’s transcript. For information on the Suite of Assessments and more detail on the timeline of these exams, please visit Stevenson’s website at: www.d125.org."
+        "The ACT is the state's high school accountability exam in Illinois. All students in public high schools are required to participate in the ACT Suite of Assessments. Stevenson High School adheres to the requirements of the Illinois State Board of Education (ISBE) and will administer the Digital PreACT 9 to all freshman students, Digital PreACT to all sophomore students and the Digital School-day ACT to all junior students. It is important to note that the school-day ACT given to juniors in the spring is a graduation requirement in the State of Illinois. No other ACT administration fulfills this requirement. ACT scores are not included on a student's transcript. For information on the Suite of Assessments and more detail on the timeline of these exams, please visit Stevenson's website at: www.d125.org."
       ],
       "sourceReference": "page 6",
       "gradeLevel": null,
@@ -11171,21 +11171,21 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "The Free Application for Federal Student Aid (FAFSA) is an application used by colleges and other post-secondary institutions to determine a student’s eligibility for need-based federal financial aid such as grants, loans and work-study programs. In accordance with Public Act 101-0180, students must complete one of the following steps in order to graduate from an Illinois public high school: File a FAFSA; OR File an alternative application for Illinois Financial Aid. The alternative application should only be completed by students not eligible to submit the FAFSA. More information regarding eligibility requirements for the alternative application may be found on the Illinois Student Assistance Commission (ISAC) website; OR Complete the FAFSA non-participation form through the Illinois Student Assistance Commission (ISAC) portal. More detailed information will be shared with students and families in the fall of their senior year. Families may reach out to their school counselor with any questions/concerns."
+        "The Free Application for Federal Student Aid (FAFSA) is an application used by colleges and other post-secondary institutions to determine a student's eligibility for need-based federal financial aid such as grants, loans and work-study programs. In accordance with Public Act 101-0180, students must complete one of the following steps in order to graduate from an Illinois public high school: File a FAFSA; OR File an alternative application for Illinois Financial Aid. The alternative application should only be completed by students not eligible to submit the FAFSA. More information regarding eligibility requirements for the alternative application may be found on the Illinois Student Assistance Commission (ISAC) website; OR Complete the FAFSA non-participation form through the Illinois Student Assistance Commission (ISAC) portal. More detailed information will be shared with students and families in the fall of their senior year. Families may reach out to their school counselor with any questions/concerns."
       ],
       "sourceReference": "page 7",
       "gradeLevel": null,
       "isMeasurable": false
     },
     {
-      "name": "The “46th Credit” Graduation Requirement",
+      "name": "The \"46th Credit\" Graduation Requirement",
       "category": "policy",
       "requirementType": "policy",
       "requiredValue": null,
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Although it is not one of the 45 credits required for graduation from Stevenson High School, the “46th Credit” is as important as the rest. The “46th Credit” fulfills a District 125 commitment to provide students with a coordinated education and awareness program with critical information about alcohol and other drug use, as well as resources for support. During their years at Stevenson High School, students are provided with information about substance abuse prevention and are introduced to a variety of substance abuse prevention activities through Stevenson High School’s Student Assistance Program. During this Drug Education unit in the Health Education classes, all students are issued a “46th Credit” manual, which contains current information on the dangers associated with tobacco, alcohol and other drug use, addiction, recovery, available student prevention programs, school tobacco/drug/alcohol policies, state laws and local ordinances, as well as resources for assistance within the school and community. Students are held accountable for this information and must pass an exam during their Health Education class in order to satisfy this requirement. This exam, devised by the school’s Substance Use Prevention Specialist, is based directly on the information contained in the “46th Credit” manual. The Substance Use Prevention Specialist personally works with all students who have not taken or passed the “46th Credit” exam in the Health Education classes to ensure that this requirement is met. Seniors must have passed the “46th Credit” exam in order to participate in the graduation ceremony."
+        "Although it is not one of the 45 credits required for graduation from Stevenson High School, the \"46th Credit\" is as important as the rest. The \"46th Credit\" fulfills a District 125 commitment to provide students with a coordinated education and awareness program with critical information about alcohol and other drug use, as well as resources for support. During their years at Stevenson High School, students are provided with information about substance abuse prevention and are introduced to a variety of substance abuse prevention activities through Stevenson High School's Student Assistance Program. During this Drug Education unit in the Health Education classes, all students are issued a \"46th Credit\" manual, which contains current information on the dangers associated with tobacco, alcohol and other drug use, addiction, recovery, available student prevention programs, school tobacco/drug/alcohol policies, state laws and local ordinances, as well as resources for assistance within the school and community. Students are held accountable for this information and must pass an exam during their Health Education class in order to satisfy this requirement. This exam, devised by the school's Substance Use Prevention Specialist, is based directly on the information contained in the \"46th Credit\" manual. The Substance Use Prevention Specialist personally works with all students who have not taken or passed the \"46th Credit\" exam in the Health Education classes to ensure that this requirement is met. Seniors must have passed the \"46th Credit\" exam in order to participate in the graduation ceremony."
       ],
       "sourceReference": "page 7",
       "gradeLevel": null,
@@ -11213,7 +11213,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Students who are interested in competing in athletics at the Division I or Division II collegiate level must meet the academic eligibility requirements of the National Collegiate Athletic Association (NCAA). For more information on the Division I and Division II eligibility requirements, please visit: www.ncaa.org/student-athletes/future/academic-standards-initial-eligibility. For the most up-to-date list of Stevenson High School’s approved core courses: Go to: https://web3.ncaa.org/hsportal/exec/homeAction; Type Stevenson’s code 143550 in the “NCAA High School Code” box, then select “Search”; Select a core area or choose: “Show All Approved Courses”; To view a PDF of initial coursework, visit: http://fs.ncaa.org/Docs/eligibility_center/Student_Resources/IE_Brochure.pdf. Please contact your counselor with any questions or concerns regarding NCAA eligibility."
+        "Students who are interested in competing in athletics at the Division I or Division II collegiate level must meet the academic eligibility requirements of the National Collegiate Athletic Association (NCAA). For more information on the Division I and Division II eligibility requirements, please visit: www.ncaa.org/student-athletes/future/academic-standards-initial-eligibility. For the most up-to-date list of Stevenson High School's approved core courses: Go to: https://web3.ncaa.org/hsportal/exec/homeAction; Type Stevenson's code 143550 in the \"NCAA High School Code\" box, then select \"Search\"; Select a core area or choose: \"Show All Approved Courses\"; To view a PDF of initial coursework, visit: http://fs.ncaa.org/Docs/eligibility_center/Student_Resources/IE_Brochure.pdf. Please contact your counselor with any questions or concerns regarding NCAA eligibility."
       ],
       "sourceReference": "page 8",
       "gradeLevel": null,
@@ -11227,7 +11227,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Each year, a master schedule is created to accommodate students’ course selections. Students may modify their course requests at designated times during the spring and summer. Please note that schedule change requests may not be possible based on the availability of courses. Requests for teacher changes will not be honored. Students will be able to view their final schedule through Infinite Campus during the week before school begins. Once the semester has begun, schedule change requests must adhere to the following guidelines. Adding a course: Students may add a course in place of a free hour, study hall or another class during the first three days of a semester if space is available in the course. Students must consult with the teacher regarding make-up requirements for any missed content. Dropping a course: Students may withdraw from a one-semester course up through the end of the first eight weeks of each semester. Please note that in a full-year course, students will only have the first three days of the second semester to drop. When dropping the second semester of a full-year course, the final first semester grade remains on the student’s transcript. Students must maintain a minimum of five courses for credit."
+        "Each year, a master schedule is created to accommodate students' course selections. Students may modify their course requests at designated times during the spring and summer. Please note that schedule change requests may not be possible based on the availability of courses. Requests for teacher changes will not be honored. Students will be able to view their final schedule through Infinite Campus during the week before school begins. Once the semester has begun, schedule change requests must adhere to the following guidelines. Adding a course: Students may add a course in place of a free hour, study hall or another class during the first three days of a semester if space is available in the course. Students must consult with the teacher regarding make-up requirements for any missed content. Dropping a course: Students may withdraw from a one-semester course up through the end of the first eight weeks of each semester. Please note that in a full-year course, students will only have the first three days of the second semester to drop. When dropping the second semester of a full-year course, the final first semester grade remains on the student's transcript. Students must maintain a minimum of five courses for credit."
       ],
       "sourceReference": "page 8",
       "gradeLevel": null,
@@ -11241,7 +11241,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "The Independent Study option allows juniors and seniors, with a special interest in a subject, to pursue that area of interest in more detail or greater depth than the existing curriculum provides. Students who wish to undertake an independent study project must: develop a proposal which includes clearly-stated goals, the learning activities designed to achieve these goals and a schedule detailing the timeline of the project; complete the “Independent Study” form located online; obtain parent/guardian, teacher, director and counselor approval of the project; solicit the help of a teacher advisor to supervise the study; be scheduled into a full-period course with the teacher advisor; attend that course every day; pursue the project with a minimum of direction; complete the project and report its results as agreed upon in the project proposal. Independent study will count towards the 300-minute supervision requirement and P.E. waivers. Successful completion of an independent study project will result in a grade of “P” (Pass). Projects that are not completed will not receive a grade. Credits will be determined by the director and teacher."
+        "The Independent Study option allows juniors and seniors, with a special interest in a subject, to pursue that area of interest in more detail or greater depth than the existing curriculum provides. Students who wish to undertake an independent study project must: develop a proposal which includes clearly-stated goals, the learning activities designed to achieve these goals and a schedule detailing the timeline of the project; complete the \"Independent Study\" form located online; obtain parent/guardian, teacher, director and counselor approval of the project; solicit the help of a teacher advisor to supervise the study; be scheduled into a full-period course with the teacher advisor; attend that course every day; pursue the project with a minimum of direction; complete the project and report its results as agreed upon in the project proposal. Independent study will count towards the 300-minute supervision requirement and P.E. waivers. Successful completion of an independent study project will result in a grade of \"P\" (Pass). Projects that are not completed will not receive a grade. Credits will be determined by the director and teacher."
       ],
       "sourceReference": "page 8",
       "gradeLevel": null,
@@ -11255,7 +11255,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Students may retake any course; however, the original grade will remain on the transcript. The GPA will be determined by using the points from the higher of the two grades. Duplicate credit will not be issued. Students must complete a “Course Retake” form available online before beginning the course. Courses taken at a lower level are not considered course retakes. Students may retake a course at a higher level if it is an equivalent course in terms of content. Course retake does count towards the 300-minute supervision requirement. Students wishing to retake a course in the summer at a different high school need to consult their counselor prior to registering to begin the approval process. If a grade of “A” was earned the first time, then a course may not be retaken."
+        "Students may retake any course; however, the original grade will remain on the transcript. The GPA will be determined by using the points from the higher of the two grades. Duplicate credit will not be issued. Students must complete a \"Course Retake\" form available online before beginning the course. Courses taken at a lower level are not considered course retakes. Students may retake a course at a higher level if it is an equivalent course in terms of content. Course retake does count towards the 300-minute supervision requirement. Students wishing to retake a course in the summer at a different high school need to consult their counselor prior to registering to begin the approval process. If a grade of \"A\" was earned the first time, then a course may not be retaken."
       ],
       "sourceReference": "page 9",
       "gradeLevel": null,
@@ -11269,7 +11269,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Audits do not count toward academic or athletic waivers, but they do count toward the 300-minute supervision requirement. Students who wish to audit a class may do so provided: they obtain an “Audit Request” form from their counselor; there is availability in the classroom; they request the audit within the first ten days of the semester; they receive approval of the division director; they attend the class each day, complete all assignments, take exams and finals and participate in all class activities. Students will be assigned the grade of “AU” (Audit); they receive no credit towards graduation nor points for inclusion in their grade point average. If a student fails to fulfill a requirement in a course taken on an audit basis, the student will be withdrawn from the course. No record of enrollment will appear on the student’s transcript."
+        "Audits do not count toward academic or athletic waivers, but they do count toward the 300-minute supervision requirement. Students who wish to audit a class may do so provided: they obtain an \"Audit Request\" form from their counselor; there is availability in the classroom; they request the audit within the first ten days of the semester; they receive approval of the division director; they attend the class each day, complete all assignments, take exams and finals and participate in all class activities. Students will be assigned the grade of \"AU\" (Audit); they receive no credit towards graduation nor points for inclusion in their grade point average. If a student fails to fulfill a requirement in a course taken on an audit basis, the student will be withdrawn from the course. No record of enrollment will appear on the student's transcript."
       ],
       "sourceReference": "page 9",
       "gradeLevel": null,
@@ -11283,7 +11283,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Stevenson students may apply for up to four credits of external study toward the completion of elective credits required for graduation. Only elective courses necessary to satisfy the 45 credits needed for graduation may be taken for external credit. A maximum of two external credits can be earned for a Multilingual Learning course. Courses offered at Stevenson will not be approved for external credit. External credits are not calculated in the grade point average (GPA). No external credits will be given for work done prior to the student entering high school in the fall term. All external credits must come from accredited programs approved by the Assistant Principal for Teaching and Learning (e.g. summer school at another high school or a college/university course). Students must apply for external credit. No credit will be given without an application. To apply for external credit, a student must meet with their counselor prior to taking the course to: complete an “External Credit” form; and provide a complete course description including information about the accredited institution, the program or course content and the number of contact hours. Upon completion of the course, the student will produce an official transcript mailed directly from the program to the registrar’s office at Stevenson High School. The approval process should be completed before the course is taken or Stevenson credit may not be given."
+        "Stevenson students may apply for up to four credits of external study toward the completion of elective credits required for graduation. Only elective courses necessary to satisfy the 45 credits needed for graduation may be taken for external credit. A maximum of two external credits can be earned for a Multilingual Learning course. Courses offered at Stevenson will not be approved for external credit. External credits are not calculated in the grade point average (GPA). No external credits will be given for work done prior to the student entering high school in the fall term. All external credits must come from accredited programs approved by the Assistant Principal for Teaching and Learning (e.g. summer school at another high school or a college/university course). Students must apply for external credit. No credit will be given without an application. To apply for external credit, a student must meet with their counselor prior to taking the course to: complete an \"External Credit\" form; and provide a complete course description including information about the accredited institution, the program or course content and the number of contact hours. Upon completion of the course, the student will produce an official transcript mailed directly from the program to the registrar's office at Stevenson High School. The approval process should be completed before the course is taken or Stevenson credit may not be given."
       ],
       "sourceReference": "page 9",
       "gradeLevel": null,
@@ -11297,7 +11297,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Stevenson’s summer academic program offers opportunities for enrichment and remediation. Certain courses taken from this program become part of the student’s transcript. Summer courses may be taken during the student’s attendance in high school. Students must complete an “External Credit” form and request course approval prior to enrolling in any summer school class outside of Stevenson. Only courses not offered through Stevenson’s summer school are eligible for external credit. Students attending summer school in another accredited high school district must request that the school forward their grades to the Stevenson registrar. Summer school credit obtained at a high school other than Stevenson is considered external credit and is not included in the calculation of the student’s grade point average."
+        "Stevenson's summer academic program offers opportunities for enrichment and remediation. Certain courses taken from this program become part of the student's transcript. Summer courses may be taken during the student's attendance in high school. Students must complete an \"External Credit\" form and request course approval prior to enrolling in any summer school class outside of Stevenson. Only courses not offered through Stevenson's summer school are eligible for external credit. Students attending summer school in another accredited high school district must request that the school forward their grades to the Stevenson registrar. Summer school credit obtained at a high school other than Stevenson is considered external credit and is not included in the calculation of the student's grade point average."
       ],
       "sourceReference": "page 9",
       "gradeLevel": null,
@@ -11311,7 +11311,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Students wishing to graduate early should meet with their counselor to determine eligibility. Once it is determined that the student can meet graduation requirements earlier than the scheduled semester of graduation, the student, with parent/guardian approval, must complete an “Intent to Graduate Early” form available online."
+        "Students wishing to graduate early should meet with their counselor to determine eligibility. Once it is determined that the student can meet graduation requirements earlier than the scheduled semester of graduation, the student, with parent/guardian approval, must complete an \"Intent to Graduate Early\" form available online."
       ],
       "sourceReference": "page 10",
       "gradeLevel": null,
@@ -11325,7 +11325,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Our grading model measures the student’s mastery of the course’s skills and standards. The final grade is a determination of the student’s body of work with consideration of their recent trend. Because our grading model uses proficiency scales to collect accurate evidence of student performance and growth, students can reflect on and grow their knowledge and skills throughout the semester. At the end of the semester, the teacher reviews the body of evidence presented by each student and determines a letter grade. Student grades are based on evidence of student proficiency in course skills and content standards. The purpose of grades is to provide the teacher, student and parents/guardians as accurate a picture as possible of the student’s competence in course skills and to encourage a dialogue about how the student can grow in the content in the class. Additionally, each assessment provides feedback for the student about what skills and standards they mastered and which they need more work on. If at any point the student is reassessed on a course standard and shows a higher level of proficiency, this will be reflected in the teacher grade book. Please visit https://www.d125.org/academics/grading for more details about how the final letter grade is calculated and communicated."
+        "Our grading model measures the student's mastery of the course's skills and standards. The final grade is a determination of the student's body of work with consideration of their recent trend. Because our grading model uses proficiency scales to collect accurate evidence of student performance and growth, students can reflect on and grow their knowledge and skills throughout the semester. At the end of the semester, the teacher reviews the body of evidence presented by each student and determines a letter grade. Student grades are based on evidence of student proficiency in course skills and content standards. The purpose of grades is to provide the teacher, student and parents/guardians as accurate a picture as possible of the student's competence in course skills and to encourage a dialogue about how the student can grow in the content in the class. Additionally, each assessment provides feedback for the student about what skills and standards they mastered and which they need more work on. If at any point the student is reassessed on a course standard and shows a higher level of proficiency, this will be reflected in the teacher grade book. Please visit https://www.d125.org/academics/grading for more details about how the final letter grade is calculated and communicated."
       ],
       "sourceReference": "page 10",
       "gradeLevel": null,
@@ -11401,7 +11401,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Students have the opportunity to complete advanced placement courses in most subject areas. The content of these college-level courses is determined by the College Board. Students who score well on these exams may be awarded college credit in many of the nation’s colleges and universities. In assessing a student’s application, many colleges also look favorably upon courses designated as AP since these courses represent more rigorous content than the standard high school curriculum. Students are encouraged to investigate the AP policy of the college of their choice. In preparation for some AP courses at Stevenson High School, students may need to complete summer work. Summer assignments are available in the late spring via the school’s website."
+        "Students have the opportunity to complete advanced placement courses in most subject areas. The content of these college-level courses is determined by the College Board. Students who score well on these exams may be awarded college credit in many of the nation's colleges and universities. In assessing a student's application, many colleges also look favorably upon courses designated as AP since these courses represent more rigorous content than the standard high school curriculum. Students are encouraged to investigate the AP policy of the college of their choice. In preparation for some AP courses at Stevenson High School, students may need to complete summer work. Summer assignments are available in the late spring via the school's website."
       ],
       "sourceReference": "page 10",
       "gradeLevel": null,
@@ -11422,7 +11422,7 @@
       ],
       "waiverRules": [],
       "notes": [
-        "The following courses are not included in the calculation of a student’s grade point average."
+        "The following courses are not included in the calculation of a student's grade point average."
       ],
       "sourceReference": "page 11",
       "gradeLevel": null,
@@ -11443,7 +11443,7 @@
       ],
       "waiverRules": [],
       "notes": [
-        "Students have the option of applying to exclude certain courses from the calculation of their grade point average (GPA). These courses are those which are not considered part of the academic core and which do not fulfill a Stevenson graduation requirement. Included in this waiver option are the listed courses. To be eligible for a waiver, the student must be enrolled in four or more courses per semester which are included in the GPA. The “Request for GPA Waiver” form is available online. All waivers must be requested; no courses will have an automatic waiver. Please see the Summer School Coursebook for specific information regarding courses and deadlines offered during the summer."
+        "Students have the option of applying to exclude certain courses from the calculation of their grade point average (GPA). These courses are those which are not considered part of the academic core and which do not fulfill a Stevenson graduation requirement. Included in this waiver option are the listed courses. To be eligible for a waiver, the student must be enrolled in four or more courses per semester which are included in the GPA. The \"Request for GPA Waiver\" form is available online. All waivers must be requested; no courses will have an automatic waiver. Please see the Summer School Coursebook for specific information regarding courses and deadlines offered during the summer."
       ],
       "sourceReference": "page 11",
       "gradeLevel": null,
@@ -11457,7 +11457,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "The records of transfer students will be evaluated individually to determine the credits which may be applied toward Stevenson graduation requirements. Coursework completed by students prior to their enrollment at Stevenson will not be included in the calculation of the student’s GPA. Any coursework completed by students through international schools prior to their enrollment at Stevenson will be given a grade of pass (P) or fail (F). The division director will make the final determination in the evaluation of the records of the transfer student. Transfer students are encouraged to submit a transcript directly from each school attended when fulfilling transcript requests to ensure the most accurate representation of their academic experience."
+        "The records of transfer students will be evaluated individually to determine the credits which may be applied toward Stevenson graduation requirements. Coursework completed by students prior to their enrollment at Stevenson will not be included in the calculation of the student's GPA. Any coursework completed by students through international schools prior to their enrollment at Stevenson will be given a grade of pass (P) or fail (F). The division director will make the final determination in the evaluation of the records of the transfer student. Transfer students are encouraged to submit a transcript directly from each school attended when fulfilling transcript requests to ensure the most accurate representation of their academic experience."
       ],
       "sourceReference": "page 11",
       "gradeLevel": null,
@@ -11485,7 +11485,7 @@
       "eligibleCourses": [],
       "waiverRules": [],
       "notes": [
-        "Students who receive a grade of “Incomplete” must complete the necessary make-up work in a timely fashion according to each teacher’s guidelines before a letter grade will be assigned. Incomplete grades do not count towards credits needed for athletic and co-curricular eligibility."
+        "Students who receive a grade of \"Incomplete\" must complete the necessary make-up work in a timely fashion according to each teacher's guidelines before a letter grade will be assigned. Incomplete grades do not count towards credits needed for athletic and co-curricular eligibility."
       ],
       "sourceReference": "page 11",
       "gradeLevel": null,
