@@ -7,7 +7,6 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { SidebarFooter } from "@/components/layout/SidebarFooter";
 import { AuthProvider } from "@/context/AuthContext";
 import { ServiceProvider } from "@/services/ServiceContext";
-import { KeyboardShortcutProvider } from "@/context/KeyboardShortcutContext";
 import { AuthToast } from "@/components/auth/AuthToast";
 import { breakpoints } from "@/lib/responsive";
 
@@ -75,7 +74,6 @@ export default function RootLayout({
           }
         `}</style>
         <AuthProvider>
-          <KeyboardShortcutProvider>
           <ServiceProvider>
             <div className="rs-layout-header">
               <Header />
@@ -107,7 +105,6 @@ export default function RootLayout({
             </div>
           </ServiceProvider>
           <AuthToast />
-          </KeyboardShortcutProvider>
         </AuthProvider>
       </body>
     </html>
