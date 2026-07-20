@@ -18,26 +18,34 @@ import { backfillFulfillsRequirements } from "../src/lib/backfillFulfillsRequire
 // ---------------------------------------------------------------------------
 
 const NORMALIZE_MAP: Record<string, string> = {
-  "\u00e2\u20ac\u2122": "'",
-  "\u00e2\u20ac\u02dc": "'",
-  "\u00e2\u20ac\u0153": '"',
-  "\u00e2\u20ac\u009d": '"',
-  "\u00e2\u20ac\u2013": "-",
-  "\u00e2\u20ac\u2014": "-",
-  "\u00e2\u20ac\u201c": "-",
-  "\u00e2\u20ac\u201d": "-",
-  "\u00e2\u2013\u00a0": "-",
-  "\u00e2\u20ac\u2018": "'",
-  "\u00e2\u20ac\u2019": "'",
+  // Double-encoded mojibake forms (UTF-8 bytes misread as Windows-1252)
+  "\u00e2\u20ac\u2122": "'", // U+2019 right single quote
+  "\u00e2\u20ac\u02dc": "'", // U+2018 left single quote
+  "\u00e2\u20ac\u0153": '"', // U+201C left double quote
+  "\u00e2\u20ac\u009d": '"', // U+201D right double quote
+  "\u00e2\u20ac\u2013": "-", // U+2013 en-dash
+  "\u00e2\u20ac\u2014": "-", // U+2014 em-dash
+  "\u00e2\u20ac\u201c": "-", // alternate en-dash
+  "\u00e2\u20ac\u201d": "-", // alternate em-dash
+  "\u00e2\u2013\u00a0": "-", // U+2022 bullet
+  "\u00e2\u20ac\u2018": "'", // U+2018 left single quote (alternate)
+  "\u00e2\u20ac\u2019": "'", // U+2019 right single quote (alternate)
+  "\u00c2\u00a0": " ",       // U+00A0 non-breaking space
+
+  // Proper Unicode smart punctuation -> ASCII
+  "\u00a0": " ",   // non-breaking space
+  "\u2013": "-",   // en-dash
+  "\u2014": "-",   // em-dash
+  "\u2018": "'",   // left single quote
+  "\u2019": "'",   // right single quote
+  "\u201c": '"',   // left double quote
+  "\u201d": '"',   // right double quote
+  "\u2026": "...", // ellipsis
+  "\u2022": "-",   // bullet
+
+  // Ligatures
   "\ufb00": "ff",
   "\ufb01": "fi",
-  "\u2013": "-",
-  "\u2014": "-",
-  "\u2018": "'",
-  "\u2019": "'",
-  "\u201c": '"',
-  "\u201d": '"',
-  "\u2026": "...",
 };
 
 function normalizeText(value: string): string {

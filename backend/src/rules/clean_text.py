@@ -39,14 +39,15 @@ ACRONYMS = {"AP", "ACT", "CPR", "STEM", "CNC", "CAD", "CEO", "CFO", "U.S.", "US"
 
 
 SMART_PUNCT_TO_ASCII = {
-    "\u2013": "-",
-    "\u2014": "-",
-    "\u2018": "'",
-    "\u2019": "'",
-    "\u201c": '"',
-    "\u201d": '"',
-    "\u2026": "...",
-    "\u2022": "-",
+    "\u00a0": " ",   # non-breaking space
+    "\u2013": "-",   # en-dash
+    "\u2014": "-",   # em-dash
+    "\u2018": "'",   # left single quote
+    "\u2019": "'",   # right single quote
+    "\u201c": '"',   # left double quote
+    "\u201d": '"',   # right double quote
+    "\u2026": "...", # ellipsis
+    "\u2022": "-",   # bullet
 }
 
 
