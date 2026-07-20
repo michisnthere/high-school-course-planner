@@ -17,6 +17,12 @@ const navItems = [
   { label: "Graduation Requirements", href: "/requirements" },
 ];
 
+const infoItems = [
+  { label: "About", href: "/about" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Feedback", href: "/feedback" },
+];
+
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -99,6 +105,24 @@ export function MobileNav() {
         <div className="rs-mobile-nav-drawer-content">
           <div className="rs-mobile-nav-items">
             {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`rs-mobile-nav-link${isActive ? " rs-mobile-nav-link--active" : ""}`}
+                  onClick={handleClose}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div style={{ borderTop: "1px solid var(--border-default)", margin: "8px 12px" }} />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+            {infoItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link

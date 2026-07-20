@@ -13,6 +13,25 @@ const navItems = [
   { label: "Graduation Requirements", href: "/requirements" },
 ];
 
+const infoItems = [
+  { label: "About", href: "/about" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Feedback", href: "/feedback" },
+];
+
+function navLinkStyle(isActive: boolean): React.CSSProperties {
+  return {
+    display: "block",
+    padding: "10px 12px",
+    fontSize: "0.9375rem",
+    fontWeight: isActive ? 600 : 500,
+    color: isActive ? "var(--sidebar-active-text)" : "var(--sidebar-text)",
+    textDecoration: "none",
+    borderRadius: "8px",
+    backgroundColor: isActive ? "var(--sidebar-active-bg)" : "transparent",
+  };
+}
+
 export function Sidebar(): React.ReactElement {
   const pathname = usePathname();
 
@@ -28,29 +47,30 @@ export function Sidebar(): React.ReactElement {
         flex: 1,
       }}
     >
-      <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              style={{
-                display: "block",
-                padding: "10px 12px",
-                fontSize: "0.9375rem",
-                fontWeight: isActive ? 600 : 500,
-                color: isActive ? "var(--sidebar-active-text)" : "var(--sidebar-text)",
-                textDecoration: "none",
-                borderRadius: "8px",
-                backgroundColor: isActive ? "var(--sidebar-active-bg)" : "transparent",
-              }}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
+      <nav style={{ display: "flex", flexDirection: "column", gap: "4px", flex: 1 }}>
+        {navItems.map((item) => (
+          <Link key={item.label} href={item.href} style={navLinkStyle(pathname === item.href)}>
+            {item.label}
+          </Link>
+        ))}
       </nav>
+
+      <div
+        style={{
+          borderTop: "1px solid var(--border-default)",
+          margin: "8px 0",
+          paddingTop: "8px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "2px",
+        }}
+      >
+        {infoItems.map((item) => (
+          <Link key={item.label} href={item.href} style={navLinkStyle(pathname === item.href)}>
+            {item.label}
+          </Link>
+        ))}
+      </div>
     </aside>
   );
 }
