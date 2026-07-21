@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { SidebarFooter } from "@/components/layout/SidebarFooter";
 import { AuthProvider } from "@/context/AuthContext";
 import { ServiceProvider } from "@/services/ServiceContext";
 import { AuthToast } from "@/components/auth/AuthToast";
@@ -39,24 +38,18 @@ export default function RootLayout({
           .rs-layout-mobile-nav {
             display: none;
           }
-          .rs-layout-mobile-footer {
-            display: none;
-          }
           @media (max-width: ${breakpoints.tablet - 1}px) {
             .rs-layout-header,
             .rs-layout-sidebar {
               display: none;
             }
-            .rs-layout-mobile-nav {
-              display: block;
-            }
-            .rs-layout-mobile-footer {
-              display: block;
-            }
-            .rs-layout-body {
-              padding-top: calc(56px + var(--safe-area-top, 0px));
-              --layout-min-height: calc(100vh - 56px - var(--safe-area-top, 0px));
-            }
+          .rs-layout-mobile-nav {
+            display: block;
+          }
+          .rs-layout-body {
+            padding-top: calc(56px + var(--safe-area-top, 0px));
+            --layout-min-height: calc(100vh - 56px - var(--safe-area-top, 0px));
+          }
           }
           @media (max-width: ${breakpoints.mobile - 1}px) {
             .rs-layout-body {
@@ -91,17 +84,6 @@ export default function RootLayout({
               <main style={{ flex: 1 }}>
                 {children}
               </main>
-              <div className="rs-layout-mobile-footer">
-                <div
-                  style={{
-                    borderTop: "1px solid var(--border-default)",
-                    padding: "20px 24px",
-                    backgroundColor: "var(--bg-card)",
-                  }}
-                >
-                  <SidebarFooter />
-                </div>
-              </div>
             </div>
           </ServiceProvider>
           <AuthToast />

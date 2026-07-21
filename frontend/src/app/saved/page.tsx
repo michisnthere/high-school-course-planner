@@ -27,7 +27,7 @@ export default async function SavedCoursesPage() {
       <div className="rs-saved-page" style={{ padding: "32px" }}>
         <h1
           style={{
-            margin: "0 0 8px",
+            margin: "0 0 16px",
             fontSize: "32px",
             fontWeight: 700,
             color: "var(--text-primary)",
@@ -36,15 +36,6 @@ export default async function SavedCoursesPage() {
         >
           Saved Courses
         </h1>
-        <p
-          style={{
-            margin: "0 0 24px",
-            fontSize: "16px",
-            color: "var(--text-secondary)",
-          }}
-        >
-          Courses you have saved for later.
-        </p>
         <SavedCoursesContent courses={courses} />
       </div>
     </>

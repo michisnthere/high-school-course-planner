@@ -25,14 +25,14 @@ export function SidebarFooter({ className }: SidebarFooterProps): React.ReactEle
           <span style={mobileDotStyle}>•</span>
           <Link href="/feedback" style={mobileLinkStyle}>Report a Bug</Link>
           <span style={mobileDotStyle}>•</span>
-          <Link href="/feedback" style={mobileLinkStyle}>Send Feedback</Link>
+          <a href="https://forms.gle/X5GAyxo3cCBWf1PS6" target="_blank" rel="noopener noreferrer" style={mobileLinkStyle}>Send Feedback</a>
         </div>
       ) : (
         <div style={verticalLinkStyle}>
           <Link href="/about" style={linkStyle}>About</Link>
           <Link href="/privacy" style={linkStyle}>Privacy</Link>
           <Link href="/feedback" style={linkStyle}>Report a Bug</Link>
-          <Link href="/feedback" style={linkStyle}>Send Feedback</Link>
+          <a href="https://forms.gle/X5GAyxo3cCBWf1PS6" target="_blank" rel="noopener noreferrer" style={linkStyle}>Send Feedback</a>
         </div>
       )}
       <p style={className ? mobileSubtextStyle : subtextStyle}>

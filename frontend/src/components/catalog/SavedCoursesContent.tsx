@@ -95,16 +95,16 @@ export function SavedCoursesContent({
           borderRadius: "12px",
         }}
       >
-        <h2
-          style={{
-            margin: "0 0 8px",
-            fontSize: "20px",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-          }}
-        >
-          Sign in to save courses
-        </h2>
+          <h2
+            style={{
+              margin: "0 0 8px",
+              fontSize: "20px",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+            }}
+          >
+            Sign in to save courses for later.
+          </h2>
         <p
           style={{
             margin: "0 0 16px",

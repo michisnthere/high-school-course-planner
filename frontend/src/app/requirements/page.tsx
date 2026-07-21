@@ -58,6 +58,22 @@ const STATUS_CONFIG: Record<string, { label: string; badge: string; light: strin
   },
 };
 
+const signInButtonStyle: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  minHeight: "44px",
+  padding: "8px 20px",
+  fontSize: "15px",
+  fontWeight: 500,
+  color: "#FFFFFF",
+  backgroundColor: "var(--brand-accent)",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  textDecoration: "none",
+  boxSizing: "border-box",
+};
+
 function formatNumber(n: number): string {
   return Number.isInteger(n) ? String(n) : n.toFixed(2);
 }
@@ -193,58 +209,63 @@ function RequirementsContent(): React.ReactElement {
 
   if (!mode) {
     return (
-      <div style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
-        <div
-          style={{
-            padding: "24px",
-            backgroundColor: "var(--bg-card)",
-            borderRadius: "12px",
-          }}
-        >
-          <h2
-            style={{
-              margin: "0 0 8px",
-              fontSize: "20px",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-            }}
-          >
-            Track your graduation progress.
-          </h2>
-          <p
+      <>
+        <style>{`
+          @media (max-width: ${breakpoints.mobile - 1}px) {
+            .rs-req-guest-page {
+              padding: 16px !important;
+              padding-top: 0 !important;
+              padding-bottom: calc(16px + var(--safe-area-bottom)) !important;
+              padding-left: calc(16px + var(--safe-area-left)) !important;
+              padding-right: calc(16px + var(--safe-area-right)) !important;
+            }
+          }
+        `}</style>
+        <div className="rs-req-guest-page" style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
+          <h1
             style={{
               margin: "0 0 16px",
-              fontSize: "15px",
-              color: "var(--text-secondary)",
-              lineHeight: 1.5,
+              fontSize: "32px",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              lineHeight: 1.2,
             }}
           >
-            Sign in to monitor your graduation requirements and completed credits.
-            <br />
-            Your progress will be securely stored and synced across devices.
-          </p>
-          <a
-            href="/login"
+            Graduation Requirements
+          </h1>
+          <div
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              minHeight: "44px",
-              padding: "8px 20px",
-              fontSize: "15px",
-              fontWeight: 500,
-              color: "#FFFFFF",
-              backgroundColor: "var(--brand-accent)",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              textDecoration: "none",
-              boxSizing: "border-box",
+              padding: "24px",
+              backgroundColor: "var(--bg-card)",
+              borderRadius: "12px",
             }}
           >
-            Sign In
-          </a>
+            <h2
+              style={{
+                margin: "0 0 8px",
+                fontSize: "20px",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+              }}
+            >
+              Sign in to track your graduation progress.
+            </h2>
+            <p
+              style={{
+                margin: "0 0 16px",
+                fontSize: "15px",
+                color: "var(--text-secondary)",
+                lineHeight: 1.5,
+              }}
+            >
+              Your progress will be securely stored and synced across devices.
+            </p>
+            <a href="/login" style={signInButtonStyle}>
+              Sign In
+            </a>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 

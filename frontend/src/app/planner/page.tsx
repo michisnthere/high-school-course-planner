@@ -83,6 +83,17 @@ function PlannerContent(): React.ReactElement {
   if (!mode) {
     return (
       <ResponsivePage>
+        <h1
+          style={{
+            margin: "0 0 16px",
+            fontSize: "32px",
+            fontWeight: 700,
+            color: "var(--text-primary)",
+            lineHeight: 1.2,
+          }}
+        >
+          Planner
+        </h1>
         <div
           style={{
             padding: "24px",
@@ -98,7 +109,7 @@ function PlannerContent(): React.ReactElement {
               color: "var(--text-primary)",
             }}
           >
-            Plan your four years.
+            Sign in to save and manage your four-year course plan.
           </h2>
           <p
             style={{
@@ -108,8 +119,6 @@ function PlannerContent(): React.ReactElement {
               lineHeight: 1.5,
             }}
           >
-            Sign in to create and save your planner.
-            <br />
             Your planner will be securely stored and synced across devices.
           </p>
           <a href="/login" style={signInButtonStyle}>
