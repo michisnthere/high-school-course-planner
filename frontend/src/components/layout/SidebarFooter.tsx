@@ -24,9 +24,13 @@ export function SidebarFooter({ className }: SidebarFooterProps): React.ReactEle
           Privacy
         </Link>
         <span style={className ? mobileDotStyle : dotStyle}>•</span>
-        <Link href="/feedback" style={className ? mobileLinkStyle : linkStyle}>
-          Feedback
-        </Link>
+          <Link href="/feedback" style={className ? mobileLinkStyle : linkStyle}>
+            Report a Bug
+          </Link>
+          <span style={className ? mobileDotStyle : dotStyle}>•</span>
+          <Link href="/feedback" style={className ? mobileLinkStyle : linkStyle}>
+            Send Feedback
+          </Link>
       </div>
       <p style={className ? mobileSubtextStyle : subtextStyle}>
         Unofficial planning resource for Stevenson High School.

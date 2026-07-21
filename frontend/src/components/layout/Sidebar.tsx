@@ -43,7 +43,7 @@ export function Sidebar(): React.ReactElement {
         overflow: "hidden",
       }}
     >
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
         <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
           {navItems.map((item) => (
             <Link key={item.label} href={item.href} style={navLinkStyle(pathname === item.href)}>
