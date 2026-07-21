@@ -33,7 +33,7 @@ export function Sidebar(): React.ReactElement {
   return (
     <aside
       style={{
-        width: "240px",
+        width: "250px",
         display: "flex",
         flexDirection: "column",
         height: "100%",
