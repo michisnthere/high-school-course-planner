@@ -463,7 +463,11 @@ function computeGraduationRequirements(
     }
   }
 
-  return Array.from(canonicalByName.values()).map((req) => {
+  const OVERFLOW_NAMES = new Set(["Electives", "Additional Credits and P.E.", "Total Credits"]);
+
+  const courseUsedByAnyRequirement = new Set<number>();
+
+  const results = Array.from(canonicalByName.values()).map((req) => {
     const required = req.requiredValue ?? 0;
     let earned = 0;
     const canonicalName = canonicalRequirementName(req.name);
@@ -479,7 +483,11 @@ function computeGraduationRequirements(
     for (const courseId of eligibleCourseIds) {
       const fulfills = courseFulfillsMap.get(courseId);
       if (fulfills && !fulfills.has(canonicalName)) continue;
-      earned += courseIdToCredits.get(courseId) ?? 0;
+      const credits = courseIdToCredits.get(courseId) ?? 0;
+      if (credits > 0) {
+        earned += credits;
+        courseUsedByAnyRequirement.add(courseId);
+      }
     }
 
     // Check for PE waiver resolution
@@ -503,6 +511,41 @@ function computeGraduationRequirements(
       recommendedCourses: [],
     };
   });
+
+  // Assign overflow credits from courses not used by any requirement
+  let overflowRemaining = 0;
+  for (const [courseId, credits] of courseIdToCredits) {
+    if (!courseUsedByAnyRequirement.has(courseId)) {
+      overflowRemaining += credits;
+    }
+  }
+
+  if (overflowRemaining > 0) {
+    for (const result of results) {
+      if (result.name === "Electives") {
+        const required = result.requiredValue ?? 0;
+        const room = required - result.earnedValue;
+        if (room > 0) {
+          const overflow = Math.min(overflowRemaining, room);
+          result.earnedValue += overflow;
+          overflowRemaining -= overflow;
+          result.remainingValue = Math.max(0, required - result.earnedValue);
+          result.status = getRequirementStatus(result.earnedValue, required);
+        }
+      }
+    }
+    for (const result of results) {
+      if (result.name === "Additional Credits and P.E." && overflowRemaining > 0) {
+        const required = result.requiredValue ?? 0;
+        result.earnedValue += overflowRemaining;
+        result.remainingValue = Math.max(0, required - result.earnedValue);
+        result.status = getRequirementStatus(result.earnedValue, required);
+        overflowRemaining = 0;
+      }
+    }
+  }
+
+  return results;
 }
 
 function mergeCourseRequirementLinksByCanonicalRequirement(

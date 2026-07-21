@@ -300,13 +300,18 @@ function computeGraduationRequirements(
     }
   }
 
+  const OVERFLOW_NAMES = new Set(["Electives", "Additional Credits and P.E.", "Total Credits"]);
+
   let nextId = -1;
-  return GRADUATION_REQUIREMENTS.filter((req) => req.isMeasurable && req.requiredValue > 0).map((req) => {
+  const courseUsedByAnyRequirement = new Set<number>();
+
+  const results = GRADUATION_REQUIREMENTS.filter((req) => req.isMeasurable && req.requiredValue > 0).map((req) => {
     const canonicalName = canonicalRequirementName(req.name);
     let earned = 0;
     for (const [courseId, fulfills] of courseFulfillsMap) {
       if (!fulfills.has(canonicalName)) continue;
       earned += courseIdToCredits.get(courseId) ?? 0;
+      courseUsedByAnyRequirement.add(courseId);
     }
 
     let effectiveRequired = req.requiredValue;
@@ -328,6 +333,39 @@ function computeGraduationRequirements(
       recommendedCourses: [] as RecommendedCourse[],
     };
   });
+
+  // Assign overflow credits from courses not used by any requirement
+  let overflowRemaining = 0;
+  for (const [courseId, credits] of courseIdToCredits) {
+    if (!courseUsedByAnyRequirement.has(courseId)) {
+      overflowRemaining += credits;
+    }
+  }
+
+  if (overflowRemaining > 0) {
+    for (const result of results) {
+      if (result.name === "Electives") {
+        const room = result.requiredValue - result.earnedValue;
+        if (room > 0) {
+          const overflow = Math.min(overflowRemaining, room);
+          result.earnedValue += overflow;
+          overflowRemaining -= overflow;
+          result.remainingValue = Math.max(0, result.requiredValue - result.earnedValue);
+          result.status = getRequirementStatus(result.earnedValue, result.requiredValue);
+        }
+      }
+    }
+    for (const result of results) {
+      if (result.name === "Additional Credits and P.E." && overflowRemaining > 0) {
+        result.earnedValue += overflowRemaining;
+        result.remainingValue = Math.max(0, result.requiredValue - result.earnedValue);
+        result.status = getRequirementStatus(result.earnedValue, result.requiredValue);
+        overflowRemaining = 0;
+      }
+    }
+  }
+
+  return results;
 }
 
 const REQUIREMENT_CHILDREN: Record<string, string[]> = {
