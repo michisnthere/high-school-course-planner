@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { YearOverviewCard } from "@/components/dashboard/YearOverviewCard";
@@ -12,20 +12,34 @@ import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 const ALL_YEARS = [9, 10, 11, 12];
 
 export default function PlannerPage(): React.ReactElement {
-  return (
-    <ProtectedRoute>
-      <PlannerContent />
-    </ProtectedRoute>
-  );
+  return <PlannerContent />;
 }
 
+const signInButtonStyle: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  minHeight: "44px",
+  padding: "8px 20px",
+  fontSize: "15px",
+  fontWeight: 500,
+  color: "#FFFFFF",
+  backgroundColor: "var(--brand-accent)",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  textDecoration: "none",
+  boxSizing: "border-box",
+};
+
 function PlannerContent(): React.ReactElement {
+  const { mode, loading: authLoading } = useAuth();
   const services = useServices();
   const [planners, setPlanners] = useState<Planner[]>([]);
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!mode) return;
     let cancelled = false;
 
     async function load() {
@@ -54,7 +68,57 @@ function PlannerContent(): React.ReactElement {
 
     load();
     return () => { cancelled = true; };
-  }, [services]);
+  }, [services, mode]);
+
+  if (authLoading) {
+    return (
+      <ResponsivePage>
+        <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
+          Loading...
+        </p>
+      </ResponsivePage>
+    );
+  }
+
+  if (!mode) {
+    return (
+      <ResponsivePage>
+        <div
+          style={{
+            padding: "24px",
+            backgroundColor: "var(--bg-card)",
+            borderRadius: "12px",
+          }}
+        >
+          <h2
+            style={{
+              margin: "0 0 8px",
+              fontSize: "20px",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+            }}
+          >
+            Plan your four years.
+          </h2>
+          <p
+            style={{
+              margin: "0 0 16px",
+              fontSize: "15px",
+              color: "var(--text-secondary)",
+              lineHeight: 1.5,
+            }}
+          >
+            Sign in to create and save your planner.
+            <br />
+            Your planner will be securely stored and synced across devices.
+          </p>
+          <a href="/login" style={signInButtonStyle}>
+            Sign In
+          </a>
+        </div>
+      </ResponsivePage>
+    );
+  }
 
   return (
     <ResponsivePage>

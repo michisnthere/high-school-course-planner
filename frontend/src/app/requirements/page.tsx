@@ -3,7 +3,7 @@
 import React, { Suspense, useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/context/AuthContext";
 import { ServiceProvider, useServices } from "@/services/ServiceContext";
 import { courseToPlannerDetails } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
@@ -29,13 +29,11 @@ const TOTAL_REQUIRED_CREDITS = 45;
 
 export default function RequirementsPage(): React.ReactElement {
   return (
-    <ProtectedRoute>
-      <ServiceProvider>
-        <Suspense fallback={null}>
-          <RequirementsContent />
-        </Suspense>
-      </ServiceProvider>
-    </ProtectedRoute>
+    <ServiceProvider>
+      <Suspense fallback={null}>
+        <RequirementsContent />
+      </Suspense>
+    </ServiceProvider>
   );
 }
 
@@ -65,6 +63,7 @@ function formatNumber(n: number): string {
 }
 
 function RequirementsContent(): React.ReactElement {
+  const { mode, loading: authLoading } = useAuth();
   const searchParams = useSearchParams();
   const router = useRouter();
   const services = useServices();
@@ -89,6 +88,7 @@ function RequirementsContent(): React.ReactElement {
   const { isMobile } = useBreakpoint();
 
   const load = useCallback(async () => {
+    if (!mode) return;
     const id = ++loadIdRef.current;
     const svcName = (plannerService as any).constructor?.name ?? (plannerService.getPlanners === services.planner.getPlanners ? "auth" : "guest");
     console.log(`[REQ:${id}] load() START | plannerSvc=${svcName} | mode=${(window as any).__authMode ?? "?"}`);
@@ -119,7 +119,7 @@ function RequirementsContent(): React.ReactElement {
       console.log(`[REQ:${id}] FINALLY - set loading=false`);
       setLoading(false);
     }
-  }, [analysisService, plannerService, completedService, resolutionsService]);
+  }, [analysisService, plannerService, completedService, resolutionsService, mode]);
 
   useEffect(() => {
     console.log("useEffect[load] FIRED - load identity changed");
@@ -180,6 +180,73 @@ function RequirementsContent(): React.ReactElement {
   const visibleInformationItems = analysis?.informationItems.filter(
     (item) => !item.name.toLowerCase().includes("46th") && !item.name.toLowerCase().includes("external credits")
   ) ?? [];
+
+  if (authLoading) {
+    return (
+      <div style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
+          Loading...
+        </p>
+      </div>
+    );
+  }
+
+  if (!mode) {
+    return (
+      <div style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
+        <div
+          style={{
+            padding: "24px",
+            backgroundColor: "var(--bg-card)",
+            borderRadius: "12px",
+          }}
+        >
+          <h2
+            style={{
+              margin: "0 0 8px",
+              fontSize: "20px",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+            }}
+          >
+            Track your graduation progress.
+          </h2>
+          <p
+            style={{
+              margin: "0 0 16px",
+              fontSize: "15px",
+              color: "var(--text-secondary)",
+              lineHeight: 1.5,
+            }}
+          >
+            Sign in to monitor your graduation requirements and completed credits.
+            <br />
+            Your progress will be securely stored and synced across devices.
+          </p>
+          <a
+            href="/login"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              minHeight: "44px",
+              padding: "8px 20px",
+              fontSize: "15px",
+              fontWeight: 500,
+              color: "#FFFFFF",
+              backgroundColor: "var(--brand-accent)",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              textDecoration: "none",
+              boxSizing: "border-box",
+            }}
+          >
+            Sign In
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
