@@ -8,7 +8,10 @@ import { ServiceProvider, useServices } from "@/services/ServiceContext";
 import { courseToPlannerDetails } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
+import type { PlannerCourseDetails } from "@/lib/planner";
 import { computeEffectivePeStatus, type PeSemesterStatus } from "@/lib/gradeRequirements";
+import { RecommendedCourseCard } from "@/components/requirements/RecommendedCourseCard";
+import { CourseListModal } from "@/components/requirements/CourseListModal";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { breakpoints } from "@/lib/responsive";
 
@@ -70,6 +73,8 @@ function RequirementsContent(): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
+  const [viewAllReq, setViewAllReq] = useState<string | null>(null);
+  const [allCourseDetails, setAllCourseDetails] = useState<PlannerCourseDetails[]>([]);
 
   const loadIdRef = useRef(0);
 
@@ -100,6 +105,7 @@ function RequirementsContent(): React.ReactElement {
       ]);
       console.log(`[REQ:${id}] ALL fetches succeeded`);
       const allCourses = courses.map(courseToPlannerDetails);
+      setAllCourseDetails(allCourses);
       const data = await analysisService.getAnalysis({ planners, completedCourses, resolutions, allCourses });
       setAnalysis(data);
       setError(null);
@@ -434,6 +440,8 @@ function RequirementsContent(): React.ReactElement {
                     hasPeWaiver={hasPeWaiver}
                     expandedIds={expandedIds}
                     onNavigate={saveScroll}
+                    allCourseDetails={allCourseDetails}
+                    onViewAll={() => setViewAllReq(req.name)}
                   />
                 ))}
               </div>
@@ -466,7 +474,7 @@ function RequirementsContent(): React.ReactElement {
                       onOpen={() => setModalItem(item)}
                     />
                   ))}
-                  {modalItem && (
+                   {modalItem && (
                     <InfoModal
                       item={modalItem}
                       onClose={() => setModalItem(null)}
@@ -474,6 +482,20 @@ function RequirementsContent(): React.ReactElement {
                   )}
                 </div>
               </section>
+            )}
+
+            {viewAllReq && allCourseDetails.length > 0 && (
+              <CourseListModal
+                requirementName={viewAllReq}
+                courses={allCourseDetails.filter((c) =>
+                  (c.fulfillsRequirements ?? []).some(
+                    (r) => r.trim().toLowerCase() === viewAllReq.trim().toLowerCase()
+                  )
+                )}
+                returnParams={Array.from(expandedIds).join(",")}
+                onClose={() => setViewAllReq(null)}
+                onNavigate={saveScroll}
+              />
             )}
           </div>
         )}
@@ -619,6 +641,8 @@ type RequirementCardProps = {
   hasPeWaiver: boolean;
   expandedIds: Set<number>;
   onNavigate: () => void;
+  allCourseDetails: PlannerCourseDetails[];
+  onViewAll: () => void;
 };
 
 function RequirementCard({
@@ -628,6 +652,8 @@ function RequirementCard({
   hasPeWaiver,
   expandedIds,
   onNavigate,
+  allCourseDetails,
+  onViewAll,
 }: RequirementCardProps): React.ReactElement {
   const isPe = req.name.toLowerCase() === "physical education";
   const config = STATUS_CONFIG[req.status];
@@ -644,8 +670,11 @@ function RequirementCard({
 
   const recommended = req.recommendedCourses ?? [];
   const showRecs = recommended.length > 0;
-  const displayRecs = recommended.slice(0, 3);
-  const hasMore = recommended.length > 3;
+  const resolvedRecs = recommended
+    .map((r) => allCourseDetails.find((c) => c.id === r.courseId))
+    .filter((c): c is PlannerCourseDetails => c != null);
+  const displayRecs = resolvedRecs.slice(0, 3);
+  const hasMore = resolvedRecs.length > 3;
 
   return (
     <div
@@ -766,62 +795,48 @@ function RequirementCard({
               </p>
               <div className="rs-req-recs" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {displayRecs.map((course) => {
-                  const courseReturnParams = new URLSearchParams();
-                  const expandedArr = Array.from(expandedIds);
-                  if (expandedArr.length > 0) {
-                    courseReturnParams.set("expanded", expandedArr.join(","));
-                  }
-                  const courseReturnStr = courseReturnParams.toString();
-                  const courseHref = `/catalog/${getCourseSlug(course.title)}?return=${encodeURIComponent(courseReturnStr ? `/requirements?${courseReturnStr}` : "/requirements")}&fromRequirement=${encodeURIComponent(req.name)}`;
+                  const courseReturnParams = Array.from(expandedIds).join(",");
                   return (
-                  <Link
-                    key={course.courseId}
-                    href={courseHref}
-                    className="rs-req-recs-link"
-                    style={{
-                      display: "block",
-                      padding: "10px 14px",
-                      backgroundColor: "#FCF5DF",
-                      border: "1px solid #ECBA2B",
-                      borderRadius: "8px",
-                      textDecoration: "none",
-                      color: "#111827",
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      transition: "border-color 0.15s ease",
-                    }}
-                    onClick={onNavigate}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "4px" }}>
-                      <span>{course.title}</span>
-                      <span style={{ fontSize: "12px", color: "#6b7280", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "160px" }}>{course.reason}</span>
-                    </div>
-                  </Link>
-                );
-              })}
+                    <RecommendedCourseCard
+                      key={course.id}
+                      course={course}
+                      requirementName={req.name}
+                      returnParams={courseReturnParams}
+                      onNavigate={onNavigate}
+                    />
+                  );
+                })}
                 {hasMore && (
-                  <Link
-                    href={`/catalog?requirement=${encodeURIComponent(req.name)}`}
-                    className="rs-req-explore"
+                  <button
+                    type="button"
+                    onClick={onViewAll}
                     style={{
-                      display: "inline-block",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       padding: "10px 14px",
                       fontSize: "14px",
                       fontWeight: 500,
                       color: "#ECBA2B",
                       textDecoration: "none",
-                      textAlign: "center",
                       border: "1px solid #ECBA2B",
                       borderRadius: "8px",
                       backgroundColor: "#FCF5DF",
+                      cursor: "pointer",
+                      minHeight: "44px",
+                      transition: "border-color 0.15s ease, background-color 0.15s ease",
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#d4a01e"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ECBA2B"; }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "#d4a01e";
+                      e.currentTarget.style.backgroundColor = "#fef4d0";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "#ECBA2B";
+                      e.currentTarget.style.backgroundColor = "#FCF5DF";
+                    }}
                   >
-                    Explore More {"\u2192"}
-                  </Link>
+                    View All ({recommended.length})
+                  </button>
                 )}
               </div>
             </div>
