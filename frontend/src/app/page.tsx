@@ -4,17 +4,20 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
-import { AcademicSnapshot } from "@/components/dashboard/AcademicSnapshot";
+import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
+import { SavedCoursesSection } from "@/components/dashboard/SavedCoursesSection";
 import { GuestUpgradePrompt } from "@/components/auth/GuestUpgradePrompt";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
+import { getGpaProjection } from "@/lib/gpaProjection";
 import { breakpoints } from "@/lib/responsive";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 
 export default function Home() {
-  const { user } = useAuth();
+  const { user, isGuest } = useAuth();
   const services = useServices();
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [grade, setGrade] = useState<string>("");
+  const [gpa, setGpa] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,14 +50,18 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [services]);
 
-  const displayName = user?.name
-    ? user.name.includes(" ") ? user.name.split(" ")[0] : user.name
-    : "Student";
+  useEffect(() => {
+    getGpaProjection()
+      .then((p) => setGpa(p.current?.unweighted ?? null))
+      .catch(() => {});
+  }, []);
 
   const totalCredits = analysis?.credits.total ?? 0;
   const totalRequired = 45;
   const gradProgress = Math.min(Math.round((totalCredits / totalRequired) * 100), 100);
-  const remainingCredits = Math.max(totalRequired - totalCredits, 0);
+
+  const progressBarBlocks = Math.floor(gradProgress / 10);
+  const progressBar = "\u2588".repeat(progressBarBlocks) + "\u2591".repeat(10 - progressBarBlocks);
 
   return (
     <>
@@ -69,6 +76,7 @@ export default function Home() {
       <ResponsivePage>
         <GuestUpgradePrompt />
 
+        {/* Disclaimer */}
         <div
           style={{
             padding: "16px 20px",
@@ -98,7 +106,9 @@ export default function Home() {
               lineHeight: 1.2,
             }}
           >
-            Welcome back, {displayName} 👋
+            {isGuest
+              ? "Welcome to Stevenson Course Planner \uD83D\uDC4B"
+              : `Welcome back, ${displayName(user?.name)} \uD83D\uDC4B`}
           </h1>
           <p
             style={{
@@ -121,13 +131,29 @@ export default function Home() {
             marginBottom: "32px",
           }}
         >
-          <SummaryCard label="Grade Level" value={grade || "—"} />
+          <SummaryCard label="Grade Level" value={grade || "\u2014"} />
           <SummaryCard
-            label="Credits Completed"
+            label="GPA"
+            value={gpa !== null ? gpa.toFixed(2) : "\u2014"}
+          />
+          <SummaryCard
+            label="Credits"
             value={`${totalCredits.toFixed(1)} / ${totalRequired}`}
           />
-          <SummaryCard label="Credits Remaining" value={`${remainingCredits.toFixed(1)}`} />
-          <SummaryCard label="Graduation Progress" value={`${gradProgress}%`} />
+          <SummaryCard label="Graduation Progress" value={`${gradProgress}%`}>
+            <span
+              style={{
+                display: "block",
+                marginTop: "8px",
+                fontSize: "16px",
+                letterSpacing: "2px",
+                fontFamily: "monospace",
+                color: gradProgress >= 100 ? "var(--green, #166534)" : "var(--brand-accent)",
+              }}
+            >
+              {progressBar}
+            </span>
+          </SummaryCard>
         </div>
 
         {/* Quick actions */}
@@ -135,26 +161,55 @@ export default function Home() {
           className="dash-actions-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "16px",
-            marginBottom: "32px",
+            gridTemplateColumns: "repeat(5, 1fr)",
+            gap: "12px",
+            marginBottom: "40px",
           }}
         >
           <ActionCard label="Explore Courses" href="/catalog" />
-          <ActionCard label="View Graduation Requirements" href="/requirements" />
-          <ActionCard label="View Completed Courses" href="/completed-courses" />
-          <ActionCard label="View Saved Courses" href="/saved" />
           <ActionCard label="Open Planner" href="/planner" />
+          <ActionCard label="Graduation Requirements" href="/requirements" />
+          <ActionCard label="Completed Courses" href="/completed-courses" />
+          <ActionCard label="Saved Courses" href="/saved" />
         </div>
 
-        {/* GPA projection */}
-        <AcademicSnapshot />
+        {/* Four-Year Plan Overview */}
+        <div style={{ marginBottom: "40px" }}>
+          <h2
+            style={{
+              margin: "0 0 20px",
+              fontSize: "22px",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+            }}
+          >
+            Your Four-Year Plan
+          </h2>
+          <DashboardOverview />
+        </div>
+
+        {/* Recently Saved Courses */}
+        <SavedCoursesSection />
       </ResponsivePage>
     </>
   );
 }
 
-function SummaryCard({ label, value }: { label: string; value: string }): React.ReactElement {
+function displayName(name: string | null | undefined): string {
+  if (!name) return "Student";
+  if (name === "Guest") return "Student";
+  return name.includes(" ") ? name.split(" ")[0] : name;
+}
+
+function SummaryCard({
+  label,
+  value,
+  children,
+}: {
+  label: string;
+  value: string;
+  children?: React.ReactNode;
+}): React.ReactElement {
   return (
     <div
       style={{
@@ -183,6 +238,7 @@ function SummaryCard({ label, value }: { label: string; value: string }): React.
       >
         {value}
       </p>
+      {children}
     </div>
   );
 }
@@ -197,7 +253,7 @@ function ActionCard({ label, href }: { label: string; href: string }): React.Rea
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "20px",
+        padding: "20px 12px",
         backgroundColor: hovered ? "var(--brand-accent-hover)" : "var(--brand-accent)",
         borderRadius: "12px",
         textDecoration: "none",
@@ -209,10 +265,11 @@ function ActionCard({ label, href }: { label: string; href: string }): React.Rea
     >
       <span
         style={{
-          fontSize: "16px",
+          fontSize: "15px",
           fontWeight: 500,
           color: "#ffffff",
           textAlign: "center",
+          lineHeight: 1.3,
         }}
       >
         {label}
