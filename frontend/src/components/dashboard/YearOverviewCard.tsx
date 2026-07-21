@@ -30,10 +30,6 @@ type YearOverviewCardProps = {
   };
 };
 
-function Estyle(el: HTMLElement, prop: string, val: string) {
-  el.style[prop as any] = val;
-}
-
 export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProps): React.ReactElement {
   const label = YEAR_LABELS[planner.schoolYear] ?? `Year ${planner.schoolYear}`;
 
@@ -80,23 +76,28 @@ export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProp
       }}
     >
       <style>{`
-        .yoc-badge-desktop { display: block; }
-        .yoc-badge-mobile { display: none; margin-bottom: 16px; }
+        .yoc-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .yoc-header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
         @media (max-width: ${breakpoints.mobile - 1}px) {
-          .yoc-badge-desktop { display: none; }
-          .yoc-badge-mobile { display: block; }
+          .yoc-header {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+          }
         }
       `}</style>
 
       {/* Header row */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
+      <div className="yoc-header">
         <h2
           style={{
             margin: 0,
@@ -107,15 +108,22 @@ export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProp
         >
           {label}
         </h2>
-        <span className="yoc-badge-desktop">
+        <div className="yoc-header-actions">
           <span style={badgeStyle}>{badgeLabel}</span>
-        </span>
+          <Link
+            href={`/planner/${planner.schoolYear}`}
+            style={{
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "var(--brand-accent)",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Edit Planner →
+          </Link>
+        </div>
       </div>
-
-      {/* Mobile badge */}
-      <span className="yoc-badge-mobile">
-        <span style={badgeStyle}>{badgeLabel}</span>
-      </span>
 
       {/* Courses */}
       <div
@@ -188,28 +196,6 @@ export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProp
           </ul>
         </div>
       )}
-
-      <Link
-        href={`/planner/${planner.schoolYear}`}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: "20px",
-          padding: "12px",
-          fontSize: "15px",
-          fontWeight: 600,
-          color: "#ffffff",
-          backgroundColor: "var(--brand-accent)",
-          borderRadius: "10px",
-          textDecoration: "none",
-          transition: "background-color 0.2s ease",
-        }}
-        onMouseEnter={(e) => { Estyle(e.currentTarget, "backgroundColor", "var(--brand-accent-hover)"); }}
-        onMouseLeave={(e) => { Estyle(e.currentTarget, "backgroundColor", "var(--brand-accent)"); }}
-      >
-        Edit Planner →
-      </Link>
     </div>
   );
 }
