@@ -8,6 +8,8 @@ type SidebarFooterProps = {
 };
 
 export function SidebarFooter({ className }: SidebarFooterProps): React.ReactElement {
+  const isMobile = !!className;
+
   return (
     <div className={className} style={className ? undefined : desktopStyle}>
       <p style={className ? mobileLabelStyle : labelStyle}>
@@ -15,23 +17,24 @@ export function SidebarFooter({ className }: SidebarFooterProps): React.ReactEle
         <br />
         Beta v1.0
       </p>
-      <div style={linkRowStyle}>
-        <Link href="/about" style={className ? mobileLinkStyle : linkStyle}>
-          About
-        </Link>
-        <span style={className ? mobileDotStyle : dotStyle}>•</span>
-        <Link href="/privacy" style={className ? mobileLinkStyle : linkStyle}>
-          Privacy
-        </Link>
-        <span style={className ? mobileDotStyle : dotStyle}>•</span>
-          <Link href="/feedback" style={className ? mobileLinkStyle : linkStyle}>
-            Report a Bug
-          </Link>
-          <span style={className ? mobileDotStyle : dotStyle}>•</span>
-          <Link href="/feedback" style={className ? mobileLinkStyle : linkStyle}>
-            Send Feedback
-          </Link>
-      </div>
+      {isMobile ? (
+        <div style={linkRowStyle}>
+          <Link href="/about" style={mobileLinkStyle}>About</Link>
+          <span style={mobileDotStyle}>•</span>
+          <Link href="/privacy" style={mobileLinkStyle}>Privacy</Link>
+          <span style={mobileDotStyle}>•</span>
+          <Link href="/feedback" style={mobileLinkStyle}>Report a Bug</Link>
+          <span style={mobileDotStyle}>•</span>
+          <Link href="/feedback" style={mobileLinkStyle}>Send Feedback</Link>
+        </div>
+      ) : (
+        <div style={verticalLinkStyle}>
+          <Link href="/about" style={linkStyle}>About</Link>
+          <Link href="/privacy" style={linkStyle}>Privacy</Link>
+          <Link href="/feedback" style={linkStyle}>Report a Bug</Link>
+          <Link href="/feedback" style={linkStyle}>Send Feedback</Link>
+        </div>
+      )}
       <p style={className ? mobileSubtextStyle : subtextStyle}>
         Unofficial planning resource for Stevenson High School.
       </p>
@@ -55,6 +58,13 @@ const linkRowStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: "6px",
+  marginTop: "8px",
+};
+
+const verticalLinkStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "4px",
   marginTop: "8px",
 };
 
