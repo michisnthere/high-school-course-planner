@@ -8,14 +8,10 @@ import type { PlannerCourseDetails } from "@/lib/planner";
 type CourseListModalProps = {
   requirementName: string;
   courses: PlannerCourseDetails[];
-  returnParams: string;
   onClose: () => void;
-  onNavigate?: () => void;
+  getCourseDetailsHref: (course: PlannerCourseDetails) => string;
+  onNavigate?: (course: PlannerCourseDetails) => void;
 };
-
-function getCourseSlug(course: PlannerCourseDetails): string {
-  return course.normalizedTitle || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-}
 
 function scoreFor(course: PlannerCourseDetails, reqName: string): number {
   let score = 0;
@@ -41,8 +37,8 @@ function scoreFor(course: PlannerCourseDetails, reqName: string): number {
 export function CourseListModal({
   requirementName,
   courses,
-  returnParams,
   onClose,
+  getCourseDetailsHref,
   onNavigate,
 }: CourseListModalProps): React.ReactElement {
   const { isMobile } = useBreakpoint();
@@ -245,14 +241,17 @@ export function CourseListModal({
           }}
         >
           {sorted.map((course) => {
-            const slug = getCourseSlug(course);
-            const href = `/catalog/${slug}?return=${encodeURIComponent(returnParams ? `/requirements?${returnParams}` : "/requirements")}&fromRequirement=${encodeURIComponent(requirementName)}`;
+            const href = getCourseDetailsHref(course);
 
             return (
               <Link
                 key={course.id}
                 href={href}
-                onClick={onNavigate}
+                onClick={(event) => {
+                  if (!onNavigate) return;
+                  event.preventDefault();
+                  onNavigate(course);
+                }}
                 style={{
                   display: "flex",
                   alignItems: "center",

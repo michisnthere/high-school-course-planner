@@ -27,6 +27,19 @@ const REQUIREMENTS_TO_HIDE = new Set([
 
 const TOTAL_REQUIRED_CREDITS = 45;
 
+function canonicalRequirementName(name: string): string {
+  return name.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function courseMatchesRequirement(course: PlannerCourseDetails, requirementName: string): boolean {
+  const target = canonicalRequirementName(requirementName);
+  return (course.fulfillsRequirements ?? []).some((requirement) => canonicalRequirementName(requirement) === target);
+}
+
+function makeCourseSlug(course: PlannerCourseDetails): string {
+  return course.normalizedTitle || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 export default function RequirementsPage(): React.ReactElement {
   return (
     <ServiceProvider>
@@ -88,7 +101,7 @@ function RequirementsContent(): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
-  const [viewAllReq, setViewAllReq] = useState<string | null>(null);
+  const [viewAllReq, setViewAllReq] = useState<string | null>(() => searchParams.get("viewAll"));
   const [allCourseDetails, setAllCourseDetails] = useState<PlannerCourseDetails[]>([]);
 
   const loadIdRef = useRef(0);
@@ -122,11 +135,9 @@ function RequirementsContent(): React.ReactElement {
       console.log(`[REQ:${id}] ALL fetches succeeded`);
       const allCourses: PlannerCourseDetails[] = courses.map(courseToPlannerDetails);
       setAllCourseDetails(allCourses);
-      const VERIFY_REQS = ["English", "Government", "Science", "Fine Arts"];
+      const VERIFY_REQS = ["English", "Government", "World History and Geography", "Science", "Fine Arts"];
       VERIFY_REQS.forEach((name) => {
-        const matches = allCourses.filter((c) =>
-          (c.fulfillsRequirements ?? []).some((r) => r.trim().toLowerCase() === name.toLowerCase())
-        );
+        const matches = allCourses.filter((c) => courseMatchesRequirement(c, name));
         console.groupCollapsed(`[VERIFY] ${name} — ${matches.length} matches`);
         matches.forEach((c) => console.log("•", c.title));
         console.groupEnd();
@@ -184,19 +195,40 @@ function RequirementsContent(): React.ReactElement {
     router.replace(target, { scroll: false });
   }, [expandedIds, searchParams, router]);
 
-  // Restore scroll position from sessionStorage after data loads
+  useEffect(() => {
+    setViewAllReq(searchParams.get("viewAll"));
+  }, [searchParams]);
+
+  // Restore scroll position from route state after data loads.
   useEffect(() => {
     if (!analysis) return;
-    const saved = sessionStorage.getItem("requirements-scroll");
+    const saved = searchParams.get("scroll");
     if (saved) {
-      sessionStorage.removeItem("requirements-scroll");
-      requestAnimationFrame(() => window.scrollTo(0, parseInt(saved, 10)));
+      const y = Number.parseInt(saved, 10);
+      if (Number.isFinite(y)) {
+        requestAnimationFrame(() => window.scrollTo(0, y));
+      }
     }
-  }, [analysis]);
+  }, [analysis, searchParams]);
 
-  const saveScroll = useCallback(() => {
-    sessionStorage.setItem("requirements-scroll", String(window.scrollY));
-  }, []);
+  const buildRequirementsReturnUrl = useCallback((requirementName: string, includeViewAll: boolean) => {
+    const params = new URLSearchParams();
+    const ids = Array.from(expandedIds);
+    if (ids.length > 0) params.set("expanded", ids.join(","));
+    if (includeViewAll) params.set("viewAll", requirementName);
+    params.set("scroll", String(Math.round(typeof window === "undefined" ? 0 : window.scrollY)));
+    return `/requirements?${params.toString()}`;
+  }, [expandedIds]);
+
+  const buildCourseDetailsHref = useCallback((course: PlannerCourseDetails, requirementName: string, includeViewAll: boolean) => {
+    const slug = makeCourseSlug(course);
+    const returnUrl = buildRequirementsReturnUrl(requirementName, includeViewAll);
+    return `/catalog/${slug}?return=${encodeURIComponent(returnUrl)}&fromRequirement=${encodeURIComponent(requirementName)}`;
+  }, [buildRequirementsReturnUrl]);
+
+  const navigateToCourseDetails = useCallback((course: PlannerCourseDetails, requirementName: string, includeViewAll: boolean) => {
+    router.push(buildCourseDetailsHref(course, requirementName, includeViewAll));
+  }, [buildCourseDetailsHref, router]);
 
   const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
   const visibleRequirements = analysis?.graduationRequirements.filter(
@@ -536,10 +568,21 @@ function RequirementsContent(): React.ReactElement {
                     isExpanded={expandedIds.has(req.id)}
                     onToggle={() => toggleExpand(req.id)}
                     hasPeWaiver={hasPeWaiver}
-                    expandedIds={expandedIds}
-                    onNavigate={saveScroll}
+                    getCourseDetailsHref={(course) => buildCourseDetailsHref(course, req.name, false)}
+                    onCourseNavigate={(course) => navigateToCourseDetails(course, req.name, false)}
                     allCourseDetails={allCourseDetails}
-                    onViewAll={() => setViewAllReq(req.name)}
+                    onViewAll={() => {
+                      setViewAllReq(req.name);
+                      const params = new URLSearchParams(searchParams.toString());
+                      const ids = Array.from(expandedIds);
+                      if (ids.length > 0) {
+                        params.set("expanded", ids.join(","));
+                      } else {
+                        params.delete("expanded");
+                      }
+                      params.set("viewAll", req.name);
+                      router.replace(`/requirements?${params.toString()}`, { scroll: false });
+                    }}
                   />
                 ))}
               </div>
@@ -586,13 +629,18 @@ function RequirementsContent(): React.ReactElement {
               <CourseListModal
                 requirementName={viewAllReq}
                 courses={allCourseDetails.filter((c) =>
-                  (c.fulfillsRequirements ?? []).some(
-                    (r) => r.trim().toLowerCase() === viewAllReq.trim().toLowerCase()
-                  )
+                  courseMatchesRequirement(c, viewAllReq)
                 )}
-                returnParams={Array.from(expandedIds).join(",")}
-                onClose={() => setViewAllReq(null)}
-                onNavigate={saveScroll}
+                onClose={() => {
+                  setViewAllReq(null);
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.delete("viewAll");
+                  params.delete("scroll");
+                  const target = params.toString() ? `/requirements?${params.toString()}` : "/requirements";
+                  router.replace(target, { scroll: false });
+                }}
+                getCourseDetailsHref={(course) => buildCourseDetailsHref(course, viewAllReq, true)}
+                onNavigate={(course) => navigateToCourseDetails(course, viewAllReq, true)}
               />
             )}
           </div>
@@ -737,8 +785,8 @@ type RequirementCardProps = {
   isExpanded: boolean;
   onToggle: () => void;
   hasPeWaiver: boolean;
-  expandedIds: Set<number>;
-  onNavigate: () => void;
+  getCourseDetailsHref: (course: PlannerCourseDetails) => string;
+  onCourseNavigate: (course: PlannerCourseDetails) => void;
   allCourseDetails: PlannerCourseDetails[];
   onViewAll: () => void;
 };
@@ -748,8 +796,8 @@ function RequirementCard({
   isExpanded,
   onToggle,
   hasPeWaiver,
-  expandedIds,
-  onNavigate,
+  getCourseDetailsHref,
+  onCourseNavigate,
   allCourseDetails,
   onViewAll,
 }: RequirementCardProps): React.ReactElement {
@@ -767,15 +815,15 @@ function RequirementCard({
       : 0;
 
   const recommended = req.recommendedCourses ?? [];
-  const showRecs = recommended.length > 0;
   const resolvedRecs = recommended
     .map((r) => allCourseDetails.find((c) => c.id === r.courseId))
     .filter((c): c is PlannerCourseDetails => c != null);
   const displayRecs = resolvedRecs.slice(0, 3);
-  const totalMatching = allCourseDetails.filter((c) =>
-    (c.fulfillsRequirements ?? []).some((r) => r.trim().toLowerCase() === req.name.toLowerCase())
-  ).length;
+  const matchingCourses = allCourseDetails.filter((c) => courseMatchesRequirement(c, req.name));
+  const totalMatching = matchingCourses.length;
   const hasMore = totalMatching > 3;
+  const fallbackDisplayRecs = matchingCourses.slice(0, 3);
+  const displayCourses = displayRecs.length > 0 ? displayRecs : fallbackDisplayRecs;
 
   return (
     <div
@@ -889,24 +937,20 @@ function RequirementCard({
               You have earned {formatNumber(req.earnedValue)} credits so far.
             </p>
           )}
-          {showRecs && (
+          {displayCourses.length > 0 && (
             <div>
               <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
                 Recommended Courses
               </p>
               <div className="rs-req-recs" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                {displayRecs.map((course) => {
-                  const courseReturnParams = Array.from(expandedIds).join(",");
-                  return (
-                    <RecommendedCourseCard
-                      key={course.id}
-                      course={course}
-                      requirementName={req.name}
-                      returnParams={courseReturnParams}
-                      onNavigate={onNavigate}
-                    />
-                  );
-                })}
+                {displayCourses.map((course) => (
+                  <RecommendedCourseCard
+                    key={course.id}
+                    course={course}
+                    href={getCourseDetailsHref(course)}
+                    onNavigate={onCourseNavigate}
+                  />
+                ))}
                 {hasMore && (
                     <button
                       type="button"

@@ -4,30 +4,25 @@ import React from "react";
 import Link from "next/link";
 import type { PlannerCourseDetails } from "@/lib/planner";
 
-function getCourseSlug(course: PlannerCourseDetails): string {
-  return course.normalizedTitle || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-}
-
 type RecommendedCourseCardProps = {
   course: PlannerCourseDetails;
-  requirementName: string;
-  returnParams: string;
-  onNavigate?: () => void;
+  href: string;
+  onNavigate?: (course: PlannerCourseDetails) => void;
 };
 
 export function RecommendedCourseCard({
   course,
-  requirementName,
-  returnParams,
+  href,
   onNavigate,
 }: RecommendedCourseCardProps): React.ReactElement {
-  const slug = getCourseSlug(course);
-  const href = `/catalog/${slug}?return=${encodeURIComponent(returnParams ? `/requirements?${returnParams}` : "/requirements")}&fromRequirement=${encodeURIComponent(requirementName)}`;
-
   return (
     <Link
       href={href}
-      onClick={onNavigate}
+      onClick={(event) => {
+        if (!onNavigate) return;
+        event.preventDefault();
+        onNavigate(course);
+      }}
       style={{
         display: "flex",
         alignItems: "center",

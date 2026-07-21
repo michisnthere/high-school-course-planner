@@ -73,22 +73,6 @@ export function CourseDetailHeader({ course, returnUrl, fromRequirement }: Cours
           >
             Recommended for: {fromRequirement}
           </span>
-          <Link
-            href={`/catalog?requirement=${encodeURIComponent(fromRequirement)}`}
-            style={{
-              display: "inline-block",
-              padding: "6px 14px",
-              backgroundColor: "#FCF5DF",
-              border: "1px solid #ECBA2B",
-              borderRadius: "8px",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "#111827",
-              textDecoration: "none",
-            }}
-          >
-            View all courses that satisfy this requirement
-          </Link>
         </div>
       )}
       <h1
