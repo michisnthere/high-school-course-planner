@@ -4,20 +4,24 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
-import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
-import { SavedCoursesSection } from "@/components/dashboard/SavedCoursesSection";
 import { GuestUpgradePrompt } from "@/components/auth/GuestUpgradePrompt";
+import { SavedCoursesSection } from "@/components/dashboard/SavedCoursesSection";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
-import { getGpaProjection } from "@/lib/gpaProjection";
 import { breakpoints } from "@/lib/responsive";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
+import type { Planner } from "@/lib/planner";
+
+const SLOTS_PER_SEMESTER = 7;
+const SEMESTERS_PER_YEAR = 2;
+const TOTAL_SLOTS_PER_YEAR = SLOTS_PER_SEMESTER * SEMESTERS_PER_YEAR;
+const YEARS = [9, 10, 11, 12] as const;
+const YEAR_LABELS: Record<number, string> = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
 
 export default function Home() {
   const { user, isGuest } = useAuth();
   const services = useServices();
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
-  const [grade, setGrade] = useState<string>("");
-  const [gpa, setGpa] = useState<number | null>(null);
+  const [planners, setPlanners] = useState<Planner[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,20 +29,17 @@ export default function Home() {
 
     async function load() {
       try {
-        const planners = await services.planner.getPlanners();
+        const plannersData = await services.planner.getPlanners();
+        if (cancelled) return;
+        setPlanners(plannersData);
+
         const analysisData = await services.analysis.getAnalysis({
-          planners,
+          planners: plannersData,
           completedCourses: [],
           resolutions: [],
           allCourses: [],
         });
         if (!cancelled) setAnalysis(analysisData);
-
-        const active = planners.find((p) => p.schoolYear != null);
-        if (active && !cancelled) {
-          const labels: Record<number, string> = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
-          setGrade(labels[active.schoolYear] ?? "");
-        }
       } catch {
         // analysis not available
       } finally {
@@ -50,18 +51,19 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [services]);
 
-  useEffect(() => {
-    getGpaProjection()
-      .then((p) => setGpa(p.current?.unweighted ?? null))
-      .catch(() => {});
-  }, []);
-
   const totalCredits = analysis?.credits.total ?? 0;
   const totalRequired = 45;
   const gradProgress = Math.min(Math.round((totalCredits / totalRequired) * 100), 100);
 
-  const progressBarBlocks = Math.floor(gradProgress / 10);
-  const progressBar = "\u2588".repeat(progressBarBlocks) + "\u2591".repeat(10 - progressBarBlocks);
+  const totalPlannedCourses = planners.reduce((sum, p) => sum + p.plannedCourses.length, 0);
+  const totalSlots = YEARS.length * TOTAL_SLOTS_PER_YEAR;
+  const plannerCompletion = Math.min(Math.round((totalPlannedCourses / totalSlots) * 100), 100);
+
+  function yearCompletion(year: number): number {
+    const planner = planners.find((p) => p.schoolYear === year);
+    const filled = planner ? planner.plannedCourses.length : 0;
+    return Math.min(Math.round((filled / TOTAL_SLOTS_PER_YEAR) * 100), 100);
+  }
 
   return (
     <>
@@ -69,14 +71,18 @@ export default function Home() {
         @media (max-width: ${breakpoints.mobile - 1}px) {
           .dash-welcome h1 { font-size: 1.5rem !important; }
           .dash-welcome p { font-size: 0.875rem !important; }
-          .dash-summary-grid { grid-template-columns: 1fr 1fr !important; }
-          .dash-actions-grid { grid-template-columns: 1fr !important; }
+          .dash-progress-grid { grid-template-columns: 1fr 1fr !important; }
+          .dash-actions-grid { grid-template-columns: 1fr 1fr !important; }
+          .dash-year-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (min-width: ${breakpoints.mobile}px) {
+          .dash-actions-grid { grid-template-columns: repeat(5, 1fr) !important; }
+          .dash-year-grid { grid-template-columns: repeat(4, 1fr) !important; }
         }
       `}</style>
       <ResponsivePage>
         <GuestUpgradePrompt />
 
-        {/* Disclaimer */}
         <div
           style={{
             padding: "16px 20px",
@@ -95,7 +101,6 @@ export default function Home() {
           counselor or the official course catalog for authoritative information.
         </div>
 
-        {/* Welcome section */}
         <div className="dash-welcome" style={{ marginBottom: "32px" }}>
           <h1
             style={{
@@ -117,79 +122,111 @@ export default function Home() {
               color: "var(--text-secondary)",
             }}
           >
-            Plan your four years, explore courses, and track your graduation progress.
+            Plan your courses, track graduation progress, and explore opportunities.
           </p>
         </div>
 
-        {/* Student summary */}
-        <div
-          className="dash-summary-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "16px",
-            marginBottom: "32px",
-          }}
-        >
-          <SummaryCard label="Grade Level" value={grade || "\u2014"} />
-          <SummaryCard
-            label="GPA"
-            value={gpa !== null ? gpa.toFixed(2) : "\u2014"}
-          />
-          <SummaryCard
-            label="Credits"
-            value={`${totalCredits.toFixed(1)} / ${totalRequired}`}
-          />
-          <SummaryCard label="Graduation Progress" value={`${gradProgress}%`}>
-            <span
-              style={{
-                display: "block",
-                marginTop: "8px",
-                fontSize: "16px",
-                letterSpacing: "2px",
-                fontFamily: "monospace",
-                color: gradProgress >= 100 ? "var(--green, #166534)" : "var(--brand-accent)",
-              }}
-            >
-              {progressBar}
-            </span>
-          </SummaryCard>
-        </div>
+        {!loading && (
+          <>
+            <section style={{ marginBottom: "40px" }}>
+              <h2
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                }}
+              >
+                Quick Actions
+              </h2>
+              <div
+                className="dash-actions-grid"
+                style={{
+                  display: "grid",
+                  gap: "12px",
+                }}
+              >
+                <ActionCard label="Planner" href="/planner" />
+                <ActionCard label="Explore Courses" href="/catalog" />
+                <ActionCard label="Graduation Requirements" href="/requirements" />
+                <ActionCard label="Completed Courses" href="/completed-courses" />
+                <ActionCard label="Saved Courses" href="/saved" />
+              </div>
+            </section>
 
-        {/* Quick actions */}
-        <div
-          className="dash-actions-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "12px",
-            marginBottom: "40px",
-          }}
-        >
-          <ActionCard label="Explore Courses" href="/catalog" />
-          <ActionCard label="Open Planner" href="/planner" />
-          <ActionCard label="Graduation Requirements" href="/requirements" />
-          <ActionCard label="Completed Courses" href="/completed-courses" />
-          <ActionCard label="Saved Courses" href="/saved" />
-        </div>
+            <section style={{ marginBottom: "40px" }}>
+              <h2
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                }}
+              >
+                Graduation Progress
+              </h2>
+              <div
+                className="dash-progress-grid"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: "16px",
+                }}
+              >
+                <SummaryCard label="Completed Credits" value={`${totalCredits.toFixed(1)} / ${totalRequired}`} />
+                <SummaryCard label="Graduation Progress" value={`${gradProgress}%`}>
+                  <ProgressBar value={gradProgress} />
+                </SummaryCard>
+                <SummaryCard label="Planner Completion" value={`${plannerCompletion}%`}>
+                  <ProgressBar value={plannerCompletion} />
+                </SummaryCard>
+              </div>
+            </section>
 
-        {/* Four-Year Plan Overview */}
-        <div style={{ marginBottom: "40px" }}>
-          <h2
-            style={{
-              margin: "0 0 20px",
-              fontSize: "22px",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-            }}
-          >
-            Your Four-Year Plan
-          </h2>
-          <DashboardOverview />
-        </div>
+            <section style={{ marginBottom: "40px" }}>
+              <h2
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                }}
+              >
+                Planner Completion
+              </h2>
+              <div
+                className="dash-year-grid"
+                style={{
+                  display: "grid",
+                  gap: "16px",
+                }}
+              >
+                {YEARS.map((year) => (
+                  <YearCard
+                    key={year}
+                    year={year}
+                    label={YEAR_LABELS[year]}
+                    percentage={yearCompletion(year)}
+                  />
+                ))}
+              </div>
+            </section>
 
-        {/* Recently Saved Courses */}
-        <SavedCoursesSection />
+            <section style={{ marginBottom: "40px" }}>
+              <h2
+                style={{
+                  margin: "0 0 16px",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                }}
+              >
+                Recent Activity
+              </h2>
+              <SavedCoursesSection />
+            </section>
+          </>
+        )}
       </ResponsivePage>
     </>
   );
@@ -238,7 +275,31 @@ function SummaryCard({
       >
         {value}
       </p>
-      {children}
+      {children && <div style={{ marginTop: "12px" }}>{children}</div>}
+    </div>
+  );
+}
+
+function ProgressBar({ value }: { value: number }): React.ReactElement {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "8px",
+        backgroundColor: "var(--border-default)",
+        borderRadius: "4px",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          width: `${value}%`,
+          height: "100%",
+          backgroundColor: value >= 100 ? "#166534" : "var(--brand-accent)",
+          borderRadius: "4px",
+          transition: "width 0.3s ease",
+        }}
+      />
     </div>
   );
 }
@@ -253,20 +314,20 @@ function ActionCard({ label, href }: { label: string; href: string }): React.Rea
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "20px 12px",
+        padding: "24px 12px",
         backgroundColor: hovered ? "var(--brand-accent-hover)" : "var(--brand-accent)",
         borderRadius: "12px",
         textDecoration: "none",
         transition: "background-color 0.2s ease",
-        minHeight: "56px",
+        minHeight: "64px",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <span
         style={{
-          fontSize: "15px",
-          fontWeight: 500,
+          fontSize: "16px",
+          fontWeight: 600,
           color: "#ffffff",
           textAlign: "center",
           lineHeight: 1.3,
@@ -275,5 +336,60 @@ function ActionCard({ label, href }: { label: string; href: string }): React.Rea
         {label}
       </span>
     </Link>
+  );
+}
+
+function YearCard({
+  year,
+  label,
+  percentage,
+}: {
+  year: number;
+  label: string;
+  percentage: number;
+}): React.ReactElement {
+  return (
+    <div
+      style={{
+        padding: "20px",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
+        borderRadius: "12px",
+      }}
+    >
+      <p
+        style={{
+          margin: "0 0 8px",
+          fontSize: "14px",
+          color: "var(--text-muted)",
+        }}
+      >
+        {label}
+      </p>
+      <p
+        style={{
+          margin: "0 0 12px",
+          fontSize: "28px",
+          fontWeight: 700,
+          color: "var(--text-primary)",
+        }}
+      >
+        {percentage}%
+      </p>
+      <ProgressBar value={percentage} />
+      <Link
+        href={`/planner/${year}`}
+        style={{
+          display: "inline-block",
+          marginTop: "12px",
+          fontSize: "14px",
+          fontWeight: 500,
+          color: "var(--brand-accent)",
+          textDecoration: "none",
+        }}
+      >
+        Open Planner &rarr;
+      </Link>
+    </div>
   );
 }
