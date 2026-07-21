@@ -145,7 +145,21 @@ function CompletedCoursesContent(): React.ReactElement {
         </h1>
 
         {loading ? (
-          <p style={{ color: "var(--text-muted)" }}>Loading completed courses...</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                style={{
+                  height: "80px",
+                  backgroundColor: "var(--bg-card)",
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "12px",
+                  animation: "skeleton-pulse 1.5s ease-in-out infinite",
+                }}
+              />
+            ))}
+            <style>{`@keyframes skeleton-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }`}</style>
+          </div>
         ) : error ? (
           <p style={{ color: "var(--status-error)" }}>{error}</p>
         ) : (
@@ -170,10 +184,49 @@ function CompletedCoursesContent(): React.ReactElement {
             </button>
 
             {courses.length === 0 ? (
-              <p style={{ color: "var(--text-muted)" }}>
-                No completed courses yet. Add courses you have already finished to improve your
-                planner warnings.
-              </p>
+              <div
+                style={{
+                  padding: "48px 24px",
+                  textAlign: "center",
+                  backgroundColor: "var(--bg-card)",
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "12px",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "48px",
+                    marginBottom: "16px",
+                    lineHeight: 1,
+                  }}
+                >
+                  {"\u2705"}
+                </div>
+                <h3
+                  style={{
+                    margin: "0 0 8px",
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  No completed courses yet
+                </h3>
+                <p
+                  style={{
+                    margin: "0 0 20px",
+                    fontSize: "15px",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.5,
+                    maxWidth: "400px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                >
+                  Add courses you have already finished to improve your planner warnings and
+                  track your graduation progress.
+                </p>
+              </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {courses.map((cc) => {

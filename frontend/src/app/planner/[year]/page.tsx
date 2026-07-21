@@ -944,11 +944,11 @@ function PlannerYearContent(): React.ReactElement {
           <GuestUpgradePrompt />
 
           {loading ? (
-            <p style={{ color: "#d1d5db" }}>Loading planner...</p>
+            <p style={{ color: "var(--text-muted)" }}>Loading planner...</p>
           ) : error ? (
-            <p style={{ color: "#ef4444" }}>{error}</p>
+            <p style={{ color: "var(--status-error)" }}>{error}</p>
           ) : !planner ? (
-            <p style={{ color: "#d1d5db" }}>Planner not found.</p>
+            <p style={{ color: "var(--text-muted)" }}>Planner not found.</p>
           ) : (
             mobileContent
           )}
@@ -1052,7 +1052,7 @@ function PlannerYearContent(): React.ReactElement {
               margin: "0 0 28px",
               fontSize: "32px",
               fontWeight: 700,
-              color: "#111827",
+              color: "var(--text-primary)",
               lineHeight: 1.2,
             }}
           >
@@ -1060,11 +1060,11 @@ function PlannerYearContent(): React.ReactElement {
           </h1>
 
           {loading ? (
-            <p style={{ color: "#d1d5db" }}>Loading planner...</p>
+            <p style={{ color: "var(--text-muted)" }}>Loading planner...</p>
           ) : error ? (
-            <p style={{ color: "#ef4444" }}>{error}</p>
+            <p style={{ color: "var(--status-error)" }}>{error}</p>
           ) : !planner ? (
-            <p style={{ color: "#d1d5db" }}>Planner not found.</p>
+            <p style={{ color: "var(--text-muted)" }}>Planner not found.</p>
           ) : (
             <div
               style={{
@@ -1089,7 +1089,7 @@ function PlannerYearContent(): React.ReactElement {
                       margin: "0 0 16px",
                       fontSize: "22px",
                       fontWeight: 700,
-                      color: "#111827",
+                      color: "var(--text-primary)",
                     }}
                   >
                     Semester {semester}
@@ -1228,9 +1228,9 @@ function SummarySidebar({
         minWidth: "280px",
         maxWidth: "100%",
         padding: "24px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #275D38",
-        borderRadius: "16px",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
+        borderRadius: "12px",
       }}
     >
       <h2
@@ -1238,7 +1238,7 @@ function SummarySidebar({
           margin: "0 0 20px",
           fontSize: "18px",
           fontWeight: 700,
-          color: "#111827",
+          color: "var(--text-primary)",
         }}
       >
         Planner Summary
@@ -1330,7 +1330,7 @@ function SummarySidebar({
         <div
           style={{
             height: "8px",
-            backgroundColor: "var(--bg-muted)",
+            backgroundColor: "var(--border-default)",
             borderRadius: "9999px",
             overflow: "hidden",
           }}
@@ -1361,7 +1361,7 @@ function SummaryRow({ label, value }: { label: string; value: string }): React.R
       }}
     >
       <span style={{ color: "var(--text-secondary)" }}>{label}</span>
-      <span style={{ fontWeight: 400, color: "#111827" }}>{value}</span>
+      <span style={{ fontWeight: 400, color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }

@@ -74,7 +74,7 @@ function PlannerContent(): React.ReactElement {
     return (
       <ResponsivePage>
         <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
-          Loading...
+          Loading your four-year plan...
         </p>
       </ResponsivePage>
     );

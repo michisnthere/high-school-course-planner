@@ -383,7 +383,7 @@ function RequirementsContent(): React.ReactElement {
             margin: "0 0 28px",
             fontSize: "32px",
             fontWeight: 700,
-            color: "#111827",
+            color: "var(--text-primary)",
             lineHeight: 1.2,
           }}
         >
@@ -402,13 +402,13 @@ function RequirementsContent(): React.ReactElement {
           <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
             {analysis.credits.total > 0 && isMobile ? (
               <div className="rs-req-progress">
-                <strong style={{ fontSize: "28px", fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>
+                <strong style={{ fontSize: "28px", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
                   {formatNumber(analysis.credits.total)}{" "}
-                  <span style={{ fontSize: "22px", fontWeight: 400, color: "#6b7280" }}>
+                  <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
                     / {TOTAL_REQUIRED_CREDITS} Credits Completed
                   </span>
                 </strong>
-                <p style={{ margin: "2px 0 0", fontSize: "13px", color: "#6b7280" }}>
+                <p style={{ margin: "2px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
                   {formatNumber(Math.max(0, TOTAL_REQUIRED_CREDITS - analysis.credits.total))} credits remaining
                 </p>
               </div>
@@ -418,12 +418,12 @@ function RequirementsContent(): React.ReactElement {
                   margin: 0,
                   fontSize: "28px",
                   fontWeight: 700,
-                  color: "#111827",
+                  color: "var(--text-primary)",
                   lineHeight: 1.3,
                 }}
               >
                 {formatNumber(analysis.credits.total)}{" "}
-                <span style={{ fontSize: "22px", fontWeight: 400, color: "#6b7280" }}>
+                <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
                   / {TOTAL_REQUIRED_CREDITS} Credits Completed
                 </span>
               </p>
@@ -435,12 +435,12 @@ function RequirementsContent(): React.ReactElement {
                   margin: "0 0 16px",
                   fontSize: "20px",
                   fontWeight: 700,
-                  color: "#111827",
+                  color: "var(--text-primary)",
                 }}
               >
                 Year-Level Requirements
               </h2>
-              <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
+              <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "var(--text-muted)" }}>
                 Am I meeting this year&apos;s requirements?
               </p>
               <div
@@ -482,12 +482,12 @@ function RequirementsContent(): React.ReactElement {
                   margin: "0 0 16px",
                   fontSize: "20px",
                   fontWeight: 700,
-                  color: "#111827",
+                  color: "var(--text-primary)",
                 }}
               >
                 Graduation Requirements
               </h2>
-              <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "#6b7280" }}>
+              <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "var(--text-muted)" }}>
                 Am I on track to graduate?
               </p>
               <div
@@ -522,7 +522,7 @@ function RequirementsContent(): React.ReactElement {
                     margin: "0 0 16px",
                     fontSize: "20px",
                     fontWeight: 700,
-                    color: "#111827",
+                    color: "var(--text-primary)",
                   }}
                 >
                   Helpful Information
@@ -603,8 +603,8 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
       className="rs-req-year-card"
       style={{
         padding: "18px 20px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #275D38",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
       }}
     >
@@ -622,10 +622,10 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
       >
         <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#111827" }}>
+            <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "var(--text-primary)" }}>
               {year.label}
             </h3>
-            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "#6b7280" }}>
+            <p style={{ margin: "6px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
               {satisfiedCount}/{totalCount} requirements met
             </p>
           </div>
@@ -636,7 +636,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
             <span
               aria-hidden="true"
               style={{
-                color: "#6b7280",
+                color: "var(--text-muted)",
                 fontSize: "14px",
                 transition: "transform 200ms ease",
                 transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
@@ -663,16 +663,16 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
                 justifyContent: "space-between",
                 gap: "12px",
                 padding: "12px",
-                backgroundColor: "#ffffff",
-                border: "1px solid #ECBA2B",
+                backgroundColor: "var(--bg-card)",
+                border: "1px solid var(--border-default)",
                 borderRadius: "8px",
               }}
             >
               <div style={{ minWidth: 0, flex: 1 }}>
-                <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: "#111827" }}>
+                <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: "var(--text-primary)" }}>
                   {item.category}
                 </p>
-                <p style={{ margin: "4px 0 0", fontSize: "13px", color: "#6b7280" }}>
+                <p style={{ margin: "4px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
                   {formatNumber(item.earnedCredits)} / {formatNumber(item.requiredCredits)} credits
                 </p>
               </div>
@@ -680,7 +680,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
                 style={{
                   fontSize: "13px",
                   fontWeight: 600,
-                  color: item.met ? "#275D38" : "#ECBA2B",
+                  color: item.met ? "var(--status-success)" : "var(--status-warning)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -750,8 +750,8 @@ function RequirementCard({
       style={{
         position: "relative",
         padding: "20px 20px 20px 24px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #275D38",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         overflow: "hidden",
       }}
@@ -781,12 +781,12 @@ function RequirementCard({
               margin: 0,
               fontSize: "16px",
               fontWeight: 700,
-              color: "#111827",
+              color: "var(--text-primary)",
               lineHeight: 1.3,
             }}
           >
             {req.name}
-            {isPe && hasPeWaiver && <span style={{ marginLeft: "8px", fontSize: "12px", color: "#275D38", fontWeight: 600 }}>(Waived)</span>}
+            {isPe && hasPeWaiver && <span style={{ marginLeft: "8px", fontSize: "12px", color: "var(--status-success)", fontWeight: 600 }}>(Waived)</span>}
           </h3>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
             <span
@@ -805,7 +805,7 @@ function RequirementCard({
               aria-hidden="true"
               style={{
                 fontSize: "12px",
-                color: "#6b7280",
+                color: "var(--text-muted)",
                 transition: "transform 200ms ease",
                 transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
                 display: "inline-block",
@@ -822,21 +822,21 @@ function RequirementCard({
             flexWrap: "wrap",
             gap: "16px",
             fontSize: "14px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
             marginBottom: "12px",
           }}
         >
           <span>
             Earned:{" "}
-            <strong style={{ color: "#111827" }}>{formatNumber(effectiveEarned)}</strong>
+            <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveEarned)}</strong>
           </span>
           <span>
             Required:{" "}
-            <strong style={{ color: "#111827" }}>{formatNumber(effectiveRequired)}</strong>
+            <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveRequired)}</strong>
           </span>
           <span>
             Remaining:{" "}
-            <strong style={{ color: "#111827" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
+            <strong style={{ color: "var(--text-primary)" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
           </span>
         </div>
         <ProgressBar percent={percent} color={config.badge} showLabel />
@@ -847,18 +847,18 @@ function RequirementCard({
           style={{
             marginTop: "16px",
             paddingTop: "16px",
-            borderTop: "1px solid #f3f4f6",
+            borderTop: "1px solid var(--border-light)",
           }}
         >
           {req.requiredValue != null && (
-            <p style={{ margin: "0 0 12px", fontSize: "14px", color: "#6b7280" }}>
+            <p style={{ margin: "0 0 12px", fontSize: "14px", color: "var(--text-muted)" }}>
               This requirement requires {formatNumber(req.requiredValue)} credits.
               You have earned {formatNumber(req.earnedValue)} credits so far.
             </p>
           )}
           {showRecs && (
             <div>
-              <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "#111827" }}>
+              <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
                 Recommended Courses
               </p>
               <div className="rs-req-recs" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -875,36 +875,30 @@ function RequirementCard({
                   );
                 })}
                 {hasMore && (
-                  <button
-                    type="button"
-                    onClick={onViewAll}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      padding: "10px 14px",
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "#ECBA2B",
-                      textDecoration: "none",
-                      border: "1px solid #ECBA2B",
-                      borderRadius: "8px",
-                      backgroundColor: "#FCF5DF",
-                      cursor: "pointer",
-                      minHeight: "44px",
-                      transition: "border-color 0.15s ease, background-color 0.15s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "#d4a01e";
-                      e.currentTarget.style.backgroundColor = "#fef4d0";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "#ECBA2B";
-                      e.currentTarget.style.backgroundColor = "#FCF5DF";
-                    }}
-                  >
-                    View All ({recommended.length})
-                  </button>
+                    <button
+                      type="button"
+                      onClick={onViewAll}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "10px 14px",
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        color: "var(--brand-accent)",
+                        textDecoration: "none",
+                        border: "1px solid var(--brand-accent)",
+                        borderRadius: "8px",
+                        backgroundColor: "var(--brand-accent-light)",
+                        cursor: "pointer",
+                        minHeight: "44px",
+                        transition: "opacity 0.15s ease",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+                    >
+                      View All ({recommended.length})
+                    </button>
                 )}
               </div>
             </div>
@@ -933,13 +927,14 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "20px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #ECBA2B",
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
         borderRadius: "12px",
         cursor: "pointer",
-        transition: "box-shadow 0.15s ease",
+        transition: "box-shadow 0.15s ease, border-color 0.15s ease",
         outline: "none",
-        boxShadow: hovered ? "0 2px 8px rgba(236, 186, 43, 0.2)" : "none",
+        boxShadow: hovered ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
+        borderColor: hovered ? "var(--brand-accent)" : "var(--border-default)",
       }}
     >
       <h3
@@ -947,7 +942,7 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
           margin: 0,
           fontSize: "16px",
           fontWeight: 700,
-          color: "#111827",
+          color: "var(--text-primary)",
           lineHeight: 1.3,
         }}
       >
@@ -958,7 +953,7 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
           style={{
             margin: "8px 0 0",
             fontSize: "14px",
-            color: "#6b7280",
+            color: "var(--text-muted)",
             lineHeight: 1.5,
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -1020,8 +1015,8 @@ function InfoModal({
             maxHeight: mobile ? "100%" : "80vh",
             height: mobile ? "100%" : "auto",
             overflowY: "auto",
-            backgroundColor: "#ffffff",
-            borderRadius: mobile ? 0 : "16px",
+            backgroundColor: "var(--bg-card)",
+            borderRadius: mobile ? 0 : "12px",
             padding: mobile ? "calc(24px + var(--safe-area-top, 0px)) 24px calc(24px + var(--safe-area-bottom, 0px))" : "28px",
             position: "relative",
             animation: mobile ? "info-slide-up 0.25s ease-out" : undefined,
@@ -1041,8 +1036,8 @@ function InfoModal({
                 justifyContent: "center",
                 border: "none",
                 borderRadius: "8px",
-                backgroundColor: "#f3f4f6",
-                color: "#6b7280",
+                backgroundColor: "var(--bg-muted)",
+                color: "var(--text-muted)",
                 fontSize: "18px",
                 fontWeight: 500,
                 cursor: "pointer",
@@ -1057,7 +1052,7 @@ function InfoModal({
               margin: "0 0 16px",
               fontSize: mobile ? "20px" : "22px",
               fontWeight: 700,
-              color: "#111827",
+              color: "var(--text-primary)",
               lineHeight: 1.3,
             }}
           >
@@ -1068,7 +1063,7 @@ function InfoModal({
               style={{
                 margin: "0 0 16px",
                 fontSize: mobile ? "15px" : "15px",
-                color: "#374151",
+                color: "var(--text-secondary)",
                 lineHeight: 1.7,
                 whiteSpace: "pre-wrap",
               }}
@@ -1081,7 +1076,7 @@ function InfoModal({
               style={{
                 margin: 0,
                 fontSize: "13px",
-                color: "#9ca3af",
+                color: "var(--text-muted)",
               }}
             >
               Source: {item.sourceReference}
@@ -1118,7 +1113,7 @@ function ProgressBar({
         style={{
           flex: 1,
           height,
-          backgroundColor: "#e5e7eb",
+          backgroundColor: "var(--border-default)",
           borderRadius: height / 2,
           overflow: "hidden",
         }}
@@ -1138,7 +1133,7 @@ function ProgressBar({
           style={{
             fontSize: "13px",
             fontWeight: 400,
-            color: "#374151",
+            color: "var(--text-secondary)",
             minWidth: "42px",
             textAlign: "right",
           }}
