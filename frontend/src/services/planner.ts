@@ -127,6 +127,7 @@ export function createGuestPlannerService(): IPlannerService {
             gradeMax: null,
             isNonAcademic: true,
             isMarchingBand: false,
+            attributes: [],
           },
         };
       }

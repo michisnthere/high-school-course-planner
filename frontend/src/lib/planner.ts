@@ -22,6 +22,7 @@ export type PlannerCourseDetails = {
   gradeMax: number | null;
   isNonAcademic: boolean;
   isMarchingBand: boolean;
+  attributes: string[];
 };
 
 export type PlannerOption = {
@@ -322,6 +323,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     gradeMax,
     isNonAcademic: false,
     isMarchingBand: course.isMarchingBand ?? false,
+    attributes: Array.isArray(course.attributes) ? course.attributes : [],
   };
 }
 
@@ -344,5 +346,6 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     gradeMax: null,
     isNonAcademic: option.isNonAcademic,
     isMarchingBand: false,
+    attributes: [],
   };
 }

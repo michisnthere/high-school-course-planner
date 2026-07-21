@@ -7172,7 +7172,8 @@
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
-        "requiresApplication": false
+        "requiresApplication": false,
+        "freshmanFoundationalFitness": true
       },
       "division": "Physical Education",
       "department": "Physical Education",

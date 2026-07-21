@@ -61,6 +61,7 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
           gradeMax: null,
           isNonAcademic: false,
           isMarchingBand: false,
+          attributes: [],
         },
       };
       courses.push(entry);

@@ -201,7 +201,9 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     fulfillsLower.some((r) => r === "physical education" || r === "driver education") ||
     attrs.includes("satisfiesPeRequirement");
 
-  const isFoundationalFitness = attrs.includes("freshmanFoundationalFitness");
+  const isFoundationalFitness =
+    attrs.includes("freshmanFoundationalFitness") ||
+    course.title.toLowerCase().includes("foundational fitness");
 
   return {
     id: course.id,

@@ -170,6 +170,10 @@ function normalizePrerequisite(prereq: string): string {
 function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
   const fulfillsRequirements = normalizeRequirementNames(course.fulfillsRequirements);
   const fulfillsLower = fulfillsRequirements.map((r) => r.toLowerCase());
+  const attrs = course.attributes.map((a) => a.toLowerCase());
+  const isFoundationalFitness =
+    attrs.includes("freshmanfoundationalfitness") ||
+    course.title.toLowerCase().includes("foundational fitness");
   return {
     id: course.id,
     title: course.title,
@@ -182,7 +186,7 @@ function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
     fulfillsRequirements,
     prerequisites: course.prerequisites,
     peEligible: fulfillsLower.some((r) => r === "physical education" || r === "driver education"),
-    isFoundationalFitness: false,
+    isFoundationalFitness,
   };
 }
 
