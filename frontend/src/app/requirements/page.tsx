@@ -120,8 +120,17 @@ function RequirementsContent(): React.ReactElement {
         getCourses(),
       ]);
       console.log(`[REQ:${id}] ALL fetches succeeded`);
-      const allCourses = courses.map(courseToPlannerDetails);
+      const allCourses: PlannerCourseDetails[] = courses.map(courseToPlannerDetails);
       setAllCourseDetails(allCourses);
+      const VERIFY_REQS = ["English", "Government", "Science", "Fine Arts"];
+      VERIFY_REQS.forEach((name) => {
+        const matches = allCourses.filter((c) =>
+          (c.fulfillsRequirements ?? []).some((r) => r.trim().toLowerCase() === name.toLowerCase())
+        );
+        console.groupCollapsed(`[VERIFY] ${name} — ${matches.length} matches`);
+        matches.forEach((c) => console.log("•", c.title));
+        console.groupEnd();
+      });
       const data = await analysisService.getAnalysis({ planners, completedCourses, resolutions, allCourses });
       setAnalysis(data);
       setError(null);
@@ -763,7 +772,10 @@ function RequirementCard({
     .map((r) => allCourseDetails.find((c) => c.id === r.courseId))
     .filter((c): c is PlannerCourseDetails => c != null);
   const displayRecs = resolvedRecs.slice(0, 3);
-  const hasMore = resolvedRecs.length > 3;
+  const totalMatching = allCourseDetails.filter((c) =>
+    (c.fulfillsRequirements ?? []).some((r) => r.trim().toLowerCase() === req.name.toLowerCase())
+  ).length;
+  const hasMore = totalMatching > 3;
 
   return (
     <div
@@ -918,7 +930,7 @@ function RequirementCard({
                       onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }}
                       onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
                     >
-                      View All ({recommended.length})
+                      View All ({totalMatching})
                     </button>
                 )}
               </div>
