@@ -496,6 +496,7 @@ function RequirementsContent(): React.ReactElement {
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
                   gap: "16px",
+                  alignItems: "start",
                 }}
               >
                 {visibleRequirements.map((req) => (
