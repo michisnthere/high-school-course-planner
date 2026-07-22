@@ -209,18 +209,24 @@ export async function markPlannerYearCompleted(plannerId: number): Promise<Plann
 }
 
 export async function unmarkPlannerYearCompleted(plannerId: number): Promise<Planner> {
+  console.log("[auth:unmarkPYC] entry plannerId=", plannerId);
+  console.log("[auth:unmarkPYC] BACKEND_URL=", process.env.NEXT_PUBLIC_API_URL);
   const response = await fetch(`/api/planner/${plannerId}/uncomplete`, {
     method: "POST",
     credentials: "include",
   });
 
+  console.log("[auth:unmarkPYC] response status=", response.status);
   if (!response.ok) {
     const body = await response.json().catch(() => ({ error: "Failed to unmark year completed" }));
+    console.log("[auth:unmarkPYC] throwing:", body.error);
     throw new Error(body.error || "Failed to unmark year completed");
   }
 
   const data = await response.json();
+  console.log("[auth:unmarkPYC] received data:", data);
   window.dispatchEvent(new Event("planner:changed"));
+  console.log("[auth:unmarkPYC] returning");
   return data;
 }
 
