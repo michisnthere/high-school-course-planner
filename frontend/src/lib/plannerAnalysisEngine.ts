@@ -191,7 +191,7 @@ function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
 }
 
 function getBackendPlacementKey(p: CoursePlacement): string {
-  if (p.course?.duration === 2) return `fy:${p.course.id}:${p.slot}`;
+  if (p.course?.duration === 2) return `fy:${p.course.id}`;
   return `sem:${p.course!.id}:${p.slot}:${p.semester}`;
 }
 

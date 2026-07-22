@@ -37,6 +37,29 @@ function clonePlanner(p: Planner): Planner {
   return { ...p, plannedCourses: p.plannedCourses.map((c) => ({ ...c })) };
 }
 
+function occupied(planner: Planner, semester: number, slot: number, excludingCourseId?: number | null): boolean {
+  return planner.plannedCourses.some(
+    (pc) =>
+      pc.semester === semester &&
+      pc.slot === slot &&
+      (excludingCourseId == null || pc.courseId !== excludingCourseId)
+  );
+}
+
+function findAdjacentPair(planner: Planner, excludingCourseId?: number | null): number | null {
+  for (let slot = 1; slot <= 6; slot++) {
+    if (
+      !occupied(planner, 1, slot, excludingCourseId) &&
+      !occupied(planner, 1, slot + 1, excludingCourseId) &&
+      !occupied(planner, 2, slot, excludingCourseId) &&
+      !occupied(planner, 2, slot + 1, excludingCourseId)
+    ) {
+      return slot;
+    }
+  }
+  return null;
+}
+
 export function createGuestPlannerService(): IPlannerService {
   let nextCourseEntryId = 1;
   const planners: Planner[] = buildDefaultPlanners();
@@ -82,16 +105,37 @@ export function createGuestPlannerService(): IPlannerService {
       const planner = planners.find((p) => p.id === plannerId);
       if (!planner) throw new Error("Planner not found");
 
-      const id = nextCourseEntryId++;
-
       let entry: PlannedCourse;
 
       if (typeof courseIdOrItem === "number") {
         const courseDetails = catalog.get(courseIdOrItem);
         if (!courseDetails) throw new Error(`Course #${courseIdOrItem} not found in catalog. Call seedCourseCatalog first.`);
 
+        if (courseDetails.duration === 2 && courseDetails.slotsPerSemester > 1) {
+          const startSlot = findAdjacentPair(planner);
+          if (startSlot == null) {
+            throw new Error("American Studies requires two adjacent class periods in both semesters.");
+          }
+          for (const sem of [1, 2]) {
+            for (let offset = 0; offset < courseDetails.slotsPerSemester; offset++) {
+              planner.plannedCourses.push({
+                id: nextCourseEntryId++,
+                plannerId,
+                courseId: courseIdOrItem,
+                plannerOptionId: null,
+                semester: sem,
+                slot: startSlot + offset,
+                slotSpan: 1,
+                course: { ...courseDetails },
+              });
+            }
+          }
+          save();
+          return clonePlanner(planner);
+        }
+
         entry = {
-          id,
+          id: nextCourseEntryId++,
           plannerId,
           courseId: courseIdOrItem,
           plannerOptionId: null,
@@ -102,7 +146,7 @@ export function createGuestPlannerService(): IPlannerService {
         };
       } else {
         entry = {
-          id,
+          id: nextCourseEntryId++,
           plannerId,
           courseId: null,
           plannerOptionId: courseIdOrItem.plannerOptionId,
@@ -141,7 +185,12 @@ export function createGuestPlannerService(): IPlannerService {
       for (const planner of planners) {
         const idx = planner.plannedCourses.findIndex((pc) => pc.id === plannedCourseId);
         if (idx !== -1) {
-          planner.plannedCourses.splice(idx, 1);
+          const planned = planner.plannedCourses[idx];
+          if (planned.courseId != null) {
+            planner.plannedCourses = planner.plannedCourses.filter((pc) => pc.courseId !== planned.courseId);
+          } else {
+            planner.plannedCourses.splice(idx, 1);
+          }
           break;
         }
       }
@@ -152,6 +201,26 @@ export function createGuestPlannerService(): IPlannerService {
       for (const planner of planners) {
         const entry = planner.plannedCourses.find((pc) => pc.id === plannedCourseId);
         if (entry) {
+          if (entry.course.duration === 2 && entry.course.slotsPerSemester > 1 && entry.courseId != null) {
+            const startSlot = slot;
+            if (
+              startSlot > 6 ||
+              occupied(planner, 1, startSlot, entry.courseId) ||
+              occupied(planner, 1, startSlot + 1, entry.courseId) ||
+              occupied(planner, 2, startSlot, entry.courseId) ||
+              occupied(planner, 2, startSlot + 1, entry.courseId)
+            ) {
+              throw new Error("American Studies requires two adjacent class periods in both semesters.");
+            }
+            const currentStart = Math.min(
+              ...planner.plannedCourses.filter((pc) => pc.courseId === entry.courseId).map((pc) => pc.slot)
+            );
+            for (const pc of planner.plannedCourses.filter((pc) => pc.courseId === entry.courseId)) {
+              pc.slot = startSlot + (pc.slot - currentStart);
+            }
+            save();
+            return clonePlanner(planner);
+          }
           entry.semester = semester;
           entry.slot = slot;
           save();

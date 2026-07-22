@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import { createGuestPlannerService, authPlannerService } from "@/services/planner";
+import { getCourseCredits, sumPlannedCredits } from "@/lib/courseCredits";
 
 beforeAll(() => {
   (globalThis as any).window ??= {};
@@ -68,6 +69,27 @@ const algebra: PlannerCourseDetails = {
 };
 
 const catalog = [chemistry, biology, algebra];
+
+const americanStudies: PlannerCourseDetails = {
+  id: 4,
+  title: "American Studies",
+  normalizedTitle: "american studies",
+  duration: 2,
+  slotsPerSemester: 2,
+  creditType: "regular",
+  credits: 4,
+  division: "Social Studies",
+  department: "Social Studies",
+  description: "Linked English and U.S. History course",
+  fulfillsRequirements: ["English", "U.S. History"],
+  prerequisites: [],
+  courseCode: "SOC581",
+  gradeMin: 11,
+  gradeMax: 11,
+  isNonAcademic: false,
+  isMarchingBand: false,
+  attributes: [],
+};
 
 describe("guest planner service", () => {
   describe("searchPlannerCourses", () => {
@@ -188,6 +210,54 @@ describe("guest planner service", () => {
       const r2 = await service.addPlannedCourse(planner.id, chemistry.id, 1, 2);
       expect(r2.plannedCourses[1].id).toBe(r1.plannedCourses[0].id + 1);
     });
+
+    it("places American Studies in adjacent slots in both semesters", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, americanStudies]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, americanStudies.id, 1, 5);
+
+      expect(updated.plannedCourses).toHaveLength(4);
+      expect(updated.plannedCourses.map((pc) => [pc.semester, pc.slot])).toEqual([
+        [1, 1],
+        [1, 2],
+        [2, 1],
+        [2, 2],
+      ]);
+      expect(sumPlannedCredits(updated.plannedCourses)).toBe(getCourseCredits(americanStudies));
+    });
+
+    it("uses the first adjacent pair available in both semesters for American Studies", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, americanStudies]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      await service.addPlannedCourse(planner.id, biology.id, 1, 1);
+      await service.addPlannedCourse(planner.id, chemistry.id, 2, 2);
+
+      const updated = await service.addPlannedCourse(planner.id, americanStudies.id, 1, 1);
+
+      expect(updated.plannedCourses.filter((pc) => pc.courseId === americanStudies.id).map((pc) => [pc.semester, pc.slot])).toEqual([
+        [1, 3],
+        [1, 4],
+        [2, 3],
+        [2, 4],
+      ]);
+    });
+
+    it("does not partially place American Studies when both semesters lack adjacent space", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, americanStudies]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      for (const slot of [1, 3, 5, 7]) {
+        await service.addPlannedCourse(planner.id, biology.id, 1, slot);
+      }
+
+      await expect(service.addPlannedCourse(planner.id, americanStudies.id, 1, 1)).rejects.toThrow(
+        "American Studies requires two adjacent class periods in both semesters."
+      );
+      const after = await service.getPlanner(11);
+      expect(after.plannedCourses.some((pc) => pc.courseId === americanStudies.id)).toBe(false);
+    });
   });
 
   describe("guest data isolation", () => {
@@ -247,6 +317,16 @@ describe("guest planner service", () => {
       const after = await service.getPlanner(9);
       expect(after.plannedCourses).toEqual([]);
     });
+
+    it("removes all American Studies linked slots", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, americanStudies]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, americanStudies.id, 1, 1);
+      await service.removePlannedCourse(updated.plannedCourses[0].id);
+      const after = await service.getPlanner(11);
+      expect(after.plannedCourses).toEqual([]);
+    });
   });
 
   describe("movePlannedCourse", () => {
@@ -261,6 +341,20 @@ describe("guest planner service", () => {
       const entry = moved.plannedCourses[0];
       expect(entry.semester).toBe(2);
       expect(entry.slot).toBe(3);
+    });
+
+    it("moves all American Studies linked slots together", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, americanStudies]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, americanStudies.id, 1, 1);
+      const moved = await service.movePlannedCourse(updated.plannedCourses[0].id, 1, 4);
+      expect(moved.plannedCourses.map((pc) => [pc.semester, pc.slot])).toEqual([
+        [1, 4],
+        [1, 5],
+        [2, 4],
+        [2, 5],
+      ]);
     });
   });
 });

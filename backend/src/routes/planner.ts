@@ -169,6 +169,17 @@ function rangesOverlap(slotA: number, spanA: number, slotB: number, spanB: numbe
   return slotA < slotB + spanB && slotB < slotA + spanA;
 }
 
+function getLogicalCourseWhere(plannedCourse: {
+  plannerId: number;
+  courseId: number | null;
+  plannerOptionId: number | null;
+}) {
+  if (plannedCourse.courseId != null) {
+    return { plannerId: plannedCourse.plannerId, courseId: plannedCourse.courseId };
+  }
+  return { plannerId: plannedCourse.plannerId, plannerOptionId: plannedCourse.plannerOptionId };
+}
+
 function hasConsecutiveFreeSlots(
   existingCourses: Array<{
     id: number;
@@ -235,6 +246,28 @@ function computeShiftChain(
     chain.push({ id: pc.id, newSlot: slot + 1 });
   }
   return chain;
+}
+
+function findFirstAvailableAdjacentPairInBothSemesters(
+  existingCourses: Array<{
+    id: number;
+    semester: number;
+    slot: number;
+    slotSpan?: number;
+    course: (Course & { slotsPerSemester?: number | null; options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+    plannerOption: PlannerOption | null;
+  }>,
+  count: number
+): number | null {
+  for (let slot = 1; slot <= 7 - count + 1; slot++) {
+    if (
+      hasConsecutiveFreeSlots(existingCourses, 1, slot, count) &&
+      hasConsecutiveFreeSlots(existingCourses, 2, slot, count)
+    ) {
+      return slot;
+    }
+  }
+  return null;
 }
 
 function serializePlannedCourse(plannedCourse: {
@@ -495,14 +528,22 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
 
   if (slotSpan > 1) {
-    // Multi-slot courses require consecutive free slots; no shifting is performed.
-    for (const sem of targetSemesters) {
-      if (!hasConsecutiveFreeSlots(existingCourses, sem, slotNum, slotSpan)) {
-        return res.status(409).json({
-          error: `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
-        });
-      }
+    const startSlot =
+      duration === 2
+        ? findFirstAvailableAdjacentPairInBothSemesters(existingCourses, slotSpan)
+        : hasConsecutiveFreeSlots(existingCourses, semesterNum, slotNum, slotSpan)
+          ? slotNum
+          : null;
+
+    if (startSlot == null) {
+      return res.status(409).json({
+        error:
+          duration === 2
+            ? "American Studies requires two adjacent class periods in both semesters."
+            : `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
+      });
     }
+    createData = { ...createData, slot: startSlot, slotSpan: 1 };
   } else {
     for (const sem of targetSemesters) {
       const chain = computeShiftChain(existingCourses, sem, slotNum);
@@ -529,10 +570,11 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
       });
     }
     for (const sem of targetSemesters) {
-      // Create ONE record per semester; slotSpan tells the frontend the visual span.
-      await tx.plannedCourse.create({
-        data: { ...createData, semester: sem },
-      });
+      for (let offset = 0; offset < slotSpan; offset++) {
+        await tx.plannedCourse.create({
+          data: { ...createData, semester: sem, slot: createData.slot + offset },
+        });
+      }
     }
   });
 
@@ -573,13 +615,6 @@ router.delete("/courses/:id", requireAuth, asyncHandler(async (req, res) => {
     return res.status(404).json({ error: "Planned course not found" });
   }
 
-  const duration = getPlannedDuration(plannedCourse);
-
-  // Full-year courses are stored as two PlannedCourse records (one per semester)
-  // with the same courseId + slot. Multi-slot courses (slotSpan > 1) are a single
-  // record per semester. Deleting any one record removes that semester's entry.
-  // Since a course can only exist in one planner per user, we delete all records
-  // for this course/option across both semesters at once.
   if (plannedCourse.courseId) {
     await prisma.plannedCourse.deleteMany({
       where: {
@@ -587,7 +622,7 @@ router.delete("/courses/:id", requireAuth, asyncHandler(async (req, res) => {
         courseId: plannedCourse.courseId,
       },
     });
-  } else if (plannedCourse.plannerOptionId && duration === 2) {
+  } else if (plannedCourse.plannerOptionId && getPlannedDuration(plannedCourse) === 2) {
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
@@ -654,13 +689,55 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
 
   const sourceDuration = getPlannedDuration(source);
   const sourceOccupiedSlots = getOccupiedSlotCount(source);
-  if (sourceOccupiedSlots > 1) {
-    return res.status(409).json({
-      error: "Multi-slot courses cannot be moved via drag-and-drop. Remove and re-add instead.",
-    });
-  }
   const sourceSemesters = sourceDuration === 2 ? [1, 2] : [source.semester];
   const targetSemesters = sourceDuration === 2 ? [1, 2] : [semesterNum];
+
+  if (sourceOccupiedSlots > 1 && sourceDuration !== 2) {
+    return res.status(409).json({
+      error: "Multi-slot semester courses cannot be moved via drag-and-drop. Remove and re-add instead.",
+    });
+  }
+
+  if (sourceDuration === 2 && source.course?.slotsPerSemester && source.course.slotsPerSemester > 1) {
+    const blockWidth = source.course.slotsPerSemester;
+    const currentBlock = await prisma.plannedCourse.findMany({
+      where: getLogicalCourseWhere(source),
+      orderBy: [{ semester: "asc" }, { slot: "asc" }],
+    });
+    const currentStart = Math.min(...currentBlock.map((pc) => pc.slot));
+    if (slotNum === currentStart) return res.json(await getPlannerResponse(source.plannerId));
+
+    const otherCourses = await prisma.plannedCourse.findMany({
+      where: {
+        plannerId: source.plannerId,
+        NOT: { id: { in: currentBlock.map((pc) => pc.id) } },
+      },
+      include: {
+        course: { include: { options: { include: { offerings: true } } } },
+        plannerOption: true,
+      },
+    });
+    if (
+      !hasConsecutiveFreeSlots(otherCourses, 1, slotNum, blockWidth) ||
+      !hasConsecutiveFreeSlots(otherCourses, 2, slotNum, blockWidth)
+    ) {
+      return res.status(409).json({
+        error: "American Studies requires two adjacent class periods in both semesters.",
+      });
+    }
+
+    await prisma.$transaction(async (tx) => {
+      for (const pc of currentBlock) {
+        await tx.plannedCourse.update({ where: { id: pc.id }, data: { slot: -pc.id } });
+      }
+      const sorted = currentBlock.sort((a, b) => a.semester - b.semester || a.slot - b.slot);
+      for (const pc of sorted) {
+        const offset = pc.slot - currentStart;
+        await tx.plannedCourse.update({ where: { id: pc.id }, data: { slot: slotNum + offset } });
+      }
+    });
+    return res.json(await getPlannerResponse(source.plannerId));
+  }
 
   const targets = await prisma.plannedCourse.findMany({
     where: {

@@ -235,7 +235,7 @@ function isAcademicCourse(placement: CoursePlacement): boolean {
 
 function getPlacementKey(placement: CoursePlacement): string {
   if (placement.course?.duration === 2) {
-    return `${placement.year}-${placement.course.id}-${placement.slot}`;
+    return `${placement.year}-${placement.course.id}`;
   }
   return `${placement.year}-${placement.course?.id ?? placement.plannerOption?.id}-${placement.semester}-${placement.slot}`;
 }

@@ -67,7 +67,7 @@ export function getPlacementKey(pc: {
   semester?: number | null;
 }): string {
   if (pc.course?.duration === 2) {
-    return `fy:${pc.courseId}:${pc.slot}`;
+    return `fy:${pc.courseId}`;
   }
   return `sem:${pc.courseId}:${pc.slot}:${pc.semester}`;
 }

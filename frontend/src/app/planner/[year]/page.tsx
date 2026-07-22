@@ -95,6 +95,23 @@ function replacePlannerInList(planners: Planner[], updated: Planner): Planner[] 
   return planners.map((p) => (p.id === updated.id ? updated : p));
 }
 
+function isLinkedMultiSlotCourse(planned: PlannedCourse): boolean {
+  return planned.course.duration === 2 && (planned.course.slotsPerSemester ?? 1) > 1;
+}
+
+function getLinkedCourseEntries(courses: PlannedCourse[], planned: PlannedCourse): PlannedCourse[] {
+  if (!isLinkedMultiSlotCourse(planned) || planned.courseId == null) return [planned];
+  return courses.filter((pc) => pc.courseId === planned.courseId);
+}
+
+function isPrimaryLinkedEntry(courses: PlannedCourse[], planned: PlannedCourse): boolean {
+  if (!isLinkedMultiSlotCourse(planned)) return true;
+  const semesterEntries = getLinkedCourseEntries(courses, planned).filter(
+    (pc) => pc.semester === planned.semester
+  );
+  return planned.slot === Math.min(...semesterEntries.map((pc) => pc.slot));
+}
+
 function buildAddCourseUndo(
   beforePlanners: Planner[],
   afterPlanner: Planner,
@@ -152,7 +169,30 @@ function applyOptimisticMove(
   ];
 
   // Multi-slot courses cannot be moved via drag-and-drop.
-  if ((source.slotSpan ?? 1) > 1) return planners;
+  if ((source.slotSpan ?? 1) > 1 && !isLinkedMultiSlotCourse(source)) return planners;
+
+  if (isLinkedMultiSlotCourse(source) && source.courseId != null) {
+    const width = source.course.slotsPerSemester ?? 1;
+    const linkedEntries = getLinkedCourseEntries(courses, source);
+    const currentStart = Math.min(...linkedEntries.map((pc) => pc.slot));
+    if (targetSlot === currentStart) return planners;
+    if (targetSlot + width - 1 > 7) return planners;
+
+    const hasConflict = courses.some((pc) => {
+      if (pc.courseId === source.courseId) return false;
+      if (pc.semester !== 1 && pc.semester !== 2) return false;
+      return pc.slot >= targetSlot && pc.slot < targetSlot + width;
+    });
+    if (hasConflict) return planners;
+
+    return replacePlanner(
+      courses.map((pc) =>
+        pc.courseId === source.courseId
+          ? { ...pc, slot: targetSlot + (pc.slot - currentStart) }
+          : pc
+      )
+    );
+  }
 
   if (source.course.duration === 2) {
     // Full-year: dropping on the same slot is a no-op; semester is ignored by the API.
@@ -704,6 +744,13 @@ function PlannerYearContent(): React.ReactElement {
     const planned = plannedBySlot(semester, slot);
 
     if (planned) {
+      if (!isPrimaryLinkedEntry(planner?.plannedCourses ?? [], planned)) {
+        return (
+          <div key={`${semester}-${slot}`} style={MUTLI_SLOT_PLACEHOLDER_STYLE}>
+            {planned.course.title} (linked)
+          </div>
+        );
+      }
       // Multi-slot courses only render the card on their primary (first) slot.
       if ((planned.slotSpan ?? 1) > 1 && planned.slot !== slot) {
         return (
@@ -1487,6 +1534,11 @@ function PlannedCourseCard({
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
   const dragStarted = useRef(false);
+  const isLinkedBlock = isLinkedMultiSlotCourse(planned);
+  const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
+  const slotLabel = isLinkedBlock || visualSpan > 1
+    ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
+    : `Slot ${planned.slot}`;
 
   return (
     <div
@@ -1584,7 +1636,7 @@ function PlannedCourseCard({
             letterSpacing: "0.02em",
           }}
         >
-          Slot {planned.slot}
+          {slotLabel}
         </div>
         <button
           type="button"
@@ -1677,6 +1729,18 @@ function PlannedCourseCard({
             }}
           >
             Full Year
+          </span>
+        )}
+        {isLinkedBlock && (
+          <span
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "rgba(0,0,0,0.2)",
+              borderRadius: "9999px",
+              fontWeight: 600,
+            }}
+          >
+            Linked block
           </span>
         )}
       </div>
@@ -2358,14 +2422,15 @@ function MobilePlanner({
   const currentCredits = sumPlannedCredits(currentPlanner?.plannedCourses || []);
 
   const sortedCourses = useMemo(() => {
-    const s1 = planner.plannedCourses.filter((pc) => pc.semester === 1).sort((a, b) => a.slot - b.slot);
-    const s2 = planner.plannedCourses.filter((pc) => pc.semester === 2).sort((a, b) => a.slot - b.slot);
+    const visible = planner.plannedCourses.filter((pc) => isPrimaryLinkedEntry(planner.plannedCourses, pc));
+    const s1 = visible.filter((pc) => pc.semester === 1).sort((a, b) => a.slot - b.slot);
+    const s2 = visible.filter((pc) => pc.semester === 2).sort((a, b) => a.slot - b.slot);
     return [s1, s2];
   }, [planner]);
 
   const handleTouchStart = useCallback(
     (e: React.TouchEvent, planned: PlannedCourse) => {
-      if ((planned.slotSpan ?? 1) > 1) return;
+      if ((planned.slotSpan ?? 1) > 1 && !isLinkedMultiSlotCourse(planned)) return;
       if (planned.plannerId !== planner.id) return;
       const touch = e.touches[0];
       longPressTriggered.current = false;
@@ -2460,10 +2525,11 @@ function MobilePlanner({
     const bgTint = getDivisionBackgroundColor(planned.course.division);
     const isCurrentlyDragging = touchDrag?.plannedCourseId === planned.id;
 
-    const isMultiSlot = (planned.slotSpan ?? 1) > 1;
+    const isMultiSlot = (planned.slotSpan ?? 1) > 1 || isLinkedMultiSlotCourse(planned);
+    const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
     const slotRange =
       isMultiSlot
-        ? `Slots ${planned.slot}-${planned.slot + (planned.slotSpan ?? 1) - 1}`
+        ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
         : `Slot ${planned.slot}`;
 
     return (
@@ -2545,7 +2611,7 @@ function MobilePlanner({
           )}
           {isMultiSlot && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              Multi-slot
+              Linked block
             </span>
           )}
         </div>
