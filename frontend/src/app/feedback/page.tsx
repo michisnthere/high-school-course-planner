@@ -34,9 +34,7 @@ const btnStyle: React.CSSProperties = {
   lineHeight: 1.4,
 };
 
-const mailtoSubject = "Stevenson Course Planner Feedback";
-const mailtoBody = "Describe the issue or suggestion here.";
-const mailtoQuery = `subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+const FEEDBACK_FORM_URL = "https://forms.gle/gPebJ41P8r8sUEsW6";
 
 export default function FeedbackPage(): React.ReactElement {
   return (
@@ -75,8 +73,8 @@ export default function FeedbackPage(): React.ReactElement {
         <div style={cardStyle}>
           <p style={bodyStyle}>
             Found a bug? Have a suggestion? Your feedback helps improve the planner for
-            everyone. Use the buttons below to send an email with details about what you
-            encountered or what you would like to see added.
+            everyone. Use the buttons below to share details about what you encountered
+            or what you would like to see added.
           </p>
 
           <div
@@ -88,7 +86,9 @@ export default function FeedbackPage(): React.ReactElement {
             }}
           >
             <a
-              href={`mailto:?${mailtoQuery}`}
+              href={FEEDBACK_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 ...btnStyle,
                 backgroundColor: "#ef4444",
@@ -100,7 +100,9 @@ export default function FeedbackPage(): React.ReactElement {
               Report a Bug
             </a>
             <a
-              href={`mailto:?${mailtoQuery}`}
+              href={FEEDBACK_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 ...btnStyle,
                 backgroundColor: "var(--brand-accent)",

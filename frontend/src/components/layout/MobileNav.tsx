@@ -20,7 +20,6 @@ const navItems = [
 const infoItems = [
   { label: "About", href: "/about" },
   { label: "Privacy", href: "/privacy" },
-  { label: "Feedback", href: "/feedback" },
 ];
 
 export function MobileNav() {

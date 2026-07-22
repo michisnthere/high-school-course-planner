@@ -7,6 +7,8 @@ type SidebarFooterProps = {
   className?: string;
 };
 
+const FEEDBACK_FORM_URL = "https://forms.gle/gPebJ41P8r8sUEsW6";
+
 export function SidebarFooter({ className }: SidebarFooterProps): React.ReactElement {
   const isMobile = !!className;
 
@@ -23,16 +25,16 @@ export function SidebarFooter({ className }: SidebarFooterProps): React.ReactEle
           <span style={mobileDotStyle}>•</span>
           <Link href="/privacy" style={mobileLinkStyle}>Privacy</Link>
           <span style={mobileDotStyle}>•</span>
-          <Link href="/feedback" style={mobileLinkStyle}>Report a Bug</Link>
+          <a href={FEEDBACK_FORM_URL} target="_blank" rel="noopener noreferrer" style={mobileLinkStyle}>Report a Bug</a>
           <span style={mobileDotStyle}>•</span>
-          <a href="https://forms.gle/X5GAyxo3cCBWf1PS6" target="_blank" rel="noopener noreferrer" style={mobileLinkStyle}>Send Feedback</a>
+          <a href={FEEDBACK_FORM_URL} target="_blank" rel="noopener noreferrer" style={mobileLinkStyle}>Send Feedback</a>
         </div>
       ) : (
         <div style={verticalLinkStyle}>
           <Link href="/about" style={linkStyle}>About</Link>
           <Link href="/privacy" style={linkStyle}>Privacy</Link>
-          <Link href="/feedback" style={linkStyle}>Report a Bug</Link>
-          <a href="https://forms.gle/X5GAyxo3cCBWf1PS6" target="_blank" rel="noopener noreferrer" style={linkStyle}>Send Feedback</a>
+          <a href={FEEDBACK_FORM_URL} target="_blank" rel="noopener noreferrer" style={linkStyle}>Report a Bug</a>
+          <a href={FEEDBACK_FORM_URL} target="_blank" rel="noopener noreferrer" style={linkStyle}>Send Feedback</a>
         </div>
       )}
       <p style={className ? mobileSubtextStyle : subtextStyle}>
