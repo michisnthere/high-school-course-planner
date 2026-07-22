@@ -738,6 +738,8 @@ function PlannerYearContent(): React.ReactElement {
     handleOpenModal(semester, slot);
   }, [planner, handleOpenModal]);
 
+  const isCompleted = planner?.completedAt != null;
+
   const renderSlot = (semester: number, slot: number) => {
     const planned = plannedBySlot(semester, slot);
 
@@ -749,7 +751,6 @@ function PlannerYearContent(): React.ReactElement {
           </div>
         );
       }
-      // Multi-slot courses only render the card on their primary (first) slot.
       if ((planned.slotSpan ?? 1) > 1 && planned.slot !== slot) {
         return (
           <div key={`${semester}-${slot}`} style={MUTLI_SLOT_PLACEHOLDER_STYLE}>
@@ -772,15 +773,44 @@ function PlannerYearContent(): React.ReactElement {
           isDragging={draggingId === planned.id}
           isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
           isHighlighted={highlightedPlannedCourseId === planned.id}
-          onRemove={() => handleRemoveCourse(planned)}
+          onRemove={isCompleted ? undefined : () => handleRemoveCourse(planned)}
           onClick={() => handleCourseClick(planned)}
           onWarningClick={(w) => setSelectedWarning({ planned, warning: w })}
-          onDragStart={() => setDraggingId(planned.id)}
-          onDragEnd={() => setDraggingId(null)}
-          onDragOver={() => setDragOverSlot({ semester, slot })}
-          onDragLeave={() => setDragOverSlot(null)}
-          onDrop={(id) => handleDrop(id, semester, slot)}
+          onDragStart={isCompleted ? undefined : () => setDraggingId(planned.id)}
+          onDragEnd={isCompleted ? undefined : () => setDraggingId(null)}
+          onDragOver={isCompleted ? undefined : () => setDragOverSlot({ semester, slot })}
+          onDragLeave={isCompleted ? undefined : () => setDragOverSlot(null)}
+          onDrop={isCompleted ? undefined : (id) => handleDrop(id, semester, slot)}
         />
+      );
+    }
+
+    if (isCompleted) {
+      return (
+        <div
+          key={`${semester}-${slot}`}
+          style={{
+            padding: "20px",
+            minHeight: "120px",
+            backgroundColor: "#1f2937",
+            border: "1px dashed #4b5563",
+            borderRadius: "12px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+            color: "#6b7280",
+            fontSize: "14px",
+            textAlign: "center",
+            opacity: 0.6,
+          }}
+        >
+          <div style={{ fontSize: "13px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.02em" }}>
+            Slot {slot}
+          </div>
+          <div>Empty - editing disabled</div>
+        </div>
       );
     }
 
@@ -949,9 +979,25 @@ function PlannerYearContent(): React.ReactElement {
           <h1>{YEAR_LABELS[year] ?? "Year"} Planner</h1>
         </div>
 
+        {isCompleted && (
+          <div
+            style={{
+              padding: "12px 16px",
+              backgroundColor: "#dcfce7",
+              borderRadius: "8px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#166534",
+            }}
+          >
+            This year has been marked as completed. Editing is disabled.
+          </div>
+        )}
+
         <MobilePlanner
           planner={planner}
           year={year}
+          isCompleted={isCompleted}
           warningsByCourse={warningsByCourse}
           highlightedPlannedCourseId={highlightedPlannedCourseId}
           plannerAnalysis={plannerAnalysis}
@@ -1000,7 +1046,7 @@ function PlannerYearContent(): React.ReactElement {
           )}
         </ResponsivePage>
 
-        {activeSlot && planner && (
+        {activeSlot && planner && !isCompleted && (
           <CourseSearchModal
             onClose={handleCloseModal}
             onSelect={handleCourseSelected}
@@ -1105,6 +1151,22 @@ function PlannerYearContent(): React.ReactElement {
             {YEAR_LABELS[year] ?? "Year"} Planner
           </h1>
 
+          {isCompleted && (
+            <div
+              style={{
+                padding: "12px 16px",
+                marginBottom: "20px",
+                backgroundColor: "#dcfce7",
+                borderRadius: "8px",
+                fontSize: "14px",
+                fontWeight: 600,
+                color: "#166534",
+              }}
+            >
+              This year has been marked as completed. Editing is disabled.
+            </div>
+          )}
+
           {loading ? (
             <p style={{ color: "var(--text-muted)" }}>Loading planner...</p>
           ) : error ? (
@@ -1168,7 +1230,7 @@ function PlannerYearContent(): React.ReactElement {
         )}
       </div>
 
-      {activeSlot && planner && (
+      {activeSlot && planner && !isCompleted && (
         <CourseSearchModal
           onClose={handleCloseModal}
           onSelect={handleCourseSelected}
@@ -1519,14 +1581,14 @@ function PlannedCourseCard({
   isDragging: boolean;
   isDragOver: boolean;
   isHighlighted: boolean;
-  onRemove: () => void;
+  onRemove?: () => void;
   onClick: () => void;
   onWarningClick: (warning: PlannerWarning) => void;
-  onDragStart: () => void;
-  onDragEnd: () => void;
-  onDragOver: () => void;
-  onDragLeave: () => void;
-  onDrop: (plannedCourseId: number) => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  onDragOver?: () => void;
+  onDragLeave?: () => void;
+  onDrop?: (plannedCourseId: number) => void;
 }): React.ReactElement {
   const { course } = planned;
   const accentColor = getDivisionColor(course.division);
@@ -1537,10 +1599,11 @@ function PlannedCourseCard({
   const slotLabel = isLinkedBlock || visualSpan > 1
     ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
     : `Slot ${planned.slot}`;
+  const isReadOnly = onRemove == null;
 
   return (
     <div
-      draggable
+      draggable={!isReadOnly}
       onClick={() => {
         if (dragStarted.current) {
           dragStarted.current = false;
@@ -1548,31 +1611,31 @@ function PlannedCourseCard({
         }
         onClick();
       }}
-      onDragStart={(e) => {
+      onDragStart={onDragStart ? (e) => {
         e.dataTransfer.setData("plannedCourseId", String(planned.id));
         dragStarted.current = true;
         onDragStart();
-      }}
-      onDragEnd={() => {
+      } : undefined}
+      onDragEnd={onDragEnd ? () => {
         window.setTimeout(() => {
           dragStarted.current = false;
         }, 0);
         onDragEnd();
-      }}
-      onDragOver={(e) => {
+      } : undefined}
+      onDragOver={onDragOver ? (e) => {
         e.preventDefault();
         onDragOver();
-      }}
-      onDragLeave={(e) => {
+      } : undefined}
+      onDragLeave={onDragLeave ? (e) => {
         e.preventDefault();
         onDragLeave();
-      }}
-      onDrop={(e) => {
+      } : undefined}
+      onDrop={onDrop ? (e) => {
         e.preventDefault();
         e.stopPropagation();
         const id = Number(e.dataTransfer.getData("plannedCourseId"));
         if (id && id !== planned.id) onDrop(id);
-      }}
+      } : undefined}
       style={{
         padding: "16px",
         backgroundColor: isDragOver ? "rgba(201, 154, 44, 0.12)" : bgTint,
@@ -1593,7 +1656,7 @@ function PlannedCourseCard({
         flexDirection: "column",
         gap: "8px",
         minHeight: "120px",
-        cursor: "move",
+        cursor: isReadOnly ? "default" : "move",
         opacity: isDragging ? 0.5 : 1,
         transition: "transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease",
         transform: isDragOver ? "scale(1.02)" : isHighlighted ? "scale(1.03)" : "scale(1)",
@@ -1636,41 +1699,43 @@ function PlannedCourseCard({
         >
           {slotLabel}
         </div>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          draggable={false}
-          aria-label="Remove course"
-          style={{
-            width: "28px",
-            height: "28px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "transparent",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            color: "#9ca3af",
-            fontSize: "16px",
-            lineHeight: 1,
-            transition: "background-color 0.15s ease, color 0.15s ease",
-            flex: "0 0 auto",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)";
-            e.currentTarget.style.color = "#ef4444";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
-            e.currentTarget.style.color = "var(--text-secondary)";
-          }}
-        >
-          🗑
-        </button>
+        {onRemove && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemove();
+            }}
+            draggable={false}
+            aria-label="Remove course"
+            style={{
+              width: "28px",
+              height: "28px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "transparent",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              color: "#9ca3af",
+              fontSize: "16px",
+              lineHeight: 1,
+              transition: "background-color 0.15s ease, color 0.15s ease",
+              flex: "0 0 auto",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)";
+              e.currentTarget.style.color = "#ef4444";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.color = "var(--text-secondary)";
+            }}
+          >
+            🗑
+          </button>
+        )}
       </div>
 
       <div
@@ -2375,6 +2440,7 @@ function Toast({
 function MobilePlanner({
   planner,
   year,
+  isCompleted,
   warningsByCourse,
   highlightedPlannedCourseId,
   plannerAnalysis,
@@ -2390,6 +2456,7 @@ function MobilePlanner({
 }: {
   planner: Planner;
   year: number;
+  isCompleted: boolean;
   warningsByCourse: Map<number, PlannerWarning[]>;
   highlightedPlannedCourseId: number | null;
   plannerAnalysis: PlannerAnalysis | null;
@@ -2428,6 +2495,7 @@ function MobilePlanner({
 
   const handleTouchStart = useCallback(
     (e: React.TouchEvent, planned: PlannedCourse) => {
+      if (isCompleted) return;
       if ((planned.slotSpan ?? 1) > 1 && !isLinkedMultiSlotCourse(planned)) return;
       if (planned.plannerId !== planner.id) return;
       const touch = e.touches[0];
@@ -2561,31 +2629,33 @@ function MobilePlanner({
           <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.02em" }}>
             {slotRange}
           </span>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemoveCourse(planned);
-            }}
-            aria-label="Remove course"
-            style={{
-              width: "44px",
-              height: "44px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "transparent",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              color: "#9ca3af",
-              fontSize: "18px",
-              flex: "0 0 auto",
-            }}
-          >
-            🗑
-          </button>
-        </div>
+            {!isCompleted && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRemoveCourse(planned);
+                }}
+                aria-label="Remove course"
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "transparent",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  color: "#9ca3af",
+                  fontSize: "18px",
+                  flex: "0 0 auto",
+                }}
+              >
+                🗑
+              </button>
+            )}
+          </div>
 
         <div style={{ fontSize: "16px", fontWeight: 600, color: "#111827", lineHeight: 1.3 }}>
           {planned.course.title}
@@ -2672,13 +2742,15 @@ function MobilePlanner({
             {courses.map((pc) => renderCourseCard(pc, semesterIdx))}
           </div>
         )}
-        <button
-          type="button"
-          className="mob-add-btn"
-          onClick={() => onOpenModal(semester)}
-        >
-          + Add Course to Semester {semester}
-        </button>
+        {!isCompleted && (
+          <button
+            type="button"
+            className="mob-add-btn"
+            onClick={() => onOpenModal(semester)}
+          >
+            + Add Course to Semester {semester}
+          </button>
+        )}
       </div>
     );
   };
@@ -2713,14 +2785,16 @@ function MobilePlanner({
         )}
       </div>
 
-      <button
-        type="button"
-        className="mob-fab"
-        onClick={() => onOpenModal(1)}
-        aria-label="Add course"
-      >
-        +
-      </button>
+      {!isCompleted && (
+        <button
+          type="button"
+          className="mob-fab"
+          onClick={() => onOpenModal(1)}
+          aria-label="Add course"
+        >
+          +
+        </button>
+      )}
 
       {isDragging && touchDrag && (
         <div

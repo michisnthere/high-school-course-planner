@@ -30,6 +30,8 @@ type YearOverviewCardProps = {
   };
   onMarkCompleted?: (planner: Planner) => void;
   markingCompleted?: boolean;
+  onMarkActive?: (planner: Planner) => void;
+  markingActive?: boolean;
 };
 
 export function YearOverviewCard({
@@ -37,6 +39,8 @@ export function YearOverviewCard({
   yearAnalysis,
   onMarkCompleted,
   markingCompleted = false,
+  onMarkActive,
+  markingActive = false,
 }: YearOverviewCardProps): React.ReactElement {
   const label = YEAR_LABELS[planner.schoolYear] ?? `Year ${planner.schoolYear}`;
 
@@ -184,16 +188,37 @@ export function YearOverviewCard({
       )}
 
       {isCompleted && (
-        <p
-          style={{
-            margin: "12px 0 0",
-            fontSize: "13px",
-            fontWeight: 600,
-            color: "#166534",
-          }}
-        >
-          Planning disabled
-        </p>
+        <>
+          <p
+            style={{
+              margin: "8px 0 0",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#166534",
+            }}
+          >
+            Completed - editing disabled
+          </p>
+          <button
+            type="button"
+            onClick={() => onMarkActive?.(planner)}
+            disabled={markingActive || !onMarkActive}
+            style={{
+              marginTop: "8px",
+              minHeight: "44px",
+              padding: "8px 14px",
+              border: "1px solid var(--border-default)",
+              borderRadius: "8px",
+              backgroundColor: markingActive ? "var(--bg-input)" : "transparent",
+              color: markingActive ? "var(--text-muted)" : "var(--text-primary)",
+              fontSize: "14px",
+              fontWeight: 600,
+              cursor: markingActive || !onMarkActive ? "default" : "pointer",
+            }}
+          >
+            {markingActive ? "Restoring..." : "Mark as Active"}
+          </button>
+        </>
       )}
 
       {/* Warnings */}

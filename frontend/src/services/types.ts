@@ -15,6 +15,7 @@ export interface IPlannerService {
   removePlannedCourse(plannedCourseId: number): Promise<void>;
   movePlannedCourse(plannedCourseId: number, semester: number, slot: number): Promise<Planner>;
   markYearCompleted(plannerId: number): Promise<Planner>;
+  unmarkYearCompleted(plannerId: number): Promise<Planner>;
 }
 
 export interface ICompletedCoursesService {

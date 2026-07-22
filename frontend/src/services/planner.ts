@@ -1,17 +1,18 @@
 import type { IPlannerService } from "./types";
-import {
-  getPlanners as authGetPlanners,
-  getPlanner as authGetPlanner,
-  getPlannerOptions as authGetPlannerOptions,
-  searchPlannerCourses as authSearchPlannerCourses,
-  addPlannedCourse as authAddPlannedCourse,
-  removePlannedCourse as authRemovePlannedCourse,
-  movePlannedCourse as authMovePlannedCourse,
-  markPlannerYearCompleted as authMarkPlannerYearCompleted,
-  type Planner,
-  type PlannedCourse,
-  type PlannerCourseDetails,
-} from "@/lib/planner";
+ import {
+   getPlanners as authGetPlanners,
+   getPlanner as authGetPlanner,
+   getPlannerOptions as authGetPlannerOptions,
+   searchPlannerCourses as authSearchPlannerCourses,
+   addPlannedCourse as authAddPlannedCourse,
+   removePlannedCourse as authRemovePlannedCourse,
+   movePlannedCourse as authMovePlannedCourse,
+   markPlannerYearCompleted as authMarkPlannerYearCompleted,
+   unmarkPlannerYearCompleted as authUnmarkPlannerYearCompleted,
+   type Planner,
+   type PlannedCourse,
+   type PlannerCourseDetails,
+ } from "@/lib/planner";
 
 export const authPlannerService: IPlannerService = {
   seedCourseCatalog: () => {},
@@ -24,6 +25,7 @@ export const authPlannerService: IPlannerService = {
   removePlannedCourse: (id) => authRemovePlannedCourse(id),
   movePlannedCourse: (id, semester, slot) => authMovePlannedCourse(id, semester, slot),
   markYearCompleted: (plannerId) => authMarkPlannerYearCompleted(plannerId),
+  unmarkYearCompleted: (plannerId) => authUnmarkPlannerYearCompleted(plannerId),
 };
 
 function buildDefaultPlanners(): Planner[] {
@@ -243,6 +245,17 @@ export function createGuestPlannerService(): IPlannerService {
         throw new Error("This year has already been marked as completed.");
       }
       planner.completedAt = new Date().toISOString();
+      save();
+      return clonePlanner(planner);
+    },
+
+    async unmarkYearCompleted(plannerId: number) {
+      const planner = planners.find((p) => p.id === plannerId);
+      if (!planner) throw new Error("Planner not found");
+      if (planner.completedAt == null) {
+        throw new Error("This year is not marked as completed.");
+      }
+      planner.completedAt = null;
       save();
       return clonePlanner(planner);
     },

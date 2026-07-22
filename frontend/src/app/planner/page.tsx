@@ -45,6 +45,7 @@ function PlannerContent(): React.ReactElement {
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
   const [confirmPlanner, setConfirmPlanner] = useState<Planner | null>(null);
+  const [confirmActivePlanner, setConfirmActivePlanner] = useState<Planner | null>(null);
   const [markingPlannerId, setMarkingPlannerId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -116,6 +117,25 @@ function PlannerContent(): React.ReactElement {
         allCourses: [],
       }).catch(() => analysis));
       setConfirmPlanner(null);
+    } finally {
+      setMarkingPlannerId(null);
+    }
+  }
+
+  async function handleConfirmMarkActive() {
+    if (!confirmActivePlanner) return;
+    setMarkingPlannerId(confirmActivePlanner.id);
+    try {
+      const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
+      const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
+      setPlanners(nextPlanners);
+      setAnalysis(await services.analysis.getAnalysis({
+        planners: nextPlanners,
+        completedCourses: [],
+        resolutions: [],
+        allCourses: [],
+      }).catch(() => analysis));
+      setConfirmActivePlanner(null);
     } finally {
       setMarkingPlannerId(null);
     }
@@ -255,10 +275,83 @@ function PlannerContent(): React.ReactElement {
                   }
                   onMarkCompleted={setConfirmPlanner}
                   markingCompleted={markingPlannerId === planner?.id}
+                  onMarkActive={setConfirmActivePlanner}
+                  markingActive={markingPlannerId === planner?.id}
                 />
               );
             })}
           </div>
+          {confirmActivePlanner && (
+            <div
+              style={{
+                position: "fixed",
+                inset: 0,
+                zIndex: 50,
+                backgroundColor: "rgba(0, 0, 0, 0.45)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "24px",
+              }}
+              onClick={() => setConfirmActivePlanner(null)}
+            >
+              <div
+                role="dialog"
+                aria-modal="true"
+                style={{
+                  width: "100%",
+                  maxWidth: "440px",
+                  backgroundColor: "var(--bg-card)",
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "12px",
+                  padding: "24px",
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.24)",
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 style={{ margin: "0 0 12px", fontSize: "20px", color: "var(--text-primary)" }}>
+                  Mark {YEAR_LABELS[confirmActivePlanner.schoolYear]} Year as Active?
+                </h2>
+                <p style={{ margin: "0 0 20px", fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                  This will unlock the planner for editing. Completed courses will remain saved.
+                </p>
+                <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmActivePlanner(null)}
+                    disabled={markingPlannerId != null}
+                    style={{
+                      minHeight: "44px",
+                      padding: "8px 16px",
+                      border: "1px solid var(--border-default)",
+                      borderRadius: "8px",
+                      backgroundColor: "transparent",
+                      color: "var(--text-primary)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleConfirmMarkActive}
+                    disabled={markingPlannerId != null}
+                    style={{
+                      minHeight: "44px",
+                      padding: "8px 16px",
+                      border: "1px solid var(--border-default)",
+                      borderRadius: "8px",
+                      backgroundColor: "var(--bg-input)",
+                      color: "var(--text-primary)",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Restore
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           {confirmPlanner && (
             <div
               style={{
