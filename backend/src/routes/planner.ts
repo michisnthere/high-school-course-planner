@@ -479,6 +479,58 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
   res.json(await getPlannerResponse(planner.id));
 }));
 
+router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res) => {
+  const userId = req.user!.id;
+  const plannerId = Number(req.params.plannerId);
+
+  if (!plannerId) {
+    return res.status(400).json({ error: "Invalid planner id" });
+  }
+
+  const planner = await prisma.planner.findUnique({
+    where: { id: plannerId },
+    include: {
+      plannedCourses: {
+        where: { courseId: { not: null } },
+        select: { courseId: true },
+      },
+    },
+  });
+
+  if (!planner || planner.userId !== userId) {
+    return res.status(404).json({ error: "Planner not found" });
+  }
+
+  if (planner.completedAt == null) {
+    return res.status(409).json({ error: "This year is not marked as completed." });
+  }
+
+  const courseIds = Array.from(new Set(
+    planner.plannedCourses
+      .map((pc) => pc.courseId)
+      .filter((id): id is number => id != null)
+  ));
+
+  await prisma.$transaction(async (tx) => {
+    if (courseIds.length > 0) {
+      await tx.completedCourse.deleteMany({
+        where: {
+          userId,
+          courseId: { in: courseIds },
+          createdAt: { gte: planner.completedAt! },
+        },
+      });
+    }
+
+    await tx.planner.update({
+      where: { id: planner.id },
+      data: { completedAt: null },
+    });
+  });
+
+  res.json(await getPlannerResponse(planner.id));
+}));
+
 router.get("/options", requireAuth, asyncHandler(async (req, res) => {
   const grade = Number(req.query.grade);
 

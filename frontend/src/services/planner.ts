@@ -252,21 +252,14 @@ export function createGuestPlannerService(): IPlannerService {
     },
 
     async unmarkYearCompleted(plannerId: number) {
-      console.log("[GUEST:unmarkYC] ENTER id=", plannerId);
       const planner = planners.find((p) => p.id === plannerId);
-      console.log("[GUEST:unmarkYC] found planner:", planner?.id, planner?.completedAt);
-      if (!planner) { console.log("[GUEST:unmarkYC] THROW: not found"); throw new Error("Planner not found"); }
+      if (!planner) throw new Error("Planner not found");
       if (planner.completedAt == null) {
-        console.log("[GUEST:unmarkYC] THROW: already not completed");
         throw new Error("This year is not marked as completed.");
       }
-      console.log("[GUEST:unmarkYC] SET completedAt to null");
       planner.completedAt = null;
-      console.log("[GUEST:unmarkYC] SAVE");
       save();
-      const result = clonePlanner(planner);
-      console.log("[GUEST:unmarkYC] RETURN id=", result.id, "completedAt=", result.completedAt);
-      return result;
+      return clonePlanner(planner);
     },
   };
 }

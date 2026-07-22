@@ -127,40 +127,27 @@ function PlannerContent(): React.ReactElement {
   }
 
   async function handleConfirmMarkActive() {
-    console.log("[CMA] ENTER id=", confirmActivePlanner?.id, "completedAt=", confirmActivePlanner?.completedAt);
-    if (!confirmActivePlanner) { console.log("[CMA] EARLY: no confirmActivePlanner"); return; }
+    if (!confirmActivePlanner) return;
     if (confirmActivePlanner.completedAt == null) {
-      console.log("[CMA] EARLY: completedAt is null, closing dialog");
       setConfirmActivePlanner(null);
       return;
     }
-    const serviceKey = (services.planner as any).unmarkYearCompleted?.name || (services.planner as any).constructor?.name || "unknown";
-    console.log("[CMA] service key:", serviceKey);
-    console.log("[CMA] SET markingPlannerId=", confirmActivePlanner.id);
     setMarkingPlannerId(confirmActivePlanner.id);
     try {
-      console.log("[CMA] CALL unmarkYearCompleted id=", confirmActivePlanner.id);
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
-      console.log("[CMA] RESOLVED unmarkYearCompleted, updated.id=", updated.id, "completedAt=", updated.completedAt);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
-      console.log("[CMA] SET planners, nextPlanners.length=", nextPlanners.length, "updated planner completedAt=", updated.completedAt);
       setPlanners(nextPlanners);
-      console.log("[CMA] REFRESH analysis");
       setAnalysis(await services.analysis.getAnalysis({
         planners: nextPlanners,
         completedCourses: [],
         resolutions: [],
         allCourses: [],
-      }).catch(() => { console.log("[CMA] analysis refresh rejected, using stale"); return analysis; }));
-      console.log("[CMA] CLOSE dialog");
+      }).catch(() => analysis));
       setConfirmActivePlanner(null);
     } catch (e) {
-      console.log("[CMA] CAUGHT error:", e);
     } finally {
-      console.log("[CMA] FINALLY reset markingPlannerId to null");
       setMarkingPlannerId(null);
     }
-    console.log("[CMA] EXIT");
   }
 
   if (authLoading) {
