@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { CoursePicker } from "./CoursePicker";
 import {
-  GRADE_COMPLETED_OPTIONS,
   LETTER_GRADE_OPTIONS,
   type GradeCompleted,
 } from "@/lib/completedCourses";
+import { ACADEMIC_PERIODS, getAcademicPeriodLabel } from "@/lib/completedCoursePeriods";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 type CompletedCoursePickerProps = {
@@ -24,7 +24,7 @@ export function CompletedCoursePicker({
   onClose,
   onSubmit,
   excludeCourseIds,
-  defaultGrade = "Freshman (9)",
+  defaultGrade = "Middle School",
 }: CompletedCoursePickerProps): React.ReactElement {
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
@@ -136,7 +136,7 @@ export function CompletedCoursePicker({
                   htmlFor="completed-grade"
                   style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
                 >
-                  Grade:
+                  Academic Period:
                 </label>
                 <select
                   id="completed-grade"
@@ -153,9 +153,9 @@ export function CompletedCoursePicker({
                     flex: 1,
                   }}
                 >
-                  {GRADE_COMPLETED_OPTIONS.map((grade) => (
-                    <option key={grade} value={grade}>
-                      {grade}
+                  {ACADEMIC_PERIODS.map((period) => (
+                    <option key={period.label} value={period.values[0]}>
+                      {getAcademicPeriodLabel(period.values[0] as GradeCompleted)}
                     </option>
                   ))}
                 </select>
