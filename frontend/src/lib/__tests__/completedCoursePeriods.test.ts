@@ -12,7 +12,6 @@ function course(id: number, title: string, gradeCompleted: CompletedCourse["grad
     userId: -1,
     courseId: id,
     gradeCompleted,
-    letterGrade: "A",
     credits: 1,
     course: {
       id,

@@ -2,11 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { CoursePicker } from "./CoursePicker";
-import {
-  LETTER_GRADE_OPTIONS,
-  type GradeCompleted,
-} from "@/lib/completedCourses";
-import { ACADEMIC_PERIODS, getAcademicPeriodLabel } from "@/lib/completedCoursePeriods";
+import type { GradeCompleted } from "@/lib/completedCourses";
+import { ACADEMIC_PERIODS } from "@/lib/completedCoursePeriods";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 type CompletedCoursePickerProps = {
@@ -14,7 +11,6 @@ type CompletedCoursePickerProps = {
   onSubmit: (selection: {
     courseId: number;
     gradeCompleted: GradeCompleted;
-    letterGrade: string | null;
   }) => void;
   excludeCourseIds?: number[];
   defaultGrade?: GradeCompleted;
@@ -28,7 +24,6 @@ export function CompletedCoursePicker({
 }: CompletedCoursePickerProps): React.ReactElement {
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
-  const [letterGrade, setLetterGrade] = useState<string>("A");
   const { isMobile } = useBreakpoint();
 
   useEffect(() => {
@@ -41,7 +36,7 @@ export function CompletedCoursePicker({
 
   const handleSubmit = () => {
     if (selectedCourseId == null) return;
-    onSubmit({ courseId: selectedCourseId, gradeCompleted, letterGrade });
+    onSubmit({ courseId: selectedCourseId, gradeCompleted });
   };
 
   return (
@@ -128,67 +123,34 @@ export function CompletedCoursePicker({
                 ×
               </button>
             </div>
-            <div
-              style={{ display: "flex", gap: isMobile ? "12px" : "16px", alignItems: "center", flexWrap: "wrap" }}
-            >
-              <div style={{ display: "flex", gap: "12px", alignItems: "center", flex: isMobile ? "1 1 auto" : undefined }}>
-                <label
-                  htmlFor="completed-grade"
-                  style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
-                >
-                  Academic Period:
-                </label>
-                <select
-                  id="completed-grade"
-                  value={gradeCompleted}
-                  onChange={(e) => setGradeCompleted(e.target.value as GradeCompleted)}
-                  style={{
-                    padding: isMobile ? "10px 12px" : "8px 12px",
-                    fontSize: isMobile ? "14px" : "14px",
-                    color: "var(--text-primary)",
-                    backgroundColor: "var(--bg-input)",
-                    border: "1px solid var(--border-default)",
-                    borderRadius: "8px",
-                    minHeight: isMobile ? "44px" : undefined,
-                    flex: 1,
-                  }}
-                >
-                  {ACADEMIC_PERIODS.map((period) => (
-                    <option key={period.label} value={period.values[0]}>
-                      {getAcademicPeriodLabel(period.values[0] as GradeCompleted)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div style={{ display: "flex", gap: "12px", alignItems: "center", flex: isMobile ? "1 1 auto" : undefined }}>
-                <label
-                  htmlFor="letter-grade"
-                  style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
-                >
-                  Letter:
-                </label>
-                <select
-                  id="letter-grade"
-                  value={letterGrade}
-                  onChange={(e) => setLetterGrade(e.target.value)}
-                  style={{
-                    padding: isMobile ? "10px 12px" : "8px 12px",
-                    fontSize: isMobile ? "14px" : "14px",
-                    color: "var(--text-primary)",
-                    backgroundColor: "var(--bg-input)",
-                    border: "1px solid var(--border-default)",
-                    borderRadius: "8px",
-                    minHeight: isMobile ? "44px" : undefined,
-                    flex: 1,
-                  }}
-                >
-                  {LETTER_GRADE_OPTIONS.map((grade) => (
-                    <option key={grade} value={grade}>
-                      {grade}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div style={{ display: "flex", gap: "12px", alignItems: "center", flex: isMobile ? "1 1 auto" : undefined }}>
+              <label
+                htmlFor="completed-grade"
+                style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
+              >
+                Grade Level:
+              </label>
+              <select
+                id="completed-grade"
+                value={gradeCompleted}
+                onChange={(e) => setGradeCompleted(e.target.value as GradeCompleted)}
+                style={{
+                  padding: isMobile ? "10px 12px" : "8px 12px",
+                  fontSize: isMobile ? "14px" : "14px",
+                  color: "var(--text-primary)",
+                  backgroundColor: "var(--bg-input)",
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "8px",
+                  minHeight: isMobile ? "44px" : undefined,
+                  flex: 1,
+                }}
+              >
+                {ACADEMIC_PERIODS.map((period) => (
+                  <option key={period.label} value={period.values[0]}>
+                    {period.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>

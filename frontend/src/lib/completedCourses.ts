@@ -9,18 +9,13 @@ export const GRADE_COMPLETED_OPTIONS = [
   "Senior (12)",
 ] as const;
 
-export const LETTER_GRADE_OPTIONS = ["A", "B", "C", "D", "F"] as const;
-
 export type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
-
-export type LetterGrade = (typeof LETTER_GRADE_OPTIONS)[number];
 
 export type CompletedCourse = {
   id: number;
   userId: number;
   courseId: number;
   gradeCompleted: GradeCompleted;
-  letterGrade: string | null;
   credits: number | null;
   course: PlannerCourseDetails;
 };
@@ -28,7 +23,6 @@ export type CompletedCourse = {
 export type CompletedCourseInput = {
   courseId: number;
   gradeCompleted: GradeCompleted;
-  letterGrade?: string | null;
 };
 
 export async function getCompletedCourses(): Promise<CompletedCourse[]> {
@@ -46,14 +40,13 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
 export async function addCompletedCourse(
   courseId: number,
   gradeCompleted: GradeCompleted,
-  letterGrade?: string | null,
   _courseDetails?: PlannerCourseDetails
 ): Promise<CompletedCourse> {
   const response = await fetch(`/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ courseId, gradeCompleted, letterGrade }),
+    body: JSON.stringify({ courseId, gradeCompleted }),
   });
 
   if (!response.ok) {
@@ -68,7 +61,7 @@ export async function addCompletedCourse(
 
 export async function updateCompletedCourse(
   id: number,
-  updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }
+  updates: { gradeCompleted?: GradeCompleted }
 ): Promise<CompletedCourse> {
   const response = await fetch(`/api/completed-courses/${id}`, {
     method: "PUT",

@@ -279,7 +279,7 @@ function computeGraduationRequirements(
   }
 
   for (const resolution of resolutions) {
-    if (resolution.type === "summer_school" || resolution.type === "middle_school") {
+    if (resolution.type === "summer_school") {
       const courseId = resolution.courseId;
       const metaCredits = resolution.metadata?.credits as number | undefined;
       if (courseId && metaCredits) {

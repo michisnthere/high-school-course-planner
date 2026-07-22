@@ -94,16 +94,16 @@ function PlannerContent(): React.ReactElement {
       const updated = await services.planner.markYearCompleted(confirmPlanner.id);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
 
-      if (mode === "guest") {
-        const gradeCompleted = GRADE_LABELS[confirmPlanner.schoolYear];
-        const seen = new Set<number>();
-        for (const pc of confirmPlanner.plannedCourses) {
-          if (pc.courseId != null && !seen.has(pc.courseId)) {
-            seen.add(pc.courseId);
-            await services.completedCourses.addCompletedCourse(
-              pc.courseId, gradeCompleted, null, pc.course
-            ).catch(() => {});
-          }
+      const gradeCompleted = GRADE_LABELS[confirmPlanner.schoolYear];
+      const existingCompleted = await services.completedCourses.getCompletedCourses().catch(() => []);
+      const existingCourseIds = new Set(existingCompleted.map((c) => c.courseId));
+      const seen = new Set<number>();
+      for (const pc of confirmPlanner.plannedCourses) {
+        if (pc.courseId != null && !seen.has(pc.courseId) && !existingCourseIds.has(pc.courseId)) {
+          seen.add(pc.courseId);
+          await services.completedCourses.addCompletedCourse(
+            pc.courseId, gradeCompleted, pc.course
+          ).catch(() => {});
         }
       }
 

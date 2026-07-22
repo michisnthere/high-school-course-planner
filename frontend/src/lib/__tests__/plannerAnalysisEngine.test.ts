@@ -94,7 +94,6 @@ function makeCompleted(course: PlannerCourseDetails, grade: GradeCompleted): Com
     userId: -1,
     courseId: course.id,
     gradeCompleted: grade,
-    letterGrade: null,
     credits: null,
     course: { ...course },
   };

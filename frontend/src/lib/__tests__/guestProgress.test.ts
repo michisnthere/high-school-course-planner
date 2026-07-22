@@ -45,7 +45,7 @@ describe("hasGuestProgress", () => {
 
   it("returns true when there are completed courses", () => {
     const completed: CompletedCourse[] = [
-      { id: 1, courseId: 100, gradeCompleted: "A", letterGrade: "A" },
+      { id: 1, courseId: 100, gradeCompleted: "Freshman (9)", credits: null, course: { id: 100, title: "Test", normalizedTitle: null, duration: 1, slotsPerSemester: 1, creditType: null, credits: null, division: null, department: null, description: null, fulfillsRequirements: [], prerequisites: [], courseCode: null, gradeMin: null, gradeMax: null, isNonAcademic: false, isMarchingBand: false, attributes: [] } },
     ];
     expect(hasGuestProgress(emptyPlanners, completed, emptySaved, emptyResolutions)).toBe(true);
   });

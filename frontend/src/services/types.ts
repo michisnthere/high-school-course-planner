@@ -19,8 +19,8 @@ export interface IPlannerService {
 
 export interface ICompletedCoursesService {
   getCompletedCourses(): Promise<CompletedCourse[]>;
-  addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, letterGrade?: string | null, courseDetails?: PlannerCourseDetails): Promise<CompletedCourse>;
-  updateCompletedCourse(id: number, updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }): Promise<CompletedCourse>;
+  addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, courseDetails?: PlannerCourseDetails): Promise<CompletedCourse>;
+  updateCompletedCourse(id: number, updates: { gradeCompleted?: GradeCompleted }): Promise<CompletedCourse>;
   removeCompletedCourse(id: number): Promise<void>;
 }
 

@@ -6,10 +6,13 @@ export const ACADEMIC_PERIODS = [
   { label: "Sophomore", values: ["Sophomore (10)"] },
   { label: "Junior", values: ["Junior (11)"] },
   { label: "Senior", values: ["Senior (12)"] },
+  { label: "Summer School", values: ["Summer School"] },
 ] as const;
 
+export const FILTER_ORDER = ["All", "Middle School", "Freshman", "Sophomore", "Junior", "Senior", "Summer School"] as const;
+export type CompletedCourseFilter = (typeof FILTER_ORDER)[number];
+
 export type AcademicPeriodLabel = (typeof ACADEMIC_PERIODS)[number]["label"];
-export type CompletedCourseFilter = "All" | AcademicPeriodLabel;
 
 const PERIOD_BY_GRADE = new Map<GradeCompleted, AcademicPeriodLabel>(
   ACADEMIC_PERIODS.flatMap((period) =>
@@ -17,7 +20,7 @@ const PERIOD_BY_GRADE = new Map<GradeCompleted, AcademicPeriodLabel>(
   )
 );
 
-export function getAcademicPeriodLabel(gradeCompleted: GradeCompleted): AcademicPeriodLabel | "Summer School" {
+export function getAcademicPeriodLabel(gradeCompleted: GradeCompleted): AcademicPeriodLabel {
   return PERIOD_BY_GRADE.get(gradeCompleted) ?? "Summer School";
 }
 

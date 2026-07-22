@@ -5,13 +5,13 @@ import { useAuth } from "@/context/AuthContext";
 import { useCompletedCoursesService } from "@/services/ServiceContext";
 import {
   GRADE_COMPLETED_OPTIONS,
-  LETTER_GRADE_OPTIONS,
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 import {
   ACADEMIC_PERIODS,
+  FILTER_ORDER,
   filterCompletedCoursesByPeriod,
   getAcademicPeriodLabel,
   groupCompletedCoursesByPeriod,
@@ -114,7 +114,6 @@ function CompletedCoursesContent(): React.ReactElement {
   const [collapsedPeriods, setCollapsedPeriods] = useState<Set<string>>(new Set());
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editGrade, setEditGrade] = useState<GradeCompleted>("Freshman (9)");
-  const [editLetter, setEditLetter] = useState<string>("A");
 
   const filteredCourses = useMemo(
     () => filterCompletedCoursesByPeriod(courses, activeFilter),
@@ -158,10 +157,9 @@ function CompletedCoursesContent(): React.ReactElement {
     async (selection: {
       courseId: number;
       gradeCompleted: GradeCompleted;
-      letterGrade: string | null;
     }) => {
       try {
-        await completedService.addCompletedCourse(selection.courseId, selection.gradeCompleted, selection.letterGrade);
+        await completedService.addCompletedCourse(selection.courseId, selection.gradeCompleted);
         setPickerOpen(false);
         await load();
       } catch (err) {
@@ -176,7 +174,6 @@ function CompletedCoursesContent(): React.ReactElement {
       try {
         await completedService.updateCompletedCourse(id, {
           gradeCompleted: editGrade,
-          letterGrade: editLetter,
         });
         setEditingId(null);
         await load();
@@ -184,7 +181,7 @@ function CompletedCoursesContent(): React.ReactElement {
         setError(err instanceof Error ? err.message : "Failed to update completed course");
       }
     },
-    [load, editGrade, editLetter, completedService]
+    [load, editGrade, completedService]
   );
 
   const handleRemove = useCallback(
@@ -288,7 +285,7 @@ function CompletedCoursesContent(): React.ReactElement {
               }}
             >
               <div className="rs-completed-filters" style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                {(["All", ...ACADEMIC_PERIODS.map((period) => period.label)] as CompletedCourseFilter[]).map((filter) => {
+                {(FILTER_ORDER as unknown as CompletedCourseFilter[]).map((filter) => {
                   const active = activeFilter === filter;
                   return (
                     <button
@@ -393,7 +390,7 @@ function CompletedCoursesContent(): React.ReactElement {
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                 {groupedCourses
-                  .filter((group) => activeFilter !== "All" || group.courses.length > 0 || group.label !== "Summer School")
+                  .filter((group) => activeFilter === "All" ? group.courses.length > 0 : group.label === activeFilter)
                   .map((group) => {
                     const isCollapsed = collapsedPeriods.has(group.label);
                     return (
@@ -457,13 +454,10 @@ function CompletedCoursesContent(): React.ReactElement {
                                   course={cc}
                                   editingId={editingId}
                                   editGrade={editGrade}
-                                  editLetter={editLetter}
                                   onEditGrade={setEditGrade}
-                                  onEditLetter={setEditLetter}
                                   onStartEdit={() => {
                                     setEditingId(cc.id);
                                     setEditGrade(cc.gradeCompleted);
-                                    setEditLetter(cc.letterGrade ?? "A");
                                   }}
                                   onCancelEdit={() => setEditingId(null)}
                                   onSave={() => handleUpdate(cc.id)}
@@ -497,9 +491,7 @@ type CompletedCourseCardProps = {
   course: CompletedCourse;
   editingId: number | null;
   editGrade: GradeCompleted;
-  editLetter: string;
   onEditGrade: (grade: GradeCompleted) => void;
-  onEditLetter: (letter: string) => void;
   onStartEdit: () => void;
   onCancelEdit: () => void;
   onSave: () => void;
@@ -510,9 +502,7 @@ function CompletedCourseCard({
   course: cc,
   editingId,
   editGrade,
-  editLetter,
   onEditGrade,
-  onEditLetter,
   onStartEdit,
   onCancelEdit,
   onSave,
@@ -585,48 +575,6 @@ function CompletedCourseCard({
         </p>
       </div>
       <div className="rs-completed-card-actions" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        {isEditing ? (
-          <select
-            value={editLetter}
-            onChange={(e) => onEditLetter(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              fontSize: "14px",
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-card)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-            }}
-            autoFocus
-          >
-            {LETTER_GRADE_OPTIONS.map((g) => (
-              <option key={g} value={g}>{g}</option>
-            ))}
-          </select>
-        ) : (
-          <span
-            style={{
-              padding: "4px 12px",
-              fontSize: "14px",
-              fontWeight: 600,
-              color: cc.letterGrade
-                ? cc.letterGrade === "A"
-                  ? "var(--status-success)"
-                  : cc.letterGrade === "B"
-                  ? "var(--status-info)"
-                  : cc.letterGrade === "C"
-                  ? "var(--status-warning)"
-                  : "var(--status-error)"
-                : "var(--text-muted)",
-              backgroundColor: "var(--bg-muted)",
-              borderRadius: "8px",
-              minWidth: "32px",
-              textAlign: "center",
-            }}
-          >
-            {cc.letterGrade ?? "—"}
-          </span>
-        )}
         {isEditing ? (
           <>
             <button

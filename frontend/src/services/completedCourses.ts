@@ -11,8 +11,8 @@ import {
 
 export const authCompletedCoursesService: ICompletedCoursesService = {
   getCompletedCourses: () => authGetCompletedCourses(),
-  addCompletedCourse: (courseId, gradeCompleted, letterGrade, _courseDetails) =>
-    authAddCompletedCourse(courseId, gradeCompleted, letterGrade),
+  addCompletedCourse: (courseId, gradeCompleted, _courseDetails) =>
+    authAddCompletedCourse(courseId, gradeCompleted),
   updateCompletedCourse: (id, updates) => authUpdateCompletedCourse(id, updates),
   removeCompletedCourse: (id) => authRemoveCompletedCourse(id),
 };
@@ -34,7 +34,6 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
     async addCompletedCourse(
       courseId: number,
       gradeCompleted: GradeCompleted,
-      letterGrade?: string | null,
       courseDetails?: PlannerCourseDetails
     ) {
       completedIdCounter++;
@@ -63,7 +62,6 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
         userId: -1,
         courseId,
         gradeCompleted,
-        letterGrade: letterGrade ?? null,
         credits: details.credits,
         course: { ...details },
       };
@@ -74,12 +72,11 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
 
     async updateCompletedCourse(
       id: number,
-      updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }
+      updates: { gradeCompleted?: GradeCompleted }
     ) {
       const entry = courses.find((c) => c.id === id);
       if (!entry) throw new Error("Completed course not found");
       if (updates.gradeCompleted !== undefined) entry.gradeCompleted = updates.gradeCompleted;
-      if (updates.letterGrade !== undefined) entry.letterGrade = updates.letterGrade;
       save();
       return { ...entry, course: { ...entry.course } };
     },
