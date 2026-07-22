@@ -127,41 +127,26 @@ function PlannerContent(): React.ReactElement {
   }
 
   async function handleConfirmMarkActive() {
-    console.log("[CMA:entry] confirmActivePlanner=", confirmActivePlanner?.id, confirmActivePlanner?.completedAt);
-    if (!confirmActivePlanner) {
-      console.log("[CMA:exit] confirmActivePlanner is null, returning");
-      return;
-    }
-    console.log("[CMA:guard] completedAt check:", confirmActivePlanner.completedAt);
+    if (!confirmActivePlanner) return;
     if (confirmActivePlanner.completedAt == null) {
-      console.log("[CMA:exit] completedAt is null, closing dialog and returning");
       setConfirmActivePlanner(null);
       return;
     }
-    console.log("[CMA:proceed] setting markingPlannerId=", confirmActivePlanner.id);
     setMarkingPlannerId(confirmActivePlanner.id);
-    console.log("[CMA:proceed] service type:", typeof services.planner.unmarkYearCompleted);
     try {
-      console.log("[CMA:call] calling unmarkYearCompleted id=", confirmActivePlanner.id);
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
-      console.log("[CMA:call] returned updated=", updated);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
-      console.log("[CMA:state] setPlanners, next len=", nextPlanners.length);
       setPlanners(nextPlanners);
-      console.log("[CMA:analysis] refreshing with empty completedCourses");
       setAnalysis(await services.analysis.getAnalysis({
         planners: nextPlanners,
         completedCourses: [],
         resolutions: [],
         allCourses: [],
       }).catch(() => analysis));
-      console.log("[CMA:close] closing dialog");
       setConfirmActivePlanner(null);
     } finally {
-      console.log("[CMA:finally] resetting markingPlannerId to null");
       setMarkingPlannerId(null);
     }
-    console.log("[CMA:exit] done");
   }
 
   if (authLoading) {

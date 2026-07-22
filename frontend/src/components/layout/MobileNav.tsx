@@ -8,6 +8,8 @@ import { MobileDrawer } from "@/components/responsive/MobileDrawer";
 import { useAuth } from "@/context/AuthContext";
 import { breakpoints } from "@/lib/responsive";
 
+const FEEDBACK_FORM_URL = "https://forms.gle/gPebJ41P8r8sUEsW6";
+
 const navItems = [
   { label: "Dashboard", href: "/" },
   { label: "Course Catalog", href: "/catalog" },
@@ -15,11 +17,6 @@ const navItems = [
   { label: "Completed Courses", href: "/completed-courses" },
   { label: "My Planner", href: "/planner" },
   { label: "Graduation Requirements", href: "/requirements" },
-];
-
-const infoItems = [
-  { label: "About", href: "/about" },
-  { label: "Privacy", href: "/privacy" },
 ];
 
 export function MobileNav() {
@@ -43,12 +40,17 @@ export function MobileNav() {
           padding-top: calc(16px + var(--safe-area-top));
           padding-bottom: calc(16px + var(--safe-area-bottom));
           box-sizing: border-box;
+          min-height: 0;
+        }
+        .rs-mobile-nav-scroll {
+          flex: 1;
+          overflow-y: auto;
+          min-height: 0;
         }
         .rs-mobile-nav-items {
           display: flex;
           flex-direction: column;
           gap: 2px;
-          flex: 1;
         }
         .rs-mobile-nav-link {
           display: block;
@@ -102,42 +104,117 @@ export function MobileNav() {
 
       <MobileDrawer isOpen={isOpen} onClose={handleClose} side="left">
         <div className="rs-mobile-nav-drawer-content">
-          <div className="rs-mobile-nav-items">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`rs-mobile-nav-link${isActive ? " rs-mobile-nav-link--active" : ""}`}
-                  onClick={handleClose}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          <div className="rs-mobile-nav-scroll">
+            <div className="rs-mobile-nav-items">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={`rs-mobile-nav-link${isActive ? " rs-mobile-nav-link--active" : ""}`}
+                    onClick={handleClose}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
-          <div style={{ borderTop: "1px solid var(--border-default)", margin: "8px 12px" }} />
+          {/* Sign In button for non-authenticated users */}
+          {!isAuthenticated && (
+            <div style={{ padding: "12px 0", marginTop: "auto" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  const currentPath = window.location.pathname + window.location.search;
+                  const redirectParam = currentPath !== "/login" ? `?redirect=${encodeURIComponent(currentPath)}` : "";
+                  window.location.href = `/auth/google${redirectParam}`;
+                }}
+                style={{
+                  width: "100%",
+                  minHeight: "44px",
+                  padding: "8px 16px",
+                  fontSize: "0.9375rem",
+                  fontWeight: 600,
+                  color: "#FFFFFF",
+                  backgroundColor: "var(--brand-accent)",
+                  border: "none",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  boxSizing: "border-box",
+                }}
+              >
+                Sign In
+              </button>
+            </div>
+          )}
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            {infoItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`rs-mobile-nav-link${isActive ? " rs-mobile-nav-link--active" : ""}`}
-                  onClick={handleClose}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          {/* Footer links */}
+          <div
+            style={{
+              borderTop: "1px solid var(--border-default)",
+              paddingTop: "12px",
+              marginTop: "4px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "13px",
+              }}
+            >
+              <Link
+                href="/about"
+                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+                onClick={handleClose}
+              >
+                About
+              </Link>
+              <span style={{ color: "var(--text-muted)" }}>•</span>
+              <Link
+                href="/privacy"
+                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+                onClick={handleClose}
+              >
+                Privacy
+              </Link>
+              <span style={{ color: "var(--text-muted)" }}>•</span>
+              <a
+                href={FEEDBACK_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+              >
+                Report a Bug
+              </a>
+              <span style={{ color: "var(--text-muted)" }}>•</span>
+              <a
+                href={FEEDBACK_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+              >
+                Send Feedback
+              </a>
+            </div>
+            <p style={{ margin: "8px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+              Stevenson Course Planner
+              <br />
+              Beta v1.0
+            </p>
+            <p style={{ margin: "4px 0 0", fontSize: "11px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+              Unofficial planning resource for Stevenson High School.
+            </p>
           </div>
 
+          {/* Sign Out / Exit Guest Mode for auth/guest users */}
           {(isAuthenticated || isGuest) && (
-            <div className="rs-mobile-nav-footer">
+            <div className="rs-mobile-nav-footer" style={{ marginTop: "4px" }}>
               <button
                 type="button"
                 className="rs-mobile-nav-footer-btn"

@@ -214,7 +214,7 @@ export function YearOverviewCard({
           </p>
           <button
             type="button"
-            onClick={() => { console.log("[YOC:onMarkActive] planner=", planner.id, "completedAt=", planner.completedAt); onMarkActive?.(planner); }}
+            onClick={() => onMarkActive?.(planner)}
             disabled={markingActive || !onMarkActive}
             style={{
               marginTop: "8px",
