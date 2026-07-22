@@ -127,37 +127,24 @@ function PlannerContent(): React.ReactElement {
   }
 
   async function handleConfirmMarkActive() {
-    console.log("[1] handleConfirmMarkActive called, confirmActivePlanner=", confirmActivePlanner);
-    if (!confirmActivePlanner) {
-      console.log("[1a] confirmActivePlanner is null, returning early");
-      return;
-    }
-    console.log("[2] guard check: completedAt=", confirmActivePlanner.completedAt);
+    if (!confirmActivePlanner) return;
     if (confirmActivePlanner.completedAt == null) {
-      console.log("[2a] completedAt is null, closing dialog and returning early");
       setConfirmActivePlanner(null);
       return;
     }
-    console.log("[3] setting markingPlannerId to", confirmActivePlanner.id);
     setMarkingPlannerId(confirmActivePlanner.id);
     try {
-      console.log("[4] calling services.planner.unmarkYearCompleted for id", confirmActivePlanner.id);
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
-      console.log("[5] unmarkYearCompleted returned, updated=", updated);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
-      console.log("[6] calling setPlanners");
       setPlanners(nextPlanners);
-      console.log("[7] refreshing analysis");
       setAnalysis(await services.analysis.getAnalysis({
         planners: nextPlanners,
         completedCourses: [],
         resolutions: [],
         allCourses: [],
       }).catch(() => analysis));
-      console.log("[8] closing dialog");
       setConfirmActivePlanner(null);
     } finally {
-      console.log("[9] finally: resetting markingPlannerId to null");
       setMarkingPlannerId(null);
     }
   }

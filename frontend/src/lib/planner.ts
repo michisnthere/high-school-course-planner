@@ -18,6 +18,8 @@ export type PlannerCourseDetails = {
   fulfillsRequirements: string[];
   prerequisites: string[];
   courseCode: string | null;
+  courseCodeS1: string | null;
+  courseCodeS2: string | null;
   gradeMin: number | null;
   gradeMax: number | null;
   isNonAcademic: boolean;
@@ -207,23 +209,18 @@ export async function markPlannerYearCompleted(plannerId: number): Promise<Plann
 }
 
 export async function unmarkPlannerYearCompleted(plannerId: number): Promise<Planner> {
-  console.log("[auth unmarkPlannerYearCompleted] called with id", plannerId);
   const response = await fetch(`/api/planner/${plannerId}/uncomplete`, {
     method: "POST",
     credentials: "include",
   });
 
-  console.log("[auth unmarkPlannerYearCompleted] response status", response.status);
   if (!response.ok) {
     const body = await response.json().catch(() => ({ error: "Failed to unmark year completed" }));
-    console.log("[auth unmarkPlannerYearCompleted] throwing:", body.error);
     throw new Error(body.error || "Failed to unmark year completed");
   }
 
   const data = await response.json();
-  console.log("[auth unmarkPlannerYearCompleted] received data:", data);
   window.dispatchEvent(new Event("planner:changed"));
-  console.log("[auth unmarkPlannerYearCompleted] returning data");
   return data;
 }
 
@@ -326,11 +323,21 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
   }
 
   let courseCode: string | null = null;
+  let courseCodeS1: string | null = null;
+  let courseCodeS2: string | null = null;
   let gradeMin: number | null = null;
   let gradeMax: number | null = null;
   for (const offering of offerings) {
-    if (typeof offering.courseCode === "string" && offering.courseCode && !courseCode) {
-      courseCode = offering.courseCode;
+    if (typeof offering.courseCode === "string" && offering.courseCode) {
+      if (!courseCode) courseCode = offering.courseCode;
+      const sem = offering.semesterLabel ?? "";
+      if (sem.startsWith("S1") || sem === "1" || sem.toLowerCase().includes("semester 1")) {
+        if (!courseCodeS1) courseCodeS1 = offering.courseCode;
+      } else if (sem.startsWith("S2") || sem === "2" || sem.toLowerCase().includes("semester 2")) {
+        if (!courseCodeS2) courseCodeS2 = offering.courseCode;
+      } else if (!courseCodeS1) {
+        courseCodeS1 = offering.courseCode;
+      }
     }
     if (offering.gradeMin != null && (gradeMin === null || offering.gradeMin < gradeMin)) {
       gradeMin = offering.gradeMin;
@@ -358,6 +365,8 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
       : [],
     prerequisites: Array.from(prerequisites),
     courseCode,
+    courseCodeS1,
+    courseCodeS2,
     gradeMin,
     gradeMax,
     isNonAcademic: false,
@@ -381,6 +390,8 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     fulfillsRequirements: [],
     prerequisites: [],
     courseCode: null,
+    courseCodeS1: null,
+    courseCodeS2: null,
     gradeMin: null,
     gradeMax: null,
     isNonAcademic: option.isNonAcademic,

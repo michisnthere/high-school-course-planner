@@ -51,6 +51,8 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
         fulfillsRequirements: [],
         prerequisites: [],
         courseCode: null,
+        courseCodeS1: null,
+        courseCodeS2: null,
         gradeMin: null,
         gradeMax: null,
         isNonAcademic: false,

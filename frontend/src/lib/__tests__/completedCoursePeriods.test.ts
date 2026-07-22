@@ -27,6 +27,8 @@ function course(id: number, title: string, gradeCompleted: CompletedCourse["grad
       fulfillsRequirements: [],
       prerequisites: [],
       courseCode: null,
+      courseCodeS1: null,
+      courseCodeS2: null,
       gradeMin: null,
       gradeMax: null,
       isNonAcademic: false,

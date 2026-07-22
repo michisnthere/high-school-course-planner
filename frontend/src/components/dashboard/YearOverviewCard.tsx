@@ -214,7 +214,7 @@ export function YearOverviewCard({
           </p>
           <button
             type="button"
-            onClick={() => { console.log("[YOC Mark as Active] clicked, planner=", planner); onMarkActive?.(planner); }}
+            onClick={() => onMarkActive?.(planner)}
             disabled={markingActive || !onMarkActive}
             style={{
               marginTop: "8px",
@@ -315,7 +315,7 @@ function SemesterBlock({
   courses,
 }: {
   semester: number;
-  courses: { slot: number; course: { title: string; courseCode: string | null } }[];
+  courses: { slot: number; course: { title: string; courseCode: string | null; courseCodeS1: string | null; courseCodeS2: string | null } }[];
 }): React.ReactElement {
   const filledSlots = new Set(courses.map((c) => c.slot));
   const allSlots = Array.from({ length: 7 }, (_, i) => i + 1);
@@ -356,12 +356,15 @@ function SemesterBlock({
               }}
             >
               {course ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                  {course.course.courseCode && (
-                    <span style={{ fontSize: "11px", color: "var(--text-muted)", lineHeight: 1.2 }}>
-                      {course.course.courseCode}
-                    </span>
-                  )}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  {(() => {
+                    const code = semester === 1 ? course.course.courseCodeS1 : course.course.courseCodeS2;
+                    return code ? (
+                      <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                        {code}
+                      </span>
+                    ) : null;
+                  })()}
                   <span style={{ lineHeight: 1.3 }}>{course.course.title}</span>
                 </div>
               ) : (

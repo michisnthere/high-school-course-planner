@@ -8,7 +8,7 @@ const chemistry: PlannerCourseDetails = {
   id: 101, title: "Chemistry", normalizedTitle: "chemistry", duration: 2,
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
   department: "Science", description: null, fulfillsRequirements: ["Science", "Lab Science"],
-  prerequisites: [], courseCode: "SCI101", gradeMin: 10, gradeMax: 12,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "SCI101", gradeMin: 10, gradeMax: 12,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -16,7 +16,7 @@ const algebra: PlannerCourseDetails = {
   id: 201, title: "Algebra I", normalizedTitle: "algebra i", duration: 2,
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Mathematics",
   department: "Mathematics", description: null, fulfillsRequirements: ["Mathematics"],
-  prerequisites: [], courseCode: "MATH101", gradeMin: 9, gradeMax: 9,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "MATH101", gradeMin: 9, gradeMax: 9,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -24,7 +24,7 @@ const english9: PlannerCourseDetails = {
   id: 301, title: "English I", normalizedTitle: "english i", duration: 2,
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "English",
   department: "English", description: null, fulfillsRequirements: ["English"],
-  prerequisites: [], courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -32,7 +32,7 @@ const english10: PlannerCourseDetails = {
   id: 302, title: "English II", normalizedTitle: "english ii", duration: 2,
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "English",
   department: "English", description: null, fulfillsRequirements: ["English"],
-  prerequisites: [], courseCode: "ENG102", gradeMin: 10, gradeMax: 10,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG102", gradeMin: 10, gradeMax: 10,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -40,7 +40,7 @@ const usHistory: PlannerCourseDetails = {
   id: 401, title: "U.S. History", normalizedTitle: "u.s. history", duration: 2,
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Social Studies",
   department: "Social Studies", description: null, fulfillsRequirements: ["U.S. History", "Social Studies"],
-  prerequisites: [], courseCode: "HIST201", gradeMin: 11, gradeMax: 11,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HIST201", gradeMin: 11, gradeMax: 11,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -48,7 +48,7 @@ const government: PlannerCourseDetails = {
   id: 402, title: "Government", normalizedTitle: "government", duration: 1,
   slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Social Studies",
   department: "Social Studies", description: null, fulfillsRequirements: ["Government", "Social Studies"],
-  prerequisites: [], courseCode: "GOV201", gradeMin: 12, gradeMax: 12,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "GOV201", gradeMin: 12, gradeMax: 12,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -56,7 +56,7 @@ const peCourse: PlannerCourseDetails = {
   id: 501, title: "Physical Education I", normalizedTitle: "physical education i", duration: 1,
   slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Physical Education",
   department: "Physical Education", description: null, fulfillsRequirements: ["Physical Education"],
-  prerequisites: [], courseCode: "PE101", gradeMin: 9, gradeMax: 12,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "PE101", gradeMin: 9, gradeMax: 12,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -64,7 +64,7 @@ const health: PlannerCourseDetails = {
   id: 601, title: "Health", normalizedTitle: "health", duration: 1,
   slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Health",
   department: "Health", description: null, fulfillsRequirements: ["Health"],
-  prerequisites: [], courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
+  prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
 };
 
@@ -434,42 +434,42 @@ describe("computePlannerAnalysis", () => {
       id: 101, title: "Chemistry", normalizedTitle: "chemistry", duration: 2,
       slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
       department: "Science", description: null, fulfillsRequirements: ["Science", "Lab Science"],
-      prerequisites: [], courseCode: "SCI101", gradeMin: 10, gradeMax: 12,
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "SCI101", gradeMin: 10, gradeMax: 12,
       isNonAcademic: false, isMarchingBand: false, attributes: [],
     };
     const geometry: PlannerCourseDetails = {
       id: 201, title: "Geometry", normalizedTitle: "geometry", duration: 2,
       slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Mathematics",
       department: "Mathematics", description: null, fulfillsRequirements: ["Mathematics"],
-      prerequisites: [], courseCode: "MATH201", gradeMin: 9, gradeMax: 10,
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "MATH201", gradeMin: 9, gradeMax: 10,
       isNonAcademic: false, isMarchingBand: false, attributes: [],
     };
     const biology: PlannerCourseDetails = {
       id: 701, title: "Biology", normalizedTitle: "biology", duration: 2,
       slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
       department: "Science", description: null, fulfillsRequirements: ["Biology", "Science"],
-      prerequisites: [], courseCode: "SCI001", gradeMin: 9, gradeMax: 9,
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "SCI001", gradeMin: 9, gradeMax: 9,
       isNonAcademic: false, isMarchingBand: false, attributes: [],
     };
     const english1: PlannerCourseDetails = {
       id: 801, title: "English I", normalizedTitle: "english i", duration: 2,
       slotsPerSemester: 1, creditType: "regular", credits: 2, division: "English",
       department: "English", description: null, fulfillsRequirements: ["English"],
-      prerequisites: [], courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
       isNonAcademic: false, isMarchingBand: false, attributes: [],
     };
     const healthCourse: PlannerCourseDetails = {
       id: 901, title: "Health", normalizedTitle: "health", duration: 1,
       slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Health",
       department: "Health", description: null, fulfillsRequirements: ["Health"],
-      prerequisites: [], courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
       isNonAcademic: false, isMarchingBand: false, attributes: [],
     };
     const govCourse: PlannerCourseDetails = {
       id: 1001, title: "Government", normalizedTitle: "government", duration: 1,
       slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Social Studies",
       department: "Social Studies", description: null, fulfillsRequirements: ["Government", "Social Studies"],
-      prerequisites: [], courseCode: "GOV301", gradeMin: 12, gradeMax: 12,
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "GOV301", gradeMin: 12, gradeMax: 12,
       isNonAcademic: false, isMarchingBand: false, attributes: [],
     };
     const allCourses = [chemistry, geometry, biology, english1, healthCourse, govCourse];
