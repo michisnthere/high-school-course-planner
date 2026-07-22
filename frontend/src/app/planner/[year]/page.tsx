@@ -37,6 +37,7 @@ import {
 } from "@/lib/catalog";
 import {
   type CompletedCourse,
+  GRADE_COMPLETED_OPTIONS,
   type GradeCompleted,
 } from "@/lib/completedCourses";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
@@ -2900,6 +2901,7 @@ function WarningActionModal({
       : currentYear === 11
       ? "Junior (11)"
       : "Senior (12)";
+  const middleSchoolCompletedPeriod: GradeCompleted = GRADE_COMPLETED_OPTIONS[0];
 
   const handleMarkCompleted = async () => {
     if (!selectedCourse) return;
@@ -2936,7 +2938,7 @@ function WarningActionModal({
     if (!selectedCourse) return;
     setLoading(true);
     try {
-      await onMiddleSchool(selectedCourse.id, getGradeCompleted());
+      await onMiddleSchool(selectedCourse.id, middleSchoolCompletedPeriod);
       showToast("Marked as completed in middle school.", "success");
       onClose();
     } catch (err) {
