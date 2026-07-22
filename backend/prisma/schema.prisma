@@ -286,6 +286,7 @@ model Planner {
   id         Int      @id @default(autoincrement())
   userId     Int
   schoolYear Int
+  completedAt DateTime?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 

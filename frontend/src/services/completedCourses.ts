@@ -1,4 +1,5 @@
 import type { ICompletedCoursesService } from "./types";
+import type { PlannerCourseDetails } from "@/lib/planner";
 import {
   getCompletedCourses as authGetCompletedCourses,
   addCompletedCourse as authAddCompletedCourse,
@@ -10,7 +11,7 @@ import {
 
 export const authCompletedCoursesService: ICompletedCoursesService = {
   getCompletedCourses: () => authGetCompletedCourses(),
-  addCompletedCourse: (courseId, gradeCompleted, letterGrade) =>
+  addCompletedCourse: (courseId, gradeCompleted, letterGrade, _courseDetails) =>
     authAddCompletedCourse(courseId, gradeCompleted, letterGrade),
   updateCompletedCourse: (id, updates) => authUpdateCompletedCourse(id, updates),
   removeCompletedCourse: (id) => authRemoveCompletedCourse(id),
@@ -33,36 +34,38 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
     async addCompletedCourse(
       courseId: number,
       gradeCompleted: GradeCompleted,
-      letterGrade?: string | null
+      letterGrade?: string | null,
+      courseDetails?: PlannerCourseDetails
     ) {
       completedIdCounter++;
+      const details = courseDetails ?? {
+        id: courseId,
+        title: `Course ${courseId}`,
+        normalizedTitle: null,
+        duration: 1,
+        slotsPerSemester: 1,
+        creditType: null,
+        credits: null,
+        division: null,
+        department: null,
+        description: null,
+        fulfillsRequirements: [],
+        prerequisites: [],
+        courseCode: null,
+        gradeMin: null,
+        gradeMax: null,
+        isNonAcademic: false,
+        isMarchingBand: false,
+        attributes: [],
+      };
       const entry: CompletedCourse = {
         id: completedIdCounter,
         userId: -1,
         courseId,
         gradeCompleted,
         letterGrade: letterGrade ?? null,
-        credits: null,
-        course: {
-          id: courseId,
-          title: `Course ${courseId}`,
-          normalizedTitle: null,
-          duration: 1,
-          slotsPerSemester: 1,
-          creditType: null,
-          credits: null,
-          division: null,
-          department: null,
-          description: null,
-          fulfillsRequirements: [],
-          prerequisites: [],
-          courseCode: null,
-          gradeMin: null,
-          gradeMax: null,
-          isNonAcademic: false,
-          isMarchingBand: false,
-          attributes: [],
-        },
+        credits: details.credits,
+        course: { ...details },
       };
       courses.push(entry);
       save();

@@ -51,6 +51,7 @@ type PlannerResponse = {
   id: number;
   schoolYear: number;
   label: string;
+  completedAt: Date | null;
   plannedCourses: PlannedCourseResponse[];
 };
 
@@ -329,6 +330,7 @@ async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
     id: planner.id,
     schoolYear: planner.schoolYear,
     label: YEAR_LABELS[planner.schoolYear],
+    completedAt: planner.completedAt ?? null,
     plannedCourses: planner.plannedCourses.map(serializePlannedCourse),
   };
 }
@@ -389,10 +391,92 @@ router.get("/", requireAuth, asyncHandler(async (req, res) => {
     id: planner.id,
     schoolYear: planner.schoolYear,
     label: YEAR_LABELS[planner.schoolYear],
+    completedAt: planner.completedAt ?? null,
     plannedCourses: planner.plannedCourses.map(serializePlannedCourse),
   }));
 
   res.json(response);
+}));
+
+const GRADE_COMPLETED_BY_YEAR: Record<number, string> = {
+  9: "Freshman (9)",
+  10: "Sophomore (10)",
+  11: "Junior (11)",
+  12: "Senior (12)",
+};
+
+router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) => {
+  const userId = req.user!.id;
+  const plannerId = Number(req.params.plannerId);
+
+  if (!plannerId) {
+    return res.status(400).json({ error: "Invalid planner id" });
+  }
+
+  const planner = await prisma.planner.findUnique({
+    where: { id: plannerId },
+    include: {
+      plannedCourses: {
+        include: {
+          course: {
+            include: {
+              department: { include: { division: true } },
+              options: { include: { offerings: true } },
+            },
+          },
+          plannerOption: true,
+        },
+      },
+    },
+  });
+
+  if (!planner || planner.userId !== userId) {
+    return res.status(404).json({ error: "Planner not found" });
+  }
+
+  if (planner.plannedCourses.length === 0) {
+    return res.status(409).json({ error: "Add planned courses before marking this year completed." });
+  }
+
+  const gradeCompleted = GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
+  if (!gradeCompleted) {
+    return res.status(400).json({ error: "Planner year cannot be marked completed" });
+  }
+
+  const courseIds = Array.from(new Set(
+    planner.plannedCourses
+      .map((pc) => pc.courseId)
+      .filter((id): id is number => id != null)
+  ));
+
+  await prisma.$transaction(async (tx) => {
+    const existing = await tx.completedCourse.findMany({
+      where: { userId, courseId: { in: courseIds } },
+      select: { courseId: true },
+    });
+    const existingIds = new Set(existing.map((cc) => cc.courseId));
+
+    for (const courseId of courseIds) {
+      if (existingIds.has(courseId)) continue;
+      const planned = planner.plannedCourses.find((pc) => pc.courseId === courseId);
+      if (!planned?.course) continue;
+      await tx.completedCourse.create({
+        data: {
+          userId,
+          courseId,
+          gradeCompleted,
+          credits: calculateTotalCredits(planned.course),
+        },
+      });
+    }
+
+    await tx.planner.update({
+      where: { id: planner.id },
+      data: { completedAt: new Date() },
+    });
+  });
+
+  res.json(await getPlannerResponse(planner.id));
 }));
 
 router.get("/options", requireAuth, asyncHandler(async (req, res) => {

@@ -14,11 +14,12 @@ export interface IPlannerService {
   addPlannedCourse(plannerId: number, item: { plannerOptionId: number; semester: number; slot: number }): Promise<Planner>;
   removePlannedCourse(plannedCourseId: number): Promise<void>;
   movePlannedCourse(plannedCourseId: number, semester: number, slot: number): Promise<Planner>;
+  markYearCompleted(plannerId: number): Promise<Planner>;
 }
 
 export interface ICompletedCoursesService {
   getCompletedCourses(): Promise<CompletedCourse[]>;
-  addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, letterGrade?: string | null): Promise<CompletedCourse>;
+  addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, letterGrade?: string | null, courseDetails?: PlannerCourseDetails): Promise<CompletedCourse>;
   updateCompletedCourse(id: number, updates: { letterGrade?: string | null; gradeCompleted?: GradeCompleted }): Promise<CompletedCourse>;
   removeCompletedCourse(id: number): Promise<void>;
 }

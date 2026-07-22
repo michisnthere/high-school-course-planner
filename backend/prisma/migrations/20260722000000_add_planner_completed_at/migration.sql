@@ -1,0 +1,1 @@
+ALTER TABLE "Planner" ADD COLUMN "completedAt" TIMESTAMP(3);

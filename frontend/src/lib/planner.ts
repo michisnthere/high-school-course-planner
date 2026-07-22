@@ -50,6 +50,7 @@ export type Planner = {
   id: number;
   schoolYear: number;
   label: string;
+  completedAt: string | null;
   plannedCourses: PlannedCourse[];
 };
 
@@ -185,6 +186,23 @@ export async function movePlannedCourse(
 
   const data = await response.json();
   window.dispatchEvent(new Event("planner:changed"));
+  return data;
+}
+
+export async function markPlannerYearCompleted(plannerId: number): Promise<Planner> {
+  const response = await fetch(`/api/planner/${plannerId}/complete`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({ error: "Failed to mark year completed" }));
+    throw new Error(body.error || "Failed to mark year completed");
+  }
+
+  const data = await response.json();
+  window.dispatchEvent(new Event("planner:changed"));
+  window.dispatchEvent(new Event("completed-courses:changed"));
   return data;
 }
 

@@ -72,7 +72,7 @@ const allCourses = [chemistry, algebra, english9, english10, usHistory, governme
 
 function makePlanner(year: number, planned: Planner["plannedCourses"] = []): Planner {
   const id = year - 8; // 9→1, 10→2, 11→3, 12→4
-  return { id, schoolYear: year, label: String(year), plannedCourses: planned };
+  return { id, schoolYear: year, label: String(year), completedAt: null, plannedCourses: planned };
 }
 
 function makePlanned(course: PlannerCourseDetails, semester: number, slot: number, plannedId?: number): Planner["plannedCourses"][number] {

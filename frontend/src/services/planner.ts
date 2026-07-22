@@ -7,6 +7,7 @@ import {
   addPlannedCourse as authAddPlannedCourse,
   removePlannedCourse as authRemovePlannedCourse,
   movePlannedCourse as authMovePlannedCourse,
+  markPlannerYearCompleted as authMarkPlannerYearCompleted,
   type Planner,
   type PlannedCourse,
   type PlannerCourseDetails,
@@ -22,6 +23,7 @@ export const authPlannerService: IPlannerService = {
     authAddPlannedCourse(plannerId as any, courseIdOrItem as any, semester as any, slot as any),
   removePlannedCourse: (id) => authRemovePlannedCourse(id),
   movePlannedCourse: (id, semester, slot) => authMovePlannedCourse(id, semester, slot),
+  markYearCompleted: (plannerId) => authMarkPlannerYearCompleted(plannerId),
 };
 
 function buildDefaultPlanners(): Planner[] {
@@ -29,6 +31,7 @@ function buildDefaultPlanners(): Planner[] {
     id: i + 1,
     schoolYear: year,
     label: `${year}`,
+    completedAt: null,
     plannedCourses: [],
   }));
 }
@@ -228,6 +231,20 @@ export function createGuestPlannerService(): IPlannerService {
         }
       }
       throw new Error("Planned course not found");
+    },
+
+    async markYearCompleted(plannerId: number) {
+      const planner = planners.find((p) => p.id === plannerId);
+      if (!planner) throw new Error("Planner not found");
+      if (planner.plannedCourses.length === 0) {
+        throw new Error("Add planned courses before marking this year completed.");
+      }
+      if (planner.completedAt != null) {
+        throw new Error("This year has already been marked as completed.");
+      }
+      planner.completedAt = new Date().toISOString();
+      save();
+      return clonePlanner(planner);
     },
   };
 }

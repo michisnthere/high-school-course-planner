@@ -82,6 +82,7 @@ export function DashboardOverview(): React.ReactElement {
                   id: 0,
                   schoolYear: year,
                   label: `${year}`,
+                  completedAt: null,
                   plannedCourses: [],
                 }
               }

@@ -6,10 +6,10 @@ import type { RequirementResolution } from "@/lib/api";
 
 describe("hasGuestProgress", () => {
   const emptyPlanners: Planner[] = [
-    { id: 1, schoolYear: 9, plannedCourses: [] },
-    { id: 2, schoolYear: 10, plannedCourses: [] },
-    { id: 3, schoolYear: 11, plannedCourses: [] },
-    { id: 4, schoolYear: 12, plannedCourses: [] },
+    { id: 1, schoolYear: 9, label: "9", completedAt: null, plannedCourses: [] },
+    { id: 2, schoolYear: 10, label: "10", completedAt: null, plannedCourses: [] },
+    { id: 3, schoolYear: 11, label: "11", completedAt: null, plannedCourses: [] },
+    { id: 4, schoolYear: 12, label: "12", completedAt: null, plannedCourses: [] },
   ];
 
   const emptyCompleted: CompletedCourse[] = [];
@@ -26,6 +26,8 @@ describe("hasGuestProgress", () => {
       {
         id: 4,
         schoolYear: 12,
+        label: "12",
+        completedAt: null,
         plannedCourses: [
           {
             id: 1,
@@ -69,16 +71,16 @@ describe("hasGuestProgress", () => {
           courseId: 101, semester: 1, slot: 1,
         }],
       },
-      { id: 2, schoolYear: 10, plannedCourses: [] },
-      { id: 3, schoolYear: 11, plannedCourses: [] },
-      { id: 4, schoolYear: 12, plannedCourses: [] },
+      { id: 2, schoolYear: 10, label: "10", completedAt: null, plannedCourses: [] },
+      { id: 3, schoolYear: 11, label: "11", completedAt: null, plannedCourses: [] },
+      { id: 4, schoolYear: 12, label: "12", completedAt: null, plannedCourses: [] },
     ];
     expect(hasGuestProgress(plannersWithCourse, emptyCompleted, [55], emptyResolutions)).toBe(true);
   });
 
   it("returns false with only empty planners and no other data", () => {
     const todosEmptyPlanners: Planner[] = [
-      { id: 1, schoolYear: 9, plannedCourses: [] },
+      { id: 1, schoolYear: 9, label: "9", completedAt: null, plannedCourses: [] },
     ];
     expect(hasGuestProgress(todosEmptyPlanners, emptyCompleted, emptySaved, emptyResolutions)).toBe(false);
   });

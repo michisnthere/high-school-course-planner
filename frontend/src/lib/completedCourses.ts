@@ -46,7 +46,8 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
 export async function addCompletedCourse(
   courseId: number,
   gradeCompleted: GradeCompleted,
-  letterGrade?: string | null
+  letterGrade?: string | null,
+  _courseDetails?: PlannerCourseDetails
 ): Promise<CompletedCourse> {
   const response = await fetch(`/api/completed-courses`, {
     method: "POST",

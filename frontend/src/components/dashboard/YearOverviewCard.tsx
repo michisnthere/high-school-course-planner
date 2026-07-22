@@ -28,9 +28,16 @@ type YearOverviewCardProps = {
     totalCount: number;
     items: YearAnalysisItem[];
   };
+  onMarkCompleted?: (planner: Planner) => void;
+  markingCompleted?: boolean;
 };
 
-export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProps): React.ReactElement {
+export function YearOverviewCard({
+  planner,
+  yearAnalysis,
+  onMarkCompleted,
+  markingCompleted = false,
+}: YearOverviewCardProps): React.ReactElement {
   const label = YEAR_LABELS[planner.schoolYear] ?? `Year ${planner.schoolYear}`;
 
   const sem1Courses = planner.plannedCourses
@@ -44,12 +51,16 @@ export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProp
   const filledSlots = planner.plannedCourses.length;
 
   const isPlanned = filledSlots > 0;
+  const isCompleted = planner.completedAt != null;
   const allMet = yearAnalysis ? yearAnalysis.satisfiedCount === yearAnalysis.totalCount : false;
 
   let badgeLabel: string;
   let badgeStyle: React.CSSProperties;
 
-  if (!isPlanned) {
+  if (isCompleted) {
+    badgeLabel = "✓ Completed";
+    badgeStyle = successBadge;
+  } else if (!isPlanned) {
     badgeLabel = "Not Planned";
     badgeStyle = neutralBadge;
   } else if (allMet) {
@@ -150,8 +161,43 @@ export function YearOverviewCard({ planner, yearAnalysis }: YearOverviewCardProp
         {filledSlots} / {TOTAL_SLOTS} courses planned
       </p>
 
+      {isPlanned && !isCompleted && (
+        <button
+          type="button"
+          onClick={() => onMarkCompleted?.(planner)}
+          disabled={markingCompleted || !onMarkCompleted}
+          style={{
+            marginTop: "16px",
+            minHeight: "44px",
+            padding: "8px 14px",
+            border: "1px solid #166534",
+            borderRadius: "8px",
+            backgroundColor: markingCompleted ? "#dcfce7" : "#166534",
+            color: markingCompleted ? "#166534" : "#ffffff",
+            fontSize: "14px",
+            fontWeight: 700,
+            cursor: markingCompleted || !onMarkCompleted ? "default" : "pointer",
+          }}
+        >
+          {markingCompleted ? "Marking..." : "Mark Year Completed"}
+        </button>
+      )}
+
+      {isCompleted && (
+        <p
+          style={{
+            margin: "12px 0 0",
+            fontSize: "13px",
+            fontWeight: 600,
+            color: "#166534",
+          }}
+        >
+          Planning disabled
+        </p>
+      )}
+
       {/* Warnings */}
-      {missingItems.length > 0 && (
+      {missingItems.length > 0 && !isCompleted && (
         <div
           style={{
             marginTop: "12px",
