@@ -87,10 +87,6 @@ function applyIdMap(planners: Planner[], idMap: Map<number, number>): Planner[] 
   }));
 }
 
-function clonePlanners(planners: Planner[]): Planner[] {
-  return planners.map((p) => ({ ...p, plannedCourses: p.plannedCourses.map((pc) => ({ ...pc })) }));
-}
-
 function replacePlannerInList(planners: Planner[], updated: Planner): Planner[] {
   return planners.map((p) => (p.id === updated.id ? updated : p));
 }
@@ -116,147 +112,17 @@ function buildAddCourseUndo(
   beforePlanners: Planner[],
   afterPlanner: Planner,
   removeFn: (id: number) => Promise<void>,
-  moveFn: (id: number, semester: number, slot: number) => Promise<Planner>
 ): () => Promise<void> {
-  const beforeMap = new Map(
-    beforePlanners
-      .flatMap((p) => p.plannedCourses)
-      .map((pc) => [pc.id, { semester: pc.semester, slot: pc.slot }])
+  const beforeIds = new Set(
+    beforePlanners.flatMap((p) => p.plannedCourses.map((pc) => pc.id))
   );
-
-  const addedCourses = afterPlanner.plannedCourses.filter((pc) => !beforeMap.has(pc.id));
-  const shiftedCourses = afterPlanner.plannedCourses
-    .filter((pc) => beforeMap.has(pc.id))
-    .map((pc) => {
-      const before = beforeMap.get(pc.id)!;
-      return {
-        id: pc.id,
-        newSemester: pc.semester,
-        newSlot: pc.slot,
-        originalSemester: before.semester,
-        originalSlot: before.slot,
-      };
-    })
-    .filter((shift) => shift.newSemester !== shift.originalSemester || shift.newSlot !== shift.originalSlot)
-    .sort((a, b) => a.newSlot - b.newSlot);
+  const addedCourses = afterPlanner.plannedCourses.filter((pc) => !beforeIds.has(pc.id));
 
   return async () => {
     if (addedCourses.length > 0) {
       await removeFn(addedCourses[0].id);
     }
-    for (const shift of shiftedCourses) {
-      await moveFn(shift.id, shift.originalSemester, shift.originalSlot);
-    }
   };
-}
-
-function applyOptimisticMove(
-  planners: Planner[],
-  source: PlannedCourse,
-  targetSemester: number,
-  targetSlot: number
-): Planner[] {
-  const plannerIndex = planners.findIndex((p) => p.id === source.plannerId);
-  if (plannerIndex === -1) return planners;
-
-  const planner = planners[plannerIndex];
-  const courses = planner.plannedCourses;
-
-  const replacePlanner = (newCourses: PlannedCourse[]): Planner[] => [
-    ...planners.slice(0, plannerIndex),
-    { ...planner, plannedCourses: newCourses },
-    ...planners.slice(plannerIndex + 1),
-  ];
-
-  // Multi-slot courses cannot be moved via drag-and-drop.
-  if ((source.slotSpan ?? 1) > 1 && !isLinkedMultiSlotCourse(source)) return planners;
-
-  if (isLinkedMultiSlotCourse(source) && source.courseId != null) {
-    const width = source.course.slotsPerSemester ?? 1;
-    const linkedEntries = getLinkedCourseEntries(courses, source);
-    const currentStart = Math.min(...linkedEntries.map((pc) => pc.slot));
-    if (targetSlot === currentStart) return planners;
-    if (targetSlot + width - 1 > 7) return planners;
-
-    const hasConflict = courses.some((pc) => {
-      if (pc.courseId === source.courseId) return false;
-      if (pc.semester !== 1 && pc.semester !== 2) return false;
-      return pc.slot >= targetSlot && pc.slot < targetSlot + width;
-    });
-    if (hasConflict) return planners;
-
-    return replacePlanner(
-      courses.map((pc) =>
-        pc.courseId === source.courseId
-          ? { ...pc, slot: targetSlot + (pc.slot - currentStart) }
-          : pc
-      )
-    );
-  }
-
-  if (source.course.duration === 2) {
-    // Full-year: dropping on the same slot is a no-op; semester is ignored by the API.
-    if (source.slot === targetSlot) return planners;
-
-    const targetOccupants = courses.filter((pc) => pc.slot === targetSlot);
-    if (targetOccupants.length === 0) {
-      return replacePlanner(
-        courses.map((pc) =>
-          pc.courseId === source.courseId && pc.slot === source.slot ? { ...pc, slot: targetSlot } : pc
-        )
-      );
-    }
-
-    const allSameCourse = targetOccupants.every((pc) => pc.courseId === targetOccupants[0].courseId);
-    const allFullYear = targetOccupants.every((pc) => pc.course.duration === 2);
-    if (allSameCourse && allFullYear) {
-      const targetCourseId = targetOccupants[0].courseId;
-      if (targetCourseId === source.courseId) return planners;
-      return replacePlanner(
-        courses.map((pc) => {
-          if (pc.courseId === source.courseId && pc.slot === source.slot) {
-            return { ...pc, slot: targetSlot };
-          }
-          if (pc.courseId === targetCourseId && pc.slot === targetSlot) {
-            return { ...pc, slot: source.slot };
-          }
-          return pc;
-        })
-      );
-    }
-
-    // Full-year cannot be dropped onto a slot occupied by a one-semester course.
-    return planners;
-  }
-
-  // One-semester source.
-  if (source.semester === targetSemester && source.slot === targetSlot) return planners;
-
-  const target = courses.find((pc) => pc.semester === targetSemester && pc.slot === targetSlot);
-  if (!target) {
-    return replacePlanner(
-      courses.map((pc) =>
-        pc.id === source.id ? { ...pc, semester: targetSemester, slot: targetSlot } : pc
-      )
-    );
-  }
-
-  if (target.course.duration === 2) {
-    // One-semester courses cannot swap with full-year courses.
-    return planners;
-  }
-
-  return replacePlanner(
-    courses.map((pc) => {
-      if (pc.id === source.id) {
-        return { ...pc, semester: targetSemester, slot: targetSlot };
-      }
-      if (pc.id === target.id) {
-        return { ...pc, semester: source.semester, slot: source.slot };
-      }
-      return pc;
-    })
-  );
 }
 
 type ToastType = "success" | "warning";
@@ -280,8 +146,6 @@ function PlannerYearContent(): React.ReactElement {
     slot: number;
   } | null>(null);
   const [toast, setToast] = useState<ToastState>({ message: "", type: "success", visible: false });
-  const [draggingId, setDraggingId] = useState<number | null>(null);
-  const [dragOverSlot, setDragOverSlot] = useState<{ semester: number; slot: number } | null>(null);
   const scrollYRef = useRef<number | null>(null);
   const loadedYearRef = useRef<number | null>(null);
   const historyRef = useRef<HistoryEntry[]>([]);
@@ -556,7 +420,7 @@ function PlannerYearContent(): React.ReactElement {
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
           newPlanners,
-          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse, plannerService.movePlannedCourse)
+          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
         );
         handleCloseModal();
         showToast("Course added.", "success", handleUndo);
@@ -580,7 +444,7 @@ function PlannerYearContent(): React.ReactElement {
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
           newPlanners,
-          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse, plannerService.movePlannedCourse)
+          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
         );
         setAllPlanners(newPlanners);
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
@@ -654,13 +518,6 @@ function PlannerYearContent(): React.ReactElement {
       if (source.semester === semester && source.slot === slot && source.course.duration !== 2) return;
       if (source.course.duration === 2 && source.slot === slot) return;
 
-      const originalPlanners = clonePlanners(allPlanners);
-      const optimisticPlanners = applyOptimisticMove(allPlanners, source, semester, slot);
-      if (optimisticPlanners !== originalPlanners) {
-        setAllPlanners(optimisticPlanners);
-        setPlanner(optimisticPlanners.find((p) => p.schoolYear === year) || null);
-      }
-
       try {
         const updatedPlanner = await plannerService.movePlannedCourse(plannedCourseId, semester, slot);
         const newPlanners = allPlanners.map((p) =>
@@ -673,26 +530,10 @@ function PlannerYearContent(): React.ReactElement {
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to move course";
         showToast(message, "warning");
-        setAllPlanners(originalPlanners);
-        setPlanner(originalPlanners.find((p) => p.schoolYear === year) || null);
       }
     },
     [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
   );
-
-  const handleDrop = useCallback(
-    async (plannedCourseId: number, targetSemester: number, targetSlot: number) => {
-      setDraggingId(null);
-      setDragOverSlot(null);
-      await handleMove(plannedCourseId, targetSemester, targetSlot);
-    },
-    [handleMove]
-  );
-
-  const getOccupiedSlots = (planned: PlannedCourse): number[] => {
-    const span = planned.slotSpan ?? 1;
-    return Array.from({ length: span }, (_, i) => planned.slot + i);
-  };
 
   const plannedBySlot = (semester: number, slot: number) =>
     planner?.plannedCourses.find(
@@ -770,17 +611,10 @@ function PlannerYearContent(): React.ReactElement {
             semester,
             year
           ).filter((w) => !ignoredWarnings.has(makeWarningKey(planned, w)))}
-          isDragging={draggingId === planned.id}
-          isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
           isHighlighted={highlightedPlannedCourseId === planned.id}
           onRemove={isCompleted ? undefined : () => handleRemoveCourse(planned)}
           onClick={() => handleCourseClick(planned)}
           onWarningClick={(w) => setSelectedWarning({ planned, warning: w })}
-          onDragStart={isCompleted ? undefined : () => setDraggingId(planned.id)}
-          onDragEnd={isCompleted ? undefined : () => setDraggingId(null)}
-          onDragOver={isCompleted ? undefined : () => setDragOverSlot({ semester, slot })}
-          onDragLeave={isCompleted ? undefined : () => setDragOverSlot(null)}
-          onDrop={isCompleted ? undefined : (id) => handleDrop(id, semester, slot)}
         />
       );
     }
@@ -820,10 +654,6 @@ function PlannerYearContent(): React.ReactElement {
         semester={semester}
         slot={slot}
         onClick={() => handleOpenModal(semester, slot)}
-        isDragOver={dragOverSlot?.semester === semester && dragOverSlot?.slot === slot}
-        onDragOver={() => setDragOverSlot({ semester, slot })}
-        onDragLeave={() => setDragOverSlot(null)}
-        onDrop={(id) => handleDrop(id, semester, slot)}
       />
     );
   };
@@ -859,16 +689,6 @@ function PlannerYearContent(): React.ReactElement {
           gap: 8px;
           min-height: 80px;
           cursor: pointer;
-          touch-action: none;
-          user-select: none;
-          -webkit-user-select: none;
-        }
-        .mob-course-card.dragging {
-          opacity: 0.5;
-        }
-        .mob-course-card.drop-target {
-          box-shadow: 0 0 0 2px rgba(236, 186, 43, 0.4);
-          transform: scale(1.02);
         }
         .mob-course-card.highlighted {
           box-shadow: 0 0 0 4px rgba(236, 186, 43, 0.6), 0 6px 16px rgba(0,0,0,0.15);
@@ -893,11 +713,6 @@ function PlannerYearContent(): React.ReactElement {
         .mob-add-btn:active {
           border-color: #6b7280;
           color: #d1d5db;
-        }
-        .mob-add-btn.drop-active {
-          border-color: var(--brand-accent);
-          color: var(--brand-accent);
-          background: rgba(201, 154, 44, 0.12);
         }
         .mob-fab {
           position: fixed;
@@ -928,22 +743,6 @@ function PlannerYearContent(): React.ReactElement {
           flex-direction: column;
           gap: 10px;
         }
-        .mob-semester-section[data-drop-active] {
-          background: rgba(201, 154, 44, 0.06);
-          border-radius: 12px;
-          padding: 8px;
-          margin: -8px;
-        }
-        .mob-ghost {
-          position: fixed;
-          pointer-events: none;
-          z-index: 100;
-          opacity: 0.9;
-          transform: translate(-50%, -50%) scale(1.05);
-          width: calc(100% - 48px);
-          max-width: 400px;
-          left: 50%;
-        }
         .mob-summary-toggle {
           width: 100%;
           padding: 14px 16px;
@@ -961,16 +760,6 @@ function PlannerYearContent(): React.ReactElement {
         }
         .mob-summary-toggle:active {
           background: #f3f4f6;
-        }
-        .mob-drop-zone {
-          min-height: 48px;
-          border: 2px dashed transparent;
-          border-radius: 12px;
-          transition: all 0.2s ease;
-        }
-        .mob-drop-zone.active {
-          border-color: var(--brand-accent);
-          background: rgba(201, 154, 44, 0.08);
         }
       `}</style>
 
@@ -1004,7 +793,6 @@ function PlannerYearContent(): React.ReactElement {
           resolutions={resolutions}
           allPlanners={allPlanners}
           onOpenModal={handleMobileOpenModal}
-          onDrop={handleDrop}
           onRemoveCourse={handleRemoveCourse}
           onCourseClick={handleCourseClick}
           onShowWarningAction={(planned, warning) => setSelectedWarning({ planned, warning })}
@@ -1478,36 +1266,15 @@ function AddCourseCard({
   semester,
   slot,
   onClick,
-  isDragOver,
-  onDragOver,
-  onDragLeave,
-  onDrop,
 }: {
   semester: number;
   slot: number;
   onClick: () => void;
-  isDragOver: boolean;
-  onDragOver: () => void;
-  onDragLeave: () => void;
-  onDrop: (plannedCourseId: number) => void;
 }): React.ReactElement {
   return (
     <button
       type="button"
       onClick={onClick}
-      onDragOver={(e) => {
-        e.preventDefault();
-        onDragOver();
-      }}
-      onDragLeave={(e) => {
-        e.preventDefault();
-        onDragLeave();
-      }}
-      onDrop={(e) => {
-        e.preventDefault();
-        const id = Number(e.dataTransfer.getData("plannedCourseId"));
-        if (id) onDrop(id);
-      }}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -1516,27 +1283,23 @@ function AddCourseCard({
         gap: "8px",
         padding: "20px",
         minHeight: "120px",
-        backgroundColor: isDragOver ? "rgba(201, 154, 44, 0.12)" : "#1f2937",
-        border: `2px dashed ${isDragOver ? "var(--brand-accent)" : "#4b5563"}`,
+        backgroundColor: "#1f2937",
+        border: "2px dashed #4b5563",
         borderRadius: "12px",
         cursor: "pointer",
-        color: isDragOver ? "var(--brand-accent)" : "#9ca3af",
+        color: "#9ca3af",
         transition: "all 0.2s ease",
         textAlign: "center",
       }}
       onMouseEnter={(e) => {
-        if (!isDragOver) {
-          e.currentTarget.style.borderColor = "#6b7280";
-          e.currentTarget.style.color = "#d1d5db";
-          e.currentTarget.style.transform = "translateY(-2px)";
-        }
+        e.currentTarget.style.borderColor = "#6b7280";
+        e.currentTarget.style.color = "#d1d5db";
+        e.currentTarget.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
-        if (!isDragOver) {
-          e.currentTarget.style.borderColor = "#4b5563";
-          e.currentTarget.style.color = "#9ca3af";
-          e.currentTarget.style.transform = "translateY(0)";
-        }
+        e.currentTarget.style.borderColor = "#4b5563";
+        e.currentTarget.style.color = "#9ca3af";
+        e.currentTarget.style.transform = "translateY(0)";
       }}
     >
       <div
@@ -1564,36 +1327,21 @@ function AddCourseCard({
 function PlannedCourseCard({
   planned,
   warnings,
-  isDragging,
-  isDragOver,
   isHighlighted,
   onRemove,
   onClick,
   onWarningClick,
-  onDragStart,
-  onDragEnd,
-  onDragOver,
-  onDragLeave,
-  onDrop,
 }: {
   planned: PlannedCourse;
   warnings: PlannerWarning[];
-  isDragging: boolean;
-  isDragOver: boolean;
   isHighlighted: boolean;
   onRemove?: () => void;
   onClick: () => void;
   onWarningClick: (warning: PlannerWarning) => void;
-  onDragStart?: () => void;
-  onDragEnd?: () => void;
-  onDragOver?: () => void;
-  onDragLeave?: () => void;
-  onDrop?: (plannedCourseId: number) => void;
 }): React.ReactElement {
   const { course } = planned;
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
-  const dragStarted = useRef(false);
   const isLinkedBlock = isLinkedMultiSlotCourse(planned);
   const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
   const slotLabel = isLinkedBlock || visualSpan > 1
@@ -1603,42 +1351,10 @@ function PlannedCourseCard({
 
   return (
     <div
-      draggable={!isReadOnly}
-      onClick={() => {
-        if (dragStarted.current) {
-          dragStarted.current = false;
-          return;
-        }
-        onClick();
-      }}
-      onDragStart={onDragStart ? (e) => {
-        e.dataTransfer.setData("plannedCourseId", String(planned.id));
-        dragStarted.current = true;
-        onDragStart();
-      } : undefined}
-      onDragEnd={onDragEnd ? () => {
-        window.setTimeout(() => {
-          dragStarted.current = false;
-        }, 0);
-        onDragEnd();
-      } : undefined}
-      onDragOver={onDragOver ? (e) => {
-        e.preventDefault();
-        onDragOver();
-      } : undefined}
-      onDragLeave={onDragLeave ? (e) => {
-        e.preventDefault();
-        onDragLeave();
-      } : undefined}
-      onDrop={onDrop ? (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const id = Number(e.dataTransfer.getData("plannedCourseId"));
-        if (id && id !== planned.id) onDrop(id);
-      } : undefined}
+      onClick={() => onClick()}
       style={{
         padding: "16px",
-        backgroundColor: isDragOver ? "rgba(201, 154, 44, 0.12)" : bgTint,
+        backgroundColor: bgTint,
         borderTopWidth: "1px",
         borderRightWidth: "1px",
         borderBottomWidth: "1px",
@@ -1647,37 +1363,30 @@ function PlannedCourseCard({
         borderRightStyle: "solid",
         borderBottomStyle: "solid",
         borderLeftStyle: "solid",
-        borderTopColor: isDragOver ? "var(--brand-accent)" : accentColor,
-        borderRightColor: isDragOver ? "var(--brand-accent)" : accentColor,
-        borderBottomColor: isDragOver ? "var(--brand-accent)" : accentColor,
-        borderLeftColor: isDragOver ? "var(--brand-accent)" : accentColor,
+        borderTopColor: accentColor,
+        borderRightColor: accentColor,
+        borderBottomColor: accentColor,
+        borderLeftColor: accentColor,
         borderRadius: "12px",
         display: "flex",
         flexDirection: "column",
         gap: "8px",
         minHeight: "120px",
-        cursor: isReadOnly ? "default" : "move",
-        opacity: isDragging ? 0.5 : 1,
-        transition: "transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease",
-        transform: isDragOver ? "scale(1.02)" : isHighlighted ? "scale(1.03)" : "scale(1)",
-        boxShadow: isDragOver
-          ? "0 0 0 2px rgba(236, 186, 43, 0.4)"
-          : isHighlighted
+        cursor: isReadOnly ? "default" : "pointer",
+        transition: "transform 0.15s ease, box-shadow 0.15s ease",
+        transform: isHighlighted ? "scale(1.03)" : "scale(1)",
+        boxShadow: isHighlighted
           ? "0 0 0 4px rgba(236, 186, 43, 0.6), 0 6px 16px rgba(0,0,0,0.15)"
           : "none",
         position: "relative",
       }}
       onMouseEnter={(e) => {
-        if (!isDragOver) {
-          e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.2)";
-        }
+        e.currentTarget.style.transform = "translateY(-2px)";
+        e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.2)";
       }}
       onMouseLeave={(e) => {
-        if (!isDragOver) {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "none";
-        }
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "none";
       }}
     >
       <div
@@ -2447,7 +2156,6 @@ function MobilePlanner({
   resolutions,
   allPlanners,
   onOpenModal,
-  onDrop,
   onRemoveCourse,
   onCourseClick,
   onShowWarningAction,
@@ -2463,24 +2171,13 @@ function MobilePlanner({
   resolutions: RequirementResolution[];
   allPlanners: Planner[];
   onOpenModal: (semester: number) => void;
-  onDrop: (plannedCourseId: number, semester: number, slot: number) => void;
   onRemoveCourse: (planned: PlannedCourse) => void;
   onCourseClick: (planned: PlannedCourse) => void;
   onShowWarningAction: (planned: PlannedCourse, warning: PlannerWarning) => void;
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
   onRemoveResolution: (id: number) => void;
 }): React.ReactElement {
-  const [touchDrag, setTouchDrag] = useState<{
-    plannedCourseId: number;
-    startY: number;
-    currentY: number;
-    isDragging: boolean;
-    card: PlannedCourse;
-  } | null>(null);
-  const [touchDropSemester, setTouchDropSemester] = useState<number | null>(null);
   const [showSummary, setShowSummary] = useState(false);
-  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const longPressTriggered = useRef(false);
 
   const currentPlanner = allPlanners.find((p) => p.schoolYear === year);
   const totalCredits = sumPlannedCredits(allPlanners.flatMap((p) => p.plannedCourses));
@@ -2493,103 +2190,11 @@ function MobilePlanner({
     return [s1, s2];
   }, [planner]);
 
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent, planned: PlannedCourse) => {
-      if (isCompleted) return;
-      if ((planned.slotSpan ?? 1) > 1 && !isLinkedMultiSlotCourse(planned)) return;
-      if (planned.plannerId !== planner.id) return;
-      const touch = e.touches[0];
-      longPressTriggered.current = false;
-      longPressTimer.current = setTimeout(() => {
-        longPressTriggered.current = true;
-        setTouchDrag({
-          plannedCourseId: planned.id,
-          startY: touch.clientY,
-          currentY: touch.clientY,
-          isDragging: false,
-          card: planned,
-        });
-      }, 200);
-    },
-    [planner.id]
-  );
-
-  const handleTouchMove = useCallback(
-    (e: React.TouchEvent) => {
-      if (!touchDrag) {
-        if (longPressTimer.current) {
-          clearTimeout(longPressTimer.current);
-          longPressTimer.current = null;
-        }
-        return;
-      }
-      e.preventDefault();
-      const touch = e.touches[0];
-      const moved = Math.abs(touch.clientY - touchDrag.startY) > 15;
-      if (moved || touchDrag.isDragging) {
-        setTouchDrag((prev) =>
-          prev ? { ...prev, currentY: touch.clientY, isDragging: prev.isDragging || moved } : prev
-        );
-      }
-      const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      if (el) {
-        const dropTarget = (el as HTMLElement).closest("[data-semester-drop]");
-        if (dropTarget) {
-          const semester = Number(dropTarget.getAttribute("data-semester-drop"));
-          setTouchDropSemester(semester);
-        } else {
-          setTouchDropSemester(null);
-        }
-      }
-    },
-    [touchDrag]
-  );
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (longPressTimer.current) {
-        clearTimeout(longPressTimer.current);
-        longPressTimer.current = null;
-      }
-      if (!touchDrag || !touchDrag.isDragging) {
-        if (longPressTriggered.current) {
-          longPressTriggered.current = false;
-        }
-        setTouchDrag(null);
-        setTouchDropSemester(null);
-        return;
-      }
-      e.preventDefault();
-      const touch = e.changedTouches[0];
-      const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      if (el) {
-        const dropTarget = (el as HTMLElement).closest("[data-semester-drop]");
-        if (dropTarget) {
-          const semester = Number(dropTarget.getAttribute("data-semester-drop"));
-          const occupiedSlots = new Set<number>();
-          for (const pc of planner.plannedCourses.filter((pc) => pc.semester === semester)) {
-            const span = pc.slotSpan ?? 1;
-            for (let i = 0; i < span; i++) occupiedSlots.add(pc.slot + i);
-          }
-          const slot = [1, 2, 3, 4, 5, 6, 7].find((s) => !occupiedSlots.has(s)) ?? 7;
-          onDrop(touchDrag.plannedCourseId, semester, slot);
-        }
-      }
-      setTouchDrag(null);
-      setTouchDropSemester(null);
-    },
-    [touchDrag, planner, onDrop]
-  );
-
-  const isDragging =
-    touchDrag !== null && touchDrag.isDragging;
-
   const renderCourseCard = (planned: PlannedCourse, semesterIdx: number) => {
     const warnings = warningsByCourse.get(planned.id) ?? [];
     const isHighlighted = highlightedPlannedCourseId === planned.id;
     const accentColor = getDivisionColor(planned.course.division);
     const bgTint = getDivisionBackgroundColor(planned.course.division);
-    const isCurrentlyDragging = touchDrag?.plannedCourseId === planned.id;
 
     const isMultiSlot = (planned.slotSpan ?? 1) > 1 || isLinkedMultiSlotCourse(planned);
     const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
@@ -2601,22 +2206,13 @@ function MobilePlanner({
     return (
       <div
         key={planned.id}
-        className={`mob-course-card ${isCurrentlyDragging ? "dragging" : ""} ${isHighlighted ? "highlighted" : ""}`}
+        className={`mob-course-card ${isHighlighted ? "highlighted" : ""}`}
         style={{
           backgroundColor: bgTint,
           borderLeftColor: accentColor,
           border: isHighlighted ? `2px solid rgba(236, 186, 43, 0.6)` : undefined,
         }}
-        onTouchStart={(e) => handleTouchStart(e, planned)}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onClick={() => {
-          if (longPressTriggered.current) {
-            longPressTriggered.current = false;
-            return;
-          }
-          onCourseClick(planned);
-        }}
+        onClick={() => onCourseClick(planned)}
       >
         <div
           style={{
@@ -2718,18 +2314,7 @@ function MobilePlanner({
   const renderSemester = (semester: number, semesterIdx: number) => {
     const courses = sortedCourses[semesterIdx];
     return (
-      <div
-        key={semester}
-        data-semester-drop={semester}
-        className={`mob-semester-section ${touchDropSemester === semester ? "mob-drop-zone active" : ""}`}
-        style={{
-          background: touchDropSemester === semester ? "rgba(201, 154, 44, 0.06)" : "transparent",
-          borderRadius: touchDropSemester === semester ? "12px" : undefined,
-          padding: touchDropSemester === semester ? "8px" : undefined,
-          margin: touchDropSemester === semester ? "-8px" : undefined,
-          transition: "all 0.2s ease",
-        }}
-      >
+      <div key={semester} className="mob-semester-section">
         <div className="mob-planner-semester">
           <h2>Semester {semester}</h2>
         </div>
@@ -2794,31 +2379,6 @@ function MobilePlanner({
         >
           +
         </button>
-      )}
-
-      {isDragging && touchDrag && (
-        <div
-          className="mob-ghost"
-          style={{
-            top: touchDrag.currentY,
-            backgroundColor: getDivisionBackgroundColor(touchDrag.card.course.division),
-            borderLeft: `4px solid ${getDivisionColor(touchDrag.card.course.division)}`,
-            borderRadius: "12px",
-            padding: "16px",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
-          }}
-        >
-          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.02em", marginBottom: "4px" }}>
-            Slot {touchDrag.card.slot}
-          </div>
-          <div style={{ fontSize: "16px", fontWeight: 600, color: "#111827" }}>
-            {touchDrag.card.course.title}
-          </div>
-          <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>
-            {touchDrag.card.course.credits != null ? `${touchDrag.card.course.credits} credits` : ""}
-            {touchDrag.card.course.creditType ? ` · ${formatCreditType(touchDrag.card.course.creditType)}` : ""}
-          </div>
-        </div>
       )}
     </>
   );

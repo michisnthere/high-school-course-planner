@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType } from "@/lib/catalog";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
+import { breakpoints } from "@/lib/responsive";
 
 type SavedCoursesContentProps = {
   courses: Course[];
@@ -79,12 +80,114 @@ const signInButtonStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
+const selectStyle: React.CSSProperties = {
+  padding: "10px 14px",
+  fontSize: "14px",
+  color: "var(--text-primary)",
+  backgroundColor: "var(--bg-input)",
+  border: "1px solid var(--border-default)",
+  borderRadius: "8px",
+  cursor: "pointer",
+  outline: "none",
+  minWidth: "200px",
+};
+
+const SORT_OPTIONS = [
+  "Recently Saved",
+  "Alphabetical (A–Z)",
+  "Department",
+  "Grade Availability",
+];
+
+function getCourseCode(course: Course): string | null {
+  const codes = course.options?.flatMap(
+    (option) => option.offerings?.map((o) => o.courseCode) ?? []
+  ) ?? [];
+  const valid = codes.filter((c): c is string => typeof c === "string" && c.length > 0);
+  return valid.length > 0 ? valid.sort()[0] : null;
+}
+
+function getMinGrade(course: Course): number {
+  let min = Infinity;
+  for (const option of course.options ?? []) {
+    for (const offering of option.offerings ?? []) {
+      if (offering.gradeMin != null && offering.gradeMin < min) min = offering.gradeMin;
+    }
+  }
+  return Number.isFinite(min) ? min : 9;
+}
+
 export function SavedCoursesContent({
   courses,
 }: SavedCoursesContentProps): React.ReactElement {
   const { savedIds, loading, isAuthenticated, toggle } = useSavedCourses();
+  const [query, setQuery] = useState("");
+  const [department, setDepartment] = useState("All Departments");
+  const [sort, setSort] = useState("Recently Saved");
 
-  const savedCourses = courses.filter((course) => savedIds.includes(course.id));
+  const courseMap = useMemo(() => {
+    const map = new Map<number, Course>();
+    for (const course of courses) {
+      map.set(course.id, course);
+    }
+    return map;
+  }, [courses]);
+
+  const savedCourses = useMemo(() => {
+    return savedIds.map((id) => courseMap.get(id)).filter((c): c is Course => c != null);
+  }, [savedIds, courseMap]);
+
+  const departments = useMemo(() => {
+    const depts = new Set<string>();
+    for (const course of savedCourses) {
+      if (course.department?.name) depts.add(course.department.name);
+    }
+    return Array.from(depts).sort();
+  }, [savedCourses]);
+
+  const filtered = useMemo(() => {
+    let results = savedCourses;
+
+    if (department !== "All Departments") {
+      results = results.filter((c) => c.department?.name === department);
+    }
+
+    if (query.trim()) {
+      const q = query.toLowerCase().trim();
+      results = results.filter((c) => {
+        const code = getCourseCode(c);
+        return c.title.toLowerCase().includes(q) || (code != null && code.toLowerCase().includes(q));
+      });
+    }
+
+    const sorted = [...results];
+    switch (sort) {
+      case "Alphabetical (A–Z)":
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "Department":
+        sorted.sort((a, b) => {
+          const deptA = a.department?.name ?? "";
+          const deptB = b.department?.name ?? "";
+          if (deptA !== deptB) return deptA.localeCompare(deptB);
+          return a.title.localeCompare(b.title);
+        });
+        break;
+      case "Grade Availability":
+        sorted.sort((a, b) => {
+          const gradeA = getMinGrade(a);
+          const gradeB = getMinGrade(b);
+          if (gradeA !== gradeB) return gradeA - gradeB;
+          return a.title.localeCompare(b.title);
+        });
+        break;
+      case "Recently Saved":
+      default:
+        break;
+    }
+
+    return sorted;
+  }, [savedCourses, department, query, sort]);
 
   if (!isAuthenticated) {
     return (
@@ -95,16 +198,16 @@ export function SavedCoursesContent({
           borderRadius: "12px",
         }}
       >
-          <h2
-            style={{
-              margin: "0 0 8px",
-              fontSize: "20px",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-            }}
-          >
-            Sign in to save courses for later.
-          </h2>
+        <h2
+          style={{
+            margin: "0 0 8px",
+            fontSize: "20px",
+            fontWeight: 700,
+            color: "var(--text-primary)",
+          }}
+        >
+          Sign in to save courses for later.
+        </h2>
         <p
           style={{
             margin: "0 0 16px",
@@ -151,53 +254,161 @@ export function SavedCoursesContent({
   }
 
   return (
-    <div
-      className="rs-saved-grid"
-      style={{
-        display: "grid",
-        gap: "24px",
-        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-      }}
-    >
-      {savedCourses.map((course) => {
-        const slug = getCourseSlug(course);
-        const creditType = course.options?.[0]?.creditType ?? null;
+    <>
+      <style>{`
+        .sc-toolbar {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 24px;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+        .sc-search {
+          flex: 1;
+          min-width: 200px;
+          padding: 10px 14px;
+          font-size: 14px;
+          color: var(--text-primary);
+          background-color: var(--bg-input);
+          border: 1px solid var(--border-default);
+          border-radius: 8px;
+          outline: none;
+          box-sizing: border-box;
+        }
+        .sc-search::placeholder {
+          color: var(--text-muted);
+        }
+        @media (max-width: ${breakpoints.mobile - 1}px) {
+          .sc-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .sc-search {
+            min-width: 0;
+          }
+          .sc-select {
+            width: 100%;
+          }
+        }
+      `}</style>
 
-        return (
-          <div key={slug} style={cardStyle}>
-            <Link href={`/catalog/${slug}`} style={{ textDecoration: "none" }}>
-              <h3 style={titleStyle}>{course.title}</h3>
-            </Link>
+      <div className="sc-toolbar">
+        <input
+          type="text"
+          className="sc-search"
+          placeholder="Search by title or course code..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <select
+          className="sc-select"
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+          style={selectStyle}
+          aria-label="Filter by department"
+        >
+          <option value="All Departments">All Departments</option>
+          {departments.map((dept) => (
+            <option key={dept} value={dept}>{dept}</option>
+          ))}
+        </select>
+        <select
+          className="sc-select"
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          style={selectStyle}
+          aria-label="Sort by"
+        >
+          {SORT_OPTIONS.map((opt) => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+      </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "8px",
-                marginBottom: "16px",
-              }}
-            >
-              {course.department?.name && (
-                <span style={badgeStyle}>{course.department.name}</span>
-              )}
-              {creditType && <span style={badgeStyle}>{formatCreditType(creditType)}</span>}
-            </div>
+      {filtered.length === 0 ? (
+        <div
+          style={{
+            padding: "40px 24px",
+            textAlign: "center",
+            backgroundColor: "var(--bg-card)",
+            borderRadius: "12px",
+            border: "1px solid var(--border-default)",
+          }}
+        >
+          <p
+            style={{
+              margin: "0 0 8px",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "var(--text-primary)",
+            }}
+          >
+            No matches found
+          </p>
+          <p
+            style={{
+              margin: 0,
+              fontSize: "14px",
+              color: "var(--text-muted)",
+            }}
+          >
+            {query.trim() && department !== "All Departments"
+              ? "Try adjusting your search or department filter."
+              : query.trim()
+              ? "Try a different search term."
+              : "Try selecting a different department."}
+          </p>
+        </div>
+      ) : (
+        <div
+          className="rs-saved-grid"
+          style={{
+            display: "grid",
+            gap: "24px",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          }}
+        >
+          {filtered.map((course) => {
+            const slug = getCourseSlug(course);
+            const creditType = course.options?.[0]?.creditType ?? null;
 
-            <div style={{ display: "flex", gap: "12px" }}>
-              <Link href={`/catalog/${slug}`} style={viewLinkStyle}>
-                View Course
-              </Link>
-              <button
-                type="button"
-                onClick={() => toggle(course.id)}
-                style={removeButtonStyle}
-              >
-                Remove
-              </button>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+            return (
+              <div key={slug} style={cardStyle}>
+                <Link href={`/catalog/${slug}`} style={{ textDecoration: "none" }}>
+                  <h3 style={titleStyle}>{course.title}</h3>
+                </Link>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "8px",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {course.department?.name && (
+                    <span style={badgeStyle}>{course.department.name}</span>
+                  )}
+                  {creditType && <span style={badgeStyle}>{formatCreditType(creditType)}</span>}
+                </div>
+
+                <div style={{ display: "flex", gap: "12px" }}>
+                  <Link href={`/catalog/${slug}`} style={viewLinkStyle}>
+                    View Course
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => toggle(course.id)}
+                    style={removeButtonStyle}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 }
