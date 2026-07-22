@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType } from "@/lib/catalog";
@@ -121,9 +122,36 @@ export function SavedCoursesContent({
   courses,
 }: SavedCoursesContentProps): React.ReactElement {
   const { savedIds, loading, isAuthenticated, toggle } = useSavedCourses();
-  const [query, setQuery] = useState("");
-  const [department, setDepartment] = useState("All Departments");
-  const [sort, setSort] = useState("Recently Saved");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
+  const [department, setDepartment] = useState(() => searchParams.get("dept") ?? "All Departments");
+  const [sort, setSort] = useState(() => searchParams.get("sort") ?? "Recently Saved");
+
+  const syncUrl = useCallback((q: string, dept: string, s: string) => {
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    if (dept && dept !== "All Departments") params.set("dept", dept);
+    if (s && s !== "Recently Saved") params.set("sort", s);
+    const str = params.toString();
+    router.replace(`/saved${str ? `?${str}` : ""}`, { scroll: false });
+  }, [router]);
+
+  const handleQueryChange = useCallback((value: string) => {
+    setQuery(value);
+    syncUrl(value, department, sort);
+  }, [syncUrl, department, sort]);
+
+  const handleDepartmentChange = useCallback((value: string) => {
+    setDepartment(value);
+    syncUrl(query, value, sort);
+  }, [syncUrl, query, sort]);
+
+  const handleSortChange = useCallback((value: string) => {
+    setSort(value);
+    syncUrl(query, department, value);
+  }, [syncUrl, query, department]);
 
   const courseMap = useMemo(() => {
     const map = new Map<number, Course>();
@@ -298,12 +326,12 @@ export function SavedCoursesContent({
           className="sc-search"
           placeholder="Search by title or course code..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => handleQueryChange(e.target.value)}
         />
         <select
           className="sc-select"
           value={department}
-          onChange={(e) => setDepartment(e.target.value)}
+          onChange={(e) => handleDepartmentChange(e.target.value)}
           style={selectStyle}
           aria-label="Filter by department"
         >
@@ -315,7 +343,7 @@ export function SavedCoursesContent({
         <select
           className="sc-select"
           value={sort}
-          onChange={(e) => setSort(e.target.value)}
+          onChange={(e) => handleSortChange(e.target.value)}
           style={selectStyle}
           aria-label="Sort by"
         >
@@ -371,10 +399,16 @@ export function SavedCoursesContent({
           {filtered.map((course) => {
             const slug = getCourseSlug(course);
             const creditType = course.options?.[0]?.creditType ?? null;
+            const returnParams = new URLSearchParams();
+            if (query) returnParams.set("q", query);
+            if (department !== "All Departments") returnParams.set("dept", department);
+            if (sort !== "Recently Saved") returnParams.set("sort", sort);
+            const returnStr = returnParams.toString();
+            const courseUrl = `/catalog/${slug}?return=${encodeURIComponent(`/saved${returnStr ? `?${returnStr}` : ""}`)}`;
 
             return (
               <div key={slug} style={cardStyle}>
-                <Link href={`/catalog/${slug}`} style={{ textDecoration: "none" }}>
+                <Link href={courseUrl} style={{ textDecoration: "none" }}>
                   <h3 style={titleStyle}>{course.title}</h3>
                 </Link>
 
@@ -393,7 +427,7 @@ export function SavedCoursesContent({
                 </div>
 
                 <div style={{ display: "flex", gap: "12px" }}>
-                  <Link href={`/catalog/${slug}`} style={viewLinkStyle}>
+                  <Link href={courseUrl} style={viewLinkStyle}>
                     View Course
                   </Link>
                   <button

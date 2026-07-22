@@ -125,18 +125,31 @@ export function YearOverviewCard({
         </h2>
         <div className="yoc-header-actions">
           <span style={badgeStyle}>{badgeLabel}</span>
-          <Link
-            href={`/planner/${planner.schoolYear}`}
-            style={{
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "var(--brand-accent)",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Edit Planner →
-          </Link>
+          {isCompleted ? (
+            <span
+              style={{
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#166534",
+                whiteSpace: "nowrap",
+              }}
+            >
+              ✓ Completed – Editing Disabled
+            </span>
+          ) : (
+            <Link
+              href={`/planner/${planner.schoolYear}`}
+              style={{
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "var(--brand-accent)",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Edit Planner →
+            </Link>
+          )}
         </div>
       </div>
 
@@ -302,7 +315,7 @@ function SemesterBlock({
   courses,
 }: {
   semester: number;
-  courses: { slot: number; course: { title: string } }[];
+  courses: { slot: number; course: { title: string; courseCode: string | null } }[];
 }): React.ReactElement {
   const filledSlots = new Set(courses.map((c) => c.slot));
   const allSlots = Array.from({ length: 7 }, (_, i) => i + 1);
@@ -342,7 +355,18 @@ function SemesterBlock({
                 border: course ? "none" : "1px dashed var(--border-default)",
               }}
             >
-              {course ? course.course.title : "Empty"}
+              {course ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                  {course.course.courseCode && (
+                    <span style={{ fontSize: "11px", color: "var(--text-muted)", lineHeight: 1.2 }}>
+                      {course.course.courseCode}
+                    </span>
+                  )}
+                  <span style={{ lineHeight: 1.3 }}>{course.course.title}</span>
+                </div>
+              ) : (
+                "Empty"
+              )}
             </div>
           );
         })}
