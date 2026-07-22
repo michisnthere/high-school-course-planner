@@ -30,6 +30,8 @@ export type CourseDetails = {
   fulfillsRequirements: string[];
   prerequisites: string[];
   courseCode: string | null;
+  courseCodeS1: string | null;
+  courseCodeS2: string | null;
   gradeMin: number | null;
   gradeMax: number | null;
   isNonAcademic: boolean;
@@ -64,6 +66,7 @@ export function deriveCourseDetails(
       offerings?: Array<{
         duration?: string | number | null;
         courseCode?: string | null;
+        semesterLabel?: string | null;
         prerequisites?: unknown;
         gradeMin?: number | null;
         gradeMax?: number | null;
@@ -86,11 +89,23 @@ export function deriveCourseDetails(
   }
 
   let courseCode: string | null = null;
+  let courseCodeS1: string | null = null;
+  let courseCodeS2: string | null = null;
   let gradeMin: number | null = null;
   let gradeMax: number | null = null;
   for (const offering of offerings) {
-    if (typeof offering.courseCode === "string" && offering.courseCode && !courseCode) {
-      courseCode = offering.courseCode;
+    if (typeof offering.courseCode === "string" && offering.courseCode) {
+      if (!courseCode) courseCode = offering.courseCode;
+      const sem = offering.semesterLabel ?? "";
+      if (sem.startsWith("S1") || sem === "1" || sem.toLowerCase().includes("semester 1")) {
+        if (!courseCodeS1) courseCodeS1 = offering.courseCode;
+      } else if (sem.startsWith("S2") || sem === "2" || sem.toLowerCase().includes("semester 2")) {
+        if (!courseCodeS2) courseCodeS2 = offering.courseCode;
+      } else if (!courseCodeS1) {
+        courseCodeS1 = offering.courseCode;
+      } else if (!courseCodeS2) {
+        courseCodeS2 = offering.courseCode;
+      }
     }
     if (offering.gradeMin != null && (gradeMin === null || offering.gradeMin < gradeMin)) {
       gradeMin = offering.gradeMin;
@@ -114,6 +129,8 @@ export function deriveCourseDetails(
     fulfillsRequirements: Array.isArray(course.fulfillsRequirements) ? normalizeRequirementNames(course.fulfillsRequirements.filter((r): r is string => typeof r === "string")) : [],
     prerequisites: Array.from(prerequisites),
     courseCode,
+    courseCodeS1,
+    courseCodeS2,
     gradeMin,
     gradeMax,
     isNonAcademic: false,
@@ -136,6 +153,8 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     fulfillsRequirements: [],
     prerequisites: [],
     courseCode: null,
+    courseCodeS1: null,
+    courseCodeS2: null,
     gradeMin: null,
     gradeMax: null,
     isNonAcademic: option.isNonAcademic ?? false,
