@@ -90,6 +90,10 @@ function PlannerContent(): React.ReactElement {
 
   async function handleConfirmMarkCompleted() {
     if (!confirmPlanner) return;
+    if (confirmPlanner.completedAt != null) {
+      setConfirmPlanner(null);
+      return;
+    }
     setMarkingPlannerId(confirmPlanner.id);
     try {
       const updated = await services.planner.markYearCompleted(confirmPlanner.id);
@@ -124,6 +128,10 @@ function PlannerContent(): React.ReactElement {
 
   async function handleConfirmMarkActive() {
     if (!confirmActivePlanner) return;
+    if (confirmActivePlanner.completedAt == null) {
+      setConfirmActivePlanner(null);
+      return;
+    }
     setMarkingPlannerId(confirmActivePlanner.id);
     try {
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
