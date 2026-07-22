@@ -250,14 +250,25 @@ export function createGuestPlannerService(): IPlannerService {
     },
 
     async unmarkYearCompleted(plannerId: number) {
+      console.log("[guest unmarkYearCompleted] called with id", plannerId);
       const planner = planners.find((p) => p.id === plannerId);
-      if (!planner) throw new Error("Planner not found");
+      console.log("[guest unmarkYearCompleted] found planner:", planner);
+      if (!planner) {
+        console.log("[guest unmarkYearCompleted] planner not found, throwing");
+        throw new Error("Planner not found");
+      }
+      console.log("[guest unmarkYearCompleted] completedAt check:", planner.completedAt);
       if (planner.completedAt == null) {
+        console.log("[guest unmarkYearCompleted] already not completed, throwing");
         throw new Error("This year is not marked as completed.");
       }
+      console.log("[guest unmarkYearCompleted] setting completedAt to null");
       planner.completedAt = null;
+      console.log("[guest unmarkYearCompleted] saving");
       save();
-      return clonePlanner(planner);
+      const result = clonePlanner(planner);
+      console.log("[guest unmarkYearCompleted] returning clone:", result);
+      return result;
     },
   };
 }
