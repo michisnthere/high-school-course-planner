@@ -91,23 +91,6 @@ function replacePlannerInList(planners: Planner[], updated: Planner): Planner[] 
   return planners.map((p) => (p.id === updated.id ? updated : p));
 }
 
-function isLinkedMultiSlotCourse(planned: PlannedCourse): boolean {
-  return planned.course.duration === 2 && (planned.course.slotsPerSemester ?? 1) > 1;
-}
-
-function getLinkedCourseEntries(courses: PlannedCourse[], planned: PlannedCourse): PlannedCourse[] {
-  if (!isLinkedMultiSlotCourse(planned) || planned.courseId == null) return [planned];
-  return courses.filter((pc) => pc.courseId === planned.courseId);
-}
-
-function isPrimaryLinkedEntry(courses: PlannedCourse[], planned: PlannedCourse): boolean {
-  if (!isLinkedMultiSlotCourse(planned)) return true;
-  const semesterEntries = getLinkedCourseEntries(courses, planned).filter(
-    (pc) => pc.semester === planned.semester
-  );
-  return planned.slot === Math.min(...semesterEntries.map((pc) => pc.slot));
-}
-
 function buildAddCourseUndo(
   beforePlanners: Planner[],
   afterPlanner: Planner,
@@ -540,19 +523,6 @@ function PlannerYearContent(): React.ReactElement {
       (course) => course.semester === semester && course.slot <= slot && slot < course.slot + (course.slotSpan ?? 1)
     );
 
-  const MUTLI_SLOT_PLACEHOLDER_STYLE: React.CSSProperties = {
-    height: "100px",
-    background: "linear-gradient(135deg, rgba(39, 93, 56, 0.04) 0%, rgba(39, 93, 56, 0.02) 100%)",
-    borderRadius: "8px",
-    border: "1px dashed rgba(39, 93, 56, 0.12)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "12px",
-    color: "var(--text-tertiary, #999)",
-    cursor: "default",
-  };
-
   const { isMobile } = useBreakpoint();
 
   const warningsByCourse = useMemo(() => {
@@ -581,81 +551,57 @@ function PlannerYearContent(): React.ReactElement {
 
   const isCompleted = planner?.completedAt != null;
 
-  const renderSlot = (semester: number, slot: number) => {
-    const planned = plannedBySlot(semester, slot);
-
-    if (planned) {
-      if (!isPrimaryLinkedEntry(planner?.plannedCourses ?? [], planned)) {
-        return (
-          <div key={`${semester}-${slot}`} style={MUTLI_SLOT_PLACEHOLDER_STYLE}>
-            {planned.course.title} (linked)
+  const buildSemesterGrid = (semester: number) => {
+    const items: React.ReactElement[] = [];
+    const renderedCourseIds = new Set<number>();
+    let slot = 1;
+    while (slot <= 7) {
+      const course = plannedBySlot(semester, slot);
+      if (course && course.courseId != null && renderedCourseIds.has(course.courseId)) {
+        const span = Math.max(course.slotSpan ?? 1, course.course.slotsPerSemester ?? 1);
+        slot = Math.max(slot + 1, course.slot + span);
+      } else if (course && course.slot === slot && course.semester === semester) {
+        const span = Math.max(course.slotSpan ?? 1, course.course.slotsPerSemester ?? 1);
+        if (course.courseId != null) renderedCourseIds.add(course.courseId);
+        items.push(
+          <div key={`course-${course.id}`} style={{ gridRow: `${slot} / span ${span}` }}>
+            <PlannedCourseCard
+              planned={course}
+              warnings={getWarnings(
+                course,
+                allPlanners,
+                completedCourses,
+                allCatalogCourses,
+                semester,
+                year
+              ).filter((w) => !ignoredWarnings.has(makeWarningKey(course, w)))}
+              isHighlighted={highlightedPlannedCourseId === course.id}
+              onRemove={isCompleted ? undefined : () => handleRemoveCourse(course)}
+              onClick={() => handleCourseClick(course)}
+              onWarningClick={(w) => setSelectedWarning({ planned: course, warning: w })}
+            />
           </div>
         );
+        slot += span;
+      } else {
+        if (isCompleted) {
+          items.push(
+            <div key={`completed-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1`, padding: "20px", minHeight: "120px", backgroundColor: "#1f2937", border: "1px dashed #4b5563", borderRadius: "12px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px", color: "#6b7280", fontSize: "14px", textAlign: "center", opacity: 0.6 }}>
+              <div style={{ fontSize: "13px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.02em" }}>Slot {slot}</div>
+              <div>Empty - editing disabled</div>
+            </div>
+          );
+        } else {
+          items.push(
+            <div key={`empty-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1` }}>
+              <AddCourseCard semester={semester} slot={slot} onClick={() => handleOpenModal(semester, slot)} />
+            </div>
+          );
+        }
+        slot++;
       }
-      if ((planned.slotSpan ?? 1) > 1 && planned.slot !== slot) {
-        return (
-          <div key={`${semester}-${slot}`} style={MUTLI_SLOT_PLACEHOLDER_STYLE}>
-            {planned.course.title} (cont.)
-          </div>
-        );
-      }
-      return (
-        <PlannedCourseCard
-          key={`${semester}-${slot}`}
-          planned={planned}
-          warnings={getWarnings(
-            planned,
-            allPlanners,
-            completedCourses,
-            allCatalogCourses,
-            semester,
-            year
-          ).filter((w) => !ignoredWarnings.has(makeWarningKey(planned, w)))}
-          isHighlighted={highlightedPlannedCourseId === planned.id}
-          onRemove={isCompleted ? undefined : () => handleRemoveCourse(planned)}
-          onClick={() => handleCourseClick(planned)}
-          onWarningClick={(w) => setSelectedWarning({ planned, warning: w })}
-        />
-      );
     }
-
-    if (isCompleted) {
-      return (
-        <div
-          key={`${semester}-${slot}`}
-          style={{
-            padding: "20px",
-            minHeight: "120px",
-            backgroundColor: "#1f2937",
-            border: "1px dashed #4b5563",
-            borderRadius: "12px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            color: "#6b7280",
-            fontSize: "14px",
-            textAlign: "center",
-            opacity: 0.6,
-          }}
-        >
-          <div style={{ fontSize: "13px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.02em" }}>
-            Slot {slot}
-          </div>
-          <div>Empty - editing disabled</div>
-        </div>
-      );
-    }
-
-    return (
-      <AddCourseCard
-        key={`${semester}-${slot}`}
-        semester={semester}
-        slot={slot}
-        onClick={() => handleOpenModal(semester, slot)}
-      />
-    );
+    return items;
   };
 
   const mobileContent = planner && (
@@ -992,13 +938,13 @@ function PlannerYearContent(): React.ReactElement {
                   </h2>
                   <div
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
+                      display: "grid",
+                      gridTemplateRows: "repeat(7, minmax(120px, auto))",
                       gap: "12px",
                       flex: 1,
                     }}
                   >
-                    {Array.from({ length: 7 }, (_, i) => renderSlot(semester, i + 1))}
+                    {buildSemesterGrid(semester)}
                   </div>
                 </section>
               ))}
@@ -1342,9 +1288,8 @@ function PlannedCourseCard({
   const { course } = planned;
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
-  const isLinkedBlock = isLinkedMultiSlotCourse(planned);
   const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
-  const slotLabel = isLinkedBlock || visualSpan > 1
+  const slotLabel = visualSpan > 1
     ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
     : `Slot ${planned.slot}`;
   const isReadOnly = onRemove == null;
@@ -1512,7 +1457,7 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            *{planned.course.slotsPerSemester} periods long
+            {planned.course.slotsPerSemester} consecutive periods
           </span>
         )}
       </div>
@@ -1921,7 +1866,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          *{course.slotsPerSemester} periods long
+                          {course.slotsPerSemester} consecutive periods
                         </span>
                       )}
                       {course.duration === 1 && (
@@ -2195,7 +2140,15 @@ function MobilePlanner({
   const currentCredits = sumPlannedCredits(currentPlanner?.plannedCourses || []);
 
   const sortedCourses = useMemo(() => {
-    const visible = planner.plannedCourses.filter((pc) => isPrimaryLinkedEntry(planner.plannedCourses, pc));
+    const seenSemCourse = new Set<string>();
+    const visible = planner.plannedCourses.filter((pc) => {
+      if (pc.courseId != null && (pc.course.slotsPerSemester ?? 1) > 1) {
+        const key = `${pc.courseId}:${pc.semester}`;
+        if (seenSemCourse.has(key)) return false;
+        seenSemCourse.add(key);
+      }
+      return true;
+    });
     const s1 = visible.filter((pc) => pc.semester === 1).sort((a, b) => a.slot - b.slot);
     const s2 = visible.filter((pc) => pc.semester === 2).sort((a, b) => a.slot - b.slot);
     return [s1, s2];
@@ -2207,8 +2160,8 @@ function MobilePlanner({
     const accentColor = getDivisionColor(planned.course.division);
     const bgTint = getDivisionBackgroundColor(planned.course.division);
 
-    const isMultiSlot = (planned.slotSpan ?? 1) > 1 || isLinkedMultiSlotCourse(planned);
     const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
+    const isMultiSlot = visualSpan > 1;
     const slotRange =
       isMultiSlot
         ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
@@ -2286,7 +2239,7 @@ function MobilePlanner({
           )}
           {(planned.course.slotsPerSemester ?? 1) > 1 && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              *{planned.course.slotsPerSemester} periods long
+              {planned.course.slotsPerSemester} consecutive periods
             </span>
           )}
         </div>

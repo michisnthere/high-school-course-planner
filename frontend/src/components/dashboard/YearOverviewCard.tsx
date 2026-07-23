@@ -315,10 +315,12 @@ function SemesterBlock({
   courses,
 }: {
   semester: number;
-  courses: { slot: number; course: { title: string; courseCode: string | null; courseCodeS1: string | null; courseCodeS2: string | null } }[];
+  courses: ({ slot: number; slotSpan?: number | null; course: { title: string; courseCode: string | null; courseCodeS1: string | null; courseCodeS2: string | null } })[];
 }): React.ReactElement {
-  const filledSlots = new Set(courses.map((c) => c.slot));
   const allSlots = Array.from({ length: 7 }, (_, i) => i + 1);
+
+  const findCourse = (slotNum: number) =>
+    courses.find((c) => c.slot <= slotNum && slotNum < c.slot + (c.slotSpan ?? 1));
 
   return (
     <div>
@@ -342,7 +344,7 @@ function SemesterBlock({
         }}
       >
         {allSlots.map((slotNum) => {
-          const course = courses.find((c) => c.slot === slotNum);
+          const course = findCourse(slotNum);
           return (
             <div
               key={slotNum}

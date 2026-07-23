@@ -31,7 +31,7 @@ export function computeSemesterCredits(plannedCourses: PlannedCourse[]): Semeste
     if (seen.has(key)) continue;
     seen.add(key);
 
-    credits[pc.semester] += 1;
+    credits[pc.semester] += pc.slotSpan ?? 1;
   }
 
   const requiredCredits = 5;
@@ -51,11 +51,14 @@ export function computeSixthPeriod(plannedCourses: PlannedCourse[], grade: numbe
     if (pc.course.isNonAcademic && grade < 11) continue;
 
     if (pc.course.duration === 2) {
-      const key = `${pc.courseId}-${pc.slot}`;
-      if (!countedFullYear.has(key)) {
-        countedFullYear.add(key);
-        perSemester[1]++;
-        perSemester[2]++;
+      const span = pc.slotSpan ?? 1;
+      for (let i = 0; i < span; i++) {
+        const key = `${pc.courseId}-${pc.slot}-${i}`;
+        if (!countedFullYear.has(key)) {
+          countedFullYear.add(key);
+          perSemester[1]++;
+          perSemester[2]++;
+        }
       }
     } else {
       perSemester[pc.semester]++;

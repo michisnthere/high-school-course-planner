@@ -757,7 +757,7 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
             : `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
       });
     }
-    createData = { ...createData, slot: startSlot, slotSpan: 1 };
+    createData = { ...createData, slot: startSlot, slotSpan };
   } else {
     for (const sem of targetSemesters) {
       const chain = computeShiftChain(existingCourses, sem, slotNum);
@@ -784,11 +784,9 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
       });
     }
     for (const sem of targetSemesters) {
-      for (let offset = 0; offset < slotSpan; offset++) {
-        await tx.plannedCourse.create({
-          data: { ...createData, semester: sem, slot: createData.slot + offset },
-        });
-      }
+      await tx.plannedCourse.create({
+        data: { ...createData, semester: sem },
+      });
     }
   });
 

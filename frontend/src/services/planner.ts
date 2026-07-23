@@ -46,9 +46,18 @@ function occupied(planner: Planner, semester: number, slot: number, excludingCou
   return planner.plannedCourses.some(
     (pc) =>
       pc.semester === semester &&
-      pc.slot === slot &&
+      pc.slot <= slot &&
+      slot < pc.slot + (pc.slotSpan ?? 1) &&
       (excludingCourseId == null || pc.courseId !== excludingCourseId)
   );
+}
+
+function hasConsecutiveFreeSlots(planner: Planner, semester: number, startSlot: number, count: number, excludingCourseId?: number | null): boolean {
+  if (startSlot + count - 1 > 7) return false;
+  for (let i = 0; i < count; i++) {
+    if (occupied(planner, semester, startSlot + i, excludingCourseId)) return false;
+  }
+  return true;
 }
 
 function findAdjacentPair(planner: Planner, excludingCourseId?: number | null): number | null {
@@ -163,18 +172,16 @@ export function createGuestPlannerService(): IPlannerService {
             throw new Error("American Studies requires two consecutive periods. There is not enough space in this semester.");
           }
           for (const sem of [1, 2]) {
-            for (let offset = 0; offset < slotSpan; offset++) {
-              planner.plannedCourses.push({
-                id: nextCourseEntryId++,
-                plannerId,
-                courseId: courseIdOrItem,
-                plannerOptionId: null,
-                semester: sem,
-                slot: startSlot + offset,
-                slotSpan: 1,
-                course: { ...courseDetails },
-              });
-            }
+            planner.plannedCourses.push({
+              id: nextCourseEntryId++,
+              plannerId,
+              courseId: courseIdOrItem,
+              plannerOptionId: null,
+              semester: sem,
+              slot: startSlot,
+              slotSpan,
+              course: { ...courseDetails },
+            });
           }
           save();
           return clonePlanner(planner);
@@ -250,21 +257,17 @@ export function createGuestPlannerService(): IPlannerService {
         const entry = planner.plannedCourses.find((pc) => pc.id === plannedCourseId);
         if (entry) {
           if (entry.course.duration === 2 && entry.course.slotsPerSemester > 1 && entry.courseId != null) {
+            const blockWidth = entry.course.slotsPerSemester;
             const startSlot = slot;
             if (
-              startSlot > 6 ||
-              occupied(planner, 1, startSlot, entry.courseId) ||
-              occupied(planner, 1, startSlot + 1, entry.courseId) ||
-              occupied(planner, 2, startSlot, entry.courseId) ||
-              occupied(planner, 2, startSlot + 1, entry.courseId)
+              startSlot > 7 - blockWidth + 1 ||
+              !hasConsecutiveFreeSlots(planner, 1, startSlot, blockWidth, entry.courseId) ||
+              !hasConsecutiveFreeSlots(planner, 2, startSlot, blockWidth, entry.courseId)
             ) {
               throw new Error("American Studies requires two adjacent class periods in both semesters.");
             }
-            const currentStart = Math.min(
-              ...planner.plannedCourses.filter((pc) => pc.courseId === entry.courseId).map((pc) => pc.slot)
-            );
             for (const pc of planner.plannedCourses.filter((pc) => pc.courseId === entry.courseId)) {
-              pc.slot = startSlot + (pc.slot - currentStart);
+              pc.slot = startSlot;
             }
             save();
             return clonePlanner(planner);

@@ -223,12 +223,10 @@ describe("guest planner service", () => {
       const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
       const updated = await service.addPlannedCourse(planner.id, americanStudies.id, 1, 5);
 
-      expect(updated.plannedCourses).toHaveLength(4);
-      expect(updated.plannedCourses.map((pc) => [pc.semester, pc.slot])).toEqual([
-        [1, 5],
-        [1, 6],
-        [2, 5],
-        [2, 6],
+      expect(updated.plannedCourses).toHaveLength(2);
+      expect(updated.plannedCourses.map((pc) => [pc.semester, pc.slot, pc.slotSpan])).toEqual([
+        [1, 5, 2],
+        [2, 5, 2],
       ]);
       expect(sumPlannedCredits(updated.plannedCourses)).toBe(getCourseCredits(americanStudies));
     });
@@ -244,9 +242,7 @@ describe("guest planner service", () => {
 
       expect(updated.plannedCourses.filter((pc) => pc.courseId === americanStudies.id).map((pc) => [pc.semester, pc.slot])).toEqual([
         [1, 3],
-        [1, 4],
         [2, 3],
-        [2, 4],
       ]);
     });
 
@@ -357,9 +353,7 @@ describe("guest planner service", () => {
       const moved = await service.movePlannedCourse(updated.plannedCourses[0].id, 1, 4);
       expect(moved.plannedCourses.map((pc) => [pc.semester, pc.slot])).toEqual([
         [1, 4],
-        [1, 5],
         [2, 4],
-        [2, 5],
       ]);
     });
   });
