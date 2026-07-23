@@ -117,12 +117,53 @@ export function createGuestPlannerService(): IPlannerService {
         if (!courseDetails) throw new Error(`Course #${courseIdOrItem} not found in catalog. Call seedCourseCatalog first.`);
 
         if (courseDetails.duration === 2 && courseDetails.slotsPerSemester > 1) {
-          const startSlot = findAdjacentPair(planner);
+          const slotSpan = courseDetails.slotsPerSemester;
+          const maxSlot = 7;
+
+          const canPlaceAt = (s: number): boolean => {
+            for (const sem of [1, 2]) {
+              for (let i = 0; i < slotSpan; i++) {
+                if (occupied(planner, sem, s + i)) return false;
+              }
+            }
+            return true;
+          };
+
+          const tryShiftAt = (s: number): boolean => {
+            for (const sem of [1, 2]) {
+              const semCourses = planner.plannedCourses
+                .filter((pc) => pc.semester === sem)
+                .sort((a, b) => b.slot - a.slot);
+              const usedTargets = new Set<number>();
+              for (const pc of semCourses) {
+                if (pc.slot < s) continue;
+                if (pc.course.duration === 2 || (pc.slotSpan ?? 1) > 1) return false;
+                let target = pc.slot + slotSpan;
+                while (target <= maxSlot && usedTargets.has(target)) { target++; }
+                if (target > maxSlot) return false;
+                usedTargets.add(target);
+                pc.slot = target;
+              }
+            }
+            return true;
+          };
+
+          let startSlot: number | null = null;
+          if (slot != null) {
+            if (canPlaceAt(slot)) {
+              startSlot = slot;
+            } else if (tryShiftAt(slot)) {
+              startSlot = slot;
+            }
+          }
           if (startSlot == null) {
-            throw new Error("American Studies requires two adjacent class periods in both semesters.");
+            startSlot = findAdjacentPair(planner);
+          }
+          if (startSlot == null) {
+            throw new Error("American Studies requires two consecutive periods. There is not enough space in this semester.");
           }
           for (const sem of [1, 2]) {
-            for (let offset = 0; offset < courseDetails.slotsPerSemester; offset++) {
+            for (let offset = 0; offset < slotSpan; offset++) {
               planner.plannedCourses.push({
                 id: nextCourseEntryId++,
                 plannerId,

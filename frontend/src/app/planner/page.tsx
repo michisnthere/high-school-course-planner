@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
@@ -47,6 +47,7 @@ function PlannerContent(): React.ReactElement {
   const [confirmPlanner, setConfirmPlanner] = useState<Planner | null>(null);
   const [confirmActivePlanner, setConfirmActivePlanner] = useState<Planner | null>(null);
   const [markingPlannerId, setMarkingPlannerId] = useState<number | null>(null);
+  const autoCompletedIdsRef = useRef<number[]>([]);
 
   useEffect(() => {
     if (!mode) return;
@@ -102,15 +103,18 @@ function PlannerContent(): React.ReactElement {
       const gradeCompleted = GRADE_LABELS[confirmPlanner.schoolYear];
       const existingCompleted = await services.completedCourses.getCompletedCourses().catch(() => []);
       const existingCourseIds = new Set(existingCompleted.map((c) => c.courseId));
+      const autoIds: number[] = [];
       const seen = new Set<number>();
       for (const pc of confirmPlanner.plannedCourses) {
         if (pc.courseId != null && !seen.has(pc.courseId) && !existingCourseIds.has(pc.courseId)) {
           seen.add(pc.courseId);
-          await services.completedCourses.addCompletedCourse(
+          const created = await services.completedCourses.addCompletedCourse(
             pc.courseId, gradeCompleted, pc.course
-          ).catch(() => {});
+          ).catch(() => null);
+          if (created) autoIds.push(created.id);
         }
       }
+      autoCompletedIdsRef.current = autoIds;
 
       const completedCourses = await services.completedCourses.getCompletedCourses().catch(() => []);
       setPlanners(nextPlanners);
@@ -137,9 +141,14 @@ function PlannerContent(): React.ReactElement {
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
       setPlanners(nextPlanners);
+      for (const id of autoCompletedIdsRef.current) {
+        await services.completedCourses.removeCompletedCourse(id).catch(() => {});
+      }
+      autoCompletedIdsRef.current = [];
+      const completedCourses = await services.completedCourses.getCompletedCourses().catch(() => []);
       setAnalysis(await services.analysis.getAnalysis({
         planners: nextPlanners,
-        completedCourses: [],
+        completedCourses,
         resolutions: [],
         allCourses: [],
       }).catch(() => analysis));

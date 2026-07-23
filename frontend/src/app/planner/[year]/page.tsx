@@ -1503,7 +1503,7 @@ function PlannedCourseCard({
             Full Year
           </span>
         )}
-        {isLinkedBlock && (
+        {(planned.course.slotsPerSemester ?? 1) > 1 && (
           <span
             style={{
               padding: "4px 10px",
@@ -1512,7 +1512,7 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            Linked block
+            *{planned.course.slotsPerSemester} periods long
           </span>
         )}
       </div>
@@ -1913,6 +1913,17 @@ function CourseSearchModal({
                           Full Year
                         </span>
                       )}
+                      {course.slotsPerSemester > 1 && (
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            backgroundColor: "#1f2937",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          *{course.slotsPerSemester} periods long
+                        </span>
+                      )}
                       {course.duration === 1 && (
                         <span
                           style={{
@@ -2273,9 +2284,9 @@ function MobilePlanner({
               Full Year
             </span>
           )}
-          {isMultiSlot && (
+          {(planned.course.slotsPerSemester ?? 1) > 1 && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              Linked block
+              *{planned.course.slotsPerSemester} periods long
             </span>
           )}
         </div>

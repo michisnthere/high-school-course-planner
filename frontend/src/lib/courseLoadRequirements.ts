@@ -27,14 +27,11 @@ export function computeSemesterCredits(plannedCourses: PlannedCourse[]): Semeste
   for (const pc of plannedCourses) {
     if (pc.course.isNonAcademic) continue;
 
-    const key = getPlacementKey(pc);
+    const key = `${pc.courseId ?? ""}:${pc.slot}:${pc.semester}`;
     if (seen.has(key)) continue;
     seen.add(key);
 
-    credits[pc.semester] += getSemesterCredits(pc);
-    if (pc.course.duration === 2) {
-      credits[pc.semester === 1 ? 2 : 1] += getSemesterCredits(pc);
-    }
+    credits[pc.semester] += 1;
   }
 
   const requiredCredits = 5;

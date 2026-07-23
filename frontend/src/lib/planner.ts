@@ -221,6 +221,7 @@ export async function unmarkPlannerYearCompleted(plannerId: number): Promise<Pla
 
   const data = await response.json();
   window.dispatchEvent(new Event("planner:changed"));
+  window.dispatchEvent(new Event("completed-courses:changed"));
   return data;
 }
 

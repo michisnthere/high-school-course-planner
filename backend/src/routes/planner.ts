@@ -225,6 +225,51 @@ function hasConsecutiveFreeSlots(
   return true;
 }
 
+function computeShiftChainForRange(
+  existingCourses: Array<{
+    id: number;
+    semester: number;
+    slot: number;
+    slotSpan?: number;
+    course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+    plannerOption: PlannerOption | null;
+  }>,
+  semester: number,
+  startSlot: number,
+  count: number
+): Array<{ id: number; newSlot: number }> | null {
+  const semCourses = existingCourses
+    .filter((pc) => pc.semester === semester)
+    .sort((a, b) => a.slot - b.slot);
+
+  let allFree = true;
+  for (let s = startSlot; s < startSlot + count; s++) {
+    if (semCourses.some((pc) => pc.slot === s)) { allFree = false; break; }
+  }
+  if (allFree) return [];
+
+  const maxSlot = 7;
+  const usedTargets = new Set<number>();
+  const chain: Array<{ id: number; newSlot: number }> = [];
+
+  for (let s = maxSlot; s >= startSlot; s--) {
+    const occupant = semCourses.find((pc) => pc.slot === s);
+    if (!occupant) continue;
+    if (getPlannedDuration(occupant) === 2) return null;
+    if (getOccupiedSlotCount(occupant) > 1) return null;
+
+    const baseTarget = s + count;
+    let target = baseTarget;
+    while (target <= maxSlot && usedTargets.has(target)) { target++; }
+    if (target > maxSlot) return null;
+
+    usedTargets.add(target);
+    chain.push({ id: occupant.id, newSlot: target });
+  }
+
+  return chain;
+}
+
 function computeShiftChain(
   existingCourses: Array<{
     id: number;
@@ -683,18 +728,32 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
 
   if (slotSpan > 1) {
-    const startSlot =
-      duration === 2
-        ? findFirstAvailableAdjacentPairInBothSemesters(existingCourses, slotSpan)
-        : hasConsecutiveFreeSlots(existingCourses, semesterNum, slotNum, slotSpan)
-          ? slotNum
-          : null;
+    let startSlot: number | null = null;
+
+    if (duration === 2) {
+      const sem1Chain = computeShiftChainForRange(existingCourses, 1, slotNum, slotSpan);
+      const sem2Chain = computeShiftChainForRange(existingCourses, 2, slotNum, slotSpan);
+
+      if (sem1Chain !== null && sem2Chain !== null) {
+        startSlot = slotNum;
+        shifts.push(...sem1Chain.map((s) => ({ ...s, semester: 1 })));
+        shifts.push(...sem2Chain.map((s) => ({ ...s, semester: 2 })));
+      } else {
+        startSlot = findFirstAvailableAdjacentPairInBothSemesters(existingCourses, slotSpan);
+      }
+    } else {
+      const chain = computeShiftChainForRange(existingCourses, semesterNum, slotNum, slotSpan);
+      if (chain !== null) {
+        startSlot = slotNum;
+        shifts.push(...chain.map((s) => ({ ...s, semester: semesterNum })));
+      }
+    }
 
     if (startSlot == null) {
       return res.status(409).json({
         error:
           duration === 2
-            ? "American Studies requires two adjacent class periods in both semesters."
+            ? "American Studies requires two consecutive periods. There is not enough space in this semester."
             : `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
       });
     }

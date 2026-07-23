@@ -225,15 +225,15 @@ describe("guest planner service", () => {
 
       expect(updated.plannedCourses).toHaveLength(4);
       expect(updated.plannedCourses.map((pc) => [pc.semester, pc.slot])).toEqual([
-        [1, 1],
-        [1, 2],
-        [2, 1],
-        [2, 2],
+        [1, 5],
+        [1, 6],
+        [2, 5],
+        [2, 6],
       ]);
       expect(sumPlannedCredits(updated.plannedCourses)).toBe(getCourseCredits(americanStudies));
     });
 
-    it("uses the first adjacent pair available in both semesters for American Studies", async () => {
+    it("falls back to first available pair when occupied courses cannot be shifted", async () => {
       const service = createGuestPlannerService();
       service.seedCourseCatalog([...catalog, americanStudies]);
       const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
@@ -259,7 +259,7 @@ describe("guest planner service", () => {
       }
 
       await expect(service.addPlannedCourse(planner.id, americanStudies.id, 1, 1)).rejects.toThrow(
-        "American Studies requires two adjacent class periods in both semesters."
+        "American Studies requires two consecutive periods. There is not enough space in this semester."
       );
       const after = await service.getPlanner(11);
       expect(after.plannedCourses.some((pc) => pc.courseId === americanStudies.id)).toBe(false);
