@@ -738,6 +738,18 @@ async function main() {
     const maxDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
     const courseDuration = maxDuration === null ? 1 : maxDuration >= 1.5 ? 2 : 1;
 
+    // Auto-detect slotsPerSemester from offerings if not explicitly set.
+    // Count unique course codes per semester label; the max across semesters is the slot span.
+    if (course.slotsPerSemester == null) {
+      const perSemester = new Map<string, Set<string>>();
+      for (const o of allOfferings) {
+        const sem = o.semesterLabel ?? "unknown";
+        if (!perSemester.has(sem)) perSemester.set(sem, new Set());
+        if (o.courseCode) perSemester.get(sem)!.add(String(o.courseCode));
+      }
+      course.slotsPerSemester = Math.max(1, ...Array.from(perSemester.values(), (s) => s.size));
+    }
+
     // Normalize all text fields before storing
     const normalizedTitle = normalizeText(course.title!);
     const normalizedDesc = normalizeTextOptional(course.description);
