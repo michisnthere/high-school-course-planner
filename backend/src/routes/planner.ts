@@ -581,6 +581,10 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
   let deletedCount = 0;
   await prisma.$transaction(async (tx) => {
     if (courseIds.length > 0) {
+      // CompletedCourse records created during "Mark Year Completed" are intentionally
+      // stamped with the same timestamp as Planner.completedAt. This allows us to
+      // identify and remove only the auto-generated completion batch when restoring
+      // the planner to Active, while preserving manually completed courses.
       const result = await tx.completedCourse.deleteMany({
         where: {
           userId,
