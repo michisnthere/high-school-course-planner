@@ -834,6 +834,8 @@ function PlannerYearContent(): React.ReactElement {
             warning={selectedWarning.warning}
             allPlanners={allPlanners}
             allCatalogCourses={allCatalogCourses}
+            plannerAnalysis={plannerAnalysis}
+            completedCourses={completedCourses}
             currentYear={year}
             onClose={() => setSelectedWarning(null)}
             onAddToPlanner={handleAddPrerequisiteToPlanner}
@@ -1019,6 +1021,8 @@ function PlannerYearContent(): React.ReactElement {
           warning={selectedWarning.warning}
           allPlanners={allPlanners}
           allCatalogCourses={allCatalogCourses}
+          plannerAnalysis={plannerAnalysis}
+          completedCourses={completedCourses}
           currentYear={year}
           onClose={() => setSelectedWarning(null)}
           onAddToPlanner={handleAddPrerequisiteToPlanner}
@@ -2512,11 +2516,31 @@ function getWarnings(
   return warnings;
 }
 
+function canonicalRequirementName(name: string): string {
+  const normalized = name.trim().toLowerCase().replace(/\s+/g, " ");
+  const ALIASES: Record<string, string> = {
+    "english graduation requirement": "English",
+    "mathematics graduation requirement": "Mathematics",
+    "science graduation requirement": "Science",
+    "social studies graduation requirement": "Social Studies",
+    "driver education graduation requirement": "Driver Education",
+    "elective graduation requirement": "Electives",
+    "consumer education": "Economics or Personal Finance",
+    "economics or personal finance graduation requirement": "Economics or Personal Finance",
+    "health graduation requirement": "Health",
+    "physical welfare": "Physical Education",
+    "physical welfare graduation requirement and waivers": "Physical Education",
+  };
+  return ALIASES[normalized] ?? name.trim();
+}
+
 function WarningActionModal({
   planned,
   warning,
   allPlanners,
   allCatalogCourses,
+  plannerAnalysis,
+  completedCourses: completedCoursesProp,
   currentYear,
   onClose,
   onAddToPlanner,
@@ -2533,6 +2557,8 @@ function WarningActionModal({
   warning: PlannerWarning;
   allPlanners: Planner[];
   allCatalogCourses: PlannerCourseDetails[];
+  plannerAnalysis: PlannerAnalysis | null;
+  completedCourses: CompletedCourse[];
   currentYear: number;
   onClose: () => void;
   onAddToPlanner: (plannerId: number, courseId: number, semester: number, slot: number) => Promise<void>;
@@ -2551,6 +2577,10 @@ function WarningActionModal({
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [showConfirmIgnore, setShowConfirmIgnore] = useState(false);
+
+  // Progressive disclosure state
+  const [step, setStep] = useState<"initial" | "selectYear" | "foundSlot" | "selectReplacement" | "confirmImpact">("initial");
+  const [selectedReplacement, setSelectedReplacement] = useState<PlannedCourse | null>(null);
 
   const allCourses = allCatalogCourses;
 
@@ -2606,6 +2636,73 @@ function WarningActionModal({
       : "Senior (12)";
   const middleSchoolCompletedPeriod: GradeCompleted = GRADE_COMPLETED_OPTIONS[0];
 
+  // --- Impact analysis ---
+  const computeCourseImpact = useCallback(
+    (targetPlanned: PlannedCourse): { affected: string[]; isRecommended: boolean } => {
+      const courseCredits = targetPlanned.course.credits ?? 0;
+      const fulfills = (targetPlanned.course.fulfillsRequirements ?? []).map(canonicalRequirementName);
+      const affected: string[] = [];
+
+      if (plannerAnalysis) {
+        for (const req of plannerAnalysis.graduationRequirements) {
+          if (req.status !== "satisfied") continue;
+          if (!fulfills.includes(req.name)) continue;
+          if (req.requiredValue != null && req.earnedValue - courseCredits < req.requiredValue) {
+            affected.push(req.name);
+          }
+        }
+      }
+
+      if (plannerAnalysis && selectedYear) {
+        const yearReq = plannerAnalysis.yearRequirements.find((yr) => yr.grade === selectedYear);
+        if (yearReq) {
+          const displayToCanonical: Record<string, string[]> = {
+            "Communication Arts": ["English"],
+            Mathematics: ["Mathematics"],
+            Science: ["Science", "Biology", "Physical Science"],
+            "U.S. History": ["U.S. History"],
+            Government: ["Government"],
+          };
+          for (const item of yearReq.items) {
+            if (!item.met) continue;
+            const canonicalNames = displayToCanonical[item.category] ?? [item.category];
+            if (!fulfills.some((f) => canonicalNames.includes(f))) continue;
+            if (item.earnedCredits - courseCredits < item.requiredCredits) {
+              affected.push(`${yearReq.label} ${item.category}`);
+            }
+          }
+        }
+      }
+
+      return { affected, isRecommended: affected.length === 0 };
+    },
+    [plannerAnalysis, selectedYear]
+  );
+
+  // --- Best placement ---
+  const bestPlacement = useMemo(() => {
+    for (const year of previousYears) {
+      const empty = getFirstEmptySlot(year);
+      if (empty) return { year, ...empty };
+    }
+    return null;
+  }, [previousYears, getFirstEmptySlot]);
+
+  // --- Courses in selected year for replacement list ---
+  const coursesInSelectedYear = useMemo(() => {
+    if (!selectedYear || !selectedCourse) return [];
+    const planner = allPlanners.find((p) => p.schoolYear === selectedYear);
+    if (!planner) return [];
+    return [...planner.plannedCourses].filter(
+      (pc) =>
+        pc.course.duration === selectedCourse.duration &&
+        (pc.course.slotsPerSemester ?? 1) === (selectedCourse.slotsPerSemester ?? 1)
+    ).sort(
+      (a, b) => a.semester - b.semester || a.slot - b.slot
+    );
+  }, [selectedYear, selectedCourse, allPlanners]);
+
+  // --- Handlers ---
   const handleMarkCompleted = async () => {
     if (!selectedCourse) return;
     setLoading(true);
@@ -2748,12 +2845,61 @@ function WarningActionModal({
     setShowConfirmReplace(false);
   };
 
-  const canAddPrerequisite =
-    hasPreviousYears &&
-    warning.type === "missing_prerequisite" &&
-    selectedCourse != null &&
-    selectedYear != null &&
-    getFirstEmptySlot(selectedYear) != null;
+  const handleAddToYearClick = () => {
+    setStep("selectYear");
+  };
+
+  const handleYearSelect = (year: number) => {
+    setSelectedYear(year);
+    const empty = getFirstEmptySlot(year);
+    if (empty) {
+      setStep("foundSlot");
+    } else {
+      setStep("selectReplacement");
+    }
+  };
+
+  const handleFoundSlotCancel = () => {
+    setStep("initial");
+    setSelectedYear(null);
+  };
+
+  const handleReplacementSelect = (course: PlannedCourse) => {
+    const { isRecommended } = computeCourseImpact(course);
+    setSelectedReplacement(course);
+    if (isRecommended) {
+      executeReplacement(course);
+    } else {
+      setStep("confirmImpact");
+    }
+  };
+
+  const executeReplacement = async (course: PlannedCourse) => {
+    if (!onReplaceCourse || !selectedCourse) return;
+    setLoading(true);
+    try {
+      await onReplaceCourse(course, selectedCourse.id);
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to replace course";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+      setSelectedReplacement(null);
+      setStep("initial");
+    }
+  };
+
+  const handleConfirmImpactReplace = () => {
+    if (selectedReplacement) {
+      executeReplacement(selectedReplacement);
+    }
+  };
+
+  const handleImpactCancel = () => {
+    setStep("selectReplacement");
+    setSelectedReplacement(null);
+  };
 
   const prerequisitePlacement = warning.prerequisitePlacement;
   const canSwapSemesters =
@@ -2771,20 +2917,8 @@ function WarningActionModal({
     ? "You may also satisfy this prerequisite by completing a placement test."
     : "";
 
-  const addPrerequisiteHelpText =
-    warning.type !== "missing_prerequisite"
-      ? ""
-      : !hasPreviousYears
-      ? "No previous school years are available."
-      : matchedCourses.length === 0
-      ? "No matching course was found for this prerequisite."
-      : selectedCourse == null
-      ? "Select a matching course to add the prerequisite."
-      : selectedYear == null
-      ? "Select a previous year to add the prerequisite."
-      : getFirstEmptySlot(selectedYear) == null
-      ? "The selected year has no empty slots."
-      : "";
+  // Filter existing buttons to show only when not in the middle of the add-to-year flow
+  const showResolutionButtons = step === "initial";
 
   return (
     <>
@@ -2875,227 +3009,32 @@ function WarningActionModal({
               flexDirection: "column",
               gap: "16px",
             }}
-        >
-          <div
-            style={{
-              padding: "12px 16px",
-              backgroundColor: "rgba(236, 186, 43, 0.12)",
-              border: "1px solid rgba(236, 186, 43, 0.3)",
-              borderRadius: "8px",
-              fontSize: "14px",
-              color: "var(--brand-accent)",
-              lineHeight: 1.5,
-            }}
           >
-            ⚠ {warning.message}
-          </div>
+            <div
+              style={{
+                padding: "12px 16px",
+                backgroundColor: "rgba(236, 186, 43, 0.12)",
+                border: "1px solid rgba(236, 186, 43, 0.3)",
+                borderRadius: "8px",
+                fontSize: "14px",
+                color: "var(--brand-accent)",
+                lineHeight: 1.5,
+              }}
+            >
+              ⚠ {warning.message}
+            </div>
 
-          {loading ? (
-            <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading...</p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {matchedCourses.length > 1 && (
-                <select
-                  value={selectedCourseId ?? ""}
-                  onChange={(e) =>
-                    setSelectedCourseId(e.target.value ? Number(e.target.value) : null)
-                  }
-                  aria-label="Select prerequisite course"
-                  style={{
-                    width: "100%",
-                    padding: "12px 16px",
-                    fontSize: "15px",
-                    color: "#ffffff",
-                    backgroundColor: "#111827",
-                    border: "1px solid #4b5563",
-                    borderRadius: "8px",
-                    outline: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  <option value="">Select a prerequisite course</option>
-                  {matchedCourses.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.title}
-                    </option>
-                  ))}
-                </select>
-              )}
-
-              {matchedCourses.length === 0 && (
-                <p style={{ margin: 0, fontSize: "14px", color: "#9ca3af", textAlign: "center" }}>
-                  No matching course was found for this prerequisite.
-                </p>
-              )}
-
-              {placementTestHelpText && (
-                <p style={{ margin: 0, fontSize: "13px", color: "#d1d5db", lineHeight: 1.4, textAlign: "center" }}>
-                  {placementTestHelpText}
-                </p>
-              )}
-
-              {showConfirmReplace ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
-                  <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#ffffff" }}>
-                    Replace course?
-                  </p>
-                  <div style={{ fontSize: "14px", color: "#d1d5db", lineHeight: 1.5 }}>
-                    <div style={{ padding: "8px 12px", backgroundColor: "#374151", borderRadius: "6px", marginBottom: "8px" }}>
-                      {planned.course.title}
-                    </div>
-                    <div style={{ textAlign: "center", color: "#9ca3af", fontSize: "18px" }}>↓</div>
-                    <div style={{ padding: "8px 12px", backgroundColor: "var(--brand-accent)", borderRadius: "6px", color: "#ffffff", marginTop: "8px" }}>
-                      {selectedCourse?.title ?? "prerequisite"}
-                    </div>
-                  </div>
-                  <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
-                    This will keep the same semester and remove the current course.
-                  </p>
-                  <div style={{ display: "flex", gap: "12px" }}>
-                    <button type="button" onClick={cancelReplace} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#d1d5db", backgroundColor: "#374151", border: "none", borderRadius: "8px", cursor: "pointer" }}>
-                      Cancel
-                    </button>
-                    <button type="button" onClick={handleReplaceCourse} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#ffffff", backgroundColor: "var(--brand-accent)", border: "none", borderRadius: "8px", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.5 : 1 }}>
-                      {loading ? "Replacing..." : "Replace Course"}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                canReplace && (
-                  <button
-                    type="button"
-                    onClick={handleReplaceClick}
-                    disabled={loading}
-                    style={{
-                      padding: "12px 16px",
-                      fontSize: "15px",
-                      fontWeight: 500,
-                      color: "#ffffff",
-                      backgroundColor: "var(--brand-accent)",
-                      border: "none",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                      textAlign: "left",
-                    }}
-                  >
-                    Replace with {selectedCourse?.title ?? "prerequisite"}
-                  </button>
-                )
-              )}
-
-              <button
-                type="button"
-                onClick={handleMarkCompleted}
-                disabled={loading || selectedCourse == null}
-                style={{
-                  padding: "12px 16px",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: "#ffffff",
-                  backgroundColor: selectedCourse ? "var(--brand-accent)" : "var(--brand-primary)",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: selectedCourse ? "pointer" : "not-allowed",
-                  textAlign: "left",
-                  opacity: selectedCourse ? 1 : 0.5,
-                }}
-              >
-                I already completed this course
-              </button>
-
-              {hasPlacementTestOption && (
-                <button
-                  type="button"
-                  onClick={handlePlacementTest}
-                  disabled={loading || selectedCourse == null}
-                  style={{
-                    padding: "12px 16px",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    color: "#ffffff",
-                    backgroundColor: "var(--brand-primary)",
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: selectedCourse ? "pointer" : "not-allowed",
-                    textAlign: "left",
-                    opacity: selectedCourse ? 1 : 0.5,
-                  }}
-                >
-                  Completed Placement Test
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={handleMiddleSchool}
-                disabled={loading || selectedCourse == null}
-                style={{
-                  padding: "12px 16px",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: "#ffffff",
-                  backgroundColor: "var(--brand-primary)",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: selectedCourse ? "pointer" : "not-allowed",
-                  textAlign: "left",
-                  opacity: selectedCourse ? 1 : 0.5,
-                }}
-              >
-                Completed in Middle School
-              </button>
-
-              <button
-                type="button"
-                onClick={handleSummerSchool}
-                disabled={loading || selectedCourse == null}
-                style={{
-                  padding: "12px 16px",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: "#ffffff",
-                  backgroundColor: "var(--brand-primary)",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: selectedCourse ? "pointer" : "not-allowed",
-                  textAlign: "left",
-                  opacity: selectedCourse ? 1 : 0.5,
-                }}
-              >
-                Completed in Summer School
-              </button>
-
-              {canSwapSemesters && (
-                <button
-                  type="button"
-                  onClick={handleSwapSemesters}
-                  disabled={loading}
-                  style={{
-                    padding: "12px 16px",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    color: "#ffffff",
-                    backgroundColor: "var(--brand-primary)",
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: loading ? "not-allowed" : "pointer",
-                    textAlign: "left",
-                    opacity: loading ? 0.5 : 1,
-                  }}
-                >
-                  Swap semesters
-                </button>
-              )}
-
-              {hasPreviousYears && warning.type === "missing_prerequisite" && (
-                <>
+            {loading ? (
+              <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading...</p>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {matchedCourses.length > 1 && (
                   <select
-                    value={selectedYear ?? ""}
+                    value={selectedCourseId ?? ""}
                     onChange={(e) =>
-                      setSelectedYear(e.target.value ? Number(e.target.value) : null)
+                      setSelectedCourseId(e.target.value ? Number(e.target.value) : null)
                     }
-                    disabled={matchedCourses.length === 0}
-                    aria-label="Select previous year"
+                    aria-label="Select prerequisite course"
                     style={{
                       width: "100%",
                       padding: "12px 16px",
@@ -3105,137 +3044,565 @@ function WarningActionModal({
                       border: "1px solid #4b5563",
                       borderRadius: "8px",
                       outline: "none",
-                      cursor: matchedCourses.length === 0 ? "not-allowed" : "pointer",
-                      opacity: matchedCourses.length === 0 ? 0.5 : 1,
+                      cursor: "pointer",
                     }}
                   >
-                    <option value="">Select previous year</option>
-                    {previousYears.map((y) => {
-                      const emptySlot = getFirstEmptySlot(y);
-                      return (
-                        <option key={y} value={y} disabled={!emptySlot}>
-                          {YEAR_LABELS[y]} {emptySlot ? "" : "(no empty slots)"}
-                        </option>
-                      );
-                    })}
+                    <option value="">Select a prerequisite course</option>
+                    {matchedCourses.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.title}
+                      </option>
+                    ))}
                   </select>
+                )}
 
-                  <button
-                    type="button"
-                    onClick={handleAddPrerequisite}
-                    disabled={loading || !canAddPrerequisite}
-                    style={{
-                      padding: "12px 16px",
-                      fontSize: "15px",
-                      fontWeight: 500,
-                      color: "#ffffff",
-                      backgroundColor: "var(--brand-accent)",
-                      border: "none",
-                      borderRadius: "8px",
-                      cursor: canAddPrerequisite ? "pointer" : "not-allowed",
-                      textAlign: "left",
-                      opacity: canAddPrerequisite ? 1 : 0.5,
-                    }}
-                  >
-                    Add {selectedCourse?.title ?? "prerequisite"} to{" "}
-                    {selectedYear ? YEAR_LABELS[selectedYear] : "previous year"}
-                  </button>
-                </>
-              )}
+                {matchedCourses.length === 0 && (
+                  <p style={{ margin: 0, fontSize: "14px", color: "#9ca3af", textAlign: "center" }}>
+                    No matching course was found for this prerequisite.
+                  </p>
+                )}
 
-              {addPrerequisiteHelpText && (
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "13px",
-                    color: "#9ca3af",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {addPrerequisiteHelpText}
-                </p>
-              )}
-            </div>
-          )}
+                {placementTestHelpText && (
+                  <p style={{ margin: 0, fontSize: "13px", color: "#d1d5db", lineHeight: 1.4, textAlign: "center" }}>
+                    {placementTestHelpText}
+                  </p>
+                )}
 
-          <div
-            style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid #374151" }}
-          >
-            {!showConfirmIgnore ? (
-              <button
-                type="button"
-                onClick={handleIgnore}
-                disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: "#d1d5db",
-                  backgroundColor: "transparent",
-                  border: "1px solid #4b5563",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                }}
-              >
-                Ignore Warning
-              </button>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "14px",
-                    color: "#d1d5db",
-                    textAlign: "center",
-                  }}
-                >
-                  Are you sure you want to ignore this warning?
-                </p>
-                <div style={{ display: "flex", gap: "12px" }}>
-                  <button
-                    type="button"
-                    onClick={confirmIgnore}
-                    disabled={loading}
-                    style={{
-                      flex: 1,
-                      padding: "12px 16px",
-                      fontSize: "15px",
-                      fontWeight: 500,
-                      color: "#ffffff",
-                      backgroundColor: "#dc2626",
-                      border: "none",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Yes, ignore
-                  </button>
-                  <button
-                    type="button"
-                    onClick={cancelIgnore}
-                    disabled={loading}
-                    style={{
-                      flex: 1,
-                      padding: "12px 16px",
-                      fontSize: "15px",
-                      fontWeight: 500,
-                      color: "#d1d5db",
-                      backgroundColor: "#374151",
-                      border: "none",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
+                {/* In-course replace section (always visible) */}
+                {showConfirmReplace ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
+                    <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#ffffff" }}>
+                      Replace course?
+                    </p>
+                    <div style={{ fontSize: "14px", color: "#d1d5db", lineHeight: 1.5 }}>
+                      <div style={{ padding: "8px 12px", backgroundColor: "#374151", borderRadius: "6px", marginBottom: "8px" }}>
+                        {planned.course.title}
+                      </div>
+                      <div style={{ textAlign: "center", color: "#9ca3af", fontSize: "18px" }}>↓</div>
+                      <div style={{ padding: "8px 12px", backgroundColor: "var(--brand-accent)", borderRadius: "6px", color: "#ffffff", marginTop: "8px" }}>
+                        {selectedCourse?.title ?? "prerequisite"}
+                      </div>
+                    </div>
+                    <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
+                      This will keep the same semester and remove the current course.
+                    </p>
+                    <div style={{ display: "flex", gap: "12px" }}>
+                      <button type="button" onClick={cancelReplace} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#d1d5db", backgroundColor: "#374151", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+                        Cancel
+                      </button>
+                      <button type="button" onClick={handleReplaceCourse} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#ffffff", backgroundColor: "var(--brand-accent)", border: "none", borderRadius: "8px", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.5 : 1 }}>
+                        {loading ? "Replacing..." : "Replace Course"}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  canReplace && (
+                    <button
+                      type="button"
+                      onClick={handleReplaceClick}
+                      disabled={loading}
+                      style={{
+                        padding: "12px 16px",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                        color: "#ffffff",
+                        backgroundColor: "var(--brand-accent)",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: "pointer",
+                        textAlign: "left",
+                      }}
+                    >
+                      Replace with {selectedCourse?.title ?? "prerequisite"}
+                    </button>
+                  )
+                )}
+
+                {/* Progressive disclosure: Add prerequisite to earlier year */}
+                {hasPreviousYears && warning.type === "missing_prerequisite" && selectedCourse && (
+                  <>
+                    {step === "initial" && (
+                      <button
+                        type="button"
+                        onClick={handleAddToYearClick}
+                        disabled={loading}
+                        style={{
+                          padding: "12px 16px",
+                          fontSize: "15px",
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          backgroundColor: "var(--brand-accent)",
+                          border: "none",
+                          borderRadius: "8px",
+                          cursor: "pointer",
+                          textAlign: "left",
+                        }}
+                      >
+                        Add {selectedCourse.title} to an earlier year
+                      </button>
+                    )}
+
+                    {step === "selectYear" && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                        {bestPlacement && (
+                          <button
+                            type="button"
+                            onClick={() => handleYearSelect(bestPlacement.year)}
+                            disabled={loading}
+                            style={{
+                              padding: "14px 16px",
+                              fontSize: "15px",
+                              fontWeight: 600,
+                              color: "#ffffff",
+                              backgroundColor: "rgba(39, 93, 56, 0.2)",
+                              border: "2px solid var(--brand-accent)",
+                              borderRadius: "8px",
+                              cursor: "pointer",
+                              textAlign: "center",
+                            }}
+                          >
+                            Best placement: {YEAR_LABELS[bestPlacement.year]} Year, Semester {bestPlacement.semester} (recommended)
+                          </button>
+                        )}
+
+                        <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
+                          Or choose another year
+                        </p>
+
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                          {previousYears.map((y) => {
+                            const empty = getFirstEmptySlot(y);
+                            return (
+                              <button
+                                key={y}
+                                type="button"
+                                onClick={() => handleYearSelect(y)}
+                                disabled={loading}
+                                style={{
+                                  flex: 1,
+                                  minWidth: "120px",
+                                  padding: "12px 16px",
+                                  fontSize: "14px",
+                                  fontWeight: 500,
+                                  color: empty ? "#ffffff" : "#6b7280",
+                                  backgroundColor: empty ? "#374151" : "#1f2937",
+                                  border: empty ? "1px solid #4b5563" : "1px dashed #4b5563",
+                                  borderRadius: "8px",
+                                  cursor: empty ? "pointer" : "not-allowed",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {YEAR_LABELS[y]}
+                                {!empty && <div style={{ fontSize: "11px", color: "#6b7280" }}>No open slots</div>}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => { setStep("initial"); setSelectedYear(null); }}
+                          style={{
+                            padding: "10px",
+                            fontSize: "13px",
+                            fontWeight: 500,
+                            color: "#9ca3af",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            borderRadius: "8px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          ← Back
+                        </button>
+                      </div>
+                    )}
+
+                    {step === "foundSlot" && selectedYear && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
+                        <p style={{ margin: 0, fontSize: "14px", color: "#34d399", fontWeight: 600 }}>
+                          ✓ We found an available slot.
+                        </p>
+                        <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db" }}>
+                          Semester: {YEAR_LABELS[selectedYear]} Semester {getFirstEmptySlot(selectedYear)?.semester}
+                        </p>
+                        <div style={{ display: "flex", gap: "12px" }}>
+                          <button
+                            type="button"
+                            onClick={handleFoundSlotCancel}
+                            disabled={loading}
+                            style={{
+                              flex: 1,
+                              padding: "12px 16px",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "#d1d5db",
+                              backgroundColor: "#374151",
+                              border: "none",
+                              borderRadius: "8px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleAddPrerequisite}
+                            disabled={loading}
+                            style={{
+                              flex: 1,
+                              padding: "12px 16px",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "#ffffff",
+                              backgroundColor: "var(--brand-accent)",
+                              border: "none",
+                              borderRadius: "8px",
+                              cursor: loading ? "not-allowed" : "pointer",
+                              opacity: loading ? 0.5 : 1,
+                            }}
+                          >
+                            {loading ? "Adding..." : "Add Course"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {step === "selectReplacement" && selectedYear && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                        <p style={{ margin: 0, fontSize: "14px", color: "#f59e0b", fontWeight: 600 }}>
+                          No available planner slot was found.
+                        </p>
+                        <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af" }}>
+                          Select a course to replace
+                        </p>
+
+                        {coursesInSelectedYear.length === 0 ? (
+                          <p style={{ margin: 0, fontSize: "13px", color: "#6b7280" }}>
+                            No courses in this year to replace.
+                          </p>
+                        ) : (
+                          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                            {(() => {
+                              const grouped: Record<number, PlannedCourse[]> = { 1: [], 2: [] };
+                              for (const c of coursesInSelectedYear) {
+                                if (grouped[c.semester]) grouped[c.semester].push(c);
+                              }
+                              return [1, 2].map((sem) =>
+                                grouped[sem].length > 0 ? (
+                                  <div key={sem}>
+                                    <p style={{ margin: "0 0 4px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.02em" }}>
+                                      {YEAR_LABELS[selectedYear]} Semester {sem}
+                                    </p>
+                                    {grouped[sem].map((c) => {
+                                      const { isRecommended, affected } = computeCourseImpact(c);
+                                      return (
+                                        <button
+                                          key={c.id}
+                                          type="button"
+                                          onClick={() => handleReplacementSelect(c)}
+                                          disabled={loading}
+                                          style={{
+                                            width: "100%",
+                                            padding: "12px 16px",
+                                            fontSize: "14px",
+                                            fontWeight: 500,
+                                            color: "#ffffff",
+                                            backgroundColor: isRecommended ? "rgba(52, 211, 153, 0.1)" : "#1f2937",
+                                            border: isRecommended ? "1px solid #34d399" : "1px solid #374151",
+                                            borderRadius: "8px",
+                                            cursor: "pointer",
+                                            textAlign: "left",
+                                            marginBottom: "6px",
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                          }}
+                                        >
+                                          <span>{c.course.title}</span>
+                                          {isRecommended && (
+                                            <span style={{ fontSize: "12px", color: "#34d399", fontWeight: 600, marginLeft: "8px", whiteSpace: "nowrap" }}>
+                                              (Recommended)
+                                            </span>
+                                          )}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                ) : null
+                              );
+                            })()}
+                          </div>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => { setStep("selectYear"); setSelectedReplacement(null); }}
+                          style={{
+                            padding: "10px",
+                            fontSize: "13px",
+                            fontWeight: 500,
+                            color: "#9ca3af",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            borderRadius: "8px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          ← Choose a different year
+                        </button>
+                      </div>
+                    )}
+
+                    {step === "confirmImpact" && selectedReplacement && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
+                        <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#f59e0b" }}>
+                          Requirement Impact Warning
+                        </p>
+                        <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db", lineHeight: 1.5 }}>
+                          Replacing {selectedReplacement.course.title} will affect:
+                        </p>
+                        <ul style={{ margin: "4px 0", paddingLeft: "20px", fontSize: "13px", color: "#f59e0b", lineHeight: 1.6 }}>
+                          {(() => {
+                            const { affected } = computeCourseImpact(selectedReplacement);
+                            return affected.map((a, i) => <li key={i}>{a}</li>);
+                          })()}
+                        </ul>
+                        <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af" }}>
+                          You may no longer satisfy these requirements.
+                        </p>
+                        <div style={{ display: "flex", gap: "12px" }}>
+                          <button
+                            type="button"
+                            onClick={handleImpactCancel}
+                            disabled={loading}
+                            style={{
+                              flex: 1,
+                              padding: "12px 16px",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "#d1d5db",
+                              backgroundColor: "#374151",
+                              border: "none",
+                              borderRadius: "8px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleConfirmImpactReplace}
+                            disabled={loading}
+                            style={{
+                              flex: 1,
+                              padding: "12px 16px",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "#ffffff",
+                              backgroundColor: "#dc2626",
+                              border: "none",
+                              borderRadius: "8px",
+                              cursor: loading ? "not-allowed" : "pointer",
+                              opacity: loading ? 0.5 : 1,
+                            }}
+                          >
+                            {loading ? "Replacing..." : "Replace Course"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {showResolutionButtons && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleMarkCompleted}
+                      disabled={loading || selectedCourse == null}
+                      style={{
+                        padding: "12px 16px",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                        color: "#ffffff",
+                        backgroundColor: selectedCourse ? "var(--brand-accent)" : "var(--brand-primary)",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: selectedCourse ? "pointer" : "not-allowed",
+                        textAlign: "left",
+                        opacity: selectedCourse ? 1 : 0.5,
+                      }}
+                    >
+                      I already completed this course
+                    </button>
+
+                    {hasPlacementTestOption && (
+                      <button
+                        type="button"
+                        onClick={handlePlacementTest}
+                        disabled={loading || selectedCourse == null}
+                        style={{
+                          padding: "12px 16px",
+                          fontSize: "15px",
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          backgroundColor: "var(--brand-primary)",
+                          border: "none",
+                          borderRadius: "8px",
+                          cursor: selectedCourse ? "pointer" : "not-allowed",
+                          textAlign: "left",
+                          opacity: selectedCourse ? 1 : 0.5,
+                        }}
+                      >
+                        Completed Placement Test
+                      </button>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={handleMiddleSchool}
+                      disabled={loading || selectedCourse == null}
+                      style={{
+                        padding: "12px 16px",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                        color: "#ffffff",
+                        backgroundColor: "var(--brand-primary)",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: selectedCourse ? "pointer" : "not-allowed",
+                        textAlign: "left",
+                        opacity: selectedCourse ? 1 : 0.5,
+                      }}
+                    >
+                      Completed in Middle School
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleSummerSchool}
+                      disabled={loading || selectedCourse == null}
+                      style={{
+                        padding: "12px 16px",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                        color: "#ffffff",
+                        backgroundColor: "var(--brand-primary)",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: selectedCourse ? "pointer" : "not-allowed",
+                        textAlign: "left",
+                        opacity: selectedCourse ? 1 : 0.5,
+                      }}
+                    >
+                      Completed in Summer School
+                    </button>
+
+                    {canSwapSemesters && (
+                      <button
+                        type="button"
+                        onClick={handleSwapSemesters}
+                        disabled={loading}
+                        style={{
+                          padding: "12px 16px",
+                          fontSize: "15px",
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          backgroundColor: "var(--brand-primary)",
+                          border: "none",
+                          borderRadius: "8px",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          textAlign: "left",
+                          opacity: loading ? 0.5 : 1,
+                        }}
+                      >
+                        Swap semesters
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
             )}
+
+            <div
+              style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid #374151" }}
+            >
+              {!showConfirmIgnore ? (
+                <button
+                  type="button"
+                  onClick={handleIgnore}
+                  disabled={loading}
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                    color: "#d1d5db",
+                    backgroundColor: "transparent",
+                    border: "1px solid #4b5563",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Ignore Warning
+                </button>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "14px",
+                      color: "#d1d5db",
+                      textAlign: "center",
+                    }}
+                  >
+                    Are you sure you want to ignore this warning?
+                  </p>
+                  <div style={{ display: "flex", gap: "12px" }}>
+                    <button
+                      type="button"
+                      onClick={confirmIgnore}
+                      disabled={loading}
+                      style={{
+                        flex: 1,
+                        padding: "12px 16px",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                        color: "#ffffff",
+                        backgroundColor: "#dc2626",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Yes, ignore
+                    </button>
+                    <button
+                      type="button"
+                      onClick={cancelIgnore}
+                      disabled={loading}
+                      style={{
+                        flex: 1,
+                        padding: "12px 16px",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                        color: "#d1d5db",
+                        backgroundColor: "#374151",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </>
+    </>
   );
 }
