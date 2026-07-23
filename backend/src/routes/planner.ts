@@ -513,6 +513,8 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
       .filter((id): id is number => id != null)
   ));
 
+  const completedAt = new Date();
+
   await prisma.$transaction(async (tx) => {
     const existing = await tx.completedCourse.findMany({
       where: { userId, courseId: { in: courseIds } },
@@ -530,13 +532,14 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
           courseId,
           gradeCompleted,
           credits: calculateTotalCredits(planned.course),
+          createdAt: completedAt,
         },
       });
     }
 
     await tx.planner.update({
       where: { id: planner.id },
-      data: { completedAt: new Date() },
+      data: { completedAt },
     });
   });
 
@@ -575,15 +578,17 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
       .filter((id): id is number => id != null)
   ));
 
+  let deletedCount = 0;
   await prisma.$transaction(async (tx) => {
     if (courseIds.length > 0) {
-      await tx.completedCourse.deleteMany({
+      const result = await tx.completedCourse.deleteMany({
         where: {
           userId,
           courseId: { in: courseIds },
-          createdAt: { gte: planner.completedAt! },
+          createdAt: planner.completedAt!,
         },
       });
+      deletedCount = result.count;
     }
 
     await tx.planner.update({
@@ -591,6 +596,8 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
       data: { completedAt: null },
     });
   });
+
+  console.log(`[uncomplete] plannerId=${plannerId} deleted ${deletedCount} auto-completed courses`);
 
   res.json(await getPlannerResponse(planner.id));
 }));

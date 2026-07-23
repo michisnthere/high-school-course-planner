@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
@@ -47,7 +47,6 @@ function PlannerContent(): React.ReactElement {
   const [confirmPlanner, setConfirmPlanner] = useState<Planner | null>(null);
   const [confirmActivePlanner, setConfirmActivePlanner] = useState<Planner | null>(null);
   const [markingPlannerId, setMarkingPlannerId] = useState<number | null>(null);
-  const autoCompletedIdsRef = useRef<number[]>([]);
 
   useEffect(() => {
     if (!mode) return;
@@ -100,22 +99,6 @@ function PlannerContent(): React.ReactElement {
       const updated = await services.planner.markYearCompleted(confirmPlanner.id);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
 
-      const gradeCompleted = GRADE_LABELS[confirmPlanner.schoolYear];
-      const existingCompleted = await services.completedCourses.getCompletedCourses().catch(() => []);
-      const existingCourseIds = new Set(existingCompleted.map((c) => c.courseId));
-      const autoIds: number[] = [];
-      const seen = new Set<number>();
-      for (const pc of confirmPlanner.plannedCourses) {
-        if (pc.courseId != null && !seen.has(pc.courseId) && !existingCourseIds.has(pc.courseId)) {
-          seen.add(pc.courseId);
-          const created = await services.completedCourses.addCompletedCourse(
-            pc.courseId, gradeCompleted, pc.course
-          ).catch(() => null);
-          if (created) autoIds.push(created.id);
-        }
-      }
-      autoCompletedIdsRef.current = autoIds;
-
       const completedCourses = await services.completedCourses.getCompletedCourses().catch(() => []);
       setPlanners(nextPlanners);
       setAnalysis(await services.analysis.getAnalysis({
@@ -141,10 +124,6 @@ function PlannerContent(): React.ReactElement {
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
       setPlanners(nextPlanners);
-      for (const id of autoCompletedIdsRef.current) {
-        await services.completedCourses.removeCompletedCourse(id).catch(() => {});
-      }
-      autoCompletedIdsRef.current = [];
       const completedCourses = await services.completedCourses.getCompletedCourses().catch(() => []);
       setAnalysis(await services.analysis.getAnalysis({
         planners: nextPlanners,
@@ -331,7 +310,7 @@ function PlannerContent(): React.ReactElement {
                   Mark {YEAR_LABELS[confirmActivePlanner.schoolYear]} Year as Active?
                 </h2>
                 <p style={{ margin: "0 0 20px", fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  This will unlock the planner for editing. Completed courses will remain saved.
+                  This will unlock the planner for editing. Auto-generated completed courses from this year will be removed. Manually added completed courses will remain.
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
                   <button

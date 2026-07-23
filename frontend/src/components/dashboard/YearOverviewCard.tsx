@@ -201,37 +201,25 @@ export function YearOverviewCard({
       )}
 
       {isCompleted && (
-        <>
-          <p
-            style={{
-              margin: "8px 0 0",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "#166534",
-            }}
-          >
-            Completed - editing disabled
-          </p>
-          <button
-            type="button"
-            onClick={() => onMarkActive?.(planner)}
-            disabled={markingActive || !onMarkActive}
-            style={{
-              marginTop: "8px",
-              minHeight: "44px",
-              padding: "8px 14px",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              backgroundColor: markingActive ? "var(--bg-input)" : "transparent",
-              color: markingActive ? "var(--text-muted)" : "var(--text-primary)",
-              fontSize: "14px",
-              fontWeight: 600,
-              cursor: markingActive || !onMarkActive ? "default" : "pointer",
-            }}
-          >
-            {markingActive ? "Restoring..." : "Mark as Active"}
-          </button>
-        </>
+        <button
+          type="button"
+          onClick={() => onMarkActive?.(planner)}
+          disabled={markingActive || !onMarkActive}
+          style={{
+            marginTop: "16px",
+            minHeight: "44px",
+            padding: "8px 14px",
+            border: "1px solid var(--border-default)",
+            borderRadius: "8px",
+            backgroundColor: markingActive ? "var(--bg-input)" : "transparent",
+            color: markingActive ? "var(--text-muted)" : "var(--text-primary)",
+            fontSize: "14px",
+            fontWeight: 600,
+            cursor: markingActive || !onMarkActive ? "default" : "pointer",
+          }}
+        >
+          {markingActive ? "Restoring..." : "Mark as Active"}
+        </button>
       )}
 
       {/* Warnings */}
