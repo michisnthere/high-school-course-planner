@@ -493,6 +493,43 @@ function PlannerYearContent(): React.ReactElement {
     [allPlanners, pushHistory, showToast, handleUndo]
   );
 
+  const handleReplaceCourse = useCallback(
+    async (oldPlanned: PlannedCourse, newCourseId: number) => {
+      const beforePlanners = allPlanners;
+      try {
+        scrollYRef.current = window.scrollY;
+        await plannerService.removePlannedCourse(oldPlanned.id);
+        const updatedPlanner = await plannerService.addPlannedCourse(
+          oldPlanned.plannerId,
+          newCourseId,
+          oldPlanned.semester,
+          oldPlanned.slot
+        );
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(newPlanners, async () => {
+          await plannerService.removePlannedCourse(
+            updatedPlanner.plannedCourses.find((pc) => pc.courseId === newCourseId)!.id
+          );
+          if (oldPlanned.courseId != null) {
+            await plannerService.addPlannedCourse(
+              oldPlanned.plannerId,
+              oldPlanned.courseId,
+              oldPlanned.semester,
+              oldPlanned.slot
+            );
+          }
+        });
+        setAllPlanners(newPlanners);
+        setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
+        showToast("Course replaced.", "success", handleUndo);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to replace course";
+        showToast(message, "warning");
+      }
+    },
+    [allPlanners, year, plannerService, showToast, pushHistory, handleUndo]
+  );
+
   const handleMove = useCallback(
     async (plannedCourseId: number, semester: number, slot: number) => {
       scrollYRef.current = window.scrollY;
@@ -801,6 +838,7 @@ function PlannerYearContent(): React.ReactElement {
             onClose={() => setSelectedWarning(null)}
             onAddToPlanner={handleAddPrerequisiteToPlanner}
             onSwapSemesters={handleMove}
+            onReplaceCourse={handleReplaceCourse}
             onIgnore={() =>
               persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
             }
@@ -985,6 +1023,7 @@ function PlannerYearContent(): React.ReactElement {
           onClose={() => setSelectedWarning(null)}
           onAddToPlanner={handleAddPrerequisiteToPlanner}
           onSwapSemesters={handleMove}
+          onReplaceCourse={handleReplaceCourse}
           onIgnore={() =>
             persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
           }
@@ -2487,6 +2526,7 @@ function WarningActionModal({
   onPlacementTest,
   onMiddleSchool,
   onSummerSchool,
+  onReplaceCourse,
   showToast,
 }: {
   planned: PlannedCourse;
@@ -2502,6 +2542,7 @@ function WarningActionModal({
   onPlacementTest: (courseId: number, grade: GradeCompleted) => Promise<void>;
   onMiddleSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   onSummerSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
+  onReplaceCourse?: (oldPlanned: PlannedCourse, newCourseId: number) => Promise<void>;
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
@@ -2671,6 +2712,40 @@ function WarningActionModal({
 
   const cancelIgnore = () => {
     setShowConfirmIgnore(false);
+  };
+
+  const canReplace = useMemo(() => {
+    if (matchedCourses.length !== 1) return false;
+    const prereq = matchedCourses[0];
+    if (!prereq) return false;
+    if (prereq.duration !== planned.course.duration) return false;
+    if ((prereq.slotsPerSemester ?? 1) !== (planned.course.slotsPerSemester ?? 1)) return false;
+    return true;
+  }, [matchedCourses, planned]);
+
+  const [showConfirmReplace, setShowConfirmReplace] = useState(false);
+
+  const handleReplaceCourse = async () => {
+    if (!onReplaceCourse || !selectedCourse) return;
+    setLoading(true);
+    try {
+      await onReplaceCourse(planned, selectedCourse.id);
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to replace course";
+      showToast(message, "warning");
+    } finally {
+      setLoading(false);
+      setShowConfirmReplace(false);
+    }
+  };
+
+  const handleReplaceClick = () => {
+    setShowConfirmReplace(true);
+  };
+
+  const cancelReplace = () => {
+    setShowConfirmReplace(false);
   };
 
   const canAddPrerequisite =
@@ -2859,6 +2934,55 @@ function WarningActionModal({
                 </p>
               )}
 
+              {showConfirmReplace ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
+                  <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#ffffff" }}>
+                    Replace course?
+                  </p>
+                  <div style={{ fontSize: "14px", color: "#d1d5db", lineHeight: 1.5 }}>
+                    <div style={{ padding: "8px 12px", backgroundColor: "#374151", borderRadius: "6px", marginBottom: "8px" }}>
+                      {planned.course.title}
+                    </div>
+                    <div style={{ textAlign: "center", color: "#9ca3af", fontSize: "18px" }}>↓</div>
+                    <div style={{ padding: "8px 12px", backgroundColor: "var(--brand-accent)", borderRadius: "6px", color: "#ffffff", marginTop: "8px" }}>
+                      {selectedCourse?.title ?? "prerequisite"}
+                    </div>
+                  </div>
+                  <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
+                    This will keep the same semester and remove the current course.
+                  </p>
+                  <div style={{ display: "flex", gap: "12px" }}>
+                    <button type="button" onClick={cancelReplace} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#d1d5db", backgroundColor: "#374151", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+                      Cancel
+                    </button>
+                    <button type="button" onClick={handleReplaceCourse} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#ffffff", backgroundColor: "var(--brand-accent)", border: "none", borderRadius: "8px", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.5 : 1 }}>
+                      {loading ? "Replacing..." : "Replace Course"}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                canReplace && (
+                  <button
+                    type="button"
+                    onClick={handleReplaceClick}
+                    disabled={loading}
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: "15px",
+                      fontWeight: 500,
+                      color: "#ffffff",
+                      backgroundColor: "var(--brand-accent)",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                      textAlign: "left",
+                    }}
+                  >
+                    Replace with {selectedCourse?.title ?? "prerequisite"}
+                  </button>
+                )
+              )}
+
               <button
                 type="button"
                 onClick={handleMarkCompleted}
@@ -2868,7 +2992,7 @@ function WarningActionModal({
                   fontSize: "15px",
                   fontWeight: 500,
                   color: "#ffffff",
-                  backgroundColor: "var(--brand-accent)",
+                  backgroundColor: selectedCourse ? "var(--brand-accent)" : "var(--brand-primary)",
                   border: "none",
                   borderRadius: "8px",
                   cursor: selectedCourse ? "pointer" : "not-allowed",
