@@ -21,15 +21,22 @@ type PrereqGroup = {
 
 function findCourseByTitle(courses: Course[], title: string): Course | null {
   const normal = title.trim().toLowerCase();
+
+  // 1) exact normalizedTitle or exact title match
+  for (const course of courses) {
+    if (course.normalizedTitle?.toLowerCase() === normal) return course;
+    if (course.title.toLowerCase() === normal) return course;
+  }
+
+  // 2) the search text IS a course title — match the full canonical title
   for (const course of courses) {
     if (course.title.toLowerCase() === normal) return course;
+    // Also check if the search text is the normalized prefix of a single course
+    // (catches "World History and Geography" as a prerequisite string that is itself a course)
     if (course.normalizedTitle?.toLowerCase() === normal) return course;
   }
-  for (const course of courses) {
-    if (course.title.toLowerCase().includes(normal) || normal.includes(course.title.toLowerCase())) {
-      return course;
-    }
-  }
+
+  // 3) special-case: "foundational fitness" fuzzy match
   if (
     (normal === "a foundational fitness class" || normal === "a foundational fitness course") &&
     !normal.includes("any previous")
@@ -39,6 +46,7 @@ function findCourseByTitle(courses: Course[], title: string): Course | null {
     );
     if (ffCourse) return ffCourse;
   }
+
   return null;
 }
 
@@ -62,7 +70,10 @@ function collectPrereqStrings(course: Course): string[] {
 
 function parsePrereqGroups(prereqStrings: string[], courses: Course[]): PrereqGroup[] {
   return prereqStrings.map((text) => {
-    const orParts = text.split(/\s+OR\s+/i).map((s) => s.trim()).filter(Boolean);
+    // Only split on uppercase AND/OR (logical connectors in structured prerequisite
+    // expressions). Lowercase "and" / "or" are assumed to be part of a course title
+    // (e.g. "World History and Geography") and must NOT be split.
+    const orParts = text.split(/\s+OR\s+/).map((s) => s.trim()).filter(Boolean);
     if (orParts.length > 1) {
       return {
         connector: "or" as const,
@@ -73,7 +84,7 @@ function parsePrereqGroups(prereqStrings: string[], courses: Course[]): PrereqGr
       };
     }
 
-    const andParts = text.split(/\s+AND\s+/i).map((s) => s.trim()).filter(Boolean);
+    const andParts = text.split(/\s+AND\s+/).map((s) => s.trim()).filter(Boolean);
     if (andParts.length > 1) {
       return {
         connector: "and" as const,
