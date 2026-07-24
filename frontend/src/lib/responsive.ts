@@ -1,6 +1,6 @@
 export const breakpoints = {
   mobile: 768,
-  tablet: 1024,
+  tablet: 834,
 } as const;
 
 export const spacing = {

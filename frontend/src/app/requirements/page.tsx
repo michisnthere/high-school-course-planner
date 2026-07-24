@@ -240,7 +240,7 @@ function RequirementsContent(): React.ReactElement {
 
   if (authLoading) {
     return (
-      <div style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
+      <div style={{ padding: "32px", minHeight: "calc(100dvh - 64px)" }}>
         <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
           Loading...
         </p>
@@ -262,7 +262,7 @@ function RequirementsContent(): React.ReactElement {
             }
           }
         `}</style>
-        <div className="rs-req-guest-page" style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
+        <div className="rs-req-guest-page" style={{ padding: "32px", minHeight: "calc(100dvh - 64px)" }}>
           <h1
             style={{
               margin: "0 0 16px",
@@ -426,8 +426,8 @@ function RequirementsContent(): React.ReactElement {
         className={isMobile ? "rs-req-page" : undefined}
         style={
           isMobile
-            ? { minHeight: "calc(100vh - 64px)" }
-            : { padding: "32px", minHeight: "calc(100vh - 64px)" }
+            ? { minHeight: "calc(100dvh - 64px)" }
+            : { padding: "32px", minHeight: "calc(100dvh - 64px)" }
         }
       >
         {isMobile && (

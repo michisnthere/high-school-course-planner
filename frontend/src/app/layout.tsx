@@ -48,7 +48,7 @@ export default function RootLayout({
           }
           .rs-layout-body {
             padding-top: calc(56px + var(--safe-area-top, 0px));
-            --layout-min-height: calc(100vh - 56px - var(--safe-area-top, 0px));
+            --layout-min-height: calc(100dvh - 56px - var(--safe-area-top, 0px));
           }
           }
           @media (max-width: ${breakpoints.mobile - 1}px) {
@@ -58,11 +58,16 @@ export default function RootLayout({
           }
           @media (min-width: ${breakpoints.tablet}px) {
             .rs-layout-body {
-              height: calc(100vh - 64px);
+              height: calc(100dvh - 64px);
               overflow: hidden;
             }
             .rs-layout-body > main {
               overflow-y: auto;
+              height: 100%;
+            }
+            .rs-layout-sidebar {
+              overflow-y: auto;
+              height: 100%;
             }
           }
         `}</style>

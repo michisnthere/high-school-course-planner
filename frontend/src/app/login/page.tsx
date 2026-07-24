@@ -58,7 +58,7 @@ export default function LoginPage(): React.ReactElement {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "calc(100vh - 64px)",
+          minHeight: "calc(100dvh - 64px)",
           padding: "32px",
           backgroundColor: "var(--bg-muted)",
           boxSizing: "border-box",

@@ -885,7 +885,9 @@ function PlannerYearContent(): React.ReactElement {
     <div
       style={{
         padding: "32px",
-        minHeight: "calc(100vh - 64px)",
+        minHeight: "calc(100dvh - 64px)",
+        boxSizing: "border-box",
+        overflowX: "hidden",
       }}
     >
       <Link
@@ -912,7 +914,7 @@ function PlannerYearContent(): React.ReactElement {
           flexWrap: "wrap",
         }}
       >
-        <div style={{ flex: "1 1 600px", minWidth: "300px" }}>
+        <div style={{ flex: "1 1 300px", minWidth: 0 }}>
           <h1
             style={{
               margin: "0 0 28px",
@@ -1367,6 +1369,9 @@ function PlannedCourseCard({
           ? "0 0 0 4px rgba(236, 186, 43, 0.6), 0 6px 16px rgba(0,0,0,0.15)"
           : "none",
         position: "relative",
+        minWidth: 0,
+        wordBreak: "break-word",
+        overflowWrap: "break-word",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-2px)";
@@ -1441,6 +1446,8 @@ function PlannedCourseCard({
           fontWeight: 600,
           color: "#111827",
           lineHeight: 1.3,
+          wordBreak: "break-word",
+          overflowWrap: "break-word",
         }}
       >
         {course.title}

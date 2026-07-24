@@ -88,6 +88,9 @@ export function YearOverviewCard({
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",
         borderRadius: "16px",
+        minWidth: 0,
+        overflow: "hidden",
+        wordBreak: "break-word",
       }}
     >
       <style>{`
@@ -355,7 +358,7 @@ function SemesterBlock({
                       </span>
                     ) : null;
                   })()}
-                  <span style={{ lineHeight: 1.3 }}>{course.course.title}</span>
+                  <span style={{ lineHeight: 1.3, wordBreak: "break-word", overflowWrap: "break-word" }}>{course.course.title}</span>
                 </div>
               ) : (
                 "Empty"

@@ -64,7 +64,7 @@ export function CompletedCoursePicker({
           style={{
             width: "100%",
             maxWidth: isMobile ? "100%" : "600px",
-            maxHeight: isMobile ? "100%" : "calc(100vh - 48px)",
+            maxHeight: isMobile ? "100%" : "calc(100dvh - 48px)",
             height: isMobile ? "100%" : "auto",
             backgroundColor: "var(--bg-card)",
             border: isMobile ? "none" : "1px solid var(--border-default)",

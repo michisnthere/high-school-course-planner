@@ -232,10 +232,19 @@ function PlannerContent(): React.ReactElement {
               grid-template-columns: 1fr 1fr;
               gap: 24px;
             }
+            .planner-year-grid > * {
+              min-width: 0;
+            }
             @media (max-width: ${breakpoints.mobile - 1}px) {
               .planner-year-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
+              }
+            }
+            @media (max-width: ${breakpoints.tablet}px) {
+              .planner-year-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
               }
             }
           `}</style>

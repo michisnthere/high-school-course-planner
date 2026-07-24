@@ -40,7 +40,8 @@ export function Sidebar(): React.ReactElement {
         padding: "24px 16px",
         backgroundColor: "var(--bg-sidebar)",
         boxSizing: "border-box",
-        overflow: "hidden",
+        overflowY: "auto",
+        overflowX: "hidden",
       }}
     >
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>

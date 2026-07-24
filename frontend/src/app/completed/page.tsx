@@ -53,7 +53,7 @@ export default function CompletedCoursesPage(): React.ReactElement {
             }
           }
         `}</style>
-        <div className="rs-completed-guest-page" style={{ padding: "32px", minHeight: "calc(100vh - 64px)" }}>
+        <div className="rs-completed-guest-page" style={{ padding: "32px", minHeight: "calc(100dvh - 64px)" }}>
         <h1
           style={{
             margin: "0 0 16px",
@@ -240,7 +240,7 @@ function CompletedCoursesContent(): React.ReactElement {
         className="rs-completed-page"
         style={{
           padding: "32px",
-          minHeight: "calc(100vh - 64px)",
+          minHeight: "calc(100dvh - 64px)",
         }}
       >
         <h1
