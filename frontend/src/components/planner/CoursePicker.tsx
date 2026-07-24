@@ -49,6 +49,14 @@ export function CoursePicker({
       .finally(() => setLoading(false));
   }, []);
 
+  const searchIndex = useMemo(() => {
+    const index = new Map<number, string>();
+    for (const course of allCourses) {
+      index.set(course.id, course.title.toLowerCase());
+    }
+    return index;
+  }, [allCourses]);
+
   const divisions = useMemo(() => {
     const names = new Set<string>();
     for (const course of allCourses) {
@@ -69,10 +77,13 @@ export function CoursePicker({
     }
     const q = query.trim().toLowerCase();
     if (q) {
-      result = result.filter((c) => c.title.toLowerCase().includes(q));
+      result = result.filter((c) => {
+        const searchable = searchIndex.get(c.id);
+        return searchable ? searchable.includes(q) : c.title.toLowerCase().includes(q);
+      });
     }
     return sortPickerCourses(result);
-  }, [allCourses, excludeCourseIds, simple, filters.division, query]);
+  }, [allCourses, excludeCourseIds, simple, filters.division, query, searchIndex]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>

@@ -29,6 +29,7 @@ import { sumPlannedCredits } from "@/lib/courseCredits";
 import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
+  buildCourseSearchIndex,
   courseMatchesQuery,
   courseMatchesDivisionFilter,
   extractDivisionsFromItems,
@@ -1619,25 +1620,33 @@ function CourseSearchModal({
       .finally(() => setLoading(false));
   }, [grade]);
 
+  const searchIndex = useMemo(() => buildCourseSearchIndex(allCourses), [allCourses]);
+
   const divisions = useMemo(
     () => extractDivisionsFromItems(allCourses, (course) => course.division),
     [allCourses]
   );
 
-  const filteredResults = allCourses.filter(
-    (course) =>
-      courseMatchesQuery(course, query) &&
-      courseMatchesDivisionFilter(
-        course.division,
-        selectedDivision === "All Divisions" ? null : selectedDivision
-      )
+  const filteredResults = useMemo(
+    () => allCourses.filter(
+      (course) =>
+        courseMatchesQuery(course, query, searchIndex) &&
+        courseMatchesDivisionFilter(
+          course.division,
+          selectedDivision === "All Divisions" ? null : selectedDivision
+        )
+    ),
+    [allCourses, query, selectedDivision]
   );
 
-  const sortedResults = [...filteredResults].sort((a, b) => {
-    const aSaved = isSaved(a.id) ? 1 : 0;
-    const bSaved = isSaved(b.id) ? 1 : 0;
-    return bSaved - aSaved;
-  });
+  const sortedResults = useMemo(
+    () => [...filteredResults].sort((a, b) => {
+      const aSaved = isSaved(a.id) ? 1 : 0;
+      const bSaved = isSaved(b.id) ? 1 : 0;
+      return bSaved - aSaved;
+    }),
+    [filteredResults, isSaved]
+  );
 
   const sheetAnimation = mobile ? `@keyframes cs-slide-up {
     from { transform: translateY(100%); }

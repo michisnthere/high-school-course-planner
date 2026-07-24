@@ -4,6 +4,8 @@ import React, { useState, useMemo, useCallback, useEffect, useRef } from "react"
 import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
 import {
+  buildCourseSortData,
+  buildCourseSearchIndex,
   sortCoursesByPrerequisites,
   courseMatchesQuery,
   extractDivisionsFromItems,
@@ -238,6 +240,9 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     setSearchInput(value);
   }, []);
 
+  const sortData = useMemo(() => buildCourseSortData(courses), [courses]);
+  const searchIndex = useMemo(() => buildCourseSearchIndex(courses), [courses]);
+
   const divisions = useMemo(
     () => extractDivisionsFromItems(courses, (course) => course.department?.division?.name),
     [courses]
@@ -251,13 +256,13 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const filteredCourses = useMemo(() => {
     return courses.filter(
       (course) =>
-        courseMatchesQuery(course, searchInput) && courseMatchesFilters(course, filters)
+        courseMatchesQuery(course, searchInput, searchIndex) && courseMatchesFilters(course, filters)
     );
   }, [courses, searchInput, filters]);
 
   const sortedCourses = useMemo(() => {
-    return sortCoursesByPrerequisites(filteredCourses);
-  }, [filteredCourses]);
+    return sortCoursesByPrerequisites(filteredCourses, sortData);
+  }, [filteredCourses, sortData]);
 
   return (
     <>

@@ -113,31 +113,42 @@ function getCourseMinGradeLevel(course: Course): number {
   return Number.isFinite(minGrade) ? minGrade : 9;
 }
 
-export function sortCoursesByPrerequisites(courses: Course[]): Course[] {
-  if (courses.length <= 1) return [...courses];
+export type CourseSortData = {
+  depth: number;
+  minGrade: number;
+};
 
-  const courseList = [...courses];
-  const prereqMap = buildPrerequisiteMap(courseList);
-  const memo = new Map<Course, number>();
+export function buildCourseSortData(courses: Course[]): Map<number, CourseSortData> {
+  const prereqMap = buildPrerequisiteMap(courses);
+  const depthMemo = new Map<Course, number>();
+  const result = new Map<number, CourseSortData>();
 
-  const depths = new Map<Course, number>();
-  const minGrades = new Map<Course, number>();
-  for (const course of courseList) {
-    depths.set(course, computePrerequisiteDepth(course, prereqMap, memo, new Set()));
-    minGrades.set(course, getCourseMinGradeLevel(course));
+  for (const course of courses) {
+    const depth = computePrerequisiteDepth(course, prereqMap, depthMemo, new Set());
+    const minGrade = getCourseMinGradeLevel(course);
+    result.set(course.id, { depth, minGrade });
   }
 
-  return courseList.sort((a, b) => {
-    const gradeA = minGrades.get(a) ?? 9;
-    const gradeB = minGrades.get(b) ?? 9;
-    if (gradeA !== gradeB) return gradeA - gradeB;
+  return result;
+}
 
-    const depthA = depths.get(a) ?? 0;
-    const depthB = depths.get(b) ?? 0;
-    if (depthA !== depthB) return depthA - depthB;
-
+function compareBySortData(sortData: Map<number, CourseSortData>): (a: Course, b: Course) => number {
+  return (a, b) => {
+    const da = sortData.get(a.id) ?? { minGrade: 9, depth: 0 };
+    const db = sortData.get(b.id) ?? { minGrade: 9, depth: 0 };
+    if (da.minGrade !== db.minGrade) return da.minGrade - db.minGrade;
+    if (da.depth !== db.depth) return da.depth - db.depth;
     return a.title.localeCompare(b.title);
-  });
+  };
+}
+
+export function sortCoursesByPrerequisites(
+  courses: Course[],
+  sortData?: Map<number, CourseSortData>
+): Course[] {
+  if (courses.length <= 1) return [...courses];
+  const data = sortData ?? buildCourseSortData(courses);
+  return [...courses].sort(compareBySortData(data));
 }
 
 export function groupCoursesByDivision(courses: Course[]): DivisionGroup[] {
@@ -181,14 +192,33 @@ export function groupCoursesByDivision(courses: Course[]): DivisionGroup[] {
   );
 }
 
-export function sortAndGroupCourses(courses: Course[]): DivisionGroup[] {
-  const sorted = sortCoursesByPrerequisites(courses);
+export function sortAndGroupCourses(
+  courses: Course[],
+  sortData?: Map<number, CourseSortData>
+): DivisionGroup[] {
+  const sorted = sortCoursesByPrerequisites(courses, sortData);
   return groupCoursesByDivision(sorted);
 }
 
-export function courseMatchesQuery(course: { title: string }, query: string): boolean {
+export function buildCourseSearchIndex(courses: { id: number; title: string }[]): Map<number, string> {
+  const index = new Map<number, string>();
+  for (const course of courses) {
+    index.set(course.id, course.title.toLowerCase());
+  }
+  return index;
+}
+
+export function courseMatchesQuery(
+  course: { id: number; title: string },
+  query: string,
+  searchIndex?: Map<number, string>
+): boolean {
   const normalizedQuery = query.toLowerCase().trim();
   if (!normalizedQuery) return true;
+  if (searchIndex) {
+    const searchable = searchIndex.get(course.id);
+    if (searchable) return searchable.includes(normalizedQuery);
+  }
   return course.title.toLowerCase().includes(normalizedQuery);
 }
 

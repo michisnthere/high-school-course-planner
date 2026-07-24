@@ -41,8 +41,8 @@ export function CourseGrid({ courses }: CourseGridProps): React.ReactElement {
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
       }}
     >
-      {courses.map((course, index) => (
-        <CourseCard key={`${course.title}-${index}`} course={course} />
+      {courses.map((course) => (
+        <CourseCard key={course.id} course={course} />
       ))}
     </div>
   );
