@@ -151,6 +151,9 @@ function CompletedCoursesContent(): React.ReactElement {
 
   useEffect(() => {
     load();
+    const handler = () => { load(); };
+    window.addEventListener("completed-courses:changed", handler);
+    return () => window.removeEventListener("completed-courses:changed", handler);
   }, [load]);
 
   const handleAdd = useCallback(

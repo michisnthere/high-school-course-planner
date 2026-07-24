@@ -514,6 +514,7 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
   ));
 
   const completedAt = new Date();
+  const createdIds: number[] = [];
 
   await prisma.$transaction(async (tx) => {
     const existing = await tx.completedCourse.findMany({
@@ -526,7 +527,7 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
       if (existingIds.has(courseId)) continue;
       const planned = planner.plannedCourses.find((pc) => pc.courseId === courseId);
       if (!planned?.course) continue;
-      await tx.completedCourse.create({
+      const record = await tx.completedCourse.create({
         data: {
           userId,
           courseId,
@@ -535,6 +536,7 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
           createdAt: completedAt,
         },
       });
+      createdIds.push(record.id);
     }
 
     await tx.planner.update({
@@ -542,6 +544,8 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
       data: { completedAt },
     });
   });
+
+  console.log(`[complete] plannerId=${plannerId} schoolYear=${planner.schoolYear} courseIds=[${courseIds.join(",")}] completedAt=${completedAt.toISOString()} gradeCompleted=${gradeCompleted} createdRecords=[${createdIds.join(",")}]`);
 
   res.json(await getPlannerResponse(planner.id));
 }));
@@ -578,14 +582,33 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
       .filter((id): id is number => id != null)
   ));
 
+  const gradeLabel = GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
+
+  // Pre-deletion audit: query every CompletedCourse row that could match
+  const beforeRows = await prisma.completedCourse.findMany({
+    where: { userId, courseId: { in: courseIds } },
+    select: { id: true, courseId: true, createdAt: true, gradeCompleted: true },
+  });
+  console.log(`[uncomplete] plannerId=${plannerId} ---- PRE-DELETION AUDIT ----`);
+  console.log(`[uncomplete] plannerId=${plannerId} planner.completedAt=${planner.completedAt!.toISOString()} (${planner.completedAt!.getTime()}ms epoch)`);
+  console.log(`[uncomplete] plannerId=${plannerId} courseIds=[${courseIds.join(",")}] gradeLabel=${gradeLabel}`);
+  console.log(`[uncomplete] plannerId=${plannerId} existing CompletedCourse records (${beforeRows.length}):`);
+  for (const row of beforeRows) {
+    console.log(`[uncomplete] plannerId=${plannerId}   id=${row.id} courseId=${row.courseId} createdAt=${row.createdAt.toISOString()} (${row.createdAt.getTime()}ms) gradeCompleted=${row.gradeCompleted} matchesTimestamp=${row.createdAt.getTime() === planner.completedAt!.getTime()}`);
+  }
+
   let deletedCount = 0;
+  let deletionMethod = "none";
+
   await prisma.$transaction(async (tx) => {
     if (courseIds.length > 0) {
       // CompletedCourse records created during "Mark Year Completed" are intentionally
       // stamped with the same timestamp as Planner.completedAt. This allows us to
       // identify and remove only the auto-generated completion batch when restoring
       // the planner to Active, while preserving manually completed courses.
-      const result = await tx.completedCourse.deleteMany({
+
+      // STRATEGY 1: Exact-match by createdAt (current approach)
+      let result = await tx.completedCourse.deleteMany({
         where: {
           userId,
           courseId: { in: courseIds },
@@ -593,6 +616,44 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
         },
       });
       deletedCount = result.count;
+      deletionMethod = "exact-createdAt";
+
+      // STRATEGY 2: If exact match failed, try gradeCompleted + timestamp window
+      if (deletedCount === 0) {
+        const completedTime = planner.completedAt!.getTime();
+        const windowStart = new Date(completedTime - 2000);
+        const windowEnd = new Date(completedTime + 2000);
+        result = await tx.completedCourse.deleteMany({
+          where: {
+            userId,
+            courseId: { in: courseIds },
+            gradeCompleted: gradeLabel,
+            createdAt: {
+              gte: windowStart,
+              lte: windowEnd,
+            },
+          },
+        });
+        if (result.count > 0) {
+          deletedCount = result.count;
+          deletionMethod = "grade+window";
+        }
+      }
+
+      // STRATEGY 3: If still nothing, try gradeCompleted only
+      if (deletedCount === 0) {
+        result = await tx.completedCourse.deleteMany({
+          where: {
+            userId,
+            courseId: { in: courseIds },
+            gradeCompleted: gradeLabel,
+          },
+        });
+        if (result.count > 0) {
+          deletedCount = result.count;
+          deletionMethod = "grade-only";
+        }
+      }
     }
 
     await tx.planner.update({
@@ -601,7 +662,16 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
     });
   });
 
-  console.log(`[uncomplete] plannerId=${plannerId} deleted ${deletedCount} auto-completed courses`);
+  // Post-deletion audit: log remaining rows
+  const afterRows = await prisma.completedCourse.findMany({
+    where: { userId, courseId: { in: courseIds } },
+    select: { id: true, courseId: true, createdAt: true, gradeCompleted: true },
+  });
+  console.log(`[uncomplete] plannerId=${plannerId} ---- POST-DELETION ----`);
+  console.log(`[uncomplete] plannerId=${plannerId} method=${deletionMethod} deletedCount=${deletedCount} remaining=${afterRows.length}`);
+  for (const row of afterRows) {
+    console.log(`[uncomplete] plannerId=${plannerId}   REMAINING id=${row.id} courseId=${row.courseId} createdAt=${row.createdAt.toISOString()} gradeCompleted=${row.gradeCompleted}`);
+  }
 
   res.json(await getPlannerResponse(planner.id));
 }));
