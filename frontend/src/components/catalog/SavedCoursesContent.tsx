@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
@@ -128,6 +128,7 @@ export function SavedCoursesContent({
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [department, setDepartment] = useState(() => searchParams.get("dept") ?? "All Departments");
   const [sort, setSort] = useState(() => searchParams.get("sort") ?? "Recently Saved");
+  const isComposingRef = useRef(false);
 
   const syncUrl = useCallback((q: string, dept: string, s: string) => {
     const params = new URLSearchParams();
@@ -326,7 +327,15 @@ export function SavedCoursesContent({
           className="sc-search"
           placeholder="Search by title or course code..."
           value={query}
-          onChange={(e) => handleQueryChange(e.target.value)}
+          onChange={(e) => {
+            if (isComposingRef.current) return;
+            handleQueryChange(e.target.value);
+          }}
+          onCompositionStart={() => { isComposingRef.current = true; }}
+          onCompositionEnd={(e) => {
+            isComposingRef.current = false;
+            handleQueryChange((e.target as HTMLInputElement).value);
+          }}
         />
         <select
           className="sc-select"

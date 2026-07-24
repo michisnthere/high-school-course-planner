@@ -1596,6 +1596,7 @@ function CourseSearchModal({
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
   const [query, setQuery] = useState("");
+  const isComposingRef = useRef(false);
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
@@ -1727,7 +1728,15 @@ function CourseSearchModal({
             type="text"
             placeholder="Search by course title..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              if (isComposingRef.current) return;
+              setQuery(e.target.value);
+            }}
+            onCompositionStart={() => { isComposingRef.current = true; }}
+            onCompositionEnd={(e) => {
+              isComposingRef.current = false;
+              setQuery((e.target as HTMLInputElement).value);
+            }}
             autoFocus
             style={{
               width: "100%",

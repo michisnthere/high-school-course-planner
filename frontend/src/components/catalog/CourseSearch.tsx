@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 
 type CourseSearchProps = {
   query: string;
@@ -8,6 +8,8 @@ type CourseSearchProps = {
 };
 
 export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React.ReactElement {
+  const isComposingRef = useRef(false);
+
   return (
     <div className="rs-catalog-search" style={{ marginBottom: "24px" }}>
       <input
@@ -15,7 +17,15 @@ export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React
         aria-label="Search courses"
         placeholder="Search courses..."
         value={query}
-        onChange={(e) => onQueryChange(e.target.value)}
+        onChange={(e) => {
+          if (isComposingRef.current) return;
+          onQueryChange(e.target.value);
+        }}
+        onCompositionStart={() => { isComposingRef.current = true; }}
+        onCompositionEnd={(e) => {
+          isComposingRef.current = false;
+          onQueryChange((e.target as HTMLInputElement).value);
+        }}
         style={{
           width: "100%",
           maxWidth: "480px",
@@ -28,7 +38,6 @@ export function CourseSearch({ query, onQueryChange }: CourseSearchProps): React
           borderRadius: "9999px",
           outline: "none",
           boxSizing: "border-box",
-
         }}
       />
     </div>

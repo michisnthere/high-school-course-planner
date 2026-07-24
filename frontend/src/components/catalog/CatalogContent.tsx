@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect, useRef, useDeferredValue } from "react";
+import React, { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
 import {
@@ -197,7 +197,6 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     [searchParams]
   );
 
-  // Local input state for immediate responsiveness
   const [searchInput, setSearchInput] = useState(query);
 
   // Sync URL changes (back/forward) back to local input
@@ -205,21 +204,14 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     setSearchInput(query);
   }, [query]);
 
-  // Debounced value: filtering and URL sync happen 150ms after user stops typing
-  const [debouncedSearch, setDebouncedSearch] = useState(query);
+  // Debounce URL sync only — filtering is synchronous
   const debouncePendingRef = useRef(false);
 
   useEffect(() => {
-    if (searchInput === query) {
-      if (!debouncePendingRef.current) {
-        setDebouncedSearch(searchInput);
-      }
-      return;
-    }
+    if (searchInput === query) return;
     debouncePendingRef.current = true;
     const timer = setTimeout(() => {
       debouncePendingRef.current = false;
-      setDebouncedSearch(searchInput);
       const params = buildSearchParams(searchInput, filters);
       const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
       router.replace(target, { scroll: false });
@@ -228,9 +220,6 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       clearTimeout(timer);
     };
   }, [searchInput, filters, router, query]);
-
-  // Deferred query for lower-priority filtering
-  const deferredQuery = useDeferredValue(debouncedSearch);
 
   // Stable ref for setFilters to always read the latest searchInput
   const searchInputRef = useRef(searchInput);
@@ -262,9 +251,9 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const filteredCourses = useMemo(() => {
     return courses.filter(
       (course) =>
-        courseMatchesQuery(course, deferredQuery) && courseMatchesFilters(course, filters)
+        courseMatchesQuery(course, searchInput) && courseMatchesFilters(course, filters)
     );
-  }, [courses, deferredQuery, filters]);
+  }, [courses, searchInput, filters]);
 
   const sortedCourses = useMemo(() => {
     return sortCoursesByPrerequisites(filteredCourses);
