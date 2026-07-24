@@ -49,6 +49,7 @@ import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import type { RequirementResolution } from "@/lib/api";
 import type { PeWaiver } from "@/lib/plannerWaivers";
@@ -1596,9 +1597,9 @@ function CourseSearchModal({
   onGoToCourse: (year: number, plannedCourseId: number) => void;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
-  const [query, setQuery] = useState("");
-  const isComposingRef = useRef(false);
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit();
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [duplicateCourse, setDuplicateCourse] = useState<PlannerCourseDetails | null>(null);
@@ -1630,13 +1631,13 @@ function CourseSearchModal({
   const filteredResults = useMemo(
     () => allCourses.filter(
       (course) =>
-        courseMatchesQuery(course, query, searchIndex) &&
+        courseMatchesQuery(course, submitted, searchIndex) &&
         courseMatchesDivisionFilter(
           course.division,
           selectedDivision === "All Divisions" ? null : selectedDivision
         )
     ),
-    [allCourses, query, selectedDivision]
+    [allCourses, submitted, selectedDivision]
   );
 
   const sortedResults = useMemo(
@@ -1733,32 +1734,89 @@ function CourseSearchModal({
               </button>
           </div>
 
-          <input
-            type="text"
-            placeholder="Search by course title..."
-            value={query}
-            onChange={(e) => {
-              if (isComposingRef.current) return;
-              setQuery(e.target.value);
-            }}
-            onCompositionStart={() => { isComposingRef.current = true; }}
-            onCompositionEnd={(e) => {
-              isComposingRef.current = false;
-              setQuery((e.target as HTMLInputElement).value);
-            }}
-            autoFocus
-            style={{
-              width: "100%",
-              padding: "14px 16px",
-              fontSize: "16px",
-              color: "#ffffff",
-              backgroundColor: "#111827",
-              border: "1px solid #4b5563",
-              borderRadius: "10px",
-              outline: "none",
-              boxSizing: "border-box",
-            }}
-          />
+          <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
+            <div style={{ position: "relative", flex: 1, display: "flex", alignItems: "stretch" }}>
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search by course title..."
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={handleKeyDown}
+                autoFocus
+                style={{
+                  flex: 1,
+                  height: "44px",
+                  padding: draft ? "0 40px 0 16px" : "0 16px",
+                  fontSize: "16px",
+                  color: "#ffffff",
+                  backgroundColor: "#111827",
+                  border: "1px solid #4b5563",
+                  borderRadius: "9999px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+                aria-label="Search courses"
+              />
+              {draft && (
+                <button
+                  type="button"
+                  onClick={() => { clearDraft(); inputRef.current?.focus(); }}
+                  aria-label="Clear search"
+                  style={{
+                    position: "absolute",
+                    right: "4px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "36px",
+                    height: "36px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "#9ca3af",
+                    fontSize: "18px",
+                    lineHeight: 1,
+                    borderRadius: "50%",
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={submit}
+              disabled={!hasChanged}
+              aria-label="Search"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+                height: "44px",
+                padding: "0 20px",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#FFFFFF",
+                backgroundColor: "var(--brand-accent)",
+                border: "none",
+                borderRadius: "9999px",
+                cursor: !hasChanged ? "not-allowed" : "pointer",
+                whiteSpace: "nowrap",
+                boxSizing: "border-box",
+                opacity: !hasChanged ? 0.5 : 1,
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+              Search
+            </button>
+          </div>
 
           <select
             value={selectedDivision}
@@ -1798,7 +1856,7 @@ function CourseSearchModal({
           ) : sortedResults.length === 0 ? (
             <p style={{ color: "#9ca3af", textAlign: "center" }}>
               {(() => {
-                const hasQuery = query.trim().length > 0;
+                const hasQuery = submitted.trim().length > 0;
                 const hasDivision = selectedDivision !== "All Divisions";
                 if (hasQuery && hasDivision) {
                   return "No courses match your search and division filter.";

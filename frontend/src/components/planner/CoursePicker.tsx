@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import {
   courseToPlannerDetails,
   type PlannerCourseDetails,
@@ -8,7 +8,26 @@ import {
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import { formatCreditType } from "@/lib/catalog";
+import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { CourseFilters, type ActiveFilters } from "@/components/catalog/CourseFilters";
+
+const searchBtnStyle: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "6px",
+  height: "44px",
+  padding: "0 20px",
+  fontSize: "14px",
+  fontWeight: 500,
+  color: "#FFFFFF",
+  backgroundColor: "var(--brand-accent)",
+  border: "none",
+  borderRadius: "9999px",
+  cursor: "pointer",
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+};
 
 type CoursePickerProps = {
   onSelect: (courseId: number) => void;
@@ -27,8 +46,7 @@ export function CoursePicker({
   selectedCourseId,
   simple = false,
 }: CoursePickerProps): React.ReactElement {
-  const [query, setQuery] = useState("");
-  const isComposingRef = useRef(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<ActiveFilters>({
@@ -39,6 +57,8 @@ export function CoursePicker({
     semester: [],
     requirement: [],
   });
+
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit();
 
   useEffect(() => {
     setLoading(true);
@@ -65,6 +85,15 @@ export function CoursePicker({
     return Array.from(names).sort();
   }, [allCourses]);
 
+  const handleSearchSubmit = useCallback(() => {
+    submit();
+  }, [submit]);
+
+  const handleClear = useCallback(() => {
+    clearDraft();
+    inputRef.current?.focus();
+  }, [clearDraft]);
+
   const filtered = useMemo(() => {
     let result = allCourses;
     if (excludeCourseIds?.length) {
@@ -75,7 +104,7 @@ export function CoursePicker({
       const selected = filters.division[0];
       result = result.filter((c) => c.division === selected);
     }
-    const q = query.trim().toLowerCase();
+    const q = submitted.trim().toLowerCase();
     if (q) {
       result = result.filter((c) => {
         const searchable = searchIndex.get(c.id);
@@ -83,38 +112,81 @@ export function CoursePicker({
       });
     }
     return sortPickerCourses(result);
-  }, [allCourses, excludeCourseIds, simple, filters.division, query, searchIndex]);
+  }, [allCourses, excludeCourseIds, simple, filters.division, submitted, searchIndex]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div style={{ padding: "0 24px 16px" }}>
-        <input
-          type="text"
-          placeholder="Search by course title..."
-          value={query}
-          onChange={(e) => {
-            if (isComposingRef.current) return;
-            setQuery(e.target.value);
-          }}
-          onCompositionStart={() => { isComposingRef.current = true; }}
-          onCompositionEnd={(e) => {
-            isComposingRef.current = false;
-            setQuery((e.target as HTMLInputElement).value);
-          }}
-          autoFocus
-          style={{
-            width: "100%",
-            padding: "14px 16px",
-            fontSize: "16px",
-            color: "#ffffff",
-            backgroundColor: "#111827",
-            border: "1px solid #4b5563",
-            borderRadius: "10px",
-            outline: "none",
-            boxSizing: "border-box",
-            marginBottom: "16px",
-          }}
-        />
+        <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
+          <div style={{ position: "relative", flex: 1, display: "flex", alignItems: "stretch" }}>
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="Search by course title..."
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoFocus
+              style={{
+                flex: 1,
+                height: "44px",
+                padding: draft ? "0 40px 0 16px" : "0 16px",
+                fontSize: "16px",
+                color: "#ffffff",
+                backgroundColor: "#111827",
+                border: "1px solid #4b5563",
+                borderRadius: "9999px",
+                outline: "none",
+                boxSizing: "border-box",
+              }}
+              aria-label="Search courses"
+            />
+            {draft && (
+              <button
+                type="button"
+                onClick={handleClear}
+                aria-label="Clear search"
+                style={{
+                  position: "absolute",
+                  right: "4px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: "36px",
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "#9ca3af",
+                  fontSize: "18px",
+                  lineHeight: 1,
+                  borderRadius: "50%",
+                }}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={handleSearchSubmit}
+            disabled={!hasChanged}
+            aria-label="Search"
+            style={{
+              ...searchBtnStyle,
+              opacity: !hasChanged ? 0.5 : 1,
+              cursor: !hasChanged ? "not-allowed" : "pointer",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            Search
+          </button>
+        </div>
         {!simple && (
           <CourseFilters
             divisions={divisions}
@@ -134,7 +206,7 @@ export function CoursePicker({
           <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading courses...</p>
         ) : filtered.length === 0 ? (
           <p style={{ color: "#9ca3af", textAlign: "center" }}>
-            {query.trim() === "" && filters.division.length === 0
+            {submitted.trim() === "" && filters.division.length === 0
               ? "No courses available."
               : "No courses match your search."}
           </p>

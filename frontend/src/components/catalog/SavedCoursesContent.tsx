@@ -7,6 +7,7 @@ import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType } from "@/lib/catalog";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
+import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { breakpoints } from "@/lib/responsive";
 
 type SavedCoursesContentProps = {
@@ -93,6 +94,24 @@ const selectStyle: React.CSSProperties = {
   minWidth: "200px",
 };
 
+const searchBtnStyle: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "6px",
+  height: "44px",
+  padding: "0 20px",
+  fontSize: "14px",
+  fontWeight: 500,
+  color: "#FFFFFF",
+  backgroundColor: "var(--brand-accent)",
+  border: "none",
+  borderRadius: "9999px",
+  cursor: "pointer",
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+};
+
 const SORT_OPTIONS = [
   "Recently Saved",
   "Alphabetical (A–Z)",
@@ -124,11 +143,13 @@ export function SavedCoursesContent({
   const { savedIds, loading, isAuthenticated, toggle } = useSavedCourses();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [department, setDepartment] = useState(() => searchParams.get("dept") ?? "All Departments");
   const [sort, setSort] = useState(() => searchParams.get("sort") ?? "Recently Saved");
-  const isComposingRef = useRef(false);
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit(
+    searchParams.get("q") ?? ""
+  );
 
   const syncUrl = useCallback((q: string, dept: string, s: string) => {
     const params = new URLSearchParams();
@@ -139,20 +160,25 @@ export function SavedCoursesContent({
     router.replace(`/saved${str ? `?${str}` : ""}`, { scroll: false });
   }, [router]);
 
-  const handleQueryChange = useCallback((value: string) => {
-    setQuery(value);
-    syncUrl(value, department, sort);
-  }, [syncUrl, department, sort]);
+  const handleSearchSubmit = useCallback(() => {
+    submit();
+    syncUrl(draft, department, sort);
+  }, [draft, department, sort, submit, syncUrl]);
+
+  const handleClear = useCallback(() => {
+    clearDraft();
+    inputRef.current?.focus();
+  }, [clearDraft]);
 
   const handleDepartmentChange = useCallback((value: string) => {
     setDepartment(value);
-    syncUrl(query, value, sort);
-  }, [syncUrl, query, sort]);
+    syncUrl(submitted, value, sort);
+  }, [syncUrl, submitted, sort]);
 
   const handleSortChange = useCallback((value: string) => {
     setSort(value);
-    syncUrl(query, department, value);
-  }, [syncUrl, query, department]);
+    syncUrl(submitted, department, value);
+  }, [syncUrl, submitted, department]);
 
   const courseMap = useMemo(() => {
     const map = new Map<number, Course>();
@@ -181,8 +207,8 @@ export function SavedCoursesContent({
       results = results.filter((c) => c.department?.name === department);
     }
 
-    if (query.trim()) {
-      const q = query.toLowerCase().trim();
+    if (submitted.trim()) {
+      const q = submitted.toLowerCase().trim();
       results = results.filter((c) => {
         const code = getCourseCode(c);
         return c.title.toLowerCase().includes(q) || (code != null && code.toLowerCase().includes(q));
@@ -216,7 +242,7 @@ export function SavedCoursesContent({
     }
 
     return sorted;
-  }, [savedCourses, department, query, sort]);
+  }, [savedCourses, department, submitted, sort]);
 
   if (!isAuthenticated) {
     return (
@@ -290,29 +316,54 @@ export function SavedCoursesContent({
           gap: 12px;
           margin-bottom: 24px;
           flex-wrap: wrap;
-          align-items: center;
+          align-items: stretch;
+        }
+        .sc-search-wrap {
+          flex: 1;
+          min-width: 200px;
+          display: flex;
+          gap: 8px;
+          align-items: stretch;
         }
         .sc-search {
           flex: 1;
-          min-width: 200px;
-          padding: 10px 14px;
+          height: 44px;
+          padding: 0 40px 0 14px;
           font-size: 14px;
           color: var(--text-primary);
           background-color: var(--bg-input);
           border: 1px solid var(--border-default);
-          border-radius: 8px;
+          border-radius: 9999px;
           outline: none;
           box-sizing: border-box;
         }
         .sc-search::placeholder {
           color: var(--text-muted);
         }
+        .sc-search-clear {
+          position: absolute;
+          right: 4px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: var(--text-muted);
+          font-size: 18px;
+          line-height: 1;
+          border-radius: 50%;
+        }
         @media (max-width: ${breakpoints.mobile - 1}px) {
           .sc-toolbar {
             flex-direction: column;
             align-items: stretch;
           }
-          .sc-search {
+          .sc-search-wrap {
             min-width: 0;
           }
           .sc-select {
@@ -322,21 +373,47 @@ export function SavedCoursesContent({
       `}</style>
 
       <div className="sc-toolbar">
-        <input
-          type="text"
-          className="sc-search"
-          placeholder="Search by title or course code..."
-          value={query}
-          onChange={(e) => {
-            if (isComposingRef.current) return;
-            handleQueryChange(e.target.value);
-          }}
-          onCompositionStart={() => { isComposingRef.current = true; }}
-          onCompositionEnd={(e) => {
-            isComposingRef.current = false;
-            handleQueryChange((e.target as HTMLInputElement).value);
-          }}
-        />
+        <div className="sc-search-wrap">
+          <div style={{ position: "relative", flex: 1, display: "flex", alignItems: "stretch" }}>
+            <input
+              ref={inputRef}
+              type="text"
+              className="sc-search"
+              placeholder="Search by title or course code..."
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              onKeyDown={handleKeyDown}
+              aria-label="Search saved courses"
+            />
+            {draft && (
+              <button
+                type="button"
+                className="sc-search-clear"
+                onClick={handleClear}
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={handleSearchSubmit}
+            disabled={!hasChanged}
+            aria-label="Search"
+            style={{
+              ...searchBtnStyle,
+              opacity: !hasChanged ? 0.5 : 1,
+              cursor: !hasChanged ? "not-allowed" : "pointer",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            Search
+          </button>
+        </div>
         <select
           className="sc-select"
           value={department}
@@ -389,9 +466,9 @@ export function SavedCoursesContent({
               color: "var(--text-muted)",
             }}
           >
-            {query.trim() && department !== "All Departments"
+            {submitted.trim() && department !== "All Departments"
               ? "Try adjusting your search or department filter."
-              : query.trim()
+              : submitted.trim()
               ? "Try a different search term."
               : "Try selecting a different department."}
           </p>
@@ -409,7 +486,7 @@ export function SavedCoursesContent({
             const slug = getCourseSlug(course);
             const creditType = course.options?.[0]?.creditType ?? null;
             const returnParams = new URLSearchParams();
-            if (query) returnParams.set("q", query);
+            if (submitted) returnParams.set("q", submitted);
             if (department !== "All Departments") returnParams.set("dept", department);
             if (sort !== "Recently Saved") returnParams.set("sort", sort);
             const returnStr = returnParams.toString();

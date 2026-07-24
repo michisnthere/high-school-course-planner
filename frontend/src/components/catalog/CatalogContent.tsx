@@ -10,6 +10,7 @@ import {
   courseMatchesQuery,
   extractDivisionsFromItems,
 } from "@/lib/catalog";
+import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
@@ -194,51 +195,38 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const { query, filters } = useMemo(
+  const { query: initialQuery, filters } = useMemo(
     () => parseSearchParams(searchParams),
     [searchParams]
   );
 
-  const [searchInput, setSearchInput] = useState(query);
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit(initialQuery);
 
-  // Sync URL changes (back/forward) back to local input
-  useEffect(() => {
-    setSearchInput(query);
-  }, [query]);
-
-  // Debounce URL sync only — filtering is synchronous
-  const debouncePendingRef = useRef(false);
-
-  useEffect(() => {
-    if (searchInput === query) return;
-    debouncePendingRef.current = true;
-    const timer = setTimeout(() => {
-      debouncePendingRef.current = false;
-      const params = buildSearchParams(searchInput, filters);
-      const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
-      router.replace(target, { scroll: false });
-    }, 150);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchInput, filters, router, query]);
-
-  // Stable ref for setFilters to always read the latest searchInput
-  const searchInputRef = useRef(searchInput);
-  searchInputRef.current = searchInput;
-
-  const setFilters = useCallback(
-    (newFilters: ActiveFilters) => {
-      const params = buildSearchParams(searchInputRef.current, newFilters);
+  const syncUrl = useCallback(
+    (q: string, f: ActiveFilters) => {
+      const params = buildSearchParams(q, f);
       const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
       router.replace(target, { scroll: false });
     },
     [router]
   );
 
-  const handleQueryChange = useCallback((value: string) => {
-    setSearchInput(value);
-  }, []);
+  const handleSearchSubmit = useCallback(() => {
+    submit();
+    syncUrl(draft, filters);
+  }, [draft, filters, submit, syncUrl]);
+
+  const setFilters = useCallback(
+    (newFilters: ActiveFilters) => {
+      syncUrl(submitted, newFilters);
+    },
+    [syncUrl, submitted]
+  );
+
+  // Sync back/forward navigation
+  useEffect(() => {
+    setDraft(initialQuery);
+  }, [initialQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sortData = useMemo(() => buildCourseSortData(courses), [courses]);
   const searchIndex = useMemo(() => buildCourseSearchIndex(courses), [courses]);
@@ -256,9 +244,9 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const filteredCourses = useMemo(() => {
     return courses.filter(
       (course) =>
-        courseMatchesQuery(course, searchInput, searchIndex) && courseMatchesFilters(course, filters)
+        courseMatchesQuery(course, submitted, searchIndex) && courseMatchesFilters(course, filters)
     );
-  }, [courses, searchInput, filters]);
+  }, [courses, submitted, filters]);
 
   const sortedCourses = useMemo(() => {
     return sortCoursesByPrerequisites(filteredCourses, sortData);
@@ -266,7 +254,14 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
 
   return (
     <>
-      <CourseSearch query={searchInput} onQueryChange={handleQueryChange} />
+      <CourseSearch
+        value={draft}
+        onChange={setDraft}
+        onSubmit={handleSearchSubmit}
+        onKeyDown={handleKeyDown}
+        disabled={!hasChanged}
+        onClear={clearDraft}
+      />
       <CourseFilters
         divisions={divisions}
         divisionDepartments={divisionDepartments}
@@ -279,7 +274,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       />
 
       {sortedCourses.length === 0 ? (
-        <EmptyState message={getEmptyStateMessage(searchInput, filters)} />
+        <EmptyState message={getEmptyStateMessage(submitted, filters)} />
       ) : (
         <CourseGrid courses={sortedCourses} />
       )}
