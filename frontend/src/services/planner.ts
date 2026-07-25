@@ -139,6 +139,7 @@ export function createGuestPlannerService(): IPlannerService {
           };
 
           const tryShiftAt = (s: number): boolean => {
+            const allMutations: Array<{ pc: typeof planner.plannedCourses[0]; target: number }> = [];
             for (const sem of [1, 2]) {
               const semCourses = planner.plannedCourses
                 .filter((pc) => pc.semester === sem)
@@ -151,8 +152,11 @@ export function createGuestPlannerService(): IPlannerService {
                 while (target <= maxSlot && usedTargets.has(target)) { target++; }
                 if (target > maxSlot) return false;
                 usedTargets.add(target);
-                pc.slot = target;
+                allMutations.push({ pc, target });
               }
+            }
+            for (const m of allMutations) {
+              m.pc.slot = m.target;
             }
             return true;
           };
@@ -181,6 +185,7 @@ export function createGuestPlannerService(): IPlannerService {
               slot: startSlot,
               slotSpan,
               course: { ...courseDetails },
+              isEarlyBird: false,
             });
           }
           save();
@@ -196,6 +201,7 @@ export function createGuestPlannerService(): IPlannerService {
           slot: slot!,
           slotSpan: 1,
           course: { ...courseDetails },
+          isEarlyBird: false,
         };
       } else {
         entry = {
@@ -227,7 +233,9 @@ export function createGuestPlannerService(): IPlannerService {
             isNonAcademic: true,
             isMarchingBand: false,
             attributes: [],
+            supportsEarlyBird: false,
           },
+          isEarlyBird: false,
         };
       }
 

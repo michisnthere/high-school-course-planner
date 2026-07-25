@@ -70,6 +70,7 @@ model Course {
   fulfillsRequirements Json   @default("[]")
   isRepeatable        Boolean @default(false)
   isMarchingBand      Boolean @default(false)
+  supportsEarlyBird   Boolean @default(false)
 
   notes           Json    @default("[]")
   sourceReference String?
@@ -330,6 +331,7 @@ model PlannedCourse {
   semester        Int
   slot            Int
   slotSpan        Int      @default(1) // 1 = one slot; 2 = occupies slot and slot+1, etc.
+  isEarlyBird     Boolean  @default(false)
   createdAt       DateTime @default(now())
 
   planner       Planner        @relation(fields: [plannerId], references: [id], onDelete: Cascade)

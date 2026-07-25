@@ -36,6 +36,7 @@ export type CourseDetails = {
   gradeMax: number | null;
   isNonAcademic: boolean;
   isMarchingBand: boolean;
+  supportsEarlyBird: boolean;
 };
 
 type PlannedCourseResponse = {
@@ -47,6 +48,7 @@ type PlannedCourseResponse = {
   slot: number;
   slotSpan: number;
   course: CourseDetails;
+  isEarlyBird: boolean;
 };
 
 type PlannerResponse = {
@@ -135,6 +137,7 @@ export function deriveCourseDetails(
     gradeMax,
     isNonAcademic: false,
     isMarchingBand: course.isMarchingBand ?? false,
+    supportsEarlyBird: (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")) || false,
   };
 }
 
@@ -159,6 +162,7 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     gradeMax: null,
     isNonAcademic: option.isNonAcademic ?? false,
     isMarchingBand: false,
+    supportsEarlyBird: false,
   };
 }
 
@@ -244,26 +248,33 @@ function computeShiftChainForRange(
 
   let allFree = true;
   for (let s = startSlot; s < startSlot + count; s++) {
-    if (semCourses.some((pc) => pc.slot === s)) { allFree = false; break; }
+    if (semCourses.some((pc) => rangesOverlap(pc.slot, getOccupiedSlotCount(pc), s, 1))) {
+      allFree = false;
+      break;
+    }
   }
   if (allFree) return [];
 
   const maxSlot = 7;
   const usedTargets = new Set<number>();
   const chain: Array<{ id: number; newSlot: number }> = [];
+  const processedIds = new Set<number>();
 
   for (let s = maxSlot; s >= startSlot; s--) {
-    const occupant = semCourses.find((pc) => pc.slot === s);
+    const occupant = semCourses.find(
+      (pc) => !processedIds.has(pc.id) && rangesOverlap(pc.slot, getOccupiedSlotCount(pc), s, 1)
+    );
     if (!occupant) continue;
     if (getPlannedDuration(occupant) === 2) return null;
     if (getOccupiedSlotCount(occupant) > 1) return null;
 
-    const baseTarget = s + count;
+    const baseTarget = occupant.slot + count;
     let target = baseTarget;
     while (target <= maxSlot && usedTargets.has(target)) { target++; }
     if (target > maxSlot) return null;
 
     usedTargets.add(target);
+    processedIds.add(occupant.id);
     chain.push({ id: occupant.id, newSlot: target });
   }
 
@@ -343,6 +354,7 @@ function serializePlannedCourse(plannedCourse: {
   semester: number;
   slot: number;
   slotSpan: number;
+  isEarlyBird: boolean;
   course: (Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> }) | null;
   plannerOption: PlannerOption | null;
 }): PlannedCourseResponse {
@@ -354,6 +366,7 @@ function serializePlannedCourse(plannedCourse: {
     semester: plannedCourse.semester,
     slot: plannedCourse.slot,
     slotSpan: plannedCourse.slotSpan,
+    isEarlyBird: plannedCourse.isEarlyBird,
     course: plannedCourse.course
       ? deriveCourseDetails(plannedCourse.course)
       : derivePlannerOptionDetails(plannedCourse.plannerOption!),
@@ -849,7 +862,9 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     }
 
     if (duration === 1) {
-      const occupant = existingCourses.find((pc) => pc.semester === semesterNum && pc.slot === slotNum);
+      const occupant = existingCourses.find(
+        (pc) => pc.semester === semesterNum && rangesOverlap(pc.slot, getOccupiedSlotCount(pc), slotNum, 1)
+      );
       if (occupant) {
         return res.status(409).json({ error: "Slot is already occupied" });
       }

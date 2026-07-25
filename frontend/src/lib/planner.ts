@@ -25,6 +25,7 @@ export type PlannerCourseDetails = {
   isNonAcademic: boolean;
   isMarchingBand: boolean;
   attributes: string[];
+  supportsEarlyBird: boolean;
 };
 
 export type PlannerOption = {
@@ -46,6 +47,7 @@ export type PlannedCourse = {
   slot: number;
   slotSpan: number;
   course: PlannerCourseDetails;
+  isEarlyBird: boolean;
 };
 
 export type Planner = {
@@ -375,6 +377,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     isNonAcademic: false,
     isMarchingBand: course.isMarchingBand ?? false,
     attributes: Array.isArray(course.attributes) ? course.attributes : [],
+    supportsEarlyBird: course.supportsEarlyBird ?? (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")),
   };
 }
 
@@ -400,5 +403,6 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     isNonAcademic: option.isNonAcademic,
     isMarchingBand: false,
     attributes: [],
+    supportsEarlyBird: false,
   };
 }

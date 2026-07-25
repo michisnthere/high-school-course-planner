@@ -58,6 +58,7 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
         isNonAcademic: false,
         isMarchingBand: false,
         attributes: [],
+        supportsEarlyBird: false,
       };
       const entry: CompletedCourse = {
         id: completedIdCounter,

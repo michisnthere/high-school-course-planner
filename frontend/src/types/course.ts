@@ -37,6 +37,7 @@ export type Course = {
   attributes?: string[];
   fulfillsRequirements?: string[];
   isMarchingBand?: boolean;
+  supportsEarlyBird?: boolean;
   department?: Department | null;
   options?: CourseOption[];
 };

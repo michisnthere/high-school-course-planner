@@ -44,6 +44,7 @@ import {
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { StudentPlanningData } from "@/lib/studentData";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
+import { EarlyBirdModal } from "@/components/planner/EarlyBirdModal";
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
@@ -177,6 +178,12 @@ function PlannerYearContent(): React.ReactElement {
   const [plannerAnalysis, setPlannerAnalysis] = useState<PlannerAnalysis | null>(null);
   const [allCatalogCourses, setAllCatalogCourses] = useState<PlannerCourseDetails[]>([]);
   const [resolutions, setResolutions] = useState<RequirementResolution[]>([]);
+  const [earlyBirdPending, setEarlyBirdPending] = useState<{
+    selection: { courseId: number } | { plannerOptionId: number };
+    semester: number;
+    slot: number;
+    plannerId: number;
+  } | null>(null);
 
   const loadCompletedCourses = useCallback(async () => {
     try {
@@ -386,6 +393,33 @@ function PlannerYearContent(): React.ReactElement {
     async (selection: { courseId: number } | { plannerOptionId: number }) => {
       if (!planner || !activeSlot) return;
 
+      if ("courseId" in selection) {
+        const course = allCatalogCourses.find((c) => c.id === selection.courseId);
+        if (course?.supportsEarlyBird) {
+          setEarlyBirdPending({
+            selection,
+            semester: activeSlot.semester,
+            slot: activeSlot.slot,
+            plannerId: planner.id,
+          });
+          return;
+        }
+      }
+
+      const semester = activeSlot.semester;
+      const plannedCourse = "courseId" in selection
+        ? allCatalogCourses.find((c) => c.id === selection.courseId)
+        : null;
+      if (plannedCourse && isApScience(plannedCourse)) {
+        const existingApScience = allPlanners
+          .flatMap((p) => p.plannedCourses)
+          .filter((pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird);
+        if (existingApScience.length > 0) {
+          showToast("Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.", "warning");
+          return;
+        }
+      }
+
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
@@ -394,12 +428,12 @@ function PlannerYearContent(): React.ReactElement {
             ? await plannerService.addPlannedCourse(
                 planner.id,
                 selection.courseId,
-                activeSlot.semester,
+                semester,
                 activeSlot.slot
               )
             : await plannerService.addPlannedCourse(planner.id, {
                 plannerOptionId: selection.plannerOptionId,
-                semester: activeSlot.semester,
+                semester,
                 slot: activeSlot.slot,
               });
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
@@ -414,7 +448,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [planner, activeSlot, allPlanners, handleCloseModal, pushHistory, showToast, handleUndo, plannerService]
+    [planner, activeSlot, allPlanners, allCatalogCourses, handleCloseModal, pushHistory, showToast, handleUndo, plannerService]
   );
 
   const handleAddPrerequisiteToPlanner = useCallback(
@@ -562,7 +596,7 @@ function PlannerYearContent(): React.ReactElement {
       (course) => course.semester === semester && course.slot <= slot && slot < course.slot + (course.slotSpan ?? 1)
     );
 
-  const { isMobile } = useBreakpoint();
+  const { isMobile, isTablet } = useBreakpoint();
 
   const warningsByCourse = useMemo(() => {
     if (!planner) return new Map<number, PlannerWarning[]>();
@@ -603,9 +637,17 @@ function PlannerYearContent(): React.ReactElement {
         const span = Math.max(course.slotSpan ?? 1, course.course.slotsPerSemester ?? 1);
         if (course.courseId != null) renderedCourseIds.add(course.courseId);
         items.push(
-          <div key={`course-${course.id}`} style={{ gridRow: `${slot} / span ${span}` }}>
+          <div
+            key={`course-${course.id}`}
+            style={{
+              gridRow: `${slot} / span ${span}`,
+              display: "flex",
+              alignItems: "stretch",
+            }}
+          >
             <PlannedCourseCard
               planned={course}
+              isMultiSlot={span > 1}
               warnings={getWarnings(
                 course,
                 allPlanners,
@@ -633,7 +675,7 @@ function PlannerYearContent(): React.ReactElement {
         } else {
           items.push(
             <div key={`empty-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1` }}>
-              <AddCourseCard semester={semester} slot={slot} onClick={() => handleOpenModal(semester, slot)} />
+              <AddCourseCard semester={semester} slot={slot} onClick={() => handleOpenModal(semester, slot)} isTablet={isTablet} />
             </div>
           );
         }
@@ -983,7 +1025,7 @@ function PlannerYearContent(): React.ReactElement {
                   <div
                     style={{
                       display: "grid",
-                      gridTemplateRows: "repeat(7, minmax(120px, auto))",
+                      gridTemplateRows: `repeat(7, minmax(${isTablet ? 80 : 120}px, auto))`,
                       gap: "12px",
                       flex: 1,
                     }}
@@ -1018,6 +1060,81 @@ function PlannerYearContent(): React.ReactElement {
           onGoToCourse={handleGoToCourse}
         />
       )}
+
+      {earlyBirdPending && (() => {
+        const course = allCatalogCourses.find((c) =>
+          "courseId" in earlyBirdPending.selection
+            ? c.id === earlyBirdPending.selection.courseId
+            : false
+        );
+        return (
+          <EarlyBirdModal
+            courseTitle={course?.title ?? "this course"}
+            onSelect={async (isEarlyBird) => {
+              const pending = earlyBirdPending;
+              setEarlyBirdPending(null);
+              if (!planner) return;
+              const semester = pending.semester;
+              try {
+                if (isEarlyBird) {
+                  const existingEB = allPlanners
+                    .flatMap((p) => p.plannedCourses)
+                    .filter((pc) => pc.semester === semester && pc.isEarlyBird);
+                  if (existingEB.length > 0) {
+                    showToast("You may only take one Early Bird course each semester.", "warning");
+                    return;
+                  }
+                }
+                const selCourseId = "courseId" in pending.selection ? pending.selection.courseId : null;
+                const plannedCourse = selCourseId != null
+                  ? allCatalogCourses.find((c) => c.id === selCourseId)
+                  : null;
+                if (!isEarlyBird && plannedCourse && isApScience(plannedCourse)) {
+                  const existingApScience = allPlanners
+                    .flatMap((p) => p.plannedCourses)
+                    .filter((pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird);
+                  if (existingApScience.length > 0) {
+                    showToast("Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.", "warning");
+                    return;
+                  }
+                }
+                const beforePlanners = allPlanners;
+                const plannerOptId = "plannerOptionId" in pending.selection ? pending.selection.plannerOptionId : null;
+                const updatedPlanner =
+                  selCourseId != null
+                    ? await plannerService.addPlannedCourse(
+                        pending.plannerId,
+                        selCourseId,
+                        semester,
+                        pending.slot
+                      )
+                    : await plannerService.addPlannedCourse(
+                        pending.plannerId,
+                        { plannerOptionId: plannerOptId!, semester, slot: pending.slot }
+                      );
+                if (isEarlyBird && selCourseId != null) {
+                  for (const pc of updatedPlanner.plannedCourses) {
+                    if (pc.courseId === selCourseId) {
+                      pc.isEarlyBird = true;
+                    }
+                  }
+                }
+                const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+                pushHistory(
+                  newPlanners,
+                  buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
+                );
+                handleCloseModal();
+                showToast("Course added.", "success", handleUndo);
+              } catch (err) {
+                const message = err instanceof Error ? err.message : "Failed to add course";
+                showToast(message, "warning");
+              }
+            }}
+            onClose={() => setEarlyBirdPending(null)}
+          />
+        );
+      })()}
 
       {selectedWarning && (
         <WarningActionModal
@@ -1259,10 +1376,12 @@ function AddCourseCard({
   semester,
   slot,
   onClick,
+  isTablet,
 }: {
   semester: number;
   slot: number;
   onClick: () => void;
+  isTablet?: boolean;
 }): React.ReactElement {
   return (
     <button
@@ -1273,9 +1392,9 @@ function AddCourseCard({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: "8px",
-        padding: "20px",
-        minHeight: "120px",
+        gap: isTablet ? "4px" : "8px",
+        padding: isTablet ? "12px 16px" : "20px",
+        minHeight: isTablet ? "auto" : "120px",
         backgroundColor: "#1f2937",
         border: "2px dashed #4b5563",
         borderRadius: "12px",
@@ -1321,6 +1440,7 @@ function PlannedCourseCard({
   planned,
   warnings,
   isHighlighted,
+  isMultiSlot,
   onRemove,
   onClick,
   onWarningClick,
@@ -1328,6 +1448,7 @@ function PlannedCourseCard({
   planned: PlannedCourse;
   warnings: PlannerWarning[];
   isHighlighted: boolean;
+  isMultiSlot?: boolean;
   onRemove?: () => void;
   onClick: () => void;
   onWarningClick: (warning: PlannerWarning) => void;
@@ -1336,7 +1457,8 @@ function PlannedCourseCard({
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
   const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
-  const slotLabel = visualSpan > 1
+  const multiSlot = isMultiSlot ?? visualSpan > 1;
+  const slotLabel = multiSlot
     ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
     : `Slot ${planned.slot}`;
   const isReadOnly = onRemove == null;
@@ -1362,8 +1484,10 @@ function PlannedCourseCard({
         borderRadius: "12px",
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
+        justifyContent: multiSlot ? "space-evenly" : undefined,
+        gap: multiSlot ? "4px" : "8px",
         minHeight: "120px",
+        boxSizing: "border-box",
         cursor: isReadOnly ? "default" : "pointer",
         transition: "transform 0.15s ease, box-shadow 0.15s ease",
         transform: isHighlighted ? "scale(1.03)" : "scale(1)",
@@ -2476,7 +2600,7 @@ function MobilePlanner({
 
 type PlannerWarning = {
   message: string;
-  type: "missing_prerequisite" | "later_prerequisite";
+  type: "missing_prerequisite" | "later_prerequisite" | "multiple_early_bird" | "ap_science_conflict";
   prerequisite: string;
   prerequisitePlacement?: {
     id: number;
@@ -2487,6 +2611,15 @@ type PlannerWarning = {
     courseId: number;
   };
 };
+
+function isApScience(course: PlannerCourseDetails): boolean {
+  return (
+    course.creditType === "AP" &&
+    course.division?.toLowerCase() === "science" &&
+    course.credits != null &&
+    course.credits >= 3
+  );
+}
 
 function getCourseIdentityKey(planned: PlannedCourse): string {
   const id = planned.courseId ?? (planned.plannerOptionId != null ? -planned.plannerOptionId : null);
@@ -2596,6 +2729,38 @@ function getWarnings(
     }
   }
 
+  // Early Bird validation: only one EB course per semester
+  if (planned.isEarlyBird) {
+    const samePlannerCourses = allPlanners
+      .find((p) => p.id === planned.plannerId)
+      ?.plannedCourses.filter(
+        (pc) => pc.id !== planned.id && pc.semester === currentSemester && pc.isEarlyBird
+      );
+    if (samePlannerCourses && samePlannerCourses.length > 0) {
+      warnings.push({
+        message: "You may only take one Early Bird course each semester.",
+        type: "multiple_early_bird",
+        prerequisite: course.title,
+      });
+    }
+  }
+
+  // AP science load rule: no more than one 1.5-period AP science per semester unless EB
+  if (!planned.isEarlyBird && isApScience(course)) {
+    const samePlannerCourses = allPlanners
+      .find((p) => p.id === planned.plannerId)
+      ?.plannedCourses.filter(
+        (pc) => pc.id !== planned.id && pc.semester === currentSemester && isApScience(pc.course) && !pc.isEarlyBird
+      );
+    if (samePlannerCourses && samePlannerCourses.length > 0) {
+      warnings.push({
+        message: "Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.",
+        type: "ap_science_conflict",
+        prerequisite: course.title,
+      });
+    }
+  }
+
   return warnings;
 }
 
@@ -2699,7 +2864,10 @@ function WarningActionModal({
       for (const semester of [1, 2]) {
         for (const slot of [1, 2, 3, 4, 5, 6, 7]) {
           const occupied = planner.plannedCourses.find(
-            (pc) => pc.semester === semester && pc.slot === slot
+            (pc) =>
+              pc.semester === semester &&
+              pc.slot <= slot &&
+              slot < pc.slot + (pc.slotSpan ?? 1)
           );
           if (!occupied) return { semester, slot };
         }
