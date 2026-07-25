@@ -652,6 +652,7 @@ function PlannerYearContent(): React.ReactElement {
               gridRow: `${slot} / span ${span}`,
               display: "flex",
               alignItems: "stretch",
+              width: "100%",
             }}
           >
             <PlannedCourseCard
@@ -676,14 +677,14 @@ function PlannerYearContent(): React.ReactElement {
       } else {
         if (isCompleted) {
           items.push(
-            <div key={`completed-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1`, padding: "20px", minHeight: "120px", backgroundColor: "#1f2937", border: "1px dashed #4b5563", borderRadius: "12px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px", color: "#6b7280", fontSize: "14px", textAlign: "center", opacity: 0.6 }}>
+            <div key={`completed-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1`, width: "100%", boxSizing: "border-box", padding: "20px", minHeight: "120px", backgroundColor: "#1f2937", border: "1px dashed #4b5563", borderRadius: "12px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px", color: "#6b7280", fontSize: "14px", textAlign: "center", opacity: 0.6 }}>
               <div style={{ fontSize: "13px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.02em" }}>Slot {slot}</div>
               <div>Empty - editing disabled</div>
             </div>
           );
         } else {
           items.push(
-            <div key={`empty-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1` }}>
+            <div key={`empty-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1`, width: "100%" }}>
               <AddCourseCard semester={semester} slot={slot} onClick={() => handleOpenModal(semester, slot)} isTablet={isTablet} />
             </div>
           );
@@ -1034,6 +1035,7 @@ function PlannerYearContent(): React.ReactElement {
                   <div
                     style={{
                       display: "grid",
+                      gridTemplateColumns: "minmax(0, 1fr)",
                       gridTemplateRows: `repeat(7, minmax(${isTablet ? 80 : 120}px, auto))`,
                       gap: "12px",
                       flex: 1,
@@ -1413,6 +1415,8 @@ function AddCourseCard({
         color: "#9ca3af",
         transition: "all 0.2s ease",
         textAlign: "center",
+        width: "100%",
+        boxSizing: "border-box",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "#6b7280";
@@ -1506,6 +1510,7 @@ function PlannedCourseCard({
           ? "0 0 0 4px rgba(236, 186, 43, 0.6), 0 6px 16px rgba(0,0,0,0.15)"
           : "none",
         position: "relative",
+        width: "100%",
         minWidth: 0,
         wordBreak: "break-word",
         overflowWrap: "break-word",
