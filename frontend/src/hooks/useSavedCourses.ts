@@ -39,8 +39,8 @@ export function useSavedCourses() {
           await savedService.saveCourse(courseId);
           setSavedIds((prev) => [...prev, courseId]);
         }
-      } catch {
-        console.error("Failed to toggle saved course");
+      } catch (err) {
+        console.warn("Failed to toggle saved course:", err);
       }
     },
     [mode, savedIds, savedService]

@@ -26,5 +26,10 @@ export function useSearchSubmit(initialValue = "") {
     setDraft("");
   }, []);
 
-  return { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft };
+  const clearAll = useCallback(() => {
+    setDraft("");
+    setSubmitted("");
+  }, []);
+
+  return { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft, clearAll };
 }

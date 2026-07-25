@@ -297,8 +297,8 @@ function computeShiftChain(
     .filter((pc) => pc.semester === semester)
     .sort((a, b) => a.slot - b.slot);
 
-  // Check if startSlot is occupied
-  const occupant = semCourses.find((pc) => pc.slot === startSlot);
+  // Check if startSlot is occupied by any course (including multi-slot courses that span into startSlot)
+  const occupant = semCourses.find((pc) => rangesOverlap(pc.slot, getOccupiedSlotCount(pc), startSlot, 1));
   if (!occupant) return [];
 
   // Cannot shift full-year or multi-slot courses
@@ -316,7 +316,7 @@ function computeShiftChain(
 
   const chain: Array<{ id: number; newSlot: number }> = [];
   for (let slot = startSlot; slot < emptySlot; slot++) {
-    const pc = semCourses.find((c) => c.slot === slot);
+    const pc = semCourses.find((c) => rangesOverlap(c.slot, getOccupiedSlotCount(c), slot, 1));
     if (!pc) return null;
     if (getPlannedDuration(pc) === 2 || getOccupiedSlotCount(pc) > 1) return null;
     chain.push({ id: pc.id, newSlot: slot + 1 });
@@ -558,8 +558,6 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
     });
   });
 
-  console.log(`[complete] plannerId=${plannerId} schoolYear=${planner.schoolYear} courseIds=[${courseIds.join(",")}] completedAt=${completedAt.toISOString()} gradeCompleted=${gradeCompleted} createdRecords=[${createdIds.join(",")}]`);
-
   res.json(await getPlannerResponse(planner.id));
 }));
 
@@ -597,76 +595,15 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
 
   const gradeLabel = GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
 
-  // Pre-deletion audit: query every CompletedCourse row that could match
-  const beforeRows = await prisma.completedCourse.findMany({
-    where: { userId, courseId: { in: courseIds } },
-    select: { id: true, courseId: true, createdAt: true, gradeCompleted: true },
-  });
-  console.log(`[uncomplete] plannerId=${plannerId} ---- PRE-DELETION AUDIT ----`);
-  console.log(`[uncomplete] plannerId=${plannerId} planner.completedAt=${planner.completedAt!.toISOString()} (${planner.completedAt!.getTime()}ms epoch)`);
-  console.log(`[uncomplete] plannerId=${plannerId} courseIds=[${courseIds.join(",")}] gradeLabel=${gradeLabel}`);
-  console.log(`[uncomplete] plannerId=${plannerId} existing CompletedCourse records (${beforeRows.length}):`);
-  for (const row of beforeRows) {
-    console.log(`[uncomplete] plannerId=${plannerId}   id=${row.id} courseId=${row.courseId} createdAt=${row.createdAt.toISOString()} (${row.createdAt.getTime()}ms) gradeCompleted=${row.gradeCompleted} matchesTimestamp=${row.createdAt.getTime() === planner.completedAt!.getTime()}`);
-  }
-
-  let deletedCount = 0;
-  let deletionMethod = "none";
-
   await prisma.$transaction(async (tx) => {
     if (courseIds.length > 0) {
-      // CompletedCourse records created during "Mark Year Completed" are intentionally
-      // stamped with the same timestamp as Planner.completedAt. This allows us to
-      // identify and remove only the auto-generated completion batch when restoring
-      // the planner to Active, while preserving manually completed courses.
-
-      // STRATEGY 1: Exact-match by createdAt (current approach)
-      let result = await tx.completedCourse.deleteMany({
+      await tx.completedCourse.deleteMany({
         where: {
           userId,
           courseId: { in: courseIds },
           createdAt: planner.completedAt!,
         },
       });
-      deletedCount = result.count;
-      deletionMethod = "exact-createdAt";
-
-      // STRATEGY 2: If exact match failed, try gradeCompleted + timestamp window
-      if (deletedCount === 0) {
-        const completedTime = planner.completedAt!.getTime();
-        const windowStart = new Date(completedTime - 2000);
-        const windowEnd = new Date(completedTime + 2000);
-        result = await tx.completedCourse.deleteMany({
-          where: {
-            userId,
-            courseId: { in: courseIds },
-            gradeCompleted: gradeLabel,
-            createdAt: {
-              gte: windowStart,
-              lte: windowEnd,
-            },
-          },
-        });
-        if (result.count > 0) {
-          deletedCount = result.count;
-          deletionMethod = "grade+window";
-        }
-      }
-
-      // STRATEGY 3: If still nothing, try gradeCompleted only
-      if (deletedCount === 0) {
-        result = await tx.completedCourse.deleteMany({
-          where: {
-            userId,
-            courseId: { in: courseIds },
-            gradeCompleted: gradeLabel,
-          },
-        });
-        if (result.count > 0) {
-          deletedCount = result.count;
-          deletionMethod = "grade-only";
-        }
-      }
     }
 
     await tx.planner.update({
@@ -674,17 +611,6 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
       data: { completedAt: null },
     });
   });
-
-  // Post-deletion audit: log remaining rows
-  const afterRows = await prisma.completedCourse.findMany({
-    where: { userId, courseId: { in: courseIds } },
-    select: { id: true, courseId: true, createdAt: true, gradeCompleted: true },
-  });
-  console.log(`[uncomplete] plannerId=${plannerId} ---- POST-DELETION ----`);
-  console.log(`[uncomplete] plannerId=${plannerId} method=${deletionMethod} deletedCount=${deletedCount} remaining=${afterRows.length}`);
-  for (const row of afterRows) {
-    console.log(`[uncomplete] plannerId=${plannerId}   REMAINING id=${row.id} courseId=${row.courseId} createdAt=${row.createdAt.toISOString()} gradeCompleted=${row.gradeCompleted}`);
-  }
 
   res.json(await getPlannerResponse(planner.id));
 }));
@@ -856,7 +782,10 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     for (const sem of targetSemesters) {
       const chain = computeShiftChain(existingCourses, sem, slotNum);
       if (chain === null) {
-        return res.status(409).json({ error: "Not enough room to place this full-year course." });
+        const msg = duration === 2
+          ? "Not enough room to place this full-year course."
+          : "This slot is blocked by a course that cannot be moved.";
+        return res.status(409).json({ error: msg });
       }
       shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
     }

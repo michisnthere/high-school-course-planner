@@ -192,7 +192,8 @@ function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
 
 function getBackendPlacementKey(p: CoursePlacement): string {
   if (p.course?.duration === 2) return `fy:${p.course.id}`;
-  return `sem:${p.course!.id}:${p.slot}:${p.semester}`;
+  if (!p.course) return `sem:unknown:${p.slot}:${p.semester}`;
+  return `sem:${p.course.id}:${p.slot}:${p.semester}`;
 }
 
 function getCourseKey(p: CoursePlacement): string | null {
@@ -481,9 +482,10 @@ function computeDuplicateCourses(placements: CoursePlacement[]): DuplicateCourse
         const firstB = b[0];
         return firstA.year - firstB.year || firstA.semester - firstB.semester || firstA.slot - firstB.slot;
       });
+      const firstCourse = sortedGroups[0][0].course;
       duplicates.push({
         courseId,
-        title: sortedGroups[0][0].course!.title,
+        title: firstCourse?.title ?? "Unknown Course",
         count: sortedGroups.length,
         placements: sortedGroups.map((group) => {
           const first = group[0];
@@ -517,8 +519,8 @@ function computeMissingPrerequisites(
   resolutions: ResolutionInfo[] = []
 ): MissingPrerequisite[] {
   const ordered = placements
-    .filter((p) => p.course)
-    .map((p) => ({ year: p.year, semester: p.semester, title: p.course!.title, courseCode: p.course!.courseCode, placement: p }));
+    .filter((p): p is CoursePlacement & { course: PlannerCourseDetails } => p.course != null)
+    .map((p) => ({ year: p.year, semester: p.semester, title: p.course.title, courseCode: p.course.courseCode, placement: p }));
   ordered.sort((a, b) => a.year - b.year || a.semester - b.semester);
 
   const completedItems = completedCourses.map((cc) => ({ title: cc.course.title, courseCode: cc.course.courseCode ?? "" }));
@@ -535,7 +537,7 @@ function computeMissingPrerequisites(
   const missing: MissingPrerequisite[] = [];
   for (const { placement, year, semester } of ordered) {
     if (!placement.course) continue;
-    const plannedIndex = ordered.findIndex((item) => item.year === year && item.semester === semester && item.title === placement.course!.title);
+    const plannedIndex = ordered.findIndex((item) => item.year === year && item.semester === semester && item.title === placement.course.title);
     for (const prereq of placement.course.prerequisites) {
       if (!prereq.trim()) continue;
       const normalized = normalizePrerequisite(prereq);
@@ -593,10 +595,10 @@ function computeRecommendations(
   }));
 
   const plannedItems = placements
-    .filter((p) => p.course)
+    .filter((p): p is CoursePlacement & { course: PlannerCourseDetails } => p.course != null)
     .map((p) => ({
-      title: p.course!.title,
-      courseCode: p.course!.courseCode ?? "",
+      title: p.course.title,
+      courseCode: p.course.courseCode ?? "",
     }));
 
   const recommendations = new Map<number, RecommendedCourse[]>();

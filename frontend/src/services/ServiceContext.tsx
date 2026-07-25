@@ -46,7 +46,6 @@ export function ServiceProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(() => {
     const kind = mode === "guest" && guestBundle ? "guest" : "auth";
-    console.log(`[SvcProv value] mode=${mode} hasGuest=${!!guestBundle} → ${kind}Bundle`);
     return kind === "guest" ? guestBundle : authBundle;
   }, [mode, guestBundle]);
 

@@ -121,14 +121,10 @@ function PlannerContent(): React.ReactElement {
     }
     setMarkingPlannerId(confirmActivePlanner.id);
     try {
-      const beforeCount = (await services.completedCourses.getCompletedCourses().catch(() => [])).length;
-      console.log(`[handleConfirmMarkActive] plannerId=${confirmActivePlanner.id} completedCoursesBefore=${beforeCount}`);
-
       const updated = await services.planner.unmarkYearCompleted(confirmActivePlanner.id);
       const nextPlanners = planners.map((p) => (p.id === updated.id ? updated : p));
       setPlanners(nextPlanners);
       const completedCourses = await services.completedCourses.getCompletedCourses().catch(() => []);
-      console.log(`[handleConfirmMarkActive] plannerId=${confirmActivePlanner.id} completedCoursesAfter=${completedCourses.length}`);
 
       setAnalysis(await services.analysis.getAnalysis({
         planners: nextPlanners,
@@ -138,6 +134,7 @@ function PlannerContent(): React.ReactElement {
       }).catch(() => analysis));
       setConfirmActivePlanner(null);
     } catch (e) {
+      console.warn("[handleConfirmMarkActive] Failed to unmark year:", e);
     } finally {
       setMarkingPlannerId(null);
     }

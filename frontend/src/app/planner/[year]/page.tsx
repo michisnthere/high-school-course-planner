@@ -138,6 +138,7 @@ function PlannerYearContent(): React.ReactElement {
   const undoRestoredPlannerRef = useRef<Planner | null>(null);
   const [canUndo, setCanUndo] = useState(false);
 
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [selectedWarning, setSelectedWarning] = useState<{
     planned: PlannedCourse;
     warning: PlannerWarning;
@@ -273,9 +274,16 @@ function PlannerYearContent(): React.ReactElement {
     }
   }, [planner, allPlanners]);
 
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
+
   const showToast = useCallback((message: string, type: ToastType = "success", onUndo?: () => void) => {
     setToast({ message, type, onUndo, visible: true });
-    setTimeout(() => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => {
       setToast((prev) => ({ ...prev, visible: false }));
     }, 4000);
   }, []);
@@ -543,9 +551,10 @@ function PlannerYearContent(): React.ReactElement {
         );
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(newPlanners, async () => {
-          await plannerService.removePlannedCourse(
-            updatedPlanner.plannedCourses.find((pc) => pc.courseId === newCourseId)!.id
-          );
+          const added = updatedPlanner.plannedCourses.find((pc) => pc.courseId === newCourseId);
+          if (added) {
+            await plannerService.removePlannedCourse(added.id);
+          }
           if (oldPlanned.courseId != null) {
             await plannerService.addPlannedCourse(
               oldPlanned.plannerId,
@@ -1224,7 +1233,9 @@ function SummarySidebar({
   const fullYearCount = fullYearKeys.size;
   const semesterCount = currentCourseCount - fullYearCount;
   const totalSlots = 14;
-  const filledSlots = (currentPlanner?.plannedCourses || []).length;
+  const filledSlots = (currentPlanner?.plannedCourses || []).reduce(
+    (sum, pc) => sum + (pc.slotSpan ?? 1), 0
+  );
   const slotPercentage = totalSlots > 0 ? Math.min(100, (filledSlots / totalSlots) * 100) : 0;
 
   return (
@@ -1651,9 +1662,9 @@ function PlannedCourseCard({
             lineHeight: 1.4,
           }}
         >
-          {warnings.map((w, i) => (
+          {warnings.map((w) => (
             <div
-              key={i}
+              key={`${w.type}-${w.prerequisite}`}
               onClick={(e) => {
                 e.stopPropagation();
                 onWarningClick(w);
@@ -1723,7 +1734,7 @@ function CourseSearchModal({
   const { isMobile: mobile } = useBreakpoint();
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit();
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit();
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [duplicateCourse, setDuplicateCourse] = useState<PlannerCourseDetails | null>(null);
@@ -1885,7 +1896,7 @@ function CourseSearchModal({
               {draft && (
                 <button
                   type="button"
-                  onClick={() => { clearDraft(); inputRef.current?.focus(); }}
+                  onClick={() => { clearAll(); inputRef.current?.focus(); }}
                   aria-label="Clear search"
                   style={{
                     position: "absolute",
@@ -2507,9 +2518,9 @@ function MobilePlanner({
               lineHeight: 1.4,
             }}
           >
-            {warnings.map((w, i) => (
+            {warnings.map((w) => (
               <div
-                key={i}
+                key={`${w.type}-${w.prerequisite}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   onShowWarningAction(planned, w);
@@ -3616,7 +3627,7 @@ function WarningActionModal({
                         <ul style={{ margin: "4px 0", paddingLeft: "20px", fontSize: "13px", color: "#f59e0b", lineHeight: 1.6 }}>
                           {(() => {
                             const { affected } = computeCourseImpact(selectedReplacement);
-                            return affected.map((a, i) => <li key={i}>{a}</li>);
+                            return affected.map((a) => <li key={a}>{a}</li>);
                           })()}
                         </ul>
                         <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af" }}>

@@ -147,7 +147,7 @@ export function SavedCoursesContent({
 
   const [department, setDepartment] = useState(() => searchParams.get("dept") ?? "All Departments");
   const [sort, setSort] = useState(() => searchParams.get("sort") ?? "Recently Saved");
-  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit(
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit(
     searchParams.get("q") ?? ""
   );
 
@@ -166,9 +166,10 @@ export function SavedCoursesContent({
   }, [draft, department, sort, submit, syncUrl]);
 
   const handleClear = useCallback(() => {
-    clearDraft();
+    clearAll();
+    syncUrl("", department, sort);
     inputRef.current?.focus();
-  }, [clearDraft]);
+  }, [clearAll, department, sort, syncUrl]);
 
   const handleDepartmentChange = useCallback((value: string) => {
     setDepartment(value);

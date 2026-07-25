@@ -119,8 +119,6 @@ export function createGuestPlannerService(): IPlannerService {
       const planner = planners.find((p) => p.id === plannerId);
       if (!planner) throw new Error("Planner not found");
 
-      let entry: PlannedCourse;
-
       if (typeof courseIdOrItem === "number") {
         const courseDetails = catalog.get(courseIdOrItem);
         if (!courseDetails) throw new Error(`Course #${courseIdOrItem} not found in catalog. Call seedCourseCatalog first.`);
@@ -192,7 +190,32 @@ export function createGuestPlannerService(): IPlannerService {
           return clonePlanner(planner);
         }
 
-        entry = {
+        if (courseDetails.duration === 2) {
+          if (occupied(planner, 1, slot!, null) || occupied(planner, 2, slot!, null)) {
+            throw new Error("This slot is already occupied in one or both semesters.");
+          }
+          for (const sem of [1, 2]) {
+            planner.plannedCourses.push({
+              id: nextCourseEntryId++,
+              plannerId,
+              courseId: courseIdOrItem,
+              plannerOptionId: null,
+              semester: sem,
+              slot: slot!,
+              slotSpan: 1,
+              course: { ...courseDetails },
+              isEarlyBird: false,
+            });
+          }
+          save();
+          return clonePlanner(planner);
+        }
+
+        if (occupied(planner, semester!, slot!, null)) {
+          throw new Error("This slot is already occupied.");
+        }
+
+        const entry: PlannedCourse = {
           id: nextCourseEntryId++,
           plannerId,
           courseId: courseIdOrItem,
@@ -203,42 +226,48 @@ export function createGuestPlannerService(): IPlannerService {
           course: { ...courseDetails },
           isEarlyBird: false,
         };
-      } else {
-        entry = {
-          id: nextCourseEntryId++,
-          plannerId,
-          courseId: null,
-          plannerOptionId: courseIdOrItem.plannerOptionId,
-          semester: courseIdOrItem.semester,
-          slot: courseIdOrItem.slot,
-          slotSpan: 1,
-          course: {
-            id: -(courseIdOrItem.plannerOptionId),
-            title: `Option ${courseIdOrItem.plannerOptionId}`,
-            normalizedTitle: null,
-            duration: 1,
-            slotsPerSemester: 1,
-            creditType: null,
-            credits: null,
-            division: null,
-            department: null,
-            description: null,
-            fulfillsRequirements: [],
-            prerequisites: [],
-            courseCode: null,
-            courseCodeS1: null,
-            courseCodeS2: null,
-            gradeMin: null,
-            gradeMax: null,
-            isNonAcademic: true,
-            isMarchingBand: false,
-            attributes: [],
-            supportsEarlyBird: false,
-          },
-          isEarlyBird: false,
-        };
+        planner.plannedCourses.push(entry);
+        save();
+        return clonePlanner(planner);
       }
 
+      if (occupied(planner, courseIdOrItem.semester, courseIdOrItem.slot, null)) {
+        throw new Error("This slot is already occupied.");
+      }
+
+      const entry: PlannedCourse = {
+        id: nextCourseEntryId++,
+        plannerId,
+        courseId: null,
+        plannerOptionId: courseIdOrItem.plannerOptionId,
+        semester: courseIdOrItem.semester,
+        slot: courseIdOrItem.slot,
+        slotSpan: 1,
+        course: {
+          id: -(courseIdOrItem.plannerOptionId),
+          title: `Option ${courseIdOrItem.plannerOptionId}`,
+          normalizedTitle: null,
+          duration: 1,
+          slotsPerSemester: 1,
+          creditType: null,
+          credits: null,
+          division: null,
+          department: null,
+          description: null,
+          fulfillsRequirements: [],
+          prerequisites: [],
+          courseCode: null,
+          courseCodeS1: null,
+          courseCodeS2: null,
+          gradeMin: null,
+          gradeMax: null,
+          isNonAcademic: true,
+          isMarchingBand: false,
+          attributes: [],
+          supportsEarlyBird: false,
+        },
+        isEarlyBird: false,
+      };
       planner.plannedCourses.push(entry);
       save();
       return clonePlanner(planner);
@@ -279,6 +308,18 @@ export function createGuestPlannerService(): IPlannerService {
             }
             save();
             return clonePlanner(planner);
+          }
+          if (entry.courseId != null) {
+            const targetSemesters = entry.course.duration === 2 ? [1, 2] : [semester];
+            for (const sem of targetSemesters) {
+              if (occupied(planner, sem, slot!, entry.courseId)) {
+                throw new Error("This slot is already occupied.");
+              }
+            }
+          } else {
+            if (occupied(planner, semester, slot, null)) {
+              throw new Error("This slot is already occupied.");
+            }
           }
           entry.semester = semester;
           entry.slot = slot;

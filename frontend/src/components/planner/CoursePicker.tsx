@@ -58,7 +58,7 @@ export function CoursePicker({
     requirement: [],
   });
 
-  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit();
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit();
 
   useEffect(() => {
     setLoading(true);
@@ -90,9 +90,9 @@ export function CoursePicker({
   }, [submit]);
 
   const handleClear = useCallback(() => {
-    clearDraft();
+    clearAll();
     inputRef.current?.focus();
-  }, [clearDraft]);
+  }, [clearAll]);
 
   const filtered = useMemo(() => {
     let result = allCourses;

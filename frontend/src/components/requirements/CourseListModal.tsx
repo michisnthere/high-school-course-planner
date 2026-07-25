@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import type { PlannerCourseDetails } from "@/lib/planner";
@@ -47,6 +47,8 @@ export function CourseListModal({
   const overlayRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const lastFocusRef = useRef<HTMLElement | null>(null);
+  const pointerMoveRef = useRef<((ev: PointerEvent) => void) | null>(null);
+  const pointerUpRef = useRef<((ev: PointerEvent) => void) | null>(null);
 
   const sorted = [...courses].sort((a, b) => {
     const sa = scoreFor(a, requirementName);
@@ -92,20 +94,32 @@ export function CourseListModal({
     };
   }, [onClose]);
 
+  const cleanupPointerListeners = useCallback(() => {
+    if (pointerMoveRef.current) {
+      document.removeEventListener("pointermove", pointerMoveRef.current);
+      pointerMoveRef.current = null;
+    }
+    if (pointerUpRef.current) {
+      document.removeEventListener("pointerup", pointerUpRef.current);
+      pointerUpRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => cleanupPointerListeners, [cleanupPointerListeners]);
+
   const onPointerDown = (e: React.PointerEvent) => {
     dragStart.current = e.clientY;
-    const handleMove = (ev: PointerEvent) => {
+    pointerMoveRef.current = (ev: PointerEvent) => {
       const delta = ev.clientY - dragStart.current;
       if (delta > 0) setDragged(delta);
     };
-    const handleUp = () => {
+    pointerUpRef.current = () => {
       if (dragged > 100) onClose();
       setDragged(0);
-      document.removeEventListener("pointermove", handleMove);
-      document.removeEventListener("pointerup", handleUp);
+      cleanupPointerListeners();
     };
-    document.addEventListener("pointermove", handleMove);
-    document.addEventListener("pointerup", handleUp);
+    document.addEventListener("pointermove", pointerMoveRef.current);
+    document.addEventListener("pointerup", pointerUpRef.current);
   };
 
   return (

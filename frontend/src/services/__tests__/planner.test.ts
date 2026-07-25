@@ -167,9 +167,12 @@ describe("guest planner service", () => {
       const planners = await service.getPlanners();
       const planner = planners.find((p) => p.schoolYear === 9)!;
       const updated = await service.addPlannedCourse(planner.id, biology.id, 2, 3);
-      const added = updated.plannedCourses[0];
-      expect(added.semester).toBe(2);
-      expect(added.slot).toBe(3);
+      // Full-year courses create entries for both semesters
+      expect(updated.plannedCourses).toHaveLength(2);
+      expect(updated.plannedCourses[0].semester).toBe(1);
+      expect(updated.plannedCourses[0].slot).toBe(3);
+      expect(updated.plannedCourses[1].semester).toBe(2);
+      expect(updated.plannedCourses[1].slot).toBe(3);
     });
 
     it("throws when catalog is not seeded", async () => {
@@ -201,9 +204,10 @@ describe("guest planner service", () => {
       await service.addPlannedCourse(planner10.id, chemistry.id, 1, 1);
       const y9 = await service.getPlanner(9);
       const y10 = await service.getPlanner(10);
-      expect(y9.plannedCourses).toHaveLength(1);
+      // Full-year courses create entries for both semesters
+      expect(y9.plannedCourses).toHaveLength(2);
       expect(y9.plannedCourses[0].course.title).toBe("Biology");
-      expect(y10.plannedCourses).toHaveLength(1);
+      expect(y10.plannedCourses).toHaveLength(2);
       expect(y10.plannedCourses[0].course.title).toBe("Chemistry");
     });
 

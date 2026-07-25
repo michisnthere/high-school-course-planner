@@ -33,8 +33,6 @@ function isValidInternalPath(value: string): boolean {
 
 router.get("/google", (req, res, next) => {
   const rawRedirect = typeof req.query.redirect === "string" ? req.query.redirect : "";
-  console.log(`[auth:google] ───────────────────────────────`);
-  console.log(`[auth:google] redirect param="${rawRedirect}"`);
 
   const redirect = isValidInternalPath(rawRedirect) ? rawRedirect : "/";
   const strategy = createGoogleStrategy(CALLBACK_URL, redirect);
@@ -43,8 +41,6 @@ router.get("/google", (req, res, next) => {
 
 router.get("/google/callback", (req, res, next) => {
   const returnedState = typeof req.query.state === "string" ? req.query.state : "";
-  console.log(`[auth:callback] ───────────────────────────────`);
-  console.log(`[auth:callback] state="${returnedState}"`);
 
   const strategy = createGoogleStrategy(CALLBACK_URL);
   passport.authenticate(
@@ -54,27 +50,21 @@ router.get("/google/callback", (req, res, next) => {
     },
     (err: unknown, user: Express.User | false | null) => {
       if (err) {
-        console.log(`[auth:callback] passport error:`, err);
         return next(err);
       }
       if (!user) {
-        console.log(`[auth:callback] no user`);
         return res.redirect(`${FRONTEND_URL}/login`);
       }
-      console.log(`[auth:callback] user authenticated`);
       req.logIn(user, (loginErr) => {
         if (loginErr) {
-          console.log(`[auth:callback] login error:`, loginErr);
           return next(loginErr);
         }
-        console.log(`[auth:callback] logged in`);
 
         let redirect = "/";
         const parsed = parseOAuthState(returnedState, process.env.SESSION_SECRET!);
         if (parsed && isValidInternalPath(parsed)) {
           redirect = parsed;
         }
-        console.log(`[auth:callback] redirecting to "${redirect}"`);
         res.redirect(`${FRONTEND_URL}${redirect}`);
       });
     }
@@ -133,9 +123,7 @@ if (NODE_ENV !== "production") {
           return next(loginErr);
         }
         const rawRedirect = typeof req.query.redirect === "string" ? req.query.redirect : "";
-        console.log(`[auth:dev] redirect param="${rawRedirect}"`);
         const safeRedirect = isValidInternalPath(rawRedirect) ? rawRedirect : "/";
-        console.log(`[auth:dev] redirecting to "${safeRedirect}"`);
         res.redirect(`${FRONTEND_URL}${safeRedirect}`);
       });
     } catch (err) {

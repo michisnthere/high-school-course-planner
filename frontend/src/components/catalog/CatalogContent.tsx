@@ -200,7 +200,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     [searchParams]
   );
 
-  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearDraft } = useSearchSubmit(initialQuery);
+  const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit(initialQuery);
 
   const syncUrl = useCallback(
     (q: string, f: ActiveFilters) => {
@@ -246,7 +246,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       (course) =>
         courseMatchesQuery(course, submitted, searchIndex) && courseMatchesFilters(course, filters)
     );
-  }, [courses, submitted, filters]);
+  }, [courses, submitted, filters, searchIndex]);
 
   const sortedCourses = useMemo(() => {
     return sortCoursesByPrerequisites(filteredCourses, sortData);
@@ -260,7 +260,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
         onSubmit={handleSearchSubmit}
         onKeyDown={handleKeyDown}
         disabled={!hasChanged}
-        onClear={clearDraft}
+        onClear={() => { clearAll(); syncUrl("", filters); }}
       />
       <CourseFilters
         divisions={divisions}
