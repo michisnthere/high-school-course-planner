@@ -485,6 +485,54 @@ function PlannerYearContent(): React.ReactElement {
     [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
   );
 
+  const handleMoveAndAddPrerequisite = useCallback(
+    async (
+      plannedCourseId: number,
+      newSemester: number,
+      newSlot: number,
+      prereqCourseId: number,
+      prereqSemester: number,
+      prereqSlot: number
+    ) => {
+      const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
+      if (!source) return;
+
+      try {
+        scrollYRef.current = window.scrollY;
+        const beforePlanners = allPlanners;
+
+        const movedPlanner = await plannerService.movePlannedCourse(plannedCourseId, newSemester, newSlot);
+        const afterMovePlanners = beforePlanners.map((p) =>
+          p.schoolYear === movedPlanner.schoolYear ? movedPlanner : p
+        );
+        const finalPlanner = await plannerService.addPlannedCourse(
+          movedPlanner.id,
+          prereqCourseId,
+          prereqSemester,
+          prereqSlot
+        );
+        const newPlanners = afterMovePlanners.map((p) =>
+          p.schoolYear === finalPlanner.schoolYear ? finalPlanner : p
+        );
+
+        pushHistory(newPlanners, async () => {
+          const added = finalPlanner.plannedCourses.find((pc) => pc.courseId === prereqCourseId);
+          if (added) {
+            await plannerService.removePlannedCourse(added.id);
+          }
+          await plannerService.movePlannedCourse(plannedCourseId, source.semester, source.slot);
+        });
+        setAllPlanners(newPlanners);
+        setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
+        showToast("Course moved and prerequisite added.", "success", handleUndo);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to adjust schedule";
+        showToast(message, "warning");
+      }
+    },
+    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
+  );
+
   const handleRemoveCourse = useCallback(
     async (planned: PlannedCourse) => {
       try {
@@ -895,6 +943,7 @@ function PlannerYearContent(): React.ReactElement {
             onAddToPlanner={handleAddPrerequisiteToPlanner}
             onSwapSemesters={handleMove}
             onReplaceCourse={handleReplaceCourse}
+            onMoveAndAddPrerequisite={handleMoveAndAddPrerequisite}
             onIgnore={() =>
               persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
             }
@@ -1160,6 +1209,7 @@ function PlannerYearContent(): React.ReactElement {
           onAddToPlanner={handleAddPrerequisiteToPlanner}
           onSwapSemesters={handleMove}
           onReplaceCourse={handleReplaceCourse}
+          onMoveAndAddPrerequisite={handleMoveAndAddPrerequisite}
           onIgnore={() =>
             persistIgnoredWarning(makeWarningKey(selectedWarning.planned, selectedWarning.warning))
           }
@@ -2285,6 +2335,7 @@ function DuplicateCourseDialog({
           </div>
         </div>
       </div>
+
     </>
   );
 }
@@ -2815,6 +2866,7 @@ function WarningActionModal({
   onMiddleSchool,
   onSummerSchool,
   onReplaceCourse,
+  onMoveAndAddPrerequisite,
   showToast,
 }: {
   planned: PlannedCourse;
@@ -2833,6 +2885,14 @@ function WarningActionModal({
   onMiddleSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   onSummerSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   onReplaceCourse?: (oldPlanned: PlannedCourse, newCourseId: number) => Promise<void>;
+  onMoveAndAddPrerequisite?: (
+    plannedCourseId: number,
+    newSemester: number,
+    newSlot: number,
+    prereqCourseId: number,
+    prereqSemester: number,
+    prereqSlot: number
+  ) => Promise<void>;
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
@@ -2841,6 +2901,19 @@ function WarningActionModal({
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
   const [showConfirmIgnore, setShowConfirmIgnore] = useState(false);
+  const [pendingPlan, setPendingPlan] = useState<{
+    changes: Array<{
+      type: "added" | "moved" | "replaced" | "removed";
+      courseTitle: string;
+      location?: string;
+      fromLocation?: string;
+      toLocation?: string;
+      oldCourseTitle?: string;
+    }>;
+    execute: () => Promise<void>;
+    gradImpact: { type: "none" | "warning"; message: string };
+  } | null>(null);
+  const [acknowledged, setAcknowledged] = useState(false);
 
   // Progressive disclosure state
   const [step, setStep] = useState<"initial" | "selectYear" | "foundSlot" | "selectReplacement" | "confirmImpact">("initial");
@@ -3141,20 +3214,35 @@ function WarningActionModal({
     }
   };
 
-  const executeReplacement = async (course: PlannedCourse) => {
+  const executeReplacement = (course: PlannedCourse) => {
     if (!onReplaceCourse || !selectedCourse) return;
-    setLoading(true);
-    try {
-      await onReplaceCourse(course, selectedCourse.id);
-      onClose();
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to replace course";
-      showToast(message, "warning");
-    } finally {
-      setLoading(false);
-      setSelectedReplacement(null);
-      setStep("initial");
-    }
+    const { affected } = computeCourseImpact(course);
+    const gradMsg = affected.length > 0
+      ? `⚠ Replacing ${course.course.title} affects: ${affected.join(", ")}`
+      : "No graduation requirements will be affected.";
+    setPendingPlan({
+      changes: [
+        {
+          type: "replaced",
+          courseTitle: selectedCourse.title,
+          oldCourseTitle: course.course.title,
+        },
+      ],
+      gradImpact: affected.length > 0 ? { type: "warning", message: gradMsg } : { type: "none", message: gradMsg },
+      execute: async () => {
+        setLoading(true);
+        try {
+          await onReplaceCourse!(course, selectedCourse.id);
+        } catch (err) {
+          const message = err instanceof Error ? err.message : "Failed to replace course";
+          showToast(message, "warning");
+        } finally {
+          setLoading(false);
+          setSelectedReplacement(null);
+          setStep("initial");
+        }
+      },
+    });
   };
 
   const handleConfirmImpactReplace = () => {
@@ -3183,6 +3271,214 @@ function WarningActionModal({
   const placementTestHelpText = hasPlacementTestOption
     ? "You may also satisfy this prerequisite by completing a placement test."
     : "";
+
+  const [showAdjustConfirm, setShowAdjustConfirm] = useState(false);
+
+  const currentPlanner = useMemo(
+    () => allPlanners.find((p) => p.schoolYear === currentYear),
+    [allPlanners, currentYear]
+  );
+
+  const completedCourseIds = useMemo(
+    () => new Set(completedCoursesProp.map((cc) => cc.courseId)),
+    [completedCoursesProp]
+  );
+
+  const semesterAdjustmentPlan = useMemo(() => {
+    if (warning.type !== "missing_prerequisite") return null;
+    if (planned.course.duration !== 1) return null;
+    if ((planned.course.slotsPerSemester ?? 1) !== 1) return null;
+    if (!selectedCourse) return null;
+    if (selectedCourse.duration !== 1) return null;
+    if ((selectedCourse.slotsPerSemester ?? 1) !== 1) return null;
+    if (planned.courseId == null) return null;
+    if (!currentPlanner) return null;
+    if (completedCourseIds.has(selectedCourse.id)) return null;
+
+    const isAlreadyPlanned = allPlanners.some((p) =>
+      p.plannedCourses.some((pc) => pc.courseId === selectedCourse.id)
+    );
+    if (isAlreadyPlanned) return null;
+
+    const hasOwnMissingPrereqs = (selectedCourse.prerequisites ?? []).some((prereqText) => {
+      if (!prereqText.trim()) return false;
+      const matched = allCourses.filter((c) => prerequisiteMatches(prereqText, c.title, c.courseCode));
+      const matchedIds = matched.map((c) => c.id);
+      return !matchedIds.some((id) => completedCourseIds.has(id)) &&
+             !allPlanners.some((p) => p.plannedCourses.some((pc) => pc.courseId != null && matchedIds.includes(pc.courseId)));
+    });
+    if (hasOwnMissingPrereqs) return null;
+
+    const canBeInSemester = (course: PlannerCourseDetails | null, semester: number): boolean => {
+      if (!course) return true;
+      if (semester === 1 && course.courseCodeS2 != null && course.courseCodeS1 == null) return false;
+      if (semester === 2 && course.courseCodeS1 != null && course.courseCodeS2 == null) return false;
+      return true;
+    };
+
+    const findClosestSlot = (planner: Planner, targetSemester: number, preferSlot: number): number | null => {
+      for (let offset = 0; offset <= 6; offset++) {
+        for (const candidate of [preferSlot + offset, preferSlot - offset]) {
+          if (candidate < 1 || candidate > 7) continue;
+          if (candidate === preferSlot + offset && candidate === preferSlot - offset) continue;
+          const occupied = planner.plannedCourses.some(
+            (pc) => pc.semester === targetSemester && pc.slot <= candidate && candidate < pc.slot + (pc.slotSpan ?? 1)
+          );
+          if (!occupied) return candidate;
+        }
+      }
+      return null;
+    };
+
+    const prevYears = [9, 10, 11, 12]
+      .filter((y) => y < currentYear)
+      .sort((a, b) => b - a);
+
+    const findPlannerByYear = (year: number) => allPlanners.find((p) => p.schoolYear === year);
+
+    // Try add-only: current year S1 (only for course A in S2)
+    if (planned.semester === 2) {
+      if (canBeInSemester(selectedCourse, 1)) {
+        const slot = findClosestSlot(currentPlanner, 1, planned.slot);
+        if (slot != null) {
+          return {
+            prereqTitle: selectedCourse.title,
+            courseATitle: planned.course.title,
+            courseAPlannedId: planned.id,
+            courseAPlannerId: planned.plannerId,
+            prereqCourseId: selectedCourse.id,
+            action: "add_only" as const,
+            addPrereq: { plannerId: currentPlanner.id, year: currentYear, semester: 1, slot },
+            moveTo: null,
+          };
+        }
+      }
+    }
+
+    // Try add-only: previous years, S2 then S1, newest first
+    for (const year of prevYears) {
+      for (const sem of [2, 1]) {
+        if (!canBeInSemester(selectedCourse, sem)) continue;
+        const planner = findPlannerByYear(year);
+        if (!planner) continue;
+        const slot = findClosestSlot(planner, sem, planned.slot);
+        if (slot != null) {
+          return {
+            prereqTitle: selectedCourse.title,
+            courseATitle: planned.course.title,
+            courseAPlannedId: planned.id,
+            courseAPlannerId: planned.plannerId,
+            prereqCourseId: selectedCourse.id,
+            action: "add_only" as const,
+            addPrereq: { plannerId: planner.id, year, semester: sem, slot },
+            moveTo: null,
+          };
+        }
+      }
+    }
+
+    // Try move+add: course A in S1 → S2, prereq in S1
+    if (planned.semester === 1) {
+      if (canBeInSemester(selectedCourse, 1) && canBeInSemester(planned.course, 2)) {
+        const destSlot = findClosestSlot(currentPlanner, 2, planned.slot);
+        if (destSlot != null) {
+          return {
+            prereqTitle: selectedCourse.title,
+            courseATitle: planned.course.title,
+            courseAPlannedId: planned.id,
+            courseAPlannerId: planned.plannerId,
+            prereqCourseId: selectedCourse.id,
+            action: "move_and_add" as const,
+            addPrereq: { plannerId: currentPlanner.id, year: currentYear, semester: 1, slot: planned.slot },
+            moveTo: { semester: 2, slot: destSlot },
+          };
+        }
+      }
+    }
+
+    // No slot found — flag for replacement
+    return {
+      prereqTitle: selectedCourse.title,
+      courseATitle: planned.course.title,
+      courseAPlannedId: planned.id,
+      courseAPlannerId: planned.plannerId,
+      prereqCourseId: selectedCourse.id,
+      action: "replacement" as const,
+      addPrereq: null,
+      moveTo: null,
+    };
+  }, [warning, planned, selectedCourse, currentPlanner, allPlanners, completedCourseIds, allCourses, currentYear]);
+
+  const handleMoveAndAddPrerequisite = async () => {
+    if (!semesterAdjustmentPlan || !selectedCourse) return;
+
+    if (semesterAdjustmentPlan.action === "move_and_add" && semesterAdjustmentPlan.moveTo && onMoveAndAddPrerequisite) {
+      const changes = [
+        {
+          type: "moved" as const,
+          courseTitle: semesterAdjustmentPlan.courseATitle,
+          fromLocation: `${YEAR_LABELS[currentYear]} Semester 1`,
+          toLocation: `${YEAR_LABELS[currentYear]} Semester ${semesterAdjustmentPlan.moveTo.semester}`,
+        },
+        {
+          type: "added" as const,
+          courseTitle: semesterAdjustmentPlan.prereqTitle,
+          location: `${YEAR_LABELS[currentYear]} • Semester ${semesterAdjustmentPlan.addPrereq!.semester} • Slot ${semesterAdjustmentPlan.addPrereq!.slot}`,
+        },
+      ];
+      setPendingPlan({
+        changes,
+        gradImpact: { type: "none", message: "No graduation requirements will be affected." },
+        execute: async () => {
+          await onMoveAndAddPrerequisite(
+            planned.id,
+            semesterAdjustmentPlan.moveTo!.semester,
+            semesterAdjustmentPlan.moveTo!.slot,
+            selectedCourse.id,
+            semesterAdjustmentPlan.addPrereq!.semester,
+            semesterAdjustmentPlan.addPrereq!.slot
+          );
+        },
+      });
+    } else if (semesterAdjustmentPlan.action === "add_only" && semesterAdjustmentPlan.addPrereq) {
+      const targetPlanner = allPlanners.find((p) => p.id === semesterAdjustmentPlan.addPrereq!.plannerId);
+      if (!targetPlanner) return;
+      const yr = semesterAdjustmentPlan.addPrereq.year;
+      const changes = [
+        {
+          type: "added" as const,
+          courseTitle: semesterAdjustmentPlan.prereqTitle,
+          location: `${YEAR_LABELS[yr]} • Semester ${semesterAdjustmentPlan.addPrereq.semester} • Slot ${semesterAdjustmentPlan.addPrereq.slot}`,
+        },
+      ];
+      setPendingPlan({
+        changes,
+        gradImpact: { type: "none", message: "No graduation requirements will be affected." },
+        execute: async () => {
+          await onAddToPlanner(
+            targetPlanner.id,
+            selectedCourse.id,
+            semesterAdjustmentPlan.addPrereq!.semester,
+            semesterAdjustmentPlan.addPrereq!.slot
+          );
+        },
+      });
+    }
+    setShowAdjustConfirm(false);
+  };
+
+  const handleAdjustmentReplace = useCallback(
+    (year: number) => {
+      setSelectedYear(year);
+      const empty = getFirstEmptySlot(year);
+      if (empty) {
+        setStep("foundSlot");
+      } else {
+        setStep("selectReplacement");
+      }
+    },
+    [getFirstEmptySlot]
+  );
 
   // Filter existing buttons to show only when not in the middle of the add-to-year flow
   const showResolutionButtons = step === "initial";
@@ -3787,6 +4083,232 @@ function WarningActionModal({
                         Swap semesters
                       </button>
                     )}
+
+                    {semesterAdjustmentPlan && !showAdjustConfirm && semesterAdjustmentPlan.action !== "replacement" && (
+                      <button
+                        type="button"
+                        onClick={() => setShowAdjustConfirm(true)}
+                        disabled={loading}
+                        style={{
+                          padding: "12px 16px",
+                          fontSize: "15px",
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          backgroundColor: "var(--brand-accent)",
+                          border: "none",
+                          borderRadius: "8px",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          textAlign: "left",
+                          opacity: loading ? 0.5 : 1,
+                        }}
+                      >
+                        {semesterAdjustmentPlan.action === "add_only"
+                          ? `Add ${semesterAdjustmentPlan.prereqTitle}`
+                          : `Move ${semesterAdjustmentPlan.courseATitle} and add ${semesterAdjustmentPlan.prereqTitle}`}
+                      </button>
+                    )}
+
+                    {semesterAdjustmentPlan && semesterAdjustmentPlan.action === "replacement" && !showAdjustConfirm && hasPreviousYears && (
+                      <button
+                        type="button"
+                        onClick={() => handleAdjustmentReplace(currentYear)}
+                        disabled={loading}
+                        style={{
+                          padding: "12px 16px",
+                          fontSize: "15px",
+                          fontWeight: 500,
+                          color: "#ffffff",
+                          backgroundColor: "var(--brand-accent)",
+                          border: "none",
+                          borderRadius: "8px",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          textAlign: "left",
+                          opacity: loading ? 0.5 : 1,
+                        }}
+                      >
+                        Move {semesterAdjustmentPlan.courseATitle} and add {semesterAdjustmentPlan.prereqTitle}
+                      </button>
+                    )}
+
+                    {semesterAdjustmentPlan && showAdjustConfirm && semesterAdjustmentPlan.action !== "replacement" && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
+                        <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", lineHeight: 1.4, fontStyle: "italic" }}>
+                          This will automatically reorganize your schedule to satisfy the prerequisite while making the fewest possible changes.
+                        </p>
+                        <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
+                          {(() => {
+                            const plan = semesterAdjustmentPlan;
+                            if (plan.action === "add_only" && plan.addPrereq) {
+                              const tPlanner = allPlanners.find((p) => p.id === plan.addPrereq!.plannerId);
+                              const beforeCourses = tPlanner
+                                ? tPlanner.plannedCourses
+                                    .filter((pc) => pc.semester === plan.addPrereq!.semester && pc.courseId != null)
+                                    .map((pc) => ({ id: pc.id, title: pc.course.title, slot: pc.slot }))
+                                    .sort((a, b) => a.slot - b.slot)
+                                : [];
+                              const yr = plan.addPrereq.year;
+                              return (
+                                <>
+                                  <div style={{ flex: 1 }}>
+                                    <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
+                                      Before
+                                    </p>
+                                    <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
+                                      <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
+                                        {YEAR_LABELS[yr]} S{plan.addPrereq.semester}
+                                      </p>
+                                      {beforeCourses.length === 0 ? (
+                                        <p style={{ margin: 0, fontSize: "12px", color: "#6b7280", fontStyle: "italic" }}>No courses</p>
+                                      ) : (
+                                        beforeCourses.map((c) => (
+                                          <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
+                                            Slot {c.slot}: {c.title}
+                                          </div>
+                                        ))
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div style={{ display: "flex", alignItems: "center", color: "#6b7280", fontSize: "20px" }}>→</div>
+                                  <div style={{ flex: 1 }}>
+                                    <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
+                                      After
+                                    </p>
+                                    <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
+                                      <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
+                                        {YEAR_LABELS[yr]} S{plan.addPrereq.semester}
+                                      </p>
+                                      {beforeCourses.map((c) => (
+                                        <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
+                                          Slot {c.slot}: {c.title}
+                                        </div>
+                                      ))}
+                                      <div style={{ padding: "4px 8px", backgroundColor: "rgba(52, 211, 153, 0.15)", border: "1px solid #34d399", borderRadius: "4px", fontSize: "12px", color: "#34d399", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <span>Slot {plan.addPrereq.slot}: {plan.prereqTitle}</span>
+                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#34d399", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>New</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              );
+                            }
+                            if (plan.action === "move_and_add") {
+                              const s1Before = currentPlanner?.plannedCourses
+                                .filter((pc) => pc.semester === 1 && pc.courseId != null)
+                                .map((pc) => ({ id: pc.id, title: pc.course.title, slot: pc.slot }))
+                                .sort((a, b) => a.slot - b.slot) ?? [];
+                              const s2Before = currentPlanner?.plannedCourses
+                                .filter((pc) => pc.semester === 2 && pc.courseId != null)
+                                .map((pc) => ({ id: pc.id, title: pc.course.title, slot: pc.slot }))
+                                .sort((a, b) => a.slot - b.slot) ?? [];
+                              const courseAEntry = s1Before.find((c) => c.id === plan.courseAPlannedId);
+                              const courseAInS2 = courseAEntry
+                                ? [{ ...courseAEntry, slot: plan.moveTo!.slot }]
+                                : [];
+                              return (
+                                <>
+                                  <div style={{ flex: 1 }}>
+                                    <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
+                                      Before
+                                    </p>
+                                    <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
+                                      <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
+                                        S1
+                                      </p>
+                                      {s1Before.map((c) => (
+                                        <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: c.id === plan.courseAPlannedId ? "rgba(251, 191, 36, 0.15)" : "#374151", border: c.id === plan.courseAPlannedId ? "1px solid #fbbf24" : "none", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
+                                          Slot {c.slot}: {c.title}
+                                          {c.id === plan.courseAPlannedId && <span style={{ marginLeft: "6px", fontSize: "10px", color: "#fbbf24" }}>(will move)</span>}
+                                        </div>
+                                      ))}
+                                      <p style={{ margin: "12px 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
+                                        S2
+                                      </p>
+                                      {s2Before.map((c) => (
+                                        <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
+                                          Slot {c.slot}: {c.title}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div style={{ display: "flex", alignItems: "center", color: "#6b7280", fontSize: "20px" }}>→</div>
+                                  <div style={{ flex: 1 }}>
+                                    <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
+                                      After
+                                    </p>
+                                    <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
+                                      <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
+                                        S1
+                                      </p>
+                                      {s1Before.filter((c) => c.id !== plan.courseAPlannedId).map((c) => (
+                                        <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
+                                          Slot {c.slot}: {c.title}
+                                        </div>
+                                      ))}
+                                      <div style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "rgba(52, 211, 153, 0.15)", border: "1px solid #34d399", borderRadius: "4px", fontSize: "12px", color: "#34d399", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <span>Slot {plan.addPrereq!.slot}: {plan.prereqTitle}</span>
+                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#34d399", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>New</span>
+                                      </div>
+                                      <p style={{ margin: "12px 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
+                                        S2
+                                      </p>
+                                      {s2Before.map((c) => (
+                                        <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
+                                          Slot {c.slot}: {c.title}
+                                        </div>
+                                      ))}
+                                      <div style={{ padding: "4px 8px", backgroundColor: "rgba(251, 191, 36, 0.15)", border: "1px solid #fbbf24", borderRadius: "4px", fontSize: "12px", color: "#fbbf24", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <span>Slot {plan.moveTo!.slot}: {plan.courseATitle}</span>
+                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#fbbf24", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>Moved</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                        <div style={{ display: "flex", gap: "12px" }}>
+                          <button
+                            type="button"
+                            onClick={() => setShowAdjustConfirm(false)}
+                            disabled={loading}
+                            style={{
+                              flex: 1,
+                              padding: "12px 16px",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "#d1d5db",
+                              backgroundColor: "#374151",
+                              border: "none",
+                              borderRadius: "8px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleMoveAndAddPrerequisite}
+                            disabled={loading}
+                            style={{
+                              flex: 1,
+                              padding: "12px 16px",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "#ffffff",
+                              backgroundColor: "var(--brand-accent)",
+                              border: "none",
+                              borderRadius: "8px",
+                              cursor: loading ? "not-allowed" : "pointer",
+                              opacity: loading ? 0.5 : 1,
+                            }}
+                          >
+                            {loading ? "Applying..." : "Apply"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -3870,6 +4392,200 @@ function WarningActionModal({
           </div>
         </div>
       </div>
+
+      {pendingPlan && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 100,
+            padding: mobile ? 0 : "24px",
+          }}
+          onClick={() => { setPendingPlan(null); setAcknowledged(false); }}
+          tabIndex={-1}
+          onKeyDown={(e) => { if (e.key === "Escape") { setPendingPlan(null); setAcknowledged(false); } }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "560px",
+              maxHeight: mobile ? "100%" : "85vh",
+              height: mobile ? "100%" : "auto",
+              backgroundColor: "#1f2937",
+              border: mobile ? "none" : "1px solid #374151",
+              borderRadius: mobile ? 0 : "16px",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              animation: mobile ? "wa-slide-up 0.25s ease-out" : undefined,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                padding: mobile ? "calc(72px + var(--safe-area-top, 0px)) 16px 12px" : "24px 24px 16px",
+                borderBottom: "1px solid #374151",
+              }}
+            >
+              <h2 style={{ margin: 0, fontSize: mobile ? "20px" : "22px", fontWeight: 700, color: "#ffffff" }}>
+                Review Proposed Schedule Changes
+              </h2>
+            </div>
+
+            <div
+              style={{
+                flex: 1,
+                overflowY: "auto",
+                padding: mobile ? "16px 16px calc(24px + var(--safe-area-bottom, 0px))" : "24px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+              }}
+            >
+              {(["added", "moved", "replaced", "removed"] as const).map((sectionType) => {
+                const sectionChanges = pendingPlan.changes.filter((c) => c.type === sectionType);
+                if (sectionChanges.length === 0) return null;
+                const colors: Record<string, string> = { added: "#34d399", moved: "#fbbf24", replaced: "#f59e0b", removed: "#ef4444" };
+                return (
+                  <div key={sectionType}>
+                    <p style={{ margin: "0 0 8px", fontSize: "13px", fontWeight: 700, color: colors[sectionType], textTransform: "uppercase", letterSpacing: "0.02em" }}>
+                      {sectionType}
+                    </p>
+                    {sectionChanges.map((change, i) => (
+                      <div key={i} style={{ padding: "10px 12px", marginBottom: "6px", backgroundColor: "#111827", borderRadius: "8px" }}>
+                        <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "#ffffff" }}>
+                          {change.type === "replaced" ? (
+                            <>{change.oldCourseTitle} → {change.courseTitle}</>
+                          ) : (
+                            change.courseTitle
+                          )}
+                        </p>
+                        {change.type === "added" && change.location && (
+                          <p style={{ margin: "4px 0 0", fontSize: "12px", color: "#9ca3af" }}>{change.location}</p>
+                        )}
+                        {change.type === "moved" && (
+                          <p style={{ margin: "4px 0 0", fontSize: "12px", color: "#9ca3af" }}>
+                            {change.fromLocation} → {change.toLocation}
+                          </p>
+                        )}
+                        {change.type === "removed" && change.location && (
+                          <p style={{ margin: "4px 0 0", fontSize: "12px", color: "#9ca3af" }}>{change.location}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+
+              <div style={{ padding: "12px 16px", backgroundColor: pendingPlan.gradImpact.type === "warning" ? "rgba(245, 158, 11, 0.12)" : "rgba(52, 211, 153, 0.08)", border: `1px solid ${pendingPlan.gradImpact.type === "warning" ? "rgba(245, 158, 11, 0.3)" : "rgba(52, 211, 153, 0.3)"}`, borderRadius: "8px" }}>
+                <p style={{ margin: 0, fontSize: "14px", color: pendingPlan.gradImpact.type === "warning" ? "#f59e0b" : "#34d399", lineHeight: 1.5 }}>
+                  {pendingPlan.gradImpact.type === "warning" ? "⚠ " : "✓ "}{pendingPlan.gradImpact.message}
+                </p>
+              </div>
+
+              <div style={{ padding: "16px", backgroundColor: "rgba(59, 130, 246, 0.08)", border: "1px solid rgba(59, 130, 246, 0.2)", borderRadius: "8px" }}>
+                <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 700, color: "#60a5fa" }}>
+                  Important
+                </p>
+                <p style={{ margin: 0, fontSize: "13px", color: "#d1d5db", lineHeight: 1.6 }}>
+                  This planner provides scheduling suggestions based on the Stevenson High School Course Guide and your current academic plan.
+                </p>
+                <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#d1d5db", lineHeight: 1.6 }}>
+                  Recommendations may not account for every situation, including:
+                </p>
+                <ul style={{ margin: "4px 0 0", paddingLeft: "18px", fontSize: "12px", color: "#9ca3af", lineHeight: 1.7 }}>
+                  <li>counselor approvals or waivers</li>
+                  <li>placement tests</li>
+                  <li>future course availability</li>
+                  <li>schedule conflicts outside this planner</li>
+                  <li>individual graduation exceptions</li>
+                </ul>
+                <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#d1d5db", lineHeight: 1.6 }}>
+                  Please review these changes carefully before applying them. If you are unsure, consult your school counselor.
+                </p>
+                <p style={{ margin: "12px 0 0", fontSize: "11px", color: "#6b7280", lineHeight: 1.4, fontStyle: "italic" }}>
+                  This planner is designed to help you explore possible schedules. Your official schedule, graduation status, and course eligibility are determined by Stevenson High School and your school counselor.
+                </p>
+              </div>
+
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "10px",
+                  padding: "12px",
+                  backgroundColor: "#111827",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  color: "#d1d5db",
+                  lineHeight: 1.4,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={acknowledged}
+                  onChange={(e) => setAcknowledged(e.target.checked)}
+                  style={{ marginTop: "2px", width: "18px", height: "18px", accentColor: "var(--brand-accent)", flexShrink: 0 }}
+                />
+                <span>I have reviewed these proposed schedule changes.</span>
+              </label>
+
+              <div style={{ display: "flex", gap: "12px" }}>
+                <button
+                  type="button"
+                  onClick={() => { setPendingPlan(null); setAcknowledged(false); }}
+                  style={{
+                    flex: 1,
+                    padding: "12px 16px",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                    color: "#d1d5db",
+                    backgroundColor: "#374151",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!pendingPlan) return;
+                    try {
+                      await pendingPlan.execute();
+                      setPendingPlan(null);
+                      setAcknowledged(false);
+                      onClose();
+                    } catch {
+                    }
+                  }}
+                  disabled={!acknowledged}
+                  style={{
+                    flex: 1,
+                    padding: "12px 16px",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                    color: "#ffffff",
+                    backgroundColor: acknowledged ? "var(--brand-accent)" : "#374151",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: acknowledged ? "pointer" : "not-allowed",
+                    opacity: acknowledged ? 1 : 0.5,
+                  }}
+                >
+                  Apply Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

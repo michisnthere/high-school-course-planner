@@ -242,6 +242,7 @@ function computeShiftChainForRange(
   startSlot: number,
   count: number
 ): Array<{ id: number; newSlot: number }> | null {
+  if (startSlot + count - 1 > 7) return null;
   const semCourses = existingCourses
     .filter((pc) => pc.semester === semester)
     .sort((a, b) => a.slot - b.slot);

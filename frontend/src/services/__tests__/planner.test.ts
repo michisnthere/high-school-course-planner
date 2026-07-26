@@ -250,6 +250,15 @@ describe("guest planner service", () => {
       ]);
     });
 
+    it("falls back from slot 7 to first valid pair for American Studies", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, americanStudies]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, americanStudies.id, 1, 7);
+      const slots = updated.plannedCourses.filter((pc) => pc.courseId === americanStudies.id).map((pc) => pc.slot);
+      expect(slots).toEqual([1, 1]);
+    });
+
     it("does not partially place American Studies when both semesters lack adjacent space", async () => {
       const service = createGuestPlannerService();
       service.seedCourseCatalog([...catalog, americanStudies]);

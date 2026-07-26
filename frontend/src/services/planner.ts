@@ -128,6 +128,7 @@ export function createGuestPlannerService(): IPlannerService {
           const maxSlot = 7;
 
           const canPlaceAt = (s: number): boolean => {
+            if (s + slotSpan - 1 > maxSlot) return false;
             for (const sem of [1, 2]) {
               for (let i = 0; i < slotSpan; i++) {
                 if (occupied(planner, sem, s + i)) return false;
@@ -137,6 +138,7 @@ export function createGuestPlannerService(): IPlannerService {
           };
 
           const tryShiftAt = (s: number): boolean => {
+            if (s + slotSpan - 1 > maxSlot) return false;
             const allMutations: Array<{ pc: typeof planner.plannedCourses[0]; target: number }> = [];
             for (const sem of [1, 2]) {
               const semCourses = planner.plannedCourses
