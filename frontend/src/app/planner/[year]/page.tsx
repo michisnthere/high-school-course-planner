@@ -461,12 +461,17 @@ function PlannerYearContent(): React.ReactElement {
 
   const handleAddPrerequisiteToPlanner = useCallback(
     async (plannerId: number, courseId: number, semester: number, slot: number) => {
+      console.log(`[TRACE handleAddPrerequisiteToPlanner PARENT] ENTER: plannerId=${plannerId} courseId=${courseId} semester=${semester} slot=${slot} (slotType=${typeof slot})`);
+      if (slot < 1 || slot > 7 || semester < 1 || semester > 2) {
+        console.error(`[TRACE handleAddPrerequisiteToPlanner PARENT] INVALID SLOT/SEMESTER! semester=${semester} slot=${slot} slotType=${typeof slot}`);
+      }
       const targetPlanner = allPlanners.find((p) => p.id === plannerId);
       if (!targetPlanner) return;
 
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
+        console.log(`[TRACE handleAddPrerequisiteToPlanner PARENT] CALLING api: targetPlanner.schoolYear=${targetPlanner.schoolYear} courseId=${courseId} semester=${semester} slot=${slot}`);
         const updatedPlanner = await plannerService.addPlannedCourse(targetPlanner.id, courseId, semester, slot);
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
@@ -494,17 +499,26 @@ function PlannerYearContent(): React.ReactElement {
       prereqSemester: number,
       prereqSlot: number
     ) => {
+      console.log(`[TRACE handleMoveAndAddPrerequisite PARENT] ENTER: plannedCourseId=${plannedCourseId} newSemester=${newSemester} newSlot=${newSlot} prereqCourseId=${prereqCourseId} prereqSemester=${prereqSemester} prereqSlot=${prereqSlot}`);
+      if (newSlot < 1 || newSlot > 7 || prereqSlot < 1 || prereqSlot > 7) {
+        console.error(`[TRACE handleMoveAndAddPrerequisite PARENT] INVALID SLOT! newSlot=${newSlot} prereqSlot=${prereqSlot}`);
+      }
       const source = allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === plannedCourseId);
-      if (!source) return;
+      if (!source) {
+        console.error(`[TRACE handleMoveAndAddPrerequisite PARENT] source not found for plannedCourseId=${plannedCourseId}`);
+        return;
+      }
 
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
 
+        console.log(`[TRACE handleMoveAndAddPrerequisite PARENT] Calling movePlannedCourse: id=${plannedCourseId} semester=${newSemester} slot=${newSlot}`);
         const movedPlanner = await plannerService.movePlannedCourse(plannedCourseId, newSemester, newSlot);
         const afterMovePlanners = beforePlanners.map((p) =>
           p.schoolYear === movedPlanner.schoolYear ? movedPlanner : p
         );
+        console.log(`[TRACE handleMoveAndAddPrerequisite PARENT] Calling addPlannedCourse: plannerId=${movedPlanner.id} courseId=${prereqCourseId} semester=${prereqSemester} slot=${prereqSlot}`);
         const finalPlanner = await plannerService.addPlannedCourse(
           movedPlanner.id,
           prereqCourseId,
@@ -2974,13 +2988,21 @@ function WarningActionModal({
 
   const findSlotNear = useCallback(
     (planner: Planner, semester: number, preferSlot: number): number | null => {
-      if (!isSlotOccupied(planner, semester, preferSlot)) return preferSlot;
+      console.log(`[TRACE findSlotNear] planner=${planner.schoolYear} semester=${semester} preferSlot=${preferSlot} (type=${typeof preferSlot})`);
+      if (preferSlot >= 1 && preferSlot <= 7 && !isSlotOccupied(planner, semester, preferSlot)) {
+        console.log(`[TRACE findSlotNear] preferSlot ${preferSlot} is free, returning it`);
+        return preferSlot;
+      }
       for (let offset = 1; offset <= 6; offset++) {
         for (const candidate of [preferSlot + offset, preferSlot - offset]) {
           if (candidate < 1 || candidate > 7) continue;
-          if (!isSlotOccupied(planner, semester, candidate)) return candidate;
+          if (!isSlotOccupied(planner, semester, candidate)) {
+            console.log(`[TRACE findSlotNear] found candidate ${candidate} (offset=${offset})`);
+            return candidate;
+          }
         }
       }
+      console.log(`[TRACE findSlotNear] no slot found, returning null`);
       return null;
     },
     [isSlotOccupied]
@@ -2988,17 +3010,30 @@ function WarningActionModal({
 
   const findBestSlotForYear = useCallback(
     (year: number, preferSlot: number): { semester: number; slot: number } | null => {
+      console.log(`[TRACE findBestSlotForYear] year=${year} preferSlot=${preferSlot} (type=${typeof preferSlot})`);
       const planner = allPlanners.find((p) => p.schoolYear === year);
-      if (!planner) return null;
-      for (const semester of [1, 2]) {
-        if (!isSlotOccupied(planner, semester, preferSlot)) {
-          return { semester, slot: preferSlot };
+      if (!planner) {
+        console.log(`[TRACE findBestSlotForYear] no planner for year ${year}`);
+        return null;
+      }
+      if (preferSlot >= 1 && preferSlot <= 7) {
+        for (const semester of [1, 2]) {
+          if (!isSlotOccupied(planner, semester, preferSlot)) {
+            console.log(`[TRACE findBestSlotForYear] preferSlot ${preferSlot} free in S${semester}, returning`);
+            return { semester, slot: preferSlot };
+          }
         }
+      } else {
+        console.warn(`[TRACE findBestSlotForYear] preferSlot ${preferSlot} is outside 1-7, falling back to search from slot 1`);
       }
       for (const semester of [1, 2]) {
         const slot = findSlotNear(planner, semester, preferSlot);
-        if (slot != null) return { semester, slot };
+        if (slot != null) {
+          console.log(`[TRACE findBestSlotForYear] found S${semester} slot ${slot}`);
+          return { semester, slot };
+        }
       }
+      console.log(`[TRACE findBestSlotForYear] no slot found for year ${year}`);
       return null;
     },
     [allPlanners, isSlotOccupied, findSlotNear]
@@ -3144,17 +3179,25 @@ function WarningActionModal({
 
   const handleAddPrerequisite = async () => {
     if (!selectedCourse || selectedYear == null) return;
+    console.log(`[TRACE handleAddPrerequisite] planned.id=${planned.id} planned.slot=${planned.slot} selectedYear=${selectedYear} selectedCourse.id=${selectedCourse.id}`);
     const targetSlot = findBestSlotForYear(selectedYear, planned.slot);
+    console.log(`[TRACE handleAddPrerequisite] findBestSlotForYear returned:`, JSON.stringify(targetSlot));
     if (!targetSlot) return;
     const targetPlanner = allPlanners.find((p) => p.schoolYear === selectedYear);
     if (!targetPlanner) return;
-    if (targetSlot.slot < 1 || targetSlot.slot > 7 || targetSlot.semester < 1 || targetSlot.semester > 2) return;
+    console.log(`[TRACE handleAddPrerequisite] FINAL VALIDATION: semester=${targetSlot.semester} slot=${targetSlot.slot}`);
+    if (targetSlot.slot < 1 || targetSlot.slot > 7 || targetSlot.semester < 1 || targetSlot.semester > 2) {
+      console.error(`[TRACE handleAddPrerequisite] INVALID SLOT DETECTED! semester=${targetSlot.semester} slot=${targetSlot.slot}`);
+      return;
+    }
     setLoading(true);
     try {
+      console.log(`[TRACE handleAddPrerequisite] CALLING onAddToPlanner: plannerId=${targetPlanner.id} courseId=${selectedCourse.id} semester=${targetSlot.semester} slot=${targetSlot.slot}`);
       await onAddToPlanner(targetPlanner.id, selectedCourse.id, targetSlot.semester, targetSlot.slot);
       onClose();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to add prerequisite";
+      console.error(`[TRACE handleAddPrerequisite] ERROR: ${message}`);
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -3355,6 +3398,8 @@ function WarningActionModal({
       return true;
     };
 
+    console.log(`[TRACE semesterAdjustmentPlan] planned.id=${planned.id} planned.semester=${planned.semester} planned.slot=${planned.slot} (type=${typeof planned.slot}) planned.course.title=${planned.course.title} currentYear=${currentYear}`);
+
     const prevYears = [9, 10, 11, 12]
       .filter((y) => y < currentYear)
       .sort((a, b) => b - a);
@@ -3365,6 +3410,7 @@ function WarningActionModal({
     if (planned.semester === 2) {
       if (canBeInSemester(selectedCourse, 1)) {
         const slot = findSlotNear(currentPlanner, 1, planned.slot);
+        console.log(`[TRACE semesterAdjustmentPlan] case1 (current yr S2->S1): slot=${slot}`);
         if (slot != null) {
           return {
             prereqTitle: selectedCourse.title,
@@ -3387,6 +3433,7 @@ function WarningActionModal({
         const planner = findPlannerByYear(year);
         if (!planner) continue;
         const slot = findSlotNear(planner, sem, planned.slot);
+        console.log(`[TRACE semesterAdjustmentPlan] case2 (prev yr Y=${year} S=${sem}): slot=${slot}`);
         if (slot != null) {
           return {
             prereqTitle: selectedCourse.title,
@@ -3406,6 +3453,7 @@ function WarningActionModal({
     if (planned.semester === 1) {
       if (canBeInSemester(selectedCourse, 1) && canBeInSemester(planned.course, 2)) {
         const destSlot = findSlotNear(currentPlanner, 2, planned.slot);
+        console.log(`[TRACE semesterAdjustmentPlan] case3 (move+add): destSlot=${destSlot} addPrereq.slot=${planned.slot}`);
         if (destSlot != null) {
           return {
             prereqTitle: selectedCourse.title,
@@ -3440,8 +3488,16 @@ function WarningActionModal({
     if (!semesterAdjustmentPlan || !selectedCourse) return;
 
     const preq = semesterAdjustmentPlan.addPrereq;
-    if (preq && !validateSlot(preq.semester, preq.slot)) return;
-    if (semesterAdjustmentPlan.moveTo && !validateSlot(semesterAdjustmentPlan.moveTo.semester, semesterAdjustmentPlan.moveTo.slot)) return;
+    console.log(`[TRACE handleMoveAndAddPrerequisite] action=${semesterAdjustmentPlan.action} prereq.semester=${preq?.semester} prereq.slot=${preq?.slot} moveTo.semester=${semesterAdjustmentPlan.moveTo?.semester} moveTo.slot=${semesterAdjustmentPlan.moveTo?.slot}`);
+    console.log(`[TRACE handleMoveAndAddPrerequisite] planned.id=${planned.id} planned.slot=${planned.slot} planned.semester=${planned.semester}`);
+    if (preq && !validateSlot(preq.semester, preq.slot)) {
+      console.error(`[TRACE handleMoveAndAddPrerequisite] INVALID prereq slot! semester=${preq.semester} slot=${preq.slot}`);
+      return;
+    }
+    if (semesterAdjustmentPlan.moveTo && !validateSlot(semesterAdjustmentPlan.moveTo.semester, semesterAdjustmentPlan.moveTo.slot)) {
+      console.error(`[TRACE handleMoveAndAddPrerequisite] INVALID moveTo slot! semester=${semesterAdjustmentPlan.moveTo.semester} slot=${semesterAdjustmentPlan.moveTo.slot}`);
+      return;
+    }
 
     if (semesterAdjustmentPlan.action === "move_and_add" && semesterAdjustmentPlan.moveTo && onMoveAndAddPrerequisite) {
       const changes = [

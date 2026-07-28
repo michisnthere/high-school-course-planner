@@ -140,6 +140,8 @@ export async function addPlannedCourse(
     body.slot = courseIdOrItem.slot;
   }
 
+  console.log(`[TRACE API addPlannedCourse] REQUEST BODY:`, JSON.stringify(body));
+
   const response = await fetch(`/api/planner/courses`, {
     method: "POST",
     credentials: "include",
@@ -149,6 +151,7 @@ export async function addPlannedCourse(
 
   if (!response.ok) {
     const data = await response.json().catch(() => ({ error: "Failed to add course" }));
+    console.error(`[TRACE API addPlannedCourse] ERROR response:`, JSON.stringify(data));
     throw new Error(data.error || "Failed to add course");
   }
 
@@ -176,6 +179,7 @@ export async function movePlannedCourse(
   semester: number,
   slot: number
 ): Promise<Planner> {
+  console.log(`[TRACE API movePlannedCourse] REQUEST: id=${plannedCourseId} semester=${semester} slot=${slot}`);
   const response = await fetch(`/api/planner/courses/${plannedCourseId}/move`, {
     method: "POST",
     credentials: "include",
@@ -185,6 +189,7 @@ export async function movePlannedCourse(
 
   if (!response.ok) {
     const body = await response.json().catch(() => ({ error: "Failed to move course" })); 
+    console.error(`[TRACE API movePlannedCourse] ERROR response:`, JSON.stringify(body));
     throw new Error(body.error || "Failed to move course");
   }
 
