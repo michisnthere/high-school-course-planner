@@ -143,11 +143,21 @@ export function YearOverviewCard({
             <Link
               href={`/planner/${planner.schoolYear}`}
               style={{
-                fontSize: "13px",
-                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "44px",
+                padding: "10px 20px",
+                fontSize: "15px",
+                fontWeight: 700,
                 color: "var(--brand-accent)",
+                backgroundColor: "transparent",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
+                border: "1px solid var(--brand-accent)",
+                borderRadius: "8px",
+                cursor: "pointer",
+                gap: "4px",
               }}
             >
               Edit Planner →
