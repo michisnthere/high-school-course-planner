@@ -631,6 +631,14 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
   const { plannerId, courseId, plannerOptionId, semester, slot } = req.body;
 
+  console.log({
+    endpoint: "add",
+    body: req.body,
+    semester: req.body.semester,
+    slot: req.body.slot,
+    slotNum: Number(req.body.slot),
+  });
+
   if (!plannerId || (!courseId && !plannerOptionId) || semester == null || slot == null) {
     return res.status(400).json({ error: "plannerId, one of courseId or plannerOptionId, semester, and slot are required" });
   }
@@ -647,6 +655,7 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   }
 
   if (slotNum < 1 || slotNum > 7) {
+    console.trace("Invalid slot");
     return res.status(400).json({ error: "slot must be between 1 and 7" });
   }
 
@@ -884,6 +893,14 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
   const plannedCourseId = Number(req.params.id);
   const { semester, slot } = req.body;
 
+  console.log({
+    endpoint: "move",
+    body: req.body,
+    semester: req.body.semester,
+    slot: req.body.slot,
+    slotNum: Number(req.body.slot),
+  });
+
   if (!plannedCourseId) {
     return res.status(400).json({ error: "Invalid planned course id" });
   }
@@ -896,6 +913,7 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
   }
 
   if (Number.isNaN(slotNum) || slotNum < 1 || slotNum > 7) {
+    console.trace("Invalid slot");
     return res.status(400).json({ error: "slot must be between 1 and 7" });
   }
 

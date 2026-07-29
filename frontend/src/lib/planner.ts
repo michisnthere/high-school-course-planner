@@ -140,7 +140,16 @@ export async function addPlannedCourse(
     body.slot = courseIdOrItem.slot;
   }
 
-  console.log(`[TRACE API addPlannedCourse] REQUEST BODY:`, JSON.stringify(body));
+  const slotVal = typeof courseIdOrItem === "number" ? slot : courseIdOrItem.slot;
+  console.log("API SEND", { endpoint: "/api/planner/courses", method: "POST", body });
+  console.log({
+    function: "lib addPlannedCourse",
+    semester,
+    slot: slotVal,
+    valid: slotVal != null && slotVal >= 1 && slotVal <= 7,
+    caller: new Error().stack,
+  });
+  try { JSON.parse(JSON.stringify(body)); } catch {} // ensure serializable
 
   const response = await fetch(`/api/planner/courses`, {
     method: "POST",
@@ -179,7 +188,14 @@ export async function movePlannedCourse(
   semester: number,
   slot: number
 ): Promise<Planner> {
-  console.log(`[TRACE API movePlannedCourse] REQUEST: id=${plannedCourseId} semester=${semester} slot=${slot}`);
+  console.log("API SEND", { endpoint: `/api/planner/courses/${plannedCourseId}/move`, method: "POST", body: { semester, slot } });
+  console.log({
+    function: "lib movePlannedCourse",
+    semester,
+    slot,
+    valid: slot >= 1 && slot <= 7,
+    caller: new Error().stack,
+  });
   const response = await fetch(`/api/planner/courses/${plannedCourseId}/move`, {
     method: "POST",
     credentials: "include",

@@ -471,7 +471,7 @@ function PlannerYearContent(): React.ReactElement {
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
-        console.log(`[TRACE handleAddPrerequisiteToPlanner PARENT] CALLING api: targetPlanner.schoolYear=${targetPlanner.schoolYear} courseId=${courseId} semester=${semester} slot=${slot}`);
+        console.log("ADD REQUEST", { plannerId: targetPlanner.id, courseId, semester, slot });
         const updatedPlanner = await plannerService.addPlannedCourse(targetPlanner.id, courseId, semester, slot);
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
@@ -513,12 +513,12 @@ function PlannerYearContent(): React.ReactElement {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
 
-        console.log(`[TRACE handleMoveAndAddPrerequisite PARENT] Calling movePlannedCourse: id=${plannedCourseId} semester=${newSemester} slot=${newSlot}`);
+        console.log("MOVE REQUEST", { plannedCourseId, semester: newSemester, slot: newSlot });
         const movedPlanner = await plannerService.movePlannedCourse(plannedCourseId, newSemester, newSlot);
         const afterMovePlanners = beforePlanners.map((p) =>
           p.schoolYear === movedPlanner.schoolYear ? movedPlanner : p
         );
-        console.log(`[TRACE handleMoveAndAddPrerequisite PARENT] Calling addPlannedCourse: plannerId=${movedPlanner.id} courseId=${prereqCourseId} semester=${prereqSemester} slot=${prereqSlot}`);
+        console.log("ADD REQUEST", { plannerId: movedPlanner.id, courseId: prereqCourseId, semester: prereqSemester, slot: prereqSlot });
         const finalPlanner = await plannerService.addPlannedCourse(
           movedPlanner.id,
           prereqCourseId,
@@ -2988,52 +2988,62 @@ function WarningActionModal({
 
   const findSlotNear = useCallback(
     (planner: Planner, semester: number, preferSlot: number): number | null => {
-      console.log(`[TRACE findSlotNear] planner=${planner.schoolYear} semester=${semester} preferSlot=${preferSlot} (type=${typeof preferSlot})`);
-      if (preferSlot >= 1 && preferSlot <= 7 && !isSlotOccupied(planner, semester, preferSlot)) {
-        console.log(`[TRACE findSlotNear] preferSlot ${preferSlot} is free, returning it`);
-        return preferSlot;
-      }
-      for (let offset = 1; offset <= 6; offset++) {
-        for (const candidate of [preferSlot + offset, preferSlot - offset]) {
-          if (candidate < 1 || candidate > 7) continue;
-          if (!isSlotOccupied(planner, semester, candidate)) {
-            console.log(`[TRACE findSlotNear] found candidate ${candidate} (offset=${offset})`);
-            return candidate;
-          }
-        }
-      }
-      console.log(`[TRACE findSlotNear] no slot found, returning null`);
-      return null;
+      const result = findSlotNearImpl(planner, semester, preferSlot);
+      console.log({ function: "findSlotNear", inputSemester: semester, inputSlot: preferSlot, result });
+      return result;
     },
     [isSlotOccupied]
   );
 
+  function findSlotNearImpl(planner: Planner, semester: number, preferSlot: number): number | null {
+    if (!(findSlotNearImpl as any)._logged) {
+      (findSlotNearImpl as any)._logged = true;
+      console.log("findSlotNearImpl SOURCE:", findSlotNearImpl.toString());
+    }
+    if (preferSlot >= 1 && preferSlot <= 7 && !isSlotOccupied(planner, semester, preferSlot)) {
+      return preferSlot;
+    }
+    for (let offset = 1; offset <= 6; offset++) {
+      for (const candidate of [preferSlot + offset, preferSlot - offset]) {
+        if (candidate < 1 || candidate > 7) continue;
+        if (!isSlotOccupied(planner, semester, candidate)) {
+          return candidate;
+        }
+      }
+    }
+    return null;
+  }
+
   const findBestSlotForYear = useCallback(
     (year: number, preferSlot: number): { semester: number; slot: number } | null => {
-      console.log(`[TRACE findBestSlotForYear] year=${year} preferSlot=${preferSlot} (type=${typeof preferSlot})`);
+      if (!(findBestSlotForYear as any)._logged) {
+        (findBestSlotForYear as any)._logged = true;
+        console.log("findBestSlotForYear SOURCE:", findBestSlotForYear.toString());
+      }
       const planner = allPlanners.find((p) => p.schoolYear === year);
       if (!planner) {
-        console.log(`[TRACE findBestSlotForYear] no planner for year ${year}`);
-        return null;
+        const result = null;
+        console.log({ function: "findBestSlotForYear", inputYear: year, inputSlot: preferSlot, result, reason: "no planner" });
+        return result;
       }
       if (preferSlot >= 1 && preferSlot <= 7) {
         for (const semester of [1, 2]) {
           if (!isSlotOccupied(planner, semester, preferSlot)) {
-            console.log(`[TRACE findBestSlotForYear] preferSlot ${preferSlot} free in S${semester}, returning`);
-            return { semester, slot: preferSlot };
+            const result = { semester, slot: preferSlot };
+            console.log({ function: "findBestSlotForYear", inputYear: year, inputSlot: preferSlot, result });
+            return result;
           }
         }
-      } else {
-        console.warn(`[TRACE findBestSlotForYear] preferSlot ${preferSlot} is outside 1-7, falling back to search from slot 1`);
       }
       for (const semester of [1, 2]) {
         const slot = findSlotNear(planner, semester, preferSlot);
         if (slot != null) {
-          console.log(`[TRACE findBestSlotForYear] found S${semester} slot ${slot}`);
-          return { semester, slot };
+          const result = { semester, slot };
+          console.log({ function: "findBestSlotForYear", inputYear: year, inputSlot: preferSlot, result });
+          return result;
         }
       }
-      console.log(`[TRACE findBestSlotForYear] no slot found for year ${year}`);
+      console.log({ function: "findBestSlotForYear", inputYear: year, inputSlot: preferSlot, result: null, reason: "no slot found" });
       return null;
     },
     [allPlanners, isSlotOccupied, findSlotNear]
@@ -3412,7 +3422,7 @@ function WarningActionModal({
         const slot = findSlotNear(currentPlanner, 1, planned.slot);
         console.log(`[TRACE semesterAdjustmentPlan] case1 (current yr S2->S1): slot=${slot}`);
         if (slot != null) {
-          return {
+          const result = {
             prereqTitle: selectedCourse.title,
             courseATitle: planned.course.title,
             courseAPlannedId: planned.id,
@@ -3422,6 +3432,8 @@ function WarningActionModal({
             addPrereq: { plannerId: currentPlanner.id, year: currentYear, semester: 1, slot },
             moveTo: null,
           };
+          console.log({ function: "semesterAdjustmentPlan", result });
+          return result;
         }
       }
     }
@@ -3435,7 +3447,7 @@ function WarningActionModal({
         const slot = findSlotNear(planner, sem, planned.slot);
         console.log(`[TRACE semesterAdjustmentPlan] case2 (prev yr Y=${year} S=${sem}): slot=${slot}`);
         if (slot != null) {
-          return {
+          const result = {
             prereqTitle: selectedCourse.title,
             courseATitle: planned.course.title,
             courseAPlannedId: planned.id,
@@ -3445,6 +3457,8 @@ function WarningActionModal({
             addPrereq: { plannerId: planner.id, year, semester: sem, slot },
             moveTo: null,
           };
+          console.log({ function: "semesterAdjustmentPlan", result });
+          return result;
         }
       }
     }
@@ -3455,7 +3469,7 @@ function WarningActionModal({
         const destSlot = findSlotNear(currentPlanner, 2, planned.slot);
         console.log(`[TRACE semesterAdjustmentPlan] case3 (move+add): destSlot=${destSlot} addPrereq.slot=${planned.slot}`);
         if (destSlot != null) {
-          return {
+          const result = {
             prereqTitle: selectedCourse.title,
             courseATitle: planned.course.title,
             courseAPlannedId: planned.id,
@@ -3465,12 +3479,14 @@ function WarningActionModal({
             addPrereq: { plannerId: currentPlanner.id, year: currentYear, semester: 1, slot: planned.slot },
             moveTo: { semester: 2, slot: destSlot },
           };
+          console.log({ function: "semesterAdjustmentPlan", result });
+          return result;
         }
       }
     }
 
     // No slot found — flag for replacement
-    return {
+    const fallback = {
       prereqTitle: selectedCourse.title,
       courseATitle: planned.course.title,
       courseAPlannedId: planned.id,
@@ -3480,6 +3496,8 @@ function WarningActionModal({
       addPrereq: null,
       moveTo: null,
     };
+    console.log({ function: "semesterAdjustmentPlan", result: fallback });
+    return fallback;
   }, [warning, planned, selectedCourse, currentPlanner, allPlanners, completedCourseIds, allCourses, currentYear, findSlotNear]);
 
   const validateSlot = (semester: number, slot: number): boolean => slot >= 1 && slot <= 7 && semester >= 1 && semester <= 2;
