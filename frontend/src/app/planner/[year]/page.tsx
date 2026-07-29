@@ -431,6 +431,7 @@ function PlannerYearContent(): React.ReactElement {
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
+        console.log("[CALLSITE] handleCourseSelected", { semester, slot: activeSlot.slot, activeSlot, selectionType: "courseId" in selection ? "courseId" : "plannerOptionId" });
         const updatedPlanner =
           "courseId" in selection
             ? await plannerService.addPlannedCourse(
@@ -471,7 +472,7 @@ function PlannerYearContent(): React.ReactElement {
       try {
         scrollYRef.current = window.scrollY;
         const beforePlanners = allPlanners;
-        console.log("ADD REQUEST", { plannerId: targetPlanner.id, courseId, semester, slot });
+        console.log("[CALLSITE] handleAddPrerequisiteToPlanner", { semester, slot, slotSource: "parameter" });
         const updatedPlanner = await plannerService.addPlannedCourse(targetPlanner.id, courseId, semester, slot);
         const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
         pushHistory(
@@ -518,7 +519,7 @@ function PlannerYearContent(): React.ReactElement {
         const afterMovePlanners = beforePlanners.map((p) =>
           p.schoolYear === movedPlanner.schoolYear ? movedPlanner : p
         );
-        console.log("ADD REQUEST", { plannerId: movedPlanner.id, courseId: prereqCourseId, semester: prereqSemester, slot: prereqSlot });
+        console.log("[CALLSITE] handleMoveAndAddPrerequisite (prereq)", { semester: prereqSemester, slot: prereqSlot, plannedSlot: allPlanners.flatMap(p => p.plannedCourses).find(pc => pc.courseId === prereqCourseId)?.slot });
         const finalPlanner = await plannerService.addPlannedCourse(
           movedPlanner.id,
           prereqCourseId,
@@ -573,6 +574,7 @@ function PlannerYearContent(): React.ReactElement {
         pushHistory(newPlanners, async () => {
           let restoredPlanner: Planner;
           if (planned.courseId != null) {
+            console.log("[CALLSITE] undo restore (courseId)", { semester: planned.semester, slot: planned.slot });
             restoredPlanner = await plannerService.addPlannedCourse(
               planned.plannerId,
               planned.courseId,
@@ -580,6 +582,7 @@ function PlannerYearContent(): React.ReactElement {
               planned.slot
             );
           } else if (planned.plannerOptionId != null) {
+            console.log("[CALLSITE] undo restore (plannerOptionId)", { semester: planned.semester, slot: planned.slot });
             restoredPlanner = await plannerService.addPlannedCourse(planned.plannerId, {
               plannerOptionId: planned.plannerOptionId,
               semester: planned.semester,
@@ -605,6 +608,7 @@ function PlannerYearContent(): React.ReactElement {
       try {
         scrollYRef.current = window.scrollY;
         await plannerService.removePlannedCourse(oldPlanned.id);
+        console.log("[CALLSITE] handleReplaceCourse (new)", { semester: oldPlanned.semester, slot: oldPlanned.slot, newCourseId });
         const updatedPlanner = await plannerService.addPlannedCourse(
           oldPlanned.plannerId,
           newCourseId,
@@ -618,6 +622,7 @@ function PlannerYearContent(): React.ReactElement {
             await plannerService.removePlannedCourse(added.id);
           }
           if (oldPlanned.courseId != null) {
+            console.log("[CALLSITE] handleReplaceCourse (undo)", { semester: oldPlanned.semester, slot: oldPlanned.slot });
             await plannerService.addPlannedCourse(
               oldPlanned.plannerId,
               oldPlanned.courseId,
@@ -1174,6 +1179,7 @@ function PlannerYearContent(): React.ReactElement {
                 }
                 const beforePlanners = allPlanners;
                 const plannerOptId = "plannerOptionId" in pending.selection ? pending.selection.plannerOptionId : null;
+                console.log("[CALLSITE] EarlyBird handleSelect", { semester, slot: pending.slot, pending });
                 const updatedPlanner =
                   selCourseId != null
                     ? await plannerService.addPlannedCourse(
