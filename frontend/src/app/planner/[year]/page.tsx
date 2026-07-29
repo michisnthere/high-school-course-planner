@@ -329,6 +329,7 @@ function PlannerYearContent(): React.ReactElement {
   }, [year, showToast]);
 
   const handleOpenModal = useCallback((semester: number, slot: number) => {
+    console.log("[SET ACTIVE SLOT]", { semester, slot, slotType: typeof slot, source: "handleOpenModal" });
     setActiveSlot({ semester, slot });
   }, []);
 
@@ -695,6 +696,7 @@ function PlannerYearContent(): React.ReactElement {
       }
     }
     const slot = [1, 2, 3, 4, 5, 6, 7].find(s => !occupiedSlots.has(s)) ?? 7;
+    console.log("[CALLSITE] handleMobileOpenModal", { semester, slot, computedFrom: "first free of [1..7]" });
     handleOpenModal(semester, slot);
   }, [planner, handleOpenModal]);
 
@@ -750,9 +752,10 @@ function PlannerYearContent(): React.ReactElement {
             </div>
           );
         } else {
+          const currentSlot = slot;
           items.push(
-            <div key={`empty-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1`, width: "100%" }}>
-              <AddCourseCard semester={semester} slot={slot} onClick={() => handleOpenModal(semester, slot)} isTablet={isTablet} />
+            <div key={`empty-${semester}-${currentSlot}`} style={{ gridRow: `${currentSlot} / span 1`, width: "100%" }}>
+              <AddCourseCard semester={semester} slot={currentSlot} onClick={() => { console.log("[CALLSITE] buildSemesterGrid AddCourseCard click", { semester, slot: currentSlot }); handleOpenModal(semester, currentSlot); }} isTablet={isTablet} />
             </div>
           );
         }
