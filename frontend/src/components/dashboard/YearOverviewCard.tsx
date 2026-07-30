@@ -171,7 +171,8 @@ export function YearOverviewCard({
         <div
           style={{
             marginTop: "12px",
-            padding: "16px 20px 24px",
+            marginBottom: "24px",
+            padding: "20px",
             backgroundColor: "var(--warning-bg, #fef9c3)",
             borderRadius: "8px",
           }}
