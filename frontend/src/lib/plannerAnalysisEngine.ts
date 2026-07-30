@@ -321,6 +321,15 @@ function computeGraduationRequirements(
     );
     if (hasPeWaiver) effectiveRequired = 0;
 
+    if (canonicalName === "Driver Education") {
+      const hasExternal = resolutions.some(
+        (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
+      );
+      if (hasExternal) {
+        earned = Math.max(earned, 1);
+      }
+    }
+
     const id = nextId--;
     return {
       id,
@@ -561,6 +570,7 @@ function computePlannerStatistics(placements: CoursePlacement[]): PlannerStatist
   const occupiedSlots = new Set<string>();
   const distinctCourses = new Set<string>();
   for (const placement of placements) {
+    if (placement.semester === 3) continue;
     const slotKey = `${placement.year}-${placement.semester}-${placement.slot}`;
     occupiedSlots.add(slotKey);
     if (placement.isNonAcademic) {

@@ -68,6 +68,8 @@ const YEAR_LABELS: Record<number, string> = {
   12: "Senior",
 };
 
+const SUMMER_SCHOOL_YEARS = new Set([9, 10, 11]);
+
 export default function PlannerYearPage(): React.ReactElement {
   return (
     <ProtectedRoute>
@@ -407,7 +409,9 @@ function PlannerYearContent(): React.ReactElement {
     async (selection: { courseId: number } | { plannerOptionId: number }) => {
       if (!planner || !activeSlot) return;
 
-      if ("courseId" in selection) {
+      const semester = activeSlot.semester;
+
+      if (semester !== 3 && "courseId" in selection) {
         const course = allCatalogCourses.find((c) => c.id === selection.courseId);
         if (course?.supportsEarlyBird) {
           setEarlyBirdPending({
@@ -420,7 +424,6 @@ function PlannerYearContent(): React.ReactElement {
         }
       }
 
-      const semester = activeSlot.semester;
       const plannedCourse = "courseId" in selection
         ? allCatalogCourses.find((c) => c.id === selection.courseId)
         : null;
@@ -1207,6 +1210,104 @@ function PlannerYearContent(): React.ReactElement {
               ))}
             </div>
           )}
+
+          {!isCompleted && SUMMER_SCHOOL_YEARS.has(year) && (
+            <div style={{ marginTop: "32px" }}>
+              <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
+                Summer School
+              </h2>
+              {(() => {
+                const summerCourses = planner?.plannedCourses.filter((pc) => pc.semester === 3) ?? [];
+                return summerCourses.length === 0 ? (
+                  <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
+                    No Summer School courses added.
+                  </p>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
+                    {summerCourses.map((pc) => {
+                      const accentColor = getDivisionColor(pc.course.division);
+                      const bgTint = getDivisionBackgroundColor(pc.course.division);
+                      return (
+                        <div
+                          key={pc.id}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "12px",
+                            padding: "12px 16px",
+                            backgroundColor: bgTint,
+                            borderLeft: `4px solid ${accentColor}`,
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
+                            {(() => {
+                              const code = pc.course.courseCode;
+                              return code ? (
+                                <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                                  {code}
+                                </span>
+                              ) : null;
+                            })()}
+                            <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3, wordBreak: "break-word" }}>
+                              {pc.course.title}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveCourse(pc)}
+                            style={{
+                              width: "28px",
+                              height: "28px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: "transparent",
+                              border: "none",
+                              borderRadius: "6px",
+                              cursor: "pointer",
+                              color: "#9ca3af",
+                              fontSize: "16px",
+                              flexShrink: 0,
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.color = "#ef4444"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--text-secondary)"; }}
+                          >
+                            🗑
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+              <button
+                type="button"
+                onClick={() => handleOpenModal(3, 1)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  padding: "10px 20px",
+                  minHeight: "44px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#9ca3af",
+                  backgroundColor: "#1f2937",
+                  border: "2px dashed #4b5563",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#6b7280"; e.currentTarget.style.color = "#d1d5db"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#4b5563"; e.currentTarget.style.color = "#9ca3af"; }}
+              >
+                + Add Summer School Course
+              </button>
+            </div>
+          )}
         </div>
 
         {!loading && planner && (
@@ -1553,6 +1654,60 @@ function SummarySidebar({
         onAddResolution={onAddResolution}
         onRemoveResolution={onRemoveResolution}
       />
+
+      {(() => {
+        const driverEdExternal = resolutions.find(
+          (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
+        );
+        return (
+          <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--border-default)" }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
+              Driver Education
+            </h3>
+            {driverEdExternal ? (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+                <span style={{ fontSize: "13px", color: "var(--brand-accent)" }}>
+                  ✓ Completed outside school
+                </span>
+                <button
+                  type="button"
+                  onClick={() => onRemoveResolution(driverEdExternal.id)}
+                  style={{
+                    background: "none",
+                    border: "1px solid var(--border-default)",
+                    borderRadius: "4px",
+                    color: "var(--text-secondary)",
+                    fontSize: "12px",
+                    padding: "2px 8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Undo
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external" } })}
+                style={{
+                  background: "none",
+                  border: "1px solid #6b7280",
+                  borderRadius: "4px",
+                  color: "#d1d5db",
+                  fontSize: "12px",
+                  padding: "4px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Mark completed outside school
+              </button>
+            )}
+            <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+              If you completed Driver Education at a commercial school or obtained your license before age 18.
+            </p>
+          </div>
+        );
+      })()}
 
       <CourseLoadRequirements
         requirements={computeCourseLoadRequirements(
@@ -2808,10 +2963,36 @@ function MobilePlanner({
     );
   };
 
+  const summerSchoolCourses = planner.plannedCourses.filter((pc) => pc.semester === 3);
+
   return (
     <>
       {renderSemester(1, 0)}
       {renderSemester(2, 1)}
+
+      {!isCompleted && SUMMER_SCHOOL_YEARS.has(year) && (
+        <div style={{ marginTop: "20px" }}>
+          <div className="mob-planner-semester">
+            <h2>Summer School</h2>
+          </div>
+          {summerSchoolCourses.length === 0 ? (
+            <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: "0 0 12px", padding: "8px 0" }}>
+              No Summer School courses added.
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "12px" }}>
+              {summerSchoolCourses.map((pc) => renderCourseCard(pc, 2))}
+            </div>
+          )}
+          <button
+            type="button"
+            className="mob-add-btn"
+            onClick={() => onOpenModal(3)}
+          >
+            + Add Course to Summer School
+          </button>
+        </div>
+      )}
 
       <div style={{ marginTop: "16px" }}>
         <button
@@ -3105,6 +3286,15 @@ function WarningActionModal({
   // Progressive disclosure state
   const [step, setStep] = useState<"initial" | "selectYear" | "foundSlot" | "selectReplacement" | "confirmImpact">("initial");
   const [selectedReplacement, setSelectedReplacement] = useState<PlannedCourse | null>(null);
+  const [completedGrade, setCompletedGrade] = useState<GradeCompleted>(
+    currentYear === 9
+      ? "Middle School"
+      : currentYear === 10
+      ? "Sophomore (10)"
+      : currentYear === 11
+      ? "Junior (11)"
+      : "Senior (12)"
+  );
 
   const allCourses = allCatalogCourses;
 
@@ -3303,7 +3493,7 @@ function WarningActionModal({
     if (!selectedCourse) return;
     setLoading(true);
     try {
-      const completed = await modalCompletedService.addCompletedCourse(selectedCourse.id, getGradeCompleted());
+      const completed = await modalCompletedService.addCompletedCourse(selectedCourse.id, completedGrade);
       onMarkCompleted(completed);
       showToast("Marked as completed.", "success");
       onClose();
@@ -4381,6 +4571,38 @@ function WarningActionModal({
                         Mark as Previously Completed
                       </p>
                       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                          <label
+                            htmlFor="completed-grade-select"
+                            style={{
+                              fontSize: "13px",
+                              color: "#9ca3af",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            Completed in:
+                          </label>
+                          <select
+                            id="completed-grade-select"
+                            value={completedGrade}
+                            onChange={(e) => setCompletedGrade(e.target.value as GradeCompleted)}
+                            style={{
+                              flex: 1,
+                              padding: "6px 8px",
+                              fontSize: "13px",
+                              color: "#d1d5db",
+                              backgroundColor: "#1f2937",
+                              border: "1px solid #374151",
+                              borderRadius: "4px",
+                            }}
+                          >
+                            {GRADE_COMPLETED_OPTIONS.map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                         <button
                           type="button"
                           onClick={handleMarkCompleted}

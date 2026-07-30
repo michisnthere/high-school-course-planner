@@ -26,6 +26,7 @@ export function computeSemesterCredits(plannedCourses: PlannedCourse[]): Semeste
 
   for (const pc of plannedCourses) {
     if (pc.course.isNonAcademic) continue;
+    if (pc.semester === 3) continue;
 
     const key = `${pc.courseId ?? ""}:${pc.slot}:${pc.semester}`;
     if (seen.has(key)) continue;

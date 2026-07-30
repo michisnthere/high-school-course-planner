@@ -52,6 +52,10 @@ export function YearOverviewCard({
     .filter((pc) => pc.semester === 2)
     .sort((a, b) => a.slot - b.slot);
 
+  const semSummerCourses = planner.plannedCourses
+    .filter((pc) => pc.semester === 3)
+    .sort((a, b) => a.slot - b.slot);
+
   const filledSlots = planner.plannedCourses.length;
 
   const isPlanned = filledSlots > 0;
@@ -225,6 +229,9 @@ export function YearOverviewCard({
       >
         <SemesterBlock semester={1} courses={sem1Courses} />
         <SemesterBlock semester={2} courses={sem2Courses} />
+        {semSummerCourses.length > 0 && (
+          <SemesterBlock semester={3} courses={semSummerCourses} />
+        )}
       </div>
 
       {/* Course count */}
@@ -336,7 +343,7 @@ function SemesterBlock({
           letterSpacing: "0.05em",
         }}
       >
-        Semester {semester}
+        {semester === 3 ? "Summer School" : `Semester ${semester}`}
       </p>
       <div
         style={{
