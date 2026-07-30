@@ -500,8 +500,7 @@ function RequirementsContent(): React.ReactElement {
                       requiredLabel: s.requiredLabel,
                     }));
                   const peWaivers = analysis.resolutions
-                    .filter((r) => r.type === "pe_waiver")
-                    .map((r) => ({ type: r.type }));
+                    .filter((r) => r.type === "pe_waiver" && r.metadata?.year === year.grade);
                   const effectivePe = computeEffectivePeStatus(peSemesters, peWaivers);
                   return (
                     <YearLevelCardView

@@ -405,7 +405,7 @@ function computeYearRequirements(placements: CoursePlacement[]): YearRequirement
       let earnedCredits = 0;
       const seen = new Set<string>();
       for (const placement of placements) {
-        if (placement.year !== grade || !placement.course || placement.isNonAcademic) continue;
+        if (placement.year !== grade || placement.semester === 3 || !placement.course || placement.isNonAcademic) continue;
         const fulfillsCanonical = placement.course.fulfillsRequirements.map(canonicalRequirementName);
         if (!fulfillsCanonical.some((fr) => accepted.has(fr))) continue;
         const key = getBackendPlacementKey(placement);
@@ -444,7 +444,13 @@ const PE_SEMESTER_DEFS: PeSemesterMatcher[] = [
 ];
 
 function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: ResolutionInfo[]): PeSemesterBreakdown[] {
-  const peWaived = resolutions.some((r) => r.type === "pe_waiver");
+  const waivedYears = new Set<number>();
+  for (const r of resolutions) {
+    if (r.type === "pe_waiver") {
+      const year = r.metadata?.year as number | undefined;
+      if (year != null) waivedYears.add(year);
+    }
+  }
   const seen = new Set<string>();
   const breakdown: PeSemesterBreakdown[] = [];
   for (let i = 0; i < PE_SEMESTER_DEFS.length; i++) {
@@ -458,7 +464,7 @@ function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: 
     if (placement) seen.add(getBackendPlacementKey(placement));
     breakdown.push({
       semester: i + 1,
-      met: peWaived || placement != null,
+      met: waivedYears.has(def.year) || placement != null,
       courseTitle: placement?.course?.title ?? null,
       courseId: placement?.course?.id ?? null,
       requiredLabel: def.label,

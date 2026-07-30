@@ -25,7 +25,7 @@ import {
   type PlannerOption,
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
-import { sumPlannedCredits } from "@/lib/courseCredits";
+import { sumPlannedCredits, formatCredits } from "@/lib/courseCredits";
 import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -1588,11 +1588,12 @@ function SummarySidebar({
   const currentPlanner = planners.find((p) => p.schoolYear === currentYear);
   const allCourses = planners.flatMap((p) => p.plannedCourses);
 
+  const yearCourses = (currentPlanner?.plannedCourses || []).filter((pc) => pc.semester !== 3);
   const totalCredits = sumPlannedCredits(allCourses);
-  const currentCredits = sumPlannedCredits(currentPlanner?.plannedCourses || []);
+  const currentCredits = sumPlannedCredits(yearCourses);
   const courseKeys = new Set<string>();
   const fullYearKeys = new Set<string>();
-  for (const pc of currentPlanner?.plannedCourses || []) {
+  for (const pc of yearCourses) {
     const key = pc.courseId != null
       ? `c${pc.courseId}`
       : (pc.plannerOptionId != null ? `c${-pc.plannerOptionId}` : `i${pc.id}`);
@@ -1605,7 +1606,7 @@ function SummarySidebar({
   const fullYearCount = fullYearKeys.size;
   const semesterCount = currentCourseCount - fullYearCount;
   const totalSlots = 14;
-  const filledSlots = (currentPlanner?.plannedCourses || []).reduce(
+  const filledSlots = yearCourses.reduce(
     (sum, pc) => sum + (pc.slotSpan ?? 1), 0
   );
   const slotPercentage = totalSlots > 0 ? Math.min(100, (filledSlots / totalSlots) * 100) : 0;
@@ -1634,11 +1635,11 @@ function SummarySidebar({
       </h2>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        <SummaryRow label="Total Credits" value={currentCredits.toFixed(1)} />
+        <SummaryRow label="Total Credits" value={formatCredits(currentCredits)} />
         <SummaryRow label="Planned Courses" value={String(currentCourseCount)} />
         <SummaryRow label="Full-Year Courses" value={String(fullYearCount)} />
         <SummaryRow label="Semester Courses" value={String(semesterCount)} />
-        <SummaryRow label="Overall Credits" value={totalCredits.toFixed(1)} />
+        <SummaryRow label="Overall Credits" value={formatCredits(totalCredits)} />
       </div>
 
       <GradeRequirements
@@ -1667,7 +1668,7 @@ function SummarySidebar({
             })) as PeSemesterStatus[] | undefined
         }
         peWaivers={resolutions
-          .filter((r) => r.type === "pe_waiver")
+          .filter((r) => r.type === "pe_waiver" && r.metadata?.year === currentYear)
           .map((r) => {
             const variant = r.metadata?.variant as string | undefined;
             if (variant === "athletic") {
@@ -1720,7 +1721,7 @@ function SummarySidebar({
             ) : (
               <button
                 type="button"
-                onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external" } })}
+                onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external", year: currentYear } })}
                 style={{
                   background: "none",
                   border: "1px solid #6b7280",

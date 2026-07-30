@@ -85,6 +85,11 @@ export function dedupePlannedCourses(pcs: PlannedCourse[]): PlannedCourse[] {
   return result;
 }
 
+/** Display a credit value as a whole number when it is an integer, preserving fractional values. */
+export function formatCredits(n: number): string {
+  return Number.isInteger(n) ? String(n) : n.toFixed(2);
+}
+
 /** Sum total credits across PlannedCourse[], deduplicating full-year courses */
 export function sumPlannedCredits(pcs: PlannedCourse[]): number {
   const seen = new Set<string>();

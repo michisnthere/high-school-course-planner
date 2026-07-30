@@ -206,14 +206,18 @@ describe("computePlannerAnalysis", () => {
     expect(govReq.status).toBe("satisfied");
   });
 
-  it("PE waiver marks all PE semesters as met", () => {
+  it("PE waiver applies only to the specified year, not all years", () => {
     const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
     const resolutions: RequirementResolution[] = [
-      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "academic" }, createdAt: "", updatedAt: "" },
+      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "academic", year: 12 }, createdAt: "", updatedAt: "" },
     ];
     const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions, allCourses });
-    for (const sem of result.peSemesterBreakdown) {
-      expect(sem.met).toBe(true);
+    // Semesters 7-8 are grade 12, should be met; semesters 0-5 (grades 9-11) should not
+    for (let i = 0; i < 6; i++) {
+      expect(result.peSemesterBreakdown[i].met).toBe(false);
+    }
+    for (let i = 6; i < 8; i++) {
+      expect(result.peSemesterBreakdown[i].met).toBe(true);
     }
     const pe = result.graduationRequirements.find((r) => r.name === "Physical Education")!;
     expect(pe.remainingValue).toBe(0);

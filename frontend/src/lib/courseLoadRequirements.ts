@@ -50,6 +50,7 @@ export function computeSixthPeriod(plannedCourses: PlannedCourse[], grade: numbe
 
   for (const pc of plannedCourses) {
     if (pc.course.isNonAcademic && grade < 11) continue;
+    if (pc.semester === 3) continue;
 
     if (pc.course.duration === 2) {
       const span = pc.slotSpan ?? 1;

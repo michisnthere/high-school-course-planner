@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { getGpaProjection, type GpaProjection } from "@/lib/gpaProjection";
+import { formatCredits } from "@/lib/courseCredits";
 
 function formatGpa(value: number): string {
   return value.toFixed(2);
@@ -114,7 +115,7 @@ function ProjectionBlock({
       <MetricRow label="Weighted" value={formatGpa(weighted)} />
       <MetricRow label="Unweighted" value={formatGpa(unweighted)} />
       {creditsLabel !== undefined && credits !== undefined && (
-        <MetricRow label={creditsLabel} value={credits.toFixed(1)} />
+        <MetricRow label={creditsLabel} value={formatCredits(credits)} />
       )}
     </div>
   );

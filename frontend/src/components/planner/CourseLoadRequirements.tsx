@@ -1,5 +1,6 @@
 import React from "react";
 import type { CourseLoadRequirements } from "@/lib/courseLoadRequirements";
+import { formatCredits } from "@/lib/courseCredits";
 
 type Props = {
   requirements: CourseLoadRequirements;
@@ -45,7 +46,7 @@ function ProgressBar({
         />
       </div>
       <span style={{ minWidth: "70px", textAlign: "right", fontWeight: 400 }}>
-        {earned.toFixed(1)} / {required}
+        {formatCredits(earned)} / {required}
       </span>
     </div>
   );

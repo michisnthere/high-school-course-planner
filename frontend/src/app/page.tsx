@@ -10,6 +10,7 @@ import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { breakpoints } from "@/lib/responsive";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { Planner } from "@/lib/planner";
+import { formatCredits } from "@/lib/courseCredits";
 
 const SLOTS_PER_SEMESTER = 7;
 const SEMESTERS_PER_YEAR = 2;
@@ -173,7 +174,7 @@ export default function Home() {
                   gap: "16px",
                 }}
               >
-                <SummaryCard label="Completed Credits" value={`${totalCredits.toFixed(1)} / ${totalRequired}`} />
+                <SummaryCard label="Completed Credits" value={`${formatCredits(totalCredits)} / ${formatCredits(totalRequired)}`} />
                 <SummaryCard label="Graduation Progress" value={`${gradProgress}%`}>
                   <ProgressBar value={gradProgress} />
                 </SummaryCard>

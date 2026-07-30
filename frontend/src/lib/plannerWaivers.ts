@@ -47,6 +47,7 @@ export function getCreditBearingCount(
   const countedFullYear = new Set<string>();
 
   for (const pc of plannedCourses) {
+    if (pc.semester === 3) continue;
     const credits = getCourseCredits(pc.course);
     if (credits <= 0) continue;
     if (pc.course.isNonAcademic) continue;
