@@ -46,43 +46,22 @@ export function getCreditBearingCount(
   const sem2Courses = new Set<string>();
   const seen = new Set<string>();
 
-  const debugCourses: Array<{ title: string; credits: number; key: string; semester: number; duration: number; filtered: string }> = [];
-
   for (const pc of plannedCourses) {
     const credits = getCourseCredits(pc.course);
-    let filtered = "";
-    if (credits <= 0) { filtered = "credits<=0"; }
-    else if (pc.course.isNonAcademic) { filtered = "nonAcademic"; }
-    else {
-      const key = getPlacementKey(pc);
-      if (seen.has(key)) { filtered = "dupKey"; }
-      else {
-        seen.add(key);
-        if (pc.course.duration === 2 || pc.semester === 1) {
-          sem1Courses.add(key);
-        }
-        if (pc.course.duration === 2 || pc.semester === 2) {
-          sem2Courses.add(key);
-        }
-      }
-    }
-    debugCourses.push({
-      title: pc.course.title,
-      credits,
-      key: getPlacementKey(pc),
-      semester: pc.semester,
-      duration: pc.course.duration ?? 1,
-      filtered,
-    });
-  }
+    if (credits <= 0) continue;
+    if (pc.course.isNonAcademic) continue;
 
-  console.log("PE WAIVER DEBUG", {
-    year: undefined,
-    courses: debugCourses,
-    creditBearingCourses: debugCourses.filter((c) => !c.filtered),
-    totalCredits: debugCourses.reduce((s, c) => s + c.credits, 0),
-    eligible: { sem1: sem1Courses.size, sem2: sem2Courses.size },
-  });
+    const key = getPlacementKey(pc);
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    if (pc.course.duration === 2 || pc.semester === 1) {
+      sem1Courses.add(key);
+    }
+    if (pc.course.duration === 2 || pc.semester === 2) {
+      sem2Courses.add(key);
+    }
+  }
 
   return { sem1: sem1Courses.size, sem2: sem2Courses.size };
 }
@@ -129,6 +108,15 @@ export function computeAthleticVariantEligibility(
   creditBearing: { sem1: number; sem2: number }
 ): { eligible: boolean; variant: "non-credit" | "credit" | null; reason: string } {
   const minCreditBearing = Math.min(creditBearing.sem1, creditBearing.sem2);
+
+  console.log("PE WAIVER ATHLETIC CHECK", {
+    sportCount,
+    creditBearingSem1: creditBearing.sem1,
+    creditBearingSem2: creditBearing.sem2,
+    minCreditBearing,
+    threshold: sportCount === "one" ? 6 : 5,
+    met: minCreditBearing >= (sportCount === "one" ? 6 : 5),
+  });
 
   if (sportCount === "one") {
     if (minCreditBearing >= 6) {

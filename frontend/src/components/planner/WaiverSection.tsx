@@ -45,6 +45,25 @@ export function WaiverSection({
   const creditBearing = getCreditBearingCount(plannedCourses);
   const eligibility = computeWaiverEligibility(grade, creditBearing, plannedCourses);
 
+  console.log("PE WAIVER DEBUG", {
+    grade,
+    plannedCourses: plannedCourses.map((pc) => ({
+      title: pc.course.title,
+      credits: pc.course.credits,
+      duration: pc.course.duration,
+      semester: pc.semester,
+      slot: pc.slot,
+      slotSpan: pc.slotSpan,
+      isNonAcademic: pc.course.isNonAcademic,
+      isMarchingBand: pc.course.isMarchingBand,
+    })),
+    creditBearingCounts: creditBearing,
+    minCreditBearing: Math.min(creditBearing.sem1, creditBearing.sem2),
+    academicEligible: eligibility.academic,
+    athleticEligible: eligibility.athletic,
+    marchingBandEligible: eligibility.marchingBand,
+  });
+
   const peWaiverResolutions = resolutions.filter((r) => r.type === "pe_waiver");
   const hasWaiver = peWaiverResolutions.length > 0;
 
