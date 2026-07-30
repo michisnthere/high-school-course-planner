@@ -171,14 +171,14 @@ export function YearOverviewCard({
         <div
           style={{
             marginTop: "12px",
-            padding: "12px",
+            padding: "20px",
             backgroundColor: "var(--warning-bg, #fef9c3)",
             borderRadius: "8px",
           }}
         >
           <p
             style={{
-              margin: "0 0 6px",
+              margin: "0 0 10px",
               fontSize: "13px",
               fontWeight: 600,
               color: "var(--warning-text, #854d0e)",
@@ -192,7 +192,7 @@ export function YearOverviewCard({
               paddingLeft: "18px",
               display: "flex",
               flexDirection: "column",
-              gap: "4px",
+              gap: "6px",
             }}
           >
             {missingItems.map((item) => (
