@@ -150,11 +150,11 @@ export function YearOverviewCard({
                 padding: "10px 20px",
                 fontSize: "15px",
                 fontWeight: 700,
-                color: "var(--brand-accent)",
-                backgroundColor: "transparent",
+                color: "#ffffff",
+                backgroundColor: "var(--brand-accent)",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
-                border: "1px solid var(--brand-accent)",
+                border: "none",
                 borderRadius: "8px",
                 cursor: "pointer",
                 gap: "4px",
@@ -165,6 +165,53 @@ export function YearOverviewCard({
           )}
         </div>
       </div>
+
+      {/* Warnings */}
+      {missingItems.length > 0 && !isCompleted && (
+        <div
+          style={{
+            marginTop: "12px",
+            padding: "12px",
+            backgroundColor: "var(--warning-bg, #fef9c3)",
+            borderRadius: "8px",
+          }}
+        >
+          <p
+            style={{
+              margin: "0 0 6px",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "var(--warning-text, #854d0e)",
+            }}
+          >
+            Needs attention:
+          </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: "18px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "4px",
+            }}
+          >
+            {missingItems.map((item) => (
+              <li
+                key={item.category}
+                style={{
+                  fontSize: "13px",
+                  color: "var(--warning-text, #854d0e)",
+                  lineHeight: 1.4,
+                }}
+              >
+                {item.requiredCredits > 1
+                  ? `Missing ${item.category} (${item.earnedCredits} / ${item.requiredCredits} credits)`
+                  : `Missing ${item.category}`}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Courses */}
       <div
@@ -233,53 +280,6 @@ export function YearOverviewCard({
         >
           {markingActive ? "Restoring..." : "Mark as Active"}
         </button>
-      )}
-
-      {/* Warnings */}
-      {missingItems.length > 0 && !isCompleted && (
-        <div
-          style={{
-            marginTop: "12px",
-            padding: "12px",
-            backgroundColor: "var(--warning-bg, #fef9c3)",
-            borderRadius: "8px",
-          }}
-        >
-          <p
-            style={{
-              margin: "0 0 6px",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "var(--warning-text, #854d0e)",
-            }}
-          >
-            Needs attention:
-          </p>
-          <ul
-            style={{
-              margin: 0,
-              paddingLeft: "18px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "4px",
-            }}
-          >
-            {missingItems.map((item) => (
-              <li
-                key={item.category}
-                style={{
-                  fontSize: "13px",
-                  color: "var(--warning-text, #854d0e)",
-                  lineHeight: 1.4,
-                }}
-              >
-                {item.requiredCredits > 1
-                  ? `Missing ${item.category} (${item.earnedCredits} / ${item.requiredCredits} credits)`
-                  : `Missing ${item.category}`}
-              </li>
-            ))}
-          </ul>
-        </div>
       )}
     </div>
   );

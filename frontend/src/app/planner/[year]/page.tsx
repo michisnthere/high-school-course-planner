@@ -49,6 +49,7 @@ import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNo
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
+import { getCreditBearingCount, computeAthleticVariantEligibility, computeWaiverEligibility } from "@/lib/plannerWaivers";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
@@ -145,6 +146,10 @@ function PlannerYearContent(): React.ReactElement {
   } | null>(null);
   const [ignoredWarnings, setIgnoredWarnings] = useState<Set<string>>(new Set());
   const [highlightedPlannedCourseId, setHighlightedPlannedCourseId] = useState<number | null>(null);
+  const [pendingRemoval, setPendingRemoval] = useState<{
+    planned: PlannedCourse;
+    waiverWarning: string;
+  } | null>(null);
 
   useEffect(() => {
     try {
@@ -549,8 +554,51 @@ function PlannerYearContent(): React.ReactElement {
     [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
   );
 
-  const handleRemoveCourse = useCallback(
-    async (planned: PlannedCourse) => {
+  const computeRemovalWaiverWarning = useCallback(
+    (planned: PlannedCourse): string | null => {
+      const peWaiverResolutions = resolutions.filter((r) => r.type === "pe_waiver");
+      if (peWaiverResolutions.length === 0) return null;
+
+      const hasMultiSlot = (planned.slotSpan ?? 1) > 1 || planned.course.duration === 2;
+      const removedIds = new Set(
+        (allPlanners.find((p) => p.id === planned.plannerId)?.plannedCourses ?? [])
+          .filter((pc) =>
+            hasMultiSlot ? pc.courseId === planned.courseId : pc.id === planned.id
+          )
+          .map((pc) => pc.id)
+      );
+
+      const currentPlanned = allPlanners.find((p) => p.id === planned.plannerId)?.plannedCourses ?? [];
+      const simulatedCourses = currentPlanned.filter((pc) => !removedIds.has(pc.id));
+      const simulatedCreditBearing = getCreditBearingCount(simulatedCourses);
+
+      for (const res of peWaiverResolutions) {
+        const variant = res.metadata?.variant as string | undefined;
+        if (variant === "academic") {
+          const simEligibility = computeWaiverEligibility(year, simulatedCreditBearing, simulatedCourses);
+          if (!simEligibility.academic.eligible) {
+            return "Removing this course will make you ineligible for the Academic PE Waiver. The waiver will be revoked if you continue.";
+          }
+        } else if (variant === "athletic") {
+          const athleticVariant = res.metadata?.athleticVariant as string | undefined;
+          const sportCount = athleticVariant === "credit" ? "two-or-more" : "one";
+          const result = computeAthleticVariantEligibility(sportCount, simulatedCreditBearing);
+          if (!result.eligible) {
+            return "Removing this course will make you ineligible for the Athletic PE Waiver. The waiver will be revoked if you continue.";
+          }
+        } else if (variant === "marching-band") {
+          if (planned.course.isMarchingBand) {
+            return "Removing this course will revoke the Marching Band PE Waiver.";
+          }
+        }
+      }
+      return null;
+    },
+    [allPlanners, resolutions, year]
+  );
+
+  const executeRemoval = useCallback(
+    async (planned: PlannedCourse, revokePeWaivers: boolean) => {
       try {
         scrollYRef.current = window.scrollY;
         const hasMultiSlot = (planned.slotSpan ?? 1) > 1 || planned.course.duration === 2;
@@ -572,6 +620,24 @@ function PlannerYearContent(): React.ReactElement {
         );
 
         await plannerService.removePlannedCourse(planned.id);
+
+        if (revokePeWaivers) {
+          const peWaiverResolutions = resolutions.filter((r) => r.type === "pe_waiver");
+          for (const res of peWaiverResolutions) {
+            try {
+              await resolutionsService.deleteResolution(res.id);
+            } catch {
+              // best-effort revocation
+            }
+          }
+          try {
+            const updated = await resolutionsService.getResolutions();
+            setResolutions(updated);
+          } catch {
+            // ignore
+          }
+        }
+
         pushHistory(newPlanners, async () => {
           let restoredPlanner: Planner;
           if (planned.courseId != null) {
@@ -600,7 +666,30 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo]
+    [allPlanners, pushHistory, showToast, handleUndo, resolutions, resolutionsService]
+  );
+
+  const handleConfirmRemoval = useCallback(async () => {
+    if (!pendingRemoval) return;
+    const { planned, waiverWarning } = pendingRemoval;
+    setPendingRemoval(null);
+    await executeRemoval(planned, !!waiverWarning);
+  }, [pendingRemoval, executeRemoval]);
+
+  const handleCancelRemoval = useCallback(() => {
+    setPendingRemoval(null);
+  }, []);
+
+  const handleRemoveCourse = useCallback(
+    (planned: PlannedCourse) => {
+      const waiverWarning = computeRemovalWaiverWarning(planned);
+      if (waiverWarning) {
+        setPendingRemoval({ planned, waiverWarning });
+      } else {
+        executeRemoval(planned, false);
+      }
+    },
+    [computeRemovalWaiverWarning, executeRemoval]
   );
 
   const handleReplaceCourse = useCallback(
@@ -1141,6 +1230,81 @@ function PlannerYearContent(): React.ReactElement {
           allPlanners={allPlanners}
           onGoToCourse={handleGoToCourse}
         />
+      )}
+
+      {pendingRemoval && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 50,
+            backgroundColor: "rgba(0, 0, 0, 0.45)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+          onClick={handleCancelRemoval}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            style={{
+              width: "100%",
+              maxWidth: "440px",
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border-default)",
+              borderRadius: "12px",
+              padding: "24px",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.24)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{ margin: "0 0 12px", fontSize: "20px", color: "var(--text-primary)" }}>
+              Remove Course?
+            </h2>
+            <p style={{ margin: "0 0 8px", fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+              Are you sure you want to remove <strong style={{ color: "var(--text-primary)" }}>{pendingRemoval.planned.course.title}</strong> from Semester {pendingRemoval.planned.semester}?
+            </p>
+            {pendingRemoval.waiverWarning && (
+              <p style={{ margin: "0 0 20px", padding: "12px", backgroundColor: "#7c2d12", borderRadius: "8px", fontSize: "14px", color: "#fca5a5", lineHeight: 1.5 }}>
+                ⚠ {pendingRemoval.waiverWarning}
+              </p>
+            )}
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
+              <button
+                type="button"
+                onClick={handleCancelRemoval}
+                style={{
+                  minHeight: "44px",
+                  padding: "8px 16px",
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "8px",
+                  backgroundColor: "transparent",
+                  color: "var(--text-primary)",
+                  fontWeight: 600,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmRemoval}
+                style={{
+                  minHeight: "44px",
+                  padding: "8px 16px",
+                  border: "1px solid #991b1b",
+                  borderRadius: "8px",
+                  backgroundColor: "#991b1b",
+                  color: "#ffffff",
+                  fontWeight: 700,
+                }}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {earlyBirdPending && (() => {
