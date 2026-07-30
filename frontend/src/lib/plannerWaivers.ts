@@ -44,22 +44,26 @@ export function getCreditBearingCount(
 ): { sem1: number; sem2: number } {
   const sem1Courses = new Set<string>();
   const sem2Courses = new Set<string>();
-  const seen = new Set<string>();
+  const countedFullYear = new Set<string>();
 
   for (const pc of plannedCourses) {
     const credits = getCourseCredits(pc.course);
     if (credits <= 0) continue;
     if (pc.course.isNonAcademic) continue;
 
-    const key = getPlacementKey(pc);
-    if (seen.has(key)) continue;
-    seen.add(key);
-
-    if (pc.course.duration === 2 || pc.semester === 1) {
-      sem1Courses.add(key);
-    }
-    if (pc.course.duration === 2 || pc.semester === 2) {
-      sem2Courses.add(key);
+    if (pc.course.duration === 2) {
+      const span = pc.slotSpan ?? 1;
+      for (let i = 0; i < span; i++) {
+        const key = `${pc.courseId}-${pc.slot}-${i}`;
+        if (countedFullYear.has(key)) continue;
+        countedFullYear.add(key);
+        sem1Courses.add(key);
+        sem2Courses.add(key);
+      }
+    } else {
+      const key = getPlacementKey(pc);
+      if (pc.semester === 1) sem1Courses.add(key);
+      if (pc.semester === 2) sem2Courses.add(key);
     }
   }
 
