@@ -170,7 +170,7 @@ export function YearOverviewCard({
       {missingItems.length > 0 && !isCompleted && (
         <div
           style={{
-            marginTop: "12px",
+            marginTop: "4px",
             marginBottom: "24px",
             padding: "20px",
             backgroundColor: "var(--warning-bg, #fef9c3)",
