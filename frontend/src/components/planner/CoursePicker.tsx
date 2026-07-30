@@ -7,6 +7,7 @@ import {
   sortPickerCourses,
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
+import { formatCredits } from "@/lib/courseCredits";
 import { formatCreditType } from "@/lib/catalog";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { CourseFilters, type ActiveFilters } from "@/components/catalog/CourseFilters";
@@ -295,7 +296,7 @@ export function CoursePicker({
                           borderRadius: "9999px",
                         }}
                       >
-                        {course.credits} credits
+                        {formatCredits(course.credits)} credits
                       </span>
                     )}
                     {course.duration === 2 && (

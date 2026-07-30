@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import type { Planner } from "@/lib/planner";
 import { breakpoints } from "@/lib/responsive";
+import { formatCredits } from "@/lib/courseCredits";
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -225,7 +226,7 @@ export function YearOverviewCard({
                 }}
               >
                 {item.requiredCredits > 1
-                  ? `Missing ${item.category} (${item.earnedCredits} / ${item.requiredCredits} credits)`
+                  ? `Missing ${item.category} (${formatCredits(item.earnedCredits)} / ${formatCredits(item.requiredCredits)} credits)`
                   : `Missing ${item.category}`}
               </li>
             ))}

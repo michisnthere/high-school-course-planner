@@ -2050,7 +2050,7 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            {course.credits} credits
+            {formatCredits(course.credits)} credits
           </span>
         )}
         {course.duration === 2 && (
@@ -2535,7 +2535,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          {course.credits} credits
+                          {formatCredits(course.credits)} credits
                         </span>
                       )}
                       {course.duration === 2 && (
@@ -2921,7 +2921,7 @@ function MobilePlanner({
           )}
           {planned.course.credits != null && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              {planned.course.credits} credits
+              {formatCredits(planned.course.credits)} credits
             </span>
           )}
           {planned.course.duration === 2 && (

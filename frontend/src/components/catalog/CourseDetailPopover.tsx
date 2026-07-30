@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import type { PlannerCourseDetails } from "@/lib/planner";
+import { formatCredits } from "@/lib/courseCredits";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType, formatPrerequisiteForDisplay } from "@/lib/catalog";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
@@ -167,7 +168,7 @@ export function CourseDetailPopover({
                   color: "var(--text-primary)",
                 }}
               >
-                {course.credits} credits
+                {formatCredits(course.credits)} credits
               </span>
             )}
             {course.duration && (

@@ -9,6 +9,7 @@ import {
   type GradeCompleted,
 } from "@/lib/completedCourses";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
+import { formatCredits } from "@/lib/courseCredits";
 import {
   ACADEMIC_PERIODS,
   FILTER_ORDER,
@@ -573,7 +574,7 @@ function CompletedCourseCard({
           ) : (
             getAcademicPeriodLabel(cc.gradeCompleted)
           )}
-          {cc.course.credits != null && ` • ${cc.course.credits} credits`}
+          {cc.course.credits != null && ` • ${formatCredits(cc.course.credits)} credits`}
           {cc.course.division && ` • ${cc.course.division}`}
         </p>
       </div>
