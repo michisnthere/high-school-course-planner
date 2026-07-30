@@ -970,6 +970,9 @@ function PlannerYearContent(): React.ReactElement {
         {isCompleted && (
           <div
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
               padding: "12px 16px",
               backgroundColor: "#dcfce7",
               borderRadius: "8px",
@@ -978,7 +981,20 @@ function PlannerYearContent(): React.ReactElement {
               color: "#166534",
             }}
           >
-            This year has been marked as completed. Editing is disabled.
+            <span
+              style={{
+                padding: "2px 10px",
+                fontSize: "12px",
+                fontWeight: 600,
+                color: "#166534",
+                backgroundColor: "#bbf7d0",
+                borderRadius: "9999px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              ✓ Completed
+            </span>
+            This planner is in view-only mode.
           </div>
         )}
 
@@ -1044,7 +1060,7 @@ function PlannerYearContent(): React.ReactElement {
           />
         )}
 
-        {selectedWarning && (
+        {selectedWarning && !isCompleted && (
           <WarningActionModal
             planned={selectedWarning.planned}
             warning={selectedWarning.warning}
@@ -1147,6 +1163,9 @@ function PlannerYearContent(): React.ReactElement {
           {isCompleted && (
             <div
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
                 padding: "12px 16px",
                 marginBottom: "20px",
                 backgroundColor: "#dcfce7",
@@ -1156,7 +1175,20 @@ function PlannerYearContent(): React.ReactElement {
                 color: "#166534",
               }}
             >
-              This year has been marked as completed. Editing is disabled.
+              <span
+                style={{
+                  padding: "2px 10px",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  color: "#166534",
+                  backgroundColor: "#bbf7d0",
+                  borderRadius: "9999px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                ✓ Completed
+              </span>
+              This planner is in view-only mode.
             </div>
           )}
 
@@ -1484,7 +1516,7 @@ function PlannerYearContent(): React.ReactElement {
         );
       })()}
 
-      {selectedWarning && (
+      {selectedWarning && !isCompleted && (
         <WarningActionModal
           planned={selectedWarning.planned}
           warning={selectedWarning.warning}
@@ -1655,7 +1687,7 @@ function SummarySidebar({
         onRemoveResolution={onRemoveResolution}
       />
 
-      {(() => {
+      {currentYear === 10 && (() => {
         const driverEdExternal = resolutions.find(
           (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
         );

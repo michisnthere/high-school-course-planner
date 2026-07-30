@@ -538,30 +538,55 @@ function RequirementsContent(): React.ReactElement {
                   alignItems: "start",
                 }}
               >
-                {visibleRequirements.map((req) => (
-                  <RequirementCard
-                    key={req.id}
-                    req={req}
-                    isExpanded={expandedIds.has(req.id)}
-                    onToggle={() => toggleExpand(req.id)}
-                    hasPeWaiver={hasPeWaiver}
-                    getCourseDetailsHref={(course) => buildCourseDetailsHref(course, req.name, false)}
-                    onCourseNavigate={(course) => navigateToCourseDetails(course, req.name, false)}
-                    allCourseDetails={allCourseDetails}
-                    onViewAll={() => {
-                      setViewAllReq(req.name);
-                      const params = new URLSearchParams(searchParams.toString());
-                      const ids = Array.from(expandedIds);
-                      if (ids.length > 0) {
-                        params.set("expanded", ids.join(","));
-                      } else {
-                        params.delete("expanded");
-                      }
-                      params.set("viewAll", req.name);
-                      router.replace(`/requirements?${params.toString()}`, { scroll: false });
-                    }}
-                  />
-                ))}
+                {visibleRequirements.map((req) => {
+                  const isDriverEd = req.name.toLowerCase() === "driver education";
+                  const driverEdExternalResolution = isDriverEd
+                    ? analysis?.resolutions.find(
+                        (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
+                      ) ?? null
+                    : undefined;
+                  return (
+                    <RequirementCard
+                      key={req.id}
+                      req={req}
+                      isExpanded={expandedIds.has(req.id)}
+                      onToggle={() => toggleExpand(req.id)}
+                      hasPeWaiver={hasPeWaiver}
+                      getCourseDetailsHref={(course) => buildCourseDetailsHref(course, req.name, false)}
+                      onCourseNavigate={(course) => navigateToCourseDetails(course, req.name, false)}
+                      allCourseDetails={allCourseDetails}
+                      onViewAll={() => {
+                        setViewAllReq(req.name);
+                        const params = new URLSearchParams(searchParams.toString());
+                        const ids = Array.from(expandedIds);
+                        if (ids.length > 0) {
+                          params.set("expanded", ids.join(","));
+                        } else {
+                          params.delete("expanded");
+                        }
+                        params.set("viewAll", req.name);
+                        router.replace(`/requirements?${params.toString()}`, { scroll: false });
+                      }}
+                      driverEdExternalResolution={driverEdExternalResolution}
+                      onAddDriverEdExternal={async () => {
+                        try {
+                          await resolutionsService.createResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external" } });
+                          load();
+                        } catch {
+                          // ignore
+                        }
+                      }}
+                      onRemoveDriverEdExternal={async (id) => {
+                        try {
+                          await resolutionsService.deleteResolution(id);
+                          load();
+                        } catch {
+                          // ignore
+                        }
+                      }}
+                    />
+                  );
+                })}
               </div>
             </section>
 
@@ -766,6 +791,9 @@ type RequirementCardProps = {
   onCourseNavigate: (course: PlannerCourseDetails) => void;
   allCourseDetails: PlannerCourseDetails[];
   onViewAll: () => void;
+  driverEdExternalResolution?: { id: number } | null;
+  onAddDriverEdExternal?: () => void;
+  onRemoveDriverEdExternal?: (id: number) => void;
 };
 
 function RequirementCard({
@@ -777,8 +805,12 @@ function RequirementCard({
   onCourseNavigate,
   allCourseDetails,
   onViewAll,
+  driverEdExternalResolution,
+  onAddDriverEdExternal,
+  onRemoveDriverEdExternal,
 }: RequirementCardProps): React.ReactElement {
   const isPe = req.name.toLowerCase() === "physical education";
+  const isDriverEd = req.name.toLowerCase() === "driver education";
   const config = STATUS_CONFIG[req.status];
   const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
   const effectiveEarned = isPe && hasPeWaiver ? effectiveRequired : req.earnedValue;
@@ -955,6 +987,57 @@ function RequirementCard({
                     </button>
                 )}
               </div>
+            </div>
+          )}
+
+          {isDriverEd && (
+            <div style={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid var(--border-light)" }}>
+              <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
+                Completed Outside of School
+              </p>
+              {driverEdExternalResolution ? (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+                  <span style={{ fontSize: "13px", color: "var(--status-success)" }}>
+                    ✓ Completed outside school
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => onRemoveDriverEdExternal?.(driverEdExternalResolution.id)}
+                    style={{
+                      background: "none",
+                      border: "1px solid var(--border-default)",
+                      borderRadius: "4px",
+                      color: "var(--text-secondary)",
+                      fontSize: "12px",
+                      padding: "2px 8px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Undo
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    onClick={onAddDriverEdExternal}
+                    style={{
+                      background: "none",
+                      border: "1px solid #6b7280",
+                      borderRadius: "4px",
+                      color: "#d1d5db",
+                      fontSize: "12px",
+                      padding: "4px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Mark completed outside school
+                  </button>
+                  <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+                    Completed Driver Education at a commercial school or obtained your license before age 18.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

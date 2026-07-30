@@ -133,16 +133,31 @@ export function YearOverviewCard({
         <div className="yoc-header-actions">
           <span style={badgeStyle}>{badgeLabel}</span>
           {isCompleted ? (
-            <span
-              style={{
-                fontSize: "13px",
-                fontWeight: 600,
-                color: "#166534",
-                whiteSpace: "nowrap",
-              }}
-            >
-              ✓ Completed – Editing Disabled
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+              <span style={successBadge}>✓ Year Completed</span>
+              <Link
+                href={`/planner/${planner.schoolYear}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: "44px",
+                  padding: "10px 20px",
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  color: "#ffffff",
+                  backgroundColor: "var(--brand-accent)",
+                  textDecoration: "none",
+                  whiteSpace: "nowrap",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  gap: "4px",
+                }}
+              >
+                View Planner →
+              </Link>
+            </div>
           ) : (
             <Link
               href={`/planner/${planner.schoolYear}`}
