@@ -216,6 +216,9 @@ function CompletedCoursesContent(): React.ReactElement {
             min-height: 48px !important;
             font-size: 16px !important;
           }
+          .rs-completed-page h1 {
+            margin-top: 8px !important;
+          }
           .rs-completed-toolbar {
             align-items: stretch !important;
             flex-direction: column !important;

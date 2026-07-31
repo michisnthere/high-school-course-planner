@@ -78,7 +78,7 @@ export function CourseAttributes({ course }: CourseAttributesProps): React.React
           color: "var(--text-primary)",
         }}
       >
-        Attributes
+        Fulfills
       </h2>
 
       <TagList title="Graduation Requirements" items={graduationRequirements} />

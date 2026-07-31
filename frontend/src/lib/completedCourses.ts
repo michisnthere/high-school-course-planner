@@ -4,12 +4,45 @@ export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
   "Summer School",
   "Freshman (9)",
+  "Freshman Summer",
   "Sophomore (10)",
+  "Sophomore Summer",
   "Junior (11)",
+  "Junior Summer",
   "Senior (12)",
+  "Senior Summer",
 ] as const;
 
 export type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
+
+const ACADEMIC_GRADE_BY_YEAR: Record<number, GradeCompleted> = {
+  9: "Freshman (9)",
+  10: "Sophomore (10)",
+  11: "Junior (11)",
+  12: "Senior (12)",
+};
+
+const SUMMER_GRADE_BY_YEAR: Record<number, GradeCompleted> = {
+  9: "Freshman Summer",
+  10: "Sophomore Summer",
+  11: "Junior Summer",
+  12: "Senior Summer",
+};
+
+export function getEligibleCompletedGrades(currentYear: number): GradeCompleted[] {
+  const eligible: GradeCompleted[] = ["Middle School"];
+  for (const year of [9, 10, 11, 12]) {
+    if (year >= currentYear) continue;
+    eligible.push(ACADEMIC_GRADE_BY_YEAR[year]);
+    eligible.push(SUMMER_GRADE_BY_YEAR[year]);
+  }
+  return eligible;
+}
+
+export function getDefaultCompletedGrade(currentYear: number): GradeCompleted {
+  if (currentYear <= 9) return "Middle School";
+  return ACADEMIC_GRADE_BY_YEAR[currentYear - 1];
+}
 
 export type CompletedCourse = {
   id: number;

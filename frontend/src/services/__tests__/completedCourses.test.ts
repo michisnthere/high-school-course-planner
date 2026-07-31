@@ -24,9 +24,13 @@ describe("guest completed courses service", () => {
       "Middle School",
       "Summer School",
       "Freshman (9)",
+      "Freshman Summer",
       "Sophomore (10)",
+      "Sophomore Summer",
       "Junior (11)",
+      "Junior Summer",
       "Senior (12)",
+      "Senior Summer",
     ]);
 
     const stored = await svc.getCompletedCourses();
@@ -34,9 +38,13 @@ describe("guest completed courses service", () => {
       "Middle School",
       "Summer School",
       "Freshman (9)",
+      "Freshman Summer",
       "Sophomore (10)",
+      "Sophomore Summer",
       "Junior (11)",
+      "Junior Summer",
       "Senior (12)",
+      "Senior Summer",
     ]);
   });
 });

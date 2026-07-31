@@ -42,9 +42,14 @@ describe("completed course academic periods", () => {
   it("maps existing stored values to display periods", () => {
     expect(getAcademicPeriodLabel("Middle School")).toBe("Middle School");
     expect(getAcademicPeriodLabel("Freshman (9)")).toBe("Freshman");
+    expect(getAcademicPeriodLabel("Freshman Summer")).toBe("Freshman Summer");
     expect(getAcademicPeriodLabel("Sophomore (10)")).toBe("Sophomore");
+    expect(getAcademicPeriodLabel("Sophomore Summer")).toBe("Sophomore Summer");
     expect(getAcademicPeriodLabel("Junior (11)")).toBe("Junior");
+    expect(getAcademicPeriodLabel("Junior Summer")).toBe("Junior Summer");
     expect(getAcademicPeriodLabel("Senior (12)")).toBe("Senior");
+    expect(getAcademicPeriodLabel("Senior Summer")).toBe("Senior Summer");
+    expect(getAcademicPeriodLabel("Summer School")).toBe("Summer School");
   });
 
   it("groups completed courses by academic period", () => {

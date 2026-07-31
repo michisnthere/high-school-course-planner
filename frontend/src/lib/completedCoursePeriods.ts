@@ -3,13 +3,17 @@ import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
 export const ACADEMIC_PERIODS = [
   { label: "Middle School", values: ["Middle School"] },
   { label: "Freshman", values: ["Freshman (9)"] },
+  { label: "Freshman Summer", values: ["Freshman Summer"] },
   { label: "Sophomore", values: ["Sophomore (10)"] },
+  { label: "Sophomore Summer", values: ["Sophomore Summer"] },
   { label: "Junior", values: ["Junior (11)"] },
+  { label: "Junior Summer", values: ["Junior Summer"] },
   { label: "Senior", values: ["Senior (12)"] },
+  { label: "Senior Summer", values: ["Senior Summer"] },
   { label: "Summer School", values: ["Summer School"] },
 ] as const;
 
-export const FILTER_ORDER = ["All", "Middle School", "Freshman", "Sophomore", "Junior", "Senior", "Summer School"] as const;
+export const FILTER_ORDER = ["All", "Middle School", "Freshman", "Freshman Summer", "Sophomore", "Sophomore Summer", "Junior", "Junior Summer", "Senior", "Senior Summer", "Summer School"] as const;
 export type CompletedCourseFilter = (typeof FILTER_ORDER)[number];
 
 export type AcademicPeriodLabel = (typeof ACADEMIC_PERIODS)[number]["label"];

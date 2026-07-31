@@ -11,9 +11,13 @@ export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
   "Summer School",
   "Freshman (9)",
+  "Freshman Summer",
   "Sophomore (10)",
+  "Sophomore Summer",
   "Junior (11)",
+  "Junior Summer",
   "Senior (12)",
+  "Senior Summer",
 ] as const;
 
 export const LETTER_GRADE_OPTIONS = ["A", "B", "C", "D", "F"] as const;

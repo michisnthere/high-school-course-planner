@@ -40,6 +40,8 @@ import {
   type CompletedCourse,
   GRADE_COMPLETED_OPTIONS,
   type GradeCompleted,
+  getEligibleCompletedGrades,
+  getDefaultCompletedGrade,
 } from "@/lib/completedCourses";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { StudentPlanningData } from "@/lib/studentData";
@@ -771,12 +773,12 @@ function PlannerYearContent(): React.ReactElement {
     if (!planner) return new Map<number, PlannerWarning[]>();
     const map = new Map<number, PlannerWarning[]>();
     for (const pc of planner.plannedCourses) {
-      const warnings = getWarnings(pc, allPlanners, completedCourses, allCatalogCourses, pc.semester, year)
+      const warnings = getWarnings(pc, allPlanners, completedCourses, allCatalogCourses, pc.semester, year, resolutions)
         .filter((w) => !ignoredWarnings.has(makeWarningKey(pc, w)));
       map.set(pc.id, warnings);
     }
     return map;
-  }, [planner, allPlanners, completedCourses, allCatalogCourses, ignoredWarnings, year]);
+  }, [planner, allPlanners, completedCourses, allCatalogCourses, ignoredWarnings, year, resolutions]);
 
   const handleMobileOpenModal = useCallback((semester: number) => {
     if (!planner) return;
@@ -825,7 +827,8 @@ function PlannerYearContent(): React.ReactElement {
                 completedCourses,
                 allCatalogCourses,
                 semester,
-                year
+                year,
+                resolutions
               ).filter((w) => !ignoredWarnings.has(makeWarningKey(course, w)))}
               isHighlighted={highlightedPlannedCourseId === course.id}
               onRemove={isCompleted ? undefined : () => handleRemoveCourse(course)}
@@ -1080,9 +1083,10 @@ function PlannerYearContent(): React.ReactElement {
             onMarkCompleted={(completed) =>
               setCompletedCourses((prev) => [...prev, completed])
             }
-            onPlacementTest={async (courseId, grade) => {
-              const completed = await completedService.addCompletedCourse(courseId, grade);
-              setCompletedCourses((prev) => [...prev, completed]);
+            onPlacementTest={async (courseId, prerequisite) => {
+              await resolutionsService.createResolution({ type: "placement_test", courseId, metadata: { prerequisite } });
+              const data = await resolutionsService.getResolutions();
+              setResolutions(data);
             }}
             onMiddleSchool={async (courseId, grade) => {
               await resolutionsService.createResolution({ type: "middle_school", courseId, metadata: { grade } });
@@ -1536,9 +1540,10 @@ function PlannerYearContent(): React.ReactElement {
           onMarkCompleted={(completed) =>
             setCompletedCourses((prev) => [...prev, completed])
           }
-          onPlacementTest={async (courseId, grade) => {
-            const completed = await completedService.addCompletedCourse(courseId, grade);
-            setCompletedCourses((prev) => [...prev, completed]);
+          onPlacementTest={async (courseId, prerequisite) => {
+            await resolutionsService.createResolution({ type: "placement_test", courseId, metadata: { prerequisite } });
+            const data = await resolutionsService.getResolutions();
+            setResolutions(data);
           }}
           onMiddleSchool={async (courseId, grade) => {
             await resolutionsService.createResolution({ type: "middle_school", courseId, metadata: { grade } });
@@ -3109,7 +3114,8 @@ function getWarnings(
   completedCourses: CompletedCourse[],
   allCatalogCourses: PlannerCourseDetails[],
   currentSemester: number,
-  currentYear: number
+  currentYear: number,
+  resolutions: RequirementResolution[] = []
 ): PlannerWarning[] {
   const warnings: PlannerWarning[] = [];
   const { course } = planned;
@@ -3119,6 +3125,18 @@ function getWarnings(
   }
 
   const completedCourseIds = new Set(completedCourses.map((cc) => cc.courseId));
+
+  const placementTestResolved = new Set<string>();
+  for (const resolution of resolutions) {
+    if (resolution.type === "placement_test" && resolution.courseId) {
+      const prereq = resolution.metadata?.prerequisite as string | undefined;
+      if (prereq) {
+        placementTestResolved.add(`${resolution.courseId}:${normalizePrerequisite(prereq)}`);
+      } else {
+        placementTestResolved.add(`${resolution.courseId}:*`);
+      }
+    }
+  }
 
   const plannedPlacements: Array<{
     id: number;
@@ -3169,6 +3187,13 @@ function getWarnings(
 
     const isCompleted = matchedCourseIds.some((id) => completedCourseIds.has(id));
     if (isCompleted) {
+      continue;
+    }
+
+    if (
+      placementTestResolved.has(`${plannedCourseId}:${normalizePrerequisite(prereq)}`) ||
+      placementTestResolved.has(`${plannedCourseId}:*`)
+    ) {
       continue;
     }
 
@@ -3287,7 +3312,7 @@ function WarningActionModal({
   onSwapSemesters: (plannedCourseId: number, semester: number, slot: number) => Promise<void>;
   onIgnore: () => void;
   onMarkCompleted: (completed: CompletedCourse) => void;
-  onPlacementTest: (courseId: number, grade: GradeCompleted) => Promise<void>;
+  onPlacementTest: (courseId: number, prerequisite: string) => Promise<void>;
   onMiddleSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   onSummerSchool: (courseId: number, grade: GradeCompleted) => Promise<void>;
   onReplaceCourse?: (oldPlanned: PlannedCourse, newCourseId: number) => Promise<void>;
@@ -3325,13 +3350,12 @@ function WarningActionModal({
   const [step, setStep] = useState<"initial" | "selectYear" | "foundSlot" | "selectReplacement" | "confirmImpact">("initial");
   const [selectedReplacement, setSelectedReplacement] = useState<PlannedCourse | null>(null);
   const [completedGrade, setCompletedGrade] = useState<GradeCompleted>(
-    currentYear === 9
-      ? "Middle School"
-      : currentYear === 10
-      ? "Sophomore (10)"
-      : currentYear === 11
-      ? "Junior (11)"
-      : "Senior (12)"
+    getDefaultCompletedGrade(currentYear)
+  );
+
+  const eligibleCompletedGrades = useMemo(
+    () => getEligibleCompletedGrades(currentYear),
+    [currentYear]
   );
 
   const allCourses = allCatalogCourses;
@@ -3544,10 +3568,10 @@ function WarningActionModal({
   };
 
   const handlePlacementTest = async () => {
-    if (!selectedCourse) return;
+    if (planned.courseId == null) return;
     setLoading(true);
     try {
-      await onPlacementTest(selectedCourse.id, getGradeCompleted());
+      await onPlacementTest(planned.courseId, warning.prerequisite);
       showToast("Placement test recorded.", "success");
       onClose();
     } catch (err) {
@@ -3615,12 +3639,52 @@ function WarningActionModal({
     }
   };
 
+  function findTempSwapSlot(
+    allPlannersArr: Planner[],
+    plannerId: number,
+    excludeIds: Set<number>,
+    excludePositions: Array<{ semester: number; slot: number }>
+  ): { semester: number; slot: number } | null {
+    const planner = allPlannersArr.find((p) => p.id === plannerId);
+    if (!planner) return null;
+    for (const semester of [1, 2]) {
+      for (let slot = 1; slot <= 7; slot++) {
+        if (excludePositions.some((pos) => pos.semester === semester && pos.slot === slot)) continue;
+        const occupied = planner.plannedCourses.some(
+          (pc) =>
+            !excludeIds.has(pc.id) &&
+            pc.semester === semester &&
+            pc.slot <= slot &&
+            slot < pc.slot + (pc.slotSpan ?? 1)
+        );
+        if (!occupied) return { semester, slot };
+      }
+    }
+    return null;
+  }
+
+  const swapTempExcludedPositions = [
+    { semester: planned.semester, slot: planned.slot },
+    ...(warning.prerequisitePlacement
+      ? [{ semester: warning.prerequisitePlacement.semester, slot: warning.prerequisitePlacement.slot }]
+      : []),
+  ];
+
   const handleSwapSemesters = async () => {
     const prerequisitePlacement = warning.prerequisitePlacement;
     if (!prerequisitePlacement) return;
     setLoading(true);
     try {
+      const temp = findTempSwapSlot(
+        allPlanners,
+        planned.plannerId,
+        new Set([planned.id, prerequisitePlacement.id]),
+        swapTempExcludedPositions
+      );
+      if (!temp) throw new Error("No room to swap semesters.");
+      await onSwapSemesters(planned.id, temp.semester, temp.slot);
       await onSwapSemesters(prerequisitePlacement.id, planned.semester, planned.slot);
+      await onSwapSemesters(planned.id, prerequisitePlacement.semester, prerequisitePlacement.slot);
       onClose();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to swap semesters";
@@ -3750,20 +3814,35 @@ function WarningActionModal({
   };
 
   const prerequisitePlacement = warning.prerequisitePlacement;
-  const canSwapSemesters =
-    warning.type === "later_prerequisite" &&
-    prerequisitePlacement?.plannerId === planned.plannerId &&
-    prerequisitePlacement.semester === 2 &&
-    planned.semester === 1;
+
+  const prereqPlannedCourse = useMemo(() => {
+    if (!prerequisitePlacement) return null;
+    return (
+      allPlanners.flatMap((p) => p.plannedCourses).find((pc) => pc.id === prerequisitePlacement.id) ?? null
+    );
+  }, [allPlanners, prerequisitePlacement]);
+
+  const canSwapSemesters = useMemo(() => {
+    if (warning.type !== "later_prerequisite") return false;
+    if (!prerequisitePlacement || !prereqPlannedCourse) return false;
+    if (prerequisitePlacement.plannerId !== planned.plannerId) return false;
+    if (prerequisitePlacement.semester !== 2 || planned.semester !== 1) return false;
+    if (planned.course.duration !== 1 || (planned.course.slotsPerSemester ?? 1) !== 1) return false;
+    if (prereqPlannedCourse.course.duration !== 1 || (prereqPlannedCourse.course.slotsPerSemester ?? 1) !== 1) {
+      return false;
+    }
+    return findTempSwapSlot(
+      allPlanners,
+      planned.plannerId,
+      new Set([planned.id, prerequisitePlacement.id]),
+      swapTempExcludedPositions
+    ) != null;
+  }, [warning.type, prerequisitePlacement, prereqPlannedCourse, planned, allPlanners, swapTempExcludedPositions]);
 
   const hasPlacementTestOption = useMemo(() => {
     const text = warning.prerequisite?.toLowerCase() ?? "";
     return text.includes("placement exam") || text.includes("placement test");
   }, [warning.prerequisite]);
-
-  const placementTestHelpText = hasPlacementTestOption
-    ? "You may also satisfy this prerequisite by completing a placement test."
-    : "";
 
   const [showAdjustConfirm, setShowAdjustConfirm] = useState(false);
 
@@ -4131,10 +4210,28 @@ function WarningActionModal({
                   </p>
                 )}
 
-                {placementTestHelpText && (
-                  <p style={{ margin: 0, fontSize: "13px", color: "#d1d5db", lineHeight: 1.4, textAlign: "center" }}>
-                    {placementTestHelpText}
-                  </p>
+                {hasPlacementTestOption && (
+                  <button
+                    type="button"
+                    onClick={handlePlacementTest}
+                    disabled={loading}
+                    style={{
+                      width: "100%",
+                      padding: "12px 16px",
+                      fontSize: "15px",
+                      fontWeight: 600,
+                      color: "#ffffff",
+                      backgroundColor: "#059669",
+                      border: "none",
+                      borderRadius: "8px",
+                      cursor: loading ? "not-allowed" : "pointer",
+                      opacity: loading ? 0.5 : 1,
+                      textAlign: "center",
+                      minHeight: "44px",
+                    }}
+                  >
+                    {loading ? "Recording..." : "Mark Placement Test Completed"}
+                  </button>
                 )}
 
                 {/* In-course replace confirmation */}
@@ -4634,7 +4731,7 @@ function WarningActionModal({
                               borderRadius: "4px",
                             }}
                           >
-                            {GRADE_COMPLETED_OPTIONS.map((opt) => (
+                            {eligibleCompletedGrades.map((opt) => (
                               <option key={opt} value={opt}>
                                 {opt}
                               </option>

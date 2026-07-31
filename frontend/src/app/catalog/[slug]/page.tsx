@@ -99,8 +99,8 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
             top: calc(56px + var(--safe-area-top, 0px));
             z-index: 40;
             background: var(--bg-page);
-            padding: 12px 0 12px;
-            margin-bottom: 20px !important;
+            padding: 16px 0 16px;
+            margin-bottom: 24px !important;
           }
           .rs-detail-header h1 {
             font-size: 1.5rem !important;

@@ -305,6 +305,12 @@ function RequirementsContent(): React.ReactElement {
         .rs-req-year-body.open {
           margin-top: 16px;
         }
+        .rs-req-body-text {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
       `}</style>
       {isMobile && <style>{`
         .rs-req-page {
@@ -314,23 +320,8 @@ function RequirementsContent(): React.ReactElement {
           padding-left: calc(16px + var(--safe-area-left));
           padding-right: calc(16px + var(--safe-area-right));
         }
-        .rs-req-back {
-          display: inline-block;
-          position: sticky;
-          top: calc(56px + var(--safe-area-top, 0px));
-          z-index: 40;
-          background: var(--bg-page);
-          padding: 8px 0 4px;
-          margin-bottom: 0;
-          font-size: 14px;
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-weight: 500;
-          cursor: pointer;
-          border: none;
-        }
         .rs-req-page h1 {
-          margin: 12px 0 20px !important;
+          margin: 8px 0 24px !important;
           font-size: 1.5rem !important;
         }
         .rs-req-progress {
@@ -397,6 +388,10 @@ function RequirementsContent(): React.ReactElement {
           .rs-req-card .rs-req-stats strong {
             font-size: 13px;
           }
+          .rs-req-card-body-inner.open {
+            max-height: 280px;
+            overflow-y: auto;
+          }
         }
       `}</style>}
       <div
@@ -407,16 +402,6 @@ function RequirementsContent(): React.ReactElement {
             : { padding: "32px", minHeight: "calc(100dvh - 64px)" }
         }
       >
-        {isMobile && (
-          <button
-            type="button"
-            className="rs-req-back"
-            onClick={() => router.back()}
-          >
-            ← Back
-          </button>
-        )}
-
         <h1
           style={{
             margin: "0 0 28px",
@@ -447,9 +432,6 @@ function RequirementsContent(): React.ReactElement {
                     / {TOTAL_REQUIRED_CREDITS} Credits Completed
                   </span>
                 </strong>
-                <p style={{ margin: "2px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
-                  {formatNumber(Math.max(0, TOTAL_REQUIRED_CREDITS - analysis.credits.total))} credits remaining
-                </p>
               </div>
             ) : analysis.credits.total > 0 ? (
               <p
@@ -940,7 +922,7 @@ function RequirementCard({
           }}
         >
           {req.requiredValue != null && (
-            <p style={{ margin: "0 0 12px", fontSize: "14px", color: "var(--text-muted)" }}>
+            <p className="rs-req-body-text" style={{ margin: "0 0 12px", fontSize: "14px", color: "var(--text-muted)" }}>
               This requirement requires {formatNumber(req.requiredValue)} credits.
               You have earned {formatNumber(req.earnedValue)} credits so far.
             </p>

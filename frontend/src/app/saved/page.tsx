@@ -19,6 +19,9 @@ export default async function SavedCoursesPage() {
             padding-left: calc(16px + var(--safe-area-left)) !important;
             padding-right: calc(16px + var(--safe-area-right)) !important;
           }
+          .rs-saved-page h1 {
+            margin-top: 8px !important;
+          }
           .rs-saved-grid {
             grid-template-columns: 1fr !important;
           }
@@ -27,7 +30,7 @@ export default async function SavedCoursesPage() {
       <div className="rs-saved-page" style={{ padding: "32px" }}>
         <h1
           style={{
-            margin: "0 0 16px",
+            margin: "0 0 20px",
             fontSize: "32px",
             fontWeight: 700,
             color: "var(--text-primary)",
