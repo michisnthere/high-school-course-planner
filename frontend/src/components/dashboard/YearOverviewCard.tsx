@@ -365,7 +365,7 @@ function SemesterBlock({
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "4px",
+          gap: "8px",
         }}
       >
         {allSlots.map((slotNum) => {
@@ -374,7 +374,7 @@ function SemesterBlock({
             <div
               key={slotNum}
               style={{
-                padding: "6px 10px",
+                padding: "8px 12px",
                 fontSize: "14px",
                 color: course ? "var(--text-primary)" : "var(--text-muted)",
                 backgroundColor: course ? "var(--bg-input)" : "transparent",
