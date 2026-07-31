@@ -4,6 +4,7 @@ import { requireAuth } from "../lib/auth.js";
 import { asyncHandler } from "../lib/asyncHandler.js";
 import { deriveCourseDetails } from "./planner.js";
 import { calculateTotalCredits } from "../lib/courseCredits.js";
+import { courseFulfillsDriverEducation, hasDriverEdExternalResolution } from "../lib/driverEducation.js";
 
 const router = Router();
 
@@ -105,6 +106,13 @@ router.post("/", requireAuth, asyncHandler(async (req, res) => {
 
   if (!course) {
     return res.status(404).json({ error: "Course not found" });
+  }
+
+  if (courseFulfillsDriverEducation(course) && (await hasDriverEdExternalResolution(userId))) {
+    return res.status(409).json({
+      error:
+        "Driver Education is already marked as completed outside of school. Undo that first to mark it as a completed course.",
+    });
   }
 
   const calculatedCredits = calculateTotalCredits(course);

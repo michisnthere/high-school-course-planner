@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
+import { hasDriverEducationCourse } from "../lib/driverEducation.js";
 
 const router = Router();
 
@@ -27,6 +28,18 @@ router.post("/", requireAuth, async (req, res) => {
     if (!validTypes.includes(type)) {
       return res.status(400).json({ error: `Invalid type: ${type}` });
     }
+
+    if (
+      type === "pe_waiver" &&
+      (metadata as Record<string, unknown> | null | undefined)?.variant === "driver_ed_external" &&
+      (await hasDriverEducationCourse(req.user!.id))
+    ) {
+      return res.status(409).json({
+        error:
+          "Driver Education is already in your planner. Remove it before marking it as completed outside of school.",
+      });
+    }
+
     const resolution = await prisma.requirementResolution.create({
       data: {
         userId: req.user!.id,

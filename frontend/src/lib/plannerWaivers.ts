@@ -151,3 +151,40 @@ export function computeAthleticVariantEligibility(
     reason: "Two or more sports requires five credit-bearing classes.",
   };
 }
+
+export function courseFulfillsDriverEducation(course: {
+  fulfillsRequirements?: string[] | null;
+}): boolean {
+  const requirements = (course.fulfillsRequirements ?? []).map((r) =>
+    r.trim().toLowerCase().replace(/\s+/g, " ")
+  );
+  return requirements.some(
+    (r) => r === "driver education" || r === "driver education graduation requirement"
+  );
+}
+
+export function isDriverEdExternalResolution(resolution: {
+  type: string;
+  metadata?: Record<string, unknown> | null;
+}): boolean {
+  return (
+    resolution.type === "pe_waiver" &&
+    resolution.metadata?.variant === "driver_ed_external"
+  );
+}
+
+export function findDriverEdExternalResolution<
+  T extends { type: string; metadata?: Record<string, unknown> | null }
+>(resolutions: T[]): T | null {
+  return resolutions.find(isDriverEdExternalResolution) ?? null;
+}
+
+export function hasDriverEducationCourse(
+  plannedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } }>,
+  completedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } }>
+): boolean {
+  return (
+    plannedCourses.some((pc) => courseFulfillsDriverEducation(pc.course)) ||
+    completedCourses.some((cc) => courseFulfillsDriverEducation(cc.course))
+  );
+}

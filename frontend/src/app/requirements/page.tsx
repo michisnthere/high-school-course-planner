@@ -1,14 +1,16 @@
 "use client";
 
-import React, { Suspense, useEffect, useState, useCallback, useRef } from "react";
+import React, { Suspense, useEffect, useState, useCallback, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { ServiceProvider, useServices } from "@/services/ServiceContext";
-import { courseToPlannerDetails } from "@/lib/planner";
+import { courseToPlannerDetails, type Planner } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { PlannerCourseDetails } from "@/lib/planner";
+import type { CompletedCourse } from "@/lib/completedCourses";
+import { findDriverEdExternalResolution, hasDriverEducationCourse } from "@/lib/plannerWaivers";
 import { computeEffectivePeStatus, type PeSemesterStatus } from "@/lib/gradeRequirements";
 import { RecommendedCourseCard } from "@/components/requirements/RecommendedCourseCard";
 import { CourseListModal } from "@/components/requirements/CourseListModal";
@@ -103,6 +105,8 @@ function RequirementsContent(): React.ReactElement {
   const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
   const [viewAllReq, setViewAllReq] = useState<string | null>(() => searchParams.get("viewAll"));
   const [allCourseDetails, setAllCourseDetails] = useState<PlannerCourseDetails[]>([]);
+  const [planners, setPlanners] = useState<Planner[]>([]);
+  const [completedCourses, setCompletedCourses] = useState<CompletedCourse[]>([]);
 
   // Initialize expandedIds from URL param
   const initialIds = React.useMemo(() => {
@@ -125,6 +129,8 @@ function RequirementsContent(): React.ReactElement {
         resolutionsService.getResolutions(),
         getCourses(),
       ]);
+      setPlanners(planners);
+      setCompletedCourses(completedCourses);
       const allCourses: PlannerCourseDetails[] = courses.map(courseToPlannerDetails);
       setAllCourseDetails(allCourses);
       const data = await analysisService.getAnalysis({ planners, completedCourses, resolutions, allCourses });
@@ -142,6 +148,11 @@ function RequirementsContent(): React.ReactElement {
   useEffect(() => {
     load();
   }, [load]);
+
+  const driverEdInPlanner = useMemo(
+    () => hasDriverEducationCourse(planners.flatMap((p) => p.plannedCourses), completedCourses),
+    [planners, completedCourses]
+  );
 
   const toggleExpand = useCallback((id: number) => {
     setExpandedIds((prev) => {
@@ -521,10 +532,8 @@ function RequirementsContent(): React.ReactElement {
               >
                 {visibleRequirements.map((req) => {
                   const isDriverEd = req.name.toLowerCase() === "driver education";
-                  const driverEdExternalResolution = isDriverEd
-                    ? analysis?.resolutions.find(
-                        (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
-                      ) ?? null
+                  const driverEdExternalResolution = isDriverEd && analysis
+                    ? findDriverEdExternalResolution(analysis.resolutions)
                     : undefined;
                   return (
                     <RequirementCard
@@ -549,6 +558,7 @@ function RequirementsContent(): React.ReactElement {
                         router.replace(`/requirements?${params.toString()}`, { scroll: false });
                       }}
                       driverEdExternalResolution={driverEdExternalResolution}
+                      driverEdInPlanner={isDriverEd ? driverEdInPlanner : undefined}
                       onAddDriverEdExternal={async () => {
                         try {
                           await resolutionsService.createResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external" } });
@@ -773,6 +783,7 @@ type RequirementCardProps = {
   allCourseDetails: PlannerCourseDetails[];
   onViewAll: () => void;
   driverEdExternalResolution?: { id: number } | null;
+  driverEdInPlanner?: boolean;
   onAddDriverEdExternal?: () => void;
   onRemoveDriverEdExternal?: (id: number) => void;
 };
@@ -787,6 +798,7 @@ function RequirementCard({
   allCourseDetails,
   onViewAll,
   driverEdExternalResolution,
+  driverEdInPlanner,
   onAddDriverEdExternal,
   onRemoveDriverEdExternal,
 }: RequirementCardProps): React.ReactElement {
@@ -996,6 +1008,12 @@ function RequirementCard({
                   >
                     Undo
                   </button>
+                </div>
+              ) : driverEdInPlanner ? (
+                <div>
+                  <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+                    Driver Education is already in your planner, so it will be completed through that course.
+                  </p>
                 </div>
               ) : (
                 <div>

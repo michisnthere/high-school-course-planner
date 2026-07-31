@@ -51,7 +51,7 @@ import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNo
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
-import { getCreditBearingCount, computeAthleticVariantEligibility, computeWaiverEligibility } from "@/lib/plannerWaivers";
+import { getCreditBearingCount, computeAthleticVariantEligibility, computeWaiverEligibility, courseFulfillsDriverEducation, findDriverEdExternalResolution, hasDriverEducationCourse } from "@/lib/plannerWaivers";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
@@ -297,6 +297,24 @@ function PlannerYearContent(): React.ReactElement {
     }, 4000);
   }, []);
 
+  const hasDriverEdExternal = useMemo(
+    () => findDriverEdExternalResolution(resolutions) != null,
+    [resolutions]
+  );
+
+  const assertDriverEdExternalConflict = useCallback(
+    (course: PlannerCourseDetails | null | undefined): boolean => {
+      if (!course || !hasDriverEdExternal) return false;
+      if (!courseFulfillsDriverEducation(course)) return false;
+      showToast(
+        "Driver Education is already marked as completed outside of school. Undo that first to add it to your planner.",
+        "warning"
+      );
+      return true;
+    },
+    [hasDriverEdExternal, showToast]
+  );
+
   const pushHistory = useCallback(
     (newPlanners: Planner[], undo: () => Promise<void>) => {
       historyRef.current = [...historyRef.current, { planners: newPlanners, undo }];
@@ -350,6 +368,8 @@ function PlannerYearContent(): React.ReactElement {
       courseId: number;
       gradeCompleted: GradeCompleted;
     }) => {
+      const course = allCatalogCourses.find((c) => c.id === courseId);
+      if (assertDriverEdExternalConflict(course)) return;
       try {
         await completedService.addCompletedCourse(courseId, gradeCompleted);
         setCompletedCoursePicker({ open: false });
@@ -360,7 +380,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [loadCompletedCourses, showToast, completedService]
+    [allCatalogCourses, assertDriverEdExternalConflict, loadCompletedCourses, showToast, completedService]
   );
 
   const handleAddResolution = useCallback(
@@ -429,6 +449,7 @@ function PlannerYearContent(): React.ReactElement {
       const plannedCourse = "courseId" in selection
         ? allCatalogCourses.find((c) => c.id === selection.courseId)
         : null;
+      if (assertDriverEdExternalConflict(plannedCourse)) return;
       if (plannedCourse && isApScience(plannedCourse)) {
         const existingApScience = allPlanners
           .flatMap((p) => p.plannedCourses)
@@ -468,7 +489,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [planner, activeSlot, allPlanners, allCatalogCourses, handleCloseModal, pushHistory, showToast, handleUndo, plannerService]
+    [planner, activeSlot, allPlanners, allCatalogCourses, handleCloseModal, pushHistory, showToast, handleUndo, plannerService, assertDriverEdExternalConflict]
   );
 
   const handleAddPrerequisiteToPlanner = useCallback(
@@ -479,6 +500,9 @@ function PlannerYearContent(): React.ReactElement {
       }
       const targetPlanner = allPlanners.find((p) => p.id === plannerId);
       if (!targetPlanner) return;
+
+      const targetCourse = allCatalogCourses.find((c) => c.id === courseId);
+      if (assertDriverEdExternalConflict(targetCourse)) return;
 
       try {
         scrollYRef.current = window.scrollY;
@@ -499,7 +523,7 @@ function PlannerYearContent(): React.ReactElement {
         throw err;
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
+    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService, allCatalogCourses, assertDriverEdExternalConflict]
   );
 
   const handleMoveAndAddPrerequisite = useCallback(
@@ -520,6 +544,9 @@ function PlannerYearContent(): React.ReactElement {
         console.error(`[TRACE handleMoveAndAddPrerequisite PARENT] source not found for plannedCourseId=${plannedCourseId}`);
         return;
       }
+
+      const prereqCourse = allCatalogCourses.find((c) => c.id === prereqCourseId);
+      if (assertDriverEdExternalConflict(prereqCourse)) return;
 
       try {
         scrollYRef.current = window.scrollY;
@@ -556,7 +583,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService]
+    [allPlanners, pushHistory, showToast, handleUndo, year, plannerService, allCatalogCourses, assertDriverEdExternalConflict]
   );
 
   const computeRemovalWaiverWarning = useCallback(
@@ -1010,6 +1037,7 @@ function PlannerYearContent(): React.ReactElement {
           plannerAnalysis={plannerAnalysis}
           resolutions={resolutions}
           allPlanners={allPlanners}
+          completedCourses={completedCourses}
           onOpenModal={handleMobileOpenModal}
           onRemoveCourse={handleRemoveCourse}
           onCourseClick={handleCourseClick}
@@ -1352,6 +1380,7 @@ function PlannerYearContent(): React.ReactElement {
         currentYear={year}
         resolutions={resolutions}
         plannerAnalysis={plannerAnalysis}
+        completedCourses={completedCourses}
         onAddResolution={handleAddResolution}
         onRemoveResolution={handleRemoveResolution}
       />
@@ -1472,6 +1501,7 @@ function PlannerYearContent(): React.ReactElement {
                 const plannedCourse = selCourseId != null
                   ? allCatalogCourses.find((c) => c.id === selCourseId)
                   : null;
+                if (assertDriverEdExternalConflict(plannedCourse)) return;
                 if (!isEarlyBird && plannedCourse && isApScience(plannedCourse)) {
                   const existingApScience = allPlanners
                     .flatMap((p) => p.plannedCourses)
@@ -1580,6 +1610,7 @@ function SummarySidebar({
   currentYear,
   resolutions,
   plannerAnalysis,
+  completedCourses,
   onAddResolution,
   onRemoveResolution,
 }: {
@@ -1587,6 +1618,7 @@ function SummarySidebar({
   currentYear: number;
   resolutions: RequirementResolution[];
   plannerAnalysis: PlannerAnalysis | null;
+  completedCourses: CompletedCourse[];
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
   onRemoveResolution: (id: number) => void;
 }): React.ReactElement {
@@ -1694,8 +1726,10 @@ function SummarySidebar({
       />
 
       {currentYear === 10 && (() => {
-        const driverEdExternal = resolutions.find(
-          (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
+        const driverEdExternal = findDriverEdExternalResolution(resolutions);
+        const driverEdInPlanner = hasDriverEducationCourse(
+          planners.flatMap((p) => p.plannedCourses),
+          completedCourses
         );
         return (
           <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--border-default)" }}>
@@ -1725,6 +1759,10 @@ function SummarySidebar({
                   Undo
                 </button>
               </div>
+            ) : driverEdInPlanner ? (
+              <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                Driver Education is already in your planner, so it will be completed through that course.
+              </p>
             ) : (
               <button
                 type="button"
@@ -2813,6 +2851,7 @@ function MobilePlanner({
   plannerAnalysis,
   resolutions,
   allPlanners,
+  completedCourses,
   onOpenModal,
   onRemoveCourse,
   onCourseClick,
@@ -2828,6 +2867,7 @@ function MobilePlanner({
   plannerAnalysis: PlannerAnalysis | null;
   resolutions: RequirementResolution[];
   allPlanners: Planner[];
+  completedCourses: CompletedCourse[];
   onOpenModal: (semester: number) => void;
   onRemoveCourse: (planned: PlannedCourse) => void;
   onCourseClick: (planned: PlannedCourse) => void;
@@ -3055,6 +3095,7 @@ function MobilePlanner({
               currentYear={year}
               resolutions={resolutions}
               plannerAnalysis={plannerAnalysis}
+              completedCourses={completedCourses}
               onAddResolution={onAddResolution}
               onRemoveResolution={onRemoveResolution}
             />
@@ -3279,6 +3320,70 @@ function canonicalRequirementName(name: string): string {
   };
   return ALIASES[normalized] ?? name.trim();
 }
+
+const waBtnBase: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  gap: "8px",
+  minHeight: "44px",
+  padding: "8px 16px",
+  fontSize: "15px",
+  fontWeight: 500,
+  borderRadius: "8px",
+  border: "none",
+  cursor: "pointer",
+  textAlign: "left",
+};
+
+const waBtnPrimary: React.CSSProperties = {
+  ...waBtnBase,
+  color: "#ffffff",
+  backgroundColor: "var(--brand-accent)",
+};
+
+const waBtnSuccess: React.CSSProperties = {
+  ...waBtnBase,
+  color: "#ffffff",
+  backgroundColor: "#059669",
+};
+
+const waBtnSecondary: React.CSSProperties = {
+  ...waBtnBase,
+  color: "#d1d5db",
+  backgroundColor: "#374151",
+};
+
+const waBtnDanger: React.CSSProperties = {
+  ...waBtnBase,
+  color: "#ffffff",
+  backgroundColor: "#dc2626",
+};
+
+const waBtnOutline: React.CSSProperties = {
+  ...waBtnBase,
+  color: "#d1d5db",
+  backgroundColor: "transparent",
+  border: "1px solid #4b5563",
+};
+
+const waBtnGhost: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "6px",
+  minHeight: "40px",
+  padding: "8px 12px",
+  fontSize: "14px",
+  fontWeight: 500,
+  color: "#9ca3af",
+  backgroundColor: "transparent",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+};
+
+const waDisabled = (disabled: boolean): React.CSSProperties =>
+  disabled ? { cursor: "not-allowed", opacity: 0.5 } : {};
 
 function WarningActionModal({
   planned,
@@ -3553,6 +3658,18 @@ function WarningActionModal({
   // --- Handlers ---
   const handleMarkCompleted = async () => {
     if (!selectedCourse) return;
+    if (courseFulfillsDriverEducation(selectedCourse)) {
+      const external = plannerAnalysis?.resolutions
+        ? findDriverEdExternalResolution(plannerAnalysis.resolutions)
+        : null;
+      if (external) {
+        showToast(
+          "Driver Education is already marked as completed outside of school. Undo that first.",
+          "warning"
+        );
+        return;
+      }
+    }
     setLoading(true);
     try {
       const completed = await modalCompletedService.addCompletedCourse(selectedCourse.id, completedGrade);
@@ -4216,18 +4333,8 @@ function WarningActionModal({
                     onClick={handlePlacementTest}
                     disabled={loading}
                     style={{
-                      width: "100%",
-                      padding: "12px 16px",
-                      fontSize: "15px",
-                      fontWeight: 600,
-                      color: "#ffffff",
-                      backgroundColor: "#059669",
-                      border: "none",
-                      borderRadius: "8px",
-                      cursor: loading ? "not-allowed" : "pointer",
-                      opacity: loading ? 0.5 : 1,
-                      textAlign: "center",
-                      minHeight: "44px",
+                      ...waBtnSuccess,
+                      ...waDisabled(loading),
                     }}
                   >
                     {loading ? "Recording..." : "Mark Placement Test Completed"}
@@ -4253,10 +4360,10 @@ function WarningActionModal({
                       This will keep the same semester and remove the current course.
                     </p>
                     <div style={{ display: "flex", gap: "12px" }}>
-                      <button type="button" onClick={cancelReplace} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#d1d5db", backgroundColor: "#374151", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+                      <button type="button" onClick={cancelReplace} disabled={loading} style={{ ...waBtnSecondary, flex: 1, ...waDisabled(loading) }}>
                         Cancel
                       </button>
-                      <button type="button" onClick={handleReplaceCourse} disabled={loading} style={{ flex: 1, padding: "12px 16px", fontSize: "15px", fontWeight: 500, color: "#ffffff", backgroundColor: "var(--brand-accent)", border: "none", borderRadius: "8px", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.5 : 1 }}>
+                      <button type="button" onClick={handleReplaceCourse} disabled={loading} style={{ ...waBtnPrimary, flex: 1, ...waDisabled(loading) }}>
                         {loading ? "Replacing..." : "Replace Course"}
                       </button>
                     </div>
@@ -4275,15 +4382,11 @@ function WarningActionModal({
                             onClick={() => handleYearSelect(bestPlacement.year)}
                             disabled={loading}
                             style={{
-                              padding: "14px 16px",
-                              fontSize: "15px",
-                              fontWeight: 600,
+                              ...waBtnBase,
                               color: "#ffffff",
                               backgroundColor: "rgba(39, 93, 56, 0.2)",
                               border: "2px solid var(--brand-accent)",
-                              borderRadius: "8px",
-                              cursor: "pointer",
-                              textAlign: "center",
+                              ...waDisabled(loading),
                             }}
                           >
                             Best placement: {YEAR_LABELS[bestPlacement.year]} Year, Semester {bestPlacement.semester} Slot {bestPlacement.slot} (recommended)
@@ -4306,8 +4409,14 @@ function WarningActionModal({
                                 style={{
                                   flex: 1,
                                   minWidth: "120px",
-                                  padding: "12px 16px",
-                                  fontSize: "14px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  gap: "2px",
+                                  minHeight: "44px",
+                                  padding: "8px 16px",
+                                  fontSize: "15px",
                                   fontWeight: 500,
                                   color: slot ? "#ffffff" : "#6b7280",
                                   backgroundColor: slot ? "#374151" : "#1f2937",
@@ -4315,6 +4424,7 @@ function WarningActionModal({
                                   borderRadius: "8px",
                                   cursor: slot ? "pointer" : "not-allowed",
                                   textAlign: "center",
+                                  opacity: slot ? 1 : 0.5,
                                 }}
                               >
                                 {YEAR_LABELS[y]}
@@ -4329,16 +4439,7 @@ function WarningActionModal({
                         <button
                           type="button"
                           onClick={() => { setStep("initial"); setSelectedYear(null); }}
-                          style={{
-                            padding: "10px",
-                            fontSize: "13px",
-                            fontWeight: 500,
-                            color: "#9ca3af",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            borderRadius: "8px",
-                            cursor: "pointer",
-                          }}
+                          style={waBtnGhost}
                         >
                           ← Back
                         </button>
@@ -4362,15 +4463,9 @@ function WarningActionModal({
                               onClick={handleFoundSlotCancel}
                               disabled={loading}
                               style={{
+                                ...waBtnSecondary,
                                 flex: 1,
-                                padding: "12px 16px",
-                                fontSize: "15px",
-                                fontWeight: 500,
-                                color: "#d1d5db",
-                                backgroundColor: "#374151",
-                                border: "none",
-                                borderRadius: "8px",
-                                cursor: "pointer",
+                                ...waDisabled(loading),
                               }}
                             >
                               Cancel
@@ -4380,16 +4475,9 @@ function WarningActionModal({
                               onClick={handleAddPrerequisite}
                               disabled={loading}
                               style={{
+                                ...waBtnPrimary,
                                 flex: 1,
-                                padding: "12px 16px",
-                                fontSize: "15px",
-                                fontWeight: 500,
-                                color: "#ffffff",
-                                backgroundColor: "var(--brand-accent)",
-                                border: "none",
-                                borderRadius: "8px",
-                                cursor: loading ? "not-allowed" : "pointer",
-                                opacity: loading ? 0.5 : 1,
+                                ...waDisabled(loading),
                               }}
                             >
                               {loading ? "Adding..." : "Add Course"}
@@ -4435,8 +4523,9 @@ function WarningActionModal({
                                           disabled={loading}
                                           style={{
                                             width: "100%",
-                                            padding: "12px 16px",
-                                            fontSize: "14px",
+                                            minHeight: "44px",
+                                            padding: "8px 16px",
+                                            fontSize: "15px",
                                             fontWeight: 500,
                                             color: "#ffffff",
                                             backgroundColor: isRecommended ? "rgba(52, 211, 153, 0.1)" : "#1f2937",
@@ -4448,6 +4537,7 @@ function WarningActionModal({
                                             display: "flex",
                                             justifyContent: "space-between",
                                             alignItems: "center",
+                                            ...waDisabled(loading),
                                           }}
                                         >
                                           <span>{c.course.title}</span>
@@ -4469,16 +4559,7 @@ function WarningActionModal({
                         <button
                           type="button"
                           onClick={() => { setStep("selectYear"); setSelectedReplacement(null); }}
-                          style={{
-                            padding: "10px",
-                            fontSize: "13px",
-                            fontWeight: 500,
-                            color: "#9ca3af",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            borderRadius: "8px",
-                            cursor: "pointer",
-                          }}
+                          style={waBtnGhost}
                         >
                           ← Choose a different year
                         </button>
@@ -4508,15 +4589,9 @@ function WarningActionModal({
                             onClick={handleImpactCancel}
                             disabled={loading}
                             style={{
+                              ...waBtnSecondary,
                               flex: 1,
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#d1d5db",
-                              backgroundColor: "#374151",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: "pointer",
+                              ...waDisabled(loading),
                             }}
                           >
                             Cancel
@@ -4526,16 +4601,9 @@ function WarningActionModal({
                             onClick={handleConfirmImpactReplace}
                             disabled={loading}
                             style={{
+                              ...waBtnDanger,
                               flex: 1,
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "#dc2626",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              opacity: loading ? 0.5 : 1,
+                              ...waDisabled(loading),
                             }}
                           >
                             {loading ? "Replacing..." : "Replace Course"}
@@ -4576,16 +4644,8 @@ function WarningActionModal({
                             onClick={handleReplaceClick}
                             disabled={loading}
                             style={{
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              textAlign: "left",
-                              opacity: loading ? 0.5 : 1,
+                              ...waBtnPrimary,
+                              ...waDisabled(loading),
                             }}
                           >
                             Replace {planned.course.title} with {selectedCourse?.title ?? "prerequisite"}
@@ -4598,16 +4658,8 @@ function WarningActionModal({
                             onClick={handleAddToYearClick}
                             disabled={loading}
                             style={{
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              textAlign: "left",
-                              opacity: loading ? 0.5 : 1,
+                              ...waBtnPrimary,
+                              ...waDisabled(loading),
                             }}
                           >
                             Add {selectedCourse.title} to a previous year
@@ -4620,16 +4672,8 @@ function WarningActionModal({
                             onClick={() => setShowAdjustConfirm(true)}
                             disabled={loading}
                             style={{
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              textAlign: "left",
-                              opacity: loading ? 0.5 : 1,
+                              ...waBtnPrimary,
+                              ...waDisabled(loading),
                             }}
                           >
                             {semesterAdjustmentPlan.action === "add_only"
@@ -4644,16 +4688,8 @@ function WarningActionModal({
                             onClick={() => handleAdjustmentReplace(currentYear)}
                             disabled={loading}
                             style={{
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              textAlign: "left",
-                              opacity: loading ? 0.5 : 1,
+                              ...waBtnPrimary,
+                              ...waDisabled(loading),
                             }}
                           >
                             Move {semesterAdjustmentPlan.courseATitle} to Semester 2 and add {semesterAdjustmentPlan.prereqTitle}
@@ -4666,16 +4702,8 @@ function WarningActionModal({
                             onClick={handleSwapSemesters}
                             disabled={loading}
                             style={{
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              textAlign: "left",
-                              opacity: loading ? 0.5 : 1,
+                              ...waBtnPrimary,
+                              ...waDisabled(loading),
                             }}
                           >
                             Swap semesters
@@ -4743,16 +4771,8 @@ function WarningActionModal({
                           onClick={handleMarkCompleted}
                           disabled={loading || selectedCourse == null}
                           style={{
-                            padding: "12px 16px",
-                            fontSize: "15px",
-                            fontWeight: 500,
-                            color: "#ffffff",
-                            backgroundColor: "#059669",
-                            border: "none",
-                            borderRadius: "8px",
-                            cursor: selectedCourse ? "pointer" : "not-allowed",
-                            textAlign: "left",
-                            opacity: selectedCourse ? 1 : 0.5,
+                            ...waBtnSuccess,
+                            ...waDisabled(loading || selectedCourse == null),
                           }}
                         >
                           Mark {selectedCourse?.title ?? "this course"} as previously completed
@@ -4904,15 +4924,9 @@ function WarningActionModal({
                             onClick={() => setShowAdjustConfirm(false)}
                             disabled={loading}
                             style={{
+                              ...waBtnSecondary,
                               flex: 1,
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#d1d5db",
-                              backgroundColor: "#374151",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: "pointer",
+                              ...waDisabled(loading),
                             }}
                           >
                             Cancel
@@ -4922,16 +4936,9 @@ function WarningActionModal({
                             onClick={handleMoveAndAddPrerequisite}
                             disabled={loading}
                             style={{
+                              ...waBtnPrimary,
                               flex: 1,
-                              padding: "12px 16px",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "#ffffff",
-                              backgroundColor: "var(--brand-accent)",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: loading ? "not-allowed" : "pointer",
-                              opacity: loading ? 0.5 : 1,
+                              ...waDisabled(loading),
                             }}
                           >
                             {loading ? "Applying..." : "Apply"}
@@ -4953,15 +4960,9 @@ function WarningActionModal({
                   onClick={handleIgnore}
                   disabled={loading}
                   style={{
+                    ...waBtnOutline,
                     width: "100%",
-                    padding: "12px 16px",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    color: "#d1d5db",
-                    backgroundColor: "transparent",
-                    border: "1px solid #4b5563",
-                    borderRadius: "8px",
-                    cursor: "pointer",
+                    ...waDisabled(loading),
                   }}
                 >
                   Ignore Warning
@@ -4984,15 +4985,9 @@ function WarningActionModal({
                       onClick={confirmIgnore}
                       disabled={loading}
                       style={{
+                        ...waBtnDanger,
                         flex: 1,
-                        padding: "12px 16px",
-                        fontSize: "15px",
-                        fontWeight: 500,
-                        color: "#ffffff",
-                        backgroundColor: "#dc2626",
-                        border: "none",
-                        borderRadius: "8px",
-                        cursor: "pointer",
+                        ...waDisabled(loading),
                       }}
                     >
                       Yes, ignore
@@ -5002,15 +4997,9 @@ function WarningActionModal({
                       onClick={cancelIgnore}
                       disabled={loading}
                       style={{
+                        ...waBtnSecondary,
                         flex: 1,
-                        padding: "12px 16px",
-                        fontSize: "15px",
-                        fontWeight: 500,
-                        color: "#d1d5db",
-                        backgroundColor: "#374151",
-                        border: "none",
-                        borderRadius: "8px",
-                        cursor: "pointer",
+                        ...waDisabled(loading),
                       }}
                     >
                       Cancel
@@ -5170,15 +5159,8 @@ function WarningActionModal({
                   type="button"
                   onClick={() => { setPendingPlan(null); setAcknowledged(false); }}
                   style={{
+                    ...waBtnSecondary,
                     flex: 1,
-                    padding: "12px 16px",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    color: "#d1d5db",
-                    backgroundColor: "#374151",
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: "pointer",
                   }}
                 >
                   Cancel
@@ -5197,14 +5179,9 @@ function WarningActionModal({
                   }}
                   disabled={!acknowledged}
                   style={{
+                    ...waBtnPrimary,
                     flex: 1,
-                    padding: "12px 16px",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    color: "#ffffff",
                     backgroundColor: acknowledged ? "var(--brand-accent)" : "#374151",
-                    border: "none",
-                    borderRadius: "8px",
                     cursor: acknowledged ? "pointer" : "not-allowed",
                     opacity: acknowledged ? 1 : 0.5,
                   }}

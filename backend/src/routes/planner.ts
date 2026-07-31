@@ -5,6 +5,7 @@ import { asyncHandler } from "../lib/asyncHandler.js";
 import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
 import { normalizePrerequisite } from "../lib/prerequisiteNormalization.js";
 import { deriveCourseDuration, calculateTotalCredits } from "../lib/courseCredits.js";
+import { courseFulfillsDriverEducation, hasDriverEdExternalResolution } from "../lib/driverEducation.js";
 import type { Course, PlannerOption } from "@prisma/client";
 
 const router = Router();
@@ -690,6 +691,13 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
 
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
+    }
+
+    if (courseFulfillsDriverEducation(course) && (await hasDriverEdExternalResolution(userId))) {
+      return res.status(409).json({
+        error:
+          "Driver Education is already marked as completed outside of school. Undo that first to add it to your planner.",
+      });
     }
 
     const existingDuplicate = await prisma.plannedCourse.findFirst({
