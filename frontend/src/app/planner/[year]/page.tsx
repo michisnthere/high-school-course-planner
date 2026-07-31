@@ -1699,20 +1699,22 @@ function SummarySidebar({
             </h3>
             {driverEdExternal ? (
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                <span style={{ fontSize: "13px", color: "var(--brand-accent)" }}>
+                <span style={{ fontSize: "13px", color: "#166534", fontWeight: 600 }}>
                   ✓ Completed outside school
                 </span>
                 <button
                   type="button"
                   onClick={() => onRemoveResolution(driverEdExternal.id)}
                   style={{
-                    background: "none",
+                    background: "transparent",
                     border: "1px solid var(--border-default)",
-                    borderRadius: "4px",
+                    borderRadius: "6px",
                     color: "var(--text-secondary)",
                     fontSize: "12px",
-                    padding: "2px 8px",
+                    fontWeight: 600,
+                    padding: "4px 10px",
                     cursor: "pointer",
+                    minHeight: "32px",
                   }}
                 >
                   Undo
@@ -1723,12 +1725,15 @@ function SummarySidebar({
                 type="button"
                 onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external", year: currentYear } })}
                 style={{
-                  background: "none",
-                  border: "1px solid #6b7280",
-                  borderRadius: "4px",
-                  color: "#d1d5db",
-                  fontSize: "12px",
-                  padding: "4px 12px",
+                  width: "100%",
+                  minHeight: "44px",
+                  padding: "8px 14px",
+                  border: "1px solid #166534",
+                  borderRadius: "8px",
+                  backgroundColor: "#166534",
+                  color: "#ffffff",
+                  fontSize: "14px",
+                  fontWeight: 700,
                   cursor: "pointer",
                 }}
               >

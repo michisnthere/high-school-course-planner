@@ -132,7 +132,7 @@ export function YearOverviewCard({
           {label}
         </h2>
         <div className="yoc-header-actions">
-          <span style={badgeStyle}>{badgeLabel}</span>
+          {!isCompleted && <span style={badgeStyle}>{badgeLabel}</span>}
           {isCompleted ? (
             <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
               <span style={successBadge}>✓ Year Completed</span>
