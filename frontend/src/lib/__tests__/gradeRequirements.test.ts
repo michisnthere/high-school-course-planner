@@ -1,10 +1,53 @@
 import { describe, it, expect } from "vitest";
 import {
   computeEffectivePeStatus,
+  computePePerSemester,
   computePeYearRows,
   PE_YEAR_LABELS,
   type PeSemesterStatus,
 } from "@/lib/gradeRequirements";
+import type { PlannedCourse, PlannerCourseDetails } from "@/lib/planner";
+
+function makeCourse(overrides: Partial<PlannerCourseDetails> = {}): PlannerCourseDetails {
+  return {
+    id: 1,
+    title: "Physical Education",
+    normalizedTitle: "physical education",
+    duration: 1,
+    slotsPerSemester: 1,
+    creditType: "regular",
+    credits: 1,
+    division: "Physical Education",
+    department: "Physical Education",
+    description: null,
+    fulfillsRequirements: ["Physical Education"],
+    prerequisites: [],
+    courseCode: null,
+    courseCodeS1: null,
+    courseCodeS2: null,
+    gradeMin: null,
+    gradeMax: null,
+    isNonAcademic: false,
+    isMarchingBand: false,
+    attributes: [],
+    supportsEarlyBird: false,
+    ...overrides,
+  };
+}
+
+function makePlanned(course: PlannerCourseDetails, semester: number, slot = 1): PlannedCourse {
+  return {
+    id: course.id,
+    plannerId: 0,
+    courseId: course.id,
+    plannerOptionId: null,
+    semester,
+    slot,
+    slotSpan: course.slotsPerSemester,
+    course,
+    isEarlyBird: false,
+  };
+}
 
 function makeBreakdown(metSemesters: number[], titles: Record<number, string> = {}): Array<{
   semester: number;
@@ -48,6 +91,89 @@ describe("computeEffectivePeStatus", () => {
     const result = computeEffectivePeStatus(semesters, [
       { type: "marching-band" },
     ]);
+    expect(result[0].isMet).toBe(true);
+    expect(result[1].isMet).toBe(false);
+  });
+
+  it("honors pe_waiver resolutions that carry the variant in metadata", () => {
+    const semesters: PeSemesterStatus[] = [
+      { semester: 1, isMet: false, courseTitle: null, requiredLabel: "PE" },
+      { semester: 2, isMet: false, courseTitle: null, requiredLabel: "PE" },
+    ];
+    const full = computeEffectivePeStatus(semesters, [
+      { type: "pe_waiver", metadata: { variant: "academic", year: 11 } },
+    ]);
+    expect(full.every((s) => s.isMet)).toBe(true);
+
+    const marching = computeEffectivePeStatus(semesters, [
+      { type: "pe_waiver", metadata: { variant: "marching-band", year: 9 } },
+    ]);
+    expect(marching[0].isMet).toBe(true);
+    expect(marching[1].isMet).toBe(false);
+  });
+});
+
+describe("computePePerSemester", () => {
+  it("marks both semesters met when PE courses fill both semesters", () => {
+    const result = computePePerSemester(
+      [
+        makePlanned(makeCourse({ title: "Choice P.E." }), 1),
+        makePlanned(makeCourse({ title: "Choice P.E." }), 2),
+      ],
+      10
+    );
+    expect(result).toHaveLength(2);
+    expect(result[0].isMet).toBe(true);
+    expect(result[1].isMet).toBe(true);
+  });
+
+  it("counts a full-year PE course toward both semesters once", () => {
+    const fullYear = makeCourse({ title: "Alternative Physical Education", duration: 2, credits: 2 });
+    const result = computePePerSemester(
+      [
+        makePlanned(fullYear, 1),
+        makePlanned(fullYear, 2),
+      ],
+      11
+    );
+    expect(result[0].isMet).toBe(true);
+    expect(result[1].isMet).toBe(true);
+  });
+
+  it("counts Health and Applied Health courses by division as PE semesters", () => {
+    const health = makeCourse({ title: "Health Education", fulfillsRequirements: ["Health"] });
+    const appliedHealth = makeCourse({ title: "Applied Health", fulfillsRequirements: ["Health"] });
+    const result = computePePerSemester(
+      [makePlanned(health, 1), makePlanned(appliedHealth, 2)],
+      10
+    );
+    expect(result[0].isMet).toBe(true);
+    expect(result[1].isMet).toBe(true);
+  });
+
+  it("requires Freshman Foundational Fitness in semester 1 for grade 9", () => {
+    const choicePe = makeCourse({ title: "Choice P.E." });
+    const foundationalFitness = makeCourse({ title: "Freshman Foundational Fitness Choice P.E." });
+    const wrongOrder = computePePerSemester(
+      [makePlanned(choicePe, 1), makePlanned(foundationalFitness, 2)],
+      9
+    );
+    expect(wrongOrder[0].isMet).toBe(false);
+    expect(wrongOrder[1].isMet).toBe(true);
+
+    const correctOrder = computePePerSemester(
+      [makePlanned(foundationalFitness, 1), makePlanned(choicePe, 2)],
+      9
+    );
+    expect(correctOrder[0].isMet).toBe(true);
+    expect(correctOrder[1].isMet).toBe(true);
+  });
+
+  it("does not mark a year met with only one PE semester", () => {
+    const result = computePePerSemester(
+      [makePlanned(makeCourse({ title: "Choice P.E." }), 1)],
+      10
+    );
     expect(result[0].isMet).toBe(true);
     expect(result[1].isMet).toBe(false);
   });

@@ -527,7 +527,7 @@ const PE_SEMESTER_DEFS: PeSemesterMatcher[] = [
   { year: 9, semester: 1, label: "Freshman Foundational Fitness or waiver", matches: (c) => c.isFoundationalFitness },
   { year: 9, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
   { year: 10, semester: 1, label: "Health or waiver", matches: (c) => c.fulfillsRequirements.some((r) => canonicalRequirementName(r) === "Health") },
-  { year: 10, semester: 2, label: "Physical Education, Applied Health, or Driver Education or waiver", matches: (c) => c.peEligible },
+  { year: 10, semester: 2, label: "Physical Education, Applied Health, or Driver Education or waiver", matches: (c) => c.peEligible || c.title.toLowerCase().includes("applied health") },
   { year: 11, semester: 1, label: "Physical Education or waiver", matches: (c) => c.peEligible },
   { year: 11, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
   { year: 12, semester: 1, label: "Physical Education or waiver", matches: (c) => c.peEligible },

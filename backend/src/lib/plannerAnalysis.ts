@@ -22,6 +22,7 @@ import type {
 } from "@prisma/client";
 import {
   canonicalRequirementName,
+  isMeasurableGraduationRequirementName,
   normalizeRequirementNames,
   type InformationItem,
 } from "./requirementsCleanup.js";
@@ -472,7 +473,13 @@ function computeCredits(placements: CoursePlacement[]) {
 
 function toInformationItems(requirements: GraduationRequirement[]): InformationItem[] {
   return requirements
-    .filter((req) => !req.isMeasurable || req.requiredValue == null)
+    .filter((req) => {
+      const canonicalName = canonicalRequirementName(req.name);
+      // Requirements tracked as graduation requirements (by DB flag or by
+      // canonical name, e.g. "Physical Education") are not informational items.
+      if (isMeasurableGraduationRequirementName(canonicalName)) return false;
+      return !req.isMeasurable || req.requiredValue == null;
+    })
     .map((req) => {
       let explanation = "";
       if (Array.isArray(req.notes)) {
@@ -524,8 +531,11 @@ function computeGraduationRequirements(
 
   const canonicalByName = new Map<string, GraduationRequirement>();
   for (const req of requirements) {
-    if (req.isMeasurable !== true) continue;
     const canonicalName = canonicalRequirementName(req.name);
+    // A requirement is graduation-tracked when the DB marks it measurable OR the
+    // canonical name is recognized as measurable (e.g., "Physical Education" is
+    // tracked even though the row predates the isMeasurable flag).
+    if (req.isMeasurable !== true && !isMeasurableGraduationRequirementName(canonicalName)) continue;
     const existing = canonicalByName.get(canonicalName);
     if (!existing || (existing.requiredValue == null && req.requiredValue != null)) {
       canonicalByName.set(canonicalName, req);
@@ -553,13 +563,20 @@ function computeGraduationRequirements(
     const required = req.requiredValue ?? 0;
     let earned = 0;
     const canonicalName = canonicalRequirementName(req.name);
+    // "Physical Education" is semester-driven (see peSemesterBreakdown) and is
+    // not a credit-based requirement, so it is reported without allocating
+    // course credits to it. This keeps overflow buckets ("Additional Credits
+    // and P.E.", "Electives") unchanged.
+    const isPe = canonicalName === "Physical Education";
     const eligibleCourseIds = new Set<number>();
-    for (const sourceReq of requirements) {
-      if (canonicalRequirementName(sourceReq.name) !== canonicalName) continue;
-      const links = courseRequirementLinks.get(sourceReq.id);
-      if (!links) continue;
-      for (const courseId of links) {
-        eligibleCourseIds.add(courseId);
+    if (!isPe) {
+      for (const sourceReq of requirements) {
+        if (canonicalRequirementName(sourceReq.name) !== canonicalName) continue;
+        const links = courseRequirementLinks.get(sourceReq.id);
+        if (!links) continue;
+        for (const courseId of links) {
+          eligibleCourseIds.add(courseId);
+        }
       }
     }
     for (const courseId of eligibleCourseIds) {
@@ -891,11 +908,18 @@ type PeSemesterMatcher = {
   matches: (course: AnalysisCourse) => boolean;
 };
 
+function isAppliedHealthCourse(course: AnalysisCourse): boolean {
+  return (
+    course.title.toLowerCase().includes("applied health") ||
+    course.fulfillsRequirements.some((r) => canonicalRequirementName(r).toLowerCase().includes("applied health"))
+  );
+}
+
 const PE_SEMESTER_DEFS: PeSemesterMatcher[] = [
   { year: 9, semester: 1, label: "Freshman Foundational Fitness or waiver", matches: (c) => c.isFoundationalFitness },
   { year: 9, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
   { year: 10, semester: 1, label: "Health or waiver", matches: (c) => c.fulfillsRequirements.some((r) => canonicalRequirementName(r) === "Health") },
-  { year: 10, semester: 2, label: "Physical Education, Applied Health, or Driver Education or waiver", matches: (c) => c.peEligible },
+  { year: 10, semester: 2, label: "Physical Education, Applied Health, or Driver Education or waiver", matches: (c) => c.peEligible || isAppliedHealthCourse(c) },
   { year: 11, semester: 1, label: "Physical Education or waiver", matches: (c) => c.peEligible },
   { year: 11, semester: 2, label: "Physical Education or waiver", matches: (c) => c.peEligible },
   { year: 12, semester: 1, label: "Physical Education or waiver", matches: (c) => c.peEligible },

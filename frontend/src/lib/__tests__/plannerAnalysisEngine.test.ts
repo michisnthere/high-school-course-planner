@@ -671,4 +671,39 @@ describe("computePlannerAnalysis", () => {
     expect(result.peSemesterBreakdown[4].met).toBe(true);
     expect(result.peSemesterBreakdown[5].met).toBe(true);
   });
+
+  it("Applied Health satisfies the grade 10 semester 2 (PE/Applied Health/Driver Ed) slot", () => {
+    const appliedHealth: PlannerCourseDetails = {
+      id: 1402, title: "Applied Health", normalizedTitle: "applied health", duration: 1,
+      slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Physical Education",
+      department: "Health Education", description: null,
+      fulfillsRequirements: ["Health"],
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HLT232", gradeMin: 10, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false, attributes: [],
+    };
+    const health: PlannerCourseDetails = {
+      id: 1403, title: "Health Education", normalizedTitle: "health education", duration: 1,
+      slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Physical Education",
+      department: "Health Education", description: null,
+      fulfillsRequirements: ["Health"],
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HLT231", gradeMin: 10, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false, attributes: [],
+    };
+    const planners = [
+      makePlanner(9),
+      makePlanner(10, [makePlanned(health, 1, 2, 1), makePlanned(appliedHealth, 2, 2, 2)]),
+      makePlanner(11),
+      makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({
+      planners,
+      completedCourses: [],
+      resolutions: [],
+      allCourses: [...allCourses, appliedHealth, health],
+    });
+
+    // Semesters 3 and 4 are grade 10 (Health + PE/Applied Health/Driver Ed).
+    expect(result.peSemesterBreakdown[2].met).toBe(true);
+    expect(result.peSemesterBreakdown[3].met).toBe(true);
+  });
 });

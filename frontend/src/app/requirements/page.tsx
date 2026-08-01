@@ -13,6 +13,7 @@ import type { CompletedCourse } from "@/lib/completedCourses";
 import { findDriverEdExternalResolution, hasDriverEducationCourse } from "@/lib/plannerWaivers";
 import {
   computeEffectivePeStatus,
+  computePePerSemester,
   computePeYearRows,
   PE_YEAR_LABELS,
   type PeSemesterCell,
@@ -426,15 +427,8 @@ function RequirementsContent(): React.ReactElement {
                 }}
               >
                 {analysis.yearRequirements.map((year) => {
-                  const gradeStart = (year.grade - 9) * 2 + 1;
-                  const peSemesters = analysis.peSemesterBreakdown
-                    .filter((s) => s.semester >= gradeStart && s.semester < gradeStart + 2)
-                    .map((s) => ({
-                      semester: s.semester - (year.grade - 9) * 2,
-                      isMet: s.met,
-                      courseTitle: s.courseTitle,
-                      requiredLabel: s.requiredLabel,
-                    }));
+                  const yearPlanner = planners.find((p) => p.schoolYear === year.grade);
+                  const peSemesters = computePePerSemester(yearPlanner?.plannedCourses ?? [], year.grade);
                   const peWaivers = analysis.resolutions
                     .filter((r) => r.type === "pe_waiver" && r.metadata?.year === year.grade);
                   const effectivePe = computeEffectivePeStatus(peSemesters, peWaivers);
