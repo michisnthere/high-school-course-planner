@@ -16,6 +16,7 @@ export type PlannerCourseDetails = {
   department: string | null;
   description: string | null;
   fulfillsRequirements: string[];
+  requirementCredits?: Record<string, number>;
   prerequisites: string[];
   courseCode: string | null;
   courseCodeS1: string | null;
@@ -389,6 +390,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     fulfillsRequirements: Array.isArray(course.fulfillsRequirements)
       ? course.fulfillsRequirements.filter((r): r is string => typeof r === "string")
       : [],
+    requirementCredits: course.requirementCredits,
     prerequisites: Array.from(prerequisites),
     courseCode,
     courseCodeS1,
@@ -415,6 +417,7 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     department: null,
     description: null,
     fulfillsRequirements: [],
+    requirementCredits: undefined,
     prerequisites: [],
     courseCode: null,
     courseCodeS1: null,

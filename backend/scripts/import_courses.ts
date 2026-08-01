@@ -105,6 +105,7 @@ type CourseInput = {
   credits?: number | null;
   slotsPerSemester?: number | null;
   fulfillsRequirements?: string[];
+  requirementCredits?: Record<string, number>;
   isRepeatable?: boolean;
   attributes?: string[] | Record<string, unknown>;
   choices?: CourseChoiceInput[];
@@ -221,6 +222,23 @@ function gradeRange(levels: number[] | undefined): { gradeMin: number | null; gr
 
 function validateCourseCredits(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value) && value > 0;
+}
+
+function normalizeRequirementCredits(
+  rc: Record<string, number> | undefined,
+  fulfillsCanonical: string[]
+): Record<string, number> {
+  const result: Record<string, number> = {};
+  if (!rc || typeof rc !== "object") return result;
+  const allowed = new Set(fulfillsCanonical);
+  for (const [raw, value] of Object.entries(rc)) {
+    if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) continue;
+    const canonical = canonicalRequirementName(raw);
+    if (isNonGraduationRequirementName(canonical) || isInformationItemName(canonical)) continue;
+    if (!allowed.has(canonical)) continue;
+    result[canonical] = value;
+  }
+  return result;
 }
 
 function validateAll(
@@ -360,6 +378,35 @@ function validateAll(
       for (const req of course.fulfillsRequirements) {
         if (typeof req !== "string" || !req.trim()) {
           fail(`empty or non-string fulfillsRequirements entry in "${course.title}"`);
+          continue;
+        }
+      }
+    }
+
+    // Validate requirementCredits: positive numeric values keyed by a
+    // requirement that the course actually fulfills.
+    if (course.requirementCredits != null) {
+      if (typeof course.requirementCredits !== "object" || Array.isArray(course.requirementCredits)) {
+        fail(`requirementCredits must be an object for "${course.title}"`);
+        continue;
+      }
+      const fulfillsCanonical = new Set(
+        Array.isArray(course.fulfillsRequirements)
+          ? course.fulfillsRequirements.map((r) => canonicalRequirementName(r))
+          : []
+      );
+      for (const [raw, value] of Object.entries(course.requirementCredits)) {
+        if (!validateCourseCredits(value)) {
+          fail(`invalid requirementCredits value for "${raw}": ${String(value)}`);
+          continue;
+        }
+        const canonical = canonicalRequirementName(raw);
+        if (isNonGraduationRequirementName(canonical) || isInformationItemName(canonical)) {
+          fail(`requirementCredits references non-graduation requirement "${raw}"`);
+          continue;
+        }
+        if (!fulfillsCanonical.has(canonical)) {
+          fail(`requirementCredits "${raw}" is not in fulfillsRequirements for "${course.title}"`);
           continue;
         }
       }
@@ -725,6 +772,8 @@ async function main() {
     const importKey = importKeyFor(course);
     const { attributes, isRepeatable } = normalizeAttributes(course.attributes);
     const finalIsRepeatable = course.isRepeatable ?? isRepeatable;
+    const normalizedFulfills = normalizeRequirementNames(course.fulfillsRequirements);
+    const normalizedRequirementCredits = normalizeRequirementCredits(course.requirementCredits, normalizedFulfills);
 
     // Compute the normalized course duration from all offerings (1 = one semester, 2 = full year).
     // The planner only supports one-semester (1) and full-year (2) durations, so any fractional
@@ -772,7 +821,8 @@ async function main() {
           duration: courseDuration ?? null,
           slotsPerSemester: course.slotsPerSemester ?? 1,
           attributes,
-          fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
+          fulfillsRequirements: normalizedFulfills,
+          requirementCredits: normalizedRequirementCredits,
           isRepeatable: finalIsRepeatable,
           notes: normalizedNotes ?? [],
           sourceReference: course.sourceReference ?? null,
@@ -786,7 +836,8 @@ async function main() {
           duration: courseDuration ?? null,
           slotsPerSemester: course.slotsPerSemester ?? 1,
           attributes,
-          fulfillsRequirements: normalizeRequirementNames(course.fulfillsRequirements),
+          fulfillsRequirements: normalizedFulfills,
+          requirementCredits: normalizedRequirementCredits,
           isRepeatable: finalIsRepeatable,
           notes: normalizedNotes ?? [],
           sourceReference: course.sourceReference ?? null,
@@ -862,7 +913,8 @@ async function main() {
     }
 
     // -- Graduation requirement links ----------------------------------------
-    for (const reqName of normalizeRequirementNames(course.fulfillsRequirements)) {
+    const linkedReqIds = new Set<number>();
+    for (const reqName of normalizedFulfills) {
       const reqId = resolveRequirementId(reqName);
       if (reqId === null) {
         missingRequirements += 1;
@@ -889,6 +941,7 @@ async function main() {
           },
           update: {},
         });
+        linkedReqIds.add(reqId);
         requirementsLinked += 1;
       } catch (err: unknown) {
         const isPrismaUniqueViolation =
@@ -900,6 +953,21 @@ async function main() {
         }
         throw err;
       }
+    }
+
+    // Prune stale requirement links so the join table (and the rebuilt
+    // fulfillsRequirements cache) always mirrors the source catalog.
+    if (linkedReqIds.size > 0) {
+      await prisma.courseRequirement.deleteMany({
+        where: {
+          courseId: savedCourse.id,
+          graduationRequirementId: { notIn: Array.from(linkedReqIds) },
+        },
+      });
+    } else {
+      await prisma.courseRequirement.deleteMany({
+        where: { courseId: savedCourse.id },
+      });
     }
   }
 

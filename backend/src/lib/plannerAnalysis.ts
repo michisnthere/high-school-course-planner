@@ -55,6 +55,7 @@ type AnalysisCourse = {
   division: string | null;
   department: string | null;
   fulfillsRequirements: string[];
+  requirementCredits: Record<string, number>;
   prerequisites: string[];
   peEligible: boolean;
   isFoundationalFitness: boolean;
@@ -188,6 +189,17 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     ? normalizeRequirementNames(course.fulfillsRequirements.filter((r): r is string => typeof r === "string"))
     : [];
 
+  const fulfillsCanonicalSet = new Set(fulfillsRequirements);
+  const requirementCredits: Record<string, number> = {};
+  const rawRequirementCredits = course.requirementCredits;
+  if (rawRequirementCredits && typeof rawRequirementCredits === "object" && !Array.isArray(rawRequirementCredits)) {
+    for (const [raw, value] of Object.entries(rawRequirementCredits)) {
+      if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) continue;
+      const canonical = canonicalRequirementName(raw);
+      if (fulfillsCanonicalSet.has(canonical)) requirementCredits[canonical] = value;
+    }
+  }
+
   const courseCode = option?.offerings?.[0]?.courseCode ?? null;
 
   const attrs = Array.isArray(course.attributes)
@@ -215,6 +227,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     fulfillsRequirements,
+    requirementCredits,
     prerequisites: Array.from(prerequisites),
     peEligible,
     isFoundationalFitness,
@@ -253,6 +266,72 @@ function getRequirementStatus(earned: number, required: number): RequirementStat
   if (earned >= required) return "satisfied";
   if (earned > 0) return "partial";
   return "notStarted";
+}
+
+// ---------------------------------------------------------------------------
+// Per-requirement credit allocation
+//
+// Courses that fulfill multiple graduation requirements (e.g., American Studies
+// fulfills English AND U.S. History) must not have their full credit value
+// applied to every requirement. `requirementCredits` on the course defines the
+// exact per-requirement split. Courses without that field fall back to the
+// legacy behavior: the full credit value is applied to each fulfilled
+// requirement (safe for single-fulfillment courses).
+// ---------------------------------------------------------------------------
+
+function getAllocatedCreditsForCourse(course: AnalysisCourse, canonicalName: string): number {
+  const rc = course.requirementCredits ?? {};
+  if (Object.keys(rc).length > 0) {
+    return rc[canonicalName] ?? 0;
+  }
+  const fulfills = course.fulfillsRequirements.map((r) => canonicalRequirementName(r));
+  return fulfills.includes(canonicalName) ? course.credits : 0;
+}
+
+// Build per-course, per-requirement allocated credits from placements and
+// resolution credits (summer school / middle school).
+function buildCourseAllocatedCredits(
+  placements: CoursePlacement[],
+  resolutions: ResolutionInfo[],
+  courseFulfillsMap: Map<number, Set<string>>
+): Map<number, Map<string, number>> {
+  const courseAllocatedCredits = new Map<number, Map<string, number>>();
+  const allocSeen = new Set<string>();
+  for (const placement of placements) {
+    if (!placement.course) continue;
+    const key = getBackendPlacementKey(placement);
+    if (allocSeen.has(key)) continue;
+    allocSeen.add(key);
+    const course = placement.course;
+    if (!courseAllocatedCredits.has(course.id)) courseAllocatedCredits.set(course.id, new Map());
+    const allocMap = courseAllocatedCredits.get(course.id)!;
+    for (const fr of course.fulfillsRequirements) {
+      const canonical = canonicalRequirementName(fr);
+      allocMap.set(canonical, (allocMap.get(canonical) ?? 0) + getAllocatedCreditsForCourse(course, canonical));
+    }
+  }
+
+  // Distribute resolution credits across the course's requirement allocation so
+  // they never inflate every fulfilled requirement.
+  for (const resolution of resolutions) {
+    if (resolution.type !== "summer_school" && resolution.type !== "middle_school") continue;
+    const courseId = resolution.courseId;
+    const metaCredits = resolution.metadata?.credits as number | undefined;
+    if (!courseId || !metaCredits) continue;
+    const allocMap = courseAllocatedCredits.get(courseId);
+    const fulfills = courseFulfillsMap.get(courseId);
+    if (!allocMap || !fulfills || fulfills.size === 0) continue;
+    const total = Array.from(allocMap.values()).reduce((a, b) => a + b, 0);
+    if (total <= 0) {
+      for (const fr of fulfills) allocMap.set(fr, (allocMap.get(fr) ?? 0) + metaCredits);
+      continue;
+    }
+    for (const [req, value] of allocMap) {
+      allocMap.set(req, value + (metaCredits * value) / total);
+    }
+  }
+
+  return courseAllocatedCredits;
 }
 
 async function loadPlacements(userId: number): Promise<CoursePlacement[]> {
@@ -379,7 +458,9 @@ function computeCredits(placements: CoursePlacement[]) {
     total += placement.credits;
 
     for (const req of course.fulfillsRequirements) {
-      byRequirementCategory[req] = (byRequirementCategory[req] ?? 0) + placement.credits;
+      const canonical = canonicalRequirementName(req);
+      byRequirementCategory[canonical] =
+        (byRequirementCategory[canonical] ?? 0) + getAllocatedCreditsForCourse(course, canonical);
     }
 
     const division = course.division ?? "Uncategorized";
@@ -466,6 +547,7 @@ function computeGraduationRequirements(
   const OVERFLOW_NAMES = new Set(["Electives", "Additional Credits and P.E.", "Total Credits"]);
 
   const courseUsedByAnyRequirement = new Set<number>();
+  const courseAllocatedCredits = buildCourseAllocatedCredits(placements, resolutions, courseFulfillsMap);
 
   const results = Array.from(canonicalByName.values()).map((req) => {
     const required = req.requiredValue ?? 0;
@@ -483,9 +565,9 @@ function computeGraduationRequirements(
     for (const courseId of eligibleCourseIds) {
       const fulfills = courseFulfillsMap.get(courseId);
       if (fulfills && !fulfills.has(canonicalName)) continue;
-      const credits = courseIdToCredits.get(courseId) ?? 0;
-      if (credits > 0) {
-        earned += credits;
+      const allocated = courseAllocatedCredits.get(courseId)?.get(canonicalName) ?? 0;
+      if (allocated > 0) {
+        earned += allocated;
         courseUsedByAnyRequirement.add(courseId);
       }
     }
@@ -497,6 +579,17 @@ function computeGraduationRequirements(
     );
     if (hasPeWaiver) {
       effectiveRequired = 0;
+    }
+
+    // A driver_ed_external waiver satisfies the Driver Education requirement even
+    // without a planned/completed Driver Education course.
+    if (canonicalName === "Driver Education") {
+      const hasExternal = resolutions.some(
+        (r) => r.type === "pe_waiver" && r.metadata?.variant === "driver_ed_external"
+      );
+      if (hasExternal) {
+        earned = Math.max(earned, 1);
+      }
     }
 
     return {
@@ -754,12 +847,19 @@ function computeYearRequirements(
 
       for (const placement of placements) {
         if (placement.year !== grade || !placement.course) continue;
-        const fulfillsCanonical = placement.course.fulfillsRequirements.map(canonicalRequirementName);
+        const course = placement.course;
+        const fulfillsCanonical = course.fulfillsRequirements.map(canonicalRequirementName);
         if (!fulfillsCanonical.some((fr) => accepted.has(fr))) continue;
         const key = getBackendPlacementKey(placement);
         if (seen.has(key)) continue;
         seen.add(key);
-        earnedCredits += placement.credits;
+        let placementEarned = 0;
+        for (const fr of fulfillsCanonical) {
+          if (accepted.has(fr)) {
+            placementEarned += getAllocatedCreditsForCourse(course, fr);
+          }
+        }
+        earnedCredits += Math.min(placementEarned, placement.credits);
       }
 
       return {
@@ -803,7 +903,13 @@ const PE_SEMESTER_DEFS: PeSemesterMatcher[] = [
 ];
 
 function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: ResolutionInfo[]): PeSemesterBreakdown[] {
-  const peWaived = resolutions.some((r) => r.type === "pe_waiver");
+  const waivedYears = new Set<number>();
+  for (const r of resolutions) {
+    if (r.type === "pe_waiver") {
+      const year = r.metadata?.year as number | undefined;
+      if (year != null) waivedYears.add(year);
+    }
+  }
   const seen = new Set<string>();
 
   const breakdown: PeSemesterBreakdown[] = [];
@@ -813,18 +919,18 @@ function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: 
 
     const placement = placements.find((p) => {
       if (!p.course || p.year !== def.year || p.semester !== def.semester) return false;
-      const key = getBackendPlacementKey(p);
+      const key = `${p.year}-${p.semester}-${p.slot}`;
       if (seen.has(key)) return false;
       return def.matches(p.course as AnalysisCourse);
     });
 
     if (placement) {
-      seen.add(getBackendPlacementKey(placement));
+      seen.add(`${placement.year}-${placement.semester}-${placement.slot}`);
     }
 
     breakdown.push({
       semester: i + 1,
-      met: peWaived || placement != null,
+      met: waivedYears.has(def.year) || placement != null,
       courseTitle: placement?.course?.title ?? null,
       courseId: placement?.course?.id ?? null,
       requiredLabel: def.label,

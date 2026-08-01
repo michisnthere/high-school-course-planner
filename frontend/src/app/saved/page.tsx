@@ -21,26 +21,14 @@ export default async function SavedCoursesPage() {
           }
           .rs-saved-page h1 {
             margin-top: 8px !important;
+            margin-bottom: 24px !important;
           }
           .rs-saved-grid {
             grid-template-columns: 1fr !important;
           }
         }
       `}</style>
-      <div className="rs-saved-page" style={{ padding: "32px" }}>
-        <h1
-          style={{
-            margin: "0 0 20px",
-            fontSize: "32px",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-            lineHeight: 1.2,
-          }}
-        >
-          Saved Courses
-        </h1>
-        <SavedCoursesContent courses={courses} />
-      </div>
+      <SavedCoursesContent courses={courses} />
     </>
   );
 }

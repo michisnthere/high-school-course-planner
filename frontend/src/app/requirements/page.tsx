@@ -11,11 +11,19 @@ import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import type { CompletedCourse } from "@/lib/completedCourses";
 import { findDriverEdExternalResolution, hasDriverEducationCourse } from "@/lib/plannerWaivers";
-import { computeEffectivePeStatus, type PeSemesterStatus } from "@/lib/gradeRequirements";
+import {
+  computeEffectivePeStatus,
+  computePeYearRows,
+  PE_YEAR_LABELS,
+  type PeSemesterCell,
+  type PeSemesterStatus,
+  type PeYearRow,
+} from "@/lib/gradeRequirements";
 import { RecommendedCourseCard } from "@/components/requirements/RecommendedCourseCard";
 import { CourseListModal } from "@/components/requirements/CourseListModal";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { breakpoints } from "@/lib/responsive";
+import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
 
 const REQUIREMENTS_TO_HIDE = new Set([
   "Science",
@@ -71,22 +79,6 @@ const STATUS_CONFIG: Record<string, { label: string; badge: string; light: strin
     light: "#fef2f2",
     textColor: "#ffffff",
   },
-};
-
-const signInButtonStyle: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  minHeight: "44px",
-  padding: "8px 20px",
-  fontSize: "15px",
-  fontWeight: 500,
-  color: "#FFFFFF",
-  backgroundColor: "var(--brand-accent)",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  textDecoration: "none",
-  boxSizing: "border-box",
 };
 
 function formatNumber(n: number): string {
@@ -219,6 +211,10 @@ function RequirementsContent(): React.ReactElement {
   }, [buildCourseDetailsHref, router]);
 
   const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
+  const peYearRows = useMemo(
+    () => analysis ? computePeYearRows(analysis.peSemesterBreakdown, analysis.resolutions) : undefined,
+    [analysis]
+  );
   const visibleRequirements = analysis?.graduationRequirements.filter(
     (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
   ) ?? [];
@@ -238,63 +234,10 @@ function RequirementsContent(): React.ReactElement {
 
   if (!mode) {
     return (
-      <>
-        <style>{`
-          @media (max-width: ${breakpoints.mobile - 1}px) {
-            .rs-req-guest-page {
-              padding: 16px !important;
-              padding-top: 0 !important;
-              padding-bottom: calc(16px + var(--safe-area-bottom)) !important;
-              padding-left: calc(16px + var(--safe-area-left)) !important;
-              padding-right: calc(16px + var(--safe-area-right)) !important;
-            }
-          }
-        `}</style>
-        <div className="rs-req-guest-page" style={{ padding: "32px", minHeight: "calc(100dvh - 64px)" }}>
-          <h1
-            style={{
-              margin: "0 0 16px",
-              fontSize: "32px",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              lineHeight: 1.2,
-            }}
-          >
-            Graduation Requirements
-          </h1>
-          <div
-            style={{
-              padding: "24px",
-              backgroundColor: "var(--bg-card)",
-              borderRadius: "12px",
-            }}
-          >
-            <h2
-              style={{
-                margin: "0 0 8px",
-                fontSize: "20px",
-                fontWeight: 700,
-                color: "var(--text-primary)",
-              }}
-            >
-              Sign in to track your graduation progress.
-            </h2>
-            <p
-              style={{
-                margin: "0 0 16px",
-                fontSize: "15px",
-                color: "var(--text-secondary)",
-                lineHeight: 1.5,
-              }}
-            >
-              Your progress will be securely stored and synced across devices.
-            </p>
-            <a href="/login" style={signInButtonStyle}>
-              Sign In
-            </a>
-          </div>
-        </div>
-      </>
+      <GuestEmptyState
+        title="Graduation Requirements"
+        description="Sign in to track your graduation progress and requirement completion. Your progress will be stored securely and synced across devices."
+      />
     );
   }
 
@@ -532,6 +475,7 @@ function RequirementsContent(): React.ReactElement {
               >
                 {visibleRequirements.map((req) => {
                   const isDriverEd = req.name.toLowerCase() === "driver education";
+                  const isPe = req.name.toLowerCase() === "physical education";
                   const driverEdExternalResolution = isDriverEd && analysis
                     ? findDriverEdExternalResolution(analysis.resolutions)
                     : undefined;
@@ -542,6 +486,7 @@ function RequirementsContent(): React.ReactElement {
                       isExpanded={expandedIds.has(req.id)}
                       onToggle={() => toggleExpand(req.id)}
                       hasPeWaiver={hasPeWaiver}
+                      peYearRows={isPe ? peYearRows : undefined}
                       getCourseDetailsHref={(course) => buildCourseDetailsHref(course, req.name, false)}
                       onCourseNavigate={(course) => navigateToCourseDetails(course, req.name, false)}
                       allCourseDetails={allCourseDetails}
@@ -778,6 +723,7 @@ type RequirementCardProps = {
   isExpanded: boolean;
   onToggle: () => void;
   hasPeWaiver: boolean;
+  peYearRows?: PeYearRow[];
   getCourseDetailsHref: (course: PlannerCourseDetails) => string;
   onCourseNavigate: (course: PlannerCourseDetails) => void;
   allCourseDetails: PlannerCourseDetails[];
@@ -793,6 +739,7 @@ function RequirementCard({
   isExpanded,
   onToggle,
   hasPeWaiver,
+  peYearRows,
   getCourseDetailsHref,
   onCourseNavigate,
   allCourseDetails,
@@ -804,7 +751,23 @@ function RequirementCard({
 }: RequirementCardProps): React.ReactElement {
   const isPe = req.name.toLowerCase() === "physical education";
   const isDriverEd = req.name.toLowerCase() === "driver education";
-  const config = STATUS_CONFIG[req.status];
+  const showPeGrid = isPe && !!peYearRows;
+  const peMetCount = peYearRows
+    ? peYearRows.reduce(
+        (n, row) => n + (row.semester1.met ? 1 : 0) + (row.semester2.met ? 1 : 0),
+        0
+      )
+    : 0;
+  const peTotalCount = peYearRows ? peYearRows.length * 2 : 0;
+  const peAllMet = peTotalCount > 0 && peMetCount === peTotalCount;
+  const peNoneMet = peMetCount === 0;
+  const config = showPeGrid
+    ? peAllMet
+      ? STATUS_CONFIG.satisfied
+      : peNoneMet
+      ? STATUS_CONFIG.notStarted
+      : STATUS_CONFIG.partial
+    : STATUS_CONFIG[req.status];
   const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
   const effectiveEarned = isPe && hasPeWaiver ? effectiveRequired : req.earnedValue;
   const percent =
@@ -826,6 +789,12 @@ function RequirementCard({
   const hasMore = totalMatching > 3;
   const fallbackDisplayRecs = matchingCourses.slice(0, 3);
   const displayCourses = displayRecs.length > 0 ? displayRecs : fallbackDisplayRecs;
+
+  const bodyText = showPeGrid
+    ? "Physical Education is required each semester. Each semester is satisfied by a PE course or an approved waiver."
+    : req.requiredValue != null
+    ? `This requirement requires ${formatNumber(req.requiredValue)} credits. You have earned ${formatNumber(req.earnedValue)} credits so far.`
+    : null;
 
   return (
     <div
@@ -898,31 +867,72 @@ function RequirementCard({
             </span>
           </div>
         </div>
-        <div
-          className="rs-req-stats"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "16px",
-            fontSize: "14px",
-            color: "var(--text-muted)",
-            marginBottom: "12px",
-          }}
-        >
-          <span>
-            Earned:{" "}
-            <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveEarned)}</strong>
-          </span>
-          <span>
-            Required:{" "}
-            <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveRequired)}</strong>
-          </span>
-          <span>
-            Remaining:{" "}
-            <strong style={{ color: "var(--text-primary)" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
-          </span>
-        </div>
-        <ProgressBar percent={percent} color={config.badge} showLabel />
+        {showPeGrid ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "6px",
+              marginBottom: "12px",
+            }}
+          >
+            <p style={{ margin: 0, fontSize: "13px", color: "var(--text-muted)" }}>
+              Required each semester
+            </p>
+            {peYearRows!.map((row) => (
+              <div
+                key={row.year}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  fontSize: "14px",
+                }}
+              >
+                <span
+                  style={{
+                    width: "84px",
+                    flexShrink: 0,
+                    fontWeight: 600,
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  {PE_YEAR_LABELS[row.year]}
+                </span>
+                <PeSemesterCell cell={row.semester1} />
+                <PeSemesterCell cell={row.semester2} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            <div
+              className="rs-req-stats"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "16px",
+                fontSize: "14px",
+                color: "var(--text-muted)",
+                marginBottom: "12px",
+              }}
+            >
+              <span>
+                Earned:{" "}
+                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveEarned)}</strong>
+              </span>
+              <span>
+                Required:{" "}
+                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveRequired)}</strong>
+              </span>
+              <span>
+                Remaining:{" "}
+                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
+              </span>
+            </div>
+            <ProgressBar percent={percent} color={config.badge} showLabel />
+          </>
+        )}
       </div>
 
       <div className={`rs-req-card-body-inner ${isExpanded ? "open" : ""}`}>
@@ -933,10 +943,9 @@ function RequirementCard({
             borderTop: "1px solid var(--border-light)",
           }}
         >
-          {req.requiredValue != null && (
+          {bodyText && (
             <p className="rs-req-body-text" style={{ margin: "0 0 12px", fontSize: "14px", color: "var(--text-muted)" }}>
-              This requirement requires {formatNumber(req.requiredValue)} credits.
-              You have earned {formatNumber(req.earnedValue)} credits so far.
+              {bodyText}
             </p>
           )}
           {displayCourses.length > 0 && (
@@ -1042,6 +1051,28 @@ function RequirementCard({
         </div>
       </div>
     </div>
+  );
+}
+
+function PeSemesterCell({ cell }: { cell: PeSemesterCell }): React.ReactElement {
+  return (
+    <span
+      title={cell.courseTitle ?? cell.requiredLabel}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "4px",
+        fontSize: "13px",
+        whiteSpace: "nowrap",
+        color: cell.met ? "var(--status-success)" : "var(--text-muted)",
+      }}
+    >
+      <span style={{ fontWeight: 700 }}>{cell.met ? "\u2713" : "\u25CB"}</span>
+      <span>S{cell.semester}</span>
+      {cell.reason === "waiver" && (
+        <span style={{ fontSize: "12px", color: "var(--status-success)" }}>(Waiver)</span>
+      )}
+    </span>
   );
 }
 

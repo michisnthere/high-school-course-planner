@@ -532,4 +532,143 @@ describe("computePlannerAnalysis", () => {
     expect(result.peSemesterBreakdown[0].met).toBe(false); // Foundational Fitness
     expect(result.peSemesterBreakdown[1].met).toBe(true);  // PE
   });
+
+  it("splits American Studies credits between English and U.S. History", () => {
+    const americanStudies: PlannerCourseDetails = {
+      id: 1101, title: "American Studies", normalizedTitle: "american studies", duration: 2,
+      slotsPerSemester: 1, creditType: "honors", credits: 4, division: "Social Studies",
+      department: "Social Studies", description: null,
+      fulfillsRequirements: ["English", "U.S. History"],
+      requirementCredits: { English: 2, "U.S. History": 2 },
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "SOC581", gradeMin: 11, gradeMax: 11,
+      isNonAcademic: false, isMarchingBand: false, attributes: [],
+    };
+    const planners = [
+      makePlanner(9),
+      makePlanner(10),
+      makePlanner(11, [makePlanned(americanStudies, 1, 1, 1), makePlanned(americanStudies, 2, 1, 1)]),
+      makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({
+      planners,
+      completedCourses: [],
+      resolutions: [],
+      allCourses: [...allCourses, americanStudies],
+    });
+
+    // Total credits preserved; per-requirement totals are split, not duplicated.
+    expect(result.credits.total).toBe(4);
+    expect(result.credits.byRequirementCategory["English"]).toBe(2);
+    expect(result.credits.byRequirementCategory["U.S. History"]).toBe(2);
+
+    const eng = result.graduationRequirements.find((r) => r.name === "English")!;
+    expect(eng.earnedValue).toBe(2);
+    const ush = result.graduationRequirements.find((r) => r.name === "U.S. History")!;
+    expect(ush.earnedValue).toBe(2);
+
+    const y11 = result.yearRequirements.find((y) => y.grade === 11)!;
+    expect(y11.items.find((i) => i.category === "Communication Arts")!.earnedCredits).toBe(2);
+    expect(y11.items.find((i) => i.category === "U.S. History")!.earnedCredits).toBe(2);
+  });
+
+  it("counts a legacy multi-fulfillment course once per year-level requirement item", () => {
+    const biology: PlannerCourseDetails = {
+      id: 1201, title: "Biology", normalizedTitle: "biology", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
+      department: "Science", description: null,
+      fulfillsRequirements: ["Biology", "Science"],
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "BIO101", gradeMin: 9, gradeMax: 9,
+      isNonAcademic: false, isMarchingBand: false, attributes: [],
+    };
+    const planners = [
+      makePlanner(9, [makePlanned(biology, 1, 1, 1), makePlanned(biology, 2, 1, 1)]),
+      makePlanner(10), makePlanner(11), makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({
+      planners,
+      completedCourses: [],
+      resolutions: [],
+      allCourses: [...allCourses, biology],
+    });
+
+    // Legacy behavior preserved: full credits count toward both requirement rows.
+    expect(result.graduationRequirements.find((r) => r.name === "Science")!.earnedValue).toBe(2);
+    expect(result.graduationRequirements.find((r) => r.name === "Biology")!.earnedValue).toBe(2);
+
+    // But the grade 9 "Science" year-level item must count the course only once.
+    const y9 = result.yearRequirements.find((y) => y.grade === 9)!;
+    expect(y9.items.find((i) => i.category === "Science")!.earnedCredits).toBe(2);
+  });
+
+  it("does not count Driver Education as Health", () => {
+    const driverEd: PlannerCourseDetails = {
+      id: 1301, title: "Driver Education", normalizedTitle: "driver education", duration: 1,
+      slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Applied Arts",
+      department: "Driver Education", description: null,
+      fulfillsRequirements: ["Driver Education"],
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "DE231", gradeMin: 10, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false, attributes: [],
+    };
+    const planners = [
+      makePlanner(9),
+      makePlanner(10, [makePlanned(driverEd, 2, 1, 1)]),
+      makePlanner(11), makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({
+      planners,
+      completedCourses: [],
+      resolutions: [],
+      allCourses: [...allCourses, driverEd],
+    });
+
+    const driverReq = result.graduationRequirements.find((r) => r.name === "Driver Education")!;
+    expect(driverReq.earnedValue).toBe(1);
+    expect(driverReq.status).toBe("satisfied");
+
+    const healthReq = result.graduationRequirements.find((r) => r.name === "Health")!;
+    expect(healthReq.earnedValue).toBe(0);
+  });
+
+  it("satisfies Driver Education via an external driver_ed_external waiver", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const resolutions: RequirementResolution[] = [
+      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "driver_ed_external" }, createdAt: "", updatedAt: "" },
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions, allCourses });
+
+    const driverReq = result.graduationRequirements.find((r) => r.name === "Driver Education")!;
+    expect(driverReq.earnedValue).toBe(1);
+    expect(driverReq.remainingValue).toBe(0);
+    expect(driverReq.status).toBe("satisfied");
+
+    // External Driver Ed must not waive any PE semester (no year attached).
+    expect(result.peSemesterBreakdown.every((p) => p.met === false)).toBe(true);
+  });
+
+  it("a full-year PE course satisfies both PE semesters of that year", () => {
+    const fullYearPe: PlannerCourseDetails = {
+      id: 1401, title: "Alternative Physical Education", normalizedTitle: "alternative physical education", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Physical Education",
+      department: "Physical Education", description: null,
+      fulfillsRequirements: ["Physical Education"],
+      prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "PED111", gradeMin: 9, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false, attributes: [],
+    };
+    const planners = [
+      makePlanner(9),
+      makePlanner(10),
+      makePlanner(11, [makePlanned(fullYearPe, 1, 2, 1), makePlanned(fullYearPe, 2, 2, 1)]),
+      makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({
+      planners,
+      completedCourses: [],
+      resolutions: [],
+      allCourses: [...allCourses, fullYearPe],
+    });
+
+    // Semesters 5 and 6 are grade 11 PE; both must be met by the full-year PE course.
+    expect(result.peSemesterBreakdown[4].met).toBe(true);
+    expect(result.peSemesterBreakdown[5].met).toBe(true);
+  });
 });

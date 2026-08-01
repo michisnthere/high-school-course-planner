@@ -68,6 +68,7 @@ model Course {
   slotsPerSemester    Int     @default(1)
   attributes          Json    @default("[]")
   fulfillsRequirements Json   @default("[]")
+  requirementCredits  Json    @default("{}")
   isRepeatable        Boolean @default(false)
   isMarchingBand      Boolean @default(false)
   supportsEarlyBird   Boolean @default(false)

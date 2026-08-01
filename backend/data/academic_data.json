@@ -7709,16 +7709,15 @@
       "creditType": "College Prep",
       "credits": 1,
       "fulfillsRequirements": [
-        "Driver Education",
-        "Health"
+        "Driver Education"
       ],
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
         "requiresApplication": false
       },
-      "division": "Physical Education",
-      "department": "Health Education",
+      "division": "Applied Arts",
+      "department": "Driver Education",
       "offerings": [
         {
           "courseCode": "DE231",
@@ -8306,6 +8305,10 @@
         "Biology",
         "Physical Science"
       ],
+      "requirementCredits": {
+        "Biology": 1,
+        "Physical Science": 1
+      },
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,
@@ -9126,6 +9129,10 @@
         "English",
         "U.S. History"
       ],
+      "requirementCredits": {
+        "English": 2,
+        "U.S. History": 2
+      },
       "attributes": {
         "isRepeatable": false,
         "requiresAudition": false,

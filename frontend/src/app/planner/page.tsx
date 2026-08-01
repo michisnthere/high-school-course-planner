@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
+import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
 import { YearOverviewCard } from "@/components/dashboard/YearOverviewCard";
 import { breakpoints } from "@/lib/responsive";
 import type { Planner } from "@/lib/planner";
@@ -21,22 +22,6 @@ const YEAR_LABELS: Record<number, string> = {
 export default function PlannerPage(): React.ReactElement {
   return <PlannerContent />;
 }
-
-const signInButtonStyle: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  minHeight: "44px",
-  padding: "8px 20px",
-  fontSize: "15px",
-  fontWeight: 500,
-  color: "#FFFFFF",
-  backgroundColor: "var(--brand-accent)",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  textDecoration: "none",
-  boxSizing: "border-box",
-};
 
 function PlannerContent(): React.ReactElement {
   const { mode, loading: authLoading } = useAuth();
@@ -152,50 +137,10 @@ function PlannerContent(): React.ReactElement {
 
   if (!mode) {
     return (
-      <ResponsivePage>
-        <h1
-          style={{
-            margin: "0 0 16px",
-            fontSize: "32px",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-            lineHeight: 1.2,
-          }}
-        >
-          Planner
-        </h1>
-        <div
-          style={{
-            padding: "24px",
-            backgroundColor: "var(--bg-card)",
-            borderRadius: "12px",
-          }}
-        >
-          <h2
-            style={{
-              margin: "0 0 8px",
-              fontSize: "20px",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-            }}
-          >
-            Sign in to save and manage your four-year course plan.
-          </h2>
-          <p
-            style={{
-              margin: "0 0 16px",
-              fontSize: "15px",
-              color: "var(--text-secondary)",
-              lineHeight: 1.5,
-            }}
-          >
-            Your planner will be securely stored and synced across devices.
-          </p>
-          <a href="/login" style={signInButtonStyle}>
-            Sign In
-          </a>
-        </div>
-      </ResponsivePage>
+      <GuestEmptyState
+        title="Planner"
+        description="Sign in to build and save your four-year academic plan. Your planner will be securely stored and synced across devices."
+      />
     );
   }
 

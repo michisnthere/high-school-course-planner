@@ -9,6 +9,7 @@ import { formatCreditType } from "@/lib/catalog";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { breakpoints } from "@/lib/responsive";
+import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
 
 type SavedCoursesContentProps = {
   courses: Course[];
@@ -66,22 +67,6 @@ const removeButtonStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const signInButtonStyle: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  minHeight: "44px",
-  padding: "8px 20px",
-  fontSize: "15px",
-  fontWeight: 500,
-  color: "#FFFFFF",
-  backgroundColor: "var(--brand-accent)",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  textDecoration: "none",
-  boxSizing: "border-box",
-};
-
 const selectStyle: React.CSSProperties = {
   padding: "10px 14px",
   fontSize: "14px",
@@ -91,7 +76,6 @@ const selectStyle: React.CSSProperties = {
   borderRadius: "8px",
   cursor: "pointer",
   outline: "none",
-  minWidth: "200px",
 };
 
 const searchBtnStyle: React.CSSProperties = {
@@ -247,70 +231,48 @@ export function SavedCoursesContent({
 
   if (!isAuthenticated) {
     return (
-      <div
-        style={{
-          padding: "24px",
-          backgroundColor: "var(--bg-card)",
-          borderRadius: "12px",
-        }}
-      >
-        <h2
-          style={{
-            margin: "0 0 8px",
-            fontSize: "20px",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-          }}
-        >
-          Sign in to save courses for later.
-        </h2>
-        <p
-          style={{
-            margin: "0 0 16px",
-            fontSize: "15px",
-            color: "var(--text-secondary)",
-            lineHeight: 1.5,
-          }}
-        >
-          Your saved courses will be stored securely and synced across devices.
-        </p>
-        <a href="/login" style={signInButtonStyle}>
-          Sign In
-        </a>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <p
-        style={{
-          margin: 0,
-          fontSize: "16px",
-          color: "var(--text-muted)",
-        }}
-      >
-        Loading saved courses...
-      </p>
-    );
-  }
-
-  if (savedCourses.length === 0) {
-    return (
-      <p
-        style={{
-          margin: 0,
-          fontSize: "16px",
-          color: "var(--text-muted)",
-        }}
-      >
-        No saved courses yet.
-      </p>
+      <GuestEmptyState
+        title="Saved Courses"
+        description="Sign in to save interesting courses and review them later. Your saved courses will be stored securely and synced across devices."
+      />
     );
   }
 
   return (
-    <>
+    <div className="rs-saved-page" style={{ padding: "32px" }}>
+      <h1
+        style={{
+          margin: "0 0 20px",
+          fontSize: "32px",
+          fontWeight: 700,
+          color: "var(--text-primary)",
+          lineHeight: 1.2,
+        }}
+      >
+        Saved Courses
+      </h1>
+      {loading ? (
+        <p
+          style={{
+            margin: 0,
+            fontSize: "16px",
+            color: "var(--text-muted)",
+          }}
+        >
+          Loading saved courses...
+        </p>
+      ) : savedCourses.length === 0 ? (
+        <p
+          style={{
+            margin: 0,
+            fontSize: "16px",
+            color: "var(--text-muted)",
+          }}
+        >
+          No saved courses yet.
+        </p>
+      ) : (
+        <>
       <style>{`
         .sc-toolbar {
           display: flex;
@@ -325,6 +287,22 @@ export function SavedCoursesContent({
           display: flex;
           gap: 8px;
           align-items: stretch;
+        }
+        .sc-filters {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          align-items: center;
+        }
+        .sc-filter-label {
+          display: none;
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-primary);
+          white-space: nowrap;
+        }
+        .sc-select {
+          min-width: 200px;
         }
         .sc-search {
           flex: 1;
@@ -363,12 +341,24 @@ export function SavedCoursesContent({
           .sc-toolbar {
             flex-direction: column;
             align-items: stretch;
+            gap: 16px;
+            margin-bottom: 28px;
           }
           .sc-search-wrap {
             min-width: 0;
           }
-          .sc-select {
+          .sc-filters {
             width: 100%;
+            gap: 10px;
+          }
+          .sc-filter-label {
+            display: inline-block;
+          }
+          .sc-select {
+            min-width: 0;
+            flex: 1 1 160px;
+            min-height: 44px;
+            width: auto;
           }
         }
       `}</style>
@@ -415,29 +405,35 @@ export function SavedCoursesContent({
             Search
           </button>
         </div>
-        <select
-          className="sc-select"
-          value={department}
-          onChange={(e) => handleDepartmentChange(e.target.value)}
-          style={selectStyle}
-          aria-label="Filter by department"
-        >
-          <option value="All Departments">All Departments</option>
-          {departments.map((dept) => (
-            <option key={dept} value={dept}>{dept}</option>
-          ))}
-        </select>
-        <select
-          className="sc-select"
-          value={sort}
-          onChange={(e) => handleSortChange(e.target.value)}
-          style={selectStyle}
-          aria-label="Sort by"
-        >
-          {SORT_OPTIONS.map((opt) => (
-            <option key={opt} value={opt}>{opt}</option>
-          ))}
-        </select>
+        <div className="sc-filters">
+          <select
+            className="sc-select"
+            value={department}
+            onChange={(e) => handleDepartmentChange(e.target.value)}
+            style={selectStyle}
+            aria-label="Filter by department"
+          >
+            <option value="All Departments">All Departments</option>
+            {departments.map((dept) => (
+              <option key={dept} value={dept}>{dept}</option>
+            ))}
+          </select>
+          <label htmlFor="saved-sort-select" className="sc-filter-label">
+            Sort by:
+          </label>
+          <select
+            id="saved-sort-select"
+            className="sc-select"
+            value={sort}
+            onChange={(e) => handleSortChange(e.target.value)}
+            style={selectStyle}
+            aria-label="Sort by"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>{opt}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {filtered.length === 0 ? (
@@ -530,6 +526,8 @@ export function SavedCoursesContent({
           })}
         </div>
       )}
-    </>
+        </>
+      )}
+    </div>
   );
 }
