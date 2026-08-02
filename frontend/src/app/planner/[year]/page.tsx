@@ -1788,28 +1788,30 @@ function SummarySidebar({
                 Driver Education is already in your planner, so it will be completed through that course.
               </p>
             ) : (
-              <button
-                type="button"
-                onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external", year: currentYear } })}
-                style={{
-                  width: "100%",
-                  minHeight: "44px",
-                  padding: "8px 14px",
-                  border: "1px solid #166534",
-                  borderRadius: "8px",
-                  backgroundColor: "#166534",
-                  color: "#ffffff",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                }}
-              >
-                Mark completed outside school
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external", year: currentYear } })}
+                  style={{
+                    width: "100%",
+                    minHeight: "44px",
+                    padding: "8px 14px",
+                    border: "1px solid #166534",
+                    borderRadius: "8px",
+                    backgroundColor: "#166534",
+                    color: "#ffffff",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                  }}
+                >
+                  Mark completed outside school
+                </button>
+                <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+                  If you completed Driver Education at a commercial school or obtained your license before age 18.
+                </p>
+              </>
             )}
-            <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
-              If you completed Driver Education at a commercial school or obtained your license before age 18.
-            </p>
           </div>
         );
       })()}
