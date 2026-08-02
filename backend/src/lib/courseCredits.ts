@@ -43,3 +43,30 @@ export function calculateTotalCredits(course: {
 export function getSemesterCredits(totalCredits: number, duration: number): number {
   return duration === 2 ? totalCredits / 2 : totalCredits;
 }
+
+// A 1.5-period science course (e.g. AP Physics 1, AP Biology, AP Chemistry,
+// AP Physics C) carries 1.5 credits per offering but only occupies a single
+// planner slot. The planner treats slot occupancy, credit value, and Early Bird
+// status as independent concepts; only slot occupancy is normalized here.
+export function isOnePointFivePeriodScienceCourse(course: {
+  description?: string | null;
+  department?: { name?: string | null; division?: { name?: string | null } | null } | null;
+  options?: Array<Record<string, unknown>> | null;
+}): boolean {
+  const division = course.department?.division?.name?.toLowerCase().trim();
+  if (division !== "science") return false;
+  if ((course.description ?? "").toLowerCase().includes("1.5 period")) return true;
+  return (course.options ?? []).some((o) => {
+    const credits = o.credits;
+    return typeof credits === "number" && credits > 1 && credits < 2;
+  });
+}
+
+export function effectiveSlotsPerSemester(course: {
+  description?: string | null;
+  department?: { name?: string | null; division?: { name?: string | null } | null } | null;
+  options?: Array<Record<string, unknown>> | null;
+  slotsPerSemester?: number | null;
+}): number {
+  return isOnePointFivePeriodScienceCourse(course) ? 1 : (course.slotsPerSemester ?? 1);
+}

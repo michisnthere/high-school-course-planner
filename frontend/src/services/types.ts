@@ -10,10 +10,11 @@ export interface IPlannerService {
   getPlanner(year: number): Promise<Planner>;
   getPlannerOptions(grade: number): Promise<PlannerOption[]>;
   searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]>;
-  addPlannedCourse(plannerId: number, courseId: number, semester: number, slot: number): Promise<Planner>;
-  addPlannedCourse(plannerId: number, item: { plannerOptionId: number; semester: number; slot: number }): Promise<Planner>;
+  addPlannedCourse(plannerId: number, courseId: number, semester: number, slot: number, isEarlyBird?: boolean): Promise<Planner>;
+  addPlannedCourse(plannerId: number, item: { plannerOptionId: number; semester: number; slot: number; isEarlyBird?: boolean }): Promise<Planner>;
   removePlannedCourse(plannedCourseId: number): Promise<void>;
   movePlannedCourse(plannedCourseId: number, semester: number, slot: number): Promise<Planner>;
+  updateEarlyBird(plannedCourseId: number, isEarlyBird: boolean): Promise<Planner>;
   markYearCompleted(plannerId: number): Promise<Planner>;
   unmarkYearCompleted(plannerId: number): Promise<Planner>;
 }

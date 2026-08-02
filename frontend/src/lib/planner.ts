@@ -1,6 +1,6 @@
 import type { Course } from "@/types/course";
 import { normalizePrerequisite } from "@/lib/prerequisiteNormalization";
-import { deriveCourseDuration, calculateTotalCredits } from "@/lib/courseCredits";
+import { deriveCourseDuration, calculateTotalCredits, effectiveSlotsPerSemester } from "@/lib/courseCredits";
 
 export type CourseDuration = number;
 
@@ -116,29 +116,33 @@ export async function addPlannedCourse(
   plannerId: number,
   courseId: number,
   semester: number,
-  slot: number
+  slot: number,
+  isEarlyBird?: boolean
 ): Promise<Planner>;
 
 export async function addPlannedCourse(
   plannerId: number,
-  item: { plannerOptionId: number; semester: number; slot: number }
+  item: { plannerOptionId: number; semester: number; slot: number; isEarlyBird?: boolean }
 ): Promise<Planner>;
 
 export async function addPlannedCourse(
   plannerId: number,
-  courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number },
+  courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number; isEarlyBird?: boolean },
   semester?: number,
-  slot?: number
+  slot?: number,
+  isEarlyBird?: boolean
 ): Promise<Planner> {
   const body: Record<string, unknown> = { plannerId };
   if (typeof courseIdOrItem === "number") {
     body.courseId = courseIdOrItem;
     body.semester = semester;
     body.slot = slot;
+    if (isEarlyBird != null) body.isEarlyBird = isEarlyBird;
   } else {
     body.plannerOptionId = courseIdOrItem.plannerOptionId;
     body.semester = courseIdOrItem.semester;
     body.slot = courseIdOrItem.slot;
+    if (courseIdOrItem.isEarlyBird != null) body.isEarlyBird = courseIdOrItem.isEarlyBird;
   }
 
   const slotVal = typeof courseIdOrItem === "number" ? slot : courseIdOrItem.slot;
@@ -182,6 +186,27 @@ export async function removePlannedCourse(plannedCourseId: number): Promise<void
   }
 
   window.dispatchEvent(new Event("planner:changed"));
+}
+
+export async function setPlannedCourseEarlyBird(
+  plannedCourseId: number,
+  isEarlyBird: boolean
+): Promise<Planner> {
+  const response = await fetch(`/api/planner/courses/${plannedCourseId}/early-bird`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ isEarlyBird }),
+  });
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({ error: "Failed to update Early Bird" }));
+    throw new Error(body.error || "Failed to update Early Bird");
+  }
+
+  const data = await response.json();
+  window.dispatchEvent(new Event("planner:changed"));
+  return data;
 }
 
 export async function movePlannedCourse(
@@ -381,7 +406,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     title: course.title,
     normalizedTitle: course.normalizedTitle ?? null,
     duration: courseDuration,
-    slotsPerSemester: course.slotsPerSemester ?? 1,
+    slotsPerSemester: effectiveSlotsPerSemester(course),
     creditType: option?.creditType ?? null,
     credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,

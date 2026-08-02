@@ -27,7 +27,7 @@ import {
   type InformationItem,
 } from "./requirementsCleanup.js";
 import { normalizePrerequisite } from "./prerequisiteNormalization.js";
-import { deriveCourseDuration, calculateTotalCredits } from "./courseCredits.js";
+import { deriveCourseDuration, calculateTotalCredits, effectiveSlotsPerSemester } from "./courseCredits.js";
 import { GRADE_LEVEL_REQUIREMENTS } from "./gradeLevelRequirements.js";
 
 type CourseOptionWithOfferings = CourseOption & { offerings: CourseOffering[] };
@@ -224,7 +224,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     courseCode,
     duration: deriveCourseDuration(course),
     credits: calculateTotalCredits(course),
-    slotSpan: course.slotsPerSemester ?? 1,
+    slotSpan: effectiveSlotsPerSemester(course),
     division: course.department?.division?.name ?? null,
     department: course.department?.name ?? null,
     fulfillsRequirements,

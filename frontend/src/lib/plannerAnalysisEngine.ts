@@ -3,7 +3,7 @@ import type { CompletedCourse } from "./completedCourses";
 import type { RequirementResolution } from "./api";
 import type { StudentPlanningData } from "./studentData";
 import type { PlannerAnalysis, PeSemesterBreakdown } from "./plannerAnalysis";
-import { calculateTotalCredits, deriveCourseDuration } from "./courseCredits";
+import { calculateTotalCredits, deriveCourseDuration, effectiveSlotsPerSemester } from "./courseCredits";
 
 const YEAR_LABELS: Record<number, string> = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
 const SLOTS_PER_SEMESTER = 7;
@@ -191,7 +191,7 @@ function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
     courseCode: course.courseCode,
     duration: course.duration,
     credits: course.credits ?? 0,
-    slotSpan: course.slotsPerSemester ?? 1,
+    slotSpan: effectiveSlotsPerSemester(course),
     division: course.division,
     department: course.department,
     fulfillsRequirements,

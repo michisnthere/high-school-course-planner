@@ -4,7 +4,7 @@ import { requireAuth } from "../lib/auth.js";
 import { asyncHandler } from "../lib/asyncHandler.js";
 import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
 import { normalizePrerequisite } from "../lib/prerequisiteNormalization.js";
-import { deriveCourseDuration, calculateTotalCredits } from "../lib/courseCredits.js";
+import { deriveCourseDuration, calculateTotalCredits, effectiveSlotsPerSemester, isOnePointFivePeriodScienceCourse } from "../lib/courseCredits.js";
 import { courseFulfillsDriverEducation, hasDriverEdExternalResolution } from "../lib/driverEducation.js";
 import type { Course, PlannerOption } from "@prisma/client";
 
@@ -123,7 +123,7 @@ export function deriveCourseDetails(
     title: course.title,
     normalizedTitle: course.normalizedTitle ?? null,
     duration: deriveCourseDuration(course),
-    slotsPerSemester: course.slotsPerSemester ?? 1,
+    slotsPerSemester: effectiveSlotsPerSemester(course),
     creditType: option?.creditType ?? null,
     credits: calculateTotalCredits(course),
     division: course.department?.division?.name ?? null,
@@ -138,7 +138,9 @@ export function deriveCourseDetails(
     gradeMax,
     isNonAcademic: false,
     isMarchingBand: course.isMarchingBand ?? false,
-    supportsEarlyBird: (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")) || false,
+    supportsEarlyBird:
+      course.supportsEarlyBird === true ||
+      (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")),
   };
 }
 
@@ -182,6 +184,9 @@ function getOccupiedSlotCount(plannedCourse: {
   course: (Course & { slotsPerSemester?: number | null; options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
   plannerOption: PlannerOption | null;
 }): number {
+  // 1.5-period science courses always occupy a single slot regardless of any
+  // persisted slotSpan/slotsPerSemester value.
+  if (plannedCourse.course && isOnePointFivePeriodScienceCourse(plannedCourse.course)) return 1;
   // Prefer the explicit slotSpan on the PlannedCourse record; fall back to course metadata.
   if (plannedCourse.slotSpan != null && plannedCourse.slotSpan >= 1) return plannedCourse.slotSpan;
   if (plannedCourse.course) {
@@ -630,7 +635,7 @@ router.get("/options", requireAuth, asyncHandler(async (req, res) => {
 
 router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
-  const { plannerId, courseId, plannerOptionId, semester, slot } = req.body;
+  const { plannerId, courseId, plannerOptionId, semester, slot, isEarlyBird } = req.body;
 
   console.log({
     endpoint: "add",
@@ -670,7 +675,8 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
 
   let duration: number;
   let slotSpan = 1;
-  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number; slotSpan: number };
+  let isEarlyBirdValue = isEarlyBird === true;
+  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number; slotSpan: number; isEarlyBird: boolean };
 
   if (courseId) {
     const course = await prisma.course.findUnique({
@@ -693,6 +699,10 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
       return res.status(404).json({ error: "Course not found" });
     }
 
+    if (isEarlyBirdValue && !isOnePointFivePeriodScienceCourse(course)) {
+      return res.status(400).json({ error: "Early Bird is only available for 1.5-period science courses." });
+    }
+
     if (courseFulfillsDriverEducation(course) && (await hasDriverEdExternalResolution(userId))) {
       return res.status(409).json({
         error:
@@ -712,8 +722,8 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     }
 
     duration = deriveCourseDuration(course);
-    slotSpan = course.slotsPerSemester ?? 1;
-    createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum, slotSpan };
+    slotSpan = effectiveSlotsPerSemester(course);
+    createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum, slotSpan, isEarlyBird: isEarlyBirdValue };
   } else {
     const option = await prisma.plannerOption.findUnique({
       where: { id: Number(plannerOptionId) },
@@ -738,7 +748,7 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     }
 
     duration = option.duration;
-    createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum, slotSpan: 1 };
+    createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum, slotSpan: 1, isEarlyBird: false };
   }
 
   const existingCourses = await prisma.plannedCourse.findMany({
@@ -764,6 +774,19 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
 
   const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
+
+  // Enforce at most one Early Bird course per semester. A full-year Early Bird
+  // course occupies both semesters.
+  if (isEarlyBirdValue) {
+    for (const sem of targetSemesters) {
+      const existingEb = existingCourses.find(
+        (pc) => pc.semester === sem && pc.isEarlyBird && pc.courseId !== Number(courseId)
+      );
+      if (existingEb) {
+        return res.status(409).json({ error: "You may only take one Early Bird course each semester." });
+      }
+    }
+  }
 
   if (slotSpan > 1) {
     let startSlot: number | null = null;
@@ -894,6 +917,72 @@ router.delete("/courses/:id", requireAuth, asyncHandler(async (req, res) => {
   }
 
   res.status(204).send();
+}));
+
+router.patch("/courses/:id/early-bird", requireAuth, asyncHandler(async (req, res) => {
+  const userId = req.user!.id;
+  const plannedCourseId = Number(req.params.id);
+  const { isEarlyBird } = req.body;
+
+  if (!plannedCourseId) {
+    return res.status(400).json({ error: "Invalid planned course id" });
+  }
+  if (typeof isEarlyBird !== "boolean") {
+    return res.status(400).json({ error: "isEarlyBird must be a boolean" });
+  }
+
+  const plannedCourse = await prisma.plannedCourse.findUnique({
+    where: { id: plannedCourseId },
+    include: {
+      planner: true,
+      course: {
+        include: {
+          department: { include: { division: true } },
+          options: { include: { offerings: true } },
+        },
+      },
+    },
+  });
+
+  if (!plannedCourse || plannedCourse.planner.userId !== userId) {
+    return res.status(404).json({ error: "Planned course not found" });
+  }
+
+  if (plannedCourse.courseId == null || !plannedCourse.course) {
+    return res.status(400).json({ error: "Early Bird can only be toggled for catalog courses." });
+  }
+
+  if (!isOnePointFivePeriodScienceCourse(plannedCourse.course)) {
+    return res.status(400).json({ error: "Early Bird is only available for 1.5-period science courses." });
+  }
+
+  if (isEarlyBird) {
+    const sourceDuration = deriveCourseDuration(plannedCourse.course);
+    const targetSemesters = sourceDuration === 2 ? [1, 2] : [plannedCourse.semester];
+    const otherEb = await prisma.plannedCourse.findFirst({
+      where: {
+        planner: { userId },
+        isEarlyBird: true,
+        courseId: { not: plannedCourse.courseId },
+        semester: { in: targetSemesters },
+      },
+    });
+    if (otherEb) {
+      return res.status(409).json({ error: "You may only take one Early Bird course each semester." });
+    }
+  }
+
+  // Toggle applies to every placement of the logical course (both semesters for
+  // a full-year course) so the planner stays consistent.
+  await prisma.plannedCourse.updateMany({
+    where: {
+      plannerId: plannedCourse.plannerId,
+      courseId: plannedCourse.courseId,
+    },
+    data: { isEarlyBird },
+  });
+
+  res.json(await getPlannerResponse(plannedCourse.plannerId));
 }));
 
 router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {

@@ -7,6 +7,7 @@ import type { IPlannerService } from "./types";
    addPlannedCourse as authAddPlannedCourse,
    removePlannedCourse as authRemovePlannedCourse,
    movePlannedCourse as authMovePlannedCourse,
+   setPlannedCourseEarlyBird as authSetPlannedCourseEarlyBird,
    markPlannerYearCompleted as authMarkPlannerYearCompleted,
    unmarkPlannerYearCompleted as authUnmarkPlannerYearCompleted,
    type Planner,
@@ -20,10 +21,11 @@ export const authPlannerService: IPlannerService = {
   getPlanner: (year) => authGetPlanner(year),
   getPlannerOptions: (grade) => authGetPlannerOptions(grade),
   searchPlannerCourses: (query) => authSearchPlannerCourses(query),
-  addPlannedCourse: (plannerId, courseIdOrItem, semester?, slot?) =>
-    authAddPlannedCourse(plannerId as any, courseIdOrItem as any, semester as any, slot as any),
+  addPlannedCourse: (plannerId, courseIdOrItem, semester?, slot?, isEarlyBird?) =>
+    authAddPlannedCourse(plannerId as any, courseIdOrItem as any, semester as any, slot as any, isEarlyBird as any),
   removePlannedCourse: (id) => authRemovePlannedCourse(id),
   movePlannedCourse: (id, semester, slot) => authMovePlannedCourse(id, semester, slot),
+  updateEarlyBird: (id, isEarlyBird) => authSetPlannedCourseEarlyBird(id, isEarlyBird),
   markYearCompleted: (plannerId) => authMarkPlannerYearCompleted(plannerId),
   unmarkYearCompleted: (plannerId) => authUnmarkPlannerYearCompleted(plannerId),
 };
@@ -115,13 +117,18 @@ export function createGuestPlannerService(): IPlannerService {
       );
     },
 
-    async addPlannedCourse(plannerId: number, courseIdOrItem: any, semester?: number, slot?: number) {
+    async addPlannedCourse(plannerId: number, courseIdOrItem: any, semester?: number, slot?: number, isEarlyBird?: boolean) {
       const planner = planners.find((p) => p.id === plannerId);
       if (!planner) throw new Error("Planner not found");
 
       if (typeof courseIdOrItem === "number") {
         const courseDetails = catalog.get(courseIdOrItem);
         if (!courseDetails) throw new Error(`Course #${courseIdOrItem} not found in catalog. Call seedCourseCatalog first.`);
+
+        const earlyBird = isEarlyBird === true;
+        if (earlyBird && !courseDetails.supportsEarlyBird) {
+          throw new Error("Early Bird is only available for 1.5-period science courses.");
+        }
 
         if (semester != null && semester === 3) {
           const entry: PlannedCourse = {
@@ -133,7 +140,7 @@ export function createGuestPlannerService(): IPlannerService {
             slot: slot ?? 1,
             slotSpan: courseDetails.slotsPerSemester ?? 1,
             course: { ...courseDetails },
-            isEarlyBird: false,
+            isEarlyBird: earlyBird,
           };
           planner.plannedCourses.push(entry);
           save();
@@ -202,7 +209,7 @@ export function createGuestPlannerService(): IPlannerService {
               slot: startSlot,
               slotSpan,
               course: { ...courseDetails },
-              isEarlyBird: false,
+              isEarlyBird: earlyBird,
             });
           }
           save();
@@ -226,7 +233,7 @@ export function createGuestPlannerService(): IPlannerService {
               slot: slot!,
               slotSpan: 1,
               course: { ...courseDetails },
-              isEarlyBird: false,
+              isEarlyBird: earlyBird,
             });
           }
           save();
@@ -246,7 +253,7 @@ export function createGuestPlannerService(): IPlannerService {
           slot: slot ?? 1,
           slotSpan: 1,
           course: { ...courseDetails },
-          isEarlyBird: false,
+          isEarlyBird: earlyBird,
         };
         planner.plannedCourses.push(entry);
         save();
@@ -351,6 +358,39 @@ export function createGuestPlannerService(): IPlannerService {
           }
           entry.semester = semester;
           entry.slot = slot;
+          save();
+          return clonePlanner(planner);
+        }
+      }
+      throw new Error("Planned course not found");
+    },
+
+    async updateEarlyBird(plannedCourseId: number, isEarlyBird: boolean) {
+      for (const planner of planners) {
+        const entry = planner.plannedCourses.find((pc) => pc.id === plannedCourseId);
+        if (entry) {
+          if (!entry.course.supportsEarlyBird) {
+            throw new Error("Early Bird is only available for 1.5-period science courses.");
+          }
+          if (isEarlyBird && entry.courseId != null) {
+            const targetSemesters = entry.course.duration === 2 ? [1, 2] : [entry.semester];
+            const conflict = planner.plannedCourses.some(
+              (pc) =>
+                pc.isEarlyBird &&
+                pc.courseId !== entry.courseId &&
+                targetSemesters.includes(pc.semester)
+            );
+            if (conflict) {
+              throw new Error("You may only take one Early Bird course each semester.");
+            }
+          }
+          if (entry.courseId != null) {
+            for (const pc of planner.plannedCourses) {
+              if (pc.courseId === entry.courseId) pc.isEarlyBird = isEarlyBird;
+            }
+          } else {
+            entry.isEarlyBird = isEarlyBird;
+          }
           save();
           return clonePlanner(planner);
         }

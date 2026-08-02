@@ -1,5 +1,5 @@
 import type { PlannedCourse } from "./planner";
-import { getCourseCredits, getPlacementKey, getSemesterCredits } from "./courseCredits";
+import { effectiveSlotSpan, getCourseCredits, getPlacementKey, getSemesterCredits } from "./courseCredits";
 
 export type SemesterCreditStatus = {
   semester: number;
@@ -32,7 +32,7 @@ export function computeSemesterCredits(plannedCourses: PlannedCourse[]): Semeste
     if (seen.has(key)) continue;
     seen.add(key);
 
-    credits[pc.semester] += pc.slotSpan ?? 1;
+    credits[pc.semester] += effectiveSlotSpan(pc);
   }
 
   const requiredCredits = 5;
@@ -53,7 +53,7 @@ export function computeSixthPeriod(plannedCourses: PlannedCourse[], grade: numbe
     if (pc.semester === 3) continue;
 
     if (pc.course.duration === 2) {
-      const span = pc.slotSpan ?? 1;
+      const span = effectiveSlotSpan(pc);
       for (let i = 0; i < span; i++) {
         const key = `${pc.courseId}-${pc.slot}-${i}`;
         if (!countedFullYear.has(key)) {

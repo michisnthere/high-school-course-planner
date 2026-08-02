@@ -111,3 +111,44 @@ export function getSemesterCredits(pc: {
   const duration = deriveCourseDuration(pc.course);
   return getSemesterCreditsFromTotal(totalCredits, duration);
 }
+
+// A 1.5-period science course (e.g. AP Physics 1, AP Biology, AP Chemistry,
+// AP Physics C) carries 1.5 credits per offering but only occupies a single
+// planner slot. Slot occupancy, credit value, and Early Bird status are
+// independent concepts; only slot occupancy is normalized here.
+type CourseLike = {
+  description?: string | null;
+  division?: string | null;
+  department?: string | { name?: string | null; division?: { name?: string | null } | null } | null;
+  options?: Array<Record<string, unknown>> | null;
+  slotsPerSemester?: number | null;
+};
+
+function divisionOf(course: CourseLike): string {
+  if (typeof course.department === "object" && course.department != null) {
+    return (course.department.division?.name ?? "").toLowerCase().trim();
+  }
+  return (course.division ?? "").toLowerCase().trim();
+}
+
+export function isOnePointFivePeriodScienceCourse(course: CourseLike): boolean {
+  if (divisionOf(course) !== "science") return false;
+  if ((course.description ?? "").toLowerCase().includes("1.5 period")) return true;
+  return (course.options ?? []).some((o) => {
+    const credits = o.credits;
+    return typeof credits === "number" && credits > 1 && credits < 2;
+  });
+}
+
+export function effectiveSlotsPerSemester(course: CourseLike): number {
+  return isOnePointFivePeriodScienceCourse(course) ? 1 : (course.slotsPerSemester ?? 1);
+}
+
+/** Effective slot span of a planned course, normalizing 1.5-period sciences to one slot. */
+export function effectiveSlotSpan(pc: {
+  slotSpan?: number | null;
+  course: CourseLike;
+}): number {
+  if (isOnePointFivePeriodScienceCourse(pc.course)) return 1;
+  return pc.slotSpan ?? pc.course.slotsPerSemester ?? 1;
+}

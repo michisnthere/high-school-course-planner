@@ -107,6 +107,8 @@ type CourseInput = {
   fulfillsRequirements?: string[];
   requirementCredits?: Record<string, number>;
   isRepeatable?: boolean;
+  isMarchingBand?: boolean;
+  supportsEarlyBird?: boolean;
   attributes?: string[] | Record<string, unknown>;
   choices?: CourseChoiceInput[];
   offerings?: CourseOfferingInput[];
@@ -787,16 +789,36 @@ async function main() {
     const maxDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
     const courseDuration = maxDuration === null ? 1 : maxDuration >= 1.5 ? 2 : 1;
 
+    // Early Bird choices (e.g. "Early Bird Option") schedule the same course
+    // before the school day; they share the single planner slot with the regular
+    // offering and must not inflate the slot span.
+    const regularOfferings =
+      Array.isArray(course.choices) && course.choices.length > 0
+        ? course.choices
+            .filter((choice) => !/early\s*bird/i.test(choice.name ?? ""))
+            .flatMap((choice) => choice.offerings ?? [])
+        : (course.offerings ?? []);
+    const isOnePointFivePeriodScience =
+      (course.division ?? "").toLowerCase() === "science" &&
+      ((course.description ?? "").toLowerCase().includes("1.5 period") ||
+        (course.choices ?? []).some((choice) => choice.credits != null && choice.credits > 1 && choice.credits < 2) ||
+        (course.credits != null && course.credits > 1 && course.credits < 2));
+    const supportsEarlyBird = course.supportsEarlyBird === true || isOnePointFivePeriodScience;
+
     // Auto-detect slotsPerSemester from offerings if not explicitly set.
     // Count unique course codes per semester label; the max across semesters is the slot span.
+    // Early Bird offerings are excluded so 1.5-period sciences stay single-slot.
     if (course.slotsPerSemester == null) {
       const perSemester = new Map<string, Set<string>>();
-      for (const o of allOfferings) {
+      for (const o of regularOfferings) {
         const sem = o.semesterLabel ?? "unknown";
         if (!perSemester.has(sem)) perSemester.set(sem, new Set());
         if (o.courseCode) perSemester.get(sem)!.add(String(o.courseCode));
       }
       course.slotsPerSemester = Math.max(1, ...Array.from(perSemester.values(), (s) => s.size));
+    }
+    if (isOnePointFivePeriodScience) {
+      course.slotsPerSemester = 1;
     }
 
     // Normalize all text fields before storing
@@ -824,6 +846,8 @@ async function main() {
           fulfillsRequirements: normalizedFulfills,
           requirementCredits: normalizedRequirementCredits,
           isRepeatable: finalIsRepeatable,
+          isMarchingBand: course.isMarchingBand === true,
+          supportsEarlyBird,
           notes: normalizedNotes ?? [],
           sourceReference: course.sourceReference ?? null,
           departmentId,
@@ -839,6 +863,8 @@ async function main() {
           fulfillsRequirements: normalizedFulfills,
           requirementCredits: normalizedRequirementCredits,
           isRepeatable: finalIsRepeatable,
+          isMarchingBand: course.isMarchingBand === true,
+          supportsEarlyBird,
           notes: normalizedNotes ?? [],
           sourceReference: course.sourceReference ?? null,
           departmentId,

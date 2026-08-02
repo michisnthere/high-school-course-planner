@@ -25,7 +25,7 @@ import {
   type PlannerOption,
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
-import { sumPlannedCredits, formatCredits } from "@/lib/courseCredits";
+import { sumPlannedCredits, formatCredits, effectiveSlotSpan } from "@/lib/courseCredits";
 import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -724,6 +724,29 @@ function PlannerYearContent(): React.ReactElement {
     [computeRemovalWaiverWarning, executeRemoval]
   );
 
+  const handleToggleEarlyBird = useCallback(
+    async (planned: PlannedCourse, isEarlyBird: boolean) => {
+      try {
+        scrollYRef.current = window.scrollY;
+        const beforePlanners = allPlanners;
+        const updatedPlanner = await plannerService.updateEarlyBird(planned.id, isEarlyBird);
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(newPlanners, async () => {
+          await plannerService.updateEarlyBird(planned.id, !isEarlyBird);
+        });
+        showToast(
+          isEarlyBird ? "Course marked as Early Bird." : "Early Bird removed.",
+          "success",
+          handleUndo
+        );
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to update Early Bird";
+        showToast(message, "warning");
+      }
+    },
+    [allPlanners, plannerService, showToast, pushHistory, handleUndo]
+  );
+
   const handleReplaceCourse = useCallback(
     async (oldPlanned: PlannedCourse, newCourseId: number) => {
       const beforePlanners = allPlanners;
@@ -830,10 +853,10 @@ function PlannerYearContent(): React.ReactElement {
     while (slot <= 7) {
       const course = plannedBySlot(semester, slot);
       if (course && course.courseId != null && renderedCourseIds.has(course.courseId)) {
-        const span = Math.max(course.slotSpan ?? 1, course.course.slotsPerSemester ?? 1);
+        const span = effectiveSlotSpan(course);
         slot = Math.max(slot + 1, course.slot + span);
       } else if (course && course.slot === slot && course.semester === semester) {
-        const span = Math.max(course.slotSpan ?? 1, course.course.slotsPerSemester ?? 1);
+        const span = effectiveSlotSpan(course);
         if (course.courseId != null) renderedCourseIds.add(course.courseId);
         items.push(
           <div
@@ -859,6 +882,9 @@ function PlannerYearContent(): React.ReactElement {
               ).filter((w) => !ignoredWarnings.has(makeWarningKey(course, w)))}
               isHighlighted={highlightedPlannedCourseId === course.id}
               onRemove={isCompleted ? undefined : () => handleRemoveCourse(course)}
+              onToggleEarlyBird={
+                isCompleted ? undefined : (isEarlyBird) => handleToggleEarlyBird(course, isEarlyBird)
+              }
               onClick={() => handleCourseClick(course)}
               onWarningClick={(w) => setSelectedWarning({ planned: course, warning: w })}
             />
@@ -1040,6 +1066,7 @@ function PlannerYearContent(): React.ReactElement {
           completedCourses={completedCourses}
           onOpenModal={handleMobileOpenModal}
           onRemoveCourse={handleRemoveCourse}
+          onToggleEarlyBird={handleToggleEarlyBird}
           onCourseClick={handleCourseClick}
           onShowWarningAction={(planned, warning) => setSelectedWarning({ planned, warning })}
           onAddResolution={handleAddResolution}
@@ -1520,19 +1547,13 @@ function PlannerYearContent(): React.ReactElement {
                         pending.plannerId,
                         selCourseId,
                         semester,
-                        pending.slot
+                        pending.slot,
+                        isEarlyBird
                       )
                     : await plannerService.addPlannedCourse(
                         pending.plannerId,
-                        { plannerOptionId: plannerOptId!, semester, slot: pending.slot }
+                        { plannerOptionId: plannerOptId!, semester, slot: pending.slot, isEarlyBird }
                       );
-                if (isEarlyBird && selCourseId != null) {
-                  for (const pc of updatedPlanner.plannedCourses) {
-                    if (pc.courseId === selCourseId) {
-                      pc.isEarlyBird = true;
-                    }
-                  }
-                }
                 const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
                 pushHistory(
                   newPlanners,
@@ -1930,6 +1951,7 @@ function PlannedCourseCard({
   isHighlighted,
   isMultiSlot,
   onRemove,
+  onToggleEarlyBird,
   onClick,
   onWarningClick,
 }: {
@@ -1938,13 +1960,14 @@ function PlannedCourseCard({
   isHighlighted: boolean;
   isMultiSlot?: boolean;
   onRemove?: () => void;
+  onToggleEarlyBird?: (isEarlyBird: boolean) => void;
   onClick: () => void;
   onWarningClick: (warning: PlannerWarning) => void;
 }): React.ReactElement {
   const { course } = planned;
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
-  const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
+  const visualSpan = effectiveSlotSpan(planned);
   const multiSlot = isMultiSlot ?? visualSpan > 1;
   const slotLabel = multiSlot
     ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
@@ -2017,41 +2040,75 @@ function PlannedCourseCard({
           {slotLabel}
         </div>
         {onRemove && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemove();
-            }}
-            draggable={false}
-            aria-label="Remove course"
-            style={{
-              width: "28px",
-              height: "28px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-              color: "#9ca3af",
-              fontSize: "16px",
-              lineHeight: 1,
-              transition: "background-color 0.15s ease, color 0.15s ease",
-              flex: "0 0 auto",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)";
-              e.currentTarget.style.color = "#ef4444";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "var(--text-secondary)";
-            }}
-          >
-            🗑
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "0 0 auto" }}>
+            {course.supportsEarlyBird && onToggleEarlyBird && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleEarlyBird(!planned.isEarlyBird);
+                }}
+                draggable={false}
+                aria-label="Toggle Early Bird"
+                aria-pressed={planned.isEarlyBird}
+                title="Early Bird class (meets before school)"
+                style={{
+                  height: "28px",
+                  padding: "0 10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: planned.isEarlyBird ? "rgba(236, 186, 43, 0.15)" : "transparent",
+                  border: "1px solid",
+                  borderColor: planned.isEarlyBird ? "var(--brand-accent)" : "#4b5563",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  color: planned.isEarlyBird ? "var(--brand-accent)" : "#9ca3af",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {planned.isEarlyBird ? "Early Bird ON" : "Early Bird OFF"}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove();
+              }}
+              draggable={false}
+              aria-label="Remove course"
+              style={{
+                width: "28px",
+                height: "28px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "transparent",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+                color: "#9ca3af",
+                fontSize: "16px",
+                lineHeight: 1,
+                transition: "background-color 0.15s ease, color 0.15s ease",
+                flex: "0 0 auto",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)";
+                e.currentTarget.style.color = "#ef4444";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "var(--text-secondary)";
+              }}
+            >
+              🗑
+            </button>
+          </div>
         )}
       </div>
 
@@ -2077,6 +2134,18 @@ function PlannedCourseCard({
           color: "var(--text-secondary)",
         }}
       >
+        {planned.isEarlyBird && (
+          <span
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "rgba(236, 186, 43, 0.15)",
+              borderRadius: "9999px",
+              fontWeight: 600,
+            }}
+          >
+            Early Bird
+          </span>
+        )}
         {course.creditType && (
           <span
             style={{
@@ -2854,6 +2923,7 @@ function MobilePlanner({
   completedCourses,
   onOpenModal,
   onRemoveCourse,
+  onToggleEarlyBird,
   onCourseClick,
   onShowWarningAction,
   onAddResolution,
@@ -2870,6 +2940,7 @@ function MobilePlanner({
   completedCourses: CompletedCourse[];
   onOpenModal: (semester: number) => void;
   onRemoveCourse: (planned: PlannedCourse) => void;
+  onToggleEarlyBird: (planned: PlannedCourse, isEarlyBird: boolean) => void;
   onCourseClick: (planned: PlannedCourse) => void;
   onShowWarningAction: (planned: PlannedCourse, warning: PlannerWarning) => void;
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
@@ -2902,7 +2973,7 @@ function MobilePlanner({
     const accentColor = getDivisionColor(planned.course.division);
     const bgTint = getDivisionBackgroundColor(planned.course.division);
 
-    const visualSpan = Math.max(planned.slotSpan ?? 1, planned.course.slotsPerSemester ?? 1);
+    const visualSpan = effectiveSlotSpan(planned);
     const isMultiSlot = visualSpan > 1;
     const slotRange =
       isMultiSlot
@@ -2932,30 +3003,62 @@ function MobilePlanner({
             {slotRange}
           </span>
             {!isCompleted && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRemoveCourse(planned);
-                }}
-                aria-label="Remove course"
-                style={{
-                  width: "44px",
-                  height: "44px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "transparent",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  color: "#9ca3af",
-                  fontSize: "18px",
-                  flex: "0 0 auto",
-                }}
-              >
-                🗑
-              </button>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "0 0 auto" }}>
+                {planned.course.supportsEarlyBird && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleEarlyBird(planned, !planned.isEarlyBird);
+                    }}
+                    aria-label="Toggle Early Bird"
+                    aria-pressed={planned.isEarlyBird}
+                    title="Early Bird class (meets before school)"
+                    style={{
+                      height: "44px",
+                      padding: "0 12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: planned.isEarlyBird ? "rgba(236, 186, 43, 0.15)" : "transparent",
+                      border: "1px solid",
+                      borderColor: planned.isEarlyBird ? "var(--brand-accent)" : "#4b5563",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                      color: planned.isEarlyBird ? "var(--brand-accent)" : "#9ca3af",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {planned.isEarlyBird ? "Early Bird ON" : "Early Bird OFF"}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRemoveCourse(planned);
+                  }}
+                  aria-label="Remove course"
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "transparent",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    color: "#9ca3af",
+                    fontSize: "18px",
+                    flex: "0 0 auto",
+                  }}
+                >
+                  🗑
+                </button>
+              </div>
             )}
           </div>
 
@@ -2964,6 +3067,11 @@ function MobilePlanner({
         </div>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
+          {planned.isEarlyBird && (
+            <span style={{ padding: "3px 8px", background: "rgba(236, 186, 43, 0.15)", borderRadius: "9999px", fontWeight: 600 }}>
+              Early Bird
+            </span>
+          )}
           {planned.course.creditType && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 500 }}>
               {formatCreditType(planned.course.creditType)}
@@ -3132,6 +3240,7 @@ type PlannerWarning = {
 };
 
 function isApScience(course: PlannerCourseDetails): boolean {
+  if (course.supportsEarlyBird) return true;
   return (
     course.creditType === "AP" &&
     course.division?.toLowerCase() === "science" &&

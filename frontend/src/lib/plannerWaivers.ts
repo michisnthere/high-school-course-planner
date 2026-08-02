@@ -1,5 +1,5 @@
 import type { PlannedCourse } from "./planner";
-import { getCourseCredits, getPlacementKey } from "./courseCredits";
+import { effectiveSlotSpan, getCourseCredits, getPlacementKey } from "./courseCredits";
 
 export type AcademicPeWaiver = { type: "academic" };
 
@@ -53,7 +53,7 @@ export function getCreditBearingCount(
     if (pc.course.isNonAcademic) continue;
 
     if (pc.course.duration === 2) {
-      const span = pc.slotSpan ?? 1;
+      const span = effectiveSlotSpan(pc);
       for (let i = 0; i < span; i++) {
         const key = `${pc.courseId}-${pc.slot}-${i}`;
         if (countedFullYear.has(key)) continue;
