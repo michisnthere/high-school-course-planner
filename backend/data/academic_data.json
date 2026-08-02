@@ -7728,14 +7728,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Valid Illinois Instruction Permit obtained through Driver Education",
-            "Parental consent",
-            "Verification of age",
-            "At least 8 credits earned during the previous two semesters",
-            "ELD students must be enrolled in ELD 2 or higher",
-            "Freshmen are not eligible to take the course"
-          ]
+          "prerequisites": []
         },
         {
           "courseCode": "DE232",
@@ -7746,14 +7739,7 @@
             11,
             12
           ],
-          "prerequisites": [
-            "Valid Illinois Instruction Permit obtained through Driver Education",
-            "Parental consent",
-            "Verification of age",
-            "At least 8 credits earned during the previous two semesters",
-            "ELD students must be enrolled in ELD 2 or higher",
-            "Freshmen are not eligible to take the course"
-          ]
+          "prerequisites": []
         }
       ]
     },
