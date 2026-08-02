@@ -1945,6 +1945,86 @@ function AddCourseCard({
   );
 }
 
+function EarlyBirdToggle({
+  isEarlyBird,
+  onChange,
+  height = 28,
+}: {
+  isEarlyBird: boolean;
+  onChange: (isEarlyBird: boolean) => void;
+  height?: number;
+}): React.ReactElement {
+  const segmentStyle = (active: boolean): React.CSSProperties => ({
+    height: "100%",
+    padding: "0 10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: active
+      ? isEarlyBird
+        ? "rgba(236, 186, 43, 0.22)"
+        : "rgba(107, 114, 128, 0.22)"
+      : "transparent",
+    border: "none",
+    cursor: "pointer",
+    color: active ? (isEarlyBird ? "var(--brand-accent)" : "#9ca3af") : "#9ca3af",
+    fontSize: "12px",
+    fontWeight: 800,
+    lineHeight: 1,
+    whiteSpace: "nowrap",
+    transition: "background-color 0.15s ease, color 0.15s ease",
+  });
+
+  return (
+    <div
+      role="group"
+      aria-label="Early Bird"
+      title="Early Bird class (meets before school)"
+      style={{ display: "flex", alignItems: "center", gap: "6px", flex: "0 0 auto" }}
+    >
+      <span style={{ fontSize: "12px", fontWeight: 700, color: "#9ca3af", whiteSpace: "nowrap" }}>
+        🌅 Early Bird
+      </span>
+      <div
+        style={{
+          display: "flex",
+          height: `${height}px`,
+          border: "1px solid",
+          borderColor: isEarlyBird ? "var(--brand-accent)" : "#4b5563",
+          borderRadius: "6px",
+          overflow: "hidden",
+          background: "transparent",
+        }}
+      >
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (isEarlyBird) onChange(false);
+          }}
+          draggable={false}
+          aria-pressed={!isEarlyBird}
+          style={segmentStyle(!isEarlyBird)}
+        >
+          Off
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isEarlyBird) onChange(true);
+          }}
+          draggable={false}
+          aria-pressed={isEarlyBird}
+          style={segmentStyle(isEarlyBird)}
+        >
+          On
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PlannedCourseCard({
   planned,
   warnings,
@@ -2042,36 +2122,11 @@ function PlannedCourseCard({
         {onRemove && (
           <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "0 0 auto" }}>
             {course.supportsEarlyBird && onToggleEarlyBird && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleEarlyBird(!planned.isEarlyBird);
-                }}
-                draggable={false}
-                aria-label="Toggle Early Bird"
-                aria-pressed={planned.isEarlyBird}
-                title="Early Bird class (meets before school)"
-                style={{
-                  height: "28px",
-                  padding: "0 10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: planned.isEarlyBird ? "rgba(236, 186, 43, 0.15)" : "transparent",
-                  border: "1px solid",
-                  borderColor: planned.isEarlyBird ? "var(--brand-accent)" : "#4b5563",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  color: planned.isEarlyBird ? "var(--brand-accent)" : "#9ca3af",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  lineHeight: 1,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {planned.isEarlyBird ? "Early Bird ON" : "Early Bird OFF"}
-              </button>
+              <EarlyBirdToggle
+                isEarlyBird={planned.isEarlyBird}
+                height={28}
+                onChange={(v) => onToggleEarlyBird(v)}
+              />
             )}
             <button
               type="button"
@@ -3005,34 +3060,11 @@ function MobilePlanner({
             {!isCompleted && (
               <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "0 0 auto" }}>
                 {planned.course.supportsEarlyBird && (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleEarlyBird(planned, !planned.isEarlyBird);
-                    }}
-                    aria-label="Toggle Early Bird"
-                    aria-pressed={planned.isEarlyBird}
-                    title="Early Bird class (meets before school)"
-                    style={{
-                      height: "44px",
-                      padding: "0 12px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: planned.isEarlyBird ? "rgba(236, 186, 43, 0.15)" : "transparent",
-                      border: "1px solid",
-                      borderColor: planned.isEarlyBird ? "var(--brand-accent)" : "#4b5563",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                      color: planned.isEarlyBird ? "var(--brand-accent)" : "#9ca3af",
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {planned.isEarlyBird ? "Early Bird ON" : "Early Bird OFF"}
-                  </button>
+                  <EarlyBirdToggle
+                    isEarlyBird={planned.isEarlyBird}
+                    height={44}
+                    onChange={(v) => onToggleEarlyBird(planned, v)}
+                  />
                 )}
                 <button
                   type="button"
