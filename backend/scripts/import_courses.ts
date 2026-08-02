@@ -789,15 +789,6 @@ async function main() {
     const maxDuration = parsedDurations.length > 0 ? Math.max(...parsedDurations) : null;
     const courseDuration = maxDuration === null ? 1 : maxDuration >= 1.5 ? 2 : 1;
 
-    // Early Bird choices (e.g. "Early Bird Option") schedule the same course
-    // before the school day; they share the single planner slot with the regular
-    // offering and must not inflate the slot span.
-    const regularOfferings =
-      Array.isArray(course.choices) && course.choices.length > 0
-        ? course.choices
-            .filter((choice) => !/early\s*bird/i.test(choice.name ?? ""))
-            .flatMap((choice) => choice.offerings ?? [])
-        : (course.offerings ?? []);
     const isOnePointFivePeriodScience =
       (course.division ?? "").toLowerCase() === "science" &&
       ((course.description ?? "").toLowerCase().includes("1.5 period") ||
@@ -806,16 +797,32 @@ async function main() {
     const supportsEarlyBird = course.supportsEarlyBird === true || isOnePointFivePeriodScience;
 
     // Auto-detect slotsPerSemester from offerings if not explicitly set.
-    // Count unique course codes per semester label; the max across semesters is the slot span.
-    // Early Bird offerings are excluded so 1.5-period sciences stay single-slot.
-    if (course.slotsPerSemester == null) {
+    // A course occupies one period per distinct course code it schedules within
+    // a semester. Courses with multiple mutually-exclusive options (e.g. College
+    // Prep vs Accelerated, Regular vs Online, Early Bird vs Regular) are
+    // alternatives a student chooses exactly ONE of, so the span is the largest
+    // span of any single option, not the sum across options. Early Bird
+    // offerings are excluded so they never inflate the span. Only a course that
+    // schedules multiple distinct codes within one option (e.g. American
+    // Studies' English + History periods) is genuinely multi-period.
+    const detectSlotSpan = (offerings: Array<{ semesterLabel?: string | null; courseCode?: string | null }>): number => {
       const perSemester = new Map<string, Set<string>>();
-      for (const o of regularOfferings) {
+      for (const o of offerings) {
         const sem = o.semesterLabel ?? "unknown";
         if (!perSemester.has(sem)) perSemester.set(sem, new Set());
         if (o.courseCode) perSemester.get(sem)!.add(String(o.courseCode));
       }
-      course.slotsPerSemester = Math.max(1, ...Array.from(perSemester.values(), (s) => s.size));
+      return Math.max(1, ...Array.from(perSemester.values(), (s) => s.size));
+    };
+    if (course.slotsPerSemester == null) {
+      if (Array.isArray(course.choices) && course.choices.length > 0) {
+        const spans = course.choices
+          .filter((choice) => !/early\s*bird/i.test(choice.name ?? ""))
+          .map((choice) => detectSlotSpan(choice.offerings ?? []));
+        course.slotsPerSemester = Math.max(1, ...spans);
+      } else {
+        course.slotsPerSemester = detectSlotSpan(course.offerings ?? []);
+      }
     }
     if (isOnePointFivePeriodScience) {
       course.slotsPerSemester = 1;
