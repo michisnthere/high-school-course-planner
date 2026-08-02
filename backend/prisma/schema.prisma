@@ -66,6 +66,7 @@ model Course {
   duration Int?
 
   slotsPerSemester    Int     @default(1)
+  isMultiPeriod       Boolean @default(false)
   attributes          Json    @default("[]")
   fulfillsRequirements Json   @default("[]")
   requirementCredits  Json    @default("{}")

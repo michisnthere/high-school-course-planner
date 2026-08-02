@@ -104,6 +104,7 @@ type CourseInput = {
   creditType?: string | null;
   credits?: number | null;
   slotsPerSemester?: number | null;
+  isMultiPeriod?: boolean;
   fulfillsRequirements?: string[];
   requirementCredits?: Record<string, number>;
   isRepeatable?: boolean;
@@ -796,15 +797,14 @@ async function main() {
         (course.credits != null && course.credits > 1 && course.credits < 2));
     const supportsEarlyBird = course.supportsEarlyBird === true || isOnePointFivePeriodScience;
 
-    // Auto-detect slotsPerSemester from offerings if not explicitly set.
-    // A course occupies one period per distinct course code it schedules within
-    // a semester. Courses with multiple mutually-exclusive options (e.g. College
-    // Prep vs Accelerated, Regular vs Online, Early Bird vs Regular) are
-    // alternatives a student chooses exactly ONE of, so the span is the largest
-    // span of any single option, not the sum across options. Early Bird
-    // offerings are excluded so they never inflate the span. Only a course that
-    // schedules multiple distinct codes within one option (e.g. American
-    // Studies' English + History periods) is genuinely multi-period.
+    // Multi-period scheduling is an explicit catalog property (isMultiPeriod),
+    // never inferred from offerings, credits, options, or duration. A course is
+    // either designated as occupying multiple consecutive planner periods, or it
+    // occupies exactly one. Delivery options (College Prep vs Accelerated,
+    // Regular vs Online, Early Bird vs Regular) are alternatives a student
+    // chooses exactly ONE of and must never inflate the slot span, so the span
+    // of a designated multi-period course is computed only from its own
+    // schedule within a single option. Early Bird offerings are excluded.
     const detectSlotSpan = (offerings: Array<{ semesterLabel?: string | null; courseCode?: string | null }>): number => {
       const perSemester = new Map<string, Set<string>>();
       for (const o of offerings) {
@@ -815,13 +815,16 @@ async function main() {
       return Math.max(1, ...Array.from(perSemester.values(), (s) => s.size));
     };
     if (course.slotsPerSemester == null) {
-      if (Array.isArray(course.choices) && course.choices.length > 0) {
-        const spans = course.choices
-          .filter((choice) => !/early\s*bird/i.test(choice.name ?? ""))
-          .map((choice) => detectSlotSpan(choice.offerings ?? []));
-        course.slotsPerSemester = Math.max(1, ...spans);
+      if (course.isMultiPeriod) {
+        const schedule =
+          Array.isArray(course.choices) && course.choices.length > 0
+            ? course.choices
+                .filter((choice) => !/early\s*bird/i.test(choice.name ?? ""))
+                .flatMap((choice) => choice.offerings ?? [])
+            : (course.offerings ?? []);
+        course.slotsPerSemester = detectSlotSpan(schedule);
       } else {
-        course.slotsPerSemester = detectSlotSpan(course.offerings ?? []);
+        course.slotsPerSemester = 1;
       }
     }
     if (isOnePointFivePeriodScience) {

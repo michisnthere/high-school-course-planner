@@ -33,6 +33,7 @@ export type Course = {
   description?: string | null;
   duration?: number | null;
   slotsPerSemester?: number;
+  isMultiPeriod?: boolean;
   notes?: string[];
   attributes?: string[];
   fulfillsRequirements?: string[];
