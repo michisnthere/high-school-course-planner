@@ -129,6 +129,15 @@ export function createGuestPlannerService(): IPlannerService {
         if (earlyBird && !courseDetails.supportsEarlyBird) {
           throw new Error("Early Bird is only available for 1.5-period science courses.");
         }
+        if (earlyBird) {
+          const ebSemesters = courseDetails.duration === 2 ? [1, 2] : [semester];
+          const hasOtherEb = planner.plannedCourses.some(
+            (pc) => pc.isEarlyBird && pc.courseId !== courseIdOrItem && ebSemesters.includes(pc.semester)
+          );
+          if (hasOtherEb) {
+            throw new Error("You may only take one Early Bird course each semester.");
+          }
+        }
 
         if (semester != null && semester === 3) {
           const entry: PlannedCourse = {

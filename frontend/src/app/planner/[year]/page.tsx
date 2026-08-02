@@ -451,9 +451,9 @@ function PlannerYearContent(): React.ReactElement {
         : null;
       if (assertDriverEdExternalConflict(plannedCourse)) return;
       if (plannedCourse && isApScience(plannedCourse)) {
-        const existingApScience = allPlanners
-          .flatMap((p) => p.plannedCourses)
-          .filter((pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird);
+        const existingApScience = planner.plannedCourses.filter(
+          (pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird
+        );
         if (existingApScience.length > 0) {
           showToast("Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.", "warning");
           return;
@@ -1514,11 +1514,13 @@ function PlannerYearContent(): React.ReactElement {
               setEarlyBirdPending(null);
               if (!planner) return;
               const semester = pending.semester;
+              const currentYearPlanner = allPlanners.find((p) => p.id === pending.plannerId);
               try {
                 if (isEarlyBird) {
-                  const existingEB = allPlanners
-                    .flatMap((p) => p.plannedCourses)
-                    .filter((pc) => pc.semester === semester && pc.isEarlyBird);
+                  const existingEB =
+                    currentYearPlanner?.plannedCourses.filter(
+                      (pc) => pc.semester === semester && pc.isEarlyBird
+                    ) ?? [];
                   if (existingEB.length > 0) {
                     showToast("You may only take one Early Bird course each semester.", "warning");
                     return;
@@ -1530,9 +1532,10 @@ function PlannerYearContent(): React.ReactElement {
                   : null;
                 if (assertDriverEdExternalConflict(plannedCourse)) return;
                 if (!isEarlyBird && plannedCourse && isApScience(plannedCourse)) {
-                  const existingApScience = allPlanners
-                    .flatMap((p) => p.plannedCourses)
-                    .filter((pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird);
+                  const existingApScience =
+                    currentYearPlanner?.plannedCourses.filter(
+                      (pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird
+                    ) ?? [];
                   if (existingApScience.length > 0) {
                     showToast("Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.", "warning");
                     return;

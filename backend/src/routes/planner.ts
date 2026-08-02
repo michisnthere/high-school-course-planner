@@ -961,7 +961,7 @@ router.patch("/courses/:id/early-bird", requireAuth, asyncHandler(async (req, re
     const targetSemesters = sourceDuration === 2 ? [1, 2] : [plannedCourse.semester];
     const otherEb = await prisma.plannedCourse.findFirst({
       where: {
-        planner: { userId },
+        plannerId: plannedCourse.plannerId,
         isEarlyBird: true,
         courseId: { not: plannedCourse.courseId },
         semester: { in: targetSemesters },
