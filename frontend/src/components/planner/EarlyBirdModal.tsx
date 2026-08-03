@@ -125,7 +125,7 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
               cursor: "pointer",
             }}
           >
-            Early Bird
+            🐦 Early Bird
           </button>
         </div>
       </div>

@@ -1967,12 +1967,12 @@ function EarlyBirdToggle({
     justifyContent: "center",
     background: active
       ? isEarlyBird
-        ? "rgba(236, 186, 43, 0.22)"
-        : "rgba(107, 114, 128, 0.22)"
+        ? "var(--brand-accent)"
+        : "#6b7280"
       : "transparent",
     border: "none",
     cursor: "pointer",
-    color: active ? (isEarlyBird ? "var(--brand-accent)" : "#9ca3af") : "#9ca3af",
+    color: active ? (isEarlyBird ? "#111827" : "#ffffff") : "#9ca3af",
     fontSize: "12px",
     fontWeight: 800,
     lineHeight: 1,
@@ -1988,17 +1988,15 @@ function EarlyBirdToggle({
       style={{ display: "flex", alignItems: "center", gap: "6px", flex: "0 0 auto" }}
     >
       <span style={{ fontSize: "12px", fontWeight: 700, color: "#9ca3af", whiteSpace: "nowrap" }}>
-        🌅 Early Bird
+        🐦 Early Bird
       </span>
       <div
         style={{
           display: "flex",
           height: `${height}px`,
-          border: "1px solid",
-          borderColor: isEarlyBird ? "var(--brand-accent)" : "#4b5563",
+          backgroundColor: "#1f2937",
           borderRadius: "6px",
           overflow: "hidden",
-          background: "transparent",
         }}
       >
         <button
@@ -2198,12 +2196,13 @@ function PlannedCourseCard({
           <span
             style={{
               padding: "4px 10px",
-              backgroundColor: "rgba(236, 186, 43, 0.15)",
+              backgroundColor: "var(--brand-accent)",
+              color: "#111827",
               borderRadius: "9999px",
-              fontWeight: 600,
+              fontWeight: 700,
             }}
           >
-            Early Bird
+            🐦 Early Bird
           </span>
         )}
         {course.creditType && (
@@ -3105,8 +3104,8 @@ function MobilePlanner({
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
           {planned.isEarlyBird && (
-            <span style={{ padding: "3px 8px", background: "rgba(236, 186, 43, 0.15)", borderRadius: "9999px", fontWeight: 600 }}>
-              Early Bird
+            <span style={{ padding: "3px 8px", background: "var(--brand-accent)", color: "#111827", borderRadius: "9999px", fontWeight: 700 }}>
+              🐦 Early Bird
             </span>
           )}
           {planned.course.creditType && (
