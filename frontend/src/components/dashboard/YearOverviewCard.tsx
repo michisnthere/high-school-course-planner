@@ -100,29 +100,48 @@ export function YearOverviewCard({
       <style>{`
         .yoc-header {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
           align-items: center;
+          flex-wrap: wrap;
+          gap: 12px;
           margin-bottom: 20px;
         }
         .yoc-header-actions {
           display: flex;
           align-items: center;
           gap: 12px;
+          order: 2;
         }
-        @media (max-width: ${breakpoints.tablet - 1}px) {
-          .yoc-header {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 12px;
+        .yoc-badge-row {
+          display: flex;
+          align-items: center;
+          order: 1;
+          margin-left: auto;
+        }
+        @media (min-width: ${breakpoints.mobile}px) and (max-width: 1199px) {
+          .yoc-badge-row {
+            order: 2;
+            margin-left: 0;
+            flex-basis: 100%;
+          }
+          .yoc-header-actions {
+            order: 1;
+            margin-left: auto;
           }
         }
-        @media (min-width: ${breakpoints.tablet}px) and (max-width: 1199px) {
-          .yoc-header {
-            flex-wrap: wrap;
-          }
+        @media (max-width: ${breakpoints.mobile - 1}px) {
           .yoc-header > h2 {
-            width: 100%;
+            flex-basis: 100%;
             flex-shrink: 0;
+          }
+          .yoc-badge-row {
+            order: 1;
+            margin-left: 0;
+            flex-basis: auto;
+          }
+          .yoc-header-actions {
+            order: 2;
+            margin-left: 0;
           }
         }
       `}</style>
@@ -143,33 +162,29 @@ export function YearOverviewCard({
           {label}
         </h2>
         <div className="yoc-header-actions">
-          {!isCompleted && <span style={badgeStyle}>{badgeLabel}</span>}
           {isCompleted ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-              <span style={successBadge}>✓ Year Completed</span>
-              <Link
-                href={`/planner/${planner.schoolYear}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "44px",
-                  padding: "10px 20px",
-                  fontSize: "15px",
-                  fontWeight: 700,
-                  color: "#ffffff",
-                  backgroundColor: "var(--brand-accent)",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  gap: "4px",
-                }}
-              >
-                View Planner →
-              </Link>
-            </div>
+            <Link
+              href={`/planner/${planner.schoolYear}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "44px",
+                padding: "10px 20px",
+                fontSize: "15px",
+                fontWeight: 700,
+                color: "#ffffff",
+                backgroundColor: "var(--brand-accent)",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                gap: "4px",
+              }}
+            >
+              View Planner →
+            </Link>
           ) : (
             <Link
               href={`/planner/${planner.schoolYear}`}
@@ -193,6 +208,13 @@ export function YearOverviewCard({
             >
               Edit Planner →
             </Link>
+          )}
+        </div>
+        <div className="yoc-badge-row">
+          {isCompleted ? (
+            <span style={successBadge}>✓ Year Completed</span>
+          ) : (
+            <span style={badgeStyle}>{badgeLabel}</span>
           )}
         </div>
       </div>
