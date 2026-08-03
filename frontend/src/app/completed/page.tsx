@@ -11,12 +11,12 @@ import {
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 import { formatCredits } from "@/lib/courseCredits";
 import {
-  ACADEMIC_PERIODS,
   FILTER_ORDER,
   filterCompletedCoursesByPeriod,
   getAcademicPeriodLabel,
   groupCompletedCoursesByPeriod,
   type CompletedCourseFilter,
+  type CompletedCourseGroup,
 } from "@/lib/completedCoursePeriods";
 import { getDivisionColor, getDivisionBackgroundColor } from "@/lib/divisionColors";
 import { breakpoints } from "@/lib/responsive";
@@ -359,8 +359,18 @@ function CompletedCoursesContent(): React.ReactElement {
                             textAlign: "left",
                           }}
                         >
-                          <div>
-                            <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "var(--text-primary)" }}>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <h2
+                              style={{
+                                margin: 0,
+                                fontSize: "18px",
+                                fontWeight: 700,
+                                color: group.isSummer ? "var(--brand-accent)" : "var(--text-primary)",
+                                lineHeight: 1.3,
+                                overflowWrap: "break-word",
+                                wordBreak: "break-word",
+                              }}
+                            >
                               {group.label}
                             </h2>
                             <p style={{ margin: "4px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
@@ -374,6 +384,7 @@ function CompletedCoursesContent(): React.ReactElement {
                               fontSize: "14px",
                               transform: isCollapsed ? "rotate(0deg)" : "rotate(90deg)",
                               transition: "transform 160ms ease",
+                              flexShrink: 0,
                             }}
                           >
                             ▶
@@ -381,29 +392,80 @@ function CompletedCoursesContent(): React.ReactElement {
                         </button>
 
                         {!isCollapsed && (
-                          <div style={{ display: "flex", flexDirection: "column", gap: "10px", padding: "0 16px 16px" }}>
-                            {group.courses.length === 0 ? (
-                              <p style={{ margin: 0, padding: "4px 0", fontSize: "14px", color: "var(--text-muted)" }}>
-                                No courses recorded.
-                              </p>
-                            ) : (
-                              group.courses.map((cc) => (
-                                <CompletedCourseCard
-                                  key={cc.id}
-                                  course={cc}
-                                  editingId={editingId}
-                                  editGrade={editGrade}
-                                  onEditGrade={setEditGrade}
-                                  onStartEdit={() => {
-                                    setEditingId(cc.id);
-                                    setEditGrade(cc.gradeCompleted);
-                                  }}
-                                  onCancelEdit={() => setEditingId(null)}
-                                  onSave={() => handleUpdate(cc.id)}
-                                  onRemove={() => handleRemove(cc.id)}
-                                />
-                              ))
-                            )}
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: group.isSummer ? "12px" : "10px",
+                              padding: "0 16px 16px",
+                            }}
+                          >
+                            {group.isSummer && group.summerSubSections
+                              ? group.summerSubSections.map((sub) => (
+                                  <div key={sub.yearLabel}>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "baseline",
+                                        gap: "8px",
+                                        marginBottom: "8px",
+                                      }}
+                                    >
+                                      <h3
+                                        style={{
+                                          margin: 0,
+                                          fontSize: "15px",
+                                          fontWeight: 700,
+                                          color: "var(--text-secondary)",
+                                        }}
+                                      >
+                                        {sub.yearLabel}
+                                      </h3>
+                                      <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+                                        {sub.courses.length} {sub.courses.length === 1 ? "course" : "courses"}
+                                      </span>
+                                    </div>
+                                    {sub.courses.map((cc) => (
+                                      <CompletedCourseCard
+                                        key={cc.id}
+                                        course={cc}
+                                        editingId={editingId}
+                                        editGrade={editGrade}
+                                        onEditGrade={setEditGrade}
+                                        onStartEdit={() => {
+                                          setEditingId(cc.id);
+                                          setEditGrade(cc.gradeCompleted);
+                                        }}
+                                        onCancelEdit={() => setEditingId(null)}
+                                        onSave={() => handleUpdate(cc.id)}
+                                        onRemove={() => handleRemove(cc.id)}
+                                      />
+                                    ))}
+                                  </div>
+                                ))
+                              : group.courses.length === 0
+                              ? (
+                                <p style={{ margin: 0, padding: "4px 0", fontSize: "14px", color: "var(--text-muted)" }}>
+                                  No courses recorded.
+                                </p>
+                              )
+                              : group.courses.map((cc) => (
+                                  <CompletedCourseCard
+                                    key={cc.id}
+                                    course={cc}
+                                    editingId={editingId}
+                                    editGrade={editGrade}
+                                    onEditGrade={setEditGrade}
+                                    onStartEdit={() => {
+                                      setEditingId(cc.id);
+                                      setEditGrade(cc.gradeCompleted);
+                                    }}
+                                    onCancelEdit={() => setEditingId(null)}
+                                    onSave={() => handleUpdate(cc.id)}
+                                    onRemove={() => handleRemove(cc.id)}
+                                  />
+                                ))}
                           </div>
                         )}
                       </section>

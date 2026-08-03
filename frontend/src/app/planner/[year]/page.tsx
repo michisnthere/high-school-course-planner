@@ -3203,6 +3203,32 @@ function MobilePlanner({
 
   return (
     <>
+      <div style={{ marginBottom: "16px" }}>
+        <button
+          type="button"
+          className="mob-summary-toggle"
+          onClick={() => setShowSummary((s) => !s)}
+        >
+          <span>Planner Summary</span>
+          <span style={{ fontSize: "18px", transition: "transform 0.2s", transform: showSummary ? "rotate(180deg)" : "rotate(0deg)" }}>
+            ▼
+          </span>
+        </button>
+        {showSummary && (
+          <div style={{ marginTop: "12px" }}>
+            <SummarySidebar
+              planners={allPlanners}
+              currentYear={year}
+              resolutions={resolutions}
+              plannerAnalysis={plannerAnalysis}
+              completedCourses={completedCourses}
+              onAddResolution={onAddResolution}
+              onRemoveResolution={onRemoveResolution}
+            />
+          </div>
+        )}
+      </div>
+
       {renderSemester(1, 0)}
       {renderSemester(2, 1)}
 
@@ -3229,32 +3255,6 @@ function MobilePlanner({
           </button>
         </div>
       )}
-
-      <div style={{ marginTop: "16px" }}>
-        <button
-          type="button"
-          className="mob-summary-toggle"
-          onClick={() => setShowSummary((s) => !s)}
-        >
-          <span>Planner Summary</span>
-          <span style={{ fontSize: "18px", transition: "transform 0.2s", transform: showSummary ? "rotate(180deg)" : "rotate(0deg)" }}>
-            ▼
-          </span>
-        </button>
-        {showSummary && (
-          <div style={{ marginTop: "12px" }}>
-            <SummarySidebar
-              planners={allPlanners}
-              currentYear={year}
-              resolutions={resolutions}
-              plannerAnalysis={plannerAnalysis}
-              completedCourses={completedCourses}
-              onAddResolution={onAddResolution}
-              onRemoveResolution={onRemoveResolution}
-            />
-          </div>
-        )}
-      </div>
 
       {!isCompleted && (
         <button

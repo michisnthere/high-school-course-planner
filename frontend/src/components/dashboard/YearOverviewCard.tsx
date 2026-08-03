@@ -110,7 +110,7 @@ export function YearOverviewCard({
           align-items: center;
           gap: 12px;
         }
-        @media (max-width: ${breakpoints.mobile - 1}px) {
+        @media (max-width: ${breakpoints.tablet - 1}px) {
           .yoc-header {
             flex-direction: column;
             align-items: stretch;
