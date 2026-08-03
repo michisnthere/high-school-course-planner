@@ -321,13 +321,34 @@ function buildPlacements(planners: Planner[], allCourses: PlannerCourseDetails[]
   return placements;
 }
 
-function computeCredits(placements: CoursePlacement[]) {
+// Completed courses (including summer school / middle school) are coursework the
+// student has already finished. They count toward graduation requirements and
+// overall credits, but must NOT influence year-specific planner requirements
+// (course load, PE breakdown, grade 9-12 checks), so they are only merged into
+// the credit-source lists used by graduation/credit math.
+function buildCompletedCoursePlacements(completedCourses: CompletedCourse[]): CoursePlacement[] {
+  return completedCourses.map((cc, index) => {
+    const course = toAnalysisCourse(cc.course);
+    return {
+      plannedCourseId: -(cc.id || index + 1),
+      year: 0,
+      semester: 0,
+      slot: -1,
+      course,
+      credits: cc.credits ?? course.credits,
+      isNonAcademic: false,
+    };
+  });
+}
+
+function computeCredits(placements: CoursePlacement[], completedCourses: CompletedCourse[] = []) {
+  const creditSources = [...placements, ...buildCompletedCoursePlacements(completedCourses)];
   let total = 0;
   const byRequirementCategory: Record<string, number> = {};
   const byDivision: Record<string, number> = {};
   const seen = new Set<string>();
 
-  for (const placement of placements) {
+  for (const placement of creditSources) {
     if (!placement.course || placement.isNonAcademic) continue;
     const key = getBackendPlacementKey(placement);
     if (seen.has(key)) continue;
@@ -346,11 +367,13 @@ function computeCredits(placements: CoursePlacement[]) {
 
 function computeGraduationRequirements(
   placements: CoursePlacement[],
+  completedCourses: CompletedCourse[] = [],
   resolutions: ResolutionInfo[] = []
 ): PlannerAnalysis["graduationRequirements"] {
+  const creditSources = [...placements, ...buildCompletedCoursePlacements(completedCourses)];
   const courseIdToCredits = new Map<number, number>();
   const seen = new Set<string>();
-  for (const placement of placements) {
+  for (const placement of creditSources) {
     if (!placement.course || placement.isNonAcademic) continue;
     const key = getBackendPlacementKey(placement);
     if (seen.has(key)) continue;
@@ -371,7 +394,7 @@ function computeGraduationRequirements(
   }
 
   const courseFulfillsMap = new Map<number, Set<string>>();
-  for (const placement of placements) {
+  for (const placement of creditSources) {
     if (!placement.course || placement.isNonAcademic) continue;
     if (!courseFulfillsMap.has(placement.course.id)) {
       courseFulfillsMap.set(placement.course.id, new Set());
@@ -385,7 +408,7 @@ function computeGraduationRequirements(
 
   let nextId = -1;
   const courseUsedByAnyRequirement = new Set<number>();
-  const courseAllocatedCredits = buildCourseAllocatedCredits(placements, resolutions, courseFulfillsMap);
+  const courseAllocatedCredits = buildCourseAllocatedCredits(creditSources, resolutions, courseFulfillsMap);
 
   const results = GRADUATION_REQUIREMENTS.filter((req) => req.isMeasurable && req.requiredValue > 0).map((req) => {
     const canonicalName = canonicalRequirementName(req.name);
@@ -772,7 +795,7 @@ function computeRecommendations(
 export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalysis {
   const placements = buildPlacements(data.planners, data.allCourses);
 
-  const graduationRequirements = computeGraduationRequirements(placements, data.resolutions);
+  const graduationRequirements = computeGraduationRequirements(placements, data.completedCourses, data.resolutions);
 
   const recommendations = computeRecommendations(graduationRequirements, placements, data.completedCourses, data.allCourses);
   for (const req of graduationRequirements) {
@@ -783,7 +806,7 @@ export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalys
   }
 
   return {
-    credits: computeCredits(placements),
+    credits: computeCredits(placements, data.completedCourses),
     graduationRequirements,
     informationItems: [],
     yearRequirements: computeYearRequirements(placements),

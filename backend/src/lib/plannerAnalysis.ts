@@ -424,6 +424,11 @@ async function loadCompletedCourses(userId: number): Promise<CompletedCourseWith
     include: {
       course: {
         include: {
+          department: {
+            include: {
+              division: true,
+            },
+          },
           options: {
             include: {
               offerings: true,
@@ -442,13 +447,34 @@ function getBackendPlacementKey(p: CoursePlacement): string {
   return `sem:${p.course!.id}:${p.slot}:${p.semester}`;
 }
 
-function computeCredits(placements: CoursePlacement[]) {
+// Completed courses (including summer school / middle school) are coursework the
+// student has already finished. They count toward graduation requirements and
+// overall credits, but must NOT influence year-specific planner requirements
+// (course load, PE breakdown, grade 9-12 checks), so they are only merged into
+// the credit-source lists used by graduation/credit math.
+function buildCompletedCoursePlacements(completedCourses: CompletedCourseWithCourse[]): CoursePlacement[] {
+  return completedCourses.map((cc, index) => {
+    const course = toAnalysisCourse(cc.course);
+    return {
+      plannedCourseId: -(cc.id || index + 1),
+      year: 0,
+      semester: 0,
+      slot: -1,
+      course,
+      plannerOption: null,
+      credits: cc.credits ?? course.credits,
+    };
+  });
+}
+
+function computeCredits(placements: CoursePlacement[], completedCourses: CompletedCourseWithCourse[] = []) {
+  const creditSources = [...placements, ...buildCompletedCoursePlacements(completedCourses)];
   let total = 0;
   const byRequirementCategory: Record<string, number> = {};
   const byDivision: Record<string, number> = {};
   const seen = new Set<string>();
 
-  for (const placement of placements) {
+  for (const placement of creditSources) {
     const course = placement.course;
     if (!course) continue;
 
@@ -504,11 +530,13 @@ function computeGraduationRequirements(
   requirements: GraduationRequirement[],
   courseRequirementLinks: Map<number, Set<number>>,
   placements: CoursePlacement[],
+  completedCourses: CompletedCourseWithCourse[] = [],
   resolutions: ResolutionInfo[] = []
 ): RequirementStatus[] {
+  const creditSources = [...placements, ...buildCompletedCoursePlacements(completedCourses)];
   const courseIdToCredits = new Map<number, number>();
   const seen = new Set<string>();
-  for (const placement of placements) {
+  for (const placement of creditSources) {
     if (!placement.course) continue;
     const key = getBackendPlacementKey(placement);
     if (seen.has(key)) continue;
@@ -544,7 +572,7 @@ function computeGraduationRequirements(
 
   // Build courseId → fulfills canonical names
   const courseFulfillsMap = new Map<number, Set<string>>();
-  for (const placement of placements) {
+  for (const placement of creditSources) {
     if (!placement.course) continue;
     if (!courseFulfillsMap.has(placement.course.id)) {
       courseFulfillsMap.set(placement.course.id, new Set());
@@ -557,7 +585,7 @@ function computeGraduationRequirements(
   const OVERFLOW_NAMES = new Set(["Electives", "Additional Credits and P.E.", "Total Credits"]);
 
   const courseUsedByAnyRequirement = new Set<number>();
-  const courseAllocatedCredits = buildCourseAllocatedCredits(placements, resolutions, courseFulfillsMap);
+  const courseAllocatedCredits = buildCourseAllocatedCredits(creditSources, resolutions, courseFulfillsMap);
 
   const results = Array.from(canonicalByName.values()).map((req) => {
     const required = req.requiredValue ?? 0;
@@ -1154,7 +1182,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
       loadResolutions(userId),
     ]);
 
-  const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, resolutions);
+  const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, completedCourses, resolutions);
 
   const grCategoryChildren = new Map<string, Set<string>>();
   for (const req of requirements) {
@@ -1174,7 +1202,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   }
 
   return {
-    credits: computeCredits(placements),
+    credits: computeCredits(placements, completedCourses),
     graduationRequirements,
     informationItems: toInformationItems(requirements),
     yearRequirements: computeYearRequirements(placements, grCategoryChildren),

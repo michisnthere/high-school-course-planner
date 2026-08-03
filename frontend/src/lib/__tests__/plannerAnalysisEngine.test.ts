@@ -284,6 +284,47 @@ describe("computePlannerAnalysis", () => {
     expect(result.missingPrerequisites).toHaveLength(0);
   });
 
+  it("completed summer school course counts toward graduation requirements", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const completed = [makeCompleted(usHistory, "Junior Summer")];
+    const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+    const usHistoryReq = result.graduationRequirements.find((r) => r.name === "U.S. History")!;
+    expect(usHistoryReq.earnedValue).toBe(2);
+    expect(usHistoryReq.requiredValue).toBe(2);
+    expect(usHistoryReq.status).toBe("satisfied");
+    // Completed courses must not count toward year-specific requirements.
+    const year11 = result.yearRequirements.find((y) => y.grade === 11)!;
+    expect(year11.items.find((i) => i.category === "U.S. History")!.met).toBe(false);
+    // And must not count toward PE semester requirements.
+    expect(result.peSemesterBreakdown.every((s) => s.met === false)).toBe(true);
+  });
+
+  it("regular-grade completed course counts toward graduation requirements", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const completed = [makeCompleted(algebra, "Freshman (9)")];
+    const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+    const math = result.graduationRequirements.find((r) => r.name === "Mathematics")!;
+    expect(math.earnedValue).toBe(2);
+    expect(math.status).toBe("partial");
+  });
+
+  it("completed course counts toward overall credits but not planner course load", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const completed = [makeCompleted(algebra, "Summer School")];
+    const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+    expect(result.credits.total).toBe(2);
+    expect(result.plannerStatistics.coursesScheduled).toBe(0);
+    expect(result.plannerStatistics.freeSlotsRemaining).toBe(56);
+  });
+
+  it("completed course satisfies a category-level graduation requirement", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const completed = [makeCompleted(usHistory, "Summer School")];
+    const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+    const socialStudies = result.graduationRequirements.find((r) => r.name === "Social Studies")!;
+    expect(socialStudies.earnedValue).toBe(2);
+  });
+
   it("planner statistics are correct", () => {
     const planners = [
       makePlanner(9, [makePlanned(algebra, 1, 1, 1)]),
@@ -399,7 +440,7 @@ describe("computePlannerAnalysis", () => {
     expect(y9.totalCount).toBe(3);
   });
 
-  it("completed courses do not count toward graduation credit totals (only planner placements do)", () => {
+  it("completed courses count toward graduation credit totals like planner placements", () => {
     // A course in the planner earns credits
     const guestPlanners = [
       makePlanner(9, [makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1)]),
@@ -408,11 +449,11 @@ describe("computePlannerAnalysis", () => {
     const guestResult = computePlannerAnalysis({ planners: guestPlanners, completedCourses: [], resolutions: [], allCourses });
     expect(guestResult.credits.byRequirementCategory["Mathematics"]).toBe(2);
 
-    // Same course as completed (not in planner) does NOT earn credits
+    // The same course marked completed (not in planner) earns the same credits
     const authPlanners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
     const authCompleted = [makeCompleted(algebra, "Freshman (9)")];
     const authResult = computePlannerAnalysis({ planners: authPlanners, completedCourses: authCompleted, resolutions: [], allCourses });
-    expect(authResult.credits.byRequirementCategory["Mathematics"]).toBeUndefined();
+    expect(authResult.credits.byRequirementCategory["Mathematics"]).toBe(2);
 
     // Completed courses DO satisfy prerequisites (tested separately above)
   });

@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Course } from "@/types/course";
 import { formatCreditType } from "@/lib/catalog";
 import { SaveCourseButton } from "./SaveCourseButton";
+import { MarkCompletedButton } from "./MarkCompletedButton";
 
 type CourseDetailHeaderProps = {
   course: Course;
@@ -141,6 +142,7 @@ export function CourseDetailHeader({ course, returnUrl, fromRequirement }: Cours
         )}
 
         <SaveCourseButton course={course} />
+        <MarkCompletedButton course={course} />
       </div>
     </div>
   );
