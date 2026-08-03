@@ -26,7 +26,7 @@ import {
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import { sumPlannedCredits, formatCredits, effectiveSlotSpan } from "@/lib/courseCredits";
-import { calculatePlannerOccupancy, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
+import { calculatePlannerOccupancy, SLOTS_PER_SEMESTER, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
 import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -973,30 +973,6 @@ function PlannerYearContent(): React.ReactElement {
         .mob-add-btn:active {
           border-color: #6b7280;
           color: #d1d5db;
-        }
-        .mob-fab {
-          position: fixed;
-          bottom: calc(24px + var(--safe-area-bottom, 0px));
-          right: 24px;
-          width: 56px;
-          height: 56px;
-          border-radius: 50%;
-          background: var(--brand-accent);
-          border: none;
-          color: #111827;
-          font-size: 28px;
-          font-weight: 700;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-          cursor: pointer;
-          z-index: 30;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .mob-fab:active {
-          transform: scale(0.95);
-          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .mob-semester-section {
           display: flex;
@@ -3172,6 +3148,8 @@ function MobilePlanner({
 
   const renderSemester = (semester: number, semesterIdx: number) => {
     const courses = sortedCourses[semesterIdx];
+    const semesterFilledSlots = courses.reduce((sum, pc) => sum + effectiveSlotSpan(pc), 0);
+    const isSemesterFull = semesterFilledSlots >= SLOTS_PER_SEMESTER;
     return (
       <div key={semester} className="mob-semester-section">
         <div className="mob-planner-semester">
@@ -3186,7 +3164,7 @@ function MobilePlanner({
             {courses.map((pc) => renderCourseCard(pc, semesterIdx))}
           </div>
         )}
-        {!isCompleted && (
+        {!isCompleted && !isSemesterFull && (
           <button
             type="button"
             className="mob-add-btn"
@@ -3256,16 +3234,6 @@ function MobilePlanner({
         </div>
       )}
 
-      {!isCompleted && (
-        <button
-          type="button"
-          className="mob-fab"
-          onClick={() => onOpenModal(1)}
-          aria-label="Add course"
-        >
-          +
-        </button>
-      )}
     </>
   );
 }

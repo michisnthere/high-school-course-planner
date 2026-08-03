@@ -94,8 +94,7 @@ export function YearOverviewCard({
         border: "1px solid var(--border-default)",
         borderRadius: "16px",
         minWidth: 0,
-        overflow: "hidden",
-        wordBreak: "break-word",
+        overflowWrap: "break-word",
       }}
     >
       <style>{`
@@ -127,6 +126,9 @@ export function YearOverviewCard({
             fontSize: "22px",
             fontWeight: 700,
             color: "var(--text-primary)",
+            whiteSpace: "nowrap",
+            overflow: "visible",
+            flexShrink: 0,
           }}
         >
           {label}
