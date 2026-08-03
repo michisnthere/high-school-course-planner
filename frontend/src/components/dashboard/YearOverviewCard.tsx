@@ -116,6 +116,15 @@ export function YearOverviewCard({
             gap: 12px;
           }
         }
+        @media (min-width: ${breakpoints.tablet}px) and (max-width: 1199px) {
+          .yoc-header {
+            flex-wrap: wrap;
+          }
+          .yoc-header > h2 {
+            width: 100%;
+            flex-shrink: 0;
+          }
+        }
       `}</style>
 
       {/* Header row */}
