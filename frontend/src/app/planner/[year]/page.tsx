@@ -1959,26 +1959,7 @@ function EarlyBirdToggle({
   onChange: (isEarlyBird: boolean) => void;
   height?: number;
 }): React.ReactElement {
-  const segmentStyle = (active: boolean): React.CSSProperties => ({
-    height: "100%",
-    padding: "0 10px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: active
-      ? isEarlyBird
-        ? "var(--brand-accent)"
-        : "#6b7280"
-      : "transparent",
-    border: "none",
-    cursor: "pointer",
-    color: active ? (isEarlyBird ? "#111827" : "#ffffff") : "#9ca3af",
-    fontSize: "12px",
-    fontWeight: 800,
-    lineHeight: 1,
-    whiteSpace: "nowrap",
-    transition: "background-color 0.15s ease, color 0.15s ease",
-  });
+  const thumbSize = Math.max(16, height - 10);
 
   return (
     <div
@@ -1988,42 +1969,43 @@ function EarlyBirdToggle({
       style={{ display: "flex", alignItems: "center", gap: "6px", flex: "0 0 auto" }}
     >
       <span style={{ fontSize: "12px", fontWeight: 700, color: "#9ca3af", whiteSpace: "nowrap" }}>
-        🐦 Early Bird
+        🐤 Early Bird
       </span>
-      <div
+      <button
+        type="button"
+        role="switch"
+        aria-checked={isEarlyBird}
+        onClick={(e) => {
+          e.stopPropagation();
+          onChange(!isEarlyBird);
+        }}
+        draggable={false}
         style={{
           display: "flex",
+          alignItems: "center",
+          justifyContent: isEarlyBird ? "flex-end" : "flex-start",
+          width: 48,
           height: `${height}px`,
-          backgroundColor: "#1f2937",
-          borderRadius: "6px",
-          overflow: "hidden",
+          padding: 4,
+          boxSizing: "border-box",
+          borderRadius: 9999,
+          backgroundColor: isEarlyBird ? "var(--brand-accent)" : "#ffffff",
+          border: isEarlyBird ? "1px solid var(--brand-accent)" : "1px solid #d1d5db",
+          cursor: "pointer",
+          transition: "background-color 0.15s ease, border-color 0.15s ease",
         }}
       >
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            if (isEarlyBird) onChange(false);
+        <span
+          style={{
+            width: thumbSize,
+            height: thumbSize,
+            borderRadius: 9999,
+            backgroundColor: "#ffffff",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.25)",
+            transition: "transform 0.15s ease",
           }}
-          draggable={false}
-          aria-pressed={!isEarlyBird}
-          style={segmentStyle(!isEarlyBird)}
-        >
-          Off
-        </button>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            if (!isEarlyBird) onChange(true);
-          }}
-          draggable={false}
-          aria-pressed={isEarlyBird}
-          style={segmentStyle(isEarlyBird)}
-        >
-          On
-        </button>
-      </div>
+        />
+      </button>
     </div>
   );
 }
@@ -2202,7 +2184,7 @@ function PlannedCourseCard({
               fontWeight: 700,
             }}
           >
-            🐦 Early Bird
+            🐤 Early Bird
           </span>
         )}
         {course.creditType && (
@@ -3105,7 +3087,7 @@ function MobilePlanner({
         <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
           {planned.isEarlyBird && (
             <span style={{ padding: "3px 8px", background: "var(--brand-accent)", color: "#111827", borderRadius: "9999px", fontWeight: 700 }}>
-              🐦 Early Bird
+              🐤 Early Bird
             </span>
           )}
           {planned.course.creditType && (
