@@ -60,6 +60,7 @@ type AnalysisCourse = {
   prerequisites: string[];
   peEligible: boolean;
   isFoundationalFitness: boolean;
+  isRepeatable: boolean;
 };
 
 type CoursePlacement = {
@@ -232,6 +233,7 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     prerequisites: Array.from(prerequisites),
     peEligible,
     isFoundationalFitness,
+    isRepeatable: course.isRepeatable === true,
   };
 }
 
@@ -444,7 +446,7 @@ function getBackendPlacementKey(p: CoursePlacement): string {
   if (p.course?.duration === 2) {
     return `fy:${p.course.id}:${p.slot}`;
   }
-  return `sem:${p.course!.id}:${p.slot}:${p.semester}`;
+  return `sem:${p.course!.id}:${p.slot}:${p.semester}:${p.year}`;
 }
 
 // Completed courses (including summer school / middle school) are coursework the
@@ -996,6 +998,15 @@ function computeDuplicateCourses(placements: CoursePlacement[]): DuplicateCourse
   const byCourse = new Map<number, CoursePlacement[]>();
   for (const placement of placements) {
     if (!placement.course) continue;
+    // Repeatable one-semester PE courses may be taken across semesters, so
+    // legit repeats are not flagged as duplicates.
+    if (
+      placement.course.isRepeatable === true &&
+      placement.course.duration === 1 &&
+      placement.course.department === "Physical Education"
+    ) {
+      continue;
+    }
     const list = byCourse.get(placement.course.id) ?? [];
     list.push(placement);
     byCourse.set(placement.course.id, list);

@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Planner } from "@/lib/planner";
 import { breakpoints } from "@/lib/responsive";
 import { formatCredits } from "@/lib/courseCredits";
+import { calculatePlannerOccupancy } from "@/lib/plannerOccupancy";
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -12,8 +13,6 @@ const YEAR_LABELS: Record<number, string> = {
   11: "Junior",
   12: "Senior",
 };
-
-const TOTAL_SLOTS = 14;
 
 type YearAnalysisItem = {
   category: string;
@@ -57,9 +56,10 @@ export function YearOverviewCard({
     .filter((pc) => pc.semester === 3)
     .sort((a, b) => a.slot - b.slot);
 
-  const filledSlots = planner.plannedCourses.length;
+  const occupancy = calculatePlannerOccupancy(planner);
+  const filledSlots = occupancy.filledSlots;
 
-  const isPlanned = filledSlots > 0;
+  const isPlanned = planner.plannedCourses.length > 0;
   const isCompleted = planner.completedAt != null;
   const allMet = yearAnalysis ? yearAnalysis.satisfiedCount === yearAnalysis.totalCount : false;
 
@@ -259,7 +259,7 @@ export function YearOverviewCard({
           color: "var(--text-muted)",
         }}
       >
-        {filledSlots} / {TOTAL_SLOTS} courses planned
+        {filledSlots} / {occupancy.totalSlots} courses planned
       </p>
 
       {isPlanned && !isCompleted && (

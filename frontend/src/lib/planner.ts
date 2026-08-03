@@ -27,6 +27,7 @@ export type PlannerCourseDetails = {
   isMarchingBand: boolean;
   attributes: string[];
   supportsEarlyBird: boolean;
+  isRepeatable: boolean;
 };
 
 export type PlannerOption = {
@@ -426,6 +427,7 @@ export function courseToPlannerDetails(course: Course): PlannerCourseDetails {
     isMarchingBand: course.isMarchingBand ?? false,
     attributes: Array.isArray(course.attributes) ? course.attributes : [],
     supportsEarlyBird: course.supportsEarlyBird ?? (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")),
+    isRepeatable: course.isRepeatable === true,
   };
 }
 
@@ -453,5 +455,6 @@ export function plannerOptionToPlannerDetails(option: PlannerOption): PlannerCou
     isMarchingBand: false,
     attributes: [],
     supportsEarlyBird: false,
+    isRepeatable: false,
   };
 }

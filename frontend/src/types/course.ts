@@ -40,6 +40,7 @@ export type Course = {
   requirementCredits?: Record<string, number>;
   isMarchingBand?: boolean;
   supportsEarlyBird?: boolean;
+  isRepeatable?: boolean;
   department?: Department | null;
   options?: CourseOption[];
 };

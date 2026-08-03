@@ -105,6 +105,7 @@ type AnalysisCourse = {
   fulfillsRequirements: string[]; requirementCredits: Record<string, number>;
   prerequisites: string[];
   peEligible: boolean; isFoundationalFitness: boolean;
+  isRepeatable: boolean;
 };
 
 type CoursePlacement = {
@@ -199,13 +200,14 @@ function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
     prerequisites: course.prerequisites,
     peEligible: fulfillsLower.some((r) => r === "physical education" || r === "driver education"),
     isFoundationalFitness,
+    isRepeatable: course.isRepeatable === true,
   };
 }
 
 function getBackendPlacementKey(p: CoursePlacement): string {
   if (p.course?.duration === 2) return `fy:${p.course.id}`;
-  if (!p.course) return `sem:unknown:${p.slot}:${p.semester}`;
-  return `sem:${p.course.id}:${p.slot}:${p.semester}`;
+  if (!p.course) return `sem:unknown:${p.slot}:${p.semester}:${p.year}`;
+  return `sem:${p.course.id}:${p.slot}:${p.semester}:${p.year}`;
 }
 
 function getCourseKey(p: CoursePlacement): string | null {
@@ -591,6 +593,15 @@ function computeDuplicateCourses(placements: CoursePlacement[]): DuplicateCourse
   const byCourse = new Map<number, CoursePlacement[]>();
   for (const placement of placements) {
     if (!placement.course) continue;
+    // Repeatable one-semester PE courses may be taken across semesters, so
+    // legit repeats are not flagged as duplicates.
+    if (
+      placement.course.isRepeatable === true &&
+      placement.course.duration === 1 &&
+      placement.course.department === "Physical Education"
+    ) {
+      continue;
+    }
     const list = byCourse.get(placement.course.id) ?? [];
     list.push(placement);
     byCourse.set(placement.course.id, list);

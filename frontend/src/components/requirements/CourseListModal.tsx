@@ -210,6 +210,10 @@ export function CourseListModal({
           <h2
             style={{
               margin: 0,
+              flex: 1,
+              minWidth: 0,
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
               fontSize: isMobile ? "18px" : "20px",
               fontWeight: 700,
               color: "#111827",

@@ -38,6 +38,7 @@ export type CourseDetails = {
   isNonAcademic: boolean;
   isMarchingBand: boolean;
   supportsEarlyBird: boolean;
+  isRepeatable: boolean;
 };
 
 type PlannedCourseResponse = {
@@ -141,6 +142,7 @@ export function deriveCourseDetails(
     supportsEarlyBird:
       course.supportsEarlyBird === true ||
       (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")),
+    isRepeatable: course.isRepeatable === true,
   };
 }
 
@@ -166,7 +168,18 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     isNonAcademic: option.isNonAcademic ?? false,
     isMarchingBand: false,
     supportsEarlyBird: false,
+    isRepeatable: false,
   };
+}
+
+function isRepeatableEligibleCourse(
+  course: Course & { department?: { name?: string | null } | null }
+): boolean {
+  return (
+    course.isRepeatable === true &&
+    deriveCourseDuration(course) === 1 &&
+    course.department?.name === "Physical Education"
+  );
 }
 
 function getPlannedDuration(plannedCourse: {
@@ -711,10 +724,9 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     }
 
     const existingDuplicate = await prisma.plannedCourse.findFirst({
-      where: {
-        planner: { userId },
-        courseId: course.id,
-      },
+      where: isRepeatableEligibleCourse(course)
+        ? { plannerId: planner.id, courseId: course.id, semester: semesterNum }
+        : { planner: { userId }, courseId: course.id },
     });
 
     if (existingDuplicate) {

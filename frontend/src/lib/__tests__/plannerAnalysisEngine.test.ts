@@ -9,7 +9,7 @@ const chemistry: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Science",
   department: "Science", description: null, fulfillsRequirements: ["Science", "Lab Science"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "SCI101", gradeMin: 10, gradeMax: 12,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const algebra: PlannerCourseDetails = {
@@ -17,7 +17,7 @@ const algebra: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Mathematics",
   department: "Mathematics", description: null, fulfillsRequirements: ["Mathematics"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "MATH101", gradeMin: 9, gradeMax: 9,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const english9: PlannerCourseDetails = {
@@ -25,7 +25,7 @@ const english9: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "English",
   department: "English", description: null, fulfillsRequirements: ["English"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const english10: PlannerCourseDetails = {
@@ -33,7 +33,7 @@ const english10: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "English",
   department: "English", description: null, fulfillsRequirements: ["English"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG102", gradeMin: 10, gradeMax: 10,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const usHistory: PlannerCourseDetails = {
@@ -41,7 +41,7 @@ const usHistory: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Social Studies",
   department: "Social Studies", description: null, fulfillsRequirements: ["U.S. History", "Social Studies"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HIST201", gradeMin: 11, gradeMax: 11,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const government: PlannerCourseDetails = {
@@ -49,7 +49,7 @@ const government: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Social Studies",
   department: "Social Studies", description: null, fulfillsRequirements: ["Government", "Social Studies"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "GOV201", gradeMin: 12, gradeMax: 12,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const peCourse: PlannerCourseDetails = {
@@ -57,7 +57,7 @@ const peCourse: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Physical Education",
   department: "Physical Education", description: null, fulfillsRequirements: ["Physical Education"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "PE101", gradeMin: 9, gradeMax: 12,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const health: PlannerCourseDetails = {
@@ -65,7 +65,7 @@ const health: PlannerCourseDetails = {
   slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Health",
   department: "Health", description: null, fulfillsRequirements: ["Health"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "HLT101", gradeMin: 10, gradeMax: 10,
-  isNonAcademic: false, isMarchingBand: false, attributes: [],
+  isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
 };
 
 const allCourses = [chemistry, algebra, english9, english10, usHistory, government, peCourse, health];
@@ -247,6 +247,44 @@ describe("computePlannerAnalysis", () => {
     const dup = result.duplicateCourses.find((d) => d.courseId === algebra.id);
     expect(dup).toBeDefined();
     expect(dup!.count).toBe(2);
+  });
+
+  it("does not flag repeatable one-semester PE courses as duplicates across semesters", () => {
+    const repeatablePe: PlannerCourseDetails = {
+      ...peCourse,
+      id: 502,
+      title: "Adventure Education",
+      isRepeatable: true,
+    };
+    const courses = allCourses.map((c) => (c.id === 502 ? repeatablePe : c));
+    const planners = [
+      makePlanner(9, [makePlanned(repeatablePe, 1, 3, 11), makePlanned(repeatablePe, 2, 3, 12)]),
+      makePlanner(10, [makePlanned(repeatablePe, 1, 3, 13)]),
+      makePlanner(11), makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses: courses });
+    expect(result.duplicateCourses.find((d) => d.courseId === repeatablePe.id)).toBeUndefined();
+  });
+
+  it("counts repeatable one-semester PE credits once per scheduled semester", () => {
+    const repeatablePe: PlannerCourseDetails = {
+      ...peCourse,
+      id: 502,
+      title: "Adventure Education",
+      isRepeatable: true,
+    };
+    const courses = allCourses.map((c) => (c.id === 502 ? repeatablePe : c));
+    const planners = [
+      makePlanner(9, [makePlanned(repeatablePe, 2, 3, 11)]),
+      makePlanner(10, [makePlanned(repeatablePe, 2, 3, 12)]),
+      makePlanner(11), makePlanner(12),
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses: courses });
+    expect(result.peSemesterBreakdown.find((s) => s.semester === 2)!.met).toBe(true);
+    expect(result.peSemesterBreakdown.find((s) => s.semester === 4)!.met).toBe(true);
+    expect(result.peSemesterBreakdown.find((s) => s.semester === 1)!.met).toBe(false);
+    const repeatableCredits = result.credits.byDivision?.["Physical Education"] ?? 0;
+    expect(repeatableCredits).toBe(2);
   });
 
   it("detects missing prerequisites", () => {

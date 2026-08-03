@@ -86,7 +86,7 @@ export default function RootLayout({
               <div className="rs-layout-sidebar">
                 <Sidebar />
               </div>
-              <main style={{ flex: 1 }}>
+              <main style={{ flex: 1, minWidth: 0 }}>
                 {children}
               </main>
             </div>

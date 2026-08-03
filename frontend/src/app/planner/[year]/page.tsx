@@ -26,6 +26,7 @@ import {
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import { sumPlannedCredits, formatCredits, effectiveSlotSpan } from "@/lib/courseCredits";
+import { calculatePlannerOccupancy, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
 import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -1119,6 +1120,7 @@ function PlannerYearContent(): React.ReactElement {
             grade={year}
             allPlanners={allPlanners}
             onGoToCourse={handleGoToCourse}
+            targetSemester={activeSlot.semester}
           />
         )}
 
@@ -1426,6 +1428,7 @@ function PlannerYearContent(): React.ReactElement {
           grade={year}
           allPlanners={allPlanners}
           onGoToCourse={handleGoToCourse}
+          targetSemester={activeSlot.semester}
         />
       )}
 
@@ -1656,24 +1659,12 @@ function SummarySidebar({
   const yearCourses = (currentPlanner?.plannedCourses || []).filter((pc) => pc.semester !== 3);
   const totalCredits = sumPlannedCredits(allCourses);
   const currentCredits = sumPlannedCredits(yearCourses);
-  const courseKeys = new Set<string>();
-  const fullYearKeys = new Set<string>();
-  for (const pc of yearCourses) {
-    const key = pc.courseId != null
-      ? `c${pc.courseId}`
-      : (pc.plannerOptionId != null ? `c${-pc.plannerOptionId}` : `i${pc.id}`);
-    courseKeys.add(key);
-    if (pc.course.duration === 2) {
-      fullYearKeys.add(key);
-    }
-  }
-  const currentCourseCount = courseKeys.size;
-  const fullYearCount = fullYearKeys.size;
-  const semesterCount = currentCourseCount - fullYearCount;
-  const totalSlots = 14;
-  const filledSlots = yearCourses.reduce(
-    (sum, pc) => sum + (pc.slotSpan ?? 1), 0
-  );
+  const occupancy = currentPlanner ? calculatePlannerOccupancy(currentPlanner) : null;
+  const currentCourseCount = occupancy?.plannedCount ?? 0;
+  const fullYearCount = occupancy?.fullYearCount ?? 0;
+  const semesterCount = occupancy?.semesterCount ?? 0;
+  const totalSlots = occupancy?.totalSlots ?? TOTAL_PLANNER_SLOTS;
+  const filledSlots = occupancy?.filledSlots ?? 0;
   const slotPercentage = totalSlots > 0 ? Math.min(100, (filledSlots / totalSlots) * 100) : 0;
 
   return (
@@ -2303,8 +2294,30 @@ function getPlannedCourseLocation(allPlanners: Planner[], courseId: number) {
   return null;
 }
 
-function isDuplicateCourse(course: PlannerCourseDetails, allPlanners: Planner[]): boolean {
+function isRepeatableEligible(course: PlannerCourseDetails): boolean {
+  return (
+    course.isRepeatable === true &&
+    course.duration === 1 &&
+    course.department === "Physical Education"
+  );
+}
+
+function isDuplicateCourse(
+  course: PlannerCourseDetails,
+  allPlanners: Planner[],
+  targetYear: number,
+  targetSemester: number
+): boolean {
   if (course.id < 0) return false;
+  if (isRepeatableEligible(course)) {
+    // Repeatable one-semester PE may be taken across semesters, but not twice
+    // in the same semester of the same year.
+    return allPlanners.some(
+      (planner) =>
+        planner.schoolYear === targetYear &&
+        planner.plannedCourses.some((pc) => pc.courseId === course.id && pc.semester === targetSemester)
+    );
+  }
   return allPlanners.some((planner) => planner.plannedCourses.some((pc) => pc.courseId === course.id));
 }
 
@@ -2315,6 +2328,7 @@ function CourseSearchModal({
   grade,
   allPlanners,
   onGoToCourse,
+  targetSemester,
 }: {
   onClose: () => void;
   onSelect: (selection: { courseId: number } | { plannerOptionId: number }) => void;
@@ -2322,6 +2336,7 @@ function CourseSearchModal({
   grade: number;
   allPlanners: Planner[];
   onGoToCourse: (year: number, plannedCourseId: number) => void;
+  targetSemester: number;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
@@ -2600,7 +2615,7 @@ function CourseSearchModal({
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {sortedResults.map((course) => {
-                const isDuplicate = isDuplicateCourse(course, allPlanners);
+                const isDuplicate = isDuplicateCourse(course, allPlanners, grade, targetSemester);
                 return (
                 <button
                   key={course.id}
@@ -3048,39 +3063,30 @@ function MobilePlanner({
             {slotRange}
           </span>
             {!isCompleted && (
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: "0 0 auto" }}>
-                {planned.course.supportsEarlyBird && (
-                  <EarlyBirdToggle
-                    isEarlyBird={planned.isEarlyBird}
-                    height={44}
-                    onChange={(v) => onToggleEarlyBird(planned, v)}
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onRemoveCourse(planned);
-                  }}
-                  aria-label="Remove course"
-                  style={{
-                    width: "44px",
-                    height: "44px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "transparent",
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    color: "#9ca3af",
-                    fontSize: "18px",
-                    flex: "0 0 auto",
-                  }}
-                >
-                  🗑
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRemoveCourse(planned);
+                }}
+                aria-label="Remove course"
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "transparent",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  color: "#9ca3af",
+                  fontSize: "18px",
+                  flex: "0 0 auto",
+                }}
+              >
+                🗑
+              </button>
             )}
           </div>
 
@@ -3115,6 +3121,23 @@ function MobilePlanner({
             </span>
           )}
         </div>
+
+        {!isCompleted && planned.course.supportsEarlyBird && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              minHeight: "44px",
+              marginTop: "2px",
+            }}
+          >
+            <EarlyBirdToggle
+              isEarlyBird={planned.isEarlyBird}
+              height={30}
+              onChange={(v) => onToggleEarlyBird(planned, v)}
+            />
+          </div>
+        )}
 
         {warnings.length > 0 && (
           <div

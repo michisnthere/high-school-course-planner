@@ -31,6 +31,7 @@ function makeCourse(overrides: Partial<PlannerCourseDetails> = {}): PlannerCours
     isMarchingBand: false,
     attributes: [],
     supportsEarlyBird: false,
+    isRepeatable: false,
     ...overrides,
   };
 }

@@ -274,10 +274,15 @@ function RequirementsContent(): React.ReactElement {
           padding-bottom: calc(16px + var(--safe-area-bottom));
           padding-left: calc(16px + var(--safe-area-left));
           padding-right: calc(16px + var(--safe-area-right));
+          box-sizing: border-box;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
         }
         .rs-req-page h1 {
           margin: 8px 0 24px !important;
           font-size: 1.5rem !important;
+          overflow-wrap: break-word;
         }
         .rs-req-progress {
           position: sticky;
@@ -294,7 +299,11 @@ function RequirementsContent(): React.ReactElement {
           font-size: 1rem !important;
         }
         .rs-req-grid {
-          grid-template-columns: 1fr !important;
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+        .rs-req-grid > *,
+        .rs-req-info-grid > * {
+          min-width: 0;
         }
         .rs-req-recs {
           gap: 10px !important;
@@ -310,6 +319,9 @@ function RequirementsContent(): React.ReactElement {
           flex-wrap: wrap;
           gap: 4px;
         }
+        .rs-req-viewall {
+          width: 100% !important;
+        }
         .rs-req-explore {
           width: 100% !important;
           padding: 14px 16px !important;
@@ -321,7 +333,7 @@ function RequirementsContent(): React.ReactElement {
           box-sizing: border-box;
         }
         .rs-req-info-grid {
-          grid-template-columns: 1fr !important;
+          grid-template-columns: minmax(0, 1fr) !important;
         }
         @media (max-width: ${breakpoints.mobile - 1}px) {
           .rs-req-year-card {
@@ -329,12 +341,15 @@ function RequirementsContent(): React.ReactElement {
           }
           .rs-req-year-card h3 {
             font-size: 16px !important;
+            overflow-wrap: break-word;
           }
           .rs-req-card {
             padding: 16px 16px 16px 20px !important;
           }
           .rs-req-card h3 {
             font-size: 15px !important;
+            overflow-wrap: break-word;
+            word-break: break-word;
           }
           .rs-req-card .rs-req-stats {
             gap: 10px !important;
@@ -346,6 +361,12 @@ function RequirementsContent(): React.ReactElement {
           .rs-req-card-body-inner.open {
             max-height: 280px;
             overflow-y: auto;
+          }
+          .rs-req-pe-row {
+            flex-wrap: wrap;
+          }
+          .rs-req-pe-cell {
+            white-space: normal;
           }
         }
       `}</style>}
@@ -612,6 +633,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
     <div
       className="rs-req-year-card"
       style={{
+        minWidth: 0,
         padding: "18px 20px",
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",
@@ -795,6 +817,7 @@ function RequirementCard({
       className="rs-req-card"
       style={{
         position: "relative",
+        minWidth: 0,
         padding: "20px 20px 20px 24px",
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",
@@ -825,6 +848,10 @@ function RequirementCard({
           <h3
             style={{
               margin: 0,
+              flex: 1,
+              minWidth: 0,
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
               fontSize: "16px",
               fontWeight: 700,
               color: "var(--text-primary)",
@@ -876,10 +903,14 @@ function RequirementCard({
             {peYearRows!.map((row) => (
               <div
                 key={row.year}
+                className="rs-req-pe-row"
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "12px",
+                  flexWrap: "wrap",
+                  minWidth: 0,
+                  columnGap: "12px",
+                  rowGap: "6px",
                   fontSize: "14px",
                 }}
               >
@@ -959,6 +990,7 @@ function RequirementCard({
                 {hasMore && (
                     <button
                       type="button"
+                      className="rs-req-viewall"
                       onClick={onViewAll}
                       style={{
                         display: "flex",
@@ -1052,12 +1084,14 @@ function PeSemesterCell({ cell }: { cell: PeSemesterCell }): React.ReactElement 
   return (
     <span
       title={cell.courseTitle ?? cell.requiredLabel}
+      className="rs-req-pe-cell"
       style={{
         display: "inline-flex",
         alignItems: "center",
+        flexWrap: "wrap",
+        minWidth: 0,
         gap: "4px",
         fontSize: "13px",
-        whiteSpace: "nowrap",
         color: cell.met ? "var(--status-success)" : "var(--text-muted)",
       }}
     >
@@ -1087,6 +1121,7 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
+        minWidth: 0,
         padding: "20px",
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",
@@ -1105,6 +1140,8 @@ function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
           fontWeight: 700,
           color: "var(--text-primary)",
           lineHeight: 1.3,
+          overflowWrap: "break-word",
+          wordBreak: "break-word",
         }}
       >
         {item.name}

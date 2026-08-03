@@ -303,6 +303,7 @@ export function createGuestPlannerService(): IPlannerService {
           isMarchingBand: false,
           attributes: [],
           supportsEarlyBird: false,
+          isRepeatable: false,
         },
         isEarlyBird: false,
       };
