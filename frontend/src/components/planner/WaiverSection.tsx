@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { computeWaiverEligibility, computeAthleticVariantEligibility, getCreditBearingCount } from "@/lib/plannerWaivers";
+import {
+  computeWaiverEligibility,
+  computeAthleticVariantEligibility,
+  getCreditBearingCount,
+  getAvailableWaiverVariants,
+  ALL_WAIVER_VARIANTS,
+} from "@/lib/plannerWaivers";
+import type { WaiverVariant } from "@/lib/plannerWaivers";
 import type { PlannedCourse } from "@/lib/planner";
 import type { RequirementResolution } from "@/lib/api";
-
-type WaiverVariant = "academic" | "athletic" | "marching-band";
 
 type WaiverSectionProps = {
   grade: number;
@@ -18,6 +23,51 @@ const VARIANT_INFO: Record<WaiverVariant, { label: string; subtitle: string }> =
   athletic: { label: "Athletic PE Waiver", subtitle: "Available to Juniors and Seniors" },
   "marching-band": { label: "Marching Band PE Waiver", subtitle: "Available Grades 9–12" },
 };
+
+// Existing app palette accents preserved per waiver type.
+const VARIANT_ACCENT: Record<WaiverVariant, string> = {
+  academic: "#275D38",
+  athletic: "#ECBA2B",
+  "marching-band": "#14b8a6",
+};
+
+function hexToRgba(hex: string, alpha: number): string {
+  const value = hex.replace("#", "");
+  const r = parseInt(value.slice(0, 2), 16);
+  const g = parseInt(value.slice(2, 4), 16);
+  const b = parseInt(value.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// Light-tinted action buttons with dark text for readability.
+function waiverButtonStyle(accent: string, enabled = true): React.CSSProperties {
+  return {
+    background: enabled ? hexToRgba(accent, 0.14) : "rgba(0, 0, 0, 0.05)",
+    border: `1px solid ${enabled ? hexToRgba(accent, 0.4) : "var(--border-default)"}`,
+    borderRadius: "6px",
+    color: enabled ? "#111827" : "var(--text-muted)",
+    fontSize: "11px",
+    fontWeight: 700,
+    padding: "4px 10px",
+    cursor: enabled ? "pointer" : "not-allowed",
+    whiteSpace: "nowrap",
+    opacity: enabled ? 1 : 0.6,
+  };
+}
+
+function secondaryButtonStyle(): React.CSSProperties {
+  return {
+    background: "#ffffff",
+    border: "1px solid var(--border-default)",
+    borderRadius: "6px",
+    color: "var(--text-secondary)",
+    fontSize: "11px",
+    fontWeight: 600,
+    padding: "4px 10px",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+  };
+}
 
 function findVariant(r: RequirementResolution): WaiverVariant | null {
   if (r.type !== "pe_waiver") return null;
@@ -51,6 +101,15 @@ export function WaiverSection({
     (r) => r.type === "pe_waiver" && r.metadata?.year === grade
   );
   const hasVariant = (v: WaiverVariant) => yearWaivers.some((r) => findVariant(r) === v);
+
+  // Only show waivers available for this grade. Applied waivers stay visible so
+  // the student can always remove them.
+  const displayedVariants = Array.from(
+    new Set<WaiverVariant>([
+      ...getAvailableWaiverVariants(grade),
+      ...ALL_WAIVER_VARIANTS.filter(hasVariant),
+    ])
+  );
 
   const handleAdd = (v: WaiverVariant) => {
     setAddingVariant(v);
@@ -95,10 +154,11 @@ export function WaiverSection({
       </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {(["academic", "athletic", "marching-band"] as WaiverVariant[]).map((variant) => {
+        {displayedVariants.map((variant) => {
           const applied = hasVariant(variant);
           const active = addingVariant === variant;
           const info = VARIANT_INFO[variant];
+          const accent = VARIANT_ACCENT[variant];
           const elig =
             variant === "academic" ? eligibility.academic :
             variant === "athletic" ? eligibility.athletic :
@@ -109,31 +169,22 @@ export function WaiverSection({
               key={variant}
               style={{
                 padding: "10px 12px",
-                backgroundColor: applied ? "rgba(5, 150, 105, 0.08)" : "#1f2937",
+                backgroundColor: applied ? hexToRgba(accent, 0.08) : "#ffffff",
                 borderRadius: "8px",
-                border: applied ? "1px solid rgba(5, 150, 105, 0.3)" : "1px solid #374151",
+                border: `1px solid ${applied ? hexToRgba(accent, 0.3) : "var(--border-default)"}`,
               }}
             >
               {applied ? (
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
                   <div>
-                    <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--brand-accent)" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 700, color: "#111827" }}>
                       ✓ {info.label}{variant === "athletic" ? athleticSubLabel(yearWaivers.find((r) => findVariant(r) === "athletic")!) : ""}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => onRemoveResolution(yearWaivers.find((r) => findVariant(r) === variant)!.id)}
-                    style={{
-                      background: "none",
-                      border: "1px solid var(--border-default)",
-                      borderRadius: "4px",
-                      color: "var(--text-secondary)",
-                      fontSize: "11px",
-                      padding: "2px 8px",
-                      cursor: "pointer",
-                      whiteSpace: "nowrap",
-                    }}
+                    style={secondaryButtonStyle()}
                   >
                     Remove
                   </button>
@@ -141,6 +192,7 @@ export function WaiverSection({
               ) : active ? (
                 <AddVariantFlow
                   variant={variant}
+                  accent={accent}
                   grade={grade}
                   eligibility={eligibility}
                   academicConfirmed={academicConfirmed}
@@ -163,8 +215,8 @@ export function WaiverSection({
               ) : (
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
                   <div>
-                    <div style={{ fontSize: "13px", fontWeight: 600, color: "#d1d5db" }}>{info.label}</div>
-                    <div style={{ fontSize: "11px", color: elig.eligible ? "var(--brand-accent)" : "#6b7280", marginTop: "2px" }}>
+                    <div style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>{info.label}</div>
+                    <div style={{ fontSize: "11px", color: elig.eligible ? "#4B5563" : "#9CA3AF", marginTop: "2px" }}>
                       {elig.reason}
                     </div>
                   </div>
@@ -172,17 +224,7 @@ export function WaiverSection({
                     type="button"
                     disabled={!elig.eligible}
                     onClick={() => handleAdd(variant)}
-                    style={{
-                      background: "none",
-                      border: `1px solid ${elig.eligible ? "#6b7280" : "var(--border-default)"}`,
-                      borderRadius: "4px",
-                      color: elig.eligible ? "#d1d5db" : "var(--text-muted)",
-                      fontSize: "11px",
-                      padding: "4px 10px",
-                      cursor: elig.eligible ? "pointer" : "not-allowed",
-                      whiteSpace: "nowrap",
-                      opacity: elig.eligible ? 1 : 0.5,
-                    }}
+                    style={waiverButtonStyle(accent, elig.eligible)}
                   >
                     Apply
                   </button>
@@ -231,10 +273,7 @@ export function WaiverSection({
             <button
               type="button"
               onClick={() => setShowBandModal(false)}
-              style={{
-                background: "none", border: "1px solid #6b7280", borderRadius: "6px",
-                color: "#d1d5db", fontSize: "13px", padding: "6px 16px", cursor: "pointer",
-              }}
+              style={secondaryButtonStyle()}
             >
               Close
             </button>
@@ -246,12 +285,13 @@ export function WaiverSection({
 }
 
 function AddVariantFlow({
-  variant, grade, eligibility, academicConfirmed, setAcademicConfirmed,
+  variant, accent, grade, eligibility, academicConfirmed, setAcademicConfirmed,
   showSportQuestion, setShowSportQuestion, confirmMessage, setConfirmMessage,
   creditBearing, onConfirm, onCancel, showBandModal, setShowBandModal,
   onAddResolution,
 }: {
   variant: WaiverVariant;
+  accent: string;
   grade: number;
   eligibility: ReturnType<typeof computeWaiverEligibility>;
   academicConfirmed: boolean;
@@ -270,21 +310,16 @@ function AddVariantFlow({
   if (variant === "academic") {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <label style={{ display: "flex", alignItems: "flex-start", gap: "6px", color: "#d1d5db", fontSize: "12px", cursor: "pointer" }}>
+        <label style={{ display: "flex", alignItems: "flex-start", gap: "6px", color: "#374151", fontSize: "12px", cursor: "pointer" }}>
           <input type="checkbox" checked={academicConfirmed} onChange={(e) => setAcademicConfirmed(e.target.checked)} style={{ marginTop: "2px" }} />
           <span>I confirm these courses are required for graduation and/or post-secondary admission.</span>
         </label>
         <div style={{ display: "flex", gap: "8px" }}>
           <button type="button" disabled={!academicConfirmed} onClick={onConfirm}
-            style={{
-              background: "none", border: `1px solid ${academicConfirmed ? "var(--brand-accent)" : "var(--border-default)"}`,
-              borderRadius: "4px", color: academicConfirmed ? "var(--brand-accent)" : "var(--text-secondary)",
-              fontSize: "11px", padding: "4px 10px", cursor: academicConfirmed ? "pointer" : "not-allowed",
-            }}>
+            style={waiverButtonStyle(accent, academicConfirmed)}>
             Apply Waiver
           </button>
-          <button type="button" onClick={onCancel}
-            style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#9ca3af", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+          <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
             Cancel
           </button>
         </div>
@@ -296,23 +331,20 @@ function AddVariantFlow({
     const elig = eligibility.marchingBand;
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <div style={{ fontSize: "12px", color: elig.eligible ? "var(--brand-accent)" : "#6b7280" }}>
+        <div style={{ fontSize: "12px", color: elig.eligible ? "#4B5563" : "#9CA3AF" }}>
           {elig.reason}
         </div>
         {elig.eligible && (
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            <button type="button" onClick={onConfirm}
-              style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#d1d5db", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+            <button type="button" onClick={onConfirm} style={waiverButtonStyle(accent, true)}>
               Apply Waiver
             </button>
-            <button type="button" onClick={() => setShowBandModal(true)}
-              style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#93c5fd", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+            <button type="button" onClick={() => setShowBandModal(true)} style={secondaryButtonStyle()}>
               Learn More
             </button>
           </div>
         )}
-        <button type="button" onClick={onCancel}
-          style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#9ca3af", fontSize: "11px", padding: "4px 10px", cursor: "pointer", alignSelf: "flex-start" }}>
+        <button type="button" onClick={onCancel} style={{ ...secondaryButtonStyle(), alignSelf: "flex-start" }}>
           Cancel
         </button>
       </div>
@@ -323,9 +355,8 @@ function AddVariantFlow({
     if (confirmMessage) {
       return (
         <div>
-          <p style={{ margin: "0 0 8px", fontSize: "12px", color: "var(--brand-accent)" }}>{confirmMessage}</p>
-          <button type="button" onClick={onCancel}
-            style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#9ca3af", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+          <p style={{ margin: "0 0 8px", fontSize: "12px", color: "#4B5563" }}>{confirmMessage}</p>
+          <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
             OK
           </button>
         </div>
@@ -335,14 +366,12 @@ function AddVariantFlow({
     if (showSportQuestion) {
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <p style={{ margin: 0, fontSize: "12px", color: "#d1d5db" }}>Are you participating in a JV or Varsity sport?</p>
+          <p style={{ margin: 0, fontSize: "12px", color: "#374151" }}>Are you participating in a JV or Varsity sport?</p>
           <div style={{ display: "flex", gap: "8px" }}>
-            <button type="button" onClick={() => { setShowSportQuestion(false); onConfirm(); }}
-              style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#d1d5db", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+            <button type="button" onClick={() => { setShowSportQuestion(false); onConfirm(); }} style={waiverButtonStyle(accent, true)}>
               Yes
             </button>
-            <button type="button" onClick={onCancel}
-              style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#9ca3af", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+            <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
               No
             </button>
           </div>
@@ -352,7 +381,7 @@ function AddVariantFlow({
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <div style={{ fontSize: "12px", color: "var(--brand-accent)" }}>
+        <div style={{ fontSize: "12px", color: "#374151" }}>
           How many JV/Varsity sports do you participate in?
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
@@ -363,12 +392,11 @@ function AddVariantFlow({
                 if (!result.eligible) { setConfirmMessage(result.reason); return; }
                 onAddResolution({ type: "pe_waiver", metadata: { variant: "athletic", athleticVariant: result.variant, year: grade } });
               }}
-              style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#d1d5db", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+              style={waiverButtonStyle(accent, true)}>
               {count === "one" ? "One sport" : "Two or more sports"}
             </button>
           ))}
-          <button type="button" onClick={onCancel}
-            style={{ background: "none", border: "1px solid #6b7280", borderRadius: "4px", color: "#9ca3af", fontSize: "11px", padding: "4px 10px", cursor: "pointer" }}>
+          <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
             Cancel
           </button>
         </div>

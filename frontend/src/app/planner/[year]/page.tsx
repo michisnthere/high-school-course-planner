@@ -588,7 +588,9 @@ function PlannerYearContent(): React.ReactElement {
 
   const computeRemovalWaiverWarning = useCallback(
     (planned: PlannedCourse): string | null => {
-      const peWaiverResolutions = resolutions.filter((r) => r.type === "pe_waiver");
+      const peWaiverResolutions = resolutions.filter(
+        (r) => r.type === "pe_waiver" && r.metadata?.year === year
+      );
       if (peWaiverResolutions.length === 0) return null;
 
       const hasMultiSlot = (planned.slotSpan ?? 1) > 1 || planned.course.duration === 2;
@@ -654,7 +656,9 @@ function PlannerYearContent(): React.ReactElement {
         await plannerService.removePlannedCourse(planned.id);
 
         if (revokePeWaivers) {
-          const peWaiverResolutions = resolutions.filter((r) => r.type === "pe_waiver");
+          const peWaiverResolutions = resolutions.filter(
+            (r) => r.type === "pe_waiver" && r.metadata?.year === year
+          );
           for (const res of peWaiverResolutions) {
             try {
               await resolutionsService.deleteResolution(res.id);
@@ -698,7 +702,7 @@ function PlannerYearContent(): React.ReactElement {
         showToast(message, "warning");
       }
     },
-    [allPlanners, pushHistory, showToast, handleUndo, resolutions, resolutionsService]
+    [allPlanners, pushHistory, showToast, handleUndo, resolutions, resolutionsService, year]
   );
 
   const handleConfirmRemoval = useCallback(async () => {

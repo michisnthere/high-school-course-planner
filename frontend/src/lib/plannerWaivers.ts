@@ -1,6 +1,19 @@
 import type { PlannedCourse } from "./planner";
 import { effectiveSlotSpan, getCourseCredits, getPlacementKey } from "./courseCredits";
 
+export type WaiverVariant = "academic" | "athletic" | "marching-band";
+
+export const ALL_WAIVER_VARIANTS: WaiverVariant[] = ["academic", "athletic", "marching-band"];
+
+// Waivers that can never apply to the given grade are hidden entirely.
+export function getAvailableWaiverVariants(grade: number): WaiverVariant[] {
+  return ALL_WAIVER_VARIANTS.filter((variant) => {
+    if (variant === "academic") return grade >= 12;
+    if (variant === "athletic") return grade >= 11;
+    return true;
+  });
+}
+
 export type AcademicPeWaiver = { type: "academic" };
 
 export type AthleticPeWaiver = {

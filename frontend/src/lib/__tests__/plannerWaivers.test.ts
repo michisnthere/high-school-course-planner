@@ -4,6 +4,7 @@ import {
   hasDriverEducationCourse,
   isDriverEdExternalResolution,
   findDriverEdExternalResolution,
+  getAvailableWaiverVariants,
 } from "@/lib/plannerWaivers";
 
 describe("courseFulfillsDriverEducation", () => {
@@ -89,5 +90,23 @@ describe("findDriverEdExternalResolution", () => {
 
   it("returns null for an empty list", () => {
     expect(findDriverEdExternalResolution([])).toBeNull();
+  });
+});
+
+describe("getAvailableWaiverVariants", () => {
+  it("hides Academic and Athletic waivers for Freshmen", () => {
+    expect(getAvailableWaiverVariants(9)).toEqual(["marching-band"]);
+  });
+
+  it("hides Academic and Athletic waivers for Sophomores", () => {
+    expect(getAvailableWaiverVariants(10)).toEqual(["marching-band"]);
+  });
+
+  it("shows Athletic and Marching Band waivers for Juniors", () => {
+    expect(getAvailableWaiverVariants(11)).toEqual(["athletic", "marching-band"]);
+  });
+
+  it("shows all waivers for Seniors", () => {
+    expect(getAvailableWaiverVariants(12)).toEqual(["academic", "athletic", "marching-band"]);
   });
 });
