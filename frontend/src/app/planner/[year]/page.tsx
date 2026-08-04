@@ -4470,7 +4470,9 @@ function WarningActionModal({
                     }
                     aria-label="Select prerequisite course"
                     style={{
-                      width: "100%",
+                      width: mobile ? "100%" : "auto",
+                      maxWidth: "100%",
+                      minWidth: mobile ? undefined : 180,
                       padding: "12px 16px",
                       fontSize: "15px",
                       color: "#ffffff",
@@ -4845,7 +4847,8 @@ function WarningActionModal({
                               value={completedGrade}
                               onChange={(e) => setCompletedGrade(e.target.value as GradeCompleted)}
                               style={{
-                                flex: 1,
+                                flex: mobile ? "1" : "0 1 auto",
+                                minWidth: mobile ? undefined : 150,
                                 padding: "6px 8px",
                                 fontSize: "13px",
                                 color: "#d1d5db",
