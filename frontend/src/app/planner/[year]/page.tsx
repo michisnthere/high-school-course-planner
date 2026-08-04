@@ -4249,6 +4249,50 @@ function WarningActionModal({
   // Filter existing buttons to show only when not in the middle of the add-to-year flow
   const showResolutionButtons = step === "initial";
 
+  // Build available resolution actions first, then render only categories that contain actions.
+  const plannerActions: Array<{ key: string; label: React.ReactNode; onClick: () => void }> = [];
+  if (canReplace && !showConfirmReplace) {
+    plannerActions.push({
+      key: "replace",
+      label: `Replace ${planned.course.title} with ${selectedCourse?.title ?? "prerequisite"}`,
+      onClick: handleReplaceClick,
+    });
+  }
+  if (hasPreviousYears && warning.type === "missing_prerequisite" && selectedCourse) {
+    plannerActions.push({
+      key: "add-to-previous-year",
+      label: `Add ${selectedCourse.title} to a previous year`,
+      onClick: handleAddToYearClick,
+    });
+  }
+  if (semesterAdjustmentPlan && !showAdjustConfirm && semesterAdjustmentPlan.action !== "replacement") {
+    plannerActions.push({
+      key: "semester-adjustment",
+      label:
+        semesterAdjustmentPlan.action === "add_only"
+          ? `Add ${semesterAdjustmentPlan.prereqTitle} to ${YEAR_LABELS[semesterAdjustmentPlan.addPrereq!.year]} Year Semester ${semesterAdjustmentPlan.addPrereq!.semester} Slot ${semesterAdjustmentPlan.addPrereq!.slot}`
+          : `Move ${semesterAdjustmentPlan.courseATitle} to Semester 2 and add ${semesterAdjustmentPlan.prereqTitle} to Semester 1 Slot ${semesterAdjustmentPlan.addPrereq!.slot}`,
+      onClick: () => setShowAdjustConfirm(true),
+    });
+  }
+  if (semesterAdjustmentPlan && semesterAdjustmentPlan.action === "replacement" && !showAdjustConfirm && hasPreviousYears) {
+    plannerActions.push({
+      key: "semester-adjustment-replacement",
+      label: `Move ${semesterAdjustmentPlan.courseATitle} to Semester 2 and add ${semesterAdjustmentPlan.prereqTitle}`,
+      onClick: () => handleAdjustmentReplace(currentYear),
+    });
+  }
+  if (canSwapSemesters) {
+    plannerActions.push({
+      key: "swap-semesters",
+      label: "Swap semesters",
+      onClick: handleSwapSemesters,
+    });
+  }
+
+  // The "Mark as Previously Completed" section is only actionable when a matching course is selected.
+  const hasCompletedAction = selectedCourse != null;
+
   return (
     <>
       {mobile && <style>{`@keyframes wa-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>}
@@ -4723,157 +4767,112 @@ function WarningActionModal({
 
                 {showResolutionButtons && (
                   <>
-                    {/* Section 1: Add to Planner */}
-                    <div
-                      style={{
-                        padding: "12px",
-                        backgroundColor: "rgba(236, 186, 43, 0.08)",
-                        border: "1px solid rgba(236, 186, 43, 0.25)",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <p
+                    {/* Section 1: Add to Planner — only rendered when it has at least one action */}
+                    {plannerActions.length > 0 && (
+                      <div
                         style={{
-                          margin: "0 0 12px",
-                          fontSize: "13px",
-                          fontWeight: 700,
-                          color: "var(--brand-accent)",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.02em",
+                          padding: "12px",
+                          backgroundColor: "rgba(236, 186, 43, 0.08)",
+                          border: "1px solid rgba(236, 186, 43, 0.25)",
+                          borderRadius: "8px",
                         }}
                       >
-                        Add to Planner
-                      </p>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                        {canReplace && !showConfirmReplace && (
-                          <button
-                            type="button"
-                            onClick={handleReplaceClick}
-                            disabled={loading}
-                            className="wa-btn wa-btn-primary"
-                            style={{ width: "100%" }}
-                          >
-                            Replace {planned.course.title} with {selectedCourse?.title ?? "prerequisite"}
-                          </button>
-                        )}
-
-                        {hasPreviousYears && warning.type === "missing_prerequisite" && selectedCourse && (
-                          <button
-                            type="button"
-                            onClick={handleAddToYearClick}
-                            disabled={loading}
-                            className="wa-btn wa-btn-primary"
-                            style={{ width: "100%" }}
-                          >
-                            Add {selectedCourse.title} to a previous year
-                          </button>
-                        )}
-
-                        {semesterAdjustmentPlan && !showAdjustConfirm && semesterAdjustmentPlan.action !== "replacement" && (
-                          <button
-                            type="button"
-                            onClick={() => setShowAdjustConfirm(true)}
-                            disabled={loading}
-                            className="wa-btn wa-btn-primary"
-                            style={{ width: "100%" }}
-                          >
-                            {semesterAdjustmentPlan.action === "add_only"
-                              ? `Add ${semesterAdjustmentPlan.prereqTitle} to ${YEAR_LABELS[semesterAdjustmentPlan.addPrereq!.year]} Year Semester ${semesterAdjustmentPlan.addPrereq!.semester} Slot ${semesterAdjustmentPlan.addPrereq!.slot}`
-                              : `Move ${semesterAdjustmentPlan.courseATitle} to Semester 2 and add ${semesterAdjustmentPlan.prereqTitle} to Semester 1 Slot ${semesterAdjustmentPlan.addPrereq!.slot}`}
-                          </button>
-                        )}
-
-                        {semesterAdjustmentPlan && semesterAdjustmentPlan.action === "replacement" && !showAdjustConfirm && hasPreviousYears && (
-                          <button
-                            type="button"
-                            onClick={() => handleAdjustmentReplace(currentYear)}
-                            disabled={loading}
-                            className="wa-btn wa-btn-primary"
-                            style={{ width: "100%" }}
-                          >
-                            Move {semesterAdjustmentPlan.courseATitle} to Semester 2 and add {semesterAdjustmentPlan.prereqTitle}
-                          </button>
-                        )}
-
-                        {canSwapSemesters && (
-                          <button
-                            type="button"
-                            onClick={handleSwapSemesters}
-                            disabled={loading}
-                            className="wa-btn wa-btn-primary"
-                            style={{ width: "100%" }}
-                          >
-                            Swap semesters
-                          </button>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Section 2: Mark as Previously Completed */}
-                    <div
-                      style={{
-                        padding: "12px",
-                        backgroundColor: "rgba(52, 211, 153, 0.08)",
-                        border: "1px solid rgba(52, 211, 153, 0.25)",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <p
-                        style={{
-                          margin: "0 0 12px",
-                          fontSize: "13px",
-                          fontWeight: 700,
-                          color: "#34d399",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.02em",
-                        }}
-                      >
-                        Mark as Previously Completed
-                      </p>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                          <label
-                            htmlFor="completed-grade-select"
-                            style={{
-                              fontSize: "13px",
-                              color: "#9ca3af",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Completed in:
-                          </label>
-                          <select
-                            id="completed-grade-select"
-                            value={completedGrade}
-                            onChange={(e) => setCompletedGrade(e.target.value as GradeCompleted)}
-                            style={{
-                              flex: 1,
-                              padding: "6px 8px",
-                              fontSize: "13px",
-                              color: "#d1d5db",
-                              backgroundColor: "#1f2937",
-                              border: "1px solid #374151",
-                              borderRadius: "4px",
-                            }}
-                          >
-                            {eligibleCompletedGrades.map((opt) => (
-                              <option key={opt} value={opt}>
-                                {opt}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={handleMarkCompleted}
-                          disabled={loading || selectedCourse == null}
-                          className="wa-btn wa-btn-primary"
-                          style={{ width: "100%" }}
+                        <p
+                          style={{
+                            margin: "0 0 12px",
+                            fontSize: "13px",
+                            fontWeight: 700,
+                            color: "var(--brand-accent)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.02em",
+                          }}
                         >
-                          Mark {selectedCourse?.title ?? "this course"} as previously completed
-                        </button>
+                          Add to Planner
+                        </p>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                          {plannerActions.map((action) => (
+                            <button
+                              key={action.key}
+                              type="button"
+                              onClick={action.onClick}
+                              disabled={loading}
+                              className="wa-btn wa-btn-primary"
+                              style={{ width: "100%" }}
+                            >
+                              {action.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* Section 2: Mark as Previously Completed — only rendered when actionable */}
+                    {hasCompletedAction && (
+                      <div
+                        style={{
+                          padding: "12px",
+                          backgroundColor: "rgba(52, 211, 153, 0.08)",
+                          border: "1px solid rgba(52, 211, 153, 0.25)",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            margin: "0 0 12px",
+                            fontSize: "13px",
+                            fontWeight: 700,
+                            color: "#34d399",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.02em",
+                          }}
+                        >
+                          Mark as Previously Completed
+                        </p>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <label
+                              htmlFor="completed-grade-select"
+                              style={{
+                                fontSize: "13px",
+                                color: "#9ca3af",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              Completed in:
+                            </label>
+                            <select
+                              id="completed-grade-select"
+                              value={completedGrade}
+                              onChange={(e) => setCompletedGrade(e.target.value as GradeCompleted)}
+                              style={{
+                                flex: 1,
+                                padding: "6px 8px",
+                                fontSize: "13px",
+                                color: "#d1d5db",
+                                backgroundColor: "#1f2937",
+                                border: "1px solid #374151",
+                                borderRadius: "4px",
+                              }}
+                            >
+                              {eligibleCompletedGrades.map((opt) => (
+                                <option key={opt} value={opt}>
+                                  {opt}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={handleMarkCompleted}
+                            disabled={loading}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
+                          >
+                            Mark {selectedCourse?.title ?? "this course"} as previously completed
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     {semesterAdjustmentPlan && showAdjustConfirm && semesterAdjustmentPlan.action !== "replacement" && (
                       <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
