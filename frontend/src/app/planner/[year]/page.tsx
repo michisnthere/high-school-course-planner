@@ -3449,70 +3449,6 @@ function canonicalRequirementName(name: string): string {
   return ALIASES[normalized] ?? name.trim();
 }
 
-const waBtnBase: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  gap: "8px",
-  minHeight: "44px",
-  padding: "8px 16px",
-  fontSize: "15px",
-  fontWeight: 500,
-  borderRadius: "8px",
-  border: "none",
-  cursor: "pointer",
-  textAlign: "left",
-};
-
-const waBtnPrimary: React.CSSProperties = {
-  ...waBtnBase,
-  color: "#ffffff",
-  backgroundColor: "var(--brand-accent)",
-};
-
-const waBtnSuccess: React.CSSProperties = {
-  ...waBtnBase,
-  color: "#ffffff",
-  backgroundColor: "#059669",
-};
-
-const waBtnSecondary: React.CSSProperties = {
-  ...waBtnBase,
-  color: "#d1d5db",
-  backgroundColor: "#374151",
-};
-
-const waBtnDanger: React.CSSProperties = {
-  ...waBtnBase,
-  color: "#ffffff",
-  backgroundColor: "#dc2626",
-};
-
-const waBtnOutline: React.CSSProperties = {
-  ...waBtnBase,
-  color: "#d1d5db",
-  backgroundColor: "transparent",
-  border: "1px solid #4b5563",
-};
-
-const waBtnGhost: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "6px",
-  minHeight: "40px",
-  padding: "8px 12px",
-  fontSize: "14px",
-  fontWeight: 500,
-  color: "#9ca3af",
-  backgroundColor: "transparent",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-};
-
-const waDisabled = (disabled: boolean): React.CSSProperties =>
-  disabled ? { cursor: "not-allowed", opacity: 0.5 } : {};
-
 function WarningActionModal({
   planned,
   warning,
@@ -4808,16 +4744,14 @@ function WarningActionModal({
                       >
                         Add to Planner
                       </p>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                         {canReplace && !showConfirmReplace && (
                           <button
                             type="button"
                             onClick={handleReplaceClick}
                             disabled={loading}
-                            style={{
-                              ...waBtnPrimary,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
                           >
                             Replace {planned.course.title} with {selectedCourse?.title ?? "prerequisite"}
                           </button>
@@ -4828,10 +4762,8 @@ function WarningActionModal({
                             type="button"
                             onClick={handleAddToYearClick}
                             disabled={loading}
-                            style={{
-                              ...waBtnPrimary,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
                           >
                             Add {selectedCourse.title} to a previous year
                           </button>
@@ -4842,10 +4774,8 @@ function WarningActionModal({
                             type="button"
                             onClick={() => setShowAdjustConfirm(true)}
                             disabled={loading}
-                            style={{
-                              ...waBtnPrimary,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
                           >
                             {semesterAdjustmentPlan.action === "add_only"
                               ? `Add ${semesterAdjustmentPlan.prereqTitle} to ${YEAR_LABELS[semesterAdjustmentPlan.addPrereq!.year]} Year Semester ${semesterAdjustmentPlan.addPrereq!.semester} Slot ${semesterAdjustmentPlan.addPrereq!.slot}`
@@ -4858,10 +4788,8 @@ function WarningActionModal({
                             type="button"
                             onClick={() => handleAdjustmentReplace(currentYear)}
                             disabled={loading}
-                            style={{
-                              ...waBtnPrimary,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
                           >
                             Move {semesterAdjustmentPlan.courseATitle} to Semester 2 and add {semesterAdjustmentPlan.prereqTitle}
                           </button>
@@ -4872,10 +4800,8 @@ function WarningActionModal({
                             type="button"
                             onClick={handleSwapSemesters}
                             disabled={loading}
-                            style={{
-                              ...waBtnPrimary,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
                           >
                             Swap semesters
                           </button>
@@ -4904,7 +4830,7 @@ function WarningActionModal({
                       >
                         Mark as Previously Completed
                       </p>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                           <label
                             htmlFor="completed-grade-select"
@@ -4941,10 +4867,8 @@ function WarningActionModal({
                           type="button"
                           onClick={handleMarkCompleted}
                           disabled={loading || selectedCourse == null}
-                          style={{
-                            ...waBtnSuccess,
-                            ...waDisabled(loading || selectedCourse == null),
-                          }}
+                          className="wa-btn wa-btn-primary"
+                          style={{ width: "100%" }}
                         >
                           Mark {selectedCourse?.title ?? "this course"} as previously completed
                         </button>
@@ -5094,11 +5018,8 @@ function WarningActionModal({
                             type="button"
                             onClick={() => setShowAdjustConfirm(false)}
                             disabled={loading}
-                            style={{
-                              ...waBtnSecondary,
-                              flex: 1,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-secondary"
+                            style={{ flex: 1 }}
                           >
                             Cancel
                           </button>
@@ -5106,11 +5027,8 @@ function WarningActionModal({
                             type="button"
                             onClick={handleMoveAndAddPrerequisite}
                             disabled={loading}
-                            style={{
-                              ...waBtnPrimary,
-                              flex: 1,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ flex: 1 }}
                           >
                             {loading ? "Applying..." : "Apply"}
                           </button>
@@ -5130,11 +5048,8 @@ function WarningActionModal({
                   type="button"
                   onClick={handleIgnore}
                   disabled={loading}
-                  style={{
-                    ...waBtnOutline,
-                    width: "100%",
-                    ...waDisabled(loading),
-                  }}
+                  className="wa-btn wa-btn-secondary"
+                  style={{ width: "100%" }}
                 >
                   Ignore Warning
                 </button>
@@ -5155,11 +5070,8 @@ function WarningActionModal({
                       type="button"
                       onClick={confirmIgnore}
                       disabled={loading}
-                      style={{
-                        ...waBtnDanger,
-                        flex: 1,
-                        ...waDisabled(loading),
-                      }}
+                      className="wa-btn wa-btn-danger"
+                      style={{ flex: 1 }}
                     >
                       Yes, ignore
                     </button>
@@ -5167,11 +5079,8 @@ function WarningActionModal({
                       type="button"
                       onClick={cancelIgnore}
                       disabled={loading}
-                      style={{
-                        ...waBtnSecondary,
-                        flex: 1,
-                        ...waDisabled(loading),
-                      }}
+                      className="wa-btn wa-btn-secondary"
+                      style={{ flex: 1 }}
                     >
                       Cancel
                     </button>
@@ -5329,10 +5238,8 @@ function WarningActionModal({
                 <button
                   type="button"
                   onClick={() => { setPendingPlan(null); setAcknowledged(false); }}
-                  style={{
-                    ...waBtnSecondary,
-                    flex: 1,
-                  }}
+                  className="wa-btn wa-btn-secondary"
+                  style={{ flex: 1 }}
                 >
                   Cancel
                 </button>
@@ -5349,12 +5256,10 @@ function WarningActionModal({
                     }
                   }}
                   disabled={!acknowledged}
+                  className="wa-btn wa-btn-primary"
                   style={{
-                    ...waBtnPrimary,
                     flex: 1,
                     backgroundColor: acknowledged ? "var(--brand-accent)" : "#374151",
-                    cursor: acknowledged ? "pointer" : "not-allowed",
-                    opacity: acknowledged ? 1 : 0.5,
                   }}
                 >
                   Apply Changes
