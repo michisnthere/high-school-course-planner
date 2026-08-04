@@ -89,7 +89,6 @@ export function WaiverSection({
   onRemoveResolution,
 }: WaiverSectionProps): React.ReactElement {
   const [addingVariant, setAddingVariant] = useState<WaiverVariant | null>(null);
-  const [academicConfirmed, setAcademicConfirmed] = useState(false);
   const [showSportQuestion, setShowSportQuestion] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState<string | null>(null);
   const [showBandModal, setShowBandModal] = useState(false);
@@ -112,22 +111,19 @@ export function WaiverSection({
   );
 
   const handleAdd = (v: WaiverVariant) => {
+    if (v === "academic") {
+      onAddResolution({ type: "pe_waiver", metadata: { variant: "academic", year: grade } });
+      return;
+    }
     setAddingVariant(v);
-    setAcademicConfirmed(false);
     setShowSportQuestion(false);
     setConfirmMessage(null);
   };
 
   const handleCancel = () => {
     setAddingVariant(null);
-    setAcademicConfirmed(false);
     setShowSportQuestion(false);
     setConfirmMessage(null);
-  };
-
-  const handleAcademicConfirm = () => {
-    onAddResolution({ type: "pe_waiver", metadata: { variant: "academic", year: grade } });
-    handleCancel();
   };
 
   const handleMarchingBandConfirm = () => {
@@ -189,22 +185,19 @@ export function WaiverSection({
                     Remove
                   </button>
                 </div>
-              ) : active ? (
+              ) : active && variant !== "academic" ? (
                 <AddVariantFlow
                   variant={variant}
                   accent={accent}
                   grade={grade}
                   eligibility={eligibility}
-                  academicConfirmed={academicConfirmed}
-                  setAcademicConfirmed={setAcademicConfirmed}
                   showSportQuestion={showSportQuestion}
                   setShowSportQuestion={setShowSportQuestion}
                   confirmMessage={confirmMessage}
                   setConfirmMessage={setConfirmMessage}
                   creditBearing={creditBearing}
                   onConfirm={() => {
-                    if (variant === "academic") handleAcademicConfirm();
-                    else if (variant === "marching-band") handleMarchingBandConfirm();
+                    if (variant === "marching-band") handleMarchingBandConfirm();
                     else handleSportAnswer(true);
                   }}
                   onCancel={handleCancel}
@@ -285,7 +278,7 @@ export function WaiverSection({
 }
 
 function AddVariantFlow({
-  variant, accent, grade, eligibility, academicConfirmed, setAcademicConfirmed,
+  variant, accent, grade, eligibility,
   showSportQuestion, setShowSportQuestion, confirmMessage, setConfirmMessage,
   creditBearing, onConfirm, onCancel, showBandModal, setShowBandModal,
   onAddResolution,
@@ -294,8 +287,6 @@ function AddVariantFlow({
   accent: string;
   grade: number;
   eligibility: ReturnType<typeof computeWaiverEligibility>;
-  academicConfirmed: boolean;
-  setAcademicConfirmed: (v: boolean) => void;
   showSportQuestion: boolean;
   setShowSportQuestion: (v: boolean) => void;
   confirmMessage: string | null;
@@ -307,26 +298,6 @@ function AddVariantFlow({
   setShowBandModal: (v: boolean) => void;
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
 }): React.ReactElement | null {
-  if (variant === "academic") {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <label style={{ display: "flex", alignItems: "flex-start", gap: "6px", color: "#374151", fontSize: "12px", cursor: "pointer" }}>
-          <input type="checkbox" checked={academicConfirmed} onChange={(e) => setAcademicConfirmed(e.target.checked)} style={{ marginTop: "2px" }} />
-          <span>I confirm these courses are required for graduation and/or post-secondary admission.</span>
-        </label>
-        <div style={{ display: "flex", gap: "8px" }}>
-          <button type="button" disabled={!academicConfirmed} onClick={onConfirm}
-            style={waiverButtonStyle(accent, academicConfirmed)}>
-            Apply Waiver
-          </button>
-          <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
-            Cancel
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   if (variant === "marching-band") {
     const elig = eligibility.marchingBand;
     return (

@@ -51,6 +51,7 @@ import { EarlyBirdModal } from "@/components/planner/EarlyBirdModal";
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
+import { GraduationRequirements } from "@/components/planner/GraduationRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
 import { getCreditBearingCount, computeAthleticVariantEligibility, computeWaiverEligibility, courseFulfillsDriverEducation, findDriverEdExternalResolution, hasDriverEducationCourse } from "@/lib/plannerWaivers";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
@@ -1835,6 +1836,11 @@ function SummarySidebar({
           />
         </div>
       </div>
+
+      <GraduationRequirements
+        plannerAnalysis={plannerAnalysis}
+        currentYear={currentYear}
+      />
     </aside>
   );
 }
