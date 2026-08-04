@@ -4316,6 +4316,67 @@ function WarningActionModal({
   return (
     <>
       {mobile && <style>{`@keyframes wa-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>}
+      <style>{`
+        .wa-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          min-height: 44px;
+          padding: 10px 16px;
+          box-sizing: border-box;
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 1.2;
+          text-align: center;
+          border: 1px solid transparent;
+          border-radius: 8px;
+          cursor: pointer;
+          font-family: inherit;
+          user-select: none;
+          transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, opacity 150ms ease, transform 50ms ease;
+        }
+        .wa-btn:focus-visible {
+          outline: 2px solid var(--brand-accent);
+          outline-offset: 2px;
+        }
+        .wa-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+        .wa-btn-primary {
+          color: #ffffff;
+          background-color: var(--brand-accent);
+        }
+        .wa-btn-primary:hover:not(:disabled) {
+          background-color: var(--brand-accent-hover);
+        }
+        .wa-btn-primary:active:not(:disabled) {
+          transform: translateY(1px);
+        }
+        .wa-btn-secondary {
+          color: #d1d5db;
+          background-color: rgba(255, 255, 255, 0.04);
+          border-color: #4b5563;
+        }
+        .wa-btn-secondary:hover:not(:disabled) {
+          background-color: rgba(255, 255, 255, 0.09);
+          border-color: #6b7280;
+        }
+        .wa-btn-secondary:active:not(:disabled) {
+          transform: translateY(1px);
+        }
+        .wa-btn-danger {
+          color: #ffffff;
+          background-color: #dc2626;
+        }
+        .wa-btn-danger:hover:not(:disabled) {
+          background-color: #b91c1c;
+        }
+        .wa-btn-danger:active:not(:disabled) {
+          transform: translateY(1px);
+        }
+      `}</style>
       <div
         style={{
           position: "fixed",
@@ -4460,10 +4521,8 @@ function WarningActionModal({
                     type="button"
                     onClick={handlePlacementTest}
                     disabled={loading}
-                    style={{
-                      ...waBtnSuccess,
-                      ...waDisabled(loading),
-                    }}
+                    className="wa-btn wa-btn-primary"
+                    style={{ width: "100%" }}
                   >
                     {loading ? "Recording..." : "Mark Placement Test Completed"}
                   </button>
@@ -4488,10 +4547,10 @@ function WarningActionModal({
                       This will keep the same semester and remove the current course.
                     </p>
                     <div style={{ display: "flex", gap: "12px" }}>
-                      <button type="button" onClick={cancelReplace} disabled={loading} style={{ ...waBtnSecondary, flex: 1, ...waDisabled(loading) }}>
+                      <button type="button" onClick={cancelReplace} disabled={loading} className="wa-btn wa-btn-secondary" style={{ flex: 1 }}>
                         Cancel
                       </button>
-                      <button type="button" onClick={handleReplaceCourse} disabled={loading} style={{ ...waBtnPrimary, flex: 1, ...waDisabled(loading) }}>
+                      <button type="button" onClick={handleReplaceCourse} disabled={loading} className="wa-btn wa-btn-primary" style={{ flex: 1 }}>
                         {loading ? "Replacing..." : "Replace Course"}
                       </button>
                     </div>
@@ -4509,13 +4568,8 @@ function WarningActionModal({
                             type="button"
                             onClick={() => handleYearSelect(bestPlacement.year)}
                             disabled={loading}
-                            style={{
-                              ...waBtnBase,
-                              color: "#ffffff",
-                              backgroundColor: "rgba(39, 93, 56, 0.2)",
-                              border: "2px solid var(--brand-accent)",
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-primary"
+                            style={{ width: "100%" }}
                           >
                             Best placement: {YEAR_LABELS[bestPlacement.year]} Year, Semester {bestPlacement.semester} Slot {bestPlacement.slot} (recommended)
                           </button>
@@ -4543,7 +4597,7 @@ function WarningActionModal({
                                   justifyContent: "center",
                                   gap: "2px",
                                   minHeight: "44px",
-                                  padding: "8px 16px",
+                                  padding: "10px 16px",
                                   fontSize: "15px",
                                   fontWeight: 500,
                                   color: slot ? "#ffffff" : "#6b7280",
@@ -4567,7 +4621,8 @@ function WarningActionModal({
                         <button
                           type="button"
                           onClick={() => { setStep("initial"); setSelectedYear(null); }}
-                          style={waBtnGhost}
+                          className="wa-btn wa-btn-secondary"
+                          style={{ width: "100%" }}
                         >
                           ← Back
                         </button>
@@ -4590,11 +4645,8 @@ function WarningActionModal({
                               type="button"
                               onClick={handleFoundSlotCancel}
                               disabled={loading}
-                              style={{
-                                ...waBtnSecondary,
-                                flex: 1,
-                                ...waDisabled(loading),
-                              }}
+                              className="wa-btn wa-btn-secondary"
+                              style={{ flex: 1 }}
                             >
                               Cancel
                             </button>
@@ -4602,11 +4654,8 @@ function WarningActionModal({
                               type="button"
                               onClick={handleAddPrerequisite}
                               disabled={loading}
-                              style={{
-                                ...waBtnPrimary,
-                                flex: 1,
-                                ...waDisabled(loading),
-                              }}
+                              className="wa-btn wa-btn-primary"
+                              style={{ flex: 1 }}
                             >
                               {loading ? "Adding..." : "Add Course"}
                             </button>
@@ -4652,7 +4701,7 @@ function WarningActionModal({
                                           style={{
                                             width: "100%",
                                             minHeight: "44px",
-                                            padding: "8px 16px",
+                                            padding: "10px 16px",
                                             fontSize: "15px",
                                             fontWeight: 500,
                                             color: "#ffffff",
@@ -4665,7 +4714,6 @@ function WarningActionModal({
                                             display: "flex",
                                             justifyContent: "space-between",
                                             alignItems: "center",
-                                            ...waDisabled(loading),
                                           }}
                                         >
                                           <span>{c.course.title}</span>
@@ -4687,7 +4735,8 @@ function WarningActionModal({
                         <button
                           type="button"
                           onClick={() => { setStep("selectYear"); setSelectedReplacement(null); }}
-                          style={waBtnGhost}
+                          className="wa-btn wa-btn-secondary"
+                          style={{ width: "100%" }}
                         >
                           ← Choose a different year
                         </button>
@@ -4716,11 +4765,8 @@ function WarningActionModal({
                             type="button"
                             onClick={handleImpactCancel}
                             disabled={loading}
-                            style={{
-                              ...waBtnSecondary,
-                              flex: 1,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-secondary"
+                            style={{ flex: 1 }}
                           >
                             Cancel
                           </button>
@@ -4728,11 +4774,8 @@ function WarningActionModal({
                             type="button"
                             onClick={handleConfirmImpactReplace}
                             disabled={loading}
-                            style={{
-                              ...waBtnDanger,
-                              flex: 1,
-                              ...waDisabled(loading),
-                            }}
+                            className="wa-btn wa-btn-danger"
+                            style={{ flex: 1 }}
                           >
                             {loading ? "Replacing..." : "Replace Course"}
                           </button>
