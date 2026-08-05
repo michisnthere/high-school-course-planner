@@ -1356,30 +1356,7 @@ function PlannerYearContent(): React.ReactElement {
                   </div>
                 );
               })()}
-              <button
-                type="button"
-                onClick={() => handleOpenModal(3, 1)}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "6px",
-                  padding: "10px 20px",
-                  minHeight: "44px",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: "#9ca3af",
-                  backgroundColor: "#1f2937",
-                  border: "2px dashed #4b5563",
-                  borderRadius: "12px",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#6b7280"; e.currentTarget.style.color = "#d1d5db"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#4b5563"; e.currentTarget.style.color = "#9ca3af"; }}
-              >
-                + Add Summer School Course
-              </button>
+              <AddCourseCard semester={3} slot={1} onClick={() => handleOpenModal(3, 1)} isTablet={isTablet} />
             </div>
           )}
         </div>
