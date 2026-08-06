@@ -5,6 +5,7 @@ import { CourseDetailHeader } from "@/components/catalog/CourseDetailHeader";
 import { CourseDescription } from "@/components/catalog/CourseDescription";
 import { CourseOfferings } from "@/components/catalog/CourseOfferings";
 import { CoursePrerequisites } from "@/components/catalog/CoursePrerequisites";
+import { CourseRequiredFor } from "@/components/catalog/CourseRequiredFor";
 import { CourseAttributes } from "@/components/catalog/CourseAttributes";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { breakpoints } from "@/lib/responsive";
@@ -133,6 +134,9 @@ export default async function CatalogDetailPage({ params, searchParams }: Catalo
         </div>
         <div className="rs-detail-card">
           <CoursePrerequisites course={course} allCourses={courses} />
+        </div>
+        <div className="rs-detail-card">
+          <CourseRequiredFor course={course} allCourses={courses} />
         </div>
         <div className="rs-detail-card">
           <CourseAttributes course={course} />

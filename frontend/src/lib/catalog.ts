@@ -77,6 +77,32 @@ function buildPrerequisiteMap(courses: Course[]): Map<Course, Course[]> {
   return prereqMap;
 }
 
+/**
+ * Return every catalog course that lists `course` as a prerequisite.
+ *
+ * Reuses `buildPrerequisiteMap` so the reverse lookup uses the exact same
+ * title + course-code matching logic as the forward prerequisite relationship
+ * (and the catalog prerequisite sorting). The result is computed from the
+ * already-fetched catalog, so it requires no extra database queries, returns
+ * only real catalog courses, contains no duplicates (Set-based), and returns
+ * an empty array when no course depends on `course`.
+ */
+export function getCoursesRequiringPrerequisite(
+  course: Course,
+  allCourses: Course[]
+): Course[] {
+  if (!course || allCourses.length === 0) return [];
+  const prereqMap = buildPrerequisiteMap(allCourses);
+  const dependents: Course[] = [];
+  for (const [candidate, prereqs] of prereqMap) {
+    if (candidate.id === course.id) continue;
+    if (prereqs.some((p) => p.id === course.id)) {
+      dependents.push(candidate);
+    }
+  }
+  return dependents.sort((a, b) => a.title.localeCompare(b.title));
+}
+
 function computePrerequisiteDepth(
   course: Course,
   prereqMap: Map<Course, Course[]>,
