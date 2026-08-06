@@ -26,7 +26,7 @@ import {
 } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
 import { sumPlannedCredits, formatCredits, effectiveSlotSpan } from "@/lib/courseCredits";
-import { calculatePlannerOccupancy, SLOTS_PER_SEMESTER, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
+import { calculatePlannerCompletionPercentage, calculatePlannerOccupancy, SLOTS_PER_SEMESTER, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
 import type { PeSemesterStatus } from "@/lib/gradeRequirements";
 import { GradeRequirements } from "@/components/planner/GradeRequirements";
 import {
@@ -1619,7 +1619,7 @@ function SummarySidebar({
   const semesterCount = occupancy?.semesterCount ?? 0;
   const totalSlots = occupancy?.totalSlots ?? TOTAL_PLANNER_SLOTS;
   const filledSlots = occupancy?.filledSlots ?? 0;
-  const slotPercentage = totalSlots > 0 ? Math.min(100, (filledSlots / totalSlots) * 100) : 0;
+  const slotPercentage = currentPlanner ? calculatePlannerCompletionPercentage(currentPlanner) : 0;
 
   return (
     <aside

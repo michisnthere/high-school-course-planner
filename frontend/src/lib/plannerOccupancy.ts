@@ -83,3 +83,14 @@ export function calculatePlannerOccupancy(planner: Planner): PlannerOccupancy {
     },
   };
 }
+
+/**
+ * Completion percentage based on occupied regular-semester slots (not course
+ * records). Multi-slot courses count their full span; summer courses are ignored.
+ * Returns a rounded integer in the range 0-100.
+ */
+export function calculatePlannerCompletionPercentage(planner: Planner): number {
+  const { occupiedSlots, totalSlots } = calculatePlannerOccupancy(planner);
+  if (totalSlots <= 0) return 0;
+  return Math.min(100, Math.round((occupiedSlots / totalSlots) * 100));
+}

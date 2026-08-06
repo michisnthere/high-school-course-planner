@@ -11,10 +11,8 @@ import { breakpoints } from "@/lib/responsive";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { Planner } from "@/lib/planner";
 import { formatCredits } from "@/lib/courseCredits";
+import { calculatePlannerCompletionPercentage, calculatePlannerOccupancy, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
 
-const SLOTS_PER_SEMESTER = 7;
-const SEMESTERS_PER_YEAR = 2;
-const TOTAL_SLOTS_PER_YEAR = SLOTS_PER_SEMESTER * SEMESTERS_PER_YEAR;
 const YEARS = [9, 10, 11, 12] as const;
 const YEAR_LABELS: Record<number, string> = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
 
@@ -56,14 +54,13 @@ export default function Home() {
   const totalRequired = 45;
   const gradProgress = Math.min(Math.round((totalCredits / totalRequired) * 100), 100);
 
-  const totalPlannedCourses = planners.reduce((sum, p) => sum + p.plannedCourses.length, 0);
-  const totalSlots = YEARS.length * TOTAL_SLOTS_PER_YEAR;
-  const plannerCompletion = Math.min(Math.round((totalPlannedCourses / totalSlots) * 100), 100);
+  const filledSlots = planners.reduce((sum, p) => sum + calculatePlannerOccupancy(p).occupiedSlots, 0);
+  const totalSlots = YEARS.length * TOTAL_PLANNER_SLOTS;
+  const plannerCompletion = Math.min(100, Math.round((filledSlots / totalSlots) * 100));
 
   function yearCompletion(year: number): number {
     const planner = planners.find((p) => p.schoolYear === year);
-    const filled = planner ? planner.plannedCourses.length : 0;
-    return Math.min(Math.round((filled / TOTAL_SLOTS_PER_YEAR) * 100), 100);
+    return planner ? calculatePlannerCompletionPercentage(planner) : 0;
   }
 
   return (

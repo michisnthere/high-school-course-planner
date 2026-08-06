@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { Planner, PlannerCourseDetails, PlannedCourse } from "@/lib/planner";
-import { calculatePlannerOccupancy, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
+import { calculatePlannerCompletionPercentage, calculatePlannerOccupancy, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
 
 function makeCourse(overrides: Partial<PlannerCourseDetails>): PlannerCourseDetails {
   return {
@@ -133,5 +133,65 @@ describe("calculatePlannerOccupancy", () => {
     expect(occ.plannedCount).toBe(2);
     expect(occ.semesterCount).toBe(2);
     expect(occ.fullYearCount).toBe(0);
+  });
+});
+
+describe("calculatePlannerCompletionPercentage", () => {
+  it("returns 0 for an empty planner", () => {
+    expect(calculatePlannerCompletionPercentage(makePlanner(11, []))).toBe(0);
+  });
+
+  it("is based on occupied slots, not course records (American Studies spans two slots)", () => {
+    const amStud = makeCourse({
+      id: 60,
+      title: "American Studies",
+      duration: 2,
+      slotsPerSemester: 2,
+    });
+    const one = makeCourse({ id: 61, title: "One-Slot", duration: 1 });
+    const planned: PlannedCourse[] = [];
+    let nextId = 100;
+    const fillSemester = (semester: number): void => {
+      for (let slot = 1; slot <= 5; slot++) {
+        planned.push(
+          makePlanned({ id: nextId++, courseId: 61, course: one, semester, slot })
+        );
+      }
+      planned.push(
+        makePlanned({
+          id: nextId++,
+          courseId: 60,
+          course: amStud,
+          semester,
+          slot: 6,
+          slotSpan: 2,
+        })
+      );
+    };
+    fillSemester(1);
+    fillSemester(2);
+
+    const planner = makePlanner(11, planned);
+    expect(planner.plannedCourses.length).toBe(12);
+    expect(calculatePlannerOccupancy(planner).filledSlots).toBe(14);
+    expect(calculatePlannerCompletionPercentage(planner)).toBe(100);
+  });
+
+  it("returns a rounded percentage for partially filled planners", () => {
+    const one = makeCourse({ id: 62, title: "One-Slot", duration: 1 });
+    const planner = makePlanner(11, [
+      makePlanned({ id: 200, courseId: 62, course: one, semester: 1, slot: 1 }),
+      makePlanned({ id: 201, courseId: 62, course: one, semester: 1, slot: 2 }),
+    ]);
+    expect(calculatePlannerOccupancy(planner).filledSlots).toBe(2);
+    expect(calculatePlannerCompletionPercentage(planner)).toBe(Math.round((2 / 14) * 100));
+  });
+
+  it("ignores summer school courses", () => {
+    const summer = makeCourse({ id: 63, title: "Summer English", duration: 1 });
+    const planner = makePlanner(11, [
+      makePlanned({ id: 300, courseId: 63, course: summer, semester: 3, slot: 1 }),
+    ]);
+    expect(calculatePlannerCompletionPercentage(planner)).toBe(0);
   });
 });
