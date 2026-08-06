@@ -4,6 +4,7 @@ import type { RequirementResolution } from "./api";
 import type { StudentPlanningData } from "./studentData";
 import type { PlannerAnalysis, PeSemesterBreakdown } from "./plannerAnalysis";
 import { calculateTotalCredits, deriveCourseDuration, effectiveSlotsPerSemester } from "./courseCredits";
+import { isOutOfSemester } from "./plannerSemesters";
 
 const YEAR_LABELS: Record<number, string> = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
 const SLOTS_PER_SEMESTER = 7;
@@ -514,7 +515,7 @@ function computeYearRequirements(placements: CoursePlacement[]): YearRequirement
       let earnedCredits = 0;
       const seen = new Set<string>();
       for (const placement of placements) {
-        if (placement.year !== grade || placement.semester === 3 || !placement.course || placement.isNonAcademic) continue;
+        if (placement.year !== grade || isOutOfSemester(placement.semester) || !placement.course || placement.isNonAcademic) continue;
         const course = placement.course;
         const fulfillsCanonical = course.fulfillsRequirements.map(canonicalRequirementName);
         if (!fulfillsCanonical.some((fr) => accepted.has(fr))) continue;
@@ -701,7 +702,7 @@ function computePlannerStatistics(placements: CoursePlacement[]): PlannerStatist
   const occupiedSlots = new Set<string>();
   const distinctCourses = new Set<string>();
   for (const placement of placements) {
-    if (placement.semester === 3) continue;
+    if (isOutOfSemester(placement.semester)) continue;
     const slotKey = `${placement.year}-${placement.semester}-${placement.slot}`;
     occupiedSlots.add(slotKey);
     if (placement.isNonAcademic) {

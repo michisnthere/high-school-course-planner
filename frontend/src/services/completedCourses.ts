@@ -60,6 +60,7 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
         attributes: [],
         supportsEarlyBird: false,
         isRepeatable: false,
+        isOnline: false,
       };
       const entry: CompletedCourse = {
         id: completedIdCounter,

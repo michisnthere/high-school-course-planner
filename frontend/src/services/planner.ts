@@ -10,10 +10,11 @@ import type { IPlannerService } from "./types";
    setPlannedCourseEarlyBird as authSetPlannedCourseEarlyBird,
    markPlannerYearCompleted as authMarkPlannerYearCompleted,
    unmarkPlannerYearCompleted as authUnmarkPlannerYearCompleted,
-   type Planner,
-   type PlannedCourse,
-   type PlannerCourseDetails,
- } from "@/lib/planner";
+type Planner,
+    type PlannedCourse,
+    type PlannerCourseDetails,
+  } from "@/lib/planner";
+ import { isRegularSemester } from "@/lib/plannerSemesters";
 
 export const authPlannerService: IPlannerService = {
   seedCourseCatalog: () => {},
@@ -139,13 +140,13 @@ export function createGuestPlannerService(): IPlannerService {
           }
         }
 
-        if (semester != null && semester === 3) {
+        if (semester != null && semester > 2) {
           const entry: PlannedCourse = {
             id: nextCourseEntryId++,
             plannerId,
             courseId: courseIdOrItem,
             plannerOptionId: null,
-            semester: 3,
+            semester: semester,
             slot: slot ?? 1,
             slotSpan: courseDetails.slotsPerSemester ?? 1,
             course: { ...courseDetails },
@@ -226,8 +227,8 @@ export function createGuestPlannerService(): IPlannerService {
         }
 
         if (courseDetails.duration === 2) {
-          if (semester === 3) {
-            throw new Error("Full-year courses cannot be added to Summer School.");
+          if (semester != null && semester > 2) {
+            throw new Error("Full-year courses cannot be added to Summer School or Online Courses.");
           }
           if (occupied(planner, 1, slot!, null) || occupied(planner, 2, slot!, null)) {
             throw new Error("This slot is already occupied in one or both semesters.");
@@ -249,7 +250,7 @@ export function createGuestPlannerService(): IPlannerService {
           return clonePlanner(planner);
         }
 
-        if (semester !== 3 && occupied(planner, semester!, slot!, null)) {
+        if (isRegularSemester(semester!) && occupied(planner, semester!, slot!, null)) {
           throw new Error("This slot is already occupied.");
         }
 
@@ -269,7 +270,7 @@ export function createGuestPlannerService(): IPlannerService {
         return clonePlanner(planner);
       }
 
-      if (courseIdOrItem.semester !== 3 && occupied(planner, courseIdOrItem.semester, courseIdOrItem.slot, null)) {
+      if (isRegularSemester(courseIdOrItem.semester) && occupied(planner, courseIdOrItem.semester, courseIdOrItem.slot, null)) {
         throw new Error("This slot is already occupied.");
       }
 
@@ -304,6 +305,7 @@ export function createGuestPlannerService(): IPlannerService {
           attributes: [],
           supportsEarlyBird: false,
           isRepeatable: false,
+          isOnline: false,
         },
         isEarlyBird: false,
       };
@@ -332,8 +334,8 @@ export function createGuestPlannerService(): IPlannerService {
       for (const planner of planners) {
         const entry = planner.plannedCourses.find((pc) => pc.id === plannedCourseId);
         if (entry) {
-          if (semester === 3) {
-            entry.semester = 3;
+          if (semester > 2) {
+            entry.semester = semester;
             entry.slot = slot ?? 1;
             save();
             return clonePlanner(planner);

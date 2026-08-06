@@ -435,7 +435,7 @@ function PlannerYearContent(): React.ReactElement {
 
       const semester = activeSlot.semester;
 
-      if (semester !== 3 && "courseId" in selection) {
+      if ((semester === 1 || semester === 2) && "courseId" in selection) {
         const course = allCatalogCourses.find((c) => c.id === selection.courseId);
         if (course?.supportsEarlyBird) {
           setEarlyBirdPending({
@@ -1098,6 +1098,7 @@ function PlannerYearContent(): React.ReactElement {
             allPlanners={allPlanners}
             onGoToCourse={handleGoToCourse}
             targetSemester={activeSlot.semester}
+            onlineOnly={activeSlot.semester === 4}
           />
         )}
 
@@ -1285,78 +1286,155 @@ function PlannerYearContent(): React.ReactElement {
             </div>
           )}
 
-          {!isCompleted && SUMMER_SCHOOL_YEARS.has(year) && (
-            <div style={{ marginTop: "32px" }}>
-              <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Summer School
-              </h2>
-              {(() => {
-                const summerCourses = planner?.plannedCourses.filter((pc) => pc.semester === 3) ?? [];
-                return summerCourses.length === 0 ? (
-                  <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
-                    No Summer School courses added.
-                  </p>
-                ) : (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
-                    {summerCourses.map((pc) => {
-                      const accentColor = getDivisionColor(pc.course.division);
-                      const bgTint = getDivisionBackgroundColor(pc.course.division);
-                      return (
-                        <div
-                          key={pc.id}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "12px",
-                            padding: "12px 16px",
-                            backgroundColor: bgTint,
-                            borderLeft: `4px solid ${accentColor}`,
-                            borderRadius: "8px",
-                          }}
-                        >
-                          <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
-                            {(() => {
-                              const code = pc.course.courseCode;
-                              return code ? (
-                                <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-                                  {code}
+          {!isCompleted && (
+            <div style={{ display: "flex", gap: "32px", flexWrap: "wrap", marginTop: "32px", alignItems: "stretch" }}>
+              {SUMMER_SCHOOL_YEARS.has(year) && (
+                <section style={{ flex: "1 1 280px", minWidth: 0 }}>
+                  <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
+                    Summer School
+                  </h2>
+                  {(() => {
+                    const summerCourses = planner?.plannedCourses.filter((pc) => pc.semester === 3) ?? [];
+                    return summerCourses.length === 0 ? (
+                      <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
+                        No Summer School courses added.
+                      </p>
+                    ) : (
+                      <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
+                        {summerCourses.map((pc) => {
+                          const accentColor = getDivisionColor(pc.course.division);
+                          const bgTint = getDivisionBackgroundColor(pc.course.division);
+                          return (
+                            <div
+                              key={pc.id}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: "12px",
+                                padding: "12px 16px",
+                                backgroundColor: bgTint,
+                                borderLeft: `4px solid ${accentColor}`,
+                                borderRadius: "8px",
+                              }}
+                            >
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
+                                {(() => {
+                                  const code = pc.course.courseCode;
+                                  return code ? (
+                                    <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                                      {code}
+                                    </span>
+                                  ) : null;
+                                })()}
+                                <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3, wordBreak: "break-word" }}>
+                                  {pc.course.title}
                                 </span>
-                              ) : null;
-                            })()}
-                            <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3, wordBreak: "break-word" }}>
-                              {pc.course.title}
-                            </span>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveCourse(pc)}
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveCourse(pc)}
+                                style={{
+                                  width: "28px",
+                                  height: "28px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "transparent",
+                                  border: "none",
+                                  borderRadius: "6px",
+                                  cursor: "pointer",
+                                  color: "#9ca3af",
+                                  fontSize: "16px",
+                                  flexShrink: 0,
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.color = "#ef4444"; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--text-secondary)"; }}
+                              >
+                                🗑
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
+                  <AddCourseCard semester={3} slot={1} onClick={() => handleOpenModal(3, 1)} isTablet={isTablet} />
+                </section>
+              )}
+
+              <section style={{ flex: "1 1 280px", minWidth: 0 }}>
+                <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
+                  Online Courses
+                </h2>
+                {(() => {
+                  const onlineCourses = planner?.plannedCourses.filter((pc) => pc.semester === 4) ?? [];
+                  return onlineCourses.length === 0 ? (
+                    <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
+                      No Online Courses added.
+                    </p>
+                  ) : (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
+                      {onlineCourses.map((pc) => {
+                        const accentColor = getDivisionColor(pc.course.division);
+                        const bgTint = getDivisionBackgroundColor(pc.course.division);
+                        return (
+                          <div
+                            key={pc.id}
                             style={{
-                              width: "28px",
-                              height: "28px",
                               display: "flex",
                               alignItems: "center",
-                              justifyContent: "center",
-                              background: "transparent",
-                              border: "none",
-                              borderRadius: "6px",
-                              cursor: "pointer",
-                              color: "#9ca3af",
-                              fontSize: "16px",
-                              flexShrink: 0,
+                              justifyContent: "space-between",
+                              gap: "12px",
+                              padding: "12px 16px",
+                              backgroundColor: bgTint,
+                              borderLeft: `4px solid ${accentColor}`,
+                              borderRadius: "8px",
                             }}
-                            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.color = "#ef4444"; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--text-secondary)"; }}
                           >
-                            🗑
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })()}
-              <AddCourseCard semester={3} slot={1} onClick={() => handleOpenModal(3, 1)} isTablet={isTablet} />
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
+                              {(() => {
+                                const code = pc.course.courseCode;
+                                return code ? (
+                                  <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                                    {code}
+                                  </span>
+                                ) : null;
+                              })()}
+                              <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3, wordBreak: "break-word" }}>
+                                {pc.course.title}
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveCourse(pc)}
+                              style={{
+                                width: "28px",
+                                height: "28px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: "transparent",
+                                border: "none",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                color: "#9ca3af",
+                                fontSize: "16px",
+                                flexShrink: 0,
+                              }}
+                              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.color = "#ef4444"; }}
+                              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--text-secondary)"; }}
+                            >
+                              🗑
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+                <AddCourseCard semester={4} slot={1} onClick={() => handleOpenModal(4, 1)} isTablet={isTablet} />
+              </section>
             </div>
           )}
         </div>
@@ -1383,6 +1461,7 @@ function PlannerYearContent(): React.ReactElement {
           allPlanners={allPlanners}
           onGoToCourse={handleGoToCourse}
           targetSemester={activeSlot.semester}
+          onlineOnly={activeSlot.semester === 4}
         />
       )}
 
@@ -2288,6 +2367,7 @@ function CourseSearchModal({
   allPlanners,
   onGoToCourse,
   targetSemester,
+  onlineOnly = false,
 }: {
   onClose: () => void;
   onSelect: (selection: { courseId: number } | { plannerOptionId: number }) => void;
@@ -2296,6 +2376,7 @@ function CourseSearchModal({
   allPlanners: Planner[];
   onGoToCourse: (year: number, plannedCourseId: number) => void;
   targetSemester: number;
+  onlineOnly?: boolean;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
@@ -2324,13 +2405,18 @@ function CourseSearchModal({
 
   const searchIndex = useMemo(() => buildCourseSearchIndex(allCourses), [allCourses]);
 
+  const catalogPool = useMemo(() => {
+    if (!onlineOnly) return allCourses;
+    return allCourses.filter((course) => course.isOnline === true);
+  }, [allCourses, onlineOnly]);
+
   const divisions = useMemo(
-    () => extractDivisionsFromItems(allCourses, (course) => course.division),
-    [allCourses]
+    () => extractDivisionsFromItems(catalogPool, (course) => course.division),
+    [catalogPool]
   );
 
   const filteredResults = useMemo(
-    () => allCourses.filter(
+    () => catalogPool.filter(
       (course) =>
         courseMatchesQuery(course, submitted, searchIndex) &&
         courseMatchesDivisionFilter(
@@ -2338,7 +2424,7 @@ function CourseSearchModal({
           selectedDivision === "All Divisions" ? null : selectedDivision
         )
     ),
-    [allCourses, submitted, selectedDivision]
+    [catalogPool, submitted, selectedDivision]
   );
 
   const sortedResults = useMemo(
@@ -2410,7 +2496,7 @@ function CourseSearchModal({
                   color: "#ffffff",
                 }}
               >
-                Add a Course
+                {onlineOnly ? "Add an Online Course" : "Add a Course"}
               </h2>
               <button
                 type="button"
@@ -3161,6 +3247,7 @@ function MobilePlanner({
   };
 
   const summerSchoolCourses = planner.plannedCourses.filter((pc) => pc.semester === 3);
+  const onlineSchoolCourses = planner.plannedCourses.filter((pc) => pc.semester === 4);
 
   return (
     <>
@@ -3216,6 +3303,28 @@ function MobilePlanner({
           </button>
         </div>
       )}
+
+      <div style={{ marginTop: "20px" }}>
+        <div className="mob-planner-semester">
+          <h2>Online Courses</h2>
+        </div>
+        {onlineSchoolCourses.length === 0 ? (
+          <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: "0 0 12px", padding: "8px 0" }}>
+            No Online Courses added.
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "12px" }}>
+            {onlineSchoolCourses.map((pc) => renderCourseCard(pc, 3))}
+          </div>
+        )}
+        <button
+          type="button"
+          className="mob-add-btn"
+          onClick={() => onOpenModal(4)}
+        >
+          + Add Course to Online Courses
+        </button>
+      </div>
 
     </>
   );

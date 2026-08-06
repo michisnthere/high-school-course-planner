@@ -1,5 +1,6 @@
 import type { PlannedCourse } from "./planner";
 import { effectiveSlotSpan, getCourseCredits, getPlacementKey, getSemesterCredits } from "./courseCredits";
+import { isOutOfSemester } from "./plannerSemesters";
 
 export type SemesterCreditStatus = {
   semester: number;
@@ -26,7 +27,7 @@ export function computeSemesterCredits(plannedCourses: PlannedCourse[]): Semeste
 
   for (const pc of plannedCourses) {
     if (pc.course.isNonAcademic) continue;
-    if (pc.semester === 3) continue;
+    if (isOutOfSemester(pc.semester)) continue;
 
     const key = `${pc.courseId ?? ""}:${pc.slot}:${pc.semester}`;
     if (seen.has(key)) continue;
@@ -50,7 +51,7 @@ export function computeSixthPeriod(plannedCourses: PlannedCourse[], grade: numbe
 
   for (const pc of plannedCourses) {
     if (pc.course.isNonAcademic && grade < 11) continue;
-    if (pc.semester === 3) continue;
+    if (isOutOfSemester(pc.semester)) continue;
 
     if (pc.course.duration === 2) {
       const span = effectiveSlotSpan(pc);

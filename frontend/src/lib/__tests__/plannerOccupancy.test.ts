@@ -121,6 +121,18 @@ describe("calculatePlannerOccupancy", () => {
     expect(occ.totalSlots).toBe(TOTAL_PLANNER_SLOTS);
   });
 
+  it("excludes online courses from regular-slot math but counts them separately", () => {
+    const online = makeCourse({ id: 41, title: "Online English", duration: 1 });
+    const planner = makePlanner(11, [
+      makePlanned({ id: 9, courseId: 41, course: online, semester: 4, slot: 1 }),
+    ]);
+    const occ = calculatePlannerOccupancy(planner);
+    expect(occ.filledSlots).toBe(0);
+    expect(occ.onlineCourseCount).toBe(1);
+    expect(occ.summerCourseCount).toBe(0);
+    expect(occ.totalSlots).toBe(TOTAL_PLANNER_SLOTS);
+  });
+
   it("counts distinct one-semester courses across both semesters", () => {
     const health = makeCourse({ id: 50, title: "Health", duration: 1 });
     const gov = makeCourse({ id: 51, title: "Government", duration: 1 });
@@ -191,6 +203,14 @@ describe("calculatePlannerCompletionPercentage", () => {
     const summer = makeCourse({ id: 63, title: "Summer English", duration: 1 });
     const planner = makePlanner(11, [
       makePlanned({ id: 300, courseId: 63, course: summer, semester: 3, slot: 1 }),
+    ]);
+    expect(calculatePlannerCompletionPercentage(planner)).toBe(0);
+  });
+
+  it("ignores online courses in completion percentage", () => {
+    const online = makeCourse({ id: 64, title: "Online English", duration: 1 });
+    const planner = makePlanner(11, [
+      makePlanned({ id: 301, courseId: 64, course: online, semester: 4, slot: 1 }),
     ]);
     expect(calculatePlannerCompletionPercentage(planner)).toBe(0);
   });

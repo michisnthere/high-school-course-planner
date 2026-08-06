@@ -1,5 +1,6 @@
 import type { Planner, PlannedCourse } from "./planner";
 import { effectiveSlotSpan } from "./courseCredits";
+import { isRegularSemester, SUMMER_SEMESTER, ONLINE_SEMESTER } from "./plannerSemesters";
 
 export const SLOTS_PER_SEMESTER = 7;
 export const TOTAL_PLANNER_SLOTS = SLOTS_PER_SEMESTER * 2;
@@ -25,6 +26,8 @@ export type PlannerOccupancy = {
   multiSlotCount: number;
   /** Summer school course count (excluded from regular-semester slot math). */
   summerCourseCount: number;
+  /** Online course count (excluded from regular-semester slot math). */
+  onlineCourseCount: number;
   /** Occupied period numbers per regular semester. */
   occupiedPeriods: Record<number, number[]>;
 };
@@ -36,8 +39,9 @@ function courseIdentityKey(pc: PlannedCourse): string | null {
 }
 
 export function calculatePlannerOccupancy(planner: Planner): PlannerOccupancy {
-  const regularCourses = planner.plannedCourses.filter((pc) => pc.semester !== 3);
-  const summerCourses = planner.plannedCourses.filter((pc) => pc.semester === 3);
+  const regularCourses = planner.plannedCourses.filter((pc) => isRegularSemester(pc.semester));
+  const summerCourses = planner.plannedCourses.filter((pc) => pc.semester === SUMMER_SEMESTER);
+  const onlineCourses = planner.plannedCourses.filter((pc) => pc.semester === ONLINE_SEMESTER);
 
   const identities = new Set<string>();
   const fullYearIds = new Set<string>();
@@ -77,6 +81,7 @@ export function calculatePlannerOccupancy(planner: Planner): PlannerOccupancy {
     earlyBirdCount: earlyBirdIds.size,
     multiSlotCount: multiSlotIds.size,
     summerCourseCount: summerCourses.length,
+    onlineCourseCount: onlineCourses.length,
     occupiedPeriods: {
       1: Array.from(occupiedPeriods[1]).sort((a, b) => a - b),
       2: Array.from(occupiedPeriods[2]).sort((a, b) => a - b),

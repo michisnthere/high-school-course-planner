@@ -39,6 +39,7 @@ export type CourseDetails = {
   isMarchingBand: boolean;
   supportsEarlyBird: boolean;
   isRepeatable: boolean;
+  isOnline: boolean;
 };
 
 type PlannedCourseResponse = {
@@ -67,6 +68,7 @@ export function deriveCourseDetails(
     options?: Array<{
       creditType?: string | null;
       credits?: number | null;
+      isOnline?: boolean | null;
       offerings?: Array<{
         duration?: string | number | null;
         courseCode?: string | null;
@@ -143,6 +145,7 @@ export function deriveCourseDetails(
       course.supportsEarlyBird === true ||
       (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")),
     isRepeatable: course.isRepeatable === true,
+    isOnline: (course.options ?? []).some((o) => o.isOnline === true),
   };
 }
 
@@ -169,6 +172,7 @@ function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
     isMarchingBand: false,
     supportsEarlyBird: false,
     isRepeatable: false,
+    isOnline: false,
   };
 }
 
@@ -669,8 +673,8 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const semesterNum = Number(semester);
   const slotNum = Number(slot);
 
-  if (semesterNum < 1 || semesterNum > 2) {
-    return res.status(400).json({ error: "semester must be 1 or 2" });
+  if (semesterNum < 1 || semesterNum > 4) {
+    return res.status(400).json({ error: "semester must be between 1 and 4" });
   }
 
   if (slotNum < 1 || slotNum > 7) {
@@ -784,71 +788,78 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     },
   });
 
-  const targetSemesters = duration === 2 ? [1, 2] : [semesterNum];
+// Semester 3 (Summer School) and 4 (Online Courses) live outside the regular
+  // S1/S2 grid. They do not consume slots, so slot/shift/adjacency logic is skipped.
+  const isOutOfSchedule = semesterNum > 2;
+  const targetSemesters = isOutOfSchedule ? [semesterNum] : duration === 2 ? [1, 2] : [semesterNum];
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
 
-  // Enforce at most one Early Bird course per semester. A full-year Early Bird
-  // course occupies both semesters.
-  if (isEarlyBirdValue) {
-    for (const sem of targetSemesters) {
-      const existingEb = existingCourses.find(
-        (pc) => pc.semester === sem && pc.isEarlyBird && pc.courseId !== Number(courseId)
-      );
-      if (existingEb) {
-        return res.status(409).json({ error: "You may only take one Early Bird course each semester." });
-      }
-    }
-  }
-
-  if (slotSpan > 1) {
-    let startSlot: number | null = null;
-
-    if (duration === 2) {
-      const sem1Chain = computeShiftChainForRange(existingCourses, 1, slotNum, slotSpan);
-      const sem2Chain = computeShiftChainForRange(existingCourses, 2, slotNum, slotSpan);
-
-      if (sem1Chain !== null && sem2Chain !== null) {
-        startSlot = slotNum;
-        shifts.push(...sem1Chain.map((s) => ({ ...s, semester: 1 })));
-        shifts.push(...sem2Chain.map((s) => ({ ...s, semester: 2 })));
-      } else {
-        startSlot = findFirstAvailableAdjacentPairInBothSemesters(existingCourses, slotSpan);
-      }
-    } else {
-      const chain = computeShiftChainForRange(existingCourses, semesterNum, slotNum, slotSpan);
-      if (chain !== null) {
-        startSlot = slotNum;
-        shifts.push(...chain.map((s) => ({ ...s, semester: semesterNum })));
-      }
-    }
-
-    if (startSlot == null) {
-      return res.status(409).json({
-        error:
-          duration === 2
-            ? "American Studies requires two consecutive periods. There is not enough space in this semester."
-            : `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
-      });
-    }
-    createData = { ...createData, slot: startSlot, slotSpan };
+  if (isOutOfSchedule) {
+    createData = { ...createData, slot: slotNum, slotSpan: 1 };
   } else {
-    for (const sem of targetSemesters) {
-      const chain = computeShiftChain(existingCourses, sem, slotNum);
-      if (chain === null) {
-        const msg = duration === 2
-          ? "Not enough room to place this full-year course."
-          : "This slot is blocked by a course that cannot be moved.";
-        return res.status(409).json({ error: msg });
+    // Enforce at most one Early Bird course per semester. A full-year Early Bird
+    // course occupies both semesters.
+    if (isEarlyBirdValue) {
+      for (const sem of targetSemesters) {
+        const existingEb = existingCourses.find(
+          (pc) => pc.semester === sem && pc.isEarlyBird && pc.courseId !== Number(courseId)
+        );
+        if (existingEb) {
+          return res.status(409).json({ error: "You may only take one Early Bird course each semester." });
+        }
       }
-      shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
     }
 
-    if (duration === 1) {
-      const occupant = existingCourses.find(
-        (pc) => pc.semester === semesterNum && rangesOverlap(pc.slot, getOccupiedSlotCount(pc), slotNum, 1)
-      );
-      if (occupant) {
-        return res.status(409).json({ error: "Slot is already occupied" });
+    if (slotSpan > 1) {
+      let startSlot: number | null = null;
+
+      if (duration === 2) {
+        const sem1Chain = computeShiftChainForRange(existingCourses, 1, slotNum, slotSpan);
+        const sem2Chain = computeShiftChainForRange(existingCourses, 2, slotNum, slotSpan);
+
+        if (sem1Chain !== null && sem2Chain !== null) {
+          startSlot = slotNum;
+          shifts.push(...sem1Chain.map((s) => ({ ...s, semester: 1 })));
+          shifts.push(...sem2Chain.map((s) => ({ ...s, semester: 2 })));
+        } else {
+          startSlot = findFirstAvailableAdjacentPairInBothSemesters(existingCourses, slotSpan);
+        }
+      } else {
+        const chain = computeShiftChainForRange(existingCourses, semesterNum, slotNum, slotSpan);
+        if (chain !== null) {
+          startSlot = slotNum;
+          shifts.push(...chain.map((s) => ({ ...s, semester: semesterNum })));
+        }
+      }
+
+      if (startSlot == null) {
+        return res.status(409).json({
+          error:
+            duration === 2
+              ? "American Studies requires two consecutive periods. There is not enough space in this semester."
+              : `Not enough consecutive free slots to place this course. It needs ${slotSpan} consecutive slot(s) per semester.`,
+        });
+      }
+      createData = { ...createData, slot: startSlot, slotSpan };
+    } else {
+      for (const sem of targetSemesters) {
+        const chain = computeShiftChain(existingCourses, sem, slotNum);
+        if (chain === null) {
+          const msg = duration === 2
+            ? "Not enough room to place this full-year course."
+            : "This slot is blocked by a course that cannot be moved.";
+          return res.status(409).json({ error: msg });
+        }
+        shifts.push(...chain.map((shift) => ({ ...shift, semester: sem })));
+      }
+
+      if (duration === 1) {
+        const occupant = existingCourses.find(
+          (pc) => pc.semester === semesterNum && rangesOverlap(pc.slot, getOccupiedSlotCount(pc), slotNum, 1)
+        );
+        if (occupant) {
+          return res.status(409).json({ error: "Slot is already occupied" });
+        }
       }
     }
   }
@@ -1017,8 +1028,8 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
   const semesterNum = Number(semester);
   const slotNum = Number(slot);
 
-  if (Number.isNaN(semesterNum) || semesterNum < 1 || semesterNum > 2) {
-    return res.status(400).json({ error: "semester must be 1 or 2" });
+  if (Number.isNaN(semesterNum) || semesterNum < 1 || semesterNum > 4) {
+    return res.status(400).json({ error: "semester must be between 1 and 4" });
   }
 
   if (Number.isNaN(slotNum) || slotNum < 1 || slotNum > 7) {
@@ -1050,6 +1061,15 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
 
   if (!source || source.planner.userId !== userId) {
     return res.status(404).json({ error: "Planned course not found" });
+  }
+
+  if (semesterNum > 2) {
+    // Summer (3) / Online (4) live outside the grid. Just move between buckets.
+    await prisma.plannedCourse.updateMany({
+      where: getLogicalCourseWhere(source),
+      data: { semester: semesterNum, slot: 1 },
+    });
+    return res.json(await getPlannerResponse(source.plannerId));
   }
 
   const sourceDuration = getPlannedDuration(source);
