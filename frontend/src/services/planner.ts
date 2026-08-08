@@ -15,6 +15,15 @@ type Planner,
     type PlannerCourseDetails,
   } from "@/lib/planner";
  import { isRegularSemester } from "@/lib/plannerSemesters";
+ import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
+ import type { GuestDataStore } from "./guestStore";
+
+ const GUEST_ACADEMIC_GRADE_BY_YEAR: Record<number, GradeCompleted> = {
+  9: "Freshman (9)",
+  10: "Sophomore (10)",
+  11: "Junior (11)",
+  12: "Senior (12)",
+ };
 
 export const authPlannerService: IPlannerService = {
   seedCourseCatalog: () => {},
@@ -77,9 +86,17 @@ function findAdjacentPair(planner: Planner, excludingCourseId?: number | null): 
   return null;
 }
 
-export function createGuestPlannerService(): IPlannerService {
+export function createGuestPlannerService(store?: GuestDataStore): IPlannerService {
   let nextCourseEntryId = 1;
-  const planners: Planner[] = buildDefaultPlanners();
+  const inMemoryStore = store ?? { planners: [] as Planner[], completedCourses: [] as CompletedCourse[], completedIdSeq: 0 };
+  if (!store || inMemoryStore.planners.length === 0) {
+    inMemoryStore.planners = buildDefaultPlanners();
+  }
+  const planners = inMemoryStore.planners;
+  const completedCourses = inMemoryStore.completedCourses;
+  // Track completed-course ids created by marking a year complete, so unmaking
+  // the year removes exactly those (and never a user-entered completed course).
+  const completedCourseIdsByPlanner = new WeakMap<Planner, number[]>();
   const catalog = new Map<number, PlannerCourseDetails>();
 
   function save() {
@@ -419,8 +436,29 @@ export function createGuestPlannerService(): IPlannerService {
       if (planner.completedAt != null) {
         throw new Error("This year has already been marked as completed.");
       }
+      const gradeLabel = GUEST_ACADEMIC_GRADE_BY_YEAR[planner.schoolYear];
+      if (!gradeLabel) throw new Error("Planner year cannot be marked completed");
+
+      const createdIds: number[] = [];
+      const seen = new Set<number>();
+      for (const planned of planner.plannedCourses) {
+        if (planned.courseId == null || seen.has(planned.courseId)) continue;
+        seen.add(planned.courseId);
+        completedCourses.push({
+          id: ++inMemoryStore.completedIdSeq,
+          userId: -1,
+          courseId: planned.courseId,
+          gradeCompleted: gradeLabel,
+          credits: planned.course.credits ?? null,
+          course: { ...planned.course },
+        });
+        createdIds.push(inMemoryStore.completedIdSeq);
+      }
+      completedCourseIdsByPlanner.set(planner, createdIds);
+
       planner.completedAt = new Date().toISOString();
       save();
+      window.dispatchEvent(new Event("completed-courses:changed"));
       return clonePlanner(planner);
     },
 
@@ -430,8 +468,15 @@ export function createGuestPlannerService(): IPlannerService {
       if (planner.completedAt == null) {
         throw new Error("This year is not marked as completed.");
       }
+      const createdIds = new Set(completedCourseIdsByPlanner.get(planner) ?? []);
+      const retained = completedCourses.filter((cc) => !createdIds.has(cc.id));
+      completedCourses.length = 0;
+      completedCourses.push(...retained);
+      completedCourseIdsByPlanner.delete(planner);
+
       planner.completedAt = null;
       save();
+      window.dispatchEvent(new Event("completed-courses:changed"));
       return clonePlanner(planner);
     },
   };

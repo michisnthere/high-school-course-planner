@@ -1,5 +1,6 @@
 import type { ICompletedCoursesService } from "./types";
 import type { PlannerCourseDetails } from "@/lib/planner";
+import type { GuestDataStore } from "./guestStore";
 import {
   getCompletedCourses as authGetCompletedCourses,
   addCompletedCourse as authAddCompletedCourse,
@@ -19,8 +20,14 @@ export const authCompletedCoursesService: ICompletedCoursesService = {
 
 let completedIdCounter = 0;
 
-export function createGuestCompletedCoursesService(): ICompletedCoursesService {
-  const courses: CompletedCourse[] = [];
+export function createGuestCompletedCoursesService(store?: GuestDataStore): ICompletedCoursesService {
+  const local: CompletedCourse[] = [];
+  const courses = store ? store.completedCourses : local;
+
+  function nextId(): number {
+    if (store) return ++store.completedIdSeq;
+    return ++completedIdCounter;
+  }
 
   function save() {
     window.dispatchEvent(new Event("completed-courses:changed"));
@@ -36,7 +43,6 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
       gradeCompleted: GradeCompleted,
       courseDetails?: PlannerCourseDetails
     ) {
-      completedIdCounter++;
       const details = courseDetails ?? {
         id: courseId,
         title: `Course ${courseId}`,
@@ -63,7 +69,7 @@ export function createGuestCompletedCoursesService(): ICompletedCoursesService {
         isOnline: false,
       };
       const entry: CompletedCourse = {
-        id: completedIdCounter,
+        id: nextId(),
         userId: -1,
         courseId,
         gradeCompleted,

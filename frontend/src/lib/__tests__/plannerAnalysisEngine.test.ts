@@ -785,4 +785,53 @@ describe("computePlannerAnalysis", () => {
     expect(result.peSemesterBreakdown[2].met).toBe(true);
     expect(result.peSemesterBreakdown[3].met).toBe(true);
   });
+
+  describe("planned vs completed year credit rule", () => {
+    it("counts planned summer (3) and online (4) courses toward credits for an incomplete year", () => {
+      const online = { ...english9, id: 701, title: "Online English", fulfillsRequirements: ["English"] };
+      const summer = { ...english10, id: 702, title: "Summer English", fulfillsRequirements: ["English"] };
+      const planners = [
+        makePlanner(9, [
+          makePlanned(algebra, 1, 1, 1),
+          makePlanned(algebra, 2, 1, 1),
+          makePlanned(summer, 3, 1, 2),
+          makePlanned(online, 4, 1, 3),
+        ]),
+        makePlanner(10), makePlanner(11), makePlanner(12),
+      ];
+      const result = computePlannerAnalysis({
+        planners,
+        completedCourses: [],
+        resolutions: [],
+        allCourses: [...allCourses, summer, online],
+      });
+      // Algebra (2) + Summer (2) + Online (2)
+      expect(result.credits.total).toBe(6);
+    });
+
+    it("does NOT double-count a completed year (uses completed courses instead of planned)", () => {
+      const planners = [
+        makePlanner(9, [makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1)]),
+        makePlanner(10), makePlanner(11), makePlanner(12),
+      ];
+      // Mark grade 9 completed AND record algebra as a completed course.
+      planners[0].completedAt = new Date().toISOString();
+      const completed = [makeCompleted(algebra, "Freshman (9)")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      // Algebra counted exactly once (as a completed course), never twice.
+      expect(result.credits.total).toBe(2);
+      expect(result.credits.byRequirementCategory["Mathematics"]).toBe(2);
+    });
+
+    it("counts an incomplete year's planned courses for graduation credits", () => {
+      const planners = [
+        makePlanner(9, [makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1)]),
+        makePlanner(10, [makePlanned(english9, 1, 3, 3), makePlanned(english9, 2, 3, 3)]),
+        makePlanner(11), makePlanner(12),
+      ];
+      const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+      // Both incomplete years count their planned courses.
+      expect(result.credits.total).toBe(4);
+    });
+  });
 });

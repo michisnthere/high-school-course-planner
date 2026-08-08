@@ -1183,7 +1183,7 @@ async function loadResolutions(userId: number): Promise<ResolutionInfo[]> {
 }
 
 export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> {
-  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses, resolutions] =
+  const [placements, requirements, courseRequirementLinks, completedCourses, allCourses, resolutions, completedPlanners] =
     await Promise.all([
       loadPlacements(userId),
       loadGraduationRequirements(),
@@ -1191,9 +1191,22 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
       loadCompletedCourses(userId),
       loadAllCourses(),
       loadResolutions(userId),
+      prisma.planner.findMany({
+        where: { userId, completedAt: { not: null } },
+        select: { schoolYear: true },
+      }),
     ]);
 
-  const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, placements, completedCourses, resolutions);
+  // A completed planner year is settled: completing a year records its courses
+  // as completed courses, so that year's planned placements must NOT also feed
+  // graduation credits (otherwise they are double-counted). Incomplete years
+  // keep using their planned placements (semester 1/2, summer, and online).
+  // Year-level planner checks (course load, prerequisites, PE, statistics) still
+  // operate on the full placements, because those are schedule concerns.
+  const completedYears = new Set(completedPlanners.map((p) => p.schoolYear));
+  const creditPlacements = placements.filter((p) => !completedYears.has(p.year));
+
+  const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, creditPlacements, completedCourses, resolutions);
 
   const grCategoryChildren = new Map<string, Set<string>>();
   for (const req of requirements) {
@@ -1204,7 +1217,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   }
 
   const mergedLinks = mergeCourseRequirementLinksByCanonicalRequirement(requirements, courseRequirementLinks);
-  const recommendations = computeRecommendations(graduationRequirements, mergedLinks, placements, completedCourses, allCourses);
+  const recommendations = computeRecommendations(graduationRequirements, mergedLinks, creditPlacements, completedCourses, allCourses);
   for (const req of graduationRequirements) {
     const recs = recommendations.get(req.id);
     if (recs) {
@@ -1213,7 +1226,7 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   }
 
   return {
-    credits: computeCredits(placements, completedCourses),
+    credits: computeCredits(creditPlacements, completedCourses),
     graduationRequirements,
     informationItems: toInformationItems(requirements),
     yearRequirements: computeYearRequirements(placements, grCategoryChildren),

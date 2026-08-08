@@ -377,3 +377,30 @@ describe("authenticated planner service", () => {
     expect(() => authPlannerService.seedCourseCatalog(catalog)).not.toThrow();
   });
 });
+
+describe("guest year completion shares completed courses", () => {
+  it("marking a year completed records its planned courses as completed (no credit loss)", async () => {
+    const { createGuestDataStore } = await import("@/services/guestStore");
+    const { createGuestCompletedCoursesService } = await import("@/services/completedCourses");
+    const store = createGuestDataStore();
+    const plannerSvc = createGuestPlannerService(store);
+    const completedSvc = createGuestCompletedCoursesService(store);
+
+    plannerSvc.seedCourseCatalog(catalog);
+    const planners = await plannerSvc.getPlanners();
+    const year9 = planners.find((p) => p.schoolYear === 9)!;
+    const updated = await plannerSvc.addPlannedCourse(year9.id, chemistry.id, 1, 1);
+
+    const marked = await plannerSvc.markYearCompleted(updated.id);
+    expect(marked.completedAt).not.toBeNull();
+
+    const completed = await completedSvc.getCompletedCourses();
+    expect(completed.length).toBe(1);
+    expect(completed[0].courseId).toBe(chemistry.id);
+    expect(completed[0].gradeCompleted).toBe("Freshman (9)");
+
+    // Unmarking the year removes exactly the courses auto-recorded at completion.
+    await plannerSvc.unmarkYearCompleted(updated.id);
+    expect((await completedSvc.getCompletedCourses()).length).toBe(0);
+  });
+});

@@ -386,13 +386,12 @@ function computeGraduationRequirements(
   }
 
   for (const resolution of resolutions) {
-    if (resolution.type === "summer_school") {
-      const courseId = resolution.courseId;
-      const metaCredits = resolution.metadata?.credits as number | undefined;
-      if (courseId && metaCredits) {
-        const existing = courseIdToCredits.get(courseId) ?? 0;
-        courseIdToCredits.set(courseId, existing + metaCredits);
-      }
+    if (resolution.type !== "summer_school" && resolution.type !== "middle_school") continue;
+    const courseId = resolution.courseId;
+    const metaCredits = resolution.metadata?.credits as number | undefined;
+    if (courseId && metaCredits) {
+      const existing = courseIdToCredits.get(courseId) ?? 0;
+      courseIdToCredits.set(courseId, existing + metaCredits);
     }
   }
 
@@ -807,9 +806,19 @@ function computeRecommendations(
 export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalysis {
   const placements = buildPlacements(data.planners, data.allCourses);
 
-  const graduationRequirements = computeGraduationRequirements(placements, data.completedCourses, data.resolutions);
+  // A completed planner year is settled: completing it records its courses as
+  // completed courses, so that year's planned placements must NOT also feed
+  // graduation credits (avoiding double-counting). Incomplete years continue to
+  // use their planned placements (Semester 1/2, Summer School, Online Courses).
+  // Year-level schedule checks still use the full placements.
+  const completedYears = new Set(
+    data.planners.filter((p) => p.completedAt != null).map((p) => p.schoolYear)
+  );
+  const creditPlacements = placements.filter((p) => !completedYears.has(p.year));
 
-  const recommendations = computeRecommendations(graduationRequirements, placements, data.completedCourses, data.allCourses);
+  const graduationRequirements = computeGraduationRequirements(creditPlacements, data.completedCourses, data.resolutions);
+
+  const recommendations = computeRecommendations(graduationRequirements, creditPlacements, data.completedCourses, data.allCourses);
   for (const req of graduationRequirements) {
     const recs = recommendations.get(req.id);
     if (recs) {
@@ -818,7 +827,7 @@ export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalys
   }
 
   return {
-    credits: computeCredits(placements, data.completedCourses),
+    credits: computeCredits(creditPlacements, data.completedCourses),
     graduationRequirements,
     informationItems: [],
     yearRequirements: computeYearRequirements(placements),

@@ -8,6 +8,7 @@ import { authCompletedCoursesService, createGuestCompletedCoursesService } from 
 import { authSavedCoursesService, createGuestSavedCoursesService } from "./savedCourses";
 import { authAnalysisService, createGuestAnalysisService } from "./analysis";
 import { authResolutionsService, createGuestResolutionsService } from "./resolutions";
+import { createGuestDataStore } from "./guestStore";
 
 type ServiceBundle = {
   planner: IPlannerService;
@@ -33,13 +34,16 @@ export function ServiceProvider({ children }: { children: ReactNode }) {
   renderRef.current++;
 
   const guestBundle = useMemo(() => {
-    const result = mode === "guest" ? {
-      planner: createGuestPlannerService(),
-      completedCourses: createGuestCompletedCoursesService(),
-      savedCourses: createGuestSavedCoursesService(),
-      analysis: createGuestAnalysisService(),
-      resolutions: createGuestResolutionsService(),
-    } : null;
+    const result = mode === "guest" ? (() => {
+      const store = createGuestDataStore();
+      return {
+        planner: createGuestPlannerService(store),
+        completedCourses: createGuestCompletedCoursesService(store),
+        savedCourses: createGuestSavedCoursesService(),
+        analysis: createGuestAnalysisService(),
+        resolutions: createGuestResolutionsService(),
+      };
+    })() : null;
     if (typeof window !== "undefined") (window as any).__authMode = mode;
     return result;
   }, [mode]);
