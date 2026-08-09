@@ -158,19 +158,16 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
         }
 
         if (semester != null && semester > 2) {
-          const slotSpan = courseDetails.slotsPerSemester ?? 1;
-          let freeSlot = slot ?? 1;
-          const oc = (s: number) => occupied(planner, semester, s, null);
-          if (oc(freeSlot)) {
-            freeSlot = [1, 2, 3, 4, 5, 6, 7].find((s) => {
-              for (let i = 0; i < slotSpan; i++) if (oc(s + i)) return false;
-              return true;
-            }) ?? 7;
-          }
-          for (let i = 0; i < slotSpan; i++) {
-            if (occupied(planner, semester, freeSlot + i)) {
-              throw new Error("This slot is already occupied.");
-            }
+          const sectionName = semester <= 4 ? "Summer School" : "Online Courses";
+          const targetSemesters = courseDetails.duration === 2 ? (semester <= 4 ? [3, 4] : [5, 6]) : [semester];
+          const occupiedSemester = targetSemesters.find((sem) =>
+            planner.plannedCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.plannerOptionId != null))
+          );
+          if (occupiedSemester != null) {
+            const occSubIndex = occupiedSemester % 2 === 0 ? 2 : 1;
+            throw new Error(
+              `${sectionName} Semester ${occSubIndex} already has a course. Only one course is allowed per semester. Remove it before adding another.`
+            );
           }
           const entry: PlannedCourse = {
             id: nextCourseEntryId++,
@@ -178,12 +175,19 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
             courseId: courseIdOrItem,
             plannerOptionId: null,
             semester: semester,
-            slot: freeSlot,
-            slotSpan: courseDetails.slotsPerSemester ?? 1,
+            slot: 1,
+            slotSpan: 1,
             course: { ...courseDetails },
             isEarlyBird: earlyBird,
           };
-          planner.plannedCourses.push(entry);
+          if (courseDetails.duration === 2) {
+            const block = targetSemesters.filter((s) => s !== semester);
+            const secondSession: PlannedCourse = { ...entry, id: nextCourseEntryId++ };
+            if (block.length > 0) secondSession.semester = block[0];
+            planner.plannedCourses.push(entry, secondSession);
+          } else {
+            planner.plannedCourses.push(entry);
+          }
           save();
           return clonePlanner(planner);
         }
@@ -366,8 +370,29 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
         const entry = planner.plannedCourses.find((pc) => pc.id === plannedCourseId);
         if (entry) {
           if (semester > 2) {
+            const sectionName = semester <= 4 ? "Summer School" : "Online Courses";
+            const targetSemesters = entry.course.duration === 2 ? (semester <= 4 ? [3, 4] : [5, 6]) : [semester];
+            const occupiedSemester = targetSemesters.find((sem) =>
+              planner.plannedCourses.some(
+                (pc) => pc.semester === sem && pc.id !== plannedCourseId && (pc.courseId != null || pc.plannerOptionId != null)
+              )
+            );
+            if (occupiedSemester != null) {
+              const occSubIndex = occupiedSemester % 2 === 0 ? 2 : 1;
+              throw new Error(
+                `${sectionName} Semester ${occSubIndex} already has a course. Only one course is allowed per semester.`
+              );
+            }
             entry.semester = semester;
-            entry.slot = slot ?? 1;
+            entry.slot = 1;
+            if (entry.course.duration === 2 && entry.courseId != null) {
+              for (const pc of planner.plannedCourses) {
+                if (pc.id !== plannedCourseId && pc.courseId === entry.courseId) {
+                  pc.semester = targetSemesters.find((s) => s !== semester) ?? semester;
+                  pc.slot = 1;
+                }
+              }
+            }
             save();
             return clonePlanner(planner);
           }

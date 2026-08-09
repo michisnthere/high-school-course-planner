@@ -76,6 +76,28 @@ const algebra: PlannerCourseDetails = {
 
 const catalog = [chemistry, biology, algebra];
 
+const health: PlannerCourseDetails = {
+  id: 5,
+  title: "Health",
+  normalizedTitle: "health",
+  duration: 1,
+  slotsPerSemester: 1,
+  creditType: "regular",
+  credits: 1,
+  division: "Health",
+  department: "Health",
+  description: null,
+  fulfillsRequirements: ["Health"],
+  prerequisites: [],
+  courseCode: "HLT101",
+  courseCodeS1: null,
+  courseCodeS2: null,
+  gradeMin: 9,
+  gradeMax: 12,
+  isNonAcademic: false,
+  isMarchingBand: false,
+};
+
 const americanStudies: PlannerCourseDetails = {
   id: 4,
   title: "American Studies",
@@ -272,6 +294,86 @@ describe("guest planner service", () => {
       );
       const after = await service.getPlanner(11);
       expect(after.plannedCourses.some((pc) => pc.courseId === americanStudies.id)).toBe(false);
+    });
+  });
+
+  describe("out-of-semester one-course-per-semester rule", () => {
+    it("adds a one-semester course to Summer S1 at slot 1", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, health]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, health.id, 3, 1);
+      expect(updated.plannedCourses).toHaveLength(1);
+      expect(updated.plannedCourses[0].semester).toBe(3);
+      expect(updated.plannedCourses[0].slot).toBe(1);
+    });
+
+    it("blocks a second course in the same Summer semester", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, health]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      await service.addPlannedCourse(planner.id, health.id, 3, 1);
+      await expect(
+        service.addPlannedCourse(planner.id, biology.id, 3, 1)
+      ).rejects.toThrow("already has a course");
+    });
+
+    it("allows independent courses in Summer S1 and S2", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, health]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      await service.addPlannedCourse(planner.id, health.id, 3, 1);
+      await service.addPlannedCourse(planner.id, health.id, 4, 1);
+      const after = await service.getPlanner(11);
+      const s1 = after.plannedCourses.filter((pc) => pc.semester === 3);
+      const s2 = after.plannedCourses.filter((pc) => pc.semester === 4);
+      expect(s1.length).toBe(1);
+      expect(s2.length).toBe(1);
+      expect(s2[0].slot).toBe(1);
+    });
+
+    it("blocks a second course in Online S2", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog([...catalog, health]);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      await service.addPlannedCourse(planner.id, health.id, 6, 1);
+      await expect(
+        service.addPlannedCourse(planner.id, biology.id, 6, 1)
+      ).rejects.toThrow("already has a course");
+    });
+
+    it("adds a full-year course to Summer occupying both S1 and S2", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog(catalog);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, biology.id, 3, 1);
+      const rows = updated.plannedCourses.filter((pc) => pc.courseId === biology.id);
+      expect(rows.map((pc) => [pc.semester, pc.slot])).toEqual([
+        [3, 1],
+        [4, 1],
+      ]);
+      expect(updated.plannedCourses).toHaveLength(2);
+    });
+
+    it("blocks another course when a full-year course occupies both Summer semesters", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog(catalog);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      await service.addPlannedCourse(planner.id, biology.id, 3, 1);
+      await expect(
+        service.addPlannedCourse(planner.id, chemistry.id, 3, 1)
+      ).rejects.toThrow("already has a course");
+      await expect(
+        service.addPlannedCourse(planner.id, algebra.id, 4, 1)
+      ).rejects.toThrow("already has a course");
+    });
+
+    it("does not double-count credits for a full-year Summer course", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog(catalog);
+      const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
+      const updated = await service.addPlannedCourse(planner.id, biology.id, 3, 1);
+      expect(sumPlannedCredits(updated.plannedCourses)).toBe(getCourseCredits(biology));
     });
   });
 

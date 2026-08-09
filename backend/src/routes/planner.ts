@@ -232,30 +232,6 @@ function outOfSemesterBlock(semester: number): number[] {
   return semester === 3 || semester === 4 ? [3, 4] : [5, 6];
 }
 
-/** First slot in 1..7 that is free in every target semester (prefers `preferred`). */
-function findFreeSlotInSemesters(
-  existingCourses: Array<{
-    id: number;
-    semester: number;
-    slot: number;
-    slotSpan?: number;
-    course: (Course & { slotsPerSemester?: number | null; options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
-    plannerOption: PlannerOption | null;
-  }>,
-  semesters: number[],
-  preferred: number | null
-): number | null {
-  const candidates = preferred != null && preferred >= 1 && preferred <= 7
-    ? [preferred, 1, 2, 3, 4, 5, 6, 7]
-    : [1, 2, 3, 4, 5, 6, 7];
-  for (const slot of candidates) {
-    if (semesters.every((sem) => hasConsecutiveFreeSlots(existingCourses, sem, slot, 1))) {
-      return slot;
-    }
-  }
-  return null;
-}
-
 function hasConsecutiveFreeSlots(
   existingCourses: Array<{
     id: number;
@@ -818,8 +794,8 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   });
 
 // Semester 3-6 (Summer School 1/2, Online 1/2) live outside the regular
-  // S1/S2 grid. Each holds its own 7-slot budget; a full-year course occupies
-  // both members of its block.
+  // S1/S2 grid. Each semester holds exactly ONE course position (no slots 2-7).
+  // A full-year course occupies both members of its block.
   const isOutOfSchedule = semesterNum > 2;
   const targetSemesters = isOutOfSchedule
     ? (duration === 2 ? outOfSemesterBlock(semesterNum) : [semesterNum])
@@ -827,16 +803,17 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
 
   if (isOutOfSchedule) {
-    const freeSlot = findFreeSlotInSemesters(existingCourses, targetSemesters, slotNum);
-    if (freeSlot == null) {
+    const sectionName = semesterNum <= 4 ? "Summer School" : "Online Courses";
+    const occupiedSemester = targetSemesters.find((sem) =>
+      existingCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.plannerOptionId != null))
+    );
+    if (occupiedSemester != null) {
+      const subIndex = occupiedSemester % 2 === 0 ? 2 : 1;
       return res.status(409).json({
-        error:
-          duration === 2
-            ? `${duration === 2 ? "This full-year course" : "This course"} has no room in both semesters of ${semesterNum <= 4 ? "Summer School" : "Online Courses"}.`
-            : `${"This"} semester is full for ${semesterNum <= 4 ? "Summer School" : "Online Courses"}. Remove a course to add another.`,
+        error: `${sectionName} Semester ${subIndex} already has a course. Only one course is allowed per semester. Remove it before adding another.`,
       });
     }
-    createData = { ...createData, slot: freeSlot, slotSpan: 1 };
+    createData = { ...createData, slot: 1, slotSpan: 1 };
   } else {
     // Enforce at most one Early Bird course per semester. A full-year Early Bird
     // course occupies both semesters.
@@ -1126,10 +1103,14 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
         plannerOption: true,
       },
     });
-    const freeSlot = findFreeSlotInSemesters(otherCourses, targetSemesters, slotNum);
-    if (freeSlot == null) {
+    const sectionName = semesterNum <= 4 ? "Summer School" : "Online Courses";
+    const occupiedSemester = targetSemesters.find((sem) =>
+      otherCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.plannerOptionId != null))
+    );
+    if (occupiedSemester != null) {
+      const subIndex = occupiedSemester % 2 === 0 ? 2 : 1;
       return res.status(409).json({
-        error: `No room in ${semesterNum <= 4 ? "Summer School" : "Online Courses"} to move this course.`,
+        error: `No room in ${sectionName}. Semester ${subIndex} already has a course. Only one course is allowed per semester.`,
       });
     }
     await prisma.$transaction(async (tx) => {
@@ -1140,7 +1121,7 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
       for (let i = 0; i < rows.length; i++) {
         await tx.plannedCourse.update({
           where: { id: rows[i].id },
-          data: { semester: targetSemesters[i % targetSemesters.length], slot: freeSlot },
+          data: { semester: targetSemesters[i % targetSemesters.length], slot: 1 },
         });
       }
     });

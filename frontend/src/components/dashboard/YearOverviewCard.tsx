@@ -404,7 +404,10 @@ function SemesterBlock({
   semester: number;
   courses: ({ slot: number; slotSpan?: number | null; course: { title: string; courseCode: string | null; courseCodeS1: string | null; courseCodeS2: string | null } })[];
 }): React.ReactElement {
-  const allSlots = Array.from({ length: 7 }, (_, i) => i + 1);
+  const isOut = isSummerSemester(semester) || isOnlineSemester(semester);
+  // Out-of-semester sections (Summer School / Online) have exactly ONE course
+  // position per semester — never a 7-slot grid.
+  const allSlots = isOut ? [1] : Array.from({ length: 7 }, (_, i) => i + 1);
 
   const findCourse = (slotNum: number) =>
     courses.find((c) => c.slot <= slotNum && slotNum < c.slot + (c.slotSpan ?? 1));
