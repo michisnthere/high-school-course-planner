@@ -216,9 +216,16 @@ function RequirementsContent(): React.ReactElement {
     () => analysis ? computePeYearRows(analysis.peSemesterBreakdown, analysis.resolutions) : undefined,
     [analysis]
   );
-  const visibleRequirements = analysis?.graduationRequirements.filter(
+  // "Completed / earned" values must reflect only actual completed coursework,
+  // never planned courses from incomplete future years. The engine exposes this
+  // via `earned.credits` / `earned.graduationRequirements` (projected values
+  // remain available under `credits` / `graduationRequirements`).
+  const earnedCreditsTotal = analysis?.earned?.credits.total ?? analysis?.credits.total ?? 0;
+  const projectedCreditsTotal = analysis?.credits.total ?? 0;
+  const earnedRequirements = analysis?.earned?.graduationRequirements ?? analysis?.graduationRequirements ?? [];
+  const visibleRequirements = earnedRequirements.filter(
     (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
-  ) ?? [];
+  );
   const visibleInformationItems = analysis?.informationItems.filter(
     (item) => !item.name.toLowerCase().includes("46th") && !item.name.toLowerCase().includes("external credits")
   ) ?? [];
@@ -400,16 +407,16 @@ function RequirementsContent(): React.ReactElement {
           </p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-            {analysis.credits.total > 0 && isMobile ? (
+            {earnedCreditsTotal > 0 && isMobile ? (
               <div className="rs-req-progress">
                 <strong style={{ fontSize: "28px", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
-                  {formatNumber(analysis.credits.total)}{" "}
+                  {formatNumber(earnedCreditsTotal)}{" "}
                   <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
                     / {TOTAL_REQUIRED_CREDITS} Credits Completed
                   </span>
                 </strong>
               </div>
-            ) : analysis.credits.total > 0 ? (
+            ) : earnedCreditsTotal > 0 ? (
               <p
                 style={{
                   margin: 0,
@@ -419,12 +426,24 @@ function RequirementsContent(): React.ReactElement {
                   lineHeight: 1.3,
                 }}
               >
-                {formatNumber(analysis.credits.total)}{" "}
+                {formatNumber(earnedCreditsTotal)}{" "}
                 <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
                   / {TOTAL_REQUIRED_CREDITS} Credits Completed
                 </span>
               </p>
             ) : null}
+            {earnedCreditsTotal > 0 && projectedCreditsTotal > earnedCreditsTotal && (
+              <p
+                style={{
+                  margin: "4px 0 0",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "var(--text-muted)",
+                }}
+              >
+                Projected with current plan: {formatNumber(projectedCreditsTotal)} / {TOTAL_REQUIRED_CREDITS}
+              </p>
+            )}
 
             <section>
               <h2

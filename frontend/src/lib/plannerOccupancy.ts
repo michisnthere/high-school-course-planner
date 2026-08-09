@@ -1,6 +1,6 @@
 import type { Planner, PlannedCourse } from "./planner";
 import { effectiveSlotSpan } from "./courseCredits";
-import { isRegularSemester, SUMMER_SEMESTER, ONLINE_SEMESTER } from "./plannerSemesters";
+import { isRegularSemester, SUMMER_SEMESTERS, ONLINE_SEMESTERS } from "./plannerSemesters";
 
 export const SLOTS_PER_SEMESTER = 7;
 export const TOTAL_PLANNER_SLOTS = SLOTS_PER_SEMESTER * 2;
@@ -40,8 +40,8 @@ function courseIdentityKey(pc: PlannedCourse): string | null {
 
 export function calculatePlannerOccupancy(planner: Planner): PlannerOccupancy {
   const regularCourses = planner.plannedCourses.filter((pc) => isRegularSemester(pc.semester));
-  const summerCourses = planner.plannedCourses.filter((pc) => pc.semester === SUMMER_SEMESTER);
-  const onlineCourses = planner.plannedCourses.filter((pc) => pc.semester === ONLINE_SEMESTER);
+  const summerCourses = planner.plannedCourses.filter((pc) => SUMMER_SEMESTERS.includes(pc.semester));
+  const onlineCourses = planner.plannedCourses.filter((pc) => ONLINE_SEMESTERS.includes(pc.semester));
 
   const identities = new Set<string>();
   const fullYearIds = new Set<string>();

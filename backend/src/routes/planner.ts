@@ -227,6 +227,35 @@ function getLogicalCourseWhere(plannedCourse: {
   return { plannerId: plannedCourse.plannerId, plannerOptionId: plannedCourse.plannerOptionId };
 }
 
+/** Full-year block partner for an out-of-semester semester code. 3<->4, 5<->6. */
+function outOfSemesterBlock(semester: number): number[] {
+  return semester === 3 || semester === 4 ? [3, 4] : [5, 6];
+}
+
+/** First slot in 1..7 that is free in every target semester (prefers `preferred`). */
+function findFreeSlotInSemesters(
+  existingCourses: Array<{
+    id: number;
+    semester: number;
+    slot: number;
+    slotSpan?: number;
+    course: (Course & { slotsPerSemester?: number | null; options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
+    plannerOption: PlannerOption | null;
+  }>,
+  semesters: number[],
+  preferred: number | null
+): number | null {
+  const candidates = preferred != null && preferred >= 1 && preferred <= 7
+    ? [preferred, 1, 2, 3, 4, 5, 6, 7]
+    : [1, 2, 3, 4, 5, 6, 7];
+  for (const slot of candidates) {
+    if (semesters.every((sem) => hasConsecutiveFreeSlots(existingCourses, sem, slot, 1))) {
+      return slot;
+    }
+  }
+  return null;
+}
+
 function hasConsecutiveFreeSlots(
   existingCourses: Array<{
     id: number;
@@ -673,8 +702,8 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const semesterNum = Number(semester);
   const slotNum = Number(slot);
 
-  if (semesterNum < 1 || semesterNum > 4) {
-    return res.status(400).json({ error: "semester must be between 1 and 4" });
+  if (semesterNum < 1 || semesterNum > 6) {
+    return res.status(400).json({ error: "semester must be between 1 and 6" });
   }
 
   if (slotNum < 1 || slotNum > 7) {
@@ -788,14 +817,26 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     },
   });
 
-// Semester 3 (Summer School) and 4 (Online Courses) live outside the regular
-  // S1/S2 grid. They do not consume slots, so slot/shift/adjacency logic is skipped.
+// Semester 3-6 (Summer School 1/2, Online 1/2) live outside the regular
+  // S1/S2 grid. Each holds its own 7-slot budget; a full-year course occupies
+  // both members of its block.
   const isOutOfSchedule = semesterNum > 2;
-  const targetSemesters = isOutOfSchedule ? [semesterNum] : duration === 2 ? [1, 2] : [semesterNum];
+  const targetSemesters = isOutOfSchedule
+    ? (duration === 2 ? outOfSemesterBlock(semesterNum) : [semesterNum])
+    : (duration === 2 ? [1, 2] : [semesterNum]);
   const shifts: Array<{ id: number; semester: number; newSlot: number }> = [];
 
   if (isOutOfSchedule) {
-    createData = { ...createData, slot: slotNum, slotSpan: 1 };
+    const freeSlot = findFreeSlotInSemesters(existingCourses, targetSemesters, slotNum);
+    if (freeSlot == null) {
+      return res.status(409).json({
+        error:
+          duration === 2
+            ? `${duration === 2 ? "This full-year course" : "This course"} has no room in both semesters of ${semesterNum <= 4 ? "Summer School" : "Online Courses"}.`
+            : `${"This"} semester is full for ${semesterNum <= 4 ? "Summer School" : "Online Courses"}. Remove a course to add another.`,
+      });
+    }
+    createData = { ...createData, slot: freeSlot, slotSpan: 1 };
   } else {
     // Enforce at most one Early Bird course per semester. A full-year Early Bird
     // course occupies both semesters.
@@ -1028,8 +1069,8 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
   const semesterNum = Number(semester);
   const slotNum = Number(slot);
 
-  if (Number.isNaN(semesterNum) || semesterNum < 1 || semesterNum > 4) {
-    return res.status(400).json({ error: "semester must be between 1 and 4" });
+  if (Number.isNaN(semesterNum) || semesterNum < 1 || semesterNum > 6) {
+    return res.status(400).json({ error: "semester must be between 1 and 6" });
   }
 
   if (Number.isNaN(slotNum) || slotNum < 1 || slotNum > 7) {
@@ -1064,10 +1105,44 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
   }
 
   if (semesterNum > 2) {
-    // Summer (3) / Online (4) live outside the grid. Just move between buckets.
-    await prisma.plannedCourse.updateMany({
+    const sourceDuration = getPlannedDuration(source);
+    const targetSemesters = sourceDuration === 2 ? outOfSemesterBlock(semesterNum) : [semesterNum];
+    const logicalRows = await prisma.plannedCourse.findMany({
       where: getLogicalCourseWhere(source),
-      data: { semester: semesterNum, slot: 1 },
+    });
+    const otherCourses = await prisma.plannedCourse.findMany({
+      where: {
+        plannerId: source.plannerId,
+        NOT: { id: { in: logicalRows.map((r) => r.id) } },
+      },
+      include: {
+        course: {
+          include: {
+            options: {
+              include: { offerings: true },
+            },
+          },
+        },
+        plannerOption: true,
+      },
+    });
+    const freeSlot = findFreeSlotInSemesters(otherCourses, targetSemesters, slotNum);
+    if (freeSlot == null) {
+      return res.status(409).json({
+        error: `No room in ${semesterNum <= 4 ? "Summer School" : "Online Courses"} to move this course.`,
+      });
+    }
+    await prisma.$transaction(async (tx) => {
+      for (const row of logicalRows) {
+        await tx.plannedCourse.update({ where: { id: row.id }, data: { slot: -row.id } });
+      }
+      const rows = logicalRows.sort((a, b) => a.semester - b.semester);
+      for (let i = 0; i < rows.length; i++) {
+        await tx.plannedCourse.update({
+          where: { id: rows[i].id },
+          data: { semester: targetSemesters[i % targetSemesters.length], slot: freeSlot },
+        });
+      }
     });
     return res.json(await getPlannerResponse(source.plannerId));
   }

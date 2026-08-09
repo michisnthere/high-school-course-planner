@@ -12,6 +12,28 @@ export type PlannerAnalysis = {
     byRequirementCategory: Record<string, number>;
     byDivision: Record<string, number>;
   };
+  earned?: {
+    credits: {
+      total: number;
+      byRequirementCategory: Record<string, number>;
+      byDivision: Record<string, number>;
+    };
+    graduationRequirements: Array<{
+      id: number;
+      name: string;
+      category: string | null;
+      requirementType: string | null;
+      requiredValue: number | null;
+      earnedValue: number;
+      remainingValue: number;
+      status: "satisfied" | "partial" | "notStarted";
+      recommendedCourses: Array<{
+        courseId: number;
+        title: string;
+        reason: string;
+      }>;
+    }>;
+  };
   graduationRequirements: Array<{
     id: number;
     name: string;

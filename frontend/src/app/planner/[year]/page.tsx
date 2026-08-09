@@ -50,6 +50,13 @@ import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicke
 import { EarlyBirdModal } from "@/components/planner/EarlyBirdModal";
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
 import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
+import {
+  SUMMER_SEMESTER,
+  SUMMER_SEMESTER_2,
+  ONLINE_SEMESTER,
+  ONLINE_SEMESTER_2,
+  isOnlineSemester,
+} from "@/lib/plannerSemesters";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { GraduationRequirements } from "@/components/planner/GraduationRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
@@ -919,6 +926,76 @@ function PlannerYearContent(): React.ReactElement {
     return items;
   };
 
+  const renderOutOfSemesterSemester = (
+    p: Planner | null,
+    semester: number,
+    sectionName: string,
+    subIndex: number
+  ) => {
+    if (!p) return null;
+    const courseList = p.plannedCourses
+      .filter((c) => c.semester === semester)
+      .sort((a, b) => a.slot - b.slot);
+    const filledSlots = courseList.reduce((sum, c) => sum + effectiveSlotSpan(c), 0);
+    const occupiedSlots = new Set<number>();
+    for (const c of courseList) {
+      const span = effectiveSlotSpan(c);
+      for (let i = 0; i < span; i++) occupiedSlots.add(c.slot + i);
+    }
+    const nextFreeSlot = [1, 2, 3, 4, 5, 6, 7].find((s) => !occupiedSlots.has(s)) ?? 7;
+    const isEmpty = filledSlots === 0;
+
+    return (
+      <div>
+        {isEmpty ? (
+          <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
+            No {sectionName} courses in Semester {subIndex}.
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "16px" }}>
+            {courseList.map((c) => {
+              const span = effectiveSlotSpan(c);
+              return (
+                <PlannedCourseCard
+                  key={`out-${c.id}`}
+                  planned={c}
+                  isMultiSlot={span > 1}
+                  warnings={getWarnings(
+                    c,
+                    allPlanners,
+                    completedCourses,
+                    allCatalogCourses,
+                    semester,
+                    year,
+                    resolutions
+                  ).filter((w) => !ignoredWarnings.has(makeWarningKey(c, w)))}
+                  isHighlighted={highlightedPlannedCourseId === c.id}
+                  onRemove={isCompleted ? undefined : () => handleRemoveCourse(c)}
+                  onToggleEarlyBird={
+                    isCompleted ? undefined : (isEarlyBird) => handleToggleEarlyBird(c, isEarlyBird)
+                  }
+                  onClick={() => handleCourseClick(c)}
+                  onWarningClick={(w) => setSelectedWarning({ planned: c, warning: w })}
+                />
+              );
+            })}
+          </div>
+        )}
+        {!isCompleted && (
+          <AddCourseCard
+            semester={semester}
+            slot={nextFreeSlot}
+            onClick={() => {
+              console.log("[CALLSITE] out-of-semester AddCourseCard", { semester, slot: nextFreeSlot, sectionName });
+              handleOpenModal(semester, nextFreeSlot);
+            }}
+            isTablet={isTablet}
+          />
+        )}
+      </div>
+    );
+  };
+
   const mobileContent = planner && (
     <>
       <style>{`
@@ -1098,7 +1175,7 @@ function PlannerYearContent(): React.ReactElement {
             allPlanners={allPlanners}
             onGoToCourse={handleGoToCourse}
             targetSemester={activeSlot.semester}
-            onlineOnly={activeSlot.semester === 4}
+            onlineOnly={isOnlineSemester(activeSlot.semester)}
           />
         )}
 
@@ -1289,151 +1366,33 @@ function PlannerYearContent(): React.ReactElement {
           {!isCompleted && (
             <div style={{ display: "flex", gap: "32px", flexWrap: "wrap", marginTop: "32px", alignItems: "stretch" }}>
               {SUMMER_SCHOOL_YEARS.has(year) && (
-                <section style={{ flex: "1 1 280px", minWidth: 0 }}>
+                <section style={{ flex: "1 1 340px", minWidth: 0 }}>
                   <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
                     Summer School
                   </h2>
-                  {(() => {
-                    const summerCourses = planner?.plannedCourses.filter((pc) => pc.semester === 3) ?? [];
-                    return summerCourses.length === 0 ? (
-                      <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
-                        No Summer School courses added.
-                      </p>
-                    ) : (
-                      <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
-                        {summerCourses.map((pc) => {
-                          const accentColor = getDivisionColor(pc.course.division);
-                          const bgTint = getDivisionBackgroundColor(pc.course.division);
-                          return (
-                            <div
-                              key={pc.id}
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                gap: "12px",
-                                padding: "12px 16px",
-                                backgroundColor: bgTint,
-                                borderLeft: `4px solid ${accentColor}`,
-                                borderRadius: "8px",
-                              }}
-                            >
-                              <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
-                                {(() => {
-                                  const code = pc.course.courseCode;
-                                  return code ? (
-                                    <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-                                      {code}
-                                    </span>
-                                  ) : null;
-                                })()}
-                                <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3, wordBreak: "break-word" }}>
-                                  {pc.course.title}
-                                </span>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveCourse(pc)}
-                                style={{
-                                  width: "28px",
-                                  height: "28px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  background: "transparent",
-                                  border: "none",
-                                  borderRadius: "6px",
-                                  cursor: "pointer",
-                                  color: "#9ca3af",
-                                  fontSize: "16px",
-                                  flexShrink: 0,
-                                }}
-                                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.color = "#ef4444"; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--text-secondary)"; }}
-                              >
-                                🗑
-                              </button>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    );
-                  })()}
-                  <AddCourseCard semester={3} slot={1} onClick={() => handleOpenModal(3, 1)} isTablet={isTablet} />
+                  {[SUMMER_SEMESTER, SUMMER_SEMESTER_2].map((subSemester, i) => (
+                    <div key={subSemester} style={{ marginBottom: i === 0 ? "20px" : 0 }}>
+                      <h3 style={{ margin: "0 0 10px", fontSize: "15px", fontWeight: 700, color: "var(--text-secondary)" }}>
+                        Semester {i + 1}
+                      </h3>
+                      {renderOutOfSemesterSemester(planner, subSemester, "Summer School", i + 1)}
+                    </div>
+                  ))}
                 </section>
               )}
 
-              <section style={{ flex: "1 1 280px", minWidth: 0 }}>
+              <section style={{ flex: "1 1 340px", minWidth: 0 }}>
                 <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
                   Online Courses
                 </h2>
-                {(() => {
-                  const onlineCourses = planner?.plannedCourses.filter((pc) => pc.semester === 4) ?? [];
-                  return onlineCourses.length === 0 ? (
-                    <p style={{ margin: "0 0 16px", fontSize: "14px", color: "var(--text-secondary)" }}>
-                      No Online Courses added.
-                    </p>
-                  ) : (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
-                      {onlineCourses.map((pc) => {
-                        const accentColor = getDivisionColor(pc.course.division);
-                        const bgTint = getDivisionBackgroundColor(pc.course.division);
-                        return (
-                          <div
-                            key={pc.id}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              gap: "12px",
-                              padding: "12px 16px",
-                              backgroundColor: bgTint,
-                              borderLeft: `4px solid ${accentColor}`,
-                              borderRadius: "8px",
-                            }}
-                          >
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
-                              {(() => {
-                                const code = pc.course.courseCode;
-                                return code ? (
-                                  <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-                                    {code}
-                                  </span>
-                                ) : null;
-                              })()}
-                              <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3, wordBreak: "break-word" }}>
-                                {pc.course.title}
-                              </span>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveCourse(pc)}
-                              style={{
-                                width: "28px",
-                                height: "28px",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                background: "transparent",
-                                border: "none",
-                                borderRadius: "6px",
-                                cursor: "pointer",
-                                color: "#9ca3af",
-                                fontSize: "16px",
-                                flexShrink: 0,
-                              }}
-                              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.color = "#ef4444"; }}
-                              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--text-secondary)"; }}
-                            >
-                              🗑
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  );
-                })()}
-                <AddCourseCard semester={4} slot={1} onClick={() => handleOpenModal(4, 1)} isTablet={isTablet} />
+                {[ONLINE_SEMESTER, ONLINE_SEMESTER_2].map((subSemester, i) => (
+                  <div key={subSemester} style={{ marginBottom: i === 0 ? 20 : 0 }}>
+                    <h3 style={{ margin: "0 0 10px", fontSize: "15px", fontWeight: 700, color: "var(--text-secondary)" }}>
+                      Semester {i + 1}
+                    </h3>
+                    {renderOutOfSemesterSemester(planner, subSemester, "Online", i + 1)}
+                  </div>
+                ))}
               </section>
             </div>
           )}
@@ -1461,7 +1420,7 @@ function PlannerYearContent(): React.ReactElement {
           allPlanners={allPlanners}
           onGoToCourse={handleGoToCourse}
           targetSemester={activeSlot.semester}
-          onlineOnly={activeSlot.semester === 4}
+          onlineOnly={isOnlineSemester(activeSlot.semester)}
         />
       )}
 
@@ -3246,8 +3205,64 @@ function MobilePlanner({
     );
   };
 
-  const summerSchoolCourses = planner.plannedCourses.filter((pc) => pc.semester === 3);
-  const onlineSchoolCourses = planner.plannedCourses.filter((pc) => pc.semester === 4);
+  const renderOutOfSemesterMobileBlock = (
+    semesterNum: number,
+    isFull: boolean,
+    addLabel: string
+  ) => {
+    const courses = planner.plannedCourses.filter((pc) => pc.semester === semesterNum);
+    return (
+      <div>
+        {courses.length === 0 ? (
+          <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: "0 0 12px", padding: "8px 0" }}>
+            No courses yet.
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "12px" }}>
+            {courses.map((pc) => renderCourseCard(pc, semesterNum))}
+          </div>
+        )}
+        {!isCompleted && !isFull && (
+          <button
+            type="button"
+            className="mob-add-btn"
+            onClick={() => onOpenModal(semesterNum)}
+          >
+            {addLabel}
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  const renderMobileSectionWithSubsemesters = (title: string, block: number[]) => {
+    return (
+      <div style={{ marginTop: "20px" }}>
+        <div className="mob-planner-semester">
+          <h2>{title}</h2>
+        </div>
+        {block.map((semesterNum) => {
+          const courses = planner.plannedCourses.filter((pc) => pc.semester === semesterNum);
+          const subIndex = block.indexOf(semesterNum) + 1;
+          const filled = courses.reduce((sum, pc) => sum + effectiveSlotSpan(pc), 0);
+          return (
+            <div key={semesterNum} style={{ marginTop: "12px" }}>
+              <div className="mob-planner-semester">
+                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#111827" }}>
+                  Semester {subIndex}
+                </h3>
+              </div>
+              {renderOutOfSemesterMobileBlock(
+                semesterNum,
+                filled >= SLOTS_PER_SEMESTER,
+                `+ Add Course to ${title} Semester ${subIndex}`
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -3281,50 +3296,10 @@ function MobilePlanner({
       {renderSemester(2, 1)}
 
       {!isCompleted && SUMMER_SCHOOL_YEARS.has(year) && (
-        <div style={{ marginTop: "20px" }}>
-          <div className="mob-planner-semester">
-            <h2>Summer School</h2>
-          </div>
-          {summerSchoolCourses.length === 0 ? (
-            <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: "0 0 12px", padding: "8px 0" }}>
-              No Summer School courses added.
-            </p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "12px" }}>
-              {summerSchoolCourses.map((pc) => renderCourseCard(pc, 2))}
-            </div>
-          )}
-          <button
-            type="button"
-            className="mob-add-btn"
-            onClick={() => onOpenModal(3)}
-          >
-            + Add Course to Summer School
-          </button>
-        </div>
+        renderMobileSectionWithSubsemesters("Summer School", [SUMMER_SEMESTER, SUMMER_SEMESTER_2])
       )}
 
-      <div style={{ marginTop: "20px" }}>
-        <div className="mob-planner-semester">
-          <h2>Online Courses</h2>
-        </div>
-        {onlineSchoolCourses.length === 0 ? (
-          <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: "0 0 12px", padding: "8px 0" }}>
-            No Online Courses added.
-          </p>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "12px" }}>
-            {onlineSchoolCourses.map((pc) => renderCourseCard(pc, 3))}
-          </div>
-        )}
-        <button
-          type="button"
-          className="mob-add-btn"
-          onClick={() => onOpenModal(4)}
-        >
-          + Add Course to Online Courses
-        </button>
-      </div>
+      {renderMobileSectionWithSubsemesters("Online Courses", [ONLINE_SEMESTER, ONLINE_SEMESTER_2])}
 
     </>
   );

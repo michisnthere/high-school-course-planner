@@ -6,6 +6,14 @@ import type { Planner } from "@/lib/planner";
 import { breakpoints } from "@/lib/responsive";
 import { formatCredits } from "@/lib/courseCredits";
 import { calculatePlannerOccupancy } from "@/lib/plannerOccupancy";
+import {
+  SUMMER_SEMESTER,
+  SUMMER_SEMESTER_2,
+  ONLINE_SEMESTER,
+  ONLINE_SEMESTER_2,
+  isSummerSemester,
+  isOnlineSemester,
+} from "@/lib/plannerSemesters";
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -53,7 +61,19 @@ export function YearOverviewCard({
     .sort((a, b) => a.slot - b.slot);
 
   const semSummerCourses = planner.plannedCourses
-    .filter((pc) => pc.semester === 3)
+    .filter((pc) => pc.semester === SUMMER_SEMESTER)
+    .sort((a, b) => a.slot - b.slot);
+
+  const semSummer2Courses = planner.plannedCourses
+    .filter((pc) => pc.semester === SUMMER_SEMESTER_2)
+    .sort((a, b) => a.slot - b.slot);
+
+  const semOnlineCourses = planner.plannedCourses
+    .filter((pc) => pc.semester === ONLINE_SEMESTER)
+    .sort((a, b) => a.slot - b.slot);
+
+  const semOnline2Courses = planner.plannedCourses
+    .filter((pc) => pc.semester === ONLINE_SEMESTER_2)
     .sort((a, b) => a.slot - b.slot);
 
   const occupancy = calculatePlannerOccupancy(planner);
@@ -279,7 +299,16 @@ export function YearOverviewCard({
         <SemesterBlock semester={1} courses={sem1Courses} />
         <SemesterBlock semester={2} courses={sem2Courses} />
         {semSummerCourses.length > 0 && (
-          <SemesterBlock semester={3} courses={semSummerCourses} />
+          <SemesterBlock semester={SUMMER_SEMESTER} courses={semSummerCourses} />
+        )}
+        {semSummer2Courses.length > 0 && (
+          <SemesterBlock semester={SUMMER_SEMESTER_2} courses={semSummer2Courses} />
+        )}
+        {semOnlineCourses.length > 0 && (
+          <SemesterBlock semester={ONLINE_SEMESTER} courses={semOnlineCourses} />
+        )}
+        {semOnline2Courses.length > 0 && (
+          <SemesterBlock semester={ONLINE_SEMESTER_2} courses={semOnline2Courses} />
         )}
       </div>
 
@@ -392,7 +421,11 @@ function SemesterBlock({
           letterSpacing: "0.05em",
         }}
       >
-        {semester === 3 ? "Summer School" : `Semester ${semester}`}
+        {isSummerSemester(semester)
+          ? `Summer School${semester === SUMMER_SEMESTER_2 ? " 2" : ""}`
+          : isOnlineSemester(semester)
+            ? `Online ${semester === ONLINE_SEMESTER_2 ? "2" : "1"}`
+            : `Semester ${semester}`}
       </p>
       <div
         style={{

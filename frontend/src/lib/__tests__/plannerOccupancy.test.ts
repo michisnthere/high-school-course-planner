@@ -124,7 +124,7 @@ describe("calculatePlannerOccupancy", () => {
   it("excludes online courses from regular-slot math but counts them separately", () => {
     const online = makeCourse({ id: 41, title: "Online English", duration: 1 });
     const planner = makePlanner(11, [
-      makePlanned({ id: 9, courseId: 41, course: online, semester: 4, slot: 1 }),
+      makePlanned({ id: 9, courseId: 41, course: online, semester: 5, slot: 1 }),
     ]);
     const occ = calculatePlannerOccupancy(planner);
     expect(occ.filledSlots).toBe(0);
@@ -210,7 +210,7 @@ describe("calculatePlannerCompletionPercentage", () => {
   it("ignores online courses in completion percentage", () => {
     const online = makeCourse({ id: 64, title: "Online English", duration: 1 });
     const planner = makePlanner(11, [
-      makePlanned({ id: 301, courseId: 64, course: online, semester: 4, slot: 1 }),
+      makePlanned({ id: 301, courseId: 64, course: online, semester: 5, slot: 1 }),
     ]);
     expect(calculatePlannerCompletionPercentage(planner)).toBe(0);
   });

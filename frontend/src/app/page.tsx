@@ -50,7 +50,7 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [services]);
 
-  const totalCredits = analysis?.credits.total ?? 0;
+  const totalCredits = analysis?.earned?.credits.total ?? analysis?.credits.total ?? 0;
   const totalRequired = 45;
   const gradProgress = Math.min(Math.round((totalCredits / totalRequired) * 100), 100);
 

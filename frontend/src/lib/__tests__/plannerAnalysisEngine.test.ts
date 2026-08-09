@@ -833,5 +833,72 @@ describe("computePlannerAnalysis", () => {
       // Both incomplete years count their planned courses.
       expect(result.credits.total).toBe(4);
     });
+
+    it("earned view excludes planned courses from incomplete years", () => {
+      // Grade 9 is completed (algebra recorded as completed). Grades 10-12 are
+      // planned but incomplete, so their courses must not count as earned.
+      const planners = [
+        makePlanner(9, [makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1)]),
+        makePlanner(10, [makePlanned(english9, 1, 3, 3), makePlanned(english9, 2, 3, 3)]),
+        makePlanner(11), makePlanner(12),
+      ];
+      planners[0].completedAt = new Date().toISOString();
+      const completed = [makeCompleted(algebra, "Freshman (9)")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      // Projected (planner) view still counts all incomplete-year planned courses.
+      expect(result.credits.total).toBe(4);
+      // Earned view only counts completed coursework.
+      expect(result.earned?.credits.total).toBe(2);
+      const earnedMath = result.earned?.graduationRequirements.find((r) => r.name === "Mathematics");
+      expect(earnedMath?.earnedValue).toBe(2);
+      const projectedMath = result.graduationRequirements.find((r) => r.name === "Mathematics");
+      expect(projectedMath?.earnedValue).toBe(2);
+    });
+
+    it("earned view never counts a completed year's planned placements twice", () => {
+      const planners = [
+        makePlanner(9, [makePlanned(algebra, 1, 1, 1), makePlanned(algebra, 2, 1, 1)]),
+        makePlanner(10), makePlanner(11), makePlanner(12),
+      ];
+      planners[0].completedAt = new Date().toISOString();
+      const completed = [makeCompleted(algebra, "Freshman (9)")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      expect(result.earned?.credits.total).toBe(2);
+      expect(result.earned?.credits.byRequirementCategory["Mathematics"]).toBe(2);
+    });
+
+    it("earned view includes completed summer school courses", () => {
+      const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+      const completed = [makeCompleted(usHistory, "Junior Summer")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      expect(result.earned?.credits.total).toBe(2);
+      const ush = result.earned?.graduationRequirements.find((r) => r.name === "U.S. History");
+      expect(ush?.earnedValue).toBe(2);
+      expect(ush?.status).toBe("satisfied");
+    });
+
+    it("earned view allocates American Studies requirement credits correctly", () => {
+      const americanStudies: PlannerCourseDetails = {
+        id: 1405, title: "American Studies", normalizedTitle: "american studies", duration: 2,
+        slotsPerSemester: 1, creditType: "regular", credits: 4, division: "Social Studies",
+        department: "Social Studies", description: null,
+        fulfillsRequirements: ["English", "U.S. History"],
+        requirementCredits: { "English": 2, "U.S. History": 2 },
+        prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "AMST261", gradeMin: 11, gradeMax: 11,
+        isNonAcademic: false, isMarchingBand: false, attributes: [],
+      };
+      const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+      const completed = [makeCompleted(americanStudies, "Junior (11)")];
+      const result = computePlannerAnalysis({
+        planners,
+        completedCourses: completed,
+        resolutions: [],
+        allCourses: [...allCourses, americanStudies],
+      });
+      const eng = result.earned?.graduationRequirements.find((r) => r.name === "English");
+      const ush = result.earned?.graduationRequirements.find((r) => r.name === "U.S. History");
+      expect(eng?.earnedValue).toBe(2);
+      expect(ush?.earnedValue).toBe(2);
+    });
   });
 });

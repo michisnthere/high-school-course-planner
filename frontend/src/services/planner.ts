@@ -158,13 +158,27 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
         }
 
         if (semester != null && semester > 2) {
+          const slotSpan = courseDetails.slotsPerSemester ?? 1;
+          let freeSlot = slot ?? 1;
+          const oc = (s: number) => occupied(planner, semester, s, null);
+          if (oc(freeSlot)) {
+            freeSlot = [1, 2, 3, 4, 5, 6, 7].find((s) => {
+              for (let i = 0; i < slotSpan; i++) if (oc(s + i)) return false;
+              return true;
+            }) ?? 7;
+          }
+          for (let i = 0; i < slotSpan; i++) {
+            if (occupied(planner, semester, freeSlot + i)) {
+              throw new Error("This slot is already occupied.");
+            }
+          }
           const entry: PlannedCourse = {
             id: nextCourseEntryId++,
             plannerId,
             courseId: courseIdOrItem,
             plannerOptionId: null,
             semester: semester,
-            slot: slot ?? 1,
+            slot: freeSlot,
             slotSpan: courseDetails.slotsPerSemester ?? 1,
             course: { ...courseDetails },
             isEarlyBird: earlyBird,

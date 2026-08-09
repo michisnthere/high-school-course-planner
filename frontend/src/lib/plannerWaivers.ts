@@ -1,5 +1,6 @@
 import type { PlannedCourse } from "./planner";
 import { effectiveSlotSpan, getCourseCredits, getPlacementKey } from "./courseCredits";
+import { isOutOfSemester } from "./plannerSemesters";
 
 export type WaiverVariant = "academic" | "athletic" | "marching-band";
 
@@ -60,7 +61,7 @@ export function getCreditBearingCount(
   const countedFullYear = new Set<string>();
 
   for (const pc of plannedCourses) {
-    if (pc.semester === 3) continue;
+    if (isOutOfSemester(pc.semester)) continue;
     const credits = getCourseCredits(pc.course);
     if (credits <= 0) continue;
     if (pc.course.isNonAcademic) continue;

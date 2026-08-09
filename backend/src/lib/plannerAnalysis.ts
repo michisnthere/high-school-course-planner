@@ -152,6 +152,21 @@ export type PlannerAnalysis = {
     byRequirementCategory: Record<string, number>;
     byDivision: Record<string, number>;
   };
+  // Actual / earned progress: only coursework the student has actually completed
+  // (CompletedCourse records, plus completed summer-school / middle-school
+  // resolutions). Planned placements from incomplete years are NOT included,
+  // so these values reflect what has genuinely been earned so far.
+  earned?: {
+    credits: {
+      total: number;
+      byRequirementCategory: Record<string, number>;
+      byDivision: Record<string, number>;
+    };
+    graduationRequirements: RequirementStatus[];
+  };
+  // Projected / planned progress: actual completed coursework plus planned
+  // placements from incomplete years. This is what the planner uses to answer
+  // "if I keep this schedule, will I graduate?"
   graduationRequirements: RequirementStatus[];
   informationItems: InformationItem[];
   yearRequirements: YearRequirementStatus[];
@@ -1206,6 +1221,14 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
   const completedYears = new Set(completedPlanners.map((p) => p.schoolYear));
   const creditPlacements = placements.filter((p) => !completedYears.has(p.year));
 
+  // Actual / earned view: only completed coursework. Completed-year placements
+  // are intentionally excluded entirely (their courses are recorded as
+  // CompletedCourse records), so passing an empty placements list guarantees
+  // completed courses are never double-counted and planned future years are
+  // never counted as "earned".
+  const earnedRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, [], completedCourses, resolutions);
+  const earnedCredits = computeCredits([], completedCourses);
+
   const graduationRequirements = computeGraduationRequirements(requirements, courseRequirementLinks, creditPlacements, completedCourses, resolutions);
 
   const grCategoryChildren = new Map<string, Set<string>>();
@@ -1227,6 +1250,10 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
 
   return {
     credits: computeCredits(creditPlacements, completedCourses),
+    earned: {
+      credits: earnedCredits,
+      graduationRequirements: earnedRequirements,
+    },
     graduationRequirements,
     informationItems: toInformationItems(requirements),
     yearRequirements: computeYearRequirements(placements, grCategoryChildren),

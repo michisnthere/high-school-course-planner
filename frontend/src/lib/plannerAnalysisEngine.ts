@@ -816,6 +816,12 @@ export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalys
   );
   const creditPlacements = placements.filter((p) => !completedYears.has(p.year));
 
+  // Actual / earned view: only completed coursework. Completed-year placements
+  // are excluded entirely (their courses are recorded as completed courses), so
+  // this reflects what the student has genuinely earned so far.
+  const earnedGraduationRequirements = computeGraduationRequirements([], data.completedCourses, data.resolutions);
+  const earnedCredits = computeCredits([], data.completedCourses);
+
   const graduationRequirements = computeGraduationRequirements(creditPlacements, data.completedCourses, data.resolutions);
 
   const recommendations = computeRecommendations(graduationRequirements, creditPlacements, data.completedCourses, data.allCourses);
@@ -828,6 +834,10 @@ export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalys
 
   return {
     credits: computeCredits(creditPlacements, data.completedCourses),
+    earned: {
+      credits: earnedCredits,
+      graduationRequirements: earnedGraduationRequirements,
+    },
     graduationRequirements,
     informationItems: [],
     yearRequirements: computeYearRequirements(placements),
