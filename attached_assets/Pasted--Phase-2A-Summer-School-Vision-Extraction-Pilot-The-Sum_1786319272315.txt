@@ -1,0 +1,207 @@
+# Phase 2A — Summer School Vision Extraction Pilot
+
+The Summer School extraction framework has been verified successfully.
+
+Do NOT modify the database or run an import yet.
+
+The source PDF is:
+
+```text
+extractor/SummerSchool2627.pdf
+```
+
+It contains 20 pages.
+
+## Objective
+
+Implement the real vision/AI adapter for the existing Summer School extraction framework, then perform a SMALL PILOT extraction before processing the entire PDF.
+
+Do not redesign the framework that was just verified.
+
+---
+
+## 1. Inspect the existing vision interface
+
+Use the existing:
+
+```text
+extractor/summer_school/vision_client.py
+```
+
+and the existing extraction pipeline.
+
+Do not create a second unrelated vision/extraction system.
+
+Determine what vision provider/configuration the project already uses or is intended to use.
+
+If the existing project has an OpenAI vision implementation, reuse it where appropriate.
+
+If the existing adapter is only a stub, implement the smallest production-ready adapter needed for this pipeline.
+
+Do not hardcode API keys.
+
+Use the project's existing environment-variable conventions.
+
+---
+
+## 2. Preserve the structured extraction contract
+
+The vision model must return the Summer School schema already established by the framework.
+
+It should extract ONLY information visible in the supplied page image.
+
+Do NOT infer:
+
+* prerequisites
+* credits
+* grade levels
+* course equivalence
+* Summer School availability
+* graduation requirements
+
+from outside knowledge.
+
+If information is unclear or missing, return the appropriate missing/uncertain value and allow validation to flag it.
+
+---
+
+## 3. Extraction prompt
+
+Create/use the Phase 2 extraction prompt in the existing prompts directory.
+
+The prompt should explicitly tell the model:
+
+* this is a Summer School coursebook
+* extract courses from the provided page
+* preserve exact course titles
+* preserve exact course codes when visible
+* preserve descriptions accurately
+* preserve credits exactly
+* preserve grade eligibility exactly
+* preserve session/semester information exactly
+* preserve prerequisites/corequisites exactly
+* preserve source page number
+* do not invent information
+* return structured data matching the existing schema
+
+If a page contains no courses, return an empty course list.
+
+Do not force every page to contain a course.
+
+---
+
+# 4. Pilot extraction
+
+Before extracting all 20 pages, process only a small representative sample.
+
+Use approximately 3 pages that represent different page layouts/content types.
+
+Prefer pages that include:
+
+* a normal course listing
+* multiple courses
+* a page with potentially different formatting
+
+If the first pages are clearly representative, use those; otherwise inspect the page manifest/page metadata to select appropriate samples.
+
+Generate the normal intermediate JSON output.
+
+---
+
+# 5. Validate the pilot
+
+Run the existing Summer School validation framework against the pilot output.
+
+Check:
+
+* schema validity
+* required fields
+* credits
+* grade levels
+* sessions/semesters
+* prerequisites
+* duplicate courses
+* duplicate course codes
+* source references
+
+Also check that the vision model did not hallucinate courses or fields.
+
+---
+
+# 6. Compare extraction against the images
+
+For each pilot page, manually inspect the extracted JSON against the actual PNG.
+
+Specifically verify:
+
+### Course identity
+
+* title
+* course code
+
+### Academic information
+
+* credits
+* duration
+* grade eligibility
+* semester/session
+
+### Requirements
+
+* prerequisites
+* corequisites
+* graduation requirements
+
+### Description
+
+* no major omissions
+* no invented wording
+* no accidental merging of adjacent courses
+
+### Source tracking
+
+* correct PDF page
+* correct PNG page
+
+If the extraction has systematic problems, fix the prompt/adapter BEFORE processing the remaining pages.
+
+---
+
+# 7. Do NOT match/import yet
+
+For this pilot:
+
+* do NOT import into Neon
+* do NOT modify Course records
+* do NOT create Summer School DB records
+* do NOT run `--apply`
+* do NOT modify existing regular catalog data
+
+The only output should be extraction/validation artifacts.
+
+Matching can be run as a diagnostic, but it must not modify data.
+
+---
+
+# 8. Report
+
+When finished, report:
+
+1. Vision provider/adapter used
+2. Environment variable required
+3. Pages selected for the pilot
+4. Number of courses extracted
+5. Validation results
+6. Any extraction ambiguities
+7. Any hallucinations/errors found
+8. Prompt/adapter changes made
+9. Whether the pilot appears accurate enough to process all 20 pages
+
+STOP after the pilot.
+
+Do not process the remaining pages until I explicitly approve the full extraction.
+
+
+
+
+
