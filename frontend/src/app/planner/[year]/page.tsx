@@ -987,12 +987,14 @@ function PlannerYearContent(): React.ReactElement {
         }}
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           gap: "8px",
-          padding: "12px 16px",
-          minHeight: "48px",
+          padding: "16px",
+          minHeight: "120px",
           width: "100%",
+          minWidth: 0,
           boxSizing: "border-box",
           backgroundColor: "#1f2937",
           border: "2px dashed #4b5563",
@@ -1072,6 +1074,33 @@ function PlannerYearContent(): React.ReactElement {
           transition: all 0.2s ease;
         }
         .mob-add-btn:active {
+          border-color: #6b7280;
+          color: #d1d5db;
+        }
+        /* Out-of-semester (Summer School / Online) add button matches the
+           .mob-course-card dimensions exactly: same padding, min-height,
+           border-radius, font and full-width behavior. */
+        .mob-add-btn-card {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          width: 100%;
+          min-width: 0;
+          box-sizing: border-box;
+          padding: 16px;
+          min-height: 80px;
+          background: #1f2937;
+          border: 2px dashed #4b5563;
+          border-radius: 12px;
+          cursor: pointer;
+          color: #9ca3af;
+          font-size: 16px;
+          font-weight: 500;
+          text-align: center;
+          transition: all 0.2s ease;
+        }
+        .mob-add-btn-card:active {
           border-color: #6b7280;
           color: #d1d5db;
         }
@@ -3250,7 +3279,7 @@ function MobilePlanner({
     return (
       <button
         type="button"
-        className="mob-add-btn"
+        className="mob-add-btn-card"
         onClick={() => onOpenModal(semesterNum)}
       >
         {addLabel}
