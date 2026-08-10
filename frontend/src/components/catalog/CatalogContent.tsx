@@ -252,6 +252,13 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     return sortCoursesByPrerequisites(filteredCourses, sortData);
   }, [filteredCourses, sortData]);
 
+  const hierarchyLevel =
+    filters.division.length === 0
+      ? "division"
+      : filters.department.length === 0
+        ? "department"
+        : "courses";
+
   return (
     <>
       <CourseSearch
@@ -273,7 +280,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
         onFilterChange={setFilters}
       />
 
-      {sortedCourses.length === 0 ? (
+      {hierarchyLevel !== "courses" ? null : sortedCourses.length === 0 ? (
         <EmptyState message={getEmptyStateMessage(submitted, filters)} />
       ) : (
         <CourseGrid courses={sortedCourses} />

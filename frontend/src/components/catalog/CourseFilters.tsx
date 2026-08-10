@@ -132,7 +132,11 @@ export function CourseFilters({
     const next = current.includes(value)
       ? current.filter((v) => v !== value)
       : [...current, value];
-    onFilterChange({ ...filters, [category]: next });
+    onFilterChange({
+      ...filters,
+      [category]: next,
+      ...(category === "division" ? { department: [] } : {}),
+    });
   };
 
   const clearAll = () => {
@@ -165,14 +169,11 @@ export function CourseFilters({
   }, [filters.division, divisionDepartments, departments]);
 
   const showDepartmentFilter = useMemo(() => {
-    if (filters.division.length === 0) return false;
-    return filters.division.some((div) => {
-      const depts = divisionDepartments.get(div);
-      if (!depts || depts.length === 0) return false;
-      if (depts.length > 1) return true;
-      return depts[0] !== div;
-    });
-  }, [filters.division, divisionDepartments, departments]);
+    return filters.division.length > 0 && visibleDepartments.length > 0;
+  }, [filters.division.length, visibleDepartments.length]);
+
+  const showCourseFilters =
+    filters.division.length > 0 && filters.department.length > 0;
 
   return (
     <div
@@ -208,27 +209,31 @@ export function CourseFilters({
             onToggle={(value) => toggleFilter("department", value)}
           />
         )}
-        <ToggleGroup
-          label="Credit Type"
-          values={creditTypes}
-          selected={filters.creditType}
-          onToggle={(value) => toggleFilter("creditType", value)}
-          formatLabel={formatCreditTypeFilter}
-        />
-        <ToggleGroup
-          label="Grade Level"
-          values={gradeLevels.map(String)}
-          selected={filters.gradeLevel}
-          onToggle={(value) => toggleFilter("gradeLevel", value)}
-          formatLabel={(v) => `Grade ${v}`}
-        />
-        <ToggleGroup
-          label="Semester"
-          values={semesters}
-          selected={filters.semester}
-          onToggle={(value) => toggleFilter("semester", value)}
-          formatLabel={formatSemesterLabel}
-        />
+        {showCourseFilters && (
+          <>
+            <ToggleGroup
+              label="Credit Type"
+              values={creditTypes}
+              selected={filters.creditType}
+              onToggle={(value) => toggleFilter("creditType", value)}
+              formatLabel={formatCreditTypeFilter}
+            />
+            <ToggleGroup
+              label="Grade Level"
+              values={gradeLevels.map(String)}
+              selected={filters.gradeLevel}
+              onToggle={(value) => toggleFilter("gradeLevel", value)}
+              formatLabel={(v) => `Grade ${v}`}
+            />
+            <ToggleGroup
+              label="Semester"
+              values={semesters}
+              selected={filters.semester}
+              onToggle={(value) => toggleFilter("semester", value)}
+              formatLabel={formatSemesterLabel}
+            />
+          </>
+        )}
       </div>
 
       {hasActiveFilters && (
