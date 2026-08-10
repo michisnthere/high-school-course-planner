@@ -117,7 +117,9 @@ def _validate_availability(course: schema.SummerCourse, key: str, problems: List
     """Sessions and duration must be present, known, and mutually consistent.
 
     ``full_summer`` means the course occupies both Summer School sessions, so
-    it must list both sessions.  ``one_session`` must list exactly one.
+    it must list both sessions.  ``one_session`` means the course occupies one
+    session; its availability may name one session or both sessions when the
+    course is offered as an either-session alternative.
     """
     sessions = course.get("sessions")
     duration = course.get("duration")
@@ -155,13 +157,6 @@ def _validate_availability(course: schema.SummerCourse, key: str, problems: List
                     "bad_type", key, "duration",
                     "full_summer must list both sessions "
                     f"{list(config.SUMMER_SESSIONS)}, got {sessions}",
-                )
-            )
-        if duration == config.DURATION_ONE_SESSION and len(sessions) != 1:
-            problems.append(
-                ValidationProblem(
-                    "bad_type", key, "duration",
-                    f"one_session must list exactly one session, got {sessions}",
                 )
             )
 
