@@ -17,3 +17,5 @@ When setting up a freshly imported project, the `.replit` file may contain `user
 - `FRONTEND_URL` = `https://<REPLIT_DEV_DOMAIN>:3000`
 
 Use `setEnvVars` to update the environment; use `verifyAndReplaceDotReplit` if you need to update `.replit`.
+
+**OAuth note:** When using a PostgreSQL-backed Express session store, the existing session-table migration must also be applied; otherwise OAuth can redirect correctly but session reads fail with `relation "session" does not exist`.

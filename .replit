@@ -13,9 +13,9 @@ run = ["npm", "run", "import:courses"]
 [userenv]
 
 [userenv.shared]
-FRONTEND_URL = "https://88346250-d454-4226-bbea-382fe7d012d2-00-1d8uuf6pzk16n.spock.replit.dev:3000"
-NEXT_PUBLIC_API_URL = "https://88346250-d454-4226-bbea-382fe7d012d2-00-1d8uuf6pzk16n.spock.replit.dev"
-BACKEND_URL = "https://88346250-d454-4226-bbea-382fe7d012d2-00-1d8uuf6pzk16n.spock.replit.dev"
+FRONTEND_URL = "https://60eb1182-c77c-4cf1-b605-ed5ed04b1e11-00-31vto1zzrwoaq.spock.replit.dev:3000"
+NEXT_PUBLIC_API_URL = "https://60eb1182-c77c-4cf1-b605-ed5ed04b1e11-00-31vto1zzrwoaq.spock.replit.dev"
+BACKEND_URL = "https://60eb1182-c77c-4cf1-b605-ed5ed04b1e11-00-31vto1zzrwoaq.spock.replit.dev"
 
 [workflows]
 runButton = "Project"
