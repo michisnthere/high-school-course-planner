@@ -108,6 +108,9 @@ class SummerCourse(TypedDict):
     courseCode: NotRequired[Optional[str]]
 
     credits: NotRequired[Optional[float]]  # numeric, > 0 when present
+    # Explicit credit status is consumed by the isolated importer.  Non-credit
+    # and unknown courses intentionally carry ``credits: null``.
+    creditStatus: NotRequired[Optional[Literal["credit", "non-credit", "unknown"]]]
     gradeLevels: NotRequired[Optional[List[int]]]  # 9-12
     # Which Summer School sessions offer this course: one or both of
     # config.SUMMER_SESSION_1 / config.SUMMER_SESSION_2.

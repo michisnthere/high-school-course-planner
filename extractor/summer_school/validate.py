@@ -75,8 +75,35 @@ def _norm_title(value: Optional[str]) -> str:
     return re.sub(r"[^a-z0-9]+", "-", (value or "").lower()).strip("-")
 
 
-def _require_positive_credits(course: schema.SummerCourse, key: str, problems: List[ValidationProblem]) -> None:
+VALID_CREDIT_STATUSES = {"credit", "non-credit", "unknown"}
+
+
+def _validate_credits(course: schema.SummerCourse, key: str, problems: List[ValidationProblem]) -> None:
+    """Validate the explicit credit contract used by the DB importer.
+
+    Credit-bearing courses must declare a positive numeric value.  Non-credit
+    and unknown courses may omit credits, but must not use a fake zero value.
+    """
+    status = course.get("creditStatus")
     credits = course.get("credits")
+    if status is not None and status not in VALID_CREDIT_STATUSES:
+        problems.append(
+            ValidationProblem("bad_type", key, "creditStatus", f"unknown creditStatus {status!r}")
+        )
+        return
+
+    if status in {"non-credit", "unknown"}:
+        if credits is not None:
+            problems.append(
+                ValidationProblem(
+                    "bad_type",
+                    key,
+                    "credits",
+                    f"{status} course must use null credits, got {credits!r}",
+                )
+            )
+        return
+
     if credits is None:
         problems.append(
             ValidationProblem("missing_required", key, "credits", "credits is required")
@@ -229,7 +256,7 @@ def validate_catalog(
         if not title:
             problems.append(ValidationProblem("missing_required", key, "title", "title is required"))
 
-        _require_positive_credits(course, key, problems)
+        _validate_credits(course, key, problems)
         _validate_grade_levels(course, key, problems)
         _validate_availability(course, key, problems)
         _validate_string_list_field(course, key, "prerequisites", problems)
