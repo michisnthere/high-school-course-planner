@@ -9,24 +9,19 @@ export function normalizePrerequisite(prereq: string): string {
 export function prerequisiteMatches(
   prereq: string,
   title: string,
-  courseCode: string | null
+  courseCode: string | null,
+  aliases: string[] = []
 ): boolean {
-  const normalized = normalizePrerequisite(prereq).toLowerCase();
-  const normalizedTitle = title.toLowerCase();
-  const normalizedCode = (courseCode ?? "").toLowerCase();
-
-  const alternatives = normalized.split(/\s+or\s+/);
-  for (const alt of alternatives) {
-    const trimmed = alt.trim();
-    if (!trimmed) continue;
-    if (
-      normalizedTitle.includes(trimmed) ||
-      trimmed.includes(normalizedTitle) ||
-      trimmed.includes(normalizedCode)
-    ) {
-      return true;
-    }
-  }
-
-  return false;
+  const normalizeIdentity = (value: string | null | undefined) =>
+    (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+  const identities = new Set(
+    [title, courseCode, ...aliases]
+      .map(normalizeIdentity)
+      .filter(Boolean)
+  );
+  return normalizePrerequisite(prereq)
+    .split(/\s+\or\s+/i)
+    .map(normalizeIdentity)
+    .filter(Boolean)
+    .some((alternative) => identities.has(alternative));
 }

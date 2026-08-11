@@ -80,6 +80,7 @@ type AnalysisCourse = {
   summerCourseId: number | null;
   equivalentRegularCourseId: number | null;
   duplicateGroupId: number;
+  identityAliases: string[];
 };
 
 type CoursePlacement = {
@@ -272,6 +273,9 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     summerCourseId: null,
     equivalentRegularCourseId: null,
     duplicateGroupId: course.id,
+    identityAliases: [course.title, courseCode].filter(
+      (value): value is string => typeof value === "string" && value.trim().length > 0
+    ),
   };
 }
 
@@ -360,6 +364,12 @@ function toAnalysisSummerCourse(summerCourse: SummerCourseWithRelations): Analys
     summerCourseId: summerCourse.id,
     equivalentRegularCourseId: matched?.id ?? null,
     duplicateGroupId: matched?.id ?? id,
+    identityAliases: [
+      summerCourse.title,
+      summerCourse.courseCode,
+      matched?.title,
+      matched?.options?.[0]?.offerings?.[0]?.courseCode,
+    ].filter((value): value is string => typeof value === "string" && value.trim().length > 0),
   };
 }
 
@@ -929,34 +939,33 @@ function mergeCourseRequirementLinksByCanonicalRequirement(
   return merged;
 }
 
+function normalizeCourseIdentity(value: string | null | undefined): string {
+  return (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function prerequisiteAlternatives(prereq: string): string[] {
+  return normalizePrerequisite(prereq)
+    .split(/\s+or\s+/i)
+    .map(normalizeCourseIdentity)
+    .filter(Boolean);
+}
+
 function prerequisiteMatches(
   prereq: string,
-  item: { title: string; courseCode?: string | null }
+  item: { title: string; courseCode?: string | null; aliases?: string[] }
 ): boolean {
-  const normalized = normalizePrerequisite(prereq).toLowerCase();
-  const normalizedTitle = item.title.toLowerCase();
-  const normalizedCode = (item.courseCode ?? "").toLowerCase();
-
-  const alternatives = normalized.split(/\s+or\s+/);
-  for (const alt of alternatives) {
-    const trimmed = alt.trim();
-    if (!trimmed) continue;
-    if (
-      normalizedTitle.includes(trimmed) ||
-      trimmed.includes(normalizedTitle) ||
-      trimmed.includes(normalizedCode)
-    ) {
-      return true;
-    }
-  }
-
-  return false;
+  const identities = new Set(
+    [item.title, item.courseCode, ...(item.aliases ?? [])]
+      .map(normalizeCourseIdentity)
+      .filter(Boolean)
+  );
+  return prerequisiteAlternatives(prereq).some((alternative) => identities.has(alternative));
 }
 
 function checkPrerequisiteStatus(
   prerequisites: string[],
-  completedItems: { title: string; courseCode: string }[],
-  plannedItems: { title: string; courseCode: string }[]
+  completedItems: { title: string; courseCode: string; aliases?: string[] }[],
+  plannedItems: { title: string; courseCode: string; aliases?: string[] }[]
 ): {
   count: number;
   completedCount: number;
@@ -1025,12 +1034,19 @@ function computeRecommendations(
   const completedItems = completedCourses.map((cc) => ({
     title: cc.course?.title ?? cc.summerCourse?.title ?? "",
     courseCode: (cc.course?.options?.[0]?.offerings?.[0]?.courseCode ?? cc.summerCourse?.courseCode ?? "").toLowerCase(),
+    aliases: cc.summerCourse?.regularCourse
+      ? [
+          cc.summerCourse.regularCourse.title,
+          cc.summerCourse.regularCourse.options?.[0]?.offerings?.[0]?.courseCode,
+        ].filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+      : [],
   }));
   const plannedItems = placements
     .filter((p) => p.course)
     .map((p) => ({
       title: p.course!.title,
       courseCode: (p.course!.courseCode ?? "").toLowerCase(),
+      aliases: p.course!.identityAliases,
     }));
 
   const recommendations = new Map<number, RecommendedCourse[]>();
@@ -1275,6 +1291,7 @@ function computeMissingPrerequisites(
     semester: number;
     title: string;
     courseCode: string | null;
+    aliases: string[];
     placement: CoursePlacement;
   }> = placements
     .filter((p) => p.course)
@@ -1283,6 +1300,7 @@ function computeMissingPrerequisites(
       semester: p.semester,
       title: p.course!.title,
       courseCode: p.course!.courseCode,
+      aliases: p.course!.identityAliases,
       placement: p,
     }));
   ordered.sort(
@@ -1298,6 +1316,12 @@ function computeMissingPrerequisites(
       cc.course?.options?.[0]?.offerings?.[0]?.courseCode ??
       cc.summerCourse?.courseCode ??
       "",
+    aliases: cc.summerCourse?.regularCourse
+      ? [
+          cc.summerCourse.regularCourse.title,
+          cc.summerCourse.regularCourse.options?.[0]?.offerings?.[0]?.courseCode,
+        ].filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+      : [],
   }));
 
   // Build set of (courseId, prerequisite) that have been resolved via placement test
@@ -1318,9 +1342,7 @@ function computeMissingPrerequisites(
 
   for (const { placement, year, semester } of ordered) {
     if (!placement.course) continue;
-    const plannedIndex = ordered.findIndex(
-      (item) => item.year === year && item.semester === semester && item.title === placement.course!.title
-    );
+    const plannedIndex = ordered.findIndex((item) => item.placement.plannedCourseId === placement.plannedCourseId);
 
     for (const prereq of placement.course.prerequisites) {
       if (!prereq.trim()) continue;
@@ -1339,9 +1361,7 @@ function computeMissingPrerequisites(
       );
       if (completed) continue;
 
-      const prereqIndex = ordered.findIndex((item) =>
-        prerequisiteMatches(prereq, item)
-      );
+      const prereqIndex = ordered.findIndex((item) => prerequisiteMatches(prereq, item));
 
       if (prereqIndex === -1) {
         missing.push({

@@ -111,6 +111,7 @@ type AnalysisCourse = {
   summerCourseId: number | null;
   equivalentRegularCourseId: number | null;
   duplicateGroupId: number | null;
+  identityAliases: string[];
 };
 
 type CoursePlacement = {
@@ -211,6 +212,9 @@ function toAnalysisCourse(course: PlannerCourseDetails): AnalysisCourse {
     summerCourseId: null,
     equivalentRegularCourseId: null,
     duplicateGroupId: course.id,
+    identityAliases: [course.title, course.courseCode].filter(
+      (value): value is string => typeof value === "string" && value.trim().length > 0
+    ),
   };
 }
 
@@ -289,6 +293,12 @@ function toAnalysisSummerCourse(summerCourse: SummerCourse): AnalysisCourse {
     summerCourseId: summerCourse.id,
     equivalentRegularCourseId: matched?.id ?? null,
     duplicateGroupId: matched?.id ?? id,
+    identityAliases: [
+      summerCourse.title,
+      summerCourse.courseCode,
+      matched?.title,
+      matched?.courseCode,
+    ].filter((value): value is string => typeof value === "string" && value.trim().length > 0),
   };
 }
 
@@ -762,19 +772,24 @@ function computeDuplicateCourses(placements: CoursePlacement[]): DuplicateCourse
   return duplicates;
 }
 
-function prerequisiteMatches(prereq: string, item: { title: string; courseCode?: string | null }): boolean {
-  const normalized = normalizePrerequisite(prereq).toLowerCase();
-  const normalizedTitle = item.title.toLowerCase();
-  const normalizedCode = (item.courseCode ?? "").toLowerCase();
-  const alternatives = normalized.split(/\s+or\s+/);
-  for (const alt of alternatives) {
-    const trimmed = alt.trim();
-    if (!trimmed) continue;
-    if (normalizedTitle.includes(trimmed) || trimmed.includes(normalizedTitle) || trimmed.includes(normalizedCode)) {
-      return true;
-    }
-  }
-  return false;
+function normalizeCourseIdentity(value: string | null | undefined): string {
+  return (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function prerequisiteMatches(
+  prereq: string,
+  item: { title: string; courseCode?: string | null; aliases?: string[] }
+): boolean {
+  const identities = new Set(
+    [item.title, item.courseCode, ...(item.aliases ?? [])]
+      .map(normalizeCourseIdentity)
+      .filter(Boolean)
+  );
+  return normalizePrerequisite(prereq)
+    .split(/\s+or\s+/i)
+    .map(normalizeCourseIdentity)
+    .filter(Boolean)
+    .some((alternative) => identities.has(alternative));
 }
 
 function computeMissingPrerequisites(
@@ -784,7 +799,14 @@ function computeMissingPrerequisites(
 ): MissingPrerequisite[] {
   const ordered = placements
     .filter((p): p is CoursePlacement & { course: PlannerCourseDetails } => p.course != null)
-    .map((p) => ({ year: p.year, semester: p.semester, title: p.course.title, courseCode: p.course.courseCode, placement: p }));
+    .map((p) => ({
+      year: p.year,
+      semester: p.semester,
+      title: p.course.title,
+      courseCode: p.course.courseCode,
+      aliases: p.course.identityAliases,
+      placement: p,
+    }));
   ordered.sort(
     (a, b) =>
       a.year - b.year ||
@@ -795,6 +817,10 @@ function computeMissingPrerequisites(
   const completedItems = completedCourses.map((cc) => ({
     title: cc.course?.title ?? cc.summerCourse?.title ?? "",
     courseCode: cc.course?.courseCode ?? cc.summerCourse?.courseCode ?? "",
+    aliases: cc.summerCourse?.regularCourse
+      ? [cc.summerCourse.regularCourse.title, cc.summerCourse.regularCourse.courseCode]
+          .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+      : [],
   }));
 
   const placementTestResolved = new Set<string>();
@@ -809,7 +835,7 @@ function computeMissingPrerequisites(
   const missing: MissingPrerequisite[] = [];
   for (const { placement, year, semester } of ordered) {
     if (!placement.course) continue;
-    const plannedIndex = ordered.findIndex((item) => item.year === year && item.semester === semester && item.title === placement.course.title);
+    const plannedIndex = ordered.findIndex((item) => item.placement.plannedCourseId === placement.plannedCourseId);
     for (const prereq of placement.course.prerequisites) {
       if (!prereq.trim()) continue;
       const normalized = normalizePrerequisite(prereq);

@@ -3506,7 +3506,24 @@ function getWarnings(
     return warnings;
   }
 
-  const completedCourseIds = new Set(completedCourses.map((cc) => cc.courseId));
+  const completedCourseIds = new Set(
+    completedCourses
+      .flatMap((cc) => [
+        cc.courseId,
+        cc.summerCourse?.regularCourse?.id ?? null,
+      ])
+      .filter((id): id is number => id != null)
+  );
+  const completedIdentities = completedCourses.map((cc) => ({
+    title: cc.course?.title ?? cc.summerCourse?.title ?? "",
+    courseCode: cc.course?.courseCode ?? cc.summerCourse?.courseCode ?? "",
+    aliases: cc.summerCourse?.regularCourse
+      ? [
+          cc.summerCourse.regularCourse.title,
+          cc.summerCourse.regularCourse.courseCode,
+        ].filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+      : [],
+  }));
 
   const placementTestResolved = new Set<string>();
   for (const resolution of resolutions) {
@@ -3526,34 +3543,52 @@ function getWarnings(
     year: number;
     semester: number;
     slot: number;
-    courseId: number;
+    courseIds: number[];
+    title: string;
+    courseCode: string | null;
+    aliases: string[];
   }> = [];
   for (const p of allPlanners) {
     for (const pc of p.plannedCourses) {
-      if (pc.courseId == null) continue;
+      const courseIds = [
+        pc.courseId,
+        pc.summerCourse?.regularCourse?.id ?? null,
+      ].filter((id): id is number => id != null);
+      if (courseIds.length === 0 && pc.summerCourse == null) continue;
       plannedPlacements.push({
         id: pc.id,
         plannerId: pc.plannerId,
         year: p.schoolYear,
         semester: pc.semester,
         slot: pc.slot,
-        courseId: pc.courseId,
+        courseIds,
+        title: pc.course.title,
+        courseCode: pc.course.courseCode,
+        aliases: [
+          pc.course.title,
+          pc.course.courseCode,
+          pc.summerCourse?.title,
+          pc.summerCourse?.courseCode,
+          pc.summerCourse?.regularCourse?.title,
+          pc.summerCourse?.regularCourse?.courseCode,
+        ].filter((value): value is string => typeof value === "string" && value.trim().length > 0),
       });
     }
   }
 
   plannedPlacements.sort((a, b) => {
     if (a.year !== b.year) return a.year - b.year;
-    if (a.semester !== b.semester) return a.semester - b.semester;
+    const order = (semester: number) =>
+      semester === 3 ? 0 : semester === 4 ? 1 : semester === 1 ? 2 : semester === 2 ? 3 : semester;
+    if (a.semester !== b.semester) return order(a.semester) - order(b.semester);
     return a.slot - b.slot;
   });
 
-  const plannedCourseId = planned.courseId;
-  if (plannedCourseId == null) {
+  if (planned.courseId == null && planned.summerCourse == null) {
     return warnings;
   }
 
-  const effectiveSemester = course.duration === 2 ? 1 : currentSemester;
+  const targetPlacementIndex = plannedPlacements.findIndex((item) => item.id === planned.id);
 
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
@@ -3567,7 +3602,11 @@ function getWarnings(
       continue;
     }
 
-    const isCompleted = matchedCourseIds.some((id) => completedCourseIds.has(id));
+    const isCompleted =
+      matchedCourseIds.some((id) => completedCourseIds.has(id)) ||
+      completedIdentities.some((item) =>
+        prerequisiteMatches(prereq, item.title, item.courseCode, item.aliases)
+      );
     if (isCompleted) {
       continue;
     }
@@ -3580,12 +3619,14 @@ function getWarnings(
     }
 
     const prereqPlacements = plannedPlacements.filter((item) =>
-      matchedCourseIds.includes(item.courseId)
+      item.courseIds.some((id) => matchedCourseIds.includes(id)) ||
+      prerequisiteMatches(prereq, item.title, item.courseCode, item.aliases)
     );
     const isPrerequisiteSatisfied = prereqPlacements.some(
-      (item) =>
-        item.year < currentYear ||
-        (item.year === currentYear && item.semester === 1 && effectiveSemester === 2)
+      (item) => {
+        const itemIndex = plannedPlacements.indexOf(item);
+        return itemIndex !== -1 && targetPlacementIndex !== -1 && itemIndex < targetPlacementIndex;
+      }
     );
 
     if (prereqPlacements.length === 0) {
@@ -3597,14 +3638,25 @@ function getWarnings(
     } else if (!isPrerequisiteSatisfied) {
       const prerequisitePlacement =
         prereqPlacements.find(
-          (item) =>
-            item.year === currentYear && item.semester === 2 && effectiveSemester === 1
+          (item) => {
+            const itemIndex = plannedPlacements.indexOf(item);
+            return targetPlacementIndex !== -1 && itemIndex > targetPlacementIndex;
+          }
         ) ?? prereqPlacements[0];
       warnings.push({
         message: `A prerequisite for this course is not scheduled before it.`,
         type: "later_prerequisite",
         prerequisite: prereq,
-        prerequisitePlacement,
+        prerequisitePlacement: prerequisitePlacement && prerequisitePlacement.courseIds[0] != null
+          ? {
+              id: prerequisitePlacement.id,
+              plannerId: prerequisitePlacement.plannerId,
+              year: prerequisitePlacement.year,
+              semester: prerequisitePlacement.semester,
+              slot: prerequisitePlacement.slot,
+              courseId: prerequisitePlacement.courseIds[0],
+            }
+          : undefined,
       });
     }
   }
