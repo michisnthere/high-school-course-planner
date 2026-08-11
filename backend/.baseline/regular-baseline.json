@@ -1,0 +1,1536 @@
+{
+  "courses": [
+    [
+      1,
+      "Introduction to Business"
+    ],
+    [
+      2,
+      "Business Applications and Technology 1"
+    ],
+    [
+      3,
+      "Business Applications and Technology 2"
+    ],
+    [
+      4,
+      "Marketing"
+    ],
+    [
+      5,
+      "Entrepreneurship"
+    ],
+    [
+      6,
+      "Accounting 1"
+    ],
+    [
+      7,
+      "Accounting 2"
+    ],
+    [
+      8,
+      "Advanced Accounting"
+    ],
+    [
+      9,
+      "Business Law"
+    ],
+    [
+      10,
+      "Personal Finance"
+    ],
+    [
+      11,
+      "Food and Nutrition"
+    ],
+    [
+      12,
+      "Human Growth and Development"
+    ],
+    [
+      13,
+      "Clothing and Design 1"
+    ],
+    [
+      14,
+      "Clothing and Design 2"
+    ],
+    [
+      15,
+      "Interior Design"
+    ],
+    [
+      16,
+      "Business of Fashion and Design"
+    ],
+    [
+      17,
+      "Food Preparation"
+    ],
+    [
+      18,
+      "Gourmet Foods"
+    ],
+    [
+      19,
+      "Teaching Young Children 1"
+    ],
+    [
+      20,
+      "Teaching Young Children 2"
+    ],
+    [
+      21,
+      "Life by Design"
+    ],
+    [
+      22,
+      "Computer Programming 1"
+    ],
+    [
+      23,
+      "Computer Programming 2"
+    ],
+    [
+      24,
+      "AP Computer Science A"
+    ],
+    [
+      25,
+      "AP Computer Science Principles"
+    ],
+    [
+      26,
+      "Computer Science Algorithms"
+    ],
+    [
+      27,
+      "Mobile App Development"
+    ],
+    [
+      28,
+      "Architectural Design"
+    ],
+    [
+      29,
+      "Advanced Architectural Design"
+    ],
+    [
+      36,
+      "Print Media 1"
+    ],
+    [
+      37,
+      "Print Media 2"
+    ],
+    [
+      38,
+      "Web Development 1"
+    ],
+    [
+      39,
+      "Web Development 2"
+    ],
+    [
+      40,
+      "Game Development 1"
+    ],
+    [
+      41,
+      "Game Development 2"
+    ],
+    [
+      42,
+      "Motion Graphics and Visual Effects"
+    ],
+    [
+      43,
+      "Video Editing and Production"
+    ],
+    [
+      44,
+      "Virtual Reality"
+    ],
+    [
+      45,
+      "Art and Design"
+    ],
+    [
+      46,
+      "Drawing"
+    ],
+    [
+      47,
+      "Painting"
+    ],
+    [
+      48,
+      "Mixed Media"
+    ],
+    [
+      49,
+      "Ceramics"
+    ],
+    [
+      50,
+      "Sculpture"
+    ],
+    [
+      51,
+      "Metals and Jewelry"
+    ],
+    [
+      52,
+      "Advanced Drawing, Painting and Mixed Media"
+    ],
+    [
+      53,
+      "Advanced Ceramics, Metals and Sculpture"
+    ],
+    [
+      54,
+      "AP Art: Drawing, 2D and 3D Design"
+    ],
+    [
+      55,
+      "Photography 1"
+    ],
+    [
+      56,
+      "Photography 2"
+    ],
+    [
+      57,
+      "Advanced Photography and Digital Design"
+    ],
+    [
+      58,
+      "AP Photography and Digital Design"
+    ],
+    [
+      59,
+      "Digital Art and Design 1"
+    ],
+    [
+      60,
+      "Digital Art and Design 2"
+    ],
+    [
+      61,
+      "2D Animation"
+    ],
+    [
+      62,
+      "3D Animation"
+    ],
+    [
+      63,
+      "AP Art History"
+    ],
+    [
+      64,
+      "Dance 1"
+    ],
+    [
+      65,
+      "Dance 2"
+    ],
+    [
+      66,
+      "Dance 3"
+    ],
+    [
+      67,
+      "Dance 4"
+    ],
+    [
+      68,
+      "Concert Dance"
+    ],
+    [
+      137,
+      "Jazz Fusion"
+    ],
+    [
+      138,
+      "Technical Skills"
+    ],
+    [
+      139,
+      "Dance Leadership"
+    ],
+    [
+      140,
+      "Freshman Band"
+    ],
+    [
+      141,
+      "Symphonic Band"
+    ],
+    [
+      142,
+      "Wind Symphony"
+    ],
+    [
+      143,
+      "Wind Ensemble"
+    ],
+    [
+      144,
+      "Stevenson Singers"
+    ],
+    [
+      145,
+      "Advanced Chorus"
+    ],
+    [
+      146,
+      "Patriot Singers"
+    ],
+    [
+      147,
+      "Stevenson Orchestra"
+    ],
+    [
+      148,
+      "Concert Orchestra"
+    ],
+    [
+      149,
+      "Symphonic Orchestra"
+    ],
+    [
+      150,
+      "Patriot Orchestra"
+    ],
+    [
+      151,
+      "Guitar 1"
+    ],
+    [
+      152,
+      "Guitar 2"
+    ],
+    [
+      153,
+      "Patriot Guitar Ensemble"
+    ],
+    [
+      154,
+      "Piano 1"
+    ],
+    [
+      155,
+      "Music Production 1"
+    ],
+    [
+      156,
+      "Music Production 2"
+    ],
+    [
+      157,
+      "Advanced Music Production"
+    ],
+    [
+      158,
+      "AP Music Theory"
+    ],
+    [
+      159,
+      "Acting 1: Confidence and Collaboration"
+    ],
+    [
+      160,
+      "Entertainment Production and Design"
+    ],
+    [
+      161,
+      "Acting 2: Character and Comedy"
+    ],
+    [
+      162,
+      "Acting 3"
+    ],
+    [
+      163,
+      "Acting 4"
+    ],
+    [
+      164,
+      "Advanced Acting"
+    ],
+    [
+      165,
+      "Theatre Leadership: Directing and Management"
+    ],
+    [
+      166,
+      "Leadership in Theatre Studies"
+    ],
+    [
+      167,
+      "French 1"
+    ],
+    [
+      168,
+      "French 2"
+    ],
+    [
+      169,
+      "French 3"
+    ],
+    [
+      170,
+      "AP French Language"
+    ],
+    [
+      171,
+      "German 1"
+    ],
+    [
+      172,
+      "German 2"
+    ],
+    [
+      173,
+      "German 3"
+    ],
+    [
+      174,
+      "AP German Language and Culture"
+    ],
+    [
+      175,
+      "Hebrew 1"
+    ],
+    [
+      176,
+      "Hebrew 2"
+    ],
+    [
+      177,
+      "Hebrew 3"
+    ],
+    [
+      178,
+      "Hebrew 4"
+    ],
+    [
+      179,
+      "Latin 1"
+    ],
+    [
+      180,
+      "Latin 2"
+    ],
+    [
+      181,
+      "Latin 3"
+    ],
+    [
+      182,
+      "AP Latin"
+    ],
+    [
+      183,
+      "Mandarin Chinese 1"
+    ],
+    [
+      184,
+      "Mandarin Chinese 2"
+    ],
+    [
+      185,
+      "Mandarin Chinese 3"
+    ],
+    [
+      186,
+      "Intermediate Mandarin Chinese Language Arts"
+    ],
+    [
+      187,
+      "Mandarin Chinese 4"
+    ],
+    [
+      188,
+      "AP Chinese Language and Culture"
+    ],
+    [
+      189,
+      "Chinese Literature, Media and Culture"
+    ],
+    [
+      190,
+      "Spanish 1"
+    ],
+    [
+      191,
+      "Spanish 2"
+    ],
+    [
+      192,
+      "Spanish 2-3"
+    ],
+    [
+      193,
+      "Spanish 3"
+    ],
+    [
+      194,
+      "Spanish 3-4"
+    ],
+    [
+      195,
+      "Intermediate Spanish Language Arts"
+    ],
+    [
+      196,
+      "Spanish 4"
+    ],
+    [
+      197,
+      "AP Spanish Language and Culture"
+    ],
+    [
+      198,
+      "AP Spanish Literature and Culture"
+    ],
+    [
+      199,
+      "Advanced Spanish Conversation and Culture"
+    ],
+    [
+      200,
+      "English Language Development (ELD) 1"
+    ],
+    [
+      201,
+      "English Language Development (ELD) 2"
+    ],
+    [
+      202,
+      "English Language Development (ELD) 3: Language"
+    ],
+    [
+      203,
+      "English Language Development (ELD) 3: Literature"
+    ],
+    [
+      204,
+      "English Language Development (ELD) 4"
+    ],
+    [
+      205,
+      "Current Events"
+    ],
+    [
+      206,
+      "Algebra 1"
+    ],
+    [
+      207,
+      "Geometry"
+    ],
+    [
+      208,
+      "Geometry AB/BC"
+    ],
+    [
+      209,
+      "Algebra 2"
+    ],
+    [
+      210,
+      "Algebra 2 AB/BC"
+    ],
+    [
+      211,
+      "Precalculus"
+    ],
+    [
+      212,
+      "AP Precalculus AB"
+    ],
+    [
+      213,
+      "AP Precalculus BC"
+    ],
+    [
+      214,
+      "Mathematical Modeling and Design"
+    ],
+    [
+      215,
+      "Data Science"
+    ],
+    [
+      216,
+      "Advanced Mathematical Decision Making"
+    ],
+    [
+      217,
+      "AP Statistics"
+    ],
+    [
+      218,
+      "AP Calculus AB"
+    ],
+    [
+      219,
+      "AP Calculus BC"
+    ],
+    [
+      220,
+      "College Multivariable Calculus"
+    ],
+    [
+      221,
+      "College Linear Algebra"
+    ],
+    [
+      222,
+      "Freshman Foundational Fitness Choice P.E."
+    ],
+    [
+      223,
+      "Adventure Education"
+    ],
+    [
+      224,
+      "Choice P.E."
+    ],
+    [
+      225,
+      "Physical Education Leadership Training"
+    ],
+    [
+      226,
+      "Senior Leadership"
+    ],
+    [
+      227,
+      "Lifeguard Training and Certification"
+    ],
+    [
+      228,
+      "Pool Leadership"
+    ],
+    [
+      229,
+      "Alternative Physical Education Leadership"
+    ],
+    [
+      230,
+      "Alternative Physical Education"
+    ],
+    [
+      231,
+      "Health Education"
+    ],
+    [
+      232,
+      "Applied Health"
+    ],
+    [
+      234,
+      "Biology"
+    ],
+    [
+      235,
+      "Chemistry"
+    ],
+    [
+      236,
+      "Earth Science"
+    ],
+    [
+      237,
+      "Physics"
+    ],
+    [
+      238,
+      "Horticulture"
+    ],
+    [
+      239,
+      "Science Research"
+    ],
+    [
+      240,
+      "Human Anatomy and Physiology"
+    ],
+    [
+      241,
+      "Earth Science Dual Credit"
+    ],
+    [
+      242,
+      "AP Physics 1"
+    ],
+    [
+      243,
+      "AP Physics 2"
+    ],
+    [
+      244,
+      "AP Biology"
+    ],
+    [
+      245,
+      "AP Environmental Science"
+    ],
+    [
+      246,
+      "AP Chemistry"
+    ],
+    [
+      247,
+      "AP Physics C"
+    ],
+    [
+      248,
+      "World History and Geography"
+    ],
+    [
+      249,
+      "Constitutional Law"
+    ],
+    [
+      250,
+      "Global Relations"
+    ],
+    [
+      251,
+      "Law In American Society"
+    ],
+    [
+      252,
+      "Psychology"
+    ],
+    [
+      253,
+      "Sociology"
+    ],
+    [
+      254,
+      "AP Human Geography"
+    ],
+    [
+      255,
+      "World Religions"
+    ],
+    [
+      256,
+      "AP African American Studies"
+    ],
+    [
+      257,
+      "AP European History"
+    ],
+    [
+      258,
+      "AP Comparative Government and Politics"
+    ],
+    [
+      259,
+      "U.S. History"
+    ],
+    [
+      260,
+      "AP U.S. History"
+    ],
+    [
+      261,
+      "American Studies"
+    ],
+    [
+      262,
+      "Economics"
+    ],
+    [
+      263,
+      "Sociology Dual Credit"
+    ],
+    [
+      264,
+      "AP Macroeconomics"
+    ],
+    [
+      265,
+      "AP Microeconomics"
+    ],
+    [
+      266,
+      "Philosophy and Political Theory"
+    ],
+    [
+      267,
+      "Government"
+    ],
+    [
+      268,
+      "Political Thought and Its Literature"
+    ],
+    [
+      269,
+      "AP Psychology"
+    ],
+    [
+      271,
+      "English 9: Belonging and Becoming"
+    ],
+    [
+      272,
+      "English 9: Threads of Loyalty"
+    ],
+    [
+      273,
+      "English 9: Mirrors and Shadows"
+    ],
+    [
+      274,
+      "English 9: Reimagining the Future"
+    ],
+    [
+      275,
+      "Sophomore English"
+    ],
+    [
+      276,
+      "AP English Language and Composition"
+    ],
+    [
+      277,
+      "Junior English"
+    ],
+    [
+      278,
+      "AP Literature and Composition"
+    ],
+    [
+      279,
+      "World Literature"
+    ],
+    [
+      280,
+      "Public Speaking"
+    ],
+    [
+      281,
+      "Creative Writing"
+    ],
+    [
+      282,
+      "Creative Writing Seminar"
+    ],
+    [
+      283,
+      "Topics in Political Thought and Its Literature"
+    ],
+    [
+      284,
+      "Media Analysis"
+    ],
+    [
+      285,
+      "Mythology and Folklore"
+    ],
+    [
+      286,
+      "Film Genres"
+    ],
+    [
+      287,
+      "Writing for College"
+    ],
+    [
+      288,
+      "Journalistic Writing"
+    ],
+    [
+      289,
+      "Broadcast Journalism"
+    ],
+    [
+      290,
+      "Advanced Journalistic Writing"
+    ],
+    [
+      291,
+      "Journalistic Writing and Production"
+    ],
+    [
+      321,
+      "Introduction to Engineering Design-PLTW"
+    ],
+    [
+      322,
+      "Civil Engineering and Architecture-PLTW"
+    ],
+    [
+      323,
+      "Principles of Engineering-PLTW"
+    ],
+    [
+      324,
+      "Electrical Engineering-PLTW"
+    ],
+    [
+      325,
+      "Computer Integrated Manufacturing-PLTW"
+    ],
+    [
+      326,
+      "Engineering Design and Development-PLTW"
+    ],
+    [
+      493,
+      "AP Government-United States"
+    ],
+    [
+      1349,
+      "Driver Education"
+    ]
+  ],
+  "requirements": [
+    [
+      1,
+      {
+        "name": "Course Load",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      2,
+      {
+        "name": "English",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      3,
+      {
+        "name": "Mathematics",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      4,
+      {
+        "name": "Biology",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      5,
+      {
+        "name": "Physical Science",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      6,
+      {
+        "name": "U.S. History",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      7,
+      {
+        "name": "World History and Geography",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      8,
+      {
+        "name": "Government",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      10,
+      {
+        "name": "Health",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      11,
+      {
+        "name": "Driver Education",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      12,
+      {
+        "name": "Additional Credits and P.E.",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      13,
+      {
+        "name": "Total Credits",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      14,
+      {
+        "name": "Suggested College Admission Sequence",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      15,
+      {
+        "name": "Civics & Patriotism",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      16,
+      {
+        "name": "Electives",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      17,
+      {
+        "name": "Physical Education",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      18,
+      {
+        "name": "Science",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      19,
+      {
+        "name": "Social Studies",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      20,
+      {
+        "name": "ACT Graduation Requirement",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      21,
+      {
+        "name": "FAFSA",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      22,
+      {
+        "name": "46th Credit",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      23,
+      {
+        "name": "Illinois Public University Admission Requirements",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      24,
+      {
+        "name": "NCAA",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      25,
+      {
+        "name": "Schedule Changes",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      26,
+      {
+        "name": "Independent Study",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      27,
+      {
+        "name": "Course Retake Policy",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      28,
+      {
+        "name": "Audits",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      29,
+      {
+        "name": "External Credits",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      30,
+      {
+        "name": "Summer School",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      31,
+      {
+        "name": "Early Graduation",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      32,
+      {
+        "name": "Grading",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      33,
+      {
+        "name": "Course Description",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      34,
+      {
+        "name": "Grade Point Average",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      35,
+      {
+        "name": "College Prep Courses",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      36,
+      {
+        "name": "Honors/Accelerated Courses",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      37,
+      {
+        "name": "Advanced Placement (AP) Courses",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      38,
+      {
+        "name": "Exclusions",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      39,
+      {
+        "name": "Grade Point Waiver",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      40,
+      {
+        "name": "Transfer Students",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      41,
+      {
+        "name": "Homework Requests",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      42,
+      {
+        "name": "Incomplete Grade",
+        "gradeLevel": null,
+        "isMeasurable": false
+      }
+    ],
+    [
+      137,
+      {
+        "name": "Required Electives and P.E.",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ],
+    [
+      349,
+      {
+        "name": "Economics or Personal Finance",
+        "gradeLevel": null,
+        "isMeasurable": true
+      }
+    ]
+  ],
+  "courseRequirements": [
+    [
+      10,
+      349
+    ],
+    [
+      206,
+      3
+    ],
+    [
+      207,
+      3
+    ],
+    [
+      208,
+      3
+    ],
+    [
+      209,
+      3
+    ],
+    [
+      210,
+      3
+    ],
+    [
+      211,
+      3
+    ],
+    [
+      212,
+      3
+    ],
+    [
+      213,
+      3
+    ],
+    [
+      214,
+      3
+    ],
+    [
+      215,
+      3
+    ],
+    [
+      216,
+      3
+    ],
+    [
+      217,
+      3
+    ],
+    [
+      218,
+      3
+    ],
+    [
+      219,
+      3
+    ],
+    [
+      220,
+      3
+    ],
+    [
+      221,
+      3
+    ],
+    [
+      222,
+      17
+    ],
+    [
+      223,
+      17
+    ],
+    [
+      224,
+      17
+    ],
+    [
+      225,
+      17
+    ],
+    [
+      226,
+      17
+    ],
+    [
+      227,
+      17
+    ],
+    [
+      228,
+      17
+    ],
+    [
+      229,
+      17
+    ],
+    [
+      230,
+      17
+    ],
+    [
+      231,
+      10
+    ],
+    [
+      232,
+      10
+    ],
+    [
+      234,
+      4
+    ],
+    [
+      235,
+      5
+    ],
+    [
+      236,
+      5
+    ],
+    [
+      237,
+      5
+    ],
+    [
+      241,
+      5
+    ],
+    [
+      242,
+      5
+    ],
+    [
+      243,
+      5
+    ],
+    [
+      244,
+      4
+    ],
+    [
+      245,
+      4
+    ],
+    [
+      245,
+      5
+    ],
+    [
+      246,
+      5
+    ],
+    [
+      247,
+      5
+    ],
+    [
+      248,
+      7
+    ],
+    [
+      259,
+      6
+    ],
+    [
+      260,
+      6
+    ],
+    [
+      261,
+      2
+    ],
+    [
+      261,
+      6
+    ],
+    [
+      262,
+      349
+    ],
+    [
+      264,
+      349
+    ],
+    [
+      265,
+      349
+    ],
+    [
+      267,
+      8
+    ],
+    [
+      271,
+      2
+    ],
+    [
+      272,
+      2
+    ],
+    [
+      273,
+      2
+    ],
+    [
+      274,
+      2
+    ],
+    [
+      275,
+      2
+    ],
+    [
+      276,
+      2
+    ],
+    [
+      277,
+      2
+    ],
+    [
+      278,
+      2
+    ],
+    [
+      279,
+      2
+    ],
+    [
+      280,
+      2
+    ],
+    [
+      281,
+      2
+    ],
+    [
+      282,
+      2
+    ],
+    [
+      283,
+      2
+    ],
+    [
+      284,
+      2
+    ],
+    [
+      285,
+      2
+    ],
+    [
+      286,
+      2
+    ],
+    [
+      287,
+      2
+    ],
+    [
+      288,
+      2
+    ],
+    [
+      289,
+      2
+    ],
+    [
+      290,
+      2
+    ],
+    [
+      291,
+      2
+    ],
+    [
+      493,
+      8
+    ],
+    [
+      1349,
+      11
+    ]
+  ],
+  "options": 240,
+  "offerings": 466,
+  "departments": 23,
+  "divisions": 10
+}

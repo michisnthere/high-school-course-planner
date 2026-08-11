@@ -26,7 +26,9 @@ export function MarkCompletedButton({
   const load = useCallback(async () => {
     try {
       const completed = await completedService.getCompletedCourses();
-      setCompletedIds(new Set(completed.map((c) => c.courseId)));
+      setCompletedIds(
+        new Set(completed.map((c) => c.courseId).filter((id): id is number => id != null))
+      );
     } catch {
       setCompletedIds(new Set());
     }

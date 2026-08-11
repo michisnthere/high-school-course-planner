@@ -8,6 +8,7 @@ import type {
   Planner,
   PlannedCourse,
   PlannerOption,
+  SummerCourse,
 } from "@prisma/client";
 
 type CourseOptionWithOfferings = CourseOption & { offerings: CourseOffering[] };
@@ -17,7 +18,12 @@ type CourseWithOptions = Course & {
 };
 
 type CompletedCourseWithCourse = CompletedCourse & {
-  course: CourseWithOptions;
+  course: CourseWithOptions | null;
+  summerCourse: SummerCourseWithRelations | null;
+};
+
+type SummerCourseWithRelations = SummerCourse & {
+  regularCourse: CourseWithOptions | null;
 };
 
 type PlannedCourseWithRelations = PlannedCourse & {
@@ -117,6 +123,22 @@ function toAnalysisCourse(course: CourseWithOptions, letterGrade: string | null)
   };
 }
 
+function toAnalysisSummerCourse(summerCourse: SummerCourseWithRelations, letterGrade: string | null): GpaEntry {
+  const matched = summerCourse.regularCourse;
+  const creditType = normalizeCreditType(matched?.options?.[0]?.creditType ?? null);
+  const credits = summerCourse.credits ?? 0;
+
+  return {
+    courseId: -summerCourse.id,
+    title: summerCourse.title,
+    credits,
+    creditType,
+    gpaWaiverOption: false,
+    weightedPoints: getWeightedPoints(creditType, letterGrade),
+    unweightedPoints: getUnweightedPoints(letterGrade),
+  };
+}
+
 function computeSummary(entries: GpaEntry[]): GpaSummary {
   const included = entries.filter((entry) => !entry.gpaWaiverOption);
   const credits = included.reduce((sum, entry) => sum + entry.credits, 0);
@@ -168,6 +190,19 @@ async function loadCompletedCourses(userId: number): Promise<CompletedCourseWith
           },
         },
       },
+      summerCourse: {
+        include: {
+          regularCourse: {
+            include: {
+              options: {
+                include: {
+                  offerings: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 }
@@ -213,9 +248,11 @@ export async function analyzeGpa(userId: number): Promise<GpaProjection> {
     loadPlannedCourses(userId),
   ]);
 
-  const completedEntries = completedCourses.map((cc) =>
-    toAnalysisCourse(cc.course, cc.letterGrade)
-  );
+  const completedEntries = completedCourses.flatMap((cc) => {
+    if (cc.course) return [toAnalysisCourse(cc.course, cc.letterGrade)];
+    if (cc.summerCourse) return [toAnalysisSummerCourse(cc.summerCourse, cc.letterGrade)];
+    return [];
+  });
   const plannedEntries = dedupePlannedCourses(plannedCourses);
 
   return {

@@ -56,7 +56,10 @@ import {
   ONLINE_SEMESTER,
   ONLINE_SEMESTER_2,
   isOnlineSemester,
+  isSummerSemester,
 } from "@/lib/plannerSemesters";
+import type { SummerCourse } from "@/lib/summerCourse";
+import { SummerCoursePicker } from "@/components/planner/SummerCoursePicker";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
 import { GraduationRequirements } from "@/components/planner/GraduationRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
@@ -79,7 +82,7 @@ const YEAR_LABELS: Record<number, string> = {
   12: "Senior",
 };
 
-const SUMMER_SCHOOL_YEARS = new Set([9, 10, 11]);
+const SUMMER_SCHOOL_YEARS = new Set([9, 10, 11, 12]);
 
 export default function PlannerYearPage(): React.ReactElement {
   return (
@@ -429,9 +432,11 @@ function PlannerYearContent(): React.ReactElement {
   }, [router]);
 
   const handleCourseClick = useCallback((planned: PlannedCourse) => {
+    const targetCourse =
+      planned.summerCourse?.regularCourse ?? planned.course;
     const slug = getCourseSlug({
-      title: planned.course.title,
-      normalizedTitle: planned.course.normalizedTitle,
+      title: targetCourse.title,
+      normalizedTitle: targetCourse.normalizedTitle,
     });
     router.push(`/catalog/${slug}?return=${encodeURIComponent(`/planner/${year}`)}`);
   }, [router, year]);
@@ -499,6 +504,33 @@ function PlannerYearContent(): React.ReactElement {
       }
     },
     [planner, activeSlot, allPlanners, allCatalogCourses, handleCloseModal, pushHistory, showToast, handleUndo, plannerService, assertDriverEdExternalConflict]
+  );
+
+  const handleSummerCourseSelected = useCallback(
+    async (summerCourse: SummerCourse, semester: number) => {
+      if (!planner) return;
+
+      try {
+        scrollYRef.current = window.scrollY;
+        const beforePlanners = allPlanners;
+        const updatedPlanner = await plannerService.addSummerCourse(
+          planner.id,
+          summerCourse,
+          semester
+        );
+        const newPlanners = replacePlannerInList(beforePlanners, updatedPlanner);
+        pushHistory(
+          newPlanners,
+          buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
+        );
+        handleCloseModal();
+        showToast("Summer course added.", "success", handleUndo);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to add summer course";
+        showToast(message, "warning");
+      }
+    },
+    [planner, allPlanners, handleCloseModal, pushHistory, showToast, handleUndo, plannerService]
   );
 
   const handleAddPrerequisiteToPlanner = useCallback(
@@ -1218,7 +1250,24 @@ function PlannerYearContent(): React.ReactElement {
           )}
         </ResponsivePage>
 
-        {activeSlot && planner && !isCompleted && (
+        {activeSlot && planner && !isCompleted && isSummerSemester(activeSlot.semester) && (
+          <SummerCoursePicker
+            semester={activeSlot.semester}
+            grade={year}
+            alreadyPlanned={planner.plannedCourses.map((pc) => ({
+              summerCourseId: pc.summerCourseId,
+              semester: pc.semester,
+            }))}
+            plannedRegularIds={allPlanners
+              .flatMap((p) => p.plannedCourses)
+              .map((pc) => pc.courseId)}
+            completedRegularIds={completedCourses.map((cc) => cc.courseId)}
+            onClose={handleCloseModal}
+            onSelect={handleSummerCourseSelected}
+          />
+        )}
+
+        {activeSlot && planner && !isCompleted && !isSummerSemester(activeSlot.semester) && (
           <CourseSearchModal
             onClose={handleCloseModal}
             onSelect={handleCourseSelected}
@@ -1463,7 +1512,24 @@ function PlannerYearContent(): React.ReactElement {
         )}
       </div>
 
-      {activeSlot && planner && !isCompleted && (
+      {activeSlot && planner && !isCompleted && isSummerSemester(activeSlot.semester) && (
+        <SummerCoursePicker
+          semester={activeSlot.semester}
+          grade={year}
+          alreadyPlanned={planner.plannedCourses.map((pc) => ({
+            summerCourseId: pc.summerCourseId,
+            semester: pc.semester,
+          }))}
+          plannedRegularIds={allPlanners
+            .flatMap((p) => p.plannedCourses)
+            .map((pc) => pc.courseId)}
+          completedRegularIds={completedCourses.map((cc) => cc.courseId)}
+          onClose={handleCloseModal}
+          onSelect={handleSummerCourseSelected}
+        />
+      )}
+
+      {activeSlot && planner && !isCompleted && !isSummerSemester(activeSlot.semester) && (
         <CourseSearchModal
           onClose={handleCloseModal}
           onSelect={handleCourseSelected}
@@ -2218,6 +2284,20 @@ function PlannedCourseCard({
           color: "var(--text-secondary)",
         }}
       >
+        {planned.summerCourse && (
+          <span
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "var(--brand-accent)",
+              color: "#111827",
+              borderRadius: "9999px",
+              fontWeight: 700,
+            }}
+            title={planned.summerCourse.duration === "full_summer" ? "Summer School · Full Summer" : `Summer School · ${planned.summerCourse.sessions?.join(", ") ?? (planned.semester === 4 ? "Session 2" : "Session 1")}`}
+          >
+            ☀ Summer
+          </span>
+        )}
         {planned.isEarlyBird && (
           <span
             style={{
@@ -2264,9 +2344,25 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            Full Year
+            {planned.summerCourse?.duration === "full_summer" ? "Full Summer" : "Full Year"}
           </span>
         )}
+        {planned.summerCourse?.fulfillsRequirements.length
+          ? planned.summerCourse.fulfillsRequirements.map((req) => (
+              <span
+                key={req}
+                style={{
+                  padding: "4px 10px",
+                  backgroundColor: "rgba(0,0,0,0.2)",
+                  borderRadius: "9999px",
+                  fontWeight: 600,
+                }}
+                title="Graduation requirement fulfilled"
+              >
+                ✓ {req}
+              </span>
+            ))
+          : null}
         {(planned.course.slotsPerSemester ?? 1) > 1 && (
           <span
             style={{
@@ -2367,7 +2463,14 @@ function isDuplicateCourse(
         planner.plannedCourses.some((pc) => pc.courseId === course.id && pc.semester === targetSemester)
     );
   }
-  return allPlanners.some((planner) => planner.plannedCourses.some((pc) => pc.courseId === course.id));
+  if (allPlanners.some((planner) => planner.plannedCourses.some((pc) => pc.courseId === course.id))) {
+    return true;
+  }
+  // The Summer School equivalent of a regular course is the same course
+  // attempt. Flag the regular course when its summer equivalent is planned.
+  return allPlanners.some((planner) =>
+    planner.plannedCourses.some((pc) => pc.summerCourse?.regularCourse?.id === course.id)
+  );
 }
 
 function CourseSearchModal({

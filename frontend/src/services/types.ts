@@ -1,4 +1,5 @@
 import type { Planner, PlannerCourseDetails, PlannerOption } from "@/lib/planner";
+import type { SummerCourse } from "@/lib/summerCourse";
 import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { StudentPlanningData } from "@/lib/studentData";
@@ -12,6 +13,7 @@ export interface IPlannerService {
   searchPlannerCourses(query: string): Promise<PlannerCourseDetails[]>;
   addPlannedCourse(plannerId: number, courseId: number, semester: number, slot: number, isEarlyBird?: boolean): Promise<Planner>;
   addPlannedCourse(plannerId: number, item: { plannerOptionId: number; semester: number; slot: number; isEarlyBird?: boolean }): Promise<Planner>;
+  addSummerCourse(plannerId: number, summerCourse: SummerCourse, semester: number): Promise<Planner>;
   removePlannedCourse(plannedCourseId: number): Promise<void>;
   movePlannedCourse(plannedCourseId: number, semester: number, slot: number): Promise<Planner>;
   updateEarlyBird(plannedCourseId: number, isEarlyBird: boolean): Promise<Planner>;
@@ -22,6 +24,7 @@ export interface IPlannerService {
 export interface ICompletedCoursesService {
   getCompletedCourses(): Promise<CompletedCourse[]>;
   addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, courseDetails?: PlannerCourseDetails): Promise<CompletedCourse>;
+  addCompletedCourse(item: { summerCourseId: number; gradeCompleted: GradeCompleted; summerCourse: SummerCourse }): Promise<CompletedCourse>;
   updateCompletedCourse(id: number, updates: { gradeCompleted?: GradeCompleted }): Promise<CompletedCourse>;
   removeCompletedCourse(id: number): Promise<void>;
 }

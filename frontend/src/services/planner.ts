@@ -10,11 +10,12 @@ import type { IPlannerService } from "./types";
    setPlannedCourseEarlyBird as authSetPlannedCourseEarlyBird,
    markPlannerYearCompleted as authMarkPlannerYearCompleted,
    unmarkPlannerYearCompleted as authUnmarkPlannerYearCompleted,
-type Planner,
-    type PlannedCourse,
-    type PlannerCourseDetails,
-  } from "@/lib/planner";
+ type Planner,
+     type PlannedCourse,
+     type PlannerCourseDetails,
+   } from "@/lib/planner";
  import { isRegularSemester } from "@/lib/plannerSemesters";
+ import type { SummerCourse } from "@/lib/summerCourse";
  import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
  import type { GuestDataStore } from "./guestStore";
 
@@ -33,6 +34,8 @@ export const authPlannerService: IPlannerService = {
   searchPlannerCourses: (query) => authSearchPlannerCourses(query),
   addPlannedCourse: (plannerId, courseIdOrItem, semester?, slot?, isEarlyBird?) =>
     authAddPlannedCourse(plannerId as any, courseIdOrItem as any, semester as any, slot as any, isEarlyBird as any),
+  addSummerCourse: (plannerId, summerCourse, semester) =>
+    authAddPlannedCourse(plannerId as any, { summerCourseId: summerCourse.id, semester: semester } as any),
   removePlannedCourse: (id) => authRemovePlannedCourse(id),
   movePlannedCourse: (id, semester, slot) => authMovePlannedCourse(id, semester, slot),
   updateEarlyBird: (id, isEarlyBird) => authSetPlannedCourseEarlyBird(id, isEarlyBird),
@@ -54,6 +57,62 @@ function clonePlanner(p: Planner): Planner {
   return { ...p, plannedCourses: p.plannedCourses.map((c) => ({ ...c })) };
 }
 
+// Following-year mapping for Summer School completions (a summer course planned
+// in year N's section is taken the summer before grade N), mirroring the backend.
+const GUEST_SUMMER_GRADE_BY_YEAR: Record<number, GradeCompleted> = {
+  9: "Freshman (9)",
+  10: "Sophomore (10)",
+  11: "Junior (11)",
+  12: "Senior (12)",
+};
+
+function buildSummerPlannedCourse(
+  plannerId: number,
+  summerCourse: SummerCourse,
+  semester: number,
+  id: number
+): PlannedCourse {
+  const matched = summerCourse.regularCourse;
+  const isFullSummer = summerCourse.duration === "full_summer";
+  return {
+    id,
+    plannerId,
+    courseId: null,
+    summerCourseId: summerCourse.id,
+    plannerOptionId: null,
+    semester,
+    slot: 1,
+    slotSpan: 1,
+    course: {
+      id: -(10000 + summerCourse.id),
+      title: summerCourse.title,
+      normalizedTitle: null,
+      duration: isFullSummer ? 2 : 1,
+      slotsPerSemester: 1,
+      creditType: null,
+      credits: summerCourse.credits ?? null,
+      division: matched?.division ?? null,
+      department: matched?.department ?? null,
+      description: null,
+      fulfillsRequirements: summerCourse.fulfillsRequirements ?? [],
+      prerequisites: summerCourse.prerequisites ?? [],
+      courseCode: summerCourse.courseCode ?? null,
+      courseCodeS1: null,
+      courseCodeS2: null,
+      gradeMin: null,
+      gradeMax: null,
+      isNonAcademic: false,
+      isMarchingBand: false,
+      attributes: [],
+      supportsEarlyBird: false,
+      isRepeatable: matched?.isRepeatable ?? false,
+      isOnline: false,
+    },
+    summerCourse,
+    isEarlyBird: false,
+  };
+}
+
 function occupied(planner: Planner, semester: number, slot: number, excludingCourseId?: number | null): boolean {
   return planner.plannedCourses.some(
     (pc) =>
@@ -62,6 +121,33 @@ function occupied(planner: Planner, semester: number, slot: number, excludingCou
       slot < pc.slot + (pc.slotSpan ?? 1) &&
       (excludingCourseId == null || pc.courseId !== excludingCourseId)
   );
+}
+
+// Mirrors the backend retake rule: repeatable one-semester PE courses may be
+// taken across semesters, so a summer seat + regular seat is a legit retake.
+function isRepeatableOneSemesterPe(course: PlannerCourseDetails | null | undefined): boolean {
+  return (
+    course?.isRepeatable === true &&
+    course.duration === 1 &&
+    course.department === "Physical Education"
+  );
+}
+
+// A Summer School course linked to a regular catalog course (regularCourse) is
+// the same course attempt as its regular equivalent. True when that regular
+// equivalent is already planned or completed (unless a repeatable one-sem PE).
+function summerEquivalentIsDuplicate(
+  summerCourse: SummerCourse,
+  planners: Planner[],
+  completedCourses: CompletedCourse[]
+): boolean {
+  const regular = summerCourse.regularCourse;
+  if (!regular || isRepeatableOneSemesterPe(regular)) return false;
+  const planned = planners.some((p) =>
+    p.plannedCourses.some((pc) => pc.courseId === regular.id)
+  );
+  if (planned) return true;
+  return completedCourses.some((cc) => cc.courseId === regular.id);
 }
 
 function hasConsecutiveFreeSlots(planner: Planner, semester: number, startSlot: number, count: number, excludingCourseId?: number | null): boolean {
@@ -154,6 +240,18 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
           );
           if (hasOtherEb) {
             throw new Error("You may only take one Early Bird course each semester.");
+          }
+        }
+
+        // The Summer School equivalent of a regular course is the same course
+        // attempt. Block adding the regular course when its summer equivalent
+        // is already planned (unless repeatable one-semester PE).
+        if (!isRepeatableOneSemesterPe(courseDetails)) {
+          const summerEquivalentPlanned = planners.some((p) =>
+            p.plannedCourses.some((pc) => pc.summerCourse?.regularCourse?.id === courseIdOrItem)
+          );
+          if (summerEquivalentPlanned) {
+            throw new Error("The Summer School equivalent of this course is already planned in your schedule.");
           }
         }
 
@@ -349,6 +447,62 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
       return clonePlanner(planner);
     },
 
+    async addSummerCourse(plannerId: number, summerCourse: SummerCourse, semester: number) {
+      const planner = planners.find((p) => p.id === plannerId);
+      if (!planner) throw new Error("Planner not found");
+      if (semester < 3 || semester > 4) {
+        throw new Error("Summer courses can only be planned in a Summer School semester.");
+      }
+
+      const gradeLevels = summerCourse.gradeLevels ?? [];
+      if (gradeLevels.length > 0 && !gradeLevels.includes(planner.schoolYear)) {
+        throw new Error(
+          `${summerCourse.title} is open to grade${gradeLevels.length === 1 ? "" : "s"} ${gradeLevels.join("-")} and cannot be planned for the summer before grade ${planner.schoolYear}.`
+        );
+      }
+
+      const isFullSummer = summerCourse.duration === "full_summer";
+      const targetSemesters = isFullSummer ? [3, 4] : [semester];
+      const occupiedSemester = targetSemesters.find((sem) =>
+        planner.plannedCourses.some((pc) => pc.semester === sem && pc.id != null)
+      );
+      if (occupiedSemester != null) {
+        const subIndex = occupiedSemester === 4 ? 2 : 1;
+        throw new Error(
+          `Summer School Semester ${subIndex} already has a course. Only one course is allowed per semester. Remove it before adding another.`
+        );
+      }
+
+      const existingDuplicate = planner.plannedCourses.find((pc) => pc.summerCourseId === summerCourse.id);
+      if (existingDuplicate) {
+        throw new Error("This summer course is already planned in your schedule");
+      }
+
+      // The Summer School course is the same course attempt as its matched
+      // regular equivalent. Block when the regular equivalent is already
+      // planned or completed (unless repeatable one-semester PE).
+      if (summerEquivalentIsDuplicate(summerCourse, planners, completedCourses)) {
+        const regular = summerCourse.regularCourse;
+        const plannedRegular = planners.some((p) =>
+          p.plannedCourses.some((pc) => pc.courseId === regular!.id)
+        );
+        throw new Error(
+          plannedRegular
+            ? "This course is already planned in your schedule (regular equivalent)."
+            : "You have already completed this course (regular equivalent)."
+        );
+      }
+
+      const entry = buildSummerPlannedCourse(planner.id, summerCourse, semester, nextCourseEntryId++);
+      planner.plannedCourses.push(entry);
+      if (isFullSummer) {
+        const second = buildSummerPlannedCourse(planner.id, summerCourse, semester === 3 ? 4 : 3, nextCourseEntryId++);
+        planner.plannedCourses.push(second);
+      }
+      save();
+      return clonePlanner(planner);
+    },
+
     async removePlannedCourse(plannedCourseId: number) {
       for (const planner of planners) {
         const idx = planner.plannedCourses.findIndex((pc) => pc.id === plannedCourseId);
@@ -356,6 +510,8 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
           const planned = planner.plannedCourses[idx];
           if (planned.courseId != null) {
             planner.plannedCourses = planner.plannedCourses.filter((pc) => pc.courseId !== planned.courseId);
+          } else if (planned.summerCourseId != null) {
+            planner.plannedCourses = planner.plannedCourses.filter((pc) => pc.summerCourseId !== planned.summerCourseId);
           } else {
             planner.plannedCourses.splice(idx, 1);
           }
@@ -480,16 +636,35 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
 
       const createdIds: number[] = [];
       const seen = new Set<number>();
+      const seenSummer = new Set<number>();
       for (const planned of planner.plannedCourses) {
-        if (planned.courseId == null || seen.has(planned.courseId)) continue;
+        if (planned.courseId == null) {
+          if (planned.summerCourseId == null || seenSummer.has(planned.summerCourseId)) continue;
+          seenSummer.add(planned.summerCourseId);
+          completedCourses.push({
+            id: ++inMemoryStore.completedIdSeq,
+            userId: -1,
+            courseId: null,
+            summerCourseId: planned.summerCourseId,
+            gradeCompleted: GUEST_SUMMER_GRADE_BY_YEAR[planner.schoolYear] ?? "Summer School",
+            credits: planned.course.credits ?? null,
+            course: null,
+            summerCourse: planned.summerCourse ?? null,
+          });
+          createdIds.push(inMemoryStore.completedIdSeq);
+          continue;
+        }
+        if (seen.has(planned.courseId)) continue;
         seen.add(planned.courseId);
         completedCourses.push({
           id: ++inMemoryStore.completedIdSeq,
           userId: -1,
           courseId: planned.courseId,
+          summerCourseId: null,
           gradeCompleted: gradeLabel,
           credits: planned.course.credits ?? null,
           course: { ...planned.course },
+          summerCourse: null,
         });
         createdIds.push(inMemoryStore.completedIdSeq);
       }

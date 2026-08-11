@@ -93,9 +93,11 @@ function makeCompleted(course: PlannerCourseDetails, grade: GradeCompleted): Com
     id: course.id,
     userId: -1,
     courseId: course.id,
+    summerCourseId: null,
     gradeCompleted: grade,
     credits: null,
     course: { ...course },
+    summerCourse: null,
   };
 }
 

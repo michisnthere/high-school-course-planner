@@ -19,6 +19,9 @@ import type {
   PlannedCourse,
   Planner,
   PlannerOption,
+  SummerCourse,
+  SummerCourseRequirement,
+  SummerCourseSession,
 } from "@prisma/client";
 import {
   canonicalRequirementName,
@@ -36,14 +39,22 @@ type CourseWithOptions = Course & {
   department?: { name: string; division?: { name: string } | null } | null;
 };
 
+type SummerCourseWithRelations = SummerCourse & {
+  sessions: SummerCourseSession[];
+  requirement: Array<SummerCourseRequirement & { graduationRequirement: GraduationRequirement }>;
+  regularCourse: CourseWithOptions | null;
+};
+
 type PlannedCourseWithRelations = PlannedCourse & {
   course: CourseWithOptions | null;
+  summerCourse: SummerCourseWithRelations | null;
   plannerOption: PlannerOption | null;
   planner: Planner;
 };
 
 type CompletedCourseWithCourse = CompletedCourse & {
-  course: CourseWithOptions;
+  course: CourseWithOptions | null;
+  summerCourse: SummerCourseWithRelations | null;
 };
 
 type AnalysisCourse = {
@@ -61,6 +72,14 @@ type AnalysisCourse = {
   peEligible: boolean;
   isFoundationalFitness: boolean;
   isRepeatable: boolean;
+  // Summer School identity. isSummer marks a SummerCourse-backed placement.
+  // equivalentRegularCourseId carries the SummerCourse.regularCourseId link so
+  // a matched summer course is recognized as the same course as its regular
+  // equivalent (for duplicate detection and no-double-count).
+  isSummer: boolean;
+  summerCourseId: number | null;
+  equivalentRegularCourseId: number | null;
+  duplicateGroupId: number;
 };
 
 type CoursePlacement = {
@@ -249,6 +268,82 @@ function toAnalysisCourse(course: CourseWithOptions): AnalysisCourse {
     peEligible,
     isFoundationalFitness,
     isRepeatable: course.isRepeatable === true,
+    isSummer: false,
+    summerCourseId: null,
+    equivalentRegularCourseId: null,
+    duplicateGroupId: course.id,
+  };
+}
+
+// SummerCourse analysis ids live in a deterministic negative namespace so they
+// never collide with regular course ids (SummerCourse ids overlap the regular
+// 1-223 range). = -(10000 + summerCourse.id).
+const SUMMER_ID_OFFSET = 10000;
+function toAnalysisSummerId(summerCourseId: number): number {
+  return -(SUMMER_ID_OFFSET + summerCourseId);
+}
+
+function toAnalysisSummerCourse(summerCourse: SummerCourseWithRelations): AnalysisCourse {
+  const fulfillsRequirements = [
+    ...new Set(
+      summerCourse.requirement.map((r) => canonicalRequirementName(r.graduationRequirement.name))
+    ),
+  ];
+  const fulfillsCanonicalSet = new Set(fulfillsRequirements);
+
+  // Reuse the matched regular course's requirementCredits split when available;
+  // otherwise leave empty so the legacy full-credit-per-fulfilled-requirement
+  // fallback applies (SummerCourse has no requirementCredits of its own).
+  const requirementCredits: Record<string, number> = {};
+  const matched = summerCourse.regularCourse;
+  if (matched) {
+    const raw = matched.requirementCredits;
+    if (raw && typeof raw === "object" && !Array.isArray(raw)) {
+      for (const [rawKey, value] of Object.entries(raw)) {
+        if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) continue;
+        const canonical = canonicalRequirementName(rawKey);
+        if (fulfillsCanonicalSet.has(canonical)) requirementCredits[canonical] = value;
+      }
+    }
+  }
+
+  const prerequisites = new Set<string>();
+  if (Array.isArray(summerCourse.prerequisites)) {
+    for (const item of summerCourse.prerequisites) {
+      if (typeof item === "string" && item.trim()) {
+        prerequisites.add(normalizePrerequisite(item.trim()));
+      }
+    }
+  }
+
+  const fulfillsLower = fulfillsRequirements.map((r) => r.toLowerCase());
+  const peEligible = fulfillsLower.some((r) => r === "physical education" || r === "driver education");
+
+  // Inherit retakeability + department from the matched regular course when it
+  // exists so the existing repeatable one-semester PE exemption applies.
+  const isRepeatable = matched?.isRepeatable === true;
+  const department = matched?.department?.name ?? null;
+
+  const id = toAnalysisSummerId(summerCourse.id);
+  return {
+    id,
+    title: summerCourse.title,
+    courseCode: summerCourse.courseCode ?? null,
+    duration: summerCourse.duration === "full_summer" ? 2 : 1,
+    credits: summerCourse.credits ?? 0,
+    slotSpan: 1,
+    division: matched?.department?.division?.name ?? null,
+    department,
+    fulfillsRequirements,
+    requirementCredits,
+    prerequisites: Array.from(prerequisites),
+    peEligible,
+    isFoundationalFitness: false,
+    isRepeatable,
+    isSummer: true,
+    summerCourseId: summerCourse.id,
+    equivalentRegularCourseId: matched?.id ?? null,
+    duplicateGroupId: matched?.id ?? id,
   };
 }
 
@@ -372,6 +467,30 @@ async function loadPlacements(userId: number): Promise<CoursePlacement[]> {
               },
             },
           },
+          summerCourse: {
+            include: {
+              sessions: true,
+              requirement: {
+                include: {
+                  graduationRequirement: true,
+                },
+              },
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
           plannerOption: true,
         },
       },
@@ -382,7 +501,11 @@ async function loadPlacements(userId: number): Promise<CoursePlacement[]> {
   const placements: CoursePlacement[] = [];
   for (const planner of planners) {
     for (const planned of planner.plannedCourses) {
-      const course = planned.course ? toAnalysisCourse(planned.course) : null;
+      const course = planned.course
+        ? toAnalysisCourse(planned.course)
+        : planned.summerCourse
+          ? toAnalysisSummerCourse(planned.summerCourse)
+          : null;
       const credits = course?.credits ?? planned.plannerOption?.credits ?? 0;
       placements.push({
         plannedCourseId: planned.id,
@@ -453,6 +576,30 @@ async function loadCompletedCourses(userId: number): Promise<CompletedCourseWith
           },
         },
       },
+      summerCourse: {
+        include: {
+          sessions: true,
+          requirement: {
+            include: {
+              graduationRequirement: true,
+            },
+          },
+          regularCourse: {
+            include: {
+              department: {
+                include: {
+                  division: true,
+                },
+              },
+              options: {
+                include: {
+                  offerings: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 }
@@ -464,6 +611,24 @@ function getBackendPlacementKey(p: CoursePlacement): string {
   return `sem:${p.course!.id}:${p.slot}:${p.semester}:${p.year}`;
 }
 
+// A matched summer course (duplicateGroupId set) is equivalent to its regular
+// counterpart. If the regular counterpart is also present, the summer seat is a
+// duplicate attempt and must not add a second set of credits.
+function dropEquivalentSummerDuplicates(sources: CoursePlacement[]): CoursePlacement[] {
+  const regularIds = new Set<number>();
+  for (const source of sources) {
+    if (source.course && !source.course.isSummer) {
+      regularIds.add(source.course.id);
+    }
+  }
+  return sources.filter((source) => {
+    if (!source.course?.isSummer) return true;
+    const equivalent = source.course.duplicateGroupId;
+    if (equivalent == null) return true;
+    return !regularIds.has(equivalent);
+  });
+}
+
 // Completed courses (including summer school / middle school) are coursework the
 // student has already finished. They count toward graduation requirements and
 // overall credits, but must NOT influence year-specific planner requirements
@@ -471,7 +636,11 @@ function getBackendPlacementKey(p: CoursePlacement): string {
 // the credit-source lists used by graduation/credit math.
 function buildCompletedCoursePlacements(completedCourses: CompletedCourseWithCourse[]): CoursePlacement[] {
   return completedCourses.map((cc, index) => {
-    const course = toAnalysisCourse(cc.course);
+    const course = cc.course
+      ? toAnalysisCourse(cc.course)
+      : cc.summerCourse
+        ? toAnalysisSummerCourse(cc.summerCourse)
+        : null;
     return {
       plannedCourseId: -(cc.id || index + 1),
       year: 0,
@@ -479,13 +648,13 @@ function buildCompletedCoursePlacements(completedCourses: CompletedCourseWithCou
       slot: -1,
       course,
       plannerOption: null,
-      credits: cc.credits ?? course.credits,
+      credits: cc.credits ?? course?.credits ?? 0,
     };
   });
 }
 
 function computeCredits(placements: CoursePlacement[], completedCourses: CompletedCourseWithCourse[] = []) {
-  const creditSources = [...placements, ...buildCompletedCoursePlacements(completedCourses)];
+  const creditSources = dropEquivalentSummerDuplicates([...placements, ...buildCompletedCoursePlacements(completedCourses)]);
   let total = 0;
   const byRequirementCategory: Record<string, number> = {};
   const byDivision: Record<string, number> = {};
@@ -550,7 +719,10 @@ function computeGraduationRequirements(
   completedCourses: CompletedCourseWithCourse[] = [],
   resolutions: ResolutionInfo[] = []
 ): RequirementStatus[] {
-  const creditSources = [...placements, ...buildCompletedCoursePlacements(completedCourses)];
+  const creditSources = dropEquivalentSummerDuplicates([
+    ...placements,
+    ...buildCompletedCoursePlacements(completedCourses),
+  ]);
   const courseIdToCredits = new Map<number, number>();
   const seen = new Set<string>();
   for (const placement of creditSources) {
@@ -819,10 +991,14 @@ function computeRecommendations(
     }
   }
 
-  const completedCourseIds = new Set(completedCourses.map((cc) => cc.course.id));
+  const completedCourseIds = new Set(
+    completedCourses
+      .map((cc) => (cc.course ? cc.course.id : cc.summerCourse?.regularCourse?.id ?? null))
+      .filter((id): id is number => id != null)
+  );
   const completedItems = completedCourses.map((cc) => ({
-    title: cc.course.title,
-    courseCode: (cc.course.options?.[0]?.offerings?.[0]?.courseCode ?? "").toLowerCase(),
+    title: cc.course?.title ?? cc.summerCourse?.title ?? "",
+    courseCode: (cc.course?.options?.[0]?.offerings?.[0]?.courseCode ?? cc.summerCourse?.courseCode ?? "").toLowerCase(),
   }));
   const plannedItems = placements
     .filter((p) => p.course)
@@ -1022,9 +1198,12 @@ function computeDuplicateCourses(placements: CoursePlacement[]): DuplicateCourse
     ) {
       continue;
     }
-    const list = byCourse.get(placement.course.id) ?? [];
+    // Group matched summer courses with their regular equivalent so that taking
+    // both counts as a duplicate attempt of the same course (unless retakeable).
+    const groupId = placement.course.duplicateGroupId ?? placement.course.id;
+    const list = byCourse.get(groupId) ?? [];
     list.push(placement);
-    byCourse.set(placement.course.id, list);
+    byCourse.set(groupId, list);
   }
 
   const duplicates: DuplicateCourse[] = [];
@@ -1083,8 +1262,11 @@ function computeMissingPrerequisites(
   ordered.sort((a, b) => a.year - b.year || a.semester - b.semester);
 
   const completedItems = completedCourses.map((cc) => ({
-    title: cc.course.title,
-    courseCode: cc.course.options?.[0]?.offerings?.[0]?.courseCode ?? "",
+    title: cc.course?.title ?? cc.summerCourse?.title ?? "",
+    courseCode:
+      cc.course?.options?.[0]?.offerings?.[0]?.courseCode ??
+      cc.summerCourse?.courseCode ??
+      "",
   }));
 
   // Build set of (courseId, prerequisite) that have been resolved via placement test

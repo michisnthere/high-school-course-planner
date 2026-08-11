@@ -2,9 +2,17 @@ import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
 import { asyncHandler } from "../lib/asyncHandler.js";
-import { deriveCourseDetails } from "./planner.js";
+import { deriveCourseDetails } from "../lib/courseDetails.js";
+import { deriveSummerCourseDetails } from "../lib/summerCourseDetails.js";
 import { calculateTotalCredits } from "../lib/courseCredits.js";
 import { courseFulfillsDriverEducation, hasDriverEdExternalResolution } from "../lib/driverEducation.js";
+import {
+  isRepeatableOneSemesterPe,
+  findSummerEquivalentPlanned,
+  findSummerEquivalentCompleted,
+  findRegularEquivalentPlanned,
+  findRegularEquivalentCompleted,
+} from "../lib/summerDuplicateGuard.js";
 
 const router = Router();
 
@@ -28,11 +36,13 @@ type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
 type CompletedCourseResponse = {
   id: number;
   userId: number;
-  courseId: number;
+  courseId: number | null;
+  summerCourseId: number | null;
   gradeCompleted: string;
   letterGrade: string | null;
   credits: number | null;
-  course: ReturnType<typeof deriveCourseDetails>;
+  course: ReturnType<typeof deriveCourseDetails> | null;
+  summerCourse: ReturnType<typeof deriveSummerCourseDetails> | null;
 };
 
 router.get("/", requireAuth, asyncHandler(async (req, res) => {
@@ -55,6 +65,24 @@ router.get("/", requireAuth, asyncHandler(async (req, res) => {
           },
         },
       },
+      summerCourse: {
+          include: {
+            regularCourse: {
+              include: {
+                department: {
+                  include: {
+                    division: true,
+                  },
+                },
+                options: {
+                  include: {
+                    offerings: true,
+                  },
+                },
+              },
+            },
+          },
+        },
     },
     orderBy: { createdAt: "desc" },
   });
@@ -63,10 +91,12 @@ router.get("/", requireAuth, asyncHandler(async (req, res) => {
     id: cc.id,
     userId: cc.userId,
     courseId: cc.courseId,
+    summerCourseId: cc.summerCourseId,
     gradeCompleted: cc.gradeCompleted,
     letterGrade: cc.letterGrade ?? null,
     credits: cc.credits ?? null,
-    course: deriveCourseDetails(cc.course),
+    course: cc.course ? deriveCourseDetails(cc.course) : null,
+    summerCourse: cc.summerCourse ? deriveSummerCourseDetails(cc.summerCourse) : null,
   }));
 
   res.json(response);
@@ -74,10 +104,12 @@ router.get("/", requireAuth, asyncHandler(async (req, res) => {
 
 router.post("/", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
-  const { courseId, gradeCompleted, letterGrade } = req.body;
+  const { courseId, summerCourseId, gradeCompleted, letterGrade } = req.body;
 
-  if (!courseId || !gradeCompleted) {
-    return res.status(400).json({ error: "courseId and gradeCompleted are required" });
+  if ((!courseId && !summerCourseId) || !gradeCompleted) {
+    return res
+      .status(400)
+      .json({ error: "courseId (or summerCourseId) and gradeCompleted are required" });
   }
 
   if (!GRADE_COMPLETED_OPTIONS.includes(gradeCompleted)) {
@@ -88,80 +120,204 @@ router.post("/", requireAuth, asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Invalid letterGrade value" });
   }
 
-  const course = await prisma.course.findUnique({
-    where: { id: Number(courseId) },
-    include: {
-      department: {
-        include: {
-          division: true,
+  if (courseId) {
+    const course = await prisma.course.findUnique({
+      where: { id: Number(courseId) },
+      include: {
+        department: {
+          include: {
+            division: true,
+          },
+        },
+        options: {
+          include: {
+            offerings: true,
+          },
         },
       },
-      options: {
-        include: {
-          offerings: true,
-        },
-      },
-    },
-  });
-
-  if (!course) {
-    return res.status(404).json({ error: "Course not found" });
-  }
-
-  if (courseFulfillsDriverEducation(course) && (await hasDriverEdExternalResolution(userId))) {
-    return res.status(409).json({
-      error:
-        "Driver Education is already marked as completed outside of school. Undo that first to mark it as a completed course.",
     });
-  }
 
-  const calculatedCredits = calculateTotalCredits(course);
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
 
-  const existing = await prisma.completedCourse.findUnique({
-    where: { userId_courseId: { userId, courseId: course.id } },
-  });
+    if (courseFulfillsDriverEducation(course) && (await hasDriverEdExternalResolution(userId))) {
+      return res.status(409).json({
+        error:
+          "Driver Education is already marked as completed outside of school. Undo that first to mark it as a completed course.",
+      });
+    }
 
-  if (existing) {
-    return res.status(409).json({ error: "Course already marked as completed" });
-  }
+    const calculatedCredits = calculateTotalCredits(course);
 
-  const created = await prisma.completedCourse.create({
-    data: {
-      userId,
-      courseId: course.id,
-      gradeCompleted: gradeCompleted as GradeCompleted,
-      letterGrade: letterGrade ?? null,
-      credits: calculatedCredits,
-    },
-    include: {
-      course: {
-        include: {
-          department: {
-            include: {
-              division: true,
+    const existing = await prisma.completedCourse.findUnique({
+      where: { userId_courseId: { userId, courseId: course.id } },
+    });
+
+    if (existing) {
+      return res.status(409).json({ error: "Course already marked as completed" });
+    }
+
+    // The Summer School equivalent of a regular course is the same course
+    // attempt. Block recording the regular course as completed when its summer
+    // equivalent is already completed or planned (unless repeatable one-sem PE).
+    if (!isRepeatableOneSemesterPe(course)) {
+      const summerEquivalentCompleted = await findSummerEquivalentCompleted(userId, course.id);
+      if (summerEquivalentCompleted) {
+        return res.status(409).json({ error: "You have already completed the Summer School equivalent of this course." });
+      }
+      const summerEquivalentPlanned = await findSummerEquivalentPlanned(userId, course.id);
+      if (summerEquivalentPlanned) {
+        return res.status(409).json({ error: "The Summer School equivalent of this course is already planned in your schedule." });
+      }
+    }
+
+    const created = await prisma.completedCourse.create({
+      data: {
+        userId,
+        courseId: course.id,
+        gradeCompleted: gradeCompleted as GradeCompleted,
+        letterGrade: letterGrade ?? null,
+        credits: calculatedCredits,
+      },
+      include: {
+        course: {
+          include: {
+            department: {
+              include: {
+                division: true,
+              },
+            },
+            options: {
+              include: {
+                offerings: true,
+              },
             },
           },
-          options: {
-            include: {
-              offerings: true,
+        },
+        summerCourse: {
+          include: {
+            regularCourse: {
+              include: {
+                department: {
+                  include: {
+                    division: true,
+                  },
+                },
+                options: {
+                  include: {
+                    offerings: true,
+                  },
+                },
+              },
             },
           },
         },
       },
-    },
-  });
+    });
 
-  const response: CompletedCourseResponse = {
-    id: created.id,
-    userId: created.userId,
-    courseId: created.courseId,
-    gradeCompleted: created.gradeCompleted,
-    letterGrade: created.letterGrade ?? null,
-    credits: created.credits ?? null,
-    course: deriveCourseDetails(created.course),
-  };
+    const response: CompletedCourseResponse = {
+      id: created.id,
+      userId: created.userId,
+      courseId: created.courseId,
+      summerCourseId: created.summerCourseId,
+      gradeCompleted: created.gradeCompleted,
+      letterGrade: created.letterGrade ?? null,
+      credits: created.credits ?? null,
+      course: created.course ? deriveCourseDetails(created.course) : null,
+      summerCourse: created.summerCourse ? deriveSummerCourseDetails(created.summerCourse) : null,
+    };
 
-  res.status(201).json(response);
+    return res.status(201).json(response);
+  }
+
+  if (summerCourseId) {
+    const summer = await prisma.summerCourse.findUnique({
+      where: { id: Number(summerCourseId) },
+      include: {
+        regularCourse: {
+          include: {
+            department: {
+              include: {
+                division: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!summer) {
+      return res.status(404).json({ error: "Summer course not found" });
+    }
+
+    const existing = await prisma.completedCourse.findFirst({
+      where: { userId, summerCourseId: summer.id },
+    });
+
+    if (existing) {
+      return res.status(409).json({ error: "Course already marked as completed" });
+    }
+
+    // The Summer School course is the same course attempt as its matched
+    // regular equivalent. Block when the regular equivalent is already
+    // completed or planned (unless repeatable one-semester PE).
+    const regularEquivalent = summer.regularCourse;
+    if (regularEquivalent && !isRepeatableOneSemesterPe(regularEquivalent)) {
+      const completedRegular = await findRegularEquivalentCompleted(userId, regularEquivalent.id);
+      if (completedRegular) {
+        return res.status(409).json({ error: "You have already completed this course (regular equivalent)." });
+      }
+      const plannedRegular = await findRegularEquivalentPlanned(userId, regularEquivalent.id);
+      if (plannedRegular) {
+        return res.status(409).json({ error: "This course is already planned in your schedule (regular equivalent)." });
+      }
+    }
+
+    const created = await prisma.completedCourse.create({
+      data: {
+        userId,
+        summerCourseId: summer.id,
+        gradeCompleted: gradeCompleted as GradeCompleted,
+        letterGrade: letterGrade ?? null,
+        credits: summer.credits,
+      },
+      include: {
+        summerCourse: {
+          include: {
+            regularCourse: {
+              include: {
+                department: {
+                  include: {
+                    division: true,
+                  },
+                },
+                options: {
+                  include: {
+                    offerings: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const response: CompletedCourseResponse = {
+      id: created.id,
+      userId: created.userId,
+      courseId: null,
+      summerCourseId: created.summerCourseId,
+      gradeCompleted: created.gradeCompleted,
+      letterGrade: created.letterGrade ?? null,
+      credits: created.credits ?? null,
+      course: null,
+      summerCourse: created.summerCourse ? deriveSummerCourseDetails(created.summerCourse) : null,
+    };
+
+    return res.status(201).json(response);
+  }
 }));
 
 router.put("/:id", requireAuth, asyncHandler(async (req, res) => {
@@ -189,6 +345,24 @@ router.put("/:id", requireAuth, asyncHandler(async (req, res) => {
           },
         },
       },
+      summerCourse: {
+          include: {
+            regularCourse: {
+              include: {
+                department: {
+                  include: {
+                    division: true,
+                  },
+                },
+                options: {
+                  include: {
+                    offerings: true,
+                  },
+                },
+              },
+            },
+          },
+        },
     },
   });
 
@@ -227,6 +401,24 @@ router.put("/:id", requireAuth, asyncHandler(async (req, res) => {
           },
         },
       },
+      summerCourse: {
+          include: {
+            regularCourse: {
+              include: {
+                department: {
+                  include: {
+                    division: true,
+                  },
+                },
+                options: {
+                  include: {
+                    offerings: true,
+                  },
+                },
+              },
+            },
+          },
+        },
     },
   });
 
@@ -234,10 +426,12 @@ router.put("/:id", requireAuth, asyncHandler(async (req, res) => {
     id: updated.id,
     userId: updated.userId,
     courseId: updated.courseId,
+    summerCourseId: updated.summerCourseId,
     gradeCompleted: updated.gradeCompleted,
     letterGrade: updated.letterGrade ?? null,
     credits: updated.credits ?? null,
-    course: deriveCourseDetails(updated.course),
+    course: updated.course ? deriveCourseDetails(updated.course) : null,
+    summerCourse: updated.summerCourse ? deriveSummerCourseDetails(updated.summerCourse) : null,
   };
 
   res.json(response);

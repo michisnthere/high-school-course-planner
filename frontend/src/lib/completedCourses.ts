@@ -1,4 +1,5 @@
 import type { PlannerCourseDetails } from "@/lib/planner";
+import type { SummerCourse } from "@/lib/summerCourse";
 
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
@@ -47,14 +48,18 @@ export function getDefaultCompletedGrade(currentYear: number): GradeCompleted {
 export type CompletedCourse = {
   id: number;
   userId: number;
-  courseId: number;
+  courseId: number | null;
+  summerCourseId: number | null;
   gradeCompleted: GradeCompleted;
+  letterGrade?: string | null;
   credits: number | null;
-  course: PlannerCourseDetails;
+  course: PlannerCourseDetails | null;
+  summerCourse: SummerCourse | null;
 };
 
 export type CompletedCourseInput = {
-  courseId: number;
+  courseId?: number;
+  summerCourseId?: number;
   gradeCompleted: GradeCompleted;
 };
 
@@ -71,15 +76,16 @@ export async function getCompletedCourses(): Promise<CompletedCourse[]> {
 }
 
 export async function addCompletedCourse(
-  courseId: number,
+  courseId: number | null,
   gradeCompleted: GradeCompleted,
-  _courseDetails?: PlannerCourseDetails
+  _courseDetails?: PlannerCourseDetails,
+  summerCourseId?: number
 ): Promise<CompletedCourse> {
   const response = await fetch(`/api/completed-courses`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ courseId, gradeCompleted }),
+    body: JSON.stringify({ courseId, summerCourseId, gradeCompleted }),
   });
 
   if (!response.ok) {

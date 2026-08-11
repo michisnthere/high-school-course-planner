@@ -12,8 +12,10 @@ function course(id: number, title: string, gradeCompleted: CompletedCourse["grad
     id,
     userId: -1,
     courseId: id,
+    summerCourseId: null,
     gradeCompleted,
     credits: 1,
+    summerCourse: null,
     course: {
       id,
       title,

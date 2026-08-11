@@ -1,4 +1,5 @@
 import type { Course } from "@/types/course";
+import type { SummerCourse } from "@/lib/summerCourse";
 import { normalizePrerequisite } from "@/lib/prerequisiteNormalization";
 import { deriveCourseDuration, calculateTotalCredits, effectiveSlotsPerSemester } from "@/lib/courseCredits";
 
@@ -45,11 +46,13 @@ export type PlannedCourse = {
   id: number;
   plannerId: number;
   courseId: number | null;
+  summerCourseId?: number | null;
   plannerOptionId: number | null;
   semester: number;
   slot: number;
   slotSpan: number;
   course: PlannerCourseDetails;
+  summerCourse?: SummerCourse | null;
   isEarlyBird: boolean;
 };
 
@@ -129,7 +132,12 @@ export async function addPlannedCourse(
 
 export async function addPlannedCourse(
   plannerId: number,
-  courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number; isEarlyBird?: boolean },
+  item: { summerCourseId: number; semester: number; slot?: number }
+): Promise<Planner>;
+
+export async function addPlannedCourse(
+  plannerId: number,
+  courseIdOrItem: number | { plannerOptionId: number; semester: number; slot: number; isEarlyBird?: boolean } | { summerCourseId: number; semester: number; slot?: number },
   semester?: number,
   slot?: number,
   isEarlyBird?: boolean
@@ -140,6 +148,10 @@ export async function addPlannedCourse(
     body.semester = semester;
     body.slot = slot;
     if (isEarlyBird != null) body.isEarlyBird = isEarlyBird;
+  } else if ("summerCourseId" in courseIdOrItem) {
+    body.summerCourseId = courseIdOrItem.summerCourseId;
+    body.semester = courseIdOrItem.semester;
+    body.slot = courseIdOrItem.slot ?? 1;
   } else {
     body.plannerOptionId = courseIdOrItem.plannerOptionId;
     body.semester = courseIdOrItem.semester;
@@ -147,7 +159,7 @@ export async function addPlannedCourse(
     if (courseIdOrItem.isEarlyBird != null) body.isEarlyBird = courseIdOrItem.isEarlyBird;
   }
 
-  const slotVal = typeof courseIdOrItem === "number" ? slot : courseIdOrItem.slot;
+  const slotVal = typeof courseIdOrItem === "number" ? slot : "slot" in courseIdOrItem ? courseIdOrItem.slot : courseIdOrItem.slot;
   console.log("API SEND", { endpoint: "/api/planner/courses", method: "POST", body });
   console.log({
     function: "lib addPlannedCourse",

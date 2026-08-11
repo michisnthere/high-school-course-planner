@@ -195,10 +195,10 @@ export function findDriverEdExternalResolution<
 
 export function hasDriverEducationCourse(
   plannedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } }>,
-  completedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } }>
+  completedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } | null }>
 ): boolean {
   return (
     plannedCourses.some((pc) => courseFulfillsDriverEducation(pc.course)) ||
-    completedCourses.some((cc) => courseFulfillsDriverEducation(cc.course))
+    completedCourses.some((cc) => (cc.course ? courseFulfillsDriverEducation(cc.course) : false))
   );
 }

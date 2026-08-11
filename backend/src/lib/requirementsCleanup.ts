@@ -45,6 +45,8 @@ export const NON_GRADUATION_REQUIREMENT_NAMES = new Set([
   "Course Selection",
   "School Day Schedule",
   "Course Availability",
+  "Fine Arts",
+  "Applied Arts",
 ]);
 
 export const INFORMATION_ITEM_NAMES = new Set([
@@ -87,7 +89,6 @@ const MEASURABLE_REQUIREMENT_NAMES = new Set([
   "Health",
   "Economics or Personal Finance",
   "Driver Education",
-  "Fine Arts",
   "Electives",
   "Physical Education",
   "Social Studies",

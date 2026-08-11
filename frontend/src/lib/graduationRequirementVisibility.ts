@@ -8,8 +8,6 @@ export const GRADUATION_REQUIREMENT_STARTING_YEAR: Record<string, number> = {
   "Social Studies": 9,
   "Physical Education": 9,
   Health: 9,
-  "Fine Arts": 9,
-  "Applied Arts": 9,
   Electives: 9,
   "Driver Education": 10,
   "U.S. History": 11,

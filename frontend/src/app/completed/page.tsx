@@ -8,7 +8,7 @@ import {
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
-import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
+import { CompletedCoursePicker, type CompletedCourseSelection } from "@/components/planner/CompletedCoursePicker";
 import { formatCredits } from "@/lib/courseCredits";
 import {
   FILTER_ORDER,
@@ -90,12 +90,9 @@ function CompletedCoursesContent(): React.ReactElement {
   }, [load]);
 
   const handleAdd = useCallback(
-    async (selection: {
-      courseId: number;
-      gradeCompleted: GradeCompleted;
-    }) => {
+    async (selection: CompletedCourseSelection) => {
       try {
-        await completedService.addCompletedCourse(selection.courseId, selection.gradeCompleted);
+        await completedService.addCompletedCourse(selection as any);
         setPickerOpen(false);
         await load();
       } catch (err) {
@@ -480,7 +477,12 @@ function CompletedCoursesContent(): React.ReactElement {
           <CompletedCoursePicker
             onClose={() => setPickerOpen(false)}
             onSubmit={handleAdd}
-            excludeCourseIds={courses.map((c) => c.courseId)}
+            excludeCourseIds={courses
+              .map((c) => c.courseId)
+              .filter((id): id is number => id != null)}
+            excludeSummerCourseIds={courses
+              .map((c) => c.summerCourseId)
+              .filter((id): id is number => id != null)}
           />
         )}
       </div>
@@ -509,8 +511,11 @@ function CompletedCourseCard({
   onSave,
   onRemove,
 }: CompletedCourseCardProps): React.ReactElement {
-  const accentColor = getDivisionColor(cc.course.division);
-  const bgTint = getDivisionBackgroundColor(cc.course.division);
+  const courseTitle = cc.course?.title ?? cc.summerCourse?.title ?? "Unknown Course";
+  const division = cc.course?.division ?? null;
+  const credits = cc.credits ?? cc.course?.credits ?? null;
+  const accentColor = getDivisionColor(division);
+  const bgTint = getDivisionBackgroundColor(division);
   const isEditing = editingId === cc.id;
 
   return (
@@ -545,9 +550,31 @@ function CompletedCourseCard({
             fontSize: "17px",
             fontWeight: 700,
             color: accentColor,
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            flexWrap: "wrap",
           }}
         >
-          {cc.course.title}
+          {courseTitle}
+          {cc.summerCourse != null && (
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                color: "var(--brand-accent)",
+                backgroundColor: "var(--bg-hover, rgba(0,0,0,0.03))",
+                border: "1px solid var(--brand-accent)",
+                borderRadius: "9999px",
+                padding: "2px 8px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Summer
+            </span>
+          )}
         </h3>
         <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)" }}>
           {isEditing ? (
@@ -571,8 +598,8 @@ function CompletedCourseCard({
           ) : (
             getAcademicPeriodLabel(cc.gradeCompleted)
           )}
-          {cc.course.credits != null && ` • ${formatCredits(cc.course.credits)} credits`}
-          {cc.course.division && ` • ${cc.course.division}`}
+          {credits != null && ` • ${formatCredits(credits)} credits`}
+          {division && ` • ${division}`}
         </p>
       </div>
       <div className="rs-completed-card-actions" style={{ display: "flex", alignItems: "center", gap: "8px" }}>

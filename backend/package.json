@@ -15,6 +15,7 @@
     "prisma:migrate": "prisma migrate deploy",
     "import:courses": "tsx scripts/import_courses.ts",
     "import:summer-school": "tsx scripts/import_summer_school.ts",
+    "baseline:regular": "tsx scripts/regular_catalog_baseline.ts",
     "cleanup:graduation-requirements": "tsx scripts/graduation_requirements_cleanup.ts"
   },
   "dependencies": {

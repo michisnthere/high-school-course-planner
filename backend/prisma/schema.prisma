@@ -65,14 +65,14 @@ model Course {
 
   duration Int?
 
-  slotsPerSemester    Int     @default(1)
-  isMultiPeriod       Boolean @default(false)
-  attributes          Json    @default("[]")
-  fulfillsRequirements Json   @default("[]")
-  requirementCredits  Json    @default("{}")
-  isRepeatable        Boolean @default(false)
-  isMarchingBand      Boolean @default(false)
-  supportsEarlyBird   Boolean @default(false)
+  slotsPerSemester     Int     @default(1)
+  isMultiPeriod        Boolean @default(false)
+  attributes           Json    @default("[]")
+  fulfillsRequirements Json    @default("[]")
+  requirementCredits   Json    @default("{}")
+  isRepeatable         Boolean @default(false)
+  isMarchingBand       Boolean @default(false)
+  supportsEarlyBird    Boolean @default(false)
 
   notes           Json    @default("[]")
   sourceReference String?
@@ -85,6 +85,7 @@ model Course {
   savedCourses     SavedCourse[]
   plannedCourses   PlannedCourse[]
   completedCourses CompletedCourse[]
+  summerCourses    SummerCourse[] // provenance pointer only (never mutated by Summer School import)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -186,12 +187,13 @@ model GraduationRequirement {
   category        String?
   requirementType String?
   requiredValue   Float?
-  gradeLevel      Int?    // 9-12 for year-specific requirements, null for graduation totals
+  gradeLevel      Int? // 9-12 for year-specific requirements, null for graduation totals
   isMeasurable    Boolean @default(true)
   notes           Json    @default("[]")
   sourceReference String?
 
-  courses CourseRequirement[]
+  courses       CourseRequirement[]
+  summerCourses SummerCourseRequirement[] // Summer School fulfillment links (additive, never created)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -232,9 +234,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  savedCourses         SavedCourse[]
-  planners             Planner[]
-  completedCourses     CompletedCourse[]
+  savedCourses           SavedCourse[]
+  planners               Planner[]
+  completedCourses       CompletedCourse[]
   requirementResolutions RequirementResolution[]
 }
 
@@ -263,21 +265,26 @@ model SavedCourse {
 // =========================
 //
 model CompletedCourse {
-  id             Int      @id @default(autoincrement())
-  userId         Int
-  courseId       Int
-  gradeCompleted String
-  letterGrade    String?
-  credits        Float?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  courseId        Int?
+  summerCourseId  Int?
+  gradeCompleted  String
+  letterGrade     String?
+  credits         Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course       Course?      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  summerCourse SummerCourse? @relation(fields: [summerCourseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
+  @@unique([userId, summerCourseId])
   @@index([userId])
+  @@index([userId, summerCourseId])
   @@index([courseId])
+  @@index([summerCourseId])
 }
 
 //
@@ -286,12 +293,12 @@ model CompletedCourse {
 // =========================
 //
 model Planner {
-  id         Int      @id @default(autoincrement())
-  userId     Int
-  schoolYear Int
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  schoolYear  Int
   completedAt DateTime?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   plannedCourses PlannedCourse[]
@@ -308,8 +315,8 @@ model Planner {
 model RequirementResolution {
   id        Int      @id @default(autoincrement())
   userId    Int
-  type      String   // "pe_waiver" | "middle_school" | "summer_school" | "placement_test" | "admin_override"
-  courseId  Int?     // optional course reference
+  type      String // "pe_waiver" | "middle_school" | "summer_school" | "placement_test" | "admin_override"
+  courseId  Int? // optional course reference
   metadata  Json     @default("{}") // flexible payload for any resolution type
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -328,7 +335,10 @@ model RequirementResolution {
 model PlannedCourse {
   id              Int      @id @default(autoincrement())
   plannerId       Int
+  // Exactly one of courseId / summerCourseId / plannerOptionId must be set.
+  // SummerCourse placements live ONLY in Summer School semesters (3/4).
   courseId        Int?
+  summerCourseId  Int?
   plannerOptionId Int?
   semester        Int
   slot            Int
@@ -338,10 +348,114 @@ model PlannedCourse {
 
   planner       Planner        @relation(fields: [plannerId], references: [id], onDelete: Cascade)
   course        Course?        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  summerCourse  SummerCourse?  @relation(fields: [summerCourseId], references: [id], onDelete: Cascade)
   plannerOption PlannerOption? @relation(fields: [plannerOptionId], references: [id], onDelete: Cascade)
 
   @@unique([plannerId, semester, slot])
   @@index([plannerId])
   @@index([courseId])
+  @@index([summerCourseId])
   @@index([plannerOptionId])
+}
+
+//
+// =========================
+// SUMMER SCHOOL (additive & isolated)
+// =========================
+//
+// Summer School data lives in dedicated, Summer School-specific tables.  It is
+// NEVER stored in the regular Course / CourseOption / CourseOffering tables,
+// and importing it never mutates regular catalog data.  Summer School offerings
+// keep their own term/session vocabulary ("Session 1" / "Session 2") instead of
+// reusing regular semester labels.
+//
+model SummerCourse {
+  id  Int    @id @default(autoincrement())
+  key String @unique // stable coursebook catalog key -> idempotent upserts
+
+  title       String
+  courseCode  String? // exactly as printed in the Summer School coursebook
+  description String?
+
+  // Explicit credit representation.  credits is null for genuinely non-credit /
+  // unknown courses; 0 is never used as a silent placeholder.  Values:
+  // "credit" | "non-credit" | "unknown".
+  creditStatus String
+  credits      Float?
+
+  gradeLevels Int[] @default([])
+
+  // Summer School duration vocabulary: "one_session" | "full_summer".
+  duration String
+
+  prerequisites Json @default("[]")
+  corequisites  Json @default("[]")
+
+  // Graduation requirement names printed in the coursebook description, if any.
+  // Only these are linked via SummerCourseRequirement (never invented).
+  fulfillsRequirements Json @default("[]")
+
+  // True when the course has no exact match in the regular catalog.
+  isSummerOnly Boolean @default(false)
+
+  // Provenance link to the matched canonical regular course (exact title/code
+  // match only).  Never alters the canonical Course record.
+  regularCourseId   Int?
+  regularCourse     Course? @relation(fields: [regularCourseId], references: [id], onDelete: SetNull)
+  matchedTitle      String?
+  matchedCourseCode String?
+  matchConfidence   String?
+
+  sourcePage       Int
+  sourceReference  String?
+  notes            Json    @default("[]")
+  extractionIssues Json    @default("[]")
+
+  sessions    SummerCourseSession[]
+  requirement SummerCourseRequirement[]
+  planned    PlannedCourse[]
+  completed  CompletedCourse[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isSummerOnly])
+  @@index([regularCourseId])
+}
+
+//
+// One row per Summer School session the course is offered in.  Carries its own
+// session vocabulary ("Session 1" / "Session 2") with no mapping onto regular
+// semester labels.
+//
+model SummerCourseSession {
+  id             Int          @id @default(autoincrement())
+  summerCourseId Int
+  summerCourse   SummerCourse @relation(fields: [summerCourseId], references: [id], onDelete: Cascade)
+  session        String // "Session 1" | "Session 2"
+  ordinal        Int          @default(1) // stable ordering (Session 1 = 1, Session 2 = 2)
+
+  @@unique([summerCourseId, session])
+  @@index([summerCourseId])
+}
+
+//
+// Requirement-fulfillment links for Summer School courses.  Rows are created
+// ONLY for graduation requirements explicitly printed in the coursebook and
+// MUST reference an existing GraduationRequirement row (never creating one).
+// Courses without an explicit printed requirement link to nothing; their
+// credits default to "Additional Credits and P.E." exactly like regular
+// planner semantics (no link row is created for that default).
+//
+model SummerCourseRequirement {
+  id                      Int                   @id @default(autoincrement())
+  summerCourseId          Int
+  summerCourse            SummerCourse          @relation(fields: [summerCourseId], references: [id], onDelete: Cascade)
+  graduationRequirementId Int
+  graduationRequirement   GraduationRequirement @relation(fields: [graduationRequirementId], references: [id], onDelete: Restrict)
+  sourceName              String // printed name from the coursebook
+
+  @@unique([summerCourseId, graduationRequirementId])
+  @@index([summerCourseId])
+  @@index([graduationRequirementId])
 }

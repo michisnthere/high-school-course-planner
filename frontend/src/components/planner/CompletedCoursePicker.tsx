@@ -4,15 +4,18 @@ import React, { useEffect, useState } from "react";
 import { CoursePicker } from "./CoursePicker";
 import type { GradeCompleted } from "@/lib/completedCourses";
 import { ACADEMIC_PERIODS } from "@/lib/completedCoursePeriods";
+import { getSummerCourses, type SummerCourse } from "@/lib/summerCourse";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+
+export type CompletedCourseSelection =
+  | { courseId: number; gradeCompleted: GradeCompleted }
+  | { summerCourseId: number; gradeCompleted: GradeCompleted; summerCourse: SummerCourse };
 
 type CompletedCoursePickerProps = {
   onClose: () => void;
-  onSubmit: (selection: {
-    courseId: number;
-    gradeCompleted: GradeCompleted;
-  }) => void;
+  onSubmit: (selection: CompletedCourseSelection) => void;
   excludeCourseIds?: number[];
+  excludeSummerCourseIds?: number[];
   defaultGrade?: GradeCompleted;
 };
 
@@ -20,9 +23,15 @@ export function CompletedCoursePicker({
   onClose,
   onSubmit,
   excludeCourseIds,
+  excludeSummerCourseIds,
   defaultGrade = "Middle School",
 }: CompletedCoursePickerProps): React.ReactElement {
+  const [tab, setTab] = useState<"regular" | "summer">("regular");
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+  const [selectedSummer, setSelectedSummer] = useState<SummerCourse | null>(null);
+  const [summerCourses, setSummerCourses] = useState<SummerCourse[]>([]);
+  const [summerLoading, setSummerLoading] = useState(false);
+  const [summerError, setSummerError] = useState<string | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
   const { isMobile } = useBreakpoint();
 
@@ -34,10 +43,30 @@ export function CompletedCoursePicker({
     };
   }, []);
 
-  const handleSubmit = () => {
-    if (selectedCourseId == null) return;
-    onSubmit({ courseId: selectedCourseId, gradeCompleted });
+  const loadSummerCourses = () => {
+    setSummerLoading(true);
+    getSummerCourses()
+      .then(setSummerCourses)
+      .catch(() => setSummerError("Failed to load Summer School courses."))
+      .finally(() => setSummerLoading(false));
   };
+
+  const handleSubmit = () => {
+    if (selectedCourseId == null && selectedSummer == null) return;
+    if (tab === "summer" && selectedSummer) {
+      onSubmit({
+        summerCourseId: selectedSummer.id,
+        gradeCompleted,
+        summerCourse: selectedSummer,
+      });
+      return;
+    }
+    if (selectedCourseId != null) {
+      onSubmit({ courseId: selectedCourseId, gradeCompleted });
+    }
+  };
+
+  const excludedSummerIds = new Set(excludeSummerCourseIds ?? []);
 
   return (
     <>
@@ -123,6 +152,32 @@ export function CompletedCoursePicker({
                 ×
               </button>
             </div>
+            <div style={{ display: "flex", gap: "8px", marginBottom: "14px" }}>
+              {(["regular", "summer"] as const).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => {
+                    setTab(t);
+                    setSelectedSummer(null);
+                    setSelectedCourseId(null);
+                    if (t === "summer") loadSummerCourses();
+                  }}
+                  style={{
+                    padding: "8px 16px",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    color: tab === t ? "#ffffff" : "var(--text-secondary)",
+                    backgroundColor: tab === t ? "var(--brand-accent)" : "var(--bg-input)",
+                    border: tab === t ? "1px solid var(--brand-accent)" : "1px solid var(--border-default)",
+                    borderRadius: "9999px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {t === "regular" ? "Regular Courses" : "Summer Courses"}
+                </button>
+              ))}
+            </div>
             <div style={{ display: "flex", gap: "12px", alignItems: "center", flex: isMobile ? "1 1 auto" : undefined }}>
               <label
                 htmlFor="completed-grade"
@@ -154,13 +209,80 @@ export function CompletedCoursePicker({
             </div>
           </div>
           <div style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>
-            <CoursePicker
-              onSelect={setSelectedCourseId}
-              excludeCourseIds={excludeCourseIds}
-              selectedCourseId={selectedCourseId}
-              actionLabel="Select"
-              simple
-            />
+            {tab === "regular" ? (
+              <CoursePicker
+                onSelect={setSelectedCourseId}
+                excludeCourseIds={excludeCourseIds}
+                selectedCourseId={selectedCourseId}
+                actionLabel="Select"
+                simple
+              />
+            ) : summerLoading ? (
+              <div style={{ padding: "24px", color: "var(--text-muted)", fontSize: "14px" }}>
+                Loading summer courses...
+              </div>
+            ) : summerError ? (
+              <div style={{ padding: "24px", color: "var(--status-error)", fontSize: "14px" }}>
+                {summerError}
+              </div>
+            ) : (
+              <div style={{ overflowY: "auto", height: "100%", padding: "16px 24px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                {summerCourses.length === 0 ? (
+                  <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "14px" }}>
+                    No summer courses available.
+                  </p>
+                ) : (
+                  summerCourses.map((sc) => {
+                    const disabled = excludedSummerIds.has(sc.id);
+                    const isFullSummer = sc.duration === "full_summer";
+                    return (
+                      <div
+                        key={sc.id}
+                        onClick={() => {
+                          if (!disabled) setSelectedSummer(sc);
+                        }}
+                        style={{
+                          padding: "12px 14px",
+                          borderRadius: "10px",
+                          border:
+                            selectedSummer?.id === sc.id
+                              ? "2px solid var(--brand-accent)"
+                              : "1px solid var(--border-default)",
+                          backgroundColor: selectedSummer?.id === sc.id ? "var(--bg-hover, rgba(0,0,0,0.03))" : "var(--bg-input)",
+                          cursor: disabled ? "not-allowed" : "pointer",
+                          opacity: disabled ? 0.5 : 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "6px",
+                        }}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", gap: "8px", alignItems: "flex-start" }}>
+                          <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-primary)", wordBreak: "break-word" }}>
+                            {sc.title}
+                          </span>
+                          {sc.courseCode && (
+                            <span style={{ fontSize: "12px", color: "var(--text-muted)", flex: "0 0 auto" }}>{sc.courseCode}</span>
+                          )}
+                        </div>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
+                          {isFullSummer && <span>Full Summer</span>}
+                          {(sc.sessions ?? []).length > 0 && <span>{(sc.sessions ?? []).join(" · ")}</span>}
+                          {sc.credits != null && <span>{sc.credits} credits</span>}
+                          {sc.fulfillsRequirements.length > 0 && (
+                            <span>Fulfills: {sc.fulfillsRequirements.join(", ")}</span>
+                          )}
+                        </div>
+                        {disabled && (
+                          <span style={{ fontSize: "12px", color: "var(--status-error)" }}>
+                            Already recorded as completed
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            )}
           </div>
           <div
             style={{
@@ -174,16 +296,19 @@ export function CompletedCoursePicker({
             <button
               type="button"
               onClick={handleSubmit}
-              disabled={selectedCourseId == null}
+              disabled={tab === "summer" ? selectedSummer == null : selectedCourseId == null}
               style={{
                 padding: isMobile ? "12px 24px" : "10px 18px",
                 fontSize: isMobile ? "16px" : "15px",
                 fontWeight: 500,
                 color: "#FFFFFF",
-                backgroundColor: selectedCourseId == null ? "var(--text-muted)" : "var(--brand-accent)",
+                backgroundColor:
+                  (tab === "summer" ? selectedSummer == null : selectedCourseId == null)
+                    ? "var(--text-muted)"
+                    : "var(--brand-accent)",
                 border: "none",
                 borderRadius: "8px",
-                cursor: selectedCourseId == null ? "not-allowed" : "pointer",
+                cursor: (tab === "summer" ? selectedSummer == null : selectedCourseId == null) ? "not-allowed" : "pointer",
                 minHeight: isMobile ? "48px" : undefined,
                 width: isMobile ? "100%" : undefined,
               }}

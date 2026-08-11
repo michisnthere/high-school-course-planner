@@ -2,13 +2,24 @@ import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../lib/auth.js";
 import { asyncHandler } from "../lib/asyncHandler.js";
-import { normalizeRequirementNames } from "../lib/requirementsCleanup.js";
-import { normalizePrerequisite } from "../lib/prerequisiteNormalization.js";
 import { deriveCourseDuration, calculateTotalCredits, effectiveSlotsPerSemester, isOnePointFivePeriodScienceCourse } from "../lib/courseCredits.js";
 import { courseFulfillsDriverEducation, hasDriverEdExternalResolution } from "../lib/driverEducation.js";
-import type { Course, PlannerOption } from "@prisma/client";
+import { deriveSummerCourseDetails } from "../lib/summerCourseDetails.js";
+import { deriveCourseDetails, type CourseDetails } from "../lib/courseDetails.js";
+import {
+  isRepeatableOneSemesterPe,
+  findSummerEquivalentPlanned,
+  findSummerEquivalentCompleted,
+  findRegularEquivalentPlanned,
+  findRegularEquivalentCompleted,
+} from "../lib/summerDuplicateGuard.js";
+import type { Course, PlannerOption, SummerCourse } from "@prisma/client";
 
 const router = Router();
+
+// SummerCourse analysis ids live in a deterministic negative namespace so they
+// never collide with regular course ids. Mirrors the frontend engine.
+const SUMMER_ID_OFFSET = 10000;
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -17,40 +28,17 @@ const YEAR_LABELS: Record<number, string> = {
   12: "Senior",
 };
 
-export type CourseDetails = {
-  id: number;
-  title: string;
-  normalizedTitle: string | null;
-  duration: number;
-  slotsPerSemester: number;
-  creditType: string | null;
-  credits: number | null;
-  division: string | null;
-  department: string | null;
-  description: string | null;
-  fulfillsRequirements: string[];
-  prerequisites: string[];
-  courseCode: string | null;
-  courseCodeS1: string | null;
-  courseCodeS2: string | null;
-  gradeMin: number | null;
-  gradeMax: number | null;
-  isNonAcademic: boolean;
-  isMarchingBand: boolean;
-  supportsEarlyBird: boolean;
-  isRepeatable: boolean;
-  isOnline: boolean;
-};
-
 type PlannedCourseResponse = {
   id: number;
   plannerId: number;
   courseId: number | null;
+  summerCourseId: number | null;
   plannerOptionId: number | null;
   semester: number;
   slot: number;
   slotSpan: number;
   course: CourseDetails;
+  summerCourse: ReturnType<typeof deriveSummerCourseDetails> | null;
   isEarlyBird: boolean;
 };
 
@@ -61,93 +49,6 @@ type PlannerResponse = {
   completedAt: Date | null;
   plannedCourses: PlannedCourseResponse[];
 };
-
-export function deriveCourseDetails(
-  course: Course & {
-    department?: { name: string; division?: { name: string } | null } | null;
-    options?: Array<{
-      creditType?: string | null;
-      credits?: number | null;
-      isOnline?: boolean | null;
-      offerings?: Array<{
-        duration?: string | number | null;
-        courseCode?: string | null;
-        semesterLabel?: string | null;
-        prerequisites?: unknown;
-        gradeMin?: number | null;
-        gradeMax?: number | null;
-      }>;
-    }>;
-  }
-): CourseDetails {
-  const option = course.options?.[0];
-  const offerings = option?.offerings ?? [];
-
-  const prerequisites = new Set<string>();
-  for (const offering of offerings) {
-    if (Array.isArray(offering.prerequisites)) {
-      for (const item of offering.prerequisites) {
-        if (typeof item === "string" && item.trim()) {
-          prerequisites.add(normalizePrerequisite(item.trim()));
-        }
-      }
-    }
-  }
-
-  let courseCode: string | null = null;
-  let courseCodeS1: string | null = null;
-  let courseCodeS2: string | null = null;
-  let gradeMin: number | null = null;
-  let gradeMax: number | null = null;
-  for (const offering of offerings) {
-    if (typeof offering.courseCode === "string" && offering.courseCode) {
-      if (!courseCode) courseCode = offering.courseCode;
-      const sem = offering.semesterLabel ?? "";
-      if (sem.startsWith("S1") || sem === "1" || sem.toLowerCase().includes("semester 1")) {
-        if (!courseCodeS1) courseCodeS1 = offering.courseCode;
-      } else if (sem.startsWith("S2") || sem === "2" || sem.toLowerCase().includes("semester 2")) {
-        if (!courseCodeS2) courseCodeS2 = offering.courseCode;
-      } else if (!courseCodeS1) {
-        courseCodeS1 = offering.courseCode;
-      } else if (!courseCodeS2) {
-        courseCodeS2 = offering.courseCode;
-      }
-    }
-    if (offering.gradeMin != null && (gradeMin === null || offering.gradeMin < gradeMin)) {
-      gradeMin = offering.gradeMin;
-    }
-    if (offering.gradeMax != null && (gradeMax === null || offering.gradeMax > gradeMax)) {
-      gradeMax = offering.gradeMax;
-    }
-  }
-
-  return {
-    id: course.id,
-    title: course.title,
-    normalizedTitle: course.normalizedTitle ?? null,
-    duration: deriveCourseDuration(course),
-    slotsPerSemester: effectiveSlotsPerSemester(course),
-    creditType: option?.creditType ?? null,
-    credits: calculateTotalCredits(course),
-    division: course.department?.division?.name ?? null,
-    department: course.department?.name ?? null,
-    description: course.description ?? null,
-    fulfillsRequirements: Array.isArray(course.fulfillsRequirements) ? normalizeRequirementNames(course.fulfillsRequirements.filter((r): r is string => typeof r === "string")) : [],
-    prerequisites: Array.from(prerequisites),
-    courseCode,
-    courseCodeS1,
-    courseCodeS2,
-    gradeMin,
-    gradeMax,
-    isNonAcademic: false,
-    isMarchingBand: course.isMarchingBand ?? false,
-    supportsEarlyBird:
-      course.supportsEarlyBird === true ||
-      (Array.isArray(course.attributes) && course.attributes.includes("supportsEarlyBird")),
-    isRepeatable: course.isRepeatable === true,
-    isOnline: (course.options ?? []).some((o) => o.isOnline === true),
-  };
-}
 
 function derivePlannerOptionDetails(option: PlannerOption): CourseDetails {
   return {
@@ -189,9 +90,13 @@ function isRepeatableEligibleCourse(
 function getPlannedDuration(plannedCourse: {
   course: (Course & { options?: Array<{ offerings?: Array<{ duration?: string | number | null }> }> }) | null;
   plannerOption: PlannerOption | null;
+  summerCourse?: { duration?: string | null } | null;
 }): number {
   if (plannedCourse.course) {
     return deriveCourseDuration(plannedCourse.course);
+  }
+  if (plannedCourse.summerCourse) {
+    return plannedCourse.summerCourse.duration === "full_summer" ? 2 : 1;
   }
   return plannedCourse.plannerOption?.duration ?? 1;
 }
@@ -219,10 +124,17 @@ function rangesOverlap(slotA: number, spanA: number, slotB: number, spanB: numbe
 function getLogicalCourseWhere(plannedCourse: {
   plannerId: number;
   courseId: number | null;
+  summerCourseId: number | null;
   plannerOptionId: number | null;
 }) {
   if (plannedCourse.courseId != null) {
     return { plannerId: plannedCourse.plannerId, courseId: plannedCourse.courseId };
+  }
+  if (plannedCourse.summerCourseId != null) {
+    return {
+      plannerId: plannedCourse.plannerId,
+      summerCourseId: plannedCourse.summerCourseId,
+    };
   }
   return { plannerId: plannedCourse.plannerId, plannerOptionId: plannedCourse.plannerOptionId };
 }
@@ -379,26 +291,65 @@ function serializePlannedCourse(plannedCourse: {
   id: number;
   plannerId: number;
   courseId: number | null;
+  summerCourseId: number | null;
   plannerOptionId: number | null;
   semester: number;
   slot: number;
   slotSpan: number;
   isEarlyBird: boolean;
   course: (Course & { options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> }) | null;
+  summerCourse: (SummerCourse & { regularCourse?: (Course & { department?: { name: string; division?: { name: string } | null } | null; options?: Array<{ creditType?: string | null; credits?: number | null; offerings?: Array<{ duration?: string | null }> }> }) | null }) | null;
   plannerOption: PlannerOption | null;
 }): PlannedCourseResponse {
+  const { course, summerCourse, plannerOption } = plannedCourse;
+
+  let courseDetails: CourseDetails;
+  if (course) {
+    courseDetails = deriveCourseDetails(course);
+  } else if (plannerOption && !summerCourse) {
+    courseDetails = derivePlannerOptionDetails(plannerOption);
+  } else if (summerCourse) {
+    const sd = deriveSummerCourseDetails(summerCourse);
+    courseDetails = {
+      id: -(SUMMER_ID_OFFSET + summerCourse.id),
+      title: summerCourse.title,
+      normalizedTitle: null,
+      duration: summerCourse.duration === "full_summer" ? 2 : 1,
+      slotsPerSemester: 1,
+      creditType: null,
+      credits: summerCourse.credits ?? null,
+      division: sd.regularCourse?.division ?? null,
+      department: sd.regularCourse?.department ?? null,
+      description: null,
+      fulfillsRequirements: sd.fulfillsRequirements,
+      prerequisites: sd.prerequisites,
+      courseCode: sd.courseCode,
+      courseCodeS1: null,
+      courseCodeS2: null,
+      gradeMin: null,
+      gradeMax: null,
+      isNonAcademic: false,
+      isMarchingBand: false,
+      supportsEarlyBird: false,
+      isRepeatable: sd.regularCourse?.isRepeatable ?? false,
+      isOnline: false,
+    };
+  } else {
+    throw new Error("Planned course has no course, summerCourse, or plannerOption");
+  }
+
   return {
     id: plannedCourse.id,
     plannerId: plannedCourse.plannerId,
     courseId: plannedCourse.courseId,
+    summerCourseId: plannedCourse.summerCourseId,
     plannerOptionId: plannedCourse.plannerOptionId,
     semester: plannedCourse.semester,
     slot: plannedCourse.slot,
     slotSpan: plannedCourse.slotSpan,
     isEarlyBird: plannedCourse.isEarlyBird,
-    course: plannedCourse.course
-      ? deriveCourseDetails(plannedCourse.course)
-      : derivePlannerOptionDetails(plannedCourse.plannerOption!),
+    course: courseDetails,
+    summerCourse: summerCourse ? deriveSummerCourseDetails(summerCourse) : null,
   };
 }
 
@@ -423,6 +374,24 @@ async function getPlannerResponse(plannerId: number): Promise<PlannerResponse> {
             },
           },
           plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -487,6 +456,24 @@ router.get("/", requireAuth, asyncHandler(async (req, res) => {
             },
           },
           plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -505,6 +492,17 @@ router.get("/", requireAuth, asyncHandler(async (req, res) => {
 }));
 
 const GRADE_COMPLETED_BY_YEAR: Record<number, string> = {
+  9: "Freshman (9)",
+  10: "Sophomore (10)",
+11: "Junior (11)",
+  12: "Senior (12)",
+};
+
+// Following-year mapping for Summer School completions. A summer course planned
+// in year N's Summer School section is taken during the summer before grade N
+// (between grade N-1 and N), so it is recorded under the grade the student is
+// about to enter.
+const SUMMER_GRADE_COMPLETED_BY_YEAR: Record<number, string> = {
   9: "Freshman (9)",
   10: "Sophomore (10)",
   11: "Junior (11)",
@@ -531,6 +529,24 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
             },
           },
           plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -544,7 +560,7 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
     return res.status(409).json({ error: "Add planned courses before marking this year completed." });
   }
 
-  const gradeCompleted = GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
+const gradeCompleted = GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
   if (!gradeCompleted) {
     return res.status(400).json({ error: "Planner year cannot be marked completed" });
   }
@@ -555,30 +571,63 @@ router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) =
       .filter((id): id is number => id != null)
   ));
 
+  const summerCourseIds = Array.from(new Set(
+    planner.plannedCourses
+      .map((pc) => pc.summerCourseId)
+      .filter((id): id is number => id != null)
+  ));
+
   const completedAt = new Date();
   const createdIds: number[] = [];
 
   await prisma.$transaction(async (tx) => {
-    const existing = await tx.completedCourse.findMany({
-      where: { userId, courseId: { in: courseIds } },
-      select: { courseId: true },
-    });
-    const existingIds = new Set(existing.map((cc) => cc.courseId));
-
-    for (const courseId of courseIds) {
-      if (existingIds.has(courseId)) continue;
-      const planned = planner.plannedCourses.find((pc) => pc.courseId === courseId);
-      if (!planned?.course) continue;
-      const record = await tx.completedCourse.create({
-        data: {
-          userId,
-          courseId,
-          gradeCompleted,
-          credits: calculateTotalCredits(planned.course),
-          createdAt: completedAt,
-        },
+    if (courseIds.length > 0) {
+      const existing = await tx.completedCourse.findMany({
+        where: { userId, courseId: { in: courseIds } },
+        select: { courseId: true },
       });
-      createdIds.push(record.id);
+      const existingIds = new Set(existing.map((cc) => cc.courseId));
+
+      for (const courseId of courseIds) {
+        if (existingIds.has(courseId)) continue;
+        const planned = planner.plannedCourses.find((pc) => pc.courseId === courseId);
+        if (!planned?.course) continue;
+        const record = await tx.completedCourse.create({
+          data: {
+            userId,
+            courseId,
+            gradeCompleted,
+            credits: calculateTotalCredits(planned.course),
+            createdAt: completedAt,
+          },
+        });
+        createdIds.push(record.id);
+      }
+    }
+
+    if (summerCourseIds.length > 0) {
+      const summerGradeCompleted = SUMMER_GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
+      const existingSummer = await tx.completedCourse.findMany({
+        where: { userId, summerCourseId: { in: summerCourseIds } },
+        select: { summerCourseId: true },
+      });
+      const existingSummerIds = new Set(existingSummer.map((cc) => cc.summerCourseId));
+
+      for (const summerCourseId of summerCourseIds) {
+        if (existingSummerIds.has(summerCourseId)) continue;
+        const planned = planner.plannedCourses.find((pc) => pc.summerCourseId === summerCourseId);
+        if (!planned?.summerCourse) continue;
+        const record = await tx.completedCourse.create({
+          data: {
+            userId,
+            summerCourseId,
+            gradeCompleted: summerGradeCompleted,
+            credits: planned.summerCourse.credits ?? null,
+            createdAt: completedAt,
+          },
+        });
+        createdIds.push(record.id);
+      }
     }
 
     await tx.planner.update({
@@ -602,8 +651,8 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
     where: { id: plannerId },
     include: {
       plannedCourses: {
-        where: { courseId: { not: null } },
-        select: { courseId: true },
+        where: { OR: [{ courseId: { not: null } }, { summerCourseId: { not: null } }] },
+        select: { courseId: true, summerCourseId: true },
       },
     },
   });
@@ -622,6 +671,12 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
       .filter((id): id is number => id != null)
   ));
 
+  const summerCourseIds = Array.from(new Set(
+    planner.plannedCourses
+      .map((pc) => pc.summerCourseId)
+      .filter((id): id is number => id != null)
+  ));
+
   const gradeLabel = GRADE_COMPLETED_BY_YEAR[planner.schoolYear];
 
   await prisma.$transaction(async (tx) => {
@@ -630,6 +685,16 @@ router.post("/:plannerId/uncomplete", requireAuth, asyncHandler(async (req, res)
         where: {
           userId,
           courseId: { in: courseIds },
+          createdAt: planner.completedAt!,
+        },
+      });
+    }
+
+    if (summerCourseIds.length > 0) {
+      await tx.completedCourse.deleteMany({
+        where: {
+          userId,
+          summerCourseId: { in: summerCourseIds },
           createdAt: planner.completedAt!,
         },
       });
@@ -657,7 +722,7 @@ router.get("/options", requireAuth, asyncHandler(async (req, res) => {
 
 router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   const userId = req.user!.id;
-  const { plannerId, courseId, plannerOptionId, semester, slot, isEarlyBird } = req.body;
+  const { plannerId, courseId, plannerOptionId, summerCourseId, semester, slot, isEarlyBird } = req.body;
 
   console.log({
     endpoint: "add",
@@ -667,12 +732,12 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
     slotNum: Number(req.body.slot),
   });
 
-  if (!plannerId || (!courseId && !plannerOptionId) || semester == null || slot == null) {
-    return res.status(400).json({ error: "plannerId, one of courseId or plannerOptionId, semester, and slot are required" });
+  if (!plannerId || (!courseId && !plannerOptionId && !summerCourseId) || semester == null || slot == null) {
+    return res.status(400).json({ error: "plannerId, one of courseId, plannerOptionId, or summerCourseId, semester, and slot are required" });
   }
 
-  if (courseId && plannerOptionId) {
-    return res.status(400).json({ error: "Cannot provide both courseId and plannerOptionId" });
+  if ([courseId, plannerOptionId, summerCourseId].filter((v) => v != null).length > 1) {
+    return res.status(400).json({ error: "Cannot provide more than one of courseId, plannerOptionId, or summerCourseId" });
   }
 
   const semesterNum = Number(semester);
@@ -698,7 +763,7 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   let duration: number;
   let slotSpan = 1;
   let isEarlyBirdValue = isEarlyBird === true;
-  let createData: { plannerId: number; courseId?: number; plannerOptionId?: number; semester: number; slot: number; slotSpan: number; isEarlyBird: boolean };
+  let createData: { plannerId: number; courseId?: number; summerCourseId?: number; plannerOptionId?: number; semester: number; slot: number; slotSpan: number; isEarlyBird: boolean };
 
   if (courseId) {
     const course = await prisma.course.findUnique({
@@ -742,10 +807,24 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
       return res.status(409).json({ error: "This course is already planned in your schedule" });
     }
 
+    // The Summer School equivalent of a regular course is the same course
+    // attempt. Block adding the regular course when its summer equivalent is
+    // already planned or completed, unless it is a repeatable one-semester PE.
+    if (!isRepeatableEligibleCourse(course)) {
+      const summerEquivalentPlanned = await findSummerEquivalentPlanned(userId, course.id);
+      if (summerEquivalentPlanned) {
+        return res.status(409).json({ error: "The Summer School equivalent of this course is already planned in your schedule." });
+      }
+      const summerEquivalentCompleted = await findSummerEquivalentCompleted(userId, course.id);
+      if (summerEquivalentCompleted) {
+        return res.status(409).json({ error: "You have already completed the Summer School equivalent of this course." });
+      }
+    }
+
     duration = deriveCourseDuration(course);
     slotSpan = effectiveSlotsPerSemester(course);
     createData = { plannerId: planner.id, courseId: course.id, semester: semesterNum, slot: slotNum, slotSpan, isEarlyBird: isEarlyBirdValue };
-  } else {
+  } else if (plannerOptionId) {
     const option = await prisma.plannerOption.findUnique({
       where: { id: Number(plannerOptionId) },
     });
@@ -770,6 +849,90 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
 
     duration = option.duration;
     createData = { plannerId: planner.id, plannerOptionId: option.id, semester: semesterNum, slot: slotNum, slotSpan: 1, isEarlyBird: false };
+  } else {
+    // Summer School placement. Only offered in Summer School semesters (3/4).
+    if (semesterNum < 3 || semesterNum > 4) {
+      return res.status(400).json({
+        error: "Summer courses can only be planned in a Summer School semester (Semester 1 or 2 of Summer School).",
+      });
+    }
+
+    const summer = await prisma.summerCourse.findUnique({
+      where: { id: Number(summerCourseId) },
+      include: {
+        sessions: true,
+        regularCourse: {
+          include: {
+            department: {
+              include: {
+                division: true,
+              },
+            },
+            options: {
+              include: {
+                offerings: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!summer) {
+      return res.status(404).json({ error: "Summer course not found" });
+    }
+
+    const gradeLevels = summer.gradeLevels ?? [];
+    if (gradeLevels.length > 0 && !gradeLevels.includes(planner.schoolYear)) {
+      return res.status(409).json({
+        error: `${summer.title} is open to grade${gradeLevels.length === 1 ? "" : "s"} ${gradeLevels.join("-")} and cannot be planned for the summer before grade ${planner.schoolYear}.`,
+      });
+    }
+
+    // Session vocabulary: Session 1 = Summer School Semester 1 (3), Session 2 = Semester 2 (4).
+    const sessionNames = summer.sessions.map((s) => s.session.trim().toLowerCase());
+    const expectedSession = semesterNum === 4 ? "session 2" : "session 1";
+    if (sessionNames.length > 0 && !sessionNames.includes(expectedSession)) {
+      return res.status(409).json({
+        error: `${summer.title} is offered in ${summer.sessions.map((s) => s.session).join(", ")} but not in ${expectedSession.replace(/^\w/, (c) => c.toUpperCase())}.`,
+      });
+    }
+
+    const existingDuplicate = await prisma.plannedCourse.findFirst({
+      where: { planner: { userId }, summerCourseId: summer.id },
+    });
+
+    if (existingDuplicate) {
+      return res.status(409).json({ error: "This summer course is already planned in your schedule" });
+    }
+
+    // The Summer School course is the same course attempt as its matched
+    // regular equivalent. Block the summer placement when the regular
+    // equivalent is already planned or completed (unless repeatable one-sem PE).
+    const regularEquivalent = summer.regularCourse;
+    if (regularEquivalent && !isRepeatableOneSemesterPe(regularEquivalent)) {
+      const plannedRegular = await findRegularEquivalentPlanned(userId, regularEquivalent.id);
+      if (plannedRegular) {
+        return res.status(409).json({ error: "This course is already planned in your schedule (regular equivalent)." });
+      }
+      const completedRegular = await findRegularEquivalentCompleted(userId, regularEquivalent.id);
+      if (completedRegular) {
+        return res.status(409).json({ error: "You have already completed this course (regular equivalent)." });
+      }
+    }
+
+    const isFullSummer = summer.duration === "full_summer";
+    if (isFullSummer) {
+      const bothSessions = sessionNames.includes("session 1") && sessionNames.includes("session 2");
+      if (sessionNames.length > 0 && !bothSessions) {
+        return res.status(409).json({
+          error: `${summer.title} is offered in ${summer.sessions.map((s) => s.session).join(", ")} and cannot span the full summer.`,
+        });
+      }
+    }
+
+    duration = isFullSummer ? 2 : 1;
+    createData = { plannerId: planner.id, summerCourseId: summer.id, semester: semesterNum, slot: slotNum, slotSpan: 1, isEarlyBird: false };
   }
 
   const existingCourses = await prisma.plannedCourse.findMany({
@@ -790,6 +953,24 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
         },
       },
       plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
     },
   });
 
@@ -805,7 +986,7 @@ router.post("/courses", requireAuth, asyncHandler(async (req, res) => {
   if (isOutOfSchedule) {
     const sectionName = semesterNum <= 4 ? "Summer School" : "Online Courses";
     const occupiedSemester = targetSemesters.find((sem) =>
-      existingCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.plannerOptionId != null))
+      existingCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.summerCourseId != null || pc.plannerOptionId != null))
     );
     if (occupiedSemester != null) {
       const subIndex = occupiedSemester % 2 === 0 ? 2 : 1;
@@ -927,6 +1108,24 @@ router.delete("/courses/:id", requireAuth, asyncHandler(async (req, res) => {
         },
       },
       plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
     },
   });
 
@@ -934,11 +1133,18 @@ router.delete("/courses/:id", requireAuth, asyncHandler(async (req, res) => {
     return res.status(404).json({ error: "Planned course not found" });
   }
 
-  if (plannedCourse.courseId) {
+if (plannedCourse.courseId) {
     await prisma.plannedCourse.deleteMany({
       where: {
         plannerId: plannedCourse.plannerId,
         courseId: plannedCourse.courseId,
+      },
+    });
+  } else if (plannedCourse.summerCourseId) {
+    await prisma.plannedCourse.deleteMany({
+      where: {
+        plannerId: plannedCourse.plannerId,
+        summerCourseId: plannedCourse.summerCourseId,
       },
     });
   } else if (plannedCourse.plannerOptionId && getPlannedDuration(plannedCourse) === 2) {
@@ -1074,11 +1280,33 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
         },
       },
       plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
     },
   });
 
   if (!source || source.planner.userId !== userId) {
     return res.status(404).json({ error: "Planned course not found" });
+  }
+
+  if (source.summerCourseId != null && (semesterNum < 3 || semesterNum > 4)) {
+    return res.status(400).json({ error: "Summer courses can only be planned in Summer School semesters." });
   }
 
   if (semesterNum > 2) {
@@ -1101,11 +1329,29 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
           },
         },
         plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
       },
     });
     const sectionName = semesterNum <= 4 ? "Summer School" : "Online Courses";
     const occupiedSemester = targetSemesters.find((sem) =>
-      otherCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.plannerOptionId != null))
+      otherCourses.some((pc) => pc.semester === sem && (pc.courseId != null || pc.summerCourseId != null || pc.plannerOptionId != null))
     );
     if (occupiedSemester != null) {
       const subIndex = occupiedSemester % 2 === 0 ? 2 : 1;
@@ -1156,6 +1402,24 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
       include: {
         course: { include: { options: { include: { offerings: true } } } },
         plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
       },
     });
     if (
@@ -1197,6 +1461,24 @@ router.post("/courses/:id/move", requireAuth, asyncHandler(async (req, res) => {
         },
       },
       plannerOption: true,
+          summerCourse: {
+            include: {
+              regularCourse: {
+                include: {
+                  department: {
+                    include: {
+                      division: true,
+                    },
+                  },
+                  options: {
+                    include: {
+                      offerings: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
     },
   });
 
