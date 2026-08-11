@@ -13,6 +13,7 @@ export type SummerCourseForDetails = {
   gradeLevels: number[];
   duration: string;
   prerequisites: unknown;
+  corequisites: unknown;
   fulfillsRequirements: unknown;
   isSummerOnly: boolean;
   regularCourseId: number | null;
@@ -49,6 +50,7 @@ export type SummerCourseDetails = {
   gradeLevels: number[];
   duration: string;
   prerequisites: string[];
+  corequisites: string[];
   fulfillsRequirements: string[];
   isSummerOnly: boolean;
   regularCourseId: number | null;
@@ -72,6 +74,11 @@ export function deriveSummerCourseDetails(
     duration: course.duration,
     prerequisites: Array.isArray(course.prerequisites)
       ? course.prerequisites
+          .filter((p): p is string => typeof p === "string" && !!p.trim())
+          .map((p) => normalizePrerequisite(p.trim()))
+      : [],
+    corequisites: Array.isArray(course.corequisites)
+      ? course.corequisites
           .filter((p): p is string => typeof p === "string" && !!p.trim())
           .map((p) => normalizePrerequisite(p.trim()))
       : [],

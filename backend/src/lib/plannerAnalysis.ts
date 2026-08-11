@@ -283,29 +283,45 @@ function toAnalysisSummerId(summerCourseId: number): number {
   return -(SUMMER_ID_OFFSET + summerCourseId);
 }
 
-function toAnalysisSummerCourse(summerCourse: SummerCourseWithRelations): AnalysisCourse {
-  const fulfillsRequirements = [
-    ...new Set(
-      summerCourse.requirement.map((r) => canonicalRequirementName(r.graduationRequirement.name))
-    ),
-  ];
-  const fulfillsCanonicalSet = new Set(fulfillsRequirements);
-
-  // Reuse the matched regular course's requirementCredits split when available;
-  // otherwise leave empty so the legacy full-credit-per-fulfilled-requirement
-  // fallback applies (SummerCourse has no requirementCredits of its own).
-  const requirementCredits: Record<string, number> = {};
-  const matched = summerCourse.regularCourse;
+function getSummerRequirementCredits(
+  course: SummerCourseWithRelations,
+  fulfillsRequirements: string[]
+): Record<string, number> {
+  const credits: Record<string, number> = {};
+  const matched = course.regularCourse;
   if (matched) {
     const raw = matched.requirementCredits;
     if (raw && typeof raw === "object" && !Array.isArray(raw)) {
       for (const [rawKey, value] of Object.entries(raw)) {
         if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) continue;
         const canonical = canonicalRequirementName(rawKey);
-        if (fulfillsCanonicalSet.has(canonical)) requirementCredits[canonical] = value;
+        if (fulfillsRequirements.includes(canonical)) credits[canonical] = value;
       }
     }
   }
+
+  // Summer School does not have a separate requirementCredits column. When a
+  // course explicitly fulfills multiple requirements and the matched regular
+  // course has no usable split, divide its credit once across those requirements
+  // instead of counting the full credit repeatedly.
+  if (Object.keys(credits).length === 0 && fulfillsRequirements.length > 1) {
+    const share = (course.credits ?? 0) / fulfillsRequirements.length;
+    for (const requirement of fulfillsRequirements) credits[requirement] = share;
+  }
+
+  return credits;
+}
+
+function toAnalysisSummerCourse(summerCourse: SummerCourseWithRelations): AnalysisCourse {
+  const fulfillsRequirements = [
+    ...new Set(
+      summerCourse.requirement.map((r) => canonicalRequirementName(r.graduationRequirement.name))
+    ),
+  ];
+  // Reuse the matched regular course's requirementCredits split when available;
+  // otherwise allocate multi-requirement summer credit without double counting.
+  const requirementCredits = getSummerRequirementCredits(summerCourse, fulfillsRequirements);
+  const matched = summerCourse.regularCourse;
 
   const prerequisites = new Set<string>();
   if (Array.isArray(summerCourse.prerequisites)) {
@@ -609,6 +625,16 @@ function getBackendPlacementKey(p: CoursePlacement): string {
     return `fy:${p.course.id}:${p.slot}`;
   }
   return `sem:${p.course!.id}:${p.slot}:${p.semester}:${p.year}`;
+}
+
+function chronologicalSemester(semester: number): number {
+  // Summer 1/2 are the summer before the planner's school year, so they occur
+  // before that year's regular semesters for prerequisite evaluation.
+  if (semester === 3) return 0;
+  if (semester === 4) return 1;
+  if (semester === 1) return 2;
+  if (semester === 2) return 3;
+  return semester;
 }
 
 // A matched summer course (duplicateGroupId set) is equivalent to its regular
@@ -1259,7 +1285,12 @@ function computeMissingPrerequisites(
       courseCode: p.course!.courseCode,
       placement: p,
     }));
-  ordered.sort((a, b) => a.year - b.year || a.semester - b.semester);
+  ordered.sort(
+    (a, b) =>
+      a.year - b.year ||
+      chronologicalSemester(a.semester) - chronologicalSemester(b.semester) ||
+      a.placement.slot - b.placement.slot
+  );
 
   const completedItems = completedCourses.map((cc) => ({
     title: cc.course?.title ?? cc.summerCourse?.title ?? "",

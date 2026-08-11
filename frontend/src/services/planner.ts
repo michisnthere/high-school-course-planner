@@ -463,6 +463,20 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
 
       const isFullSummer = summerCourse.duration === "full_summer";
       const targetSemesters = isFullSummer ? [3, 4] : [semester];
+      const sessions = (summerCourse.sessions ?? []).map((value) => value.trim().toLowerCase());
+      const expectedSession = semester === 4 ? "session 2" : "session 1";
+      if (
+        sessions.length > 0 &&
+        (isFullSummer
+          ? !(sessions.includes("session 1") && sessions.includes("session 2"))
+          : !sessions.includes(expectedSession))
+      ) {
+        throw new Error(
+          isFullSummer
+            ? `${summerCourse.title} is not offered for the full summer.`
+            : `${summerCourse.title} is not offered in ${expectedSession.replace(/^\w/, (c) => c.toUpperCase())}.`
+        );
+      }
       const occupiedSemester = targetSemesters.find((sem) =>
         planner.plannedCourses.some((pc) => pc.semester === sem && pc.id != null)
       );

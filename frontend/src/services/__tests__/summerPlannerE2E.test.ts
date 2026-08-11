@@ -35,7 +35,30 @@ const algebra: PlannerCourseDetails = {
   attributes: [],
 };
 
-const regularCatalog = [algebra];
+const healthDependent: PlannerCourseDetails = {
+  id: 4,
+  title: "Health Lab",
+  normalizedTitle: "health lab",
+  duration: 1,
+  slotsPerSemester: 1,
+  creditType: "regular",
+  credits: 1,
+  division: "Science",
+  department: "Science",
+  description: null,
+  fulfillsRequirements: ["Health"],
+  prerequisites: ["Health Education"],
+  courseCode: "HLTH201",
+  courseCodeS1: null,
+  courseCodeS2: null,
+  gradeMin: 10,
+  gradeMax: 10,
+  isNonAcademic: false,
+  isMarchingBand: false,
+  attributes: [],
+};
+
+const regularCatalog = [algebra, healthDependent];
 
 // A summer-only, credit-bearing course open to students entering grade 10, taken
 // during the 9→10 summer (placed in the Sophomore planner's Summer School).
@@ -88,6 +111,40 @@ const summerAnatomy: SummerCourse = {
   regularCourse: null,
   gradeLevels: [10],
   sessions: ["Session 2"],
+};
+
+const fullSummer: SummerCourse = {
+  id: 104,
+  key: "full-summer-elective",
+  title: "Full Summer Elective",
+  courseCode: "SUM-FULL",
+  creditStatus: "credit",
+  credits: 1,
+  duration: "full_summer",
+  prerequisites: [],
+  fulfillsRequirements: ["Electives"],
+  isSummerOnly: true,
+  regularCourseId: null,
+  regularCourse: null,
+  gradeLevels: [10],
+  sessions: ["Session 1", "Session 2"],
+};
+
+const matchedSummer: SummerCourse = {
+  id: 105,
+  key: "summer-algebra-equivalent",
+  title: "Algebra I Summer",
+  courseCode: "SUM-ALG1",
+  creditStatus: "credit",
+  credits: 2,
+  duration: "full_summer",
+  prerequisites: [],
+  fulfillsRequirements: ["Mathematics"],
+  isSummerOnly: false,
+  regularCourseId: algebra.id,
+  regularCourse: algebra,
+  gradeLevels: [10],
+  sessions: ["Session 1", "Session 2"],
 };
 
 function buildStack() {
@@ -171,6 +228,54 @@ describe("Summer School end-to-end (guest stack)", () => {
         (m) => m.courseTitle === summerAnatomy.title && m.missingPrerequisite === "Biology" && m.reason === "notPlanned"
       )
     ).toBe(true);
+  });
+
+  it("evaluates Summer before that planner year's regular semesters", async () => {
+    const stack = buildStack();
+    const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
+
+    await stack.plannerService.addSummerCourse(sophomore.id, summerHealth, 3);
+    await stack.plannerService.addPlannedCourse(sophomore.id, healthDependent.id, 1, 1);
+
+    const analysis = await analyze(stack);
+    expect(analysis.missingPrerequisites.some((m) => m.courseTitle === healthDependent.title)).toBe(false);
+  });
+
+  it("counts a completed Summer prerequisite for a regular course", async () => {
+    const stack = buildStack();
+    const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
+
+    await stack.completedService.addCompletedCourse({
+      summerCourseId: summerHealth.id,
+      gradeCompleted: "Sophomore (10)",
+      summerCourse: summerHealth,
+    });
+    await stack.plannerService.addPlannedCourse(sophomore.id, healthDependent.id, 1, 1);
+
+    const analysis = await analyze(stack);
+    expect(analysis.missingPrerequisites.some((m) => m.courseTitle === healthDependent.title)).toBe(false);
+    expect(analysis.credits.total).toBe(2);
+  });
+
+  it("occupies both Summer sessions for a full-summer course and rejects conflicts", async () => {
+    const stack = buildStack();
+    const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
+
+    const updated = await stack.plannerService.addSummerCourse(sophomore.id, fullSummer, 3);
+    expect(updated.plannedCourses.filter((pc) => pc.summerCourseId === fullSummer.id).map((pc) => pc.semester)).toEqual([3, 4]);
+    await expect(stack.plannerService.addSummerCourse(sophomore.id, summerHealth, 3)).rejects.toThrow(
+      "Summer School Semester 1 already has a course"
+    );
+  });
+
+  it("blocks a matched regular equivalent while preserving the existing PE exception", async () => {
+    const stack = buildStack();
+    const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
+
+    await stack.plannerService.addSummerCourse(sophomore.id, matchedSummer, 3);
+    await expect(stack.plannerService.addPlannedCourse(sophomore.id, algebra.id, 1, 1)).rejects.toThrow(
+      "Summer School equivalent"
+    );
   });
 
   it("completing the Sophomore year records the 9→10 summer course under Sophomore (10)", async () => {

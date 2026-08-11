@@ -13,6 +13,7 @@ export type SummerCourse = {
   credits: number | null;
   duration: "one_session" | "full_summer" | string;
   prerequisites: string[];
+  corequisites?: string[];
   fulfillsRequirements: string[];
   isSummerOnly: boolean;
   regularCourseId: number | null;

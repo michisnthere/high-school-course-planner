@@ -94,6 +94,22 @@ export function SummerCoursePicker({
     return set;
   }, [allCourses]);
 
+  const regularCompletedDuplicateIds = React.useMemo(() => {
+    const set = new Set<number>();
+    for (const course of allCourses) {
+      const regular = course.regularCourse;
+      if (
+        regular &&
+        regular.isRepeatable !== true &&
+        !(regular.duration === 1 && regular.department === "Physical Education") &&
+        completedRegularSet.has(regular.id)
+      ) {
+        set.add(course.id);
+      }
+    }
+    return set;
+  }, [allCourses, completedRegularSet]);
+
   const results = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     const list = allCourses
@@ -113,7 +129,9 @@ export function SummerCoursePicker({
           regularId != null &&
           !repeatableSet.has(regularId) &&
           (plannedRegularSet.has(regularId) || completedRegularSet.has(regularId));
-        const disabled = !eligibleGrade || !offeredHere || alreadyAdded || regularEquivalentDuplicate;
+        const completedRegularDuplicate =
+          regularId != null && regularCompletedDuplicateIds.has(course.id);
+        const disabled = !eligibleGrade || !offeredHere || alreadyAdded || regularEquivalentDuplicate || completedRegularDuplicate;
         let disabledReason: string | null = null;
         if (alreadyAdded) disabledReason = "Already planned in your schedule";
         else if (regularEquivalentDuplicate)
@@ -125,6 +143,7 @@ export function SummerCoursePicker({
           disabledReason = isFullSummer
             ? "Not offered for the full summer"
             : `Not offered in ${session}`;
+        else if (completedRegularDuplicate) disabledReason = "The regular equivalent is already completed";
         return { course, disabled, disabledReason };
       })
       .filter((entry) => {
@@ -293,6 +312,16 @@ export function SummerCoursePicker({
                     {course.regularCourse && (
                       <span style={{ fontSize: "12px", color: "#6ee7b7" }}>
                         Matches the regular course “{course.regularCourse.title}”
+                      </span>
+                    )}
+                    {course.prerequisites.length > 0 && (
+                      <span style={{ fontSize: "12px", color: "#fcd34d" }}>
+                        Prerequisites: {course.prerequisites.join(", ")}
+                      </span>
+                    )}
+                    {(course.corequisites ?? []).length > 0 && (
+                      <span style={{ fontSize: "12px", color: "#fcd34d" }}>
+                        Corequisites: {(course.corequisites ?? []).join(", ")}
                       </span>
                     )}
                   </div>
