@@ -9,8 +9,8 @@ import {
   CATALOG_CREDIT_TYPES,
   CATALOG_GRADE_LEVELS,
   CATALOG_SEMESTERS,
+  formatSummerCreditType,
   normalizeSummerCourseForCatalog,
-  summerCourseSlug,
   summerSessionToSemester,
 } from "@/lib/summerCatalog";
 import {
@@ -137,9 +137,6 @@ function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
     const selectedGrades = filters.gradeLevel.map((grade) => parseInt(grade, 10));
     const hasGrade = course.options?.some((option) =>
       option.offerings?.some((offering) => {
-        if (offering.gradeMin == null && offering.gradeMax == null) {
-          return false;
-        }
         const min = offering.gradeMin ?? 9;
         const max = offering.gradeMax ?? 12;
         return selectedGrades.some((grade) => grade >= min && grade <= max);
@@ -178,7 +175,11 @@ function extractSummerGrades(courses: SummerCourse[]): number[] {
 }
 
 function extractSummerCreditStatuses(courses: SummerCourse[]): string[] {
-  return [...CATALOG_CREDIT_TYPES];
+  const values = new Set<string>();
+  for (const course of courses) {
+    values.add(formatSummerCreditType(course));
+  }
+  return Array.from(values).sort();
 }
 
 function extractSummerSessions(courses: SummerCourse[]): string[] {
@@ -214,22 +215,57 @@ function summerCourseMatchesQuery(course: SummerCourse, query: string): boolean 
 function summerCourseMatchesFilters(course: SummerCourse, filters: ActiveFilters): boolean {
   if (filters.division.length > 0 && !filters.division.includes(deriveSummerDivision(course))) return false;
   if (filters.creditType.length > 0) {
-    if (!course.instructionalCreditType || !filters.creditType.includes(course.instructionalCreditType)) return false;
+    if (!filters.creditType.includes(formatSummerCreditType(course))) return false;
   }
   if (filters.gradeLevel.length > 0) {
     const selectedGrades = filters.gradeLevel.map((grade) => parseInt(grade, 10));
     if (!selectedGrades.some((grade) => (course.gradeLevels ?? []).includes(grade))) return false;
   }
   if (filters.semester.length > 0) {
-    const semesters = (course.sessions ?? [])
+    const semesters = new Set(
+      (course.sessions ?? [])
       .map(summerSessionToSemester)
-      .filter((value): value is "1" | "2" => value != null);
-    if (!filters.semester.some((semester) => semesters.includes(semester as "1" | "2"))) return false;
+      .filter((value): value is "1" | "2" => value != null)
+    );
+    if (course.duration === "full_summer") {
+      semesters.add("1");
+      semesters.add("2");
+    }
+    if (!filters.semester.some((semester) => semesters.has(semester as "1" | "2"))) return false;
   }
   if (filters.requirement.length > 0) {
     if (!filters.requirement.some((requirement) => course.fulfillsRequirements.includes(requirement))) return false;
   }
   return true;
+}
+
+function sanitizeFilters(
+  filters: ActiveFilters,
+  available: {
+    divisions: string[];
+    departments: string[];
+    creditTypes: string[];
+    gradeLevels: number[];
+    semesters: string[];
+  },
+  options: { keepDepartments: boolean }
+): ActiveFilters {
+  const divisionSet = new Set(available.divisions);
+  const departmentSet = new Set(available.departments);
+  const creditTypeSet = new Set(available.creditTypes);
+  const gradeLevelSet = new Set(available.gradeLevels.map(String));
+  const semesterSet = new Set(available.semesters);
+
+  return {
+    division: filters.division.filter((value) => divisionSet.has(value)),
+    department: options.keepDepartments
+      ? filters.department.filter((value) => departmentSet.has(value))
+      : [],
+    creditType: filters.creditType.filter((value) => creditTypeSet.has(value)),
+    gradeLevel: filters.gradeLevel.filter((value) => gradeLevelSet.has(value)),
+    semester: filters.semester.filter((value) => semesterSet.has(value)),
+    requirement: filters.requirement,
+  };
 }
 
 function CatalogSourceToggle({
@@ -385,12 +421,52 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const summerCreditStatuses = useMemo(() => extractSummerCreditStatuses(summerCourses), [summerCourses]);
   const summerSessions = useMemo(() => extractSummerSessions(summerCourses), [summerCourses]);
 
+  const activeFilters = useMemo(() => {
+    if (source === "summer") {
+      return sanitizeFilters(
+        filters,
+        {
+          divisions: summerDivisions,
+          departments: [],
+          creditTypes: summerCreditStatuses,
+          gradeLevels: summerGrades,
+          semesters: summerSessions,
+        },
+        { keepDepartments: false }
+      );
+    }
+
+    return sanitizeFilters(
+      filters,
+      {
+        divisions,
+        departments,
+        creditTypes,
+        gradeLevels,
+        semesters,
+      },
+      { keepDepartments: true }
+    );
+  }, [
+    source,
+    filters,
+    summerDivisions,
+    summerCreditStatuses,
+    summerGrades,
+    summerSessions,
+    divisions,
+    departments,
+    creditTypes,
+    gradeLevels,
+    semesters,
+  ]);
+
   const filteredCourses = useMemo(() => {
     return courses.filter(
       (course) =>
-        courseMatchesQuery(course, submitted, searchIndex) && courseMatchesFilters(course, filters)
+        courseMatchesQuery(course, submitted, searchIndex) && courseMatchesFilters(course, activeFilters)
     );
-  }, [courses, submitted, filters, searchIndex]);
+  }, [courses, submitted, activeFilters, searchIndex]);
 
   const sortedCourses = useMemo(() => {
     return sortCoursesByPrerequisites(filteredCourses, sortData);
@@ -398,13 +474,13 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
 
   const filteredSummerCourses = useMemo(() => {
     return summerCourses
-      .filter((course) => summerCourseMatchesQuery(course, submitted) && summerCourseMatchesFilters(course, filters))
+      .filter((course) => summerCourseMatchesQuery(course, submitted) && summerCourseMatchesFilters(course, activeFilters))
       .sort((a, b) => {
         const div = deriveSummerDivision(a).localeCompare(deriveSummerDivision(b));
         if (div !== 0) return div;
         return a.title.localeCompare(b.title);
       });
-  }, [summerCourses, submitted, filters]);
+  }, [summerCourses, submitted, activeFilters]);
 
   const handleSourceChange = useCallback(
     (nextSource: CatalogSource) => {
@@ -446,7 +522,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
             creditTypes={creditTypes}
             gradeLevels={gradeLevels}
             semesters={semesters}
-            filters={filters}
+            filters={activeFilters}
             onFilterChange={setFilters}
             showCourseFiltersWhenDivisionSelected
             showCourseFiltersImmediately
@@ -467,9 +543,10 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
             creditTypes={summerCreditStatuses}
             gradeLevels={summerGrades}
             semesters={summerSessions}
-            filters={filters}
+            filters={activeFilters}
             onFilterChange={setFilters}
             showCourseFiltersImmediately
+            creditTypeFormatter={(value) => value}
           />
 
           {summerLoading ? (
@@ -481,7 +558,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
           ) : (
             <CourseGrid
               courses={summerCatalogCourses}
-              getCourseHref={(course) => `/catalog/summer/${course.normalizedTitle ?? ""}${searchParams.toString() ? `?return=${encodeURIComponent(`/catalog?${searchParams.toString()}`)}` : ""}`}
+              getCourseHref={() => null}
               showSaveButtons={false}
             />
           )}

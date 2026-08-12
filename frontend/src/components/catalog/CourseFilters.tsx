@@ -28,6 +28,7 @@ type CourseFiltersProps = {
   showCourseFiltersImmediately?: boolean;
   creditTypeLabel?: string;
   semesterLabel?: string;
+  creditTypeFormatter?: (value: string) => string;
 };
 
 const activeChipStyle: React.CSSProperties = {
@@ -122,6 +123,7 @@ export function CourseFilters({
   showCourseFiltersImmediately = false,
   creditTypeLabel = "Credit Type",
   semesterLabel = "Semester",
+  creditTypeFormatter = formatCreditTypeFilter,
 }: CourseFiltersProps): React.ReactElement {
   const hasActiveFilters = useMemo(
     () =>
@@ -227,7 +229,7 @@ export function CourseFilters({
               values={creditTypes}
               selected={filters.creditType}
               onToggle={(value) => toggleFilter("creditType", value)}
-              formatLabel={formatCreditTypeFilter}
+              formatLabel={creditTypeFormatter}
             />
             <ToggleGroup
               label="Grade Level"

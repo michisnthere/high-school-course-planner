@@ -28,6 +28,12 @@ export function formatSummerCredits(course: SummerCourse): string {
   return "Credit";
 }
 
+export function formatSummerCreditType(course: SummerCourse): string {
+  if (course.creditStatus === "non-credit") return "Non-credit";
+  if (course.creditStatus === "unknown") return "Credit unknown";
+  return "Credit";
+}
+
 export function formatSummerGrades(course: SummerCourse): string | null {
   const grades = [...(course.gradeLevels ?? [])].sort((a, b) => a - b);
   if (grades.length === 0) return null;
@@ -45,7 +51,8 @@ export function formatSummerSessions(course: SummerCourse): string | null {
 
 export function normalizeSummerCourseForCatalog(course: SummerCourse): Course {
   const division = course.division ?? "Summer School";
-  const creditType = course.instructionalCreditType ?? null;
+  const creditType = formatSummerCreditType(course);
+  const gradeLevels = course.gradeLevels ?? [];
   const grades = formatSummerGrades(course);
   const sessions = formatSummerSessions(course);
   const credits = formatSummerCredits(course);
@@ -78,8 +85,8 @@ export function normalizeSummerCourseForCatalog(course: SummerCourse): Course {
           courseCode: course.courseCode ?? "",
           semesterLabel: summerSessionToSemester(session) ?? session,
           duration: course.duration === "full_summer" ? "2" : "1",
-          gradeMin: course.gradeLevels.length > 0 ? Math.min(...course.gradeLevels) : null,
-          gradeMax: course.gradeLevels.length > 0 ? Math.max(...course.gradeLevels) : null,
+          gradeMin: gradeLevels.length > 0 ? Math.min(...gradeLevels) : null,
+          gradeMax: gradeLevels.length > 0 ? Math.max(...gradeLevels) : null,
           credits: course.credits,
           prerequisites: course.prerequisites,
           corequisites: course.corequisites,
