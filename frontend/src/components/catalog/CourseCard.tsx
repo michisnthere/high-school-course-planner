@@ -28,6 +28,7 @@ const CourseCardInner = React.memo(function CourseCardInner({
   const searchParams = useSearchParams();
   const creditType = course.options?.[0]?.creditType ?? null;
   const description = truncateDescription(course.description);
+  const meta = course.catalogMeta ?? [];
   const slug = getCourseSlug(course);
 
   const filterQuery = searchParams.toString();
@@ -67,7 +68,7 @@ const CourseCardInner = React.memo(function CourseCardInner({
             marginBottom: "12px",
           }}
         >
-          <CourseCardSummary course={course} creditType={creditType} description={description} />
+          <CourseCardSummary course={course} creditType={creditType} description={description} meta={meta} />
         </Link>
       ) : (
         <div
@@ -78,7 +79,7 @@ const CourseCardInner = React.memo(function CourseCardInner({
           marginBottom: "12px",
         }}
       >
-          <CourseCardSummary course={course} creditType={creditType} description={description} />
+          <CourseCardSummary course={course} creditType={creditType} description={description} meta={meta} />
         </div>
       )}
 
@@ -91,10 +92,12 @@ function CourseCardSummary({
   course,
   creditType,
   description,
+  meta,
 }: {
   course: Course;
   creditType: string | null;
   description: string;
+  meta: string[];
 }): React.ReactElement {
   return (
     <>
@@ -145,6 +148,19 @@ function CourseCardSummary({
             {formatCreditType(creditType)}
           </span>
         )}
+        {meta.map((item) => (
+          <span
+            key={item}
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "var(--bg-input)",
+              borderRadius: "9999px",
+              fontWeight: 600,
+            }}
+          >
+            {item}
+          </span>
+        ))}
       </div>
 
       {description && (

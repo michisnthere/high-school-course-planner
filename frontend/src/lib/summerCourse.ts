@@ -9,6 +9,7 @@ export type SummerCourse = {
   key: string;
   title: string;
   courseCode: string | null;
+  description: string | null;
   creditStatus: "credit" | "non-credit" | "unknown" | string;
   credits: number | null;
   duration: "one_session" | "full_summer" | string;
@@ -16,6 +17,12 @@ export type SummerCourse = {
   corequisites?: string[];
   fulfillsRequirements: string[];
   isSummerOnly: boolean;
+  division: string | null;
+  instructionalCreditType: string | null;
+  attributes: string[];
+  notes: string[];
+  sourcePage: number | null;
+  sourceReference: string | null;
   regularCourseId: number | null;
   regularCourse: PlannerCourseDetails | null;
   matchedTitle?: string | null;
@@ -25,8 +32,10 @@ export type SummerCourse = {
   requirement?: Array<{ sourceName: string; graduationRequirement: { id: number; name: string } }>;
 };
 
+const API_URL = typeof window === "undefined" ? (process.env.BACKEND_URL || "http://localhost:4000") : "";
+
 export async function getSummerCourses(): Promise<SummerCourse[]> {
-  const response = await fetch(`/api/summer-courses`, {
+  const response = await fetch(`${API_URL}/api/summer-courses`, {
     credentials: "include",
   });
 

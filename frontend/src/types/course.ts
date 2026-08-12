@@ -29,6 +29,8 @@ export type Department = {
 export type Course = {
   id: number;
   title: string;
+  courseCode?: string | null;
+  catalogMeta?: string[];
   normalizedTitle?: string | null;
   description?: string | null;
   duration?: number | null;
