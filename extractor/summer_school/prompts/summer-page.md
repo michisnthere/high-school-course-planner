@@ -1,11 +1,19 @@
-# Summer School page extraction prompt (Phase 2)
+# Summer School page extraction contract (agent reads the PNG)
 
-You are reading a single page image from the Adlai E. Stevenson High School
-**Summer School coursebook** (Summer 2026). The page shows one or more Summer
-School course listings, or it may be an informational page with no courses.
+You are a coding agent transcribing a single page image from the Adlai E.
+Stevenson High School **Summer School coursebook** (Summer 2026). The page shows
+one or more Summer School course listings, or it may be an informational page
+with no courses.
 
-Your job is to return ONLY valid JSON matching the Summer School catalog schema
-below. Do NOT add commentary, markdown, or prose outside the JSON.
+**The rendered page PNG is the source of truth.** Open the assigned image (e.g.
+`extractor/summer_school/images/page_016.png`) with your Read tool and transcribe
+only what is visibly printed on it. Never use an existing Summer School JSON,
+the PDF text layer, OCR, `build_text_catalog.py`, a vision client, or your
+memory of the school as a source. Persist the result as
+`extractor/summer_school/extracted/page_NNN.json`.
+
+Your job is to produce EXACTLY that JSON matching the Summer School catalog
+schema below. Do NOT add commentary, markdown, or prose outside the JSON file.
 
 Read the rendered coursebook page image directly. Extract only information
 visibly supported by the page. Do not infer missing values from general
@@ -18,6 +26,14 @@ Preserve non-credit courses as `creditStatus = non-credit` with `credits =
 null`. Do not create graduation requirements. Do not interpret catalog
 categories such as Fine Arts, Applied Arts, CSET, etc. as graduation
 requirements unless the page explicitly states that they are.
+
+## Persisting the result
+
+Write the page object to `extractor/summer_school/extracted/page_NNN.json`,
+where `NNN` is the zero-padded page number of the image you inspected (e.g.
+`extracted/page_009.json` for `images/page_009.png`). Run
+`python -m extractor.summer_school.agent_png_extraction status` to see which
+pages still need a JSON, and `finalize` once every page has one.
 
 ## Top-level shape
 
@@ -83,7 +99,8 @@ previous page.
 ## Hard rules
 
 1. Extract ONLY information visible in THIS page image. Do NOT use prior pages,
-   the model's memory of schools, or any external source.
+   the model's memory of schools, any external source, an existing Summer School
+   JSON, the PDF text layer, OCR, or a vision client. The PNG is the only source.
 2. NEVER infer prerequisites, credits, grade levels, course equivalence, Summer
    School availability, or graduation requirements from outside knowledge. If a
    value is not readable from the image, OMIT it and add an `extractionIssues`

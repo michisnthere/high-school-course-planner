@@ -1,18 +1,17 @@
-"""Summer School catalog extraction and import framework.
-
-Phase 1 (this task) provides the *framework only*:
+"""Summer School catalog extraction framework.
 
     PDF (SummerSchool2627.pdf)
-      -> PNG pages
-      -> per-page vision extraction (stub interface)
+      -> images/ (300-DPI rendered PNGs; the source of truth)
+      -> extracted/ (one agent-transcribed JSON per page; a coding agent reads
+         the PNGs directly -- no OCR, PDF text, or vision client)
       -> combined Summer School catalog JSON
       -> schema validation
       -> regular-course matching
       -> dry-run import report (no database writes)
 
-No course content is extracted or inferred in Phase 1.  The pipeline is designed
-to be reviewable at every stage so that Phase 2 can render pages to PNGs and run
-the visual extraction without requiring code changes to this framework.
+The extraction stage is the reusable agent workflow in ``agent_png_extraction.py``
+(contract in ``prompts/summer-page.md``).  Nothing in this package writes to the
+database; a separate import stage consumes the "ready" catalog.
 """
 from __future__ import annotations
 

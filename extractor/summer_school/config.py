@@ -1,8 +1,15 @@
 """Path and constant configuration for the Summer School extraction framework.
 
-All generated artifacts (rendered pages, per-page JSON, combined catalogs, and
-reports) are written under ``extractor/summer_school/output/`` which is
-git-ignored.  No database is ever touched by this package.
+Source-of-truth artifacts live in the package and are tracked in git:
+
+    images/       deterministic 300-DPI PNG rendering of the Summer School PDF
+                  (the PNGs are the source of truth for extraction)
+    extracted/    one JSON per page, produced by a coding agent that visually
+                  reads the PNGs (never OCR, PDF text, or a vision client)
+
+Derived artifacts (combined catalogs and reports) are written under
+``extractor/summer_school/output/`` which is git-ignored.  No database is ever
+touched by this package.
 """
 from __future__ import annotations
 
@@ -22,13 +29,20 @@ SOURCE_PDF = EXTRACTOR_DIR / SOURCE_PDF_NAME
 SOURCE_TITLE = "Summer School Coursebook 2026-2027"
 
 # ---------------------------------------------------------------------------
-# Output locations (all git-ignored generated artifacts)
+# Source-of-truth locations (tracked in git)
+# ---------------------------------------------------------------------------
+
+IMAGES_DIR = PACKAGE_DIR / "images"        # PNG rendering of the PDF
+EXTRACTED_DIR = PACKAGE_DIR / "extracted"  # one agent-transcribed JSON per page
+
+# ---------------------------------------------------------------------------
+# Derived output locations (git-ignored generated artifacts)
 # ---------------------------------------------------------------------------
 
 OUTPUT_DIR = PACKAGE_DIR / "output"
-PAGES_DIR = OUTPUT_DIR / "pages"          # deterministic PNG rendering
-EXTRACT_DIR = OUTPUT_DIR / "extract"      # one JSON per page
-COMBINED_DIR = OUTPUT_DIR / "combined"    # combined + validated catalogs
+PAGES_DIR = IMAGES_DIR                     # deterministic PNG rendering
+EXTRACT_DIR = EXTRACTED_DIR                # one JSON per page
+COMBINED_DIR = OUTPUT_DIR / "combined"     # combined + validated catalogs
 
 COMBINED_CATALOG = COMBINED_DIR / "summer-school-catalog.json"
 VALIDATED_CATALOG = COMBINED_DIR / "summer-school-validated.json"
