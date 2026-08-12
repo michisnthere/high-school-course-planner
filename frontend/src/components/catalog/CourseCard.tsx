@@ -123,19 +123,6 @@ function CourseCardSummary({
           color: "var(--text-muted)",
         }}
       >
-        {course.department?.name && (
-          <span
-            style={{
-              padding: "4px 10px",
-              backgroundColor: "var(--bg-input)",
-              borderRadius: "9999px",
-              fontWeight: 600,
-            }}
-          >
-            {course.department.name}
-          </span>
-        )}
-
         {creditType && (
           <span
             style={{
@@ -145,7 +132,7 @@ function CourseCardSummary({
               fontWeight: 600,
             }}
           >
-            {formatCreditType(creditType)}
+            {formatCreditType(creditType, course.title)}
           </span>
         )}
         {meta.map((item) => (
@@ -161,6 +148,18 @@ function CourseCardSummary({
             {item}
           </span>
         ))}
+        {course.department?.name && (
+          <span
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "var(--bg-input)",
+              borderRadius: "9999px",
+              fontWeight: 600,
+            }}
+          >
+            {course.department.name}
+          </span>
+        )}
       </div>
 
       {description && (

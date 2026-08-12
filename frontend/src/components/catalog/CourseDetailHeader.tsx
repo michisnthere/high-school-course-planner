@@ -137,7 +137,7 @@ export function CourseDetailHeader({ course, returnUrl, fromRequirement }: Cours
               color: "var(--text-primary)",
             }}
           >
-            {formatCreditType(creditType)}
+            {formatCreditType(creditType, course.title)}
           </span>
         )}
 

@@ -506,7 +506,7 @@ export function SavedCoursesContent({
                   {course.department?.name && (
                     <span style={badgeStyle}>{course.department.name}</span>
                   )}
-                  {creditType && <span style={badgeStyle}>{formatCreditType(creditType)}</span>}
+                  {creditType && <span style={badgeStyle}>{formatCreditType(creditType, course.title)}</span>}
                 </div>
 
                 <div style={{ display: "flex", gap: "12px" }}>

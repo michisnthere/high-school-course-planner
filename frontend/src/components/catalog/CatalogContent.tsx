@@ -14,12 +14,12 @@ import {
   summerSessionToSemester,
   summerCourseSlug,
 } from "@/lib/summerCatalog";
-import { normalizeTitle } from "@/lib/normalize";
 import {
   buildCourseSortData,
   buildCourseSearchIndex,
   sortCoursesByPrerequisites,
   courseMatchesQuery,
+  effectiveCreditType,
   extractDivisionsFromItems,
 } from "@/lib/catalog";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
@@ -67,8 +67,9 @@ function extractCreditTypes(courses: Course[]): string[] {
   const creditTypes = new Set<string>(CATALOG_CREDIT_TYPES);
   for (const course of courses) {
     for (const option of course.options ?? []) {
-      if (option.creditType) {
-        creditTypes.add(option.creditType);
+      const effective = effectiveCreditType(course.title, option.creditType);
+      if (effective) {
+        creditTypes.add(effective);
       }
     }
   }
@@ -108,13 +109,9 @@ function extractSemesters(courses: Course[]): string[] {
   return Array.from(semesters).sort();
 }
 
-function getSummerCourseHref(course: SummerCourse): string | null {
-  if (course.regularCourse) {
-    const slug = course.regularCourse.normalizedTitle || normalizeTitle(course.regularCourse.title);
-    return `/catalog/${slug}`;
-  }
-  const slug = summerCourseSlug(course);
-  return `/catalog/${slug}`;
+function getSummerCourseHref(course: SummerCourse, currentSearch: string): string {
+  const returnParam = currentSearch ? `?return=${encodeURIComponent("/catalog?" + currentSearch)}` : "";
+  return `/summer-school/courses/${summerCourseSlug(course)}${returnParam}`;
 }
 
 function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
@@ -139,7 +136,10 @@ function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
 
   if (filters.creditType.length > 0) {
     const hasCreditType = course.options?.some(
-      (option) => option.creditType && filters.creditType.includes(option.creditType)
+      (option) => {
+        const effective = effectiveCreditType(course.title, option.creditType);
+        return effective && filters.creditType.includes(effective);
+      }
     );
     if (!hasCreditType) return false;
   }
@@ -514,13 +514,14 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   );
 
   const summerCourseHrefMap = useMemo(() => {
-    const map = new Map<number, string | null>();
+    const currentSearch = searchParams.toString();
+    const map = new Map<number, string>();
     for (const course of filteredSummerCourses) {
       const catalogCourse = normalizeSummerCourseForCatalog(course);
-      map.set(catalogCourse.id, getSummerCourseHref(course));
+      map.set(catalogCourse.id, getSummerCourseHref(course, currentSearch));
     }
     return map;
-  }, [filteredSummerCourses]);
+  }, [filteredSummerCourses, searchParams]);
 
   return (
     <>

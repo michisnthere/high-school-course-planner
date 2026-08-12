@@ -154,7 +154,7 @@ export function CourseDetailPopover({
                   color: "var(--text-primary)",
                 }}
               >
-                {formatCreditType(course.creditType)}
+                {formatCreditType(course.creditType, course.title)}
               </span>
             )}
             {course.credits != null && (

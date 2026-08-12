@@ -268,10 +268,32 @@ export function extractDivisionsFromItems<T>(
   return Array.from(divisions).sort();
 }
 
-export function formatCreditType(creditType: string | null | undefined): string | null {
+/**
+ * Effective credit type for a course.
+ *
+ * The catalog stores all rigorous course loads under `creditType: "Honors"`,
+ * and the AP designation only exists in the course title prefix (e.g.
+ * "AP Biology"). Rather than collapsing AP and Honors into one label, we
+ * derive the displayed/filtered credit type here so an "AP" course reads as
+ * "AP" while a true honors course reads as "Honors". This is purely a
+ * frontend representation decision; the underlying extraction data is
+ * untouched.
+ */
+export function effectiveCreditType(
+  title: string | null | undefined,
+  creditType: string | null | undefined
+): string | null {
   if (!creditType) return null;
-  if (creditType === "Honors") return "AP/Honors";
+  if (creditType === "AP") return "AP";
+  if (creditType === "Honors" && /^AP\s/i.test(title?.trim() ?? "")) return "AP";
   return creditType;
+}
+
+export function formatCreditType(
+  creditType: string | null | undefined,
+  courseTitle?: string | null
+): string | null {
+  return effectiveCreditType(courseTitle, creditType);
 }
 
 export function formatSemesterLabel(semester: string): string {

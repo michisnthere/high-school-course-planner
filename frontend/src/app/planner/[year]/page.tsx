@@ -2326,7 +2326,7 @@ function PlannedCourseCard({
               fontWeight: 500,
             }}
           >
-            {formatCreditType(course.creditType)}
+            {formatCreditType(course.creditType, course.title)}
           </span>
         )}
         {course.credits != null && (
@@ -2866,7 +2866,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          {formatCreditType(course.creditType)}
+{formatCreditType(course.creditType, course.title)}
                         </span>
                       )}
                       {course.credits != null && (
@@ -3267,7 +3267,7 @@ function MobilePlanner({
           )}
           {planned.course.creditType && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 500 }}>
-              {formatCreditType(planned.course.creditType)}
+              {formatCreditType(planned.course.creditType, planned.course.title)}
             </span>
           )}
           {planned.course.credits != null && (

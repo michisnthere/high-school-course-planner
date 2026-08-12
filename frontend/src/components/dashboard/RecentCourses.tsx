@@ -96,7 +96,7 @@ export function RecentCourses({
                       <span>{course.department.name}</span>
                     )}
                     {course.options?.[0]?.creditType && (
-                      <span>• {formatCreditType(course.options[0].creditType)}</span>
+                      <span>• {formatCreditType(course.options[0].creditType, course.title)}</span>
                     )}
                   </div>
                 </Link>

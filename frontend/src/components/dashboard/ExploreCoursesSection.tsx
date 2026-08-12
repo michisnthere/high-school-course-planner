@@ -102,7 +102,7 @@ export function ExploreCoursesSection({
                     )}
                     {course.options?.[0]?.creditType && (
                       <span>
-                        • {formatCreditType(course.options[0].creditType)}
+                        • {formatCreditType(course.options[0].creditType, course.title)}
                       </span>
                     )}
                   </div>

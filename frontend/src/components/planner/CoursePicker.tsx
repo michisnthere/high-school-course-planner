@@ -285,7 +285,7 @@ export function CoursePicker({
                           borderRadius: "9999px",
                         }}
                       >
-                        {formatCreditType(course.creditType)}
+                        {formatCreditType(course.creditType, course.title)}
                       </span>
                     )}
                     {course.credits != null && (
