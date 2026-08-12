@@ -1,0 +1,150 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 10
+  },
+  "sourcePage": 10,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_010.png",
+  "courses": [
+    {
+      "title": "College Essay Workshop",
+      "key": "college-essay-workshop",
+      "courseCode": "ENG51S/ENG53S/ENG55S/ENG54S/ENG56S",
+      "description": "Students will write college essays/personal statements for multiple college applications similar to those typically written during the summer and fall of senior year.",
+      "division": "Communication Arts",
+      "department": null,
+      "credits": null,
+      "creditType": null,
+      "gradeLevels": [
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Four-day course offered five different times; students may register for multiple sessions.",
+        "ENG53S and ENG54S are 4-8:30 p.m. sections.",
+        "ENG53S will only be offered in person. ENG54S will only be offered virtually via Zoom."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 10
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "non-credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Creative Writing",
+      "key": "creative-writing",
+      "courseCode": "ENG57S",
+      "description": "Students learn to express their thoughts through writing short stories, poems and plays.",
+      "division": "Communication Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": "Accelerated Option Available",
+      "gradeLevels": [
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
+      "attributes": [],
+      "notes": [
+        "1 semester English credit for grade 11; 1 semester English credit for grade 12."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 10
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "English Failure Credit Recovery",
+      "key": "english-failure-credit-recovery",
+      "courseCode": "ENG25S",
+      "description": "This writing-intensive one-semester course is for students who need to earn Freshman, Sophomore, Junior or Senior English credit due to a failure of either first or second semester.",
+      "division": "Communication Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Prior enrollment in Freshman, Sophomore, Junior and/or Senior English"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "English"
+      ],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 10
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Reading for College",
+      "key": "reading-for-college",
+      "courseCode": "ENG71S",
+      "description": "This course is designed for students wanting to improve their reading and analysis skills for diverse content types or prepare for the ACT and SAT.",
+      "division": "Communication Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 10
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

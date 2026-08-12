@@ -1,4 +1,4 @@
-"""Build the Summer School catalog from the PDF text layer.
+"""Legacy/debug builder for the Summer School catalog from the PDF text layer.
 
 The Summer 2026 coursebook has a reliable text layer.  This extractor keeps the
 source data intentionally small and conservative: it records only course facts
@@ -7,9 +7,10 @@ equivalences to later review.  It is useful when the optional vision provider is
 not configured, and it still produces the same annotated ready-catalog shape
 consumed by the isolated database importer.
 
-This is not a replacement for the vision pipeline.  If the PDF text layer is
-changed or a future coursebook has a different layout, use the normal
-render/extract/combine stages instead of copying this catalog forward.
+This is not an authoritative extraction path and must not be used to generate
+summer-school-ready.json. The normal command is:
+
+    python -m extractor.summer_school.pipeline
 """
 
 from __future__ import annotations
@@ -435,13 +436,24 @@ def build_catalog() -> Dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", default=str(config.READY_CATALOG), help="Ready catalog JSON path")
+    parser.add_argument(
+        "--out",
+        default=str(config.COMBINED_DIR / "summer-school-text-legacy-debug.json"),
+        help="Legacy debug output path. Refuses canonical ready/catalog paths.",
+    )
     parser.add_argument(
         "--report",
         default=str(config.VALIDATION_REPORT),
         help="Validation report JSON path",
     )
     args = parser.parse_args()
+    forbidden = {config.READY_CATALOG.resolve(), config.COMBINED_CATALOG.resolve()}
+    if Path(args.out).resolve() in forbidden:
+        raise SystemExit(
+            "build_text_catalog.py is legacy/non-authoritative and may not write "
+            "summer-school-ready.json or summer-school-catalog.json. "
+            "Use python -m extractor.summer_school.pipeline."
+        )
 
     catalog = build_catalog()
     result = validate.validate_catalog(catalog)

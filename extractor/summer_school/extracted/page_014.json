@@ -1,0 +1,87 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 14
+  },
+  "sourcePage": 14,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_014.png",
+  "courses": [
+    {
+      "title": "Algebra 2",
+      "key": "algebra-2",
+      "courseCode": "MTH51S/MTH52S",
+      "description": "Algebra 2 builds upon students' prior experiences in geometric relationships and deductive reasoning to deepen fluency with algebraic thinking.",
+      "division": "Mathematics",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Algebra 2 (MTH351/352)"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Students seeking credit recovery may enroll in individual semesters."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 14
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Algebra 2 AB/BC",
+      "key": "algebra-2-ab-bc",
+      "courseCode": "MTH37S/MTH38S",
+      "description": "Algebra 2 AB/BC attends to all the learning outcomes of Algebra 2 and substantially extends the topics.",
+      "division": "Mathematics",
+      "department": null,
+      "credits": 2,
+      "creditType": null,
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Approval of director and completion of Geometry AB/BC (MTH271/272)"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Both semesters are required for students seeking accelerated coursework.",
+        "Students seeking credit recovery may enroll in individual semesters.",
+        "Printed credit: 1 credit per semester."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 14
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "full_summer",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

@@ -103,6 +103,9 @@ def build_regular_index() -> Dict[str, Any]:
             "title": course.get("title"),
             "codes": sorted(codes),
             "courseId": None,
+            "division": course.get("division"),
+            "department": course.get("department"),
+            "creditType": course.get("creditType"),
         }
         for code in codes:
             index["codeKey"].setdefault(normalize_key(code), title_key)
@@ -201,6 +204,11 @@ def annotate_catalog(
         match = match_course(course, index)
         course["regularCourseMatch"] = match
         course["isSummerOnly"] = match["status"] == "unresolved"
+        if match["status"] == "matched":
+            regular = index["titleKey"].get(normalize_key(course.get("title"))) or {}
+            for field in ("division", "department", "creditType"):
+                if regular.get(field) and not course.get(field):
+                    course[field] = regular[field]
     return catalog
 
 

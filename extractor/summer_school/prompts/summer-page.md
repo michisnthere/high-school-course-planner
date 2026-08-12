@@ -7,6 +7,18 @@ School course listings, or it may be an informational page with no courses.
 Your job is to return ONLY valid JSON matching the Summer School catalog schema
 below. Do NOT add commentary, markdown, or prose outside the JSON.
 
+Read the rendered coursebook page image directly. Extract only information
+visibly supported by the page. Do not infer missing values from general
+knowledge. Preserve exact course names, course codes, credits, grade
+restrictions, sessions, prerequisites, corequisites, descriptions,
+requirements, and notes. If a field cannot be established from the page, return
+null/empty according to the schema and record an extraction issue rather than
+guessing. Preserve distinctions between one-session and full-summer courses.
+Preserve non-credit courses as `creditStatus = non-credit` with `credits =
+null`. Do not create graduation requirements. Do not interpret catalog
+categories such as Fine Arts, Applied Arts, CSET, etc. as graduation
+requirements unless the page explicitly states that they are.
+
 ## Top-level shape
 
 Return an object with exactly these keys:
@@ -34,6 +46,12 @@ previous page.
 - `credits` — number > 0. Preserve the printed credit value exactly, e.g.
   `0.5` for "0.5 Semester Credit", `1.0` for "1 Semester Credit". Omit if no
   credit value is printed.
+- `creditStatus` - exactly `"credit"`, `"non-credit"`, or `"unknown"`. Use
+  `"non-credit"` with `"credits": null` only when the page clearly identifies a
+  non-credit course. Never use `0` credits.
+- `division` / `department` - only if visibly printed on this page. Do not infer
+  them from the title, code, or catalog section.
+- `creditType` - only if visibly printed on this page.
 - `gradeLevels` — list of integers in 9..12 parsed from "Open to: 9-10-11-12"
   → `[9, 10, 11, 12]`. Omit if not shown.
 - `sessions` — list of Summer School session tokens taken from the printed

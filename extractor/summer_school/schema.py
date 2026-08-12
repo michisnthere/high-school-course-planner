@@ -102,12 +102,15 @@ class SummerCourse(TypedDict):
     key: str
 
     description: NotRequired[Optional[str]]
+    division: NotRequired[Optional[str]]
+    department: NotRequired[Optional[str]]
 
     # course code exactly as printed in the Summer School coursebook, if any.
     # This may or may not match the regular catalog code for the same course.
     courseCode: NotRequired[Optional[str]]
 
     credits: NotRequired[Optional[float]]  # numeric, > 0 when present
+    creditType: NotRequired[Optional[str]]
     # Explicit credit status is consumed by the isolated importer.  Non-credit
     # and unknown courses intentionally carry ``credits: null``.
     creditStatus: NotRequired[Optional[Literal["credit", "non-credit", "unknown"]]]
@@ -123,6 +126,8 @@ class SummerCourse(TypedDict):
     # Canonical graduation requirement names the course fulfills (as recorded
     # in the coursebook description if it states them explicitly).
     fulfillsRequirements: NotRequired[Optional[List[str]]]
+    attributes: NotRequired[Optional[List[str]]]
+    notes: NotRequired[Optional[List[str]]]
 
     # Summer-School-only courses have no existing regular Course record.
     # Set by the matching stage; NOT inferred during extraction.
@@ -134,8 +139,6 @@ class SummerCourse(TypedDict):
 
     # Any field the visual extraction could not read confidently.
     extractionIssues: NotRequired[Optional[List[ExtractionIssue]]]
-
-    notes: NotRequired[Optional[List[str]]]
 
 
 # ---------------------------------------------------------------------------

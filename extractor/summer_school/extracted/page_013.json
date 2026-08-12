@@ -1,0 +1,87 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 13
+  },
+  "sourcePage": 13,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_013.png",
+  "courses": [
+    {
+      "title": "Algebra 1",
+      "key": "algebra-1",
+      "courseCode": "MTH15S/MTH16S",
+      "description": "Algebra 1 helps students develop proficiency in algebraic thinking.",
+      "division": "Mathematics",
+      "department": null,
+      "credits": 2,
+      "creditType": null,
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Algebra 1 (MTH151/152)"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Both semesters are required for grade 9.",
+        "Printed credit: 1 credit per semester."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 13
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "full_summer",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Geometry",
+      "key": "geometry",
+      "courseCode": "MTH25S/MTH26S",
+      "description": "Geometry helps students develop proficiency in deductive reasoning and geometric thinking.",
+      "division": "Mathematics",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Approval of director and completion of Algebra 1 (MTH151/152)"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Students seeking credit recovery may enroll in individual semesters."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 13
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

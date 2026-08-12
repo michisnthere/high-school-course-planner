@@ -1,0 +1,156 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 17
+  },
+  "sourcePage": 17,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_017.png",
+  "courses": [
+    {
+      "title": "World History and Geography",
+      "key": "world-history-and-geography",
+      "courseCode": "SOC13S/SOC14S",
+      "description": "World History and Geography focuses on disciplinary skills of comprehension, analysis and argumentation using a framework for the intensified eight-week curriculum.",
+      "division": "Social Studies",
+      "department": null,
+      "credits": 2,
+      "creditType": null,
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "World History and Geography"
+      ],
+      "attributes": [],
+      "notes": [
+        "Both semesters are required.",
+        "Printed credit: 1 credit per semester."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 17
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "full_summer",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "U.S. History",
+      "key": "u-s-history",
+      "courseCode": "SOC33S/SOC34S",
+      "description": "This sequence fulfills the graduation requirement of one year of U.S. history as established by the state of Illinois.",
+      "division": "Social Studies",
+      "department": null,
+      "credits": 2,
+      "creditType": null,
+      "gradeLevels": [
+        11,
+        12
+      ],
+      "prerequisites": [
+        "World History and Geography"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "U.S. History"
+      ],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 17
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "full_summer",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Economics",
+      "key": "economics",
+      "courseCode": "SOC43S/SOC44S",
+      "description": "This course is designed to acquaint students with the economic knowledge and decision-making skills they will need as informed citizens.",
+      "division": "Social Studies",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "Economics or Personal Finance"
+      ],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 17
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Government",
+      "key": "government",
+      "courseCode": "SOC41S",
+      "description": "Topics include federal, state and local government, methods of selecting candidates for office, and mechanics of voting.",
+      "division": "Social Studies",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        12
+      ],
+      "prerequisites": [
+        "World History and Geography and U.S. History"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "Government"
+      ],
+      "attributes": [],
+      "notes": [
+        "This course satisfies the Illinois civics requirement and Stevenson's graduation requirement of one semester of government."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 17
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

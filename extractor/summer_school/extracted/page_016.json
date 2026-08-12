@@ -1,0 +1,114 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 16
+  },
+  "sourcePage": 16,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_016.png",
+  "courses": [
+    {
+      "title": "Health Education",
+      "key": "health-education",
+      "courseCode": "PED21S/PED22S",
+      "description": "The following Health Education units are taught: Wellness and Mental Health; Adult CPR and AED; Fitness and Personal Health; Reality of Drugs; Social Health.",
+      "division": "Physical Welfare",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        10
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "Health"
+      ],
+      "attributes": [],
+      "notes": [
+        "This course is required for graduation.",
+        "Students taking summer school Health will not be certified in Adult CPR."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 16
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Astronomy",
+      "key": "astronomy",
+      "courseCode": "SCI21S",
+      "description": "Astronomy is the scientific study of the origin, structure and evolution of the universe and the objects in it.",
+      "division": "Science",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Successful completion of one year of high school science"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 16
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Introduction to Biotechnology",
+      "key": "introduction-to-biotechnology",
+      "courseCode": "SCI31S/SCI33S",
+      "description": "A two-week course for students who want to learn and practice skills and techniques used in biotechnology.",
+      "division": "Science",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 16
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

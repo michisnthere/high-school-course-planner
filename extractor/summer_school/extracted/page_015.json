@@ -1,0 +1,116 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 15
+  },
+  "sourcePage": 15,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_015.png",
+  "courses": [
+    {
+      "title": "ELD Skills in Focus: Oracy and Literacy",
+      "key": "eld-skills-in-focus-oracy-and-literacy",
+      "courseCode": "ELD11S",
+      "description": "This one-semester course is designed to strengthen the literacy and oracy skills of students who are taking or have taken more advanced ELD coursework.",
+      "division": "Multilingual Learning and ELD",
+      "department": null,
+      "credits": 1,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Multilingual Advanced Literature or Language (ELL361/362 or ELL371/372) or ELD World and Contemporary Literature (ELL461/462)"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 15
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "ELD Study Skills",
+      "key": "eld-study-skills",
+      "courseCode": "ELD32S",
+      "description": "This course for incoming students in our ELD program is designed to build and enrich English skills applicable across content areas.",
+      "division": "Multilingual Learning and ELD",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Enrollment in ELD Program or Approval of Director"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 15
+      },
+      "sessions": [
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "ELD English Enrichment",
+      "key": "eld-english-enrichment",
+      "courseCode": "ELD21S",
+      "description": "This one-semester course is designed to enrich the academic English skills of incoming students in our ELD program.",
+      "division": "Multilingual Learning and ELD",
+      "department": null,
+      "credits": 1,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Enrollment in ELD Program (going into Intermediate or Advanced) or Approval of Director"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 15
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,119 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 8
+  },
+  "sourcePage": 8,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_008.png",
+  "courses": [
+    {
+      "title": "Driver Education",
+      "key": "driver-education",
+      "courseCode": "D/E21S/D/E22S",
+      "description": "This course is a two-phase program consisting of classroom and behind-the-wheel instruction. The course prepares students for safe motor vehicle operation in a suburban driving environment.",
+      "division": "Applied Arts",
+      "department": "Business Education",
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Age 15 before the first day of summer school, parental consent, an instruction permit issued by the Secretary of State's office (which will be obtained by the Driver Education Department in May) and have earned at least eight (8) credits in the previous two semesters. Students in the ELD program must have completed ELD 2 to register for Driver Education."
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [
+        "Driver Education"
+      ],
+      "attributes": [],
+      "notes": [
+        "Cost: $425/semester + $400 behind the wheel driving + $20 fee to be paid to the Illinois Secretary of State's office for a driving permit.",
+        "Grade earned is not included in GPA.",
+        "Students must be 15 years old to obtain an Illinois driving permit."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 8
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Introduction to Business",
+      "key": "introduction-to-business",
+      "courseCode": "BUS71S/BUS72S",
+      "description": "Introduction to Business provides students with a foundational understanding of the business world. This course explores key topics including marketing, accounting, international business and entrepreneurship.",
+      "division": "Applied Arts",
+      "department": "Business Education",
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 8
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Business Applications and Technology 1",
+      "key": "business-applications-and-technology-1",
+      "courseCode": "BUS12S",
+      "description": "Students must be able to use technology effectively. Business Applications and Technology 1 teaches students how to use a variety of software programs and multimedia platforms as they create a business concept.",
+      "division": "Applied Arts",
+      "department": "Business Education",
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 8
+      },
+      "sessions": [
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

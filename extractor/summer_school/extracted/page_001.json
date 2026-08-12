@@ -1,0 +1,12 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 1
+  },
+  "sourcePage": 1,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_001.png",
+  "courses": [],
+  "warnings": [
+    "page contains no course listings"
+  ]
+}

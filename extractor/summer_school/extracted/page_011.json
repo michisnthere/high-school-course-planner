@@ -1,0 +1,79 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 11
+  },
+  "sourcePage": 11,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_011.png",
+  "courses": [
+    {
+      "title": "Computer Programming 1",
+      "key": "computer-programming-1",
+      "courseCode": "CSC61S",
+      "description": "This one-semester course introduces students to the foundations of computer programming using Python.",
+      "division": "Computer Science",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 11
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Computer Programming 2",
+      "key": "computer-programming-2",
+      "courseCode": "CSC82S",
+      "description": "This one-semester course is intended for students who possess some programming experience or have successfully completed Computer Programming 1.",
+      "division": "Computer Science",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Computer Programming 1 (CSC161/162) or Web Development 2 (TEC281/282) or Principles of Engineering (TEC301/302), or AP Computer Science Principles (CSC371/372)"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 11
+      },
+      "sessions": [
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

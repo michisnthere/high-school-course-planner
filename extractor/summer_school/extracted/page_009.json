@@ -1,0 +1,139 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 9
+  },
+  "sourcePage": 9,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_009.png",
+  "courses": [
+    {
+      "title": "Careers in Business",
+      "key": "careers-in-business",
+      "courseCode": "CAR53S",
+      "description": "A two-week course for students interested in learning more about careers in business, including finance, digital marketing, entrepreneurship, management and trending careers.",
+      "division": "Career Exploration",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 9
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Careers in Law",
+      "key": "careers-in-law",
+      "courseCode": "CAR35S",
+      "description": "A two-week course for students wishing to explore careers in law, including becoming an attorney and other career paths.",
+      "division": "Career Exploration",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 9
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Careers in Healthcare and Medicine",
+      "key": "careers-in-healthcare-and-medicine",
+      "courseCode": "CAR31S/CAR33S",
+      "description": "A two-week course for students who want to explore careers in healthcare. A variety of healthcare professions will be highlighted.",
+      "division": "Career Exploration",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 9
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Careers in STEM",
+      "key": "careers-in-stem",
+      "courseCode": "CAR62S",
+      "description": "A two-week course for students wishing to explore careers in STEM (Science, Technology, Engineering, Math).",
+      "division": "Career Exploration",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 9
+      },
+      "sessions": [
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

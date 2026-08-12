@@ -1,18 +1,89 @@
 """Combine per-page Summer School extraction results into a single catalog.
 
-Combining is deliberately a pure concatenation in page order -- it performs NO
-semantic merging, deduping, or course guessing.  Duplicate detection and other
-semantic checks belong to the validation stage so that nothing is silently
-"fixed" before a human can review it.
+Combining keeps page order and performs only mechanical normalization:
+stable keys, source references, list fields, credit status, and conflict
+warnings. It does not infer course facts or silently overwrite duplicates.
 """
 from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from . import config, schema
+
+
+def normalize_course_key(title: str, course_code: Optional[str] = None) -> str:
+    base = re.sub(r"[^a-z0-9]+", "-", (title or "").lower()).strip("-")
+    code = re.sub(r"[^a-z0-9]+", "-", (course_code or "").lower()).strip("-")
+    return "-".join(part for part in (base, code) if part) or "untitled"
+
+
+def _as_list(value: Any) -> List[Any]:
+    if value is None:
+        return []
+    return value if isinstance(value, list) else [value]
+
+
+def _normalize_course(
+    raw_course: Dict[str, Any],
+    *,
+    source_file: str,
+    page: Optional[int],
+) -> schema.SummerCourse:
+    course = dict(raw_course)
+    title = str(course.get("title") or "").strip()
+    code = course.get("courseCode")
+    course["title"] = title
+    course["key"] = course.get("key") or normalize_course_key(title, str(code or ""))
+    course["sourceReference"] = course.get("sourceReference") or {
+        "file": source_file,
+        "page": page,
+    }
+    for field in (
+        "prerequisites",
+        "corequisites",
+        "fulfillsRequirements",
+        "attributes",
+        "notes",
+        "extractionIssues",
+        "sessions",
+    ):
+        course[field] = _as_list(course.get(field))
+    if "credits" not in course:
+        course["credits"] = None
+    if "creditStatus" not in course:
+        course["creditStatus"] = "credit" if course.get("credits") is not None else "unknown"
+    return course
+
+
+def _conflict_warnings(courses: List[schema.SummerCourse]) -> List[str]:
+    warnings: List[str] = []
+    by_key: Dict[str, List[schema.SummerCourse]] = {}
+    for course in courses:
+        by_key.setdefault(str(course.get("key") or ""), []).append(course)
+    checked_fields = (
+        "title",
+        "courseCode",
+        "credits",
+        "creditStatus",
+        "gradeLevels",
+        "sessions",
+        "duration",
+        "prerequisites",
+        "fulfillsRequirements",
+    )
+    for key, items in by_key.items():
+        if key and len(items) > 1:
+            pages = [c.get("sourceReference", {}).get("page") for c in items]
+            warnings.append(f"duplicate key {key!r} appears on pages {pages}")
+            for field in checked_fields:
+                values = {json.dumps(c.get(field), sort_keys=True) for c in items}
+                if len(values) > 1:
+                    warnings.append(f"conflict for key {key!r} field {field!r} on pages {pages}")
+    return warnings
 
 
 def combine(
@@ -31,17 +102,12 @@ def combine(
         page = ref.get("page") if isinstance(ref, dict) else None
 
         for course in page_result.get("courses", []):
-            # Attach the source page that produced this course if the provider
-            # did not already carry it on the course record.
-            if not course.get("sourceReference"):
-                course["sourceReference"] = {
-                    "file": source_file,
-                    "page": page,
-                }
-            courses.append(course)
+            courses.append(_normalize_course(course, source_file=source_file, page=page))
 
         for warning in page_result.get("warnings", []):
             warnings.append(str(warning))
+
+    warnings.extend(_conflict_warnings(courses))
 
     catalog: schema.SummerCatalog = {
         "schemaVersion": "summer-school-catalog/v1",

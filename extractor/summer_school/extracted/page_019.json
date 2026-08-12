@@ -1,0 +1,45 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 19
+  },
+  "sourcePage": 19,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_019.png",
+  "courses": [
+    {
+      "title": "Keys to Success",
+      "key": "keys-to-success",
+      "courseCode": "TCH91S/TCH92S",
+      "description": "This course will prepare students to cope with the academic expectations of high school and beyond.",
+      "division": "Student Services",
+      "department": null,
+      "credits": 0.5,
+      "creditType": "Pass/Fail",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 19
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

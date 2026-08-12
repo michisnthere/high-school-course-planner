@@ -1,0 +1,148 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 12
+  },
+  "sourcePage": 12,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_012.png",
+  "courses": [
+    {
+      "title": "Art and Design",
+      "key": "art-and-design",
+      "courseCode": "ART11S/ART12S",
+      "description": "Students explore a variety of tools, techniques and media and develop skills in drawing, painting, sculpture and ceramics.",
+      "division": "Fine Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 12
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Digital Art and Design 1",
+      "key": "digital-art-and-design-1",
+      "courseCode": "ART51S/ART52S",
+      "description": "This course introduces students to Adobe Photoshop and Procreate as drawing and graphic design tools.",
+      "division": "Fine Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 12
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Photography 1",
+      "key": "photography-1",
+      "courseCode": "ART31S/ART32S",
+      "description": "Photography 1 covers basic concepts and practice of digital photography, including understanding and use of the camera, lenses and other basic photographic equipment.",
+      "division": "Fine Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Students may use their own DSLR; however, students will be issued a school-owned DSLR camera for this class, if needed."
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 12
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Theatre Arts",
+      "key": "theatre-arts",
+      "courseCode": "THR11S",
+      "description": "This course is designed as an introduction to creative dramatics and stagecraft.",
+      "division": "Fine Arts",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 12
+      },
+      "sessions": [
+        "Session 1"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

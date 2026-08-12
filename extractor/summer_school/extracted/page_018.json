@@ -1,0 +1,116 @@
+{
+  "sourceReference": {
+    "file": "SummerSchool2627.pdf",
+    "page": 18
+  },
+  "sourcePage": 18,
+  "sourceImage": "C:\\Users\\chell\\Documents\\high_school_course_planner\\extractor\\summer_school\\images\\page_018.png",
+  "courses": [
+    {
+      "title": "Reading and Writing for Stevenson",
+      "key": "reading-and-writing-for-stevenson",
+      "courseCode": "IEN51S/IEN52S",
+      "description": "This survey course will familiarize and instruct special education students in the many reading and writing assignments they will encounter in their coursework at Stevenson.",
+      "division": "Special Education",
+      "department": null,
+      "credits": 1,
+      "creditType": "GPA Waiver Option",
+      "gradeLevels": [
+        9
+      ],
+      "prerequisites": [
+        "Special Education Identification and Approval of Director"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Students may register for both semesters."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 18
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "Preparing for Life",
+      "key": "preparing-for-life",
+      "courseCode": "IJOB2S",
+      "description": "This course is designed to provide students with a variety of hands-on learning opportunities to help them acquire the necessary life skills to be as independent as possible.",
+      "division": "Special Education",
+      "department": null,
+      "credits": 1,
+      "creditType": null,
+      "gradeLevels": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [
+        "Special Education Identification and Approval of Director"
+      ],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [
+        "Not available for students entering transition program."
+      ],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 18
+      },
+      "sessions": [
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    },
+    {
+      "title": "ACT Preparatory Course",
+      "key": "act-preparatory-course",
+      "courseCode": "ACTPREPS/ACTPREPS2",
+      "description": "This five-day course will be taught by subject-area instructors and focus on essential skills assessed on the ACT.",
+      "division": "Student Learning Programs",
+      "department": null,
+      "credits": null,
+      "creditType": null,
+      "gradeLevels": [
+        10,
+        11,
+        12
+      ],
+      "prerequisites": [],
+      "corequisites": [],
+      "fulfillsRequirements": [],
+      "attributes": [],
+      "notes": [],
+      "sourceReference": {
+        "file": "SummerSchool2627.pdf",
+        "page": 18
+      },
+      "sessions": [
+        "Session 1",
+        "Session 2"
+      ],
+      "duration": "one_session",
+      "creditStatus": "non-credit",
+      "regularCourseMatch": null,
+      "isSummerOnly": true,
+      "extractionIssues": []
+    }
+  ],
+  "warnings": []
+}

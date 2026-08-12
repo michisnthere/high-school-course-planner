@@ -140,6 +140,14 @@ def _validate_grade_levels(course: schema.SummerCourse, key: str, problems: List
             return
 
 
+def _validate_required_string(
+    course: schema.SummerCourse, key: str, field: str, problems: List[ValidationProblem]
+) -> None:
+    value = course.get(field)
+    if not isinstance(value, str) or not value.strip():
+        problems.append(ValidationProblem("missing_required", key, field, f"{field} is required"))
+
+
 def _validate_availability(course: schema.SummerCourse, key: str, problems: List[ValidationProblem]) -> None:
     """Sessions and duration must be present, known, and mutually consistent.
 
@@ -255,6 +263,9 @@ def validate_catalog(
         # -- Required fields -------------------------------------------------
         if not title:
             problems.append(ValidationProblem("missing_required", key, "title", "title is required"))
+        _validate_required_string(course, key, "key", problems)
+        if course.get("creditStatus") is None:
+            problems.append(ValidationProblem("missing_required", key, "creditStatus", "creditStatus is required"))
 
         _validate_credits(course, key, problems)
         _validate_grade_levels(course, key, problems)
@@ -265,6 +276,37 @@ def validate_catalog(
             problems.append(
                 ValidationProblem("bad_type", key, "courseCode", "courseCode must be a string")
             )
+        if course.get("division") in (None, ""):
+            problems.append(
+                ValidationProblem(
+                    "classification",
+                    key,
+                    "division",
+                    "division is missing or unresolved",
+                    severity="warning",
+                )
+            )
+        if course.get("department") in (None, ""):
+            problems.append(
+                ValidationProblem(
+                    "classification",
+                    key,
+                    "department",
+                    "department is missing or unresolved",
+                    severity="warning",
+                )
+            )
+        if course.get("regularCourseMatch") is not None:
+            match = course.get("regularCourseMatch")
+            if not isinstance(match, dict) or match.get("status") not in {"matched", "candidate", "unresolved"}:
+                problems.append(
+                    ValidationProblem(
+                        "bad_type",
+                        key,
+                        "regularCourseMatch",
+                        "regularCourseMatch has invalid shape",
+                    )
+                )
 
         _validate_requirement_list(course, key, known_requirements, problems)
 
