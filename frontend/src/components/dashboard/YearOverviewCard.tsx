@@ -67,6 +67,7 @@ export function YearOverviewCard({
   const semSummer2Courses = planner.plannedCourses
     .filter((pc) => pc.semester === SUMMER_SEMESTER_2)
     .sort((a, b) => a.slot - b.slot);
+  const summerCourses = [...semSummerCourses, ...semSummer2Courses].sort((a, b) => a.semester - b.semester || a.slot - b.slot);
 
   const semOnlineCourses = planner.plannedCourses
     .filter((pc) => pc.semester === ONLINE_SEMESTER)
@@ -75,6 +76,7 @@ export function YearOverviewCard({
   const semOnline2Courses = planner.plannedCourses
     .filter((pc) => pc.semester === ONLINE_SEMESTER_2)
     .sort((a, b) => a.slot - b.slot);
+  const onlineCourses = [...semOnlineCourses, ...semOnline2Courses].sort((a, b) => a.semester - b.semester || a.slot - b.slot);
 
   const occupancy = calculatePlannerOccupancy(planner);
   const filledSlots = occupancy.filledSlots;
@@ -298,18 +300,8 @@ export function YearOverviewCard({
       >
         <SemesterBlock semester={1} courses={sem1Courses} />
         <SemesterBlock semester={2} courses={sem2Courses} />
-        {semSummerCourses.length > 0 && (
-          <SemesterBlock semester={SUMMER_SEMESTER} courses={semSummerCourses} />
-        )}
-        {semSummer2Courses.length > 0 && (
-          <SemesterBlock semester={SUMMER_SEMESTER_2} courses={semSummer2Courses} />
-        )}
-        {semOnlineCourses.length > 0 && (
-          <SemesterBlock semester={ONLINE_SEMESTER} courses={semOnlineCourses} />
-        )}
-        {semOnline2Courses.length > 0 && (
-          <SemesterBlock semester={ONLINE_SEMESTER_2} courses={semOnline2Courses} />
-        )}
+        {summerCourses.length > 0 && <CourseListBlock label="Summer School" courses={summerCourses} nested />}
+        {onlineCourses.length > 0 && <CourseListBlock label="Online" courses={onlineCourses} />}
       </div>
 
       {/* Course count */}
@@ -466,6 +458,64 @@ function SemesterBlock({
               ) : (
                 "Empty"
               )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CourseListBlock({
+  label,
+  courses,
+  nested = false,
+}: {
+  label: string;
+  courses: ({ semester: number; slot: number; slotSpan?: number | null; course: { title: string; courseCode: string | null; courseCodeS1: string | null; courseCodeS2: string | null } })[];
+  nested?: boolean;
+}): React.ReactElement {
+  return (
+    <div style={{ marginLeft: nested ? "12px" : 0, paddingLeft: nested ? "12px" : 0, borderLeft: nested ? "2px solid var(--border-default)" : "none" }}>
+      <p
+        style={{
+          margin: "0 0 8px",
+          fontSize: "13px",
+          fontWeight: 600,
+          color: "var(--text-muted)",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em",
+        }}
+      >
+        {label}
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        {courses.map((plannedCourse) => {
+          const code =
+            plannedCourse.course.courseCode ??
+            plannedCourse.course.courseCodeS1 ??
+            plannedCourse.course.courseCodeS2;
+          return (
+            <div
+              key={`${plannedCourse.semester}-${plannedCourse.slot}-${plannedCourse.course.title}`}
+              style={{
+                padding: "8px 12px",
+                fontSize: "14px",
+                color: "var(--text-primary)",
+                backgroundColor: "var(--bg-input)",
+                borderRadius: "6px",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                {code ? (
+                  <span style={{ fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                    {code}
+                  </span>
+                ) : null}
+                <span style={{ lineHeight: 1.3, wordBreak: "break-word", overflowWrap: "break-word" }}>
+                  {plannedCourse.course.title}
+                </span>
+              </div>
             </div>
           );
         })}

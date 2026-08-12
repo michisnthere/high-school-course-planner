@@ -18,7 +18,6 @@ import { CourseFilters, type ActiveFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
 import { EmptyState } from "./EmptyState";
 import { formatCredits } from "@/lib/courseCredits";
-import { formatPrerequisiteForDisplay } from "@/lib/catalog";
 
 type CatalogContentProps = {
   courses: Course[];
@@ -196,7 +195,7 @@ function extractSummerSessions(courses: SummerCourse[]): string[] {
   for (const course of courses) {
     for (const session of course.sessions ?? []) sessions.add(session);
   }
-  return Array.from(sessions).sort();
+  return Array.from(sessions).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
 
 function extractSummerRequirements(courses: SummerCourse[]): string[] {
@@ -237,103 +236,57 @@ function summerCourseMatchesFilters(course: SummerCourse, filters: ActiveFilters
   return true;
 }
 
+function summerCourseToCatalogCourse(course: SummerCourse): Course {
+  const division = deriveSummerDivision(course);
+  const sessionText = (course.sessions ?? []).join(", ");
+  const gradeText = (course.gradeLevels ?? []).map((grade) => `Grade ${grade}`).join(", ");
+  const details = [sessionText, gradeText, formatSummerCreditStatus(course)]
+    .filter(Boolean)
+    .join(" | ");
+  const descriptionParts = [
+    details,
+    course.fulfillsRequirements.length > 0
+      ? `Requirements: ${course.fulfillsRequirements.join(", ")}`
+      : null,
+    course.prerequisites.length > 0
+      ? `Prerequisites: ${course.prerequisites.join("; ")}`
+      : null,
+  ].filter((value): value is string => Boolean(value));
+
+  return {
+    id: -course.id,
+    title: course.title,
+    description: descriptionParts.join("\n"),
+    fulfillsRequirements: course.fulfillsRequirements,
+    department: {
+      name: division,
+      division: { name: division },
+    },
+    options: [
+      {
+        creditType: formatSummerCreditStatus(course),
+        credits: course.credits,
+        offerings: (course.sessions ?? []).map((session) => ({
+          courseCode: course.courseCode ?? "",
+          semesterLabel: session,
+          duration: course.duration,
+          gradeMin: course.gradeLevels && course.gradeLevels.length > 0 ? Math.min(...course.gradeLevels) : null,
+          gradeMax: course.gradeLevels && course.gradeLevels.length > 0 ? Math.max(...course.gradeLevels) : null,
+          credits: course.credits,
+          prerequisites: course.prerequisites,
+          corequisites: course.corequisites,
+        })),
+      },
+    ],
+  };
+}
+
 function formatSummerCreditStatus(course: SummerCourse): string {
   if (course.creditStatus === "credit") {
     return course.credits != null ? `Credit, ${formatCredits(course.credits)} credits` : "Credit";
   }
   if (course.creditStatus === "non-credit") return "Non-credit";
   return course.creditStatus || "Credit status unknown";
-}
-
-function SummerCourseCard({ course }: { course: SummerCourse }): React.ReactElement {
-  const tags = [
-    deriveSummerDivision(course),
-    formatSummerCreditStatus(course),
-    ...(course.sessions ?? []),
-    ...(course.gradeLevels ?? []).map((grade) => `Grade ${grade}`),
-  ];
-
-  return (
-    <article
-      className="rs-catalog-card"
-      style={{
-        backgroundColor: "var(--bg-card)",
-        border: "1px solid var(--border-default)",
-        borderRadius: "12px",
-        padding: "20px",
-      }}
-    >
-      <h3 style={{ margin: "0 0 10px", fontSize: "18px", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
-        {course.title}
-      </h3>
-      {course.courseCode && (
-        <div style={{ marginBottom: "12px", fontSize: "14px", color: "var(--text-muted)", fontWeight: 600 }}>
-          {course.courseCode}
-        </div>
-      )}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "14px" }}>
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            style={{
-              padding: "4px 10px",
-              backgroundColor: "var(--bg-input)",
-              borderRadius: "9999px",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "var(--text-secondary)",
-            }}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      {course.fulfillsRequirements.length > 0 && (
-        <div style={{ marginTop: "12px" }}>
-          <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
-            Requirements fulfilled
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-            {course.fulfillsRequirements.map((requirement) => (
-              <span key={requirement} style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
-                {requirement}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-      {course.prerequisites.length > 0 && (
-        <div style={{ marginTop: "12px" }}>
-          <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
-            Prerequisites
-          </div>
-          <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-            {course.prerequisites.map((item, index) => (
-              <li key={`${item}-${index}`}>{formatPrerequisiteForDisplay(item)}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </article>
-  );
-}
-
-function SummerCourseGrid({ courses }: { courses: SummerCourse[] }): React.ReactElement {
-  return (
-    <div
-      className="rs-catalog-grid"
-      style={{
-        display: "grid",
-        gap: "24px",
-        width: "100%",
-        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
-      }}
-    >
-      {courses.map((course) => (
-        <SummerCourseCard key={course.id} course={course} />
-      ))}
-    </div>
-  );
 }
 
 function CatalogSourceToggle({
@@ -511,13 +464,6 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       });
   }, [summerCourses, submitted, filters]);
 
-  const hierarchyLevel =
-    filters.division.length === 0
-      ? "division"
-      : filters.department.length === 0
-        ? "department"
-        : "courses";
-
   const handleSourceChange = useCallback(
     (nextSource: CatalogSource) => {
       if (nextSource === source) return;
@@ -531,6 +477,11 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
       }, nextSource);
     },
     [source, submitted, syncUrl]
+  );
+
+  const summerCatalogCourses = useMemo(
+    () => filteredSummerCourses.map(summerCourseToCatalogCourse),
+    [filteredSummerCourses]
   );
 
   return (
@@ -555,9 +506,10 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
             semesters={semesters}
             filters={filters}
             onFilterChange={setFilters}
+            showCourseFiltersWhenDivisionSelected
           />
 
-          {hierarchyLevel !== "courses" ? null : sortedCourses.length === 0 ? (
+          {sortedCourses.length === 0 ? (
             <EmptyState message={getEmptyStateMessage(submitted, filters)} />
           ) : (
             <CourseGrid courses={sortedCourses} />
@@ -576,8 +528,6 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
             onFilterChange={setFilters}
             requirementValues={summerRequirements}
             showCourseFiltersImmediately
-            creditTypeLabel="Credit Status"
-            semesterLabel="Session"
           />
 
           {summerLoading ? (
@@ -587,7 +537,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
           ) : filteredSummerCourses.length === 0 ? (
             <EmptyState message={getEmptyStateMessage(submitted, filters)} />
           ) : (
-            <SummerCourseGrid courses={filteredSummerCourses} />
+            <CourseGrid courses={summerCatalogCourses} getCourseHref={() => null} showSaveButtons={false} />
           )}
         </>
       )}

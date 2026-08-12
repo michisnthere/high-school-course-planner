@@ -10,6 +10,8 @@ import { SaveCourseButton } from "./SaveCourseButton";
 
 type CourseCardProps = {
   course: Course;
+  href?: string | null;
+  showSaveButton?: boolean;
 };
 
 function truncateDescription(text: string | null | undefined, maxLength = 150): string {
@@ -18,7 +20,11 @@ function truncateDescription(text: string | null | undefined, maxLength = 150): 
   return `${text.slice(0, maxLength)}...`;
 }
 
-const CourseCardInner = React.memo(function CourseCardInner({ course }: CourseCardProps): React.ReactElement {
+const CourseCardInner = React.memo(function CourseCardInner({
+  course,
+  href,
+  showSaveButton = true,
+}: CourseCardProps): React.ReactElement {
   const searchParams = useSearchParams();
   const creditType = course.options?.[0]?.creditType ?? null;
   const description = truncateDescription(course.description);
@@ -28,7 +34,7 @@ const CourseCardInner = React.memo(function CourseCardInner({ course }: CourseCa
   const returnParam = filterQuery
     ? `?return=${encodeURIComponent("/catalog?" + filterQuery)}`
     : "";
-  const courseHref = `/catalog/${slug}${returnParam}`;
+  const courseHref = href === undefined ? `/catalog/${slug}${returnParam}` : href;
 
   const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     e.currentTarget.style.borderColor = "var(--border-light)";
@@ -51,8 +57,20 @@ const CourseCardInner = React.memo(function CourseCardInner({ course }: CourseCa
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link
-        href={courseHref}
+      {courseHref ? (
+        <Link
+          href={courseHref}
+          style={{
+            display: "block",
+            textDecoration: "none",
+            color: "inherit",
+            marginBottom: "12px",
+          }}
+        >
+          <CourseCardSummary course={course} creditType={creditType} description={description} />
+        </Link>
+      ) : (
+        <div
         style={{
           display: "block",
           textDecoration: "none",
@@ -60,72 +78,89 @@ const CourseCardInner = React.memo(function CourseCardInner({ course }: CourseCa
           marginBottom: "12px",
         }}
       >
-        <h3
-          style={{
-            margin: "0 0 10px",
-            fontSize: "18px",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-            lineHeight: 1.3,
-          }}
-        >
-          {course.title}
-        </h3>
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "8px",
-            marginBottom: "12px",
-            fontSize: "14px",
-            color: "var(--text-muted)",
-          }}
-        >
-          {course.department?.name && (
-            <span
-              style={{
-                padding: "4px 10px",
-                backgroundColor: "var(--bg-input)",
-                borderRadius: "9999px",
-                fontWeight: 600,
-              }}
-            >
-              {course.department.name}
-            </span>
-          )}
-
-          {creditType && (
-            <span
-              style={{
-                padding: "4px 10px",
-                backgroundColor: "var(--bg-input)",
-                borderRadius: "9999px",
-                fontWeight: 600,
-              }}
-            >
-              {formatCreditType(creditType)}
-            </span>
-          )}
+          <CourseCardSummary course={course} creditType={creditType} description={description} />
         </div>
+      )}
 
-        {description && (
-          <p
-            style={{
-              margin: 0,
-              fontSize: "15px",
-              color: "var(--text-secondary)",
-              lineHeight: 1.5,
-            }}
-          >
-            {description}
-          </p>
-        )}
-      </Link>
-
-      <SaveCourseButton course={course} />
+      {showSaveButton && <SaveCourseButton course={course} />}
     </div>
   );
 });
+
+function CourseCardSummary({
+  course,
+  creditType,
+  description,
+}: {
+  course: Course;
+  creditType: string | null;
+  description: string;
+}): React.ReactElement {
+  return (
+    <>
+      <h3
+        style={{
+          margin: "0 0 10px",
+          fontSize: "18px",
+          fontWeight: 700,
+          color: "var(--text-primary)",
+          lineHeight: 1.3,
+        }}
+      >
+        {course.title}
+      </h3>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "8px",
+          marginBottom: "12px",
+          fontSize: "14px",
+          color: "var(--text-muted)",
+        }}
+      >
+        {course.department?.name && (
+          <span
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "var(--bg-input)",
+              borderRadius: "9999px",
+              fontWeight: 600,
+            }}
+          >
+            {course.department.name}
+          </span>
+        )}
+
+        {creditType && (
+          <span
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "var(--bg-input)",
+              borderRadius: "9999px",
+              fontWeight: 600,
+            }}
+          >
+            {formatCreditType(creditType)}
+          </span>
+        )}
+      </div>
+
+      {description && (
+        <p
+          style={{
+            margin: 0,
+            fontSize: "15px",
+            color: "var(--text-secondary)",
+            lineHeight: 1.5,
+          }}
+        >
+          {description}
+        </p>
+      )}
+    </>
+  );
+}
 
 export { CourseCardInner as CourseCard };

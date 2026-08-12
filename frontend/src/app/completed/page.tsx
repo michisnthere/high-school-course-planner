@@ -15,8 +15,8 @@ import {
   filterCompletedCoursesByPeriod,
   getAcademicPeriodLabel,
   groupCompletedCoursesByPeriod,
+  isSummerCompletedCourse,
   type CompletedCourseFilter,
-  type CompletedCourseGroup,
 } from "@/lib/completedCoursePeriods";
 import { getDivisionColor, getDivisionBackgroundColor } from "@/lib/divisionColors";
 import { breakpoints } from "@/lib/responsive";
@@ -517,6 +517,7 @@ function CompletedCourseCard({
   const accentColor = getDivisionColor(division);
   const bgTint = getDivisionBackgroundColor(division);
   const isEditing = editingId === cc.id;
+  const periodLabel = isSummerCompletedCourse(cc) ? cc.gradeCompleted : getAcademicPeriodLabel(cc.gradeCompleted);
 
   return (
     <div
@@ -596,7 +597,7 @@ function CompletedCourseCard({
               ))}
             </select>
           ) : (
-            getAcademicPeriodLabel(cc.gradeCompleted)
+            periodLabel
           )}
           {credits != null && ` • ${formatCredits(credits)} credits`}
           {division && ` • ${division}`}

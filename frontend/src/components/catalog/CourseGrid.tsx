@@ -6,6 +6,8 @@ import { CourseCard } from "./CourseCard";
 
 type CourseGridProps = {
   courses: Course[];
+  getCourseHref?: (course: Course) => string | null | undefined;
+  showSaveButtons?: boolean;
 };
 
 function getColumnCount(width: number): number {
@@ -28,7 +30,7 @@ function useColumnCount(): number {
   return columns;
 }
 
-export function CourseGrid({ courses }: CourseGridProps): React.ReactElement {
+export function CourseGrid({ courses, getCourseHref, showSaveButtons = true }: CourseGridProps): React.ReactElement {
   const columns = useColumnCount();
 
   return (
@@ -42,7 +44,12 @@ export function CourseGrid({ courses }: CourseGridProps): React.ReactElement {
       }}
     >
       {courses.map((course) => (
-        <CourseCard key={course.id} course={course} />
+        <CourseCard
+          key={course.id}
+          course={course}
+          href={getCourseHref ? getCourseHref(course) : undefined}
+          showSaveButton={showSaveButtons}
+        />
       ))}
     </div>
   );

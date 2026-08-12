@@ -503,10 +503,10 @@ const GRADE_COMPLETED_BY_YEAR: Record<number, string> = {
 // (between grade N-1 and N), so it is recorded under the grade the student is
 // about to enter.
 const SUMMER_GRADE_COMPLETED_BY_YEAR: Record<number, string> = {
-  9: "Freshman (9)",
-  10: "Sophomore (10)",
-  11: "Junior (11)",
-  12: "Senior (12)",
+  9: "Freshman Summer",
+  10: "Sophomore Summer",
+  11: "Junior Summer",
+  12: "Senior Summer",
 };
 
 router.post("/:plannerId/complete", requireAuth, asyncHandler(async (req, res) => {
