@@ -2,6 +2,8 @@
 
 import React from "react";
 import { getSummerCourses, type SummerCourse } from "@/lib/summerCourse";
+import { normalizeSummerCourseForCatalog } from "@/lib/summerCatalog";
+import { CourseCard } from "@/components/catalog/CourseCard";
 
 type SummerCoursePickerProps = {
   semester: number;
@@ -30,9 +32,6 @@ export function SummerCoursePicker({
   const [query, setQuery] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  // grade is the planner year the course is being planned under, i.e. the grade
-  // the student is about to enter. A summer course planned here is taken during
-  // the summer between grade N-1 and grade N.
   const targetGrade = grade;
   const session = SESSION_LABEL[semester] ?? "Session 1";
 
@@ -67,10 +66,6 @@ export function SummerCoursePicker({
     [alreadyPlanned]
   );
 
-  // A Summer School course matched to a regular catalog course is the same
-  // course attempt as its regular equivalent (unless repeatable one-semester
-  // PE). When that regular equivalent is already planned or completed, the
-  // summer seat is a duplicate and must be disabled here.
   const plannedRegularSet = React.useMemo(
     () => new Set((plannedRegularIds ?? []).filter((id): id is number => id != null)),
     [plannedRegularIds]
@@ -221,7 +216,7 @@ export function SummerCoursePicker({
               }}
               aria-label="Close"
             >
-              ×
+              x
             </button>
           </div>
           <input
@@ -255,7 +250,7 @@ export function SummerCoursePicker({
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {results.map(({ course, disabled, disabledReason }) => {
-                const isFullSummer = course.duration === "full_summer";
+                const catalogCourse = normalizeSummerCourseForCatalog(course);
                 return (
                   <div
                     key={course.id}
@@ -263,66 +258,37 @@ export function SummerCoursePicker({
                       if (!disabled) onSelect(course, semester);
                     }}
                     style={{
-                      padding: "14px 16px",
                       borderRadius: "12px",
                       border: disabled ? "1px solid #374151" : "1px solid #4b5563",
                       backgroundColor: disabled ? "#111827" : "#374151",
                       cursor: disabled ? "not-allowed" : "pointer",
                       opacity: disabled ? 0.6 : 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
                     }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: "8px", alignItems: "flex-start" }}>
-                      <span style={{ fontSize: "15px", fontWeight: 600, color: "#ffffff", wordBreak: "break-word" }}>
-                        {course.title}
-                      </span>
-                      {course.courseCode && (
-                        <span style={{ fontSize: "12px", color: "#9ca3af", flex: "0 0 auto" }}>
-                          {course.courseCode}
-                        </span>
-                      )}
-                    </div>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px" }}>
-                      {isFullSummer && (
-                        <span style={{ padding: "2px 8px", backgroundColor: "rgba(236,186,43,0.2)", color: "#fbbf24", borderRadius: "9999px", fontWeight: 700 }}>
-                          Full Summer
-                        </span>
-                      )}
-                      {(course.sessions ?? []).length > 0 && (
-                        <span style={{ padding: "2px 8px", backgroundColor: "rgba(0,0,0,0.25)", color: "#d1d5db", borderRadius: "9999px" }}>
-                          {(course.sessions ?? []).join(" · ")}
-                        </span>
-                      )}
-                      {course.credits != null && (
-                        <span style={{ padding: "2px 8px", backgroundColor: "rgba(0,0,0,0.25)", color: "#d1d5db", borderRadius: "9999px" }}>
-                          {course.credits} credits
-                        </span>
-                      )}
-                      {course.fulfillsRequirements.length > 0 && (
-                        <span style={{ padding: "2px 8px", backgroundColor: "rgba(0,0,0,0.25)", color: "#93c5fd", borderRadius: "9999px" }}>
-                          Fulfills: {course.fulfillsRequirements.join(", ")}
-                        </span>
-                      )}
-                    </div>
+                    <CourseCard
+                      course={catalogCourse}
+                      href={null}
+                      showSaveButton={false}
+                    />
                     {disabledReason && (
-                      <span style={{ fontSize: "12px", color: "#f87171" }}>{disabledReason}</span>
+                      <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#f87171" }}>
+                        {disabledReason}
+                      </div>
                     )}
                     {course.regularCourse && (
-                      <span style={{ fontSize: "12px", color: "#6ee7b7" }}>
-                        Matches the regular course “{course.regularCourse.title}”
-                      </span>
+                      <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#6ee7b7" }}>
+                        Matches the regular course &quot;{course.regularCourse.title}&quot;
+                      </div>
                     )}
                     {course.prerequisites.length > 0 && (
-                      <span style={{ fontSize: "12px", color: "#fcd34d" }}>
+                      <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#fcd34d" }}>
                         Prerequisites: {course.prerequisites.join(", ")}
-                      </span>
+                      </div>
                     )}
                     {(course.corequisites ?? []).length > 0 && (
-                      <span style={{ fontSize: "12px", color: "#fcd34d" }}>
+                      <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#fcd34d" }}>
                         Corequisites: {(course.corequisites ?? []).join(", ")}
-                      </span>
+                      </div>
                     )}
                   </div>
                 );

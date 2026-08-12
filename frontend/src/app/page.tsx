@@ -50,9 +50,10 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [services]);
 
-  const totalCredits = analysis?.earned?.credits.total ?? analysis?.credits.total ?? 0;
+  const earnedCredits = analysis?.earned?.credits.total ?? 0;
+  const projectedCredits = analysis?.credits.total ?? 0;
   const totalRequired = 45;
-  const gradProgress = Math.min(Math.round((totalCredits / totalRequired) * 100), 100);
+  const gradProgress = Math.min(Math.round((projectedCredits / totalRequired) * 100), 100);
 
   const filledSlots = planners.reduce((sum, p) => sum + calculatePlannerOccupancy(p).occupiedSlots, 0);
   const totalSlots = YEARS.length * TOTAL_PLANNER_SLOTS;
@@ -167,11 +168,12 @@ export default function Home() {
                 className="dash-progress-grid"
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gridTemplateColumns: "repeat(4, 1fr)",
                   gap: "16px",
                 }}
               >
-                <SummaryCard label="Completed Credits" value={`${formatCredits(totalCredits)} / ${formatCredits(totalRequired)}`} />
+                <SummaryCard label="Earned Credits" value={`${formatCredits(earnedCredits)} / ${formatCredits(totalRequired)}`} />
+                <SummaryCard label="Projected Credits" value={`${formatCredits(projectedCredits)} / ${formatCredits(totalRequired)}`} />
                 <SummaryCard label="Graduation Progress" value={`${gradProgress}%`}>
                   <ProgressBar value={gradProgress} />
                 </SummaryCard>

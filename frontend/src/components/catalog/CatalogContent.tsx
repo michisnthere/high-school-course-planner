@@ -12,7 +12,9 @@ import {
   formatSummerCreditType,
   normalizeSummerCourseForCatalog,
   summerSessionToSemester,
+  summerCourseSlug,
 } from "@/lib/summerCatalog";
+import { normalizeTitle } from "@/lib/normalize";
 import {
   buildCourseSortData,
   buildCourseSearchIndex,
@@ -104,6 +106,15 @@ function extractSemesters(courses: Course[]): string[] {
     }
   }
   return Array.from(semesters).sort();
+}
+
+function getSummerCourseHref(course: SummerCourse): string | null {
+  if (course.regularCourse) {
+    const slug = course.regularCourse.normalizedTitle || normalizeTitle(course.regularCourse.title);
+    return `/catalog/${slug}`;
+  }
+  const slug = summerCourseSlug(course);
+  return `/catalog/${slug}`;
 }
 
 function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
@@ -502,6 +513,15 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     [filteredSummerCourses]
   );
 
+  const summerCourseHrefMap = useMemo(() => {
+    const map = new Map<number, string | null>();
+    for (const course of filteredSummerCourses) {
+      const catalogCourse = normalizeSummerCourseForCatalog(course);
+      map.set(catalogCourse.id, getSummerCourseHref(course));
+    }
+    return map;
+  }, [filteredSummerCourses]);
+
   return (
     <>
       <CatalogSourceToggle value={source} onChange={handleSourceChange} />
@@ -558,7 +578,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
           ) : (
             <CourseGrid
               courses={summerCatalogCourses}
-              getCourseHref={() => null}
+              getCourseHref={(course) => summerCourseHrefMap.get(course.id) ?? null}
               showSaveButtons={false}
             />
           )}
