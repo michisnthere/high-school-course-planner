@@ -23,6 +23,11 @@ type CourseFiltersProps = {
   semesters: string[];
   filters: ActiveFilters;
   onFilterChange: (filters: ActiveFilters) => void;
+  requirementValues?: string[];
+  showCourseFiltersWhenDivisionSelected?: boolean;
+  showCourseFiltersImmediately?: boolean;
+  creditTypeLabel?: string;
+  semesterLabel?: string;
 };
 
 const activeChipStyle: React.CSSProperties = {
@@ -112,6 +117,11 @@ export function CourseFilters({
   semesters,
   filters,
   onFilterChange,
+  requirementValues = [],
+  showCourseFiltersWhenDivisionSelected = false,
+  showCourseFiltersImmediately = false,
+  creditTypeLabel = "Credit Type",
+  semesterLabel = "Semester",
 }: CourseFiltersProps): React.ReactElement {
   const hasActiveFilters = useMemo(
     () =>
@@ -173,7 +183,8 @@ export function CourseFilters({
   }, [filters.division.length, visibleDepartments.length]);
 
   const showCourseFilters =
-    filters.division.length > 0 && filters.department.length > 0;
+    showCourseFiltersImmediately ||
+    (filters.division.length > 0 && (showCourseFiltersWhenDivisionSelected || filters.department.length > 0));
 
   return (
     <div
@@ -212,7 +223,7 @@ export function CourseFilters({
         {showCourseFilters && (
           <>
             <ToggleGroup
-              label="Credit Type"
+              label={creditTypeLabel}
               values={creditTypes}
               selected={filters.creditType}
               onToggle={(value) => toggleFilter("creditType", value)}
@@ -226,12 +237,20 @@ export function CourseFilters({
               formatLabel={(v) => `Grade ${v}`}
             />
             <ToggleGroup
-              label="Semester"
+              label={semesterLabel}
               values={semesters}
               selected={filters.semester}
               onToggle={(value) => toggleFilter("semester", value)}
               formatLabel={formatSemesterLabel}
             />
+            {requirementValues.length > 0 && (
+              <ToggleGroup
+                label="Graduation Requirement"
+                values={requirementValues}
+                selected={filters.requirement}
+                onToggle={(value) => toggleFilter("requirement", value)}
+              />
+            )}
           </>
         )}
       </div>

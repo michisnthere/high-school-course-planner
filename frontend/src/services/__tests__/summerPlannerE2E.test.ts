@@ -147,6 +147,23 @@ const matchedSummer: SummerCourse = {
   sessions: ["Session 1", "Session 2"],
 };
 
+const zeroCreditSummer: SummerCourse = {
+  id: 106,
+  key: "zero-credit-summer",
+  title: "Zero Credit Summer Seminar",
+  courseCode: "SUM-ZERO",
+  creditStatus: "no_credit",
+  credits: 0,
+  duration: "one_session",
+  prerequisites: [],
+  fulfillsRequirements: ["Electives"],
+  isSummerOnly: true,
+  regularCourseId: null,
+  regularCourse: null,
+  gradeLevels: [10],
+  sessions: ["Session 2"],
+};
+
 function buildStack() {
   const store = createGuestDataStore();
   const plannerService = createGuestPlannerService(store);
@@ -185,12 +202,14 @@ describe("Summer School end-to-end (guest stack)", () => {
 
     const before = await analyze(stack);
     expect(before.credits.total).toBe(0);
+    expect(before.earned?.credits.total).toBe(0);
 
     const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
     await stack.plannerService.addSummerCourse(sophomore.id, summerHealth, 3);
 
     const after = await analyze(stack);
     expect(after.credits.total).toBe(1);
+    expect(after.earned?.credits.total).toBe(0);
 
     const health = after.graduationRequirements.find((r) => r.name === "Health")!;
     expect(health.earnedValue).toBe(1);
@@ -255,6 +274,40 @@ describe("Summer School end-to-end (guest stack)", () => {
     const analysis = await analyze(stack);
     expect(analysis.missingPrerequisites.some((m) => m.courseTitle === healthDependent.title)).toBe(false);
     expect(analysis.credits.total).toBe(2);
+  });
+
+  it("counts completed Summer as earned and projected while planned Summer remains projected only", async () => {
+    const stack = buildStack();
+    const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
+
+    await stack.plannerService.addSummerCourse(sophomore.id, summerHealth, 3);
+    let analysis = await analyze(stack);
+    expect(analysis.credits.total).toBe(1);
+    expect(analysis.earned?.credits.total).toBe(0);
+
+    await stack.completedService.addCompletedCourse({
+      summerCourseId: summerAlgebra.id,
+      gradeCompleted: "Sophomore (10)",
+      summerCourse: summerAlgebra,
+    });
+
+    analysis = await analyze(stack);
+    expect(analysis.credits.total).toBe(3);
+    expect(analysis.earned?.credits.total).toBe(2);
+  });
+
+  it("does not add graduation credit for a zero-credit Summer course", async () => {
+    const stack = buildStack();
+    const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
+
+    await stack.plannerService.addSummerCourse(sophomore.id, zeroCreditSummer, 4);
+
+    const analysis = await analyze(stack);
+    expect(analysis.credits.total).toBe(0);
+    expect(analysis.earned?.credits.total).toBe(0);
+
+    const electives = analysis.graduationRequirements.find((r) => r.name === "Electives")!;
+    expect(electives.earnedValue).toBe(0);
   });
 
   it("occupies both Summer sessions for a full-summer course and rejects conflicts", async () => {

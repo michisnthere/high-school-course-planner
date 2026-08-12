@@ -1261,7 +1261,10 @@ function PlannerYearContent(): React.ReactElement {
             plannedRegularIds={allPlanners
               .flatMap((p) => p.plannedCourses)
               .map((pc) => pc.courseId)}
-            completedRegularIds={completedCourses.map((cc) => cc.courseId)}
+            completedRegularIds={completedCourses.flatMap((cc) => [
+              cc.courseId,
+              cc.summerCourse?.regularCourse?.id ?? null,
+            ])}
             onClose={handleCloseModal}
             onSelect={handleSummerCourseSelected}
           />
@@ -1523,7 +1526,10 @@ function PlannerYearContent(): React.ReactElement {
           plannedRegularIds={allPlanners
             .flatMap((p) => p.plannedCourses)
             .map((pc) => pc.courseId)}
-          completedRegularIds={completedCourses.map((cc) => cc.courseId)}
+          completedRegularIds={completedCourses.flatMap((cc) => [
+            cc.courseId,
+            cc.summerCourse?.regularCourse?.id ?? null,
+          ])}
           onClose={handleCloseModal}
           onSelect={handleSummerCourseSelected}
         />
@@ -3589,6 +3595,7 @@ function getWarnings(
   }
 
   const targetPlacementIndex = plannedPlacements.findIndex((item) => item.id === planned.id);
+  const resolutionCourseId = planned.courseId ?? planned.course.id;
 
   for (const prereq of course.prerequisites) {
     if (!prereq.trim()) continue;
@@ -3612,8 +3619,8 @@ function getWarnings(
     }
 
     if (
-      placementTestResolved.has(`${plannedCourseId}:${normalizePrerequisite(prereq)}`) ||
-      placementTestResolved.has(`${plannedCourseId}:*`)
+      placementTestResolved.has(`${resolutionCourseId}:${normalizePrerequisite(prereq)}`) ||
+      placementTestResolved.has(`${resolutionCourseId}:*`)
     ) {
       continue;
     }

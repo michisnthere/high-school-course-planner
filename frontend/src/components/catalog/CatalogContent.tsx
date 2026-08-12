@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
+import type { SummerCourse } from "@/lib/summerCourse";
+import { getSummerCourses } from "@/lib/summerCourse";
 import {
   buildCourseSortData,
   buildCourseSearchIndex,
@@ -15,10 +17,14 @@ import { CourseSearch } from "./CourseSearch";
 import { CourseFilters, type ActiveFilters } from "./CourseFilters";
 import { CourseGrid } from "./CourseGrid";
 import { EmptyState } from "./EmptyState";
+import { formatCredits } from "@/lib/courseCredits";
+import { formatPrerequisiteForDisplay } from "@/lib/catalog";
 
 type CatalogContentProps = {
   courses: Course[];
 };
+
+type CatalogSource = "regular" | "summer";
 
 function extractDivisionDepartments(courses: Course[]): Map<string, string[]> {
   const map = new Map<string, Set<string>>();
@@ -149,6 +155,228 @@ function courseMatchesFilters(course: Course, filters: ActiveFilters): boolean {
   return true;
 }
 
+function deriveSummerDivision(course: SummerCourse): string {
+  const regularDivision = course.regularCourse?.division;
+  if (regularDivision) return regularDivision;
+  const requirements = course.fulfillsRequirements.map((r) => r.toLowerCase());
+  if (requirements.some((r) => r.includes("english") || r.includes("communication"))) return "Communication Arts";
+  if (requirements.some((r) => r.includes("fine arts") || r.includes("art") || r.includes("music"))) return "Fine Arts";
+  if (requirements.some((r) => r.includes("mathematics") || r.includes("math"))) return "Mathematics";
+  if (requirements.some((r) => r.includes("science") || r.includes("biology") || r.includes("physical science"))) return "Science";
+  if (requirements.some((r) => r.includes("social studies") || r.includes("history") || r.includes("government"))) return "Social Studies";
+  if (requirements.some((r) => r.includes("health") || r.includes("physical education") || r.includes("driver education"))) return "Physical Welfare";
+
+  const title = course.title.toLowerCase();
+  if (title.includes("algebra") || title.includes("geometry") || title.includes("precalculus") || title.includes("calculus")) return "Mathematics";
+  if (title.includes("biology") || title.includes("chemistry") || title.includes("physics") || title.includes("science")) return "Science";
+  if (title.includes("english") || title.includes("reading") || title.includes("writing") || title.includes("speech")) return "Communication Arts";
+  if (title.includes("history") || title.includes("government") || title.includes("economics")) return "Social Studies";
+  if (title.includes("health") || title.includes("fitness") || title.includes("physical education")) return "Physical Welfare";
+  return "Summer School";
+}
+
+function extractSummerDivisions(courses: SummerCourse[]): string[] {
+  return Array.from(new Set(courses.map(deriveSummerDivision))).sort();
+}
+
+function extractSummerGrades(courses: SummerCourse[]): number[] {
+  const grades = new Set<number>();
+  for (const course of courses) {
+    for (const grade of course.gradeLevels ?? []) grades.add(grade);
+  }
+  return Array.from(grades).sort((a, b) => a - b);
+}
+
+function extractSummerCreditStatuses(courses: SummerCourse[]): string[] {
+  return Array.from(new Set(courses.map((c) => c.creditStatus).filter(Boolean))).sort();
+}
+
+function extractSummerSessions(courses: SummerCourse[]): string[] {
+  const sessions = new Set<string>();
+  for (const course of courses) {
+    for (const session of course.sessions ?? []) sessions.add(session);
+  }
+  return Array.from(sessions).sort();
+}
+
+function extractSummerRequirements(courses: SummerCourse[]): string[] {
+  const requirements = new Set<string>();
+  for (const course of courses) {
+    for (const requirement of course.fulfillsRequirements ?? []) requirements.add(requirement);
+  }
+  return Array.from(requirements).sort();
+}
+
+function summerCourseMatchesQuery(course: SummerCourse, query: string): boolean {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return true;
+  return [
+    course.title,
+    course.courseCode,
+    course.creditStatus,
+    ...course.fulfillsRequirements,
+    ...course.prerequisites,
+  ]
+    .filter((value): value is string => typeof value === "string")
+    .some((value) => value.toLowerCase().includes(normalized));
+}
+
+function summerCourseMatchesFilters(course: SummerCourse, filters: ActiveFilters): boolean {
+  if (filters.division.length > 0 && !filters.division.includes(deriveSummerDivision(course))) return false;
+  if (filters.creditType.length > 0 && !filters.creditType.includes(course.creditStatus)) return false;
+  if (filters.gradeLevel.length > 0) {
+    const selectedGrades = filters.gradeLevel.map((grade) => parseInt(grade, 10));
+    if (!selectedGrades.some((grade) => (course.gradeLevels ?? []).includes(grade))) return false;
+  }
+  if (filters.semester.length > 0) {
+    if (!filters.semester.some((session) => (course.sessions ?? []).includes(session))) return false;
+  }
+  if (filters.requirement.length > 0) {
+    if (!filters.requirement.some((requirement) => course.fulfillsRequirements.includes(requirement))) return false;
+  }
+  return true;
+}
+
+function formatSummerCreditStatus(course: SummerCourse): string {
+  if (course.creditStatus === "credit") {
+    return course.credits != null ? `Credit, ${formatCredits(course.credits)} credits` : "Credit";
+  }
+  if (course.creditStatus === "non-credit") return "Non-credit";
+  return course.creditStatus || "Credit status unknown";
+}
+
+function SummerCourseCard({ course }: { course: SummerCourse }): React.ReactElement {
+  const tags = [
+    deriveSummerDivision(course),
+    formatSummerCreditStatus(course),
+    ...(course.sessions ?? []),
+    ...(course.gradeLevels ?? []).map((grade) => `Grade ${grade}`),
+  ];
+
+  return (
+    <article
+      className="rs-catalog-card"
+      style={{
+        backgroundColor: "var(--bg-card)",
+        border: "1px solid var(--border-default)",
+        borderRadius: "12px",
+        padding: "20px",
+      }}
+    >
+      <h3 style={{ margin: "0 0 10px", fontSize: "18px", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
+        {course.title}
+      </h3>
+      {course.courseCode && (
+        <div style={{ marginBottom: "12px", fontSize: "14px", color: "var(--text-muted)", fontWeight: 600 }}>
+          {course.courseCode}
+        </div>
+      )}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "14px" }}>
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            style={{
+              padding: "4px 10px",
+              backgroundColor: "var(--bg-input)",
+              borderRadius: "9999px",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "var(--text-secondary)",
+            }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      {course.fulfillsRequirements.length > 0 && (
+        <div style={{ marginTop: "12px" }}>
+          <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+            Requirements fulfilled
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+            {course.fulfillsRequirements.map((requirement) => (
+              <span key={requirement} style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
+                {requirement}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+      {course.prerequisites.length > 0 && (
+        <div style={{ marginTop: "12px" }}>
+          <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+            Prerequisites
+          </div>
+          <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+            {course.prerequisites.map((item, index) => (
+              <li key={`${item}-${index}`}>{formatPrerequisiteForDisplay(item)}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </article>
+  );
+}
+
+function SummerCourseGrid({ courses }: { courses: SummerCourse[] }): React.ReactElement {
+  return (
+    <div
+      className="rs-catalog-grid"
+      style={{
+        display: "grid",
+        gap: "24px",
+        width: "100%",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+      }}
+    >
+      {courses.map((course) => (
+        <SummerCourseCard key={course.id} course={course} />
+      ))}
+    </div>
+  );
+}
+
+function CatalogSourceToggle({
+  value,
+  onChange,
+}: {
+  value: CatalogSource;
+  onChange: (value: CatalogSource) => void;
+}): React.ReactElement {
+  const options: Array<{ value: CatalogSource; label: string }> = [
+    { value: "regular", label: "Regular Coursebook" },
+    { value: "summer", label: "Summer School Coursebook" },
+  ];
+  return (
+    <div style={{ display: "inline-flex", padding: "4px", backgroundColor: "var(--bg-card)", border: "1px solid var(--border-default)", borderRadius: "10px", marginBottom: "20px" }}>
+      {options.map((option) => {
+        const selected = option.value === value;
+        return (
+          <button
+            key={option.value}
+            type="button"
+            aria-pressed={selected}
+            onClick={() => onChange(option.value)}
+            style={{
+              minHeight: "38px",
+              padding: "0 16px",
+              border: "none",
+              borderRadius: "8px",
+              backgroundColor: selected ? "var(--brand-accent)" : "transparent",
+              color: selected ? "#ffffff" : "var(--text-secondary)",
+              fontSize: "14px",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            {option.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
   const hasQuery = query.trim().length > 0;
   const hasFilters = Object.values(filters).some((values) => values.length > 0);
@@ -165,9 +393,11 @@ function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
   return "No courses found.";
 }
 
-function parseSearchParams(sp: URLSearchParams): { query: string; filters: ActiveFilters } {
+function parseSearchParams(sp: URLSearchParams): { query: string; filters: ActiveFilters; source: CatalogSource } {
+  const source = sp.get("source") === "summer" ? "summer" : "regular";
   return {
     query: sp.get("q") || "",
+    source,
     filters: {
       division: sp.getAll("division"),
       department: sp.getAll("department"),
@@ -179,8 +409,9 @@ function parseSearchParams(sp: URLSearchParams): { query: string; filters: Activ
   };
 }
 
-function buildSearchParams(query: string, filters: ActiveFilters): URLSearchParams {
+function buildSearchParams(query: string, filters: ActiveFilters, source: CatalogSource): URLSearchParams {
   const params = new URLSearchParams();
+  if (source === "summer") params.set("source", source);
   if (query) params.set("q", query);
   for (const v of filters.division) params.append("division", v);
   for (const v of filters.department) params.append("department", v);
@@ -194,8 +425,11 @@ function buildSearchParams(query: string, filters: ActiveFilters): URLSearchPara
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [summerCourses, setSummerCourses] = useState<SummerCourse[]>([]);
+  const [summerLoading, setSummerLoading] = useState(false);
+  const [summerError, setSummerError] = useState<string | null>(null);
 
-  const { query: initialQuery, filters } = useMemo(
+  const { query: initialQuery, filters, source } = useMemo(
     () => parseSearchParams(searchParams),
     [searchParams]
   );
@@ -203,12 +437,12 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit(initialQuery);
 
   const syncUrl = useCallback(
-    (q: string, f: ActiveFilters) => {
-      const params = buildSearchParams(q, f);
+    (q: string, f: ActiveFilters, catalogSource: CatalogSource = source) => {
+      const params = buildSearchParams(q, f, catalogSource);
       const target = params.toString() ? `/catalog?${params.toString()}` : "/catalog";
       router.replace(target, { scroll: false });
     },
-    [router]
+    [router, source]
   );
 
   const handleSearchSubmit = useCallback(() => {
@@ -228,6 +462,16 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     setDraft(initialQuery);
   }, [initialQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (source !== "summer" || summerCourses.length > 0 || summerLoading) return;
+    setSummerLoading(true);
+    setSummerError(null);
+    getSummerCourses()
+      .then(setSummerCourses)
+      .catch(() => setSummerError("Failed to load Summer School courses."))
+      .finally(() => setSummerLoading(false));
+  }, [source, summerCourses.length, summerLoading]);
+
   const sortData = useMemo(() => buildCourseSortData(courses), [courses]);
   const searchIndex = useMemo(() => buildCourseSearchIndex(courses), [courses]);
 
@@ -240,6 +484,11 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   const creditTypes = useMemo(() => extractCreditTypes(courses), [courses]);
   const gradeLevels = useMemo(() => extractGradeLevels(courses), [courses]);
   const semesters = useMemo(() => extractSemesters(courses), [courses]);
+  const summerDivisions = useMemo(() => extractSummerDivisions(summerCourses), [summerCourses]);
+  const summerGrades = useMemo(() => extractSummerGrades(summerCourses), [summerCourses]);
+  const summerCreditStatuses = useMemo(() => extractSummerCreditStatuses(summerCourses), [summerCourses]);
+  const summerSessions = useMemo(() => extractSummerSessions(summerCourses), [summerCourses]);
+  const summerRequirements = useMemo(() => extractSummerRequirements(summerCourses), [summerCourses]);
 
   const filteredCourses = useMemo(() => {
     return courses.filter(
@@ -252,6 +501,16 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
     return sortCoursesByPrerequisites(filteredCourses, sortData);
   }, [filteredCourses, sortData]);
 
+  const filteredSummerCourses = useMemo(() => {
+    return summerCourses
+      .filter((course) => summerCourseMatchesQuery(course, submitted) && summerCourseMatchesFilters(course, filters))
+      .sort((a, b) => {
+        const div = deriveSummerDivision(a).localeCompare(deriveSummerDivision(b));
+        if (div !== 0) return div;
+        return a.title.localeCompare(b.title);
+      });
+  }, [summerCourses, submitted, filters]);
+
   const hierarchyLevel =
     filters.division.length === 0
       ? "division"
@@ -259,8 +518,24 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
         ? "department"
         : "courses";
 
+  const handleSourceChange = useCallback(
+    (nextSource: CatalogSource) => {
+      if (nextSource === source) return;
+      syncUrl(submitted, {
+        division: [],
+        department: [],
+        creditType: [],
+        gradeLevel: [],
+        semester: [],
+        requirement: [],
+      }, nextSource);
+    },
+    [source, submitted, syncUrl]
+  );
+
   return (
     <>
+      <CatalogSourceToggle value={source} onChange={handleSourceChange} />
       <CourseSearch
         value={draft}
         onChange={setDraft}
@@ -269,21 +544,52 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
         disabled={!hasChanged}
         onClear={() => { clearAll(); syncUrl("", filters); }}
       />
-      <CourseFilters
-        divisions={divisions}
-        divisionDepartments={divisionDepartments}
-        departments={departments}
-        creditTypes={creditTypes}
-        gradeLevels={gradeLevels}
-        semesters={semesters}
-        filters={filters}
-        onFilterChange={setFilters}
-      />
+      {source === "regular" ? (
+        <>
+          <CourseFilters
+            divisions={divisions}
+            divisionDepartments={divisionDepartments}
+            departments={departments}
+            creditTypes={creditTypes}
+            gradeLevels={gradeLevels}
+            semesters={semesters}
+            filters={filters}
+            onFilterChange={setFilters}
+          />
 
-      {hierarchyLevel !== "courses" ? null : sortedCourses.length === 0 ? (
-        <EmptyState message={getEmptyStateMessage(submitted, filters)} />
+          {hierarchyLevel !== "courses" ? null : sortedCourses.length === 0 ? (
+            <EmptyState message={getEmptyStateMessage(submitted, filters)} />
+          ) : (
+            <CourseGrid courses={sortedCourses} />
+          )}
+        </>
       ) : (
-        <CourseGrid courses={sortedCourses} />
+        <>
+          <CourseFilters
+            divisions={summerDivisions}
+            divisionDepartments={new Map()}
+            departments={[]}
+            creditTypes={summerCreditStatuses}
+            gradeLevels={summerGrades}
+            semesters={summerSessions}
+            filters={filters}
+            onFilterChange={setFilters}
+            requirementValues={summerRequirements}
+            showCourseFiltersImmediately
+            creditTypeLabel="Credit Status"
+            semesterLabel="Session"
+          />
+
+          {summerLoading ? (
+            <p style={{ color: "var(--text-muted)" }}>Loading Summer School courses...</p>
+          ) : summerError ? (
+            <EmptyState message={summerError} />
+          ) : filteredSummerCourses.length === 0 ? (
+            <EmptyState message={getEmptyStateMessage(submitted, filters)} />
+          ) : (
+            <SummerCourseGrid courses={filteredSummerCourses} />
+          )}
+        </>
       )}
     </>
   );
