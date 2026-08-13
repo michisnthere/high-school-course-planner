@@ -3789,6 +3789,8 @@ function WarningActionModal({
 
   // Progressive disclosure state
   const [step, setStep] = useState<"initial" | "selectYear" | "foundSlot" | "selectReplacement" | "confirmImpact">("initial");
+  // Two-screen modal state: "select" = Resolve Warning options, "verify" = Verify Changes.
+  const [resolveStep, setResolveStep] = useState<"select" | "verify">("select");
   const [selectedReplacement, setSelectedReplacement] = useState<PlannedCourse | null>(null);
   const [completedGrade, setCompletedGrade] = useState<GradeCompleted>(
     getDefaultCompletedGrade(currentYear)
@@ -4196,7 +4198,10 @@ function WarningActionModal({
   };
 
   const handleAddToYearClick = () => {
+    setSelectedYear(null);
+    setSelectedReplacement(null);
     setStep("selectYear");
+    setResolveStep("verify");
   };
 
   const handleYearSelect = (year: number) => {
@@ -4209,9 +4214,13 @@ function WarningActionModal({
     }
   };
 
-  const handleFoundSlotCancel = () => {
+  // Back on the Verify Changes screen: return to the Resolve Warning options,
+  // keeping the prerequisite course selection. Never closes or resets the workflow.
+  const handleVerifyBack = () => {
+    setResolveStep("select");
     setStep("initial");
     setSelectedYear(null);
+    setSelectedReplacement(null);
   };
 
   const handleReplacementSelect = (course: PlannedCourse) => {
@@ -4508,6 +4517,8 @@ function WarningActionModal({
   const handleAdjustmentReplace = useCallback(
     (year: number) => {
       setSelectedYear(year);
+      setSelectedReplacement(null);
+      setResolveStep("verify");
       const targetSlot = findBestSlotForYear(year, planned.slot);
       if (targetSlot) {
         setStep("foundSlot");
@@ -4564,6 +4575,20 @@ function WarningActionModal({
 
   // The "Mark as Previously Completed" section is only actionable when a matching course is selected.
   const hasCompletedAction = selectedCourse != null;
+
+  // Summary shown at the top of the Verify Changes screen. Reuses the existing
+  // best-slot calculation rather than recomputing schedule info in the UI.
+  const verifyIntro = useMemo(() => {
+    const courseTitle = selectedCourse?.title ?? "the prerequisite";
+    if (selectedYear == null) {
+      return `You're adding ${courseTitle} to a previous year.`;
+    }
+    const slot = findBestSlotForYear(selectedYear, planned.slot);
+    const location = slot
+      ? `${YEAR_LABELS[selectedYear]} Year, Semester ${slot.semester} Slot ${slot.slot}`
+      : `${YEAR_LABELS[selectedYear]} Year`;
+    return `You're adding ${courseTitle} to ${location}.`;
+  }, [selectedCourse, selectedYear, findBestSlotForYear, planned.slot]);
 
   return (
     <>
@@ -4680,7 +4705,7 @@ function WarningActionModal({
                   color: "#ffffff",
                 }}
               >
-                Resolve Warning
+                {resolveStep === "verify" ? "Verify Changes" : "Resolve Warning"}
               </h2>
               <button
                 type="button"
@@ -4716,24 +4741,43 @@ function WarningActionModal({
               gap: "16px",
             }}
           >
-            <div
-              style={{
-                padding: "12px 16px",
-                backgroundColor: "rgba(236, 186, 43, 0.12)",
-                border: "1px solid rgba(236, 186, 43, 0.3)",
-                borderRadius: "8px",
-                fontSize: "14px",
-                color: "var(--brand-accent)",
-                lineHeight: 1.5,
-              }}
-            >
-              ⚠ {warning.message}
-            </div>
+                        {resolveStep === "select" && (
+              <div
+                style={{
+                  padding: "12px 16px",
+                  backgroundColor: "rgba(236, 186, 43, 0.12)",
+                  border: "1px solid rgba(236, 186, 43, 0.3)",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  color: "var(--brand-accent)",
+                  lineHeight: 1.5,
+                }}
+              >
+                ⚠ {warning.message}
+              </div>
+            )}
 
             {loading ? (
               <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading...</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {resolveStep === "verify" && (
+                  <div
+                    style={{
+                      padding: "12px 16px",
+                      backgroundColor: "rgba(59, 130, 246, 0.08)",
+                      border: "1px solid rgba(59, 130, 246, 0.2)",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <p style={{ margin: 0, fontSize: "15px", color: "#ffffff", fontWeight: 600, lineHeight: 1.5 }}>
+                      {verifyIntro}
+                    </p>
+                  </div>
+                )}
+
+                {resolveStep === "select" && (
+                  <>
                 {matchedCourses.length > 1 && (
                   <select
                     value={selectedCourseId ?? ""}
@@ -4810,6 +4854,8 @@ function WarningActionModal({
                     </div>
                   </div>
                 )}
+                  </>
+                )}
 
                 {/* Progressive disclosure: Add prerequisite to earlier year */}
                 {hasPreviousYears && warning.type === "missing_prerequisite" && selectedCourse && step !== "initial" && (
@@ -4874,7 +4920,7 @@ function WarningActionModal({
 
                         <button
                           type="button"
-                          onClick={() => { setStep("initial"); setSelectedYear(null); }}
+                          onClick={handleVerifyBack}
                           className="wa-btn wa-btn-secondary"
                           style={{ width: "100%" }}
                         >
@@ -4897,12 +4943,12 @@ function WarningActionModal({
                           <div style={{ display: "flex", gap: "12px" }}>
                             <button
                               type="button"
-                              onClick={handleFoundSlotCancel}
+                              onClick={handleVerifyBack}
                               disabled={loading}
                               className="wa-btn wa-btn-secondary"
                               style={{ flex: 1 }}
                             >
-                              Cancel
+                              Back
                             </button>
                             <button
                               type="button"
@@ -4992,7 +5038,16 @@ function WarningActionModal({
                           className="wa-btn wa-btn-secondary"
                           style={{ width: "100%" }}
                         >
-                          ← Choose a different year
+                          Choose a different year
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleVerifyBack}
+                          className="wa-btn wa-btn-secondary"
+                          style={{ width: "100%" }}
+                        >
+                          ← Back
                         </button>
                       </div>
                     )}
@@ -5314,54 +5369,56 @@ function WarningActionModal({
               </div>
             )}
 
-            <div
-              style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid #374151" }}
-            >
-              {!showConfirmIgnore ? (
-                <button
-                  type="button"
-                  onClick={handleIgnore}
-                  disabled={loading}
-                  className="wa-btn wa-btn-secondary"
-                  style={{ width: "100%" }}
-                >
-                  Ignore Warning
-                </button>
-              ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "#d1d5db",
-                      textAlign: "center",
-                    }}
+            {resolveStep === "select" && (
+              <div
+                style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid #374151" }}
+              >
+                {!showConfirmIgnore ? (
+                  <button
+                    type="button"
+                    onClick={handleIgnore}
+                    disabled={loading}
+                    className="wa-btn wa-btn-secondary"
+                    style={{ width: "100%" }}
                   >
-                    Are you sure you want to ignore this warning?
-                  </p>
-                  <div style={{ display: "flex", gap: "12px" }}>
-                    <button
-                      type="button"
-                      onClick={confirmIgnore}
-                      disabled={loading}
-                      className="wa-btn wa-btn-danger"
-                      style={{ flex: 1 }}
+                    Ignore Warning
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "14px",
+                        color: "#d1d5db",
+                        textAlign: "center",
+                      }}
                     >
-                      Yes, ignore
-                    </button>
-                    <button
-                      type="button"
-                      onClick={cancelIgnore}
-                      disabled={loading}
-                      className="wa-btn wa-btn-secondary"
-                      style={{ flex: 1 }}
-                    >
-                      Cancel
-                    </button>
+                      Are you sure you want to ignore this warning?
+                    </p>
+                    <div style={{ display: "flex", gap: "12px" }}>
+                      <button
+                        type="button"
+                        onClick={confirmIgnore}
+                        disabled={loading}
+                        className="wa-btn wa-btn-danger"
+                        style={{ flex: 1 }}
+                      >
+                        Yes, ignore
+                      </button>
+                      <button
+                        type="button"
+                        onClick={cancelIgnore}
+                        disabled={loading}
+                        className="wa-btn wa-btn-secondary"
+                        style={{ flex: 1 }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
