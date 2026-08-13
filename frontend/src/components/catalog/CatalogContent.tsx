@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { Course } from "@/types/course";
 import type { SummerCourse } from "@/lib/summerCourse";
-import { getSummerCourses } from "@/lib/summerCourse";
+import { useSummerCatalog } from "@/lib/summerCatalogLoader";
 import {
   CATALOG_CREDIT_TYPES,
   CATALOG_GRADE_LEVELS,
@@ -368,14 +368,26 @@ function buildSearchParams(query: string, filters: ActiveFilters, source: Catalo
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [summerCourses, setSummerCourses] = useState<SummerCourse[]>([]);
-  const [summerLoading, setSummerLoading] = useState(false);
-  const [summerError, setSummerError] = useState<string | null>(null);
 
   const { query: initialQuery, filters, source } = useMemo(
     () => parseSearchParams(searchParams),
     [searchParams]
   );
+
+  // Summer catalog load lifecycle (idle -> loading -> success | error). The
+  // fetch fires only when the Summer source becomes active, and a failure
+  // settles into `error` instead of looping back to `loading` (see
+  // summerCatalogLoader.ts). Retry is an explicit, single request.
+  const { state: summer, load: retrySummerLoad } = useSummerCatalog({
+    enabled: source === "summer",
+  });
+
+  const summerCourses = useMemo(
+    () => (summer.status === "success" ? summer.courses : []),
+    [summer]
+  );
+  const summerLoading = summer.status === "loading";
+  const summerError = summer.status === "error" ? summer.message : null;
 
   const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit(initialQuery);
 
@@ -404,16 +416,6 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
   useEffect(() => {
     setDraft(initialQuery);
   }, [initialQuery]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (source !== "summer" || summerCourses.length > 0 || summerLoading) return;
-    setSummerLoading(true);
-    setSummerError(null);
-    getSummerCourses()
-      .then(setSummerCourses)
-      .catch(() => setSummerError("Failed to load Summer School courses."))
-      .finally(() => setSummerLoading(false));
-  }, [source, summerCourses.length, summerLoading]);
 
   const sortData = useMemo(() => buildCourseSortData(courses), [courses]);
   const searchIndex = useMemo(() => buildCourseSearchIndex(courses), [courses]);
@@ -570,10 +572,39 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
             creditTypeFormatter={(value) => value}
           />
 
-          {summerLoading ? (
+{summerLoading ? (
             <p style={{ color: "var(--text-muted)" }}>Loading Summer School courses...</p>
           ) : summerError ? (
-            <EmptyState message={summerError} />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "16px",
+              }}
+            >
+              <EmptyState message={summerError} />
+              <button
+                type="button"
+                onClick={retrySummerLoad}
+                disabled={summerLoading}
+                style={{
+                  minHeight: "44px",
+                  padding: "10px 20px",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  color: "#ffffff",
+                  backgroundColor: "var(--brand-accent)",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: summerLoading ? "not-allowed" : "pointer",
+                  opacity: summerLoading ? 0.6 : 1,
+                  fontFamily: "inherit",
+                }}
+              >
+                Retry
+              </button>
+            </div>
           ) : filteredSummerCourses.length === 0 ? (
             <EmptyState message={getEmptyStateMessage(submitted, filters)} />
           ) : (
