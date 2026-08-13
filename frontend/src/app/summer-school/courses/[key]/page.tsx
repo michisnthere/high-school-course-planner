@@ -78,6 +78,13 @@ export default async function SummerCourseDetailRoute({
   return (
     <>
       <style>{`
+        .rs-detail-rows {
+          margin-top: 4px;
+        }
+        .rs-detail-row {
+          display: flex;
+          flex-wrap: wrap;
+        }
         @media (max-width: ${breakpoints.mobile - 1}px) {
           .rs-detail-header {
             position: sticky;
@@ -96,6 +103,18 @@ export default async function SummerCourseDetailRoute({
           .rs-summer-detail > div:not(.rs-detail-header) {
             padding: 16px !important;
             margin-bottom: 16px !important;
+          }
+          .rs-summer-detail > .rs-additional-info {
+            padding: 20px 18px !important;
+          }
+          .rs-detail-row {
+            flex-direction: column;
+            row-gap: 6px;
+            padding: 16px 0;
+          }
+          .rs-detail-label,
+          .rs-detail-value {
+            min-width: 0 !important;
           }
           .rs-summer-detail h2 {
             font-size: 18px !important;

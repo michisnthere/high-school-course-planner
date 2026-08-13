@@ -275,11 +275,6 @@ export function SummerCoursePicker({
                         {disabledReason}
                       </div>
                     )}
-                    {course.regularCourse && (
-                      <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#6ee7b7" }}>
-                        Matches the regular course &quot;{course.regularCourse.title}&quot;
-                      </div>
-                    )}
                     {course.prerequisites.length > 0 && (
                       <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#fcd34d" }}>
                         Prerequisites: {course.prerequisites.join(", ")}

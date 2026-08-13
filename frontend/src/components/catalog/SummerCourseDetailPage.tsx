@@ -31,6 +31,14 @@ const cardStyle: CSSProperties = {
   marginBottom: "24px",
 };
 
+const additionalInfoCardStyle: CSSProperties = {
+  padding: "32px 36px",
+  backgroundColor: "var(--bg-card)",
+  border: "1px solid var(--border-default)",
+  borderRadius: "12px",
+  marginBottom: "24px",
+};
+
 const cardHeadingStyle: CSSProperties = {
   margin: "0 0 16px",
   fontSize: "20px",
@@ -50,25 +58,40 @@ const pillStyle: CSSProperties = {
 function DetailRow({ label, value }: DetailRowData): ReactElement {
   return (
     <div
+      className="rs-detail-row"
       style={{
         display: "flex",
         flexWrap: "wrap",
-        gap: "8px 24px",
-        padding: "10px 0",
-        borderTop: value ? "1px solid var(--border-default)" : "none",
+        columnGap: "32px",
+        rowGap: "10px",
+        padding: "18px 0",
+        borderTop: "1px solid var(--border-default)",
       }}
     >
       <span
+        className="rs-detail-label"
         style={{
-          minWidth: "180px",
+          minWidth: "200px",
           fontSize: "14px",
           fontWeight: 700,
+          letterSpacing: "0.01em",
           color: "var(--text-primary)",
         }}
       >
         {label}
       </span>
-      <span style={{ fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>{value}</span>
+      <span
+        className="rs-detail-value"
+        style={{
+          flex: 1,
+          minWidth: "260px",
+          fontSize: "16px",
+          color: "var(--text-secondary)",
+          lineHeight: 1.6,
+        }}
+      >
+        {value}
+      </span>
     </div>
   );
 }
@@ -127,22 +150,6 @@ function SummerCourseDetailHeader({
         <span style={pillStyle}>{division}</span>
         <span style={pillStyle}>{formatSummerCreditType(course)}</span>
       </div>
-
-      {course.regularCourse && (
-        <p
-          style={{
-            margin: "12px 0 0",
-            fontSize: "13px",
-            color: "var(--text-secondary)",
-            backgroundColor: "var(--bg-input)",
-            display: "inline-block",
-            padding: "6px 12px",
-            borderRadius: "8px",
-          }}
-        >
-          Matches the regular course &quot;{course.regularCourse.title}&quot;
-        </p>
-      )}
     </div>
   );
 }
@@ -250,11 +257,13 @@ export function SummerCourseDetailPage({
       </div>
 
       {additionalInformation.length > 0 && (
-        <div style={cardStyle}>
+        <div className="rs-additional-info" style={additionalInfoCardStyle}>
           <h2 style={cardHeadingStyle}>Additional Information</h2>
-          {additionalInformation.map((row) => (
-            <DetailRow key={row.label} label={row.label} value={row.value} />
-          ))}
+          <div className="rs-detail-rows">
+            {additionalInformation.map((row) => (
+              <DetailRow key={row.label} label={row.label} value={row.value} />
+            ))}
+          </div>
         </div>
       )}
     </div>
