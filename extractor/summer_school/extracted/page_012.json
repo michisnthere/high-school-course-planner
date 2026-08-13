@@ -14,7 +14,7 @@
       "division": "Fine Arts",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -25,7 +25,25 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "ART11S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "ART12S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 12
@@ -48,7 +66,7 @@
       "division": "Fine Arts",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -59,7 +77,25 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/semester",
+      "meetings": [
+        {
+          "courseCode": "ART51S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "ART52S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 12
@@ -82,7 +118,7 @@
       "division": "Fine Arts",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -95,7 +131,25 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/semester",
+      "meetings": [
+        {
+          "courseCode": "ART31S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "ART32S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 12
@@ -118,7 +172,7 @@
       "division": "Fine Arts",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -129,7 +183,19 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/SEMESTER",
+      "meetings": [
+        {
+          "courseCode": "THR11S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 12

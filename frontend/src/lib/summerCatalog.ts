@@ -1,5 +1,5 @@
 import type { Course } from "@/types/course";
-import type { SummerCourse } from "@/lib/summerCourse";
+import type { SummerCourse, SummerMeeting } from "@/lib/summerCourse";
 import { normalizeTitle } from "@/lib/normalize";
 import { formatCredits } from "@/lib/courseCredits";
 
@@ -181,13 +181,40 @@ export function isSummerPassFailNote(note: string): boolean {
   return PASS_FAIL_NOTE_PATTERN.test(note);
 }
 
+/** Printed meeting blocks, each mirroring one "CODE: DATES" + "TIME" cluster. */
+export function getSummerMeetings(course: SummerCourse): SummerMeeting[] {
+  return (course.meetings ?? []).filter(
+    (meeting): meeting is SummerMeeting => typeof meeting === "object" && meeting !== null
+  );
+}
+
+/** Distinct dates printed across the course's meetings, joined for display. */
+export function formatSummerDates(course: SummerCourse): string | null {
+  const dates = [...new Set(getSummerMeetings(course).map((m) => m.dates?.trim()).filter(Boolean) as string[])];
+  return dates.length > 0 ? dates.join(", ") : null;
+}
+
+/** Distinct time ranges printed across the course's meetings, joined for display. */
+export function formatSummerTimes(course: SummerCourse): string | null {
+  const times = [
+    ...new Set(
+      getSummerMeetings(course)
+        .map((m) => (m.startTime && m.endTime ? `${m.startTime} – ${m.endTime}` : null))
+        .filter(Boolean) as string[]
+    ),
+  ];
+  return times.length > 0 ? times.join(", ") : null;
+}
+
 /** Cost line(s) printed in the coursebook, shown only when present. */
 export function getSummerCost(course: SummerCourse): string | null {
+  const structured = course.cost?.trim();
+  if (structured) return structured;
   const costs = summerNotes(course).filter((note) => isSummerCostNote(note));
   return costs.length > 0 ? costs.join(" ") : null;
 }
 
-/** Date/time availability line(s) printed in the coursebook. */
+/** Date/time availability line(s) printed in the coursebook (legacy fallback). */
 export function getSummerScheduleNotes(course: SummerCourse): string[] {
   return summerNotes(course).filter((note) => isSummerScheduleNote(note));
 }
@@ -195,6 +222,7 @@ export function getSummerScheduleNotes(course: SummerCourse): string[] {
 /** True when the coursebook marks the course as Pass/Fail. */
 export function getSummerPassFail(course: SummerCourse): boolean {
   return (
+    (course.creditType ?? "").toLowerCase().includes("pass/fail") ||
     (course.attributes ?? []).some((attribute) => PASS_FAIL_NOTE_PATTERN.test(attribute)) ||
     (course.notes ?? []).some((note) => isSummerPassFailNote(note))
   );
@@ -212,8 +240,10 @@ export function formatSummerSessionsRaw(course: SummerCourse): string | null {
   return sessions.length > 0 ? sessions.join(" / ") : null;
 }
 
-/** Duration label derived from the data: note phrase when printed, else Full Summer / One Session. */
+/** Duration label: printed phrase when available, else derived from the data. */
 export function getSummerDurationLabel(course: SummerCourse): string {
+  const printed = course.durationNote?.trim();
+  if (printed) return printed;
   if (course.duration === "full_summer") return "Full Summer";
   for (const note of summerNotes(course)) {
     const match = note.match(DURATION_NOTE_PATTERN);

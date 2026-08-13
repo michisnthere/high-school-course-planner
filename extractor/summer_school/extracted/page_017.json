@@ -31,6 +31,22 @@
         "Both semesters are required.",
         "Printed credit: 1 credit per semester."
       ],
+      "durationNote": null,
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "SOC13S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "SOC14S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 17
@@ -67,6 +83,22 @@
       ],
       "attributes": [],
       "notes": [],
+      "durationNote": null,
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "SOC33S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "SOC34S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 17
@@ -101,6 +133,22 @@
       ],
       "attributes": [],
       "notes": [],
+      "durationNote": null,
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "SOC43S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "SOC44S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 17
@@ -137,6 +185,16 @@
       "attributes": [],
       "notes": [
         "This course satisfies the Illinois civics requirement and Stevenson's graduation requirement of one semester of government."
+      ],
+      "durationNote": null,
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "SOC41S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
       ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",

@@ -1,8 +1,10 @@
 import { describe, it, expect } from "vitest";
 import type { SummerCourse } from "../summerCourse";
 import {
+  formatSummerDates,
   formatSummerOpenTo,
   formatSummerSessionsRaw,
+  formatSummerTimes,
   getSummerCost,
   getSummerDurationLabel,
   getSummerPassFail,
@@ -127,5 +129,59 @@ describe("summer note parsing", () => {
     expect(formatSummerSessionsRaw(makeCourse({ sessions: ["Session 1", "Session 2"] }))).toBe(
       "Session 1 / Session 2"
     );
+  });
+});
+
+describe("structured summer fields", () => {
+  it("prefers the structured cost field over a parsed note", () => {
+    const course = makeCourse({
+      cost: "$225",
+      notes: ["Cost: $425/semester."],
+    });
+    expect(getSummerCost(course)).toBe("$225");
+  });
+
+  it("returns null when neither the field nor a note provides cost", () => {
+    expect(getSummerCost(makeCourse())).toBeNull();
+  });
+
+  it("formats dates and times from structured meetings", () => {
+    const course = makeCourse({
+      meetings: [
+        { courseCode: "CAR53S", dates: "June 2 - June 11", startTime: "7:45 A.M.", endTime: "12:50 P.M." },
+      ],
+    });
+    expect(formatSummerDates(course)).toBe("June 2 - June 11");
+    expect(formatSummerTimes(course)).toBe("7:45 A.M. – 12:50 P.M.");
+  });
+
+  it("dedupes repeated dates and times across meetings", () => {
+    const course = makeCourse({
+      meetings: [
+        { courseCode: "A", dates: "June 8 - June 12", startTime: "8:45 a.m.", endTime: "11:45 a.m." },
+        { courseCode: "B", dates: "June 8 - June 12", startTime: "8:45 a.m.", endTime: "11:45 a.m." },
+      ],
+    });
+    expect(formatSummerDates(course)).toBe("June 8 - June 12");
+    expect(formatSummerTimes(course)).toBe("8:45 a.m. – 11:45 a.m.");
+  });
+
+  it("returns null when there are no meetings", () => {
+    expect(formatSummerDates(makeCourse())).toBeNull();
+    expect(formatSummerTimes(makeCourse())).toBeNull();
+  });
+
+  it("prefers the printed duration phrase over the derived label", () => {
+    expect(getSummerDurationLabel(makeCourse({ durationNote: "Eight-day course" }))).toBe(
+      "Eight-day course"
+    );
+    expect(getSummerDurationLabel(makeCourse({ duration: "full_summer", durationNote: "One-Semester Course" }))).toBe(
+      "One-Semester Course"
+    );
+  });
+
+  it("detects Pass/Fail from the structured creditType", () => {
+    expect(getSummerPassFail(makeCourse({ creditType: "Pass/Fail" }))).toBe(true);
+    expect(getSummerPassFail(makeCourse({ creditType: null }))).toBe(false);
   });
 });

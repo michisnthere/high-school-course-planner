@@ -14,7 +14,7 @@
       "division": "Computer Science",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -25,7 +25,19 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "CSC61S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 11
@@ -47,7 +59,7 @@
       "division": "Computer Science",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -60,7 +72,19 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "CSC82S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 11

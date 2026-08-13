@@ -29,9 +29,24 @@
       ],
       "attributes": [],
       "notes": [
-        "Cost: $425/semester + $400 behind the wheel driving + $20 fee to be paid to the Illinois Secretary of State's office for a driving permit.",
         "Grade earned is not included in GPA.",
         "Students must be 15 years old to obtain an Illinois driving permit."
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/semester + $400 behind the wheel driving + $20 fee to be paid to the Illinois Secretary of State's office for a driving permit.",
+      "meetings": [
+        {
+          "courseCode": "D/E21S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "D/E22S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
       ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
@@ -55,7 +70,7 @@
       "division": "Applied Arts",
       "department": "Business Education",
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -66,7 +81,25 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "BUS71S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "BUS72S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 8
@@ -89,7 +122,7 @@
       "division": "Applied Arts",
       "department": "Business Education",
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9,
         10,
@@ -100,7 +133,19 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "BUS12S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 8

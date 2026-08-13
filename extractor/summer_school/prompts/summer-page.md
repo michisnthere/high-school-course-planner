@@ -67,7 +67,10 @@ previous page.
   non-credit course. Never use `0` credits.
 - `division` / `department` - only if visibly printed on this page. Do not infer
   them from the title, code, or catalog section.
-- `creditType` - only if visibly printed on this page.
+- `creditType` — only if visibly printed on this page. This holds the printed
+  grading/credit type such as `"Pass/Fail"` (e.g. "0.5 Semester Credit
+  (Pass/Fail)"). It is NOT a slot for flags like "GPA Waiver Option" or
+  "Accelerated Option Available" — put those in `notes`.
 - `gradeLevels` — list of integers in 9..12 parsed from "Open to: 9-10-11-12"
   → `[9, 10, 11, 12]`. Omit if not shown.
 - `sessions` — list of Summer School session tokens taken from the printed
@@ -78,6 +81,20 @@ previous page.
   or `"full_summer"` when the course explicitly requires or spans BOTH summer
   sessions (e.g. "BOTH SEMESTERS ARE REQUIRED FOR GRADE 9"). When both sessions
   are listed only as alternatives, use `"one_session"`.
+- `durationNote` — string. The printed meeting-length phrase, e.g.
+  `"Eight-Day Course"`, `"One-Semester Course"`, `"Four-Day Course"`,
+  `"Five-Day Course"`. Omit for `full_summer` courses, which print no such
+  phrase.
+- `cost` — string. The cost EXACTLY as printed (e.g. `"$225"`,
+  `"$425/Semester"`, `"$100/semester"`). Preserve any multi-part fees (e.g.
+  Driver Education's "$425/semester + $400 behind the wheel driving + $20
+  fee..."). Omit when the page prints no cost.
+- `meetings` — list of one object per printed `CODE: DATES` + `TIME` cluster,
+  each `{"courseCode": <printed code>, "dates": <printed date span>,
+  "startTime": <printed start>, "endTime": <printed end>}`. A course with two
+  session codes prints two blocks; a single-block course prints one. Example:
+  `{"courseCode": "CAR53S", "dates": "June 2-June 11", "startTime": "7:45 A.M.",
+  "endTime": "12:50 P.M."}`. Omit when the page shows no dates/times.
 - `prerequisites` — list of strings copied EXACTLY from the printed
   "Prerequisite:" / "Prerequisites:" text (e.g. `["Age 15 before the first day
   of summer school, parental consent, an instruction permit..."]`). Empty list
@@ -92,9 +109,12 @@ previous page.
   `{"course", "page", "field", "status", "note"}`; add one entry for EVERY field
   you could not read confidently from the image. Allowed `status` values:
   `"unclear"`, `"missing"`, `"conflict"`.
-- `notes` — optional list of strings for genuine extra facts printed on the
-  page (e.g. cost, GPA waiver option, pass/fail, "Target student group").
-  Do NOT use this to introduce invented content.
+- `notes` — optional list of strings for genuine free-form facts printed on the
+  page that have no dedicated field (e.g. "GPA Waiver Option", "Accelerated
+  Option Available", "Students may register for multiple sessions", delivery or
+  transportation caveats). Do NOT put cost, dates, times, or the meeting-length
+  phrase here — they belong in `cost`, `meetings`, and `durationNote`. Do NOT
+  use notes to introduce invented content.
 
 ## Hard rules
 

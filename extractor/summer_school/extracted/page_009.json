@@ -25,6 +25,16 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-day course",
+      "cost": "$225",
+      "meetings": [
+        {
+          "courseCode": "CAR53S",
+          "dates": "June 2-June 11",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 9
@@ -57,6 +67,16 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-day course",
+      "cost": "$225",
+      "meetings": [
+        {
+          "courseCode": "CAR35S",
+          "dates": "June 2-June 11",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 9
@@ -89,6 +109,22 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-day course",
+      "cost": "$225",
+      "meetings": [
+        {
+          "courseCode": "CAR31S",
+          "dates": "June 2-June 11",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "CAR33S",
+          "dates": "June 15-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 9
@@ -121,6 +157,16 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-day course",
+      "cost": "$225",
+      "meetings": [
+        {
+          "courseCode": "CAR62S",
+          "dates": "June 29-July 9",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 9

@@ -89,6 +89,20 @@ class SummerCourseMatch(TypedDict):
     reason: NotRequired[Optional[str]]
 
 
+class SummerMeeting(TypedDict):
+    """One printed ``COURSECODE: DATES`` + ``TIME`` block in a coursebook listing.
+
+    A course prints one block per course code offered (e.g. ``ART11S: June
+    2-June 25`` followed by ``7:45 A.M.-12:50 P.M.``).  Multi-session courses
+    therefore carry multiple meetings; a single-session course carries one.
+    """
+
+    courseCode: NotRequired[Optional[str]]  # exact printed code block label
+    dates: NotRequired[Optional[str]]  # exact printed date span, e.g. "June 2-June 11"
+    startTime: NotRequired[Optional[str]]  # printed start time, e.g. "7:45 A.M."
+    endTime: NotRequired[Optional[str]]  # printed end time, e.g. "12:50 P.M."
+
+
 # ---------------------------------------------------------------------------
 # Course record
 # ---------------------------------------------------------------------------
@@ -110,6 +124,8 @@ class SummerCourse(TypedDict):
     courseCode: NotRequired[Optional[str]]
 
     credits: NotRequired[Optional[float]]  # numeric, > 0 when present
+    # Printed grading/credit type, e.g. "Pass/Fail".  This is NOT a catch-all
+    # for flags such as "GPA Waiver Option"; flags go in ``notes``.
     creditType: NotRequired[Optional[str]]
     # Explicit credit status is consumed by the isolated importer.  Non-credit
     # and unknown courses intentionally carry ``credits: null``.
@@ -119,6 +135,14 @@ class SummerCourse(TypedDict):
     # config.SUMMER_SESSION_1 / config.SUMMER_SESSION_2.
     sessions: NotRequired[Optional[List[str]]]
     duration: NotRequired[Optional[Literal["one_session", "full_summer"]]]
+    # Printed meeting-length phrase, e.g. "Eight-Day Course", "One-Semester
+    # Course", "Four-Day Course".  Left unset for full_summer courses, which
+    # print no such phrase.
+    durationNote: NotRequired[Optional[str]]
+    # Cost exactly as printed (e.g. "$225", "$425/Semester"), if any.
+    cost: NotRequired[Optional[str]]
+    # One block per printed code:dates:time cluster (see SummerMeeting).
+    meetings: NotRequired[Optional[List[SummerMeeting]]]
 
     prerequisites: NotRequired[Optional[List[str]]]
     corequisites: NotRequired[Optional[List[str]]]
@@ -127,6 +151,11 @@ class SummerCourse(TypedDict):
     # in the coursebook description if it states them explicitly).
     fulfillsRequirements: NotRequired[Optional[List[str]]]
     attributes: NotRequired[Optional[List[str]]]
+    # Genuine free-form facts printed on the page that have no dedicated field
+    # (e.g. "GPA Waiver Option", "Accelerated Option Available", "Students may
+    # register for multiple sessions", delivery/transport caveats).  Cost,
+    # dates, times, and printed meeting length live in ``cost`` /
+    # ``meetings`` / ``durationNote`` and MUST NOT be duplicated here.
     notes: NotRequired[Optional[List[str]]]
 
     # Summer-School-only courses have no existing regular Course record.
@@ -173,6 +202,7 @@ __all__ = [
     "SourceReference",
     "ExtractionIssue",
     "SummerCourseMatch",
+    "SummerMeeting",
     "SummerCourse",
     "SummerCatalog",
     "PageExtractionResult",

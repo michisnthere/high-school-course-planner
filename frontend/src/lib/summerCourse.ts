@@ -1,5 +1,13 @@
 import type { PlannerCourseDetails } from "./planner";
 
+// One printed "CODE: DATES" + "TIME" block from the Summer School coursebook.
+export type SummerMeeting = {
+  courseCode?: string | null;
+  dates?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+};
+
 // Frontend mirror of the backend SummerCourse model (backend/prisma/schema.prisma).
 // Summer School data lives in dedicated tables and never mutates the regular
 // catalog. A SummerCourse may link to its matched regular course via
@@ -12,7 +20,11 @@ export type SummerCourse = {
   description: string | null;
   creditStatus: "credit" | "non-credit" | "unknown" | string;
   credits: number | null;
+  creditType?: string | null;
   duration: "one_session" | "full_summer" | string;
+  durationNote?: string | null;
+  cost?: string | null;
+  meetings?: SummerMeeting[];
   prerequisites: string[];
   corequisites?: string[];
   fulfillsRequirements: string[];

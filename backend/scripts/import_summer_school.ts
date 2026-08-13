@@ -81,6 +81,15 @@ type Course = {
   creditStatus?: string; // from catalog (annotated) or inferred
   sessions?: string[];
   duration?: "one_session" | "full_summer" | null;
+  creditType?: string | null;
+  cost?: string | null;
+  durationNote?: string | null;
+  meetings?: Array<{
+    courseCode?: string | null;
+    dates?: string | null;
+    startTime?: string | null;
+    endTime?: string | null;
+  }>;
   prerequisites?: string[];
   corequisites?: string[];
   fulfillsRequirements?: string[];
@@ -768,8 +777,14 @@ async function main(): Promise<void> {
             description: (c as { description?: string }).description ?? null,
             creditStatus: row.creditStatus,
             credits: c.credits ?? null,
+            creditType: (c as { creditType?: string | null }).creditType ?? null,
             gradeLevels: (c as { gradeLevels?: number[] }).gradeLevels ?? [],
             duration: c.duration ?? DURATION_ONE_SESSION,
+            durationNote: (c as { durationNote?: string | null }).durationNote ?? null,
+            cost: (c as { cost?: string | null }).cost ?? null,
+            meetings: Array.isArray((c as { meetings?: unknown }).meetings)
+              ? (c as { meetings?: unknown }).meetings
+              : [],
             prerequisites: Array.isArray(c.prerequisites) ? c.prerequisites : [],
             corequisites: Array.isArray(c.corequisites) ? c.corequisites : [],
             fulfillsRequirements: Array.isArray(c.fulfillsRequirements) ? c.fulfillsRequirements : [],

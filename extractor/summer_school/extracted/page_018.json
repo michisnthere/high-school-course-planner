@@ -14,7 +14,7 @@
       "division": "Special Education",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         9
       ],
@@ -25,7 +25,24 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [
+        "GPA Waiver Option",
         "Students may register for both semesters."
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "IEN51S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "IEN52S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
       ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
@@ -65,6 +82,16 @@
       "notes": [
         "Not available for students entering transition program."
       ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "IJOB2S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 18
@@ -97,6 +124,22 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Five-Day Course",
+      "cost": "$150",
+      "meetings": [
+        {
+          "courseCode": "ACTPREPS",
+          "dates": "June 8-June 12",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "ACTPREPS2",
+          "dates": "July 6-July 10",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 18

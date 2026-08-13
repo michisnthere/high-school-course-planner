@@ -382,11 +382,22 @@ model SummerCourse {
   // "credit" | "non-credit" | "unknown".
   creditStatus String
   credits      Float?
+  // Printed grading/credit type, e.g. "Pass/Fail" (from "(Pass/Fail)" on the
+  // coursebook page).  NOT a slot for flags like "GPA Waiver Option".
+  creditType String?
 
   gradeLevels Int[] @default([])
 
   // Summer School duration vocabulary: "one_session" | "full_summer".
   duration String
+  // Printed meeting-length phrase, e.g. "Eight-Day Course", "One-Semester
+  // Course", "Four-Day Course".  Null for full_summer courses.
+  durationNote String?
+  // Cost exactly as printed in the coursebook (e.g. "$225", "$425/Semester").
+  cost String?
+  // One object per printed code:dates:time cluster:
+  // {"courseCode", "dates", "startTime", "endTime"}.
+  meetings Json @default("[]")
 
   prerequisites Json @default("[]")
   corequisites  Json @default("[]")

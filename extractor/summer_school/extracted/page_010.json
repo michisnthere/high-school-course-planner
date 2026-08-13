@@ -24,9 +24,44 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [
-        "Four-day course offered five different times; students may register for multiple sessions.",
+        "Students may register for multiple sessions.",
         "ENG53S and ENG54S are 4-8:30 p.m. sections.",
-        "ENG53S will only be offered in person. ENG54S will only be offered virtually via Zoom."
+        "ENG53S will only be offered in person (no bus transportation).",
+        "ENG54S will only be offered virtually via Zoom."
+      ],
+      "durationNote": "Four-Day Course",
+      "cost": "$100/semester",
+      "meetings": [
+        {
+          "courseCode": "ENG51S",
+          "dates": "June 2-June 5",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "ENG53S",
+          "dates": "June 8-June 11",
+          "startTime": "4:00 P.M.",
+          "endTime": "8:30 P.M."
+        },
+        {
+          "courseCode": "ENG55S",
+          "dates": "June 22-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "ENG54S",
+          "dates": "July 6-July 9",
+          "startTime": "4:00 P.M.",
+          "endTime": "8:30 P.M."
+        },
+        {
+          "courseCode": "ENG56S",
+          "dates": "July 20-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
       ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
@@ -50,7 +85,7 @@
       "division": "Communication Arts",
       "department": null,
       "credits": 1,
-      "creditType": "Accelerated Option Available",
+      "creditType": null,
       "gradeLevels": [
         11,
         12
@@ -62,7 +97,18 @@
       ],
       "attributes": [],
       "notes": [
+        "Accelerated Option Available",
         "1 semester English credit for grade 11; 1 semester English credit for grade 12."
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "ENG57S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
       ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
@@ -99,7 +145,19 @@
         "English"
       ],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "This course cannot replace a grade except for an F."
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "ENG25S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 10
@@ -121,7 +179,7 @@
       "division": "Communication Arts",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         10,
         11,
@@ -131,7 +189,19 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "ENG71S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 10

@@ -10,8 +10,12 @@ export type SummerCourseForDetails = {
   courseCode: string | null;
   creditStatus: string;
   credits: number | null;
+  creditType?: string | null;
   gradeLevels: number[];
   duration: string;
+  durationNote?: string | null;
+  cost?: string | null;
+  meetings?: unknown;
   prerequisites: unknown;
   corequisites: unknown;
   fulfillsRequirements: unknown;
@@ -51,8 +55,17 @@ export type SummerCourseDetails = {
   courseCode: string | null;
   creditStatus: string;
   credits: number | null;
+  creditType: string | null;
   gradeLevels: number[];
   duration: string;
+  durationNote: string | null;
+  cost: string | null;
+  meetings: Array<{
+    courseCode?: string | null;
+    dates?: string | null;
+    startTime?: string | null;
+    endTime?: string | null;
+  }>;
   prerequisites: string[];
   corequisites: string[];
   fulfillsRequirements: string[];
@@ -112,6 +125,7 @@ function deriveInstructionalCreditType(course: SummerCourseForDetails): string |
 
 function deriveSummerAttributes(course: SummerCourseForDetails): string[] {
   const attrs = new Set<string>();
+  if ((course.creditType ?? "").toLowerCase().includes("pass/fail")) attrs.add("Pass/Fail");
   const notes = Array.isArray(course.notes)
     ? course.notes.filter((note): note is string => typeof note === "string")
     : [];
@@ -141,8 +155,17 @@ export function deriveSummerCourseDetails(
     courseCode: course.courseCode ?? null,
     creditStatus: course.creditStatus,
     credits: course.credits ?? null,
+    creditType: course.creditType ?? null,
     gradeLevels: course.gradeLevels ?? [],
     duration: course.duration,
+    durationNote: course.durationNote ?? null,
+    cost: course.cost ?? null,
+    meetings: Array.isArray(course.meetings)
+      ? course.meetings.filter(
+          (m): m is { courseCode?: string; dates?: string; startTime?: string; endTime?: string } =>
+            typeof m === "object" && m !== null
+        )
+      : [],
     prerequisites: Array.isArray(course.prerequisites)
       ? course.prerequisites
           .filter((p): p is string => typeof p === "string" && !!p.trim())

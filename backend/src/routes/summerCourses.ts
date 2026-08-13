@@ -12,8 +12,12 @@ type SummerCourseWithRelations = {
   courseCode: string | null;
   creditStatus: string;
   credits: number | null;
+  creditType: string | null;
   gradeLevels: number[];
   duration: string;
+  durationNote: string | null;
+  cost: string | null;
+  meetings: unknown;
   prerequisites: unknown;
   corequisites: unknown;
   fulfillsRequirements: unknown;

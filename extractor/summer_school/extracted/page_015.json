@@ -28,6 +28,16 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "One-Semester Course",
+      "cost": "$225/SEMESTER",
+      "meetings": [
+        {
+          "courseCode": "ELD11S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 15
@@ -63,6 +73,16 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-Day Course",
+      "cost": "$100",
+      "meetings": [
+        {
+          "courseCode": "ELD32S",
+          "dates": "July 13-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 15
@@ -98,6 +118,16 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "One-Semester Course",
+      "cost": "$225/Semester",
+      "meetings": [
+        {
+          "courseCode": "ELD21S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 15

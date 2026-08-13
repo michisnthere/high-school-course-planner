@@ -26,6 +26,22 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-Day Course",
+      "cost": "$225",
+      "meetings": [
+        {
+          "courseCode": "TCH91S",
+          "dates": "June 2-June 11",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "TCH92S",
+          "dates": "June 29-July 9",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 19

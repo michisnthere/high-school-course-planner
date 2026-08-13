@@ -235,6 +235,60 @@ def _validate_requirement_list(
                 )
 
 
+def _validate_structured_fields(
+    course: schema.SummerCourse, key: str, problems: List[ValidationProblem]
+) -> None:
+    """Validate the structured meeting/cost/duration fields.
+
+    These fields are optional, but when present they must be well-formed and
+    must carry exactly the printed values (cost/dates/times live here, never in
+    notes)."""
+    cost = course.get("cost")
+    if cost is not None and (not isinstance(cost, str) or not cost.strip()):
+        problems.append(ValidationProblem("bad_type", key, "cost", "cost must be a non-empty string"))
+
+    duration_note = course.get("durationNote")
+    if duration_note is not None and (not isinstance(duration_note, str) or not duration_note.strip()):
+        problems.append(
+            ValidationProblem("bad_type", key, "durationNote", "durationNote must be a non-empty string")
+        )
+
+    meetings = course.get("meetings")
+    if meetings is None:
+        return
+    if not isinstance(meetings, list):
+        problems.append(ValidationProblem("bad_type", key, "meetings", "meetings must be a list"))
+        return
+    allowed = {"courseCode", "dates", "startTime", "endTime"}
+    for i, meeting in enumerate(meetings):
+        if not isinstance(meeting, dict):
+            problems.append(
+                ValidationProblem("bad_type", key, "meetings", f"meetings[{i}] must be an object")
+            )
+            continue
+        for field_name in meeting:
+            if field_name not in allowed:
+                problems.append(
+                    ValidationProblem(
+                        "bad_type",
+                        key,
+                        "meetings",
+                        f"meetings[{i}] has unknown key {field_name!r}",
+                    )
+                )
+        for field_name in allowed:
+            value = meeting.get(field_name)
+            if value is not None and (not isinstance(value, str) or not value.strip()):
+                problems.append(
+                    ValidationProblem(
+                        "bad_type",
+                        key,
+                        "meetings",
+                        f"meetings[{i}].{field_name} must be a non-empty string",
+                    )
+                )
+
+
 def validate_catalog(
     catalog: schema.SummerCatalog,
     *,
@@ -270,6 +324,7 @@ def validate_catalog(
         _validate_credits(course, key, problems)
         _validate_grade_levels(course, key, problems)
         _validate_availability(course, key, problems)
+        _validate_structured_fields(course, key, problems)
         _validate_string_list_field(course, key, "prerequisites", problems)
         _validate_string_list_field(course, key, "corequisites", problems)
         if course.get("courseCode") is not None and not isinstance(course.get("courseCode"), str):

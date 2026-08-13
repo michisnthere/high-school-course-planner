@@ -29,6 +29,22 @@
       "notes": [
         "Students seeking credit recovery may enroll in individual semesters."
       ],
+      "durationNote": null,
+      "cost": "$425/SEMESTER",
+      "meetings": [
+        {
+          "courseCode": "MTH51S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "MTH52S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 14
@@ -67,6 +83,22 @@
         "Both semesters are required for students seeking accelerated coursework.",
         "Students seeking credit recovery may enroll in individual semesters.",
         "Printed credit: 1 credit per semester."
+      ],
+      "durationNote": null,
+      "cost": "$425/SEMESTER",
+      "meetings": [
+        {
+          "courseCode": "MTH37S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "MTH38S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
       ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",

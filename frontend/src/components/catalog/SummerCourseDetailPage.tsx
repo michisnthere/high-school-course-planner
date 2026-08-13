@@ -4,18 +4,23 @@ import type { SummerCourse } from "@/lib/summerCourse";
 import {
   formatSummerCreditType,
   formatSummerCredits,
-  formatSummerOpenTo,
+  formatSummerDates,
+  formatSummerGrades,
   formatSummerSessionsRaw,
+  formatSummerTimes,
   getSummerCost,
-  getSummerDurationLabel,
   getSummerPassFail,
-  getSummerScheduleNotes,
   normalizeSummerTitle,
 } from "@/lib/summerCatalog";
 
 type SummerCourseDetailPageProps = {
   course: SummerCourse;
   returnUrl?: string;
+};
+
+type DetailRowData = {
+  label: string;
+  value: string;
 };
 
 const cardStyle: CSSProperties = {
@@ -42,7 +47,7 @@ const pillStyle: CSSProperties = {
   color: "var(--text-primary)",
 };
 
-function DetailRow({ label, value }: { label: string; value: string }): ReactElement {
+function DetailRow({ label, value }: DetailRowData): ReactElement {
   return (
     <div
       style={{
@@ -89,7 +94,6 @@ function SummerCourseDetailHeader({
   }
 
   const division = course.division ?? "Summer School";
-  const passFail = getSummerPassFail(course);
 
   return (
     <div style={{ marginBottom: "32px" }}>
@@ -122,7 +126,6 @@ function SummerCourseDetailHeader({
       <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
         <span style={pillStyle}>{division}</span>
         <span style={pillStyle}>{formatSummerCreditType(course)}</span>
-        {passFail && <span style={pillStyle}>Pass/Fail</span>}
       </div>
 
       {course.regularCourse && (
@@ -144,6 +147,38 @@ function SummerCourseDetailHeader({
   );
 }
 
+function additionalInformationRows(course: SummerCourse): DetailRowData[] {
+  const cost = getSummerCost(course);
+  const passFail = getSummerPassFail(course);
+  const sessions = formatSummerSessionsRaw(course);
+  const duration = course.durationNote || (course.duration === "full_summer" ? "Full Summer" : null);
+  const dates = formatSummerDates(course);
+  const times = formatSummerTimes(course);
+  const openTo = formatSummerGrades(course);
+  const prereqs = course.prerequisites ?? [];
+  const coreqs = course.corequisites ?? [];
+  const requirements = course.fulfillsRequirements ?? [];
+
+  const rows: Array<DetailRowData | null> = [
+    course.courseCode ? { label: "Course Code", value: course.courseCode } : null,
+    sessions ? { label: "Session", value: sessions } : null,
+    duration ? { label: "Duration", value: duration } : null,
+    dates ? { label: "Dates", value: dates } : null,
+    times ? { label: "Time", value: times } : null,
+    openTo ? { label: "Open To", value: openTo } : null,
+    { label: "Credit", value: formatSummerCredits(course) },
+    passFail ? { label: "Grading", value: "Pass/Fail" } : null,
+    cost ? { label: "Cost", value: cost } : null,
+    prereqs.length > 0
+      ? { label: "Prerequisite", value: prereqs.join("; ") }
+      : { label: "Prerequisite", value: "None" },
+    coreqs.length > 0 ? { label: "Corequisite", value: coreqs.join("; ") } : null,
+    requirements.length > 0 ? { label: "Graduation Requirement", value: requirements.join(", ") } : null,
+  ];
+
+  return rows.filter((row): row is DetailRowData => row !== null);
+}
+
 export function SummerCourseDetailPage({
   course,
   returnUrl,
@@ -151,15 +186,7 @@ export function SummerCourseDetailPage({
   const notes = (course.notes ?? []).filter(
     (note): note is string => typeof note === "string" && note.trim().length > 0
   );
-  const scheduleNotes = getSummerScheduleNotes(course);
-  const generalNotes = notes.filter((note) => !scheduleNotes.includes(note));
-  const cost = getSummerCost(course);
-  const passFail = getSummerPassFail(course);
-  const prereqs = course.prerequisites ?? [];
-  const coreqs = course.corequisites ?? [];
-  const requirements = course.fulfillsRequirements ?? [];
-
-  const hasEnrollment = prereqs.length > 0 || coreqs.length > 0;
+  const additionalInformation = additionalInformationRows(course);
 
   return (
     <div
@@ -193,7 +220,7 @@ export function SummerCourseDetailPage({
             No description available.
           </p>
         )}
-        {generalNotes.length > 0 && (
+        {notes.length > 0 && (
           <div>
             <h3
               style={{
@@ -214,7 +241,7 @@ export function SummerCourseDetailPage({
                 lineHeight: 1.6,
               }}
             >
-              {generalNotes.map((note, index) => (
+              {notes.map((note, index) => (
                 <li key={`${note}-${index}`}>{note}</li>
               ))}
             </ul>
@@ -222,50 +249,12 @@ export function SummerCourseDetailPage({
         )}
       </div>
 
-      <div style={cardStyle}>
-        <h2 style={cardHeadingStyle}>Course Details</h2>
-        {course.courseCode && <DetailRow label="Course Code" value={course.courseCode} />}
-        <DetailRow label="Credit" value={formatSummerCredits(course)} />
-        <DetailRow label="Duration" value={getSummerDurationLabel(course)} />
-        {(() => {
-          const sessions = formatSummerSessionsRaw(course);
-          return sessions ? <DetailRow label="Session" value={sessions} /> : null;
-        })()}
-        {(() => {
-          const openTo = formatSummerOpenTo(course);
-          return openTo ? <DetailRow label="Open to Grades" value={`Grade ${openTo}`} /> : null;
-        })()}
-        {cost && <DetailRow label="Cost" value={cost} />}
-        {passFail && <DetailRow label="Grading" value="Pass/Fail" />}
-        {requirements.length > 0 && (
-          <DetailRow label="Graduation Requirement" value={requirements.join(", ")} />
-        )}
-      </div>
-
-      {hasEnrollment && (
+      {additionalInformation.length > 0 && (
         <div style={cardStyle}>
-          <h2 style={cardHeadingStyle}>Enrollment</h2>
-          {prereqs.length > 0 && <DetailRow label="Prerequisites" value={prereqs.join("; ")} />}
-          {coreqs.length > 0 && <DetailRow label="Corequisites" value={coreqs.join("; ")} />}
-        </div>
-      )}
-
-      {scheduleNotes.length > 0 && (
-        <div style={cardStyle}>
-          <h2 style={cardHeadingStyle}>Schedule</h2>
-          <ul
-            style={{
-              margin: 0,
-              paddingLeft: "20px",
-              fontSize: "15px",
-              color: "var(--text-secondary)",
-              lineHeight: 1.6,
-            }}
-          >
-            {scheduleNotes.map((note, index) => (
-              <li key={`${note}-${index}`}>{note}</li>
-            ))}
-          </ul>
+          <h2 style={cardHeadingStyle}>Additional Information</h2>
+          {additionalInformation.map((row) => (
+            <DetailRow key={row.label} label={row.label} value={row.value} />
+          ))}
         </div>
       )}
     </div>

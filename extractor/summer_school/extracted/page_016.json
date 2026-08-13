@@ -28,6 +28,22 @@
         "This course is required for graduation.",
         "Students taking summer school Health will not be certified in Adult CPR."
       ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "PED21S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "PED22S",
+          "dates": "June 29-July 23",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 16
@@ -50,7 +66,7 @@
       "division": "Science",
       "department": null,
       "credits": 1,
-      "creditType": "GPA Waiver Option",
+      "creditType": null,
       "gradeLevels": [
         10,
         11,
@@ -62,7 +78,19 @@
       "corequisites": [],
       "fulfillsRequirements": [],
       "attributes": [],
-      "notes": [],
+      "notes": [
+        "GPA Waiver Option"
+      ],
+      "durationNote": "One-Semester Course",
+      "cost": "$425/Semester",
+      "meetings": [
+        {
+          "courseCode": "SCI21S",
+          "dates": "June 2-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 16
@@ -96,6 +124,22 @@
       "fulfillsRequirements": [],
       "attributes": [],
       "notes": [],
+      "durationNote": "Eight-Day Course",
+      "cost": "$225/SEMESTER",
+      "meetings": [
+        {
+          "courseCode": "SCI31S",
+          "dates": "June 2-June 11",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        },
+        {
+          "courseCode": "SCI33S",
+          "dates": "June 15-June 25",
+          "startTime": "7:45 A.M.",
+          "endTime": "12:50 P.M."
+        }
+      ],
       "sourceReference": {
         "file": "SummerSchool2627.pdf",
         "page": 16
