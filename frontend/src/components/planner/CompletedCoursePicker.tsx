@@ -10,8 +10,10 @@ import {
   gradeOptionsForContext,
 } from "@/lib/completedCoursePeriods";
 import { getSummerCourses, type SummerCourse } from "@/lib/summerCourse";
+import { summerPickerCardDetails } from "@/lib/summerCatalog";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { pickerCardFrame, pickerCardPalette, pickerCardRadius, pickerSearchInputStyle } from "./pickerStyles";
+import { pickerCardPalette, pickerSearchInputStyle } from "./pickerStyles";
+import { PickerCourseCard } from "./PickerCourseCard";
 
 export type CompletedCourseSelection =
   | { courseId: number; gradeCompleted: GradeCompleted }
@@ -289,7 +291,7 @@ export function CompletedCoursePicker({
                     )}
                   </div>
                 </div>
-                <div style={{ overflowY: "auto", flex: 1, minHeight: 0, padding: "0 24px 16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div style={{ overflowY: "auto", flex: 1, minHeight: 0, padding: "0 24px 24px", display: "flex", flexDirection: "column", gap: "12px" }}>
                   {filteredSummerCourses.length === 0 ? (
                     <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "14px" }}>
                       {query.trim() !== ""
@@ -299,46 +301,19 @@ export function CompletedCoursePicker({
                   ) : (
                     filteredSummerCourses.map((sc) => {
                       const disabled = excludedSummerIds.has(sc.id);
-                      const isFullSummer = sc.duration === "full_summer";
+                      const card = summerPickerCardDetails(sc);
                       return (
-                        <div
+                        <PickerCourseCard
                           key={sc.id}
-                          onClick={() => {
-                            if (!disabled) setSelectedSummer(sc);
-                          }}
-                          style={{
-                            padding: "12px 14px",
-                            borderRadius: pickerCardRadius,
-                            ...pickerCardFrame(selectedSummer?.id === sc.id),
-                            cursor: disabled ? "not-allowed" : "pointer",
-                            opacity: disabled ? 0.5 : 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "6px",
-                          }}
-                        >
-                          <div style={{ display: "flex", justifyContent: "space-between", gap: "8px", alignItems: "flex-start" }}>
-                            <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-primary)", wordBreak: "break-word" }}>
-                              {sc.title}
-                            </span>
-                            {sc.courseCode && (
-                              <span style={{ fontSize: "12px", color: "var(--text-muted)", flex: "0 0 auto" }}>{sc.courseCode}</span>
-                            )}
-                          </div>
-                          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
-                            {isFullSummer && <span>Full Summer</span>}
-                            {(sc.sessions ?? []).length > 0 && <span>{(sc.sessions ?? []).join(" · ")}</span>}
-                            {sc.credits != null && <span>{sc.credits} credits</span>}
-                            {sc.fulfillsRequirements.length > 0 && (
-                              <span>Fulfills: {sc.fulfillsRequirements.join(", ")}</span>
-                            )}
-                          </div>
-                          {disabled && (
-                            <span style={{ fontSize: "12px", color: "var(--status-error)" }}>
-                              Already recorded as completed
-                            </span>
-                          )}
-                        </div>
+                          title={card.title}
+                          tags={card.tags}
+                          selected={selectedSummer?.id === sc.id}
+                          disabled={disabled}
+                          disabledNote={disabled ? "Already recorded as completed" : undefined}
+                          onSelect={() => setSelectedSummer(sc)}
+                          actionLabel="Select"
+                          tone="light"
+                        />
                       );
                     })
                   )}

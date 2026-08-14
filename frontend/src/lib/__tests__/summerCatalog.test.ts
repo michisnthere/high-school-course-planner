@@ -11,6 +11,7 @@ import {
   getSummerScheduleNotes,
   normalizeSummerCourseForCatalog,
   normalizeSummerTitle,
+  summerPickerCardDetails,
 } from "../summerCatalog";
 
 function makeCourse(overrides: Partial<SummerCourse> = {}): SummerCourse {
@@ -67,6 +68,41 @@ describe("normalizeSummerTitle", () => {
   it("handles empty input", () => {
     expect(normalizeSummerTitle("")).toBe("");
     expect(normalizeSummerTitle(null)).toBe("");
+  });
+});
+
+describe("summerPickerCardDetails", () => {
+  it("maps the summer fields onto the shared card (normalized title + division/credit tags)", () => {
+    const card = summerPickerCardDetails(makeCourse());
+    expect(card.title).toBe("Careers in Business");
+    expect(card.tags).toEqual(["Career Exploration", "Credit"]);
+  });
+
+  it("renders only the credit type when no division is present", () => {
+    const card = summerPickerCardDetails(makeCourse({ division: null }));
+    expect(card.tags).toEqual(["Credit"]);
+  });
+
+  it("keeps only division + credit type and never leaks extraction metadata", () => {
+    const card = summerPickerCardDetails(
+      makeCourse({
+        courseCode: "CAR53S",
+        credits: 0.5,
+        duration: "full_summer",
+        sessions: ["Session 1", "Session 2"],
+        fulfillsRequirements: ["Consumer Ed"],
+        regularCourseId: 42,
+      })
+    );
+    expect(card.title).toBe("Careers in Business");
+    expect(card.tags).toEqual(["Career Exploration", "Credit"]);
+  });
+
+  it("uses the summer credit marking for the credit-type tag", () => {
+    const card = summerPickerCardDetails(
+      makeCourse({ creditStatus: "non-credit", credits: null })
+    );
+    expect(card.tags).toEqual(["Career Exploration", "Non-credit"]);
   });
 });
 

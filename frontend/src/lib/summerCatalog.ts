@@ -154,6 +154,23 @@ export function normalizeSummerCourseForCatalog(course: SummerCourse): Course {
   };
 }
 
+/**
+ * Presentation mapping for the shared "Mark a course as completed" picker card.
+ * Maps the existing Summer School fields onto the regular course-card shape
+ * (normalized title + a division tag and a credit-type tag) without altering
+ * the underlying extraction data. Everything else stays available to the
+ * Summer School course detail page.
+ */
+export function summerPickerCardDetails(course: SummerCourse): {
+  title: string;
+  tags: string[];
+} {
+  const tags: string[] = [];
+  if (course.division) tags.push(course.division);
+  tags.push(formatSummerCreditType(course));
+  return { title: normalizeSummerTitle(course.title), tags };
+}
+
 export function findSummerCourseBySlug(courses: SummerCourse[], slug: string): SummerCourse | undefined {
   return courses.find((course) => summerCourseSlug(course) === slug || normalizeTitle(course.title) === slug);
 }
