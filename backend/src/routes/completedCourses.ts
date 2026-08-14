@@ -18,6 +18,7 @@ const router = Router();
 
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
+  "Middle School Summer",
   "Summer School",
   "Freshman (9)",
   "Freshman Summer",
@@ -35,6 +36,7 @@ type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
 
 /** gradeCompleted values that represent summer work (mirrors the frontend SUMMER_GRADES set). */
 const SUMMER_GRADE_COMPLETED_OPTIONS: ReadonlySet<GradeCompleted> = new Set<GradeCompleted>([
+  "Middle School Summer",
   "Freshman Summer",
   "Sophomore Summer",
   "Junior Summer",

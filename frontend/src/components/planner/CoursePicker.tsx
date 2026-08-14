@@ -11,6 +11,13 @@ import { formatCredits } from "@/lib/courseCredits";
 import { formatCreditType } from "@/lib/catalog";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { CourseFilters, type ActiveFilters } from "@/components/catalog/CourseFilters";
+import {
+  pickerCardFrame,
+  pickerCardHoverBorder,
+  pickerCardPalette,
+  pickerCardRadius,
+  pickerSearchInputStyle,
+} from "./pickerStyles";
 
 const searchBtnStyle: React.CSSProperties = {
   display: "inline-flex",
@@ -37,7 +44,43 @@ type CoursePickerProps = {
   excludeCourseIds?: number[];
   selectedCourseId?: number | null;
   simple?: boolean;
+  /** Visual tone. "dark" is the default planner tone; "light" is used when the
+   * picker is embedded in the "Mark a course as completed" modal so the cards
+   * match the Summer School cards in that modal. */
+  tone?: "light" | "dark";
 };
+
+// Card palette per tone. The light tone reuses the shared light-gray picker
+// palette so regular cards match the Summer School cards exactly. Search input
+// colors are applied inline (dark) or via the shared pickerSearchInputStyle.
+const TONE = {
+  dark: {
+    cardBorder: "#374151",
+    cardBorderSelected: "#275D38",
+    cardBg: "#111827",
+    cardBgSelected: "#ffffff",
+    title: "#ffffff",
+    titleSelected: "#000000",
+    meta: "#9ca3af",
+    metaSelected: "#4b5563",
+    chip: "#1f2937",
+    action: "var(--brand-accent)",
+    actionSelected: "#275D38",
+  },
+  light: {
+    cardBorder: "var(--border-default)",
+    cardBorderSelected: "var(--brand-accent)",
+    cardBg: "var(--bg-input)",
+    cardBgSelected: "var(--bg-hover, rgba(0,0,0,0.03))",
+    title: pickerCardPalette.title,
+    titleSelected: pickerCardPalette.title,
+    meta: pickerCardPalette.meta,
+    metaSelected: pickerCardPalette.meta,
+    chip: pickerCardPalette.chip,
+    action: pickerCardPalette.action,
+    actionSelected: pickerCardPalette.selectedAction,
+  },
+} as const;
 
 export function CoursePicker({
   onSelect,
@@ -46,6 +89,7 @@ export function CoursePicker({
   excludeCourseIds,
   selectedCourseId,
   simple = false,
+  tone = "dark",
 }: CoursePickerProps): React.ReactElement {
   const inputRef = useRef<HTMLInputElement>(null);
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
@@ -128,18 +172,23 @@ export function CoursePicker({
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={handleKeyDown}
               autoFocus
-              style={{
-                flex: 1,
-                height: "44px",
-                padding: draft ? "0 40px 0 16px" : "0 16px",
-                fontSize: "16px",
-                color: "#ffffff",
-                backgroundColor: "#111827",
-                border: "1px solid #4b5563",
-                borderRadius: "9999px",
-                outline: "none",
-                boxSizing: "border-box",
-              }}
+              className={tone === "light" ? "rs-picker-search" : undefined}
+              style={
+                tone === "light"
+                  ? { ...pickerSearchInputStyle, paddingRight: draft ? "40px" : "16px", paddingLeft: "16px" }
+                  : {
+                      flex: 1,
+                      height: "44px",
+                      padding: draft ? "0 40px 0 16px" : "0 16px",
+                      fontSize: "16px",
+                      color: "#ffffff",
+                      backgroundColor: "#111827",
+                      border: "1px solid #4b5563",
+                      borderRadius: "9999px",
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }
+              }
               aria-label="Search courses"
             />
             {draft && (
@@ -160,7 +209,7 @@ export function CoursePicker({
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: "#9ca3af",
+                  color: tone === "light" ? pickerCardPalette.muted : "#9ca3af",
                   fontSize: "18px",
                   lineHeight: 1,
                   borderRadius: "50%",
@@ -204,16 +253,19 @@ export function CoursePicker({
 
       <div style={{ flex: 1, overflowY: "auto", padding: "0 24px 24px" }}>
         {loading ? (
-          <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading courses...</p>
+          <p style={{ color: tone === "light" ? pickerCardPalette.muted : "#9ca3af", textAlign: "center" }}>Loading courses...</p>
         ) : filtered.length === 0 ? (
-          <p style={{ color: "#9ca3af", textAlign: "center" }}>
+          <p style={{ color: tone === "light" ? pickerCardPalette.muted : "#9ca3af", textAlign: "center" }}>
             {submitted.trim() === "" && filters.division.length === 0
               ? "No courses available."
               : "No courses match your search."}
           </p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {filtered.map((course) => (
+            {filtered.map((course) => {
+              const selected = selectedCourseId === course.id;
+              const frame = tone === "light" ? pickerCardFrame(selected) : undefined;
+              return (
               <button
                 key={course.id}
                 type="button"
@@ -223,24 +275,24 @@ export function CoursePicker({
                   alignItems: "flex-start",
                   justifyContent: "space-between",
                   gap: "12px",
-                  padding: "16px",
-                  backgroundColor: selectedCourseId === course.id ? "#ffffff" : "#111827",
-                  border: `2px solid ${selectedCourseId === course.id ? "#275D38" : "#374151"}`,
-                  borderRadius: "12px",
+                  padding: tone === "light" ? "12px 14px" : "16px",
+                  borderRadius: tone === "light" ? pickerCardRadius : "12px",
+                  backgroundColor: tone === "light" ? frame?.backgroundColor : selected ? TONE.dark.cardBgSelected : TONE.dark.cardBg,
+                  border: tone === "light" ? frame?.border : `2px solid ${selected ? TONE.dark.cardBorderSelected : TONE.dark.cardBorder}`,
                   cursor: "pointer",
                   textAlign: "left",
-                  color: selectedCourseId === course.id ? "#000000" : "inherit",
+                  color: tone === "light" ? pickerCardPalette.title : selected ? TONE.dark.titleSelected : "inherit",
                   width: "100%",
                   transition: "border-color 0.15s ease",
                 }}
                 onMouseEnter={(e) => {
-                  if (selectedCourseId !== course.id) {
-                    e.currentTarget.style.borderColor = "#4b5563";
+                  if (!selected) {
+                    e.currentTarget.style.borderColor = tone === "light" ? pickerCardHoverBorder : "#4b5563";
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (selectedCourseId !== course.id) {
-                    e.currentTarget.style.borderColor = "#374151";
+                  if (!selected) {
+                    e.currentTarget.style.borderColor = tone === "light" ? "var(--border-default)" : "#374151";
                   }
                 }}
               >
@@ -257,7 +309,7 @@ export function CoursePicker({
                       style={{
                         fontSize: "16px",
                         fontWeight: 600,
-                        color: selectedCourseId === course.id ? "#000000" : "#ffffff",
+                        color: tone === "light" ? pickerCardPalette.title : selected ? TONE.dark.titleSelected : TONE.dark.title,
                       }}
                     >
                       {course.title}
@@ -274,14 +326,14 @@ export function CoursePicker({
                       flexWrap: "wrap",
                       gap: "8px",
                       fontSize: "13px",
-                      color: selectedCourseId === course.id ? "#4b5563" : "#9ca3af",
+                      color: tone === "light" ? pickerCardPalette.meta : selected ? TONE.dark.metaSelected : TONE.dark.meta,
                     }}
                   >
                     {course.creditType && (
                       <span
                         style={{
                           padding: "3px 8px",
-                          backgroundColor: "#1f2937",
+                          backgroundColor: tone === "light" ? pickerCardPalette.chip : TONE.dark.chip,
                           borderRadius: "9999px",
                         }}
                       >
@@ -292,7 +344,7 @@ export function CoursePicker({
                       <span
                         style={{
                           padding: "3px 8px",
-                          backgroundColor: "#1f2937",
+                          backgroundColor: tone === "light" ? pickerCardPalette.chip : TONE.dark.chip,
                           borderRadius: "9999px",
                         }}
                       >
@@ -303,7 +355,7 @@ export function CoursePicker({
                       <span
                         style={{
                           padding: "3px 8px",
-                          backgroundColor: "#1f2937",
+                          backgroundColor: tone === "light" ? pickerCardPalette.chip : TONE.dark.chip,
                           borderRadius: "9999px",
                         }}
                       >
@@ -314,7 +366,7 @@ export function CoursePicker({
                       <span
                         style={{
                           padding: "3px 8px",
-                          backgroundColor: "#1f2937",
+                          backgroundColor: tone === "light" ? pickerCardPalette.chip : TONE.dark.chip,
                           borderRadius: "9999px",
                         }}
                       >
@@ -324,22 +376,25 @@ export function CoursePicker({
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
-                  {selectedCourseId === course.id && (
-                    <span style={{ fontSize: "16px", color: "#275D38" }}>✓</span>
+                  {selected && (
+                    <span style={{ fontSize: "16px", color: tone === "light" ? pickerCardPalette.selectedAction : "#275D38" }}>✓</span>
                   )}
                   <span
                     style={{
                       fontSize: "14px",
                       fontWeight: 500,
-                      color: selectedCourseId === course.id ? "#275D38" : "var(--brand-accent)",
+                      color: selected
+                        ? tone === "light" ? pickerCardPalette.selectedAction : TONE.dark.actionSelected
+                        : pickerCardPalette.action,
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {selectedCourseId === course.id ? "Selected" : actionLabel}
+                    {selected ? "Selected" : actionLabel}
                   </span>
                 </div>
               </button>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

@@ -1,15 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CoursePicker } from "./CoursePicker";
 import type { GradeCompleted } from "@/lib/completedCourses";
 import {
   defaultGradeForContext,
+  filterSummerCoursesByQuery,
   getAcademicPeriodLabel,
   gradeOptionsForContext,
 } from "@/lib/completedCoursePeriods";
 import { getSummerCourses, type SummerCourse } from "@/lib/summerCourse";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { pickerCardFrame, pickerCardPalette, pickerCardRadius, pickerSearchInputStyle } from "./pickerStyles";
 
 export type CompletedCourseSelection =
   | { courseId: number; gradeCompleted: GradeCompleted }
@@ -37,6 +39,7 @@ export function CompletedCoursePicker({
   const [summerLoading, setSummerLoading] = useState(false);
   const [summerError, setSummerError] = useState<string | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
+  const [query, setQuery] = useState("");
   const { isMobile } = useBreakpoint();
 
   useEffect(() => {
@@ -71,6 +74,13 @@ export function CompletedCoursePicker({
   };
 
   const excludedSummerIds = new Set(excludeSummerCourseIds ?? []);
+
+  // Live search over the Summer School list only; the regular list has its own
+  // search and is never filtered by this query.
+  const filteredSummerCourses = useMemo(
+    () => filterSummerCoursesByQuery(summerCourses, query),
+    [summerCourses, query]
+  );
 
   // The grade options derive from the active tab's course context. The two
   // sets are mutually exclusive and the selected grade is reset when switching
@@ -170,6 +180,7 @@ export function CompletedCoursePicker({
                     setTab(t);
                     setSelectedSummer(null);
                     setSelectedCourseId(null);
+                    setQuery("");
                     setGradeCompleted(defaultGradeForContext(t === "summer", defaultGrade));
                     if (t === "summer") loadSummerCourses();
                   }}
@@ -226,6 +237,7 @@ export function CompletedCoursePicker({
                 selectedCourseId={selectedCourseId}
                 actionLabel="Select"
                 simple
+                tone="light"
               />
             ) : summerLoading ? (
               <div style={{ padding: "24px", color: "var(--text-muted)", fontSize: "14px" }}>
@@ -236,61 +248,101 @@ export function CompletedCoursePicker({
                 {summerError}
               </div>
             ) : (
-              <div style={{ overflowY: "auto", height: "100%", padding: "16px 24px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                {summerCourses.length === 0 ? (
-                  <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "14px" }}>
-                    No summer courses available.
-                  </p>
-                ) : (
-                  summerCourses.map((sc) => {
-                    const disabled = excludedSummerIds.has(sc.id);
-                    const isFullSummer = sc.duration === "full_summer";
-                    return (
-                      <div
-                        key={sc.id}
-                        onClick={() => {
-                          if (!disabled) setSelectedSummer(sc);
-                        }}
+              <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
+                <div style={{ padding: "0 24px 12px", flexShrink: 0 }}>
+                  <div style={{ position: "relative" }}>
+                    <input
+                      type="text"
+                      placeholder="Search summer courses..."
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      className="rs-picker-search"
+                      style={{ ...pickerSearchInputStyle, paddingRight: query ? "40px" : "16px", paddingLeft: "16px" }}
+                      aria-label="Search summer courses"
+                    />
+                    {query && (
+                      <button
+                        type="button"
+                        onClick={() => setQuery("")}
+                        aria-label="Clear search"
                         style={{
-                          padding: "12px 14px",
-                          borderRadius: "10px",
-                          border:
-                            selectedSummer?.id === sc.id
-                              ? "2px solid var(--brand-accent)"
-                              : "1px solid var(--border-default)",
-                          backgroundColor: selectedSummer?.id === sc.id ? "var(--bg-hover, rgba(0,0,0,0.03))" : "var(--bg-input)",
-                          cursor: disabled ? "not-allowed" : "pointer",
-                          opacity: disabled ? 0.5 : 1,
+                          position: "absolute",
+                          right: "4px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          width: "36px",
+                          height: "36px",
                           display: "flex",
-                          flexDirection: "column",
-                          gap: "6px",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          color: pickerCardPalette.muted,
+                          fontSize: "18px",
+                          lineHeight: 1,
+                          borderRadius: "50%",
                         }}
                       >
-                        <div style={{ display: "flex", justifyContent: "space-between", gap: "8px", alignItems: "flex-start" }}>
-                          <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-primary)", wordBreak: "break-word" }}>
-                            {sc.title}
-                          </span>
-                          {sc.courseCode && (
-                            <span style={{ fontSize: "12px", color: "var(--text-muted)", flex: "0 0 auto" }}>{sc.courseCode}</span>
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div style={{ overflowY: "auto", flex: 1, padding: "0 24px 16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {filteredSummerCourses.length === 0 ? (
+                    <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "14px" }}>
+                      {query.trim() !== ""
+                        ? "No summer courses match your search."
+                        : "No summer courses available."}
+                    </p>
+                  ) : (
+                    filteredSummerCourses.map((sc) => {
+                      const disabled = excludedSummerIds.has(sc.id);
+                      const isFullSummer = sc.duration === "full_summer";
+                      return (
+                        <div
+                          key={sc.id}
+                          onClick={() => {
+                            if (!disabled) setSelectedSummer(sc);
+                          }}
+                          style={{
+                            padding: "12px 14px",
+                            borderRadius: pickerCardRadius,
+                            ...pickerCardFrame(selectedSummer?.id === sc.id),
+                            cursor: disabled ? "not-allowed" : "pointer",
+                            opacity: disabled ? 0.5 : 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "6px",
+                          }}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", gap: "8px", alignItems: "flex-start" }}>
+                            <span style={{ fontSize: "15px", fontWeight: 600, color: "var(--text-primary)", wordBreak: "break-word" }}>
+                              {sc.title}
+                            </span>
+                            {sc.courseCode && (
+                              <span style={{ fontSize: "12px", color: "var(--text-muted)", flex: "0 0 auto" }}>{sc.courseCode}</span>
+                            )}
+                          </div>
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
+                            {isFullSummer && <span>Full Summer</span>}
+                            {(sc.sessions ?? []).length > 0 && <span>{(sc.sessions ?? []).join(" · ")}</span>}
+                            {sc.credits != null && <span>{sc.credits} credits</span>}
+                            {sc.fulfillsRequirements.length > 0 && (
+                              <span>Fulfills: {sc.fulfillsRequirements.join(", ")}</span>
+                            )}
+                          </div>
+                          {disabled && (
+                            <span style={{ fontSize: "12px", color: "var(--status-error)" }}>
+                              Already recorded as completed
+                            </span>
                           )}
                         </div>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
-                          {isFullSummer && <span>Full Summer</span>}
-                          {(sc.sessions ?? []).length > 0 && <span>{(sc.sessions ?? []).join(" · ")}</span>}
-                          {sc.credits != null && <span>{sc.credits} credits</span>}
-                          {sc.fulfillsRequirements.length > 0 && (
-                            <span>Fulfills: {sc.fulfillsRequirements.join(", ")}</span>
-                          )}
-                        </div>
-                        {disabled && (
-                          <span style={{ fontSize: "12px", color: "var(--status-error)" }}>
-                            Already recorded as completed
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })
-                )}
+                      );
+                    })
+                  )}
+                </div>
               </div>
             )}
           </div>

@@ -1,8 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import {
-  GRADE_COMPLETED_OPTIONS,
-  type GradeCompleted,
-} from "@/lib/completedCourses";
+import type { GradeCompleted } from "@/lib/completedCourses";
 import type { SummerCourse } from "@/lib/summerCourse";
 import { REGULAR_GRADE_COMPLETED_OPTIONS, SUMMER_GRADE_COMPLETED_OPTIONS } from "@/lib/completedCoursePeriods";
 import { createGuestCompletedCoursesService } from "@/services/completedCourses";
@@ -58,7 +55,7 @@ describe("guest completed courses service", () => {
       "Senior (12)",
     ]);
     expect(summerCreated.map((course) => course.gradeCompleted)).toEqual([
-      "Summer School",
+      "Middle School Summer",
       "Freshman Summer",
       "Sophomore Summer",
       "Junior Summer",
@@ -67,8 +64,11 @@ describe("guest completed courses service", () => {
 
     const stored = await svc.getCompletedCourses();
     const storedGrades = stored.map((course) => course.gradeCompleted);
-    // No coercion: the union of what was stored equals the canonical list.
-    expect([...new Set(storedGrades)].sort()).toEqual([...GRADE_COMPLETED_OPTIONS].sort());
+    // No coercion: the union of the selectable values is stored exactly. The
+    // legacy "Summer School" value is exercised separately (it is not offered
+    // in any selector).
+    const selectable = new Set<string>([...REGULAR_GRADE_COMPLETED_OPTIONS, ...SUMMER_GRADE_COMPLETED_OPTIONS]);
+    expect([...new Set(storedGrades)].sort()).toEqual([...selectable].sort());
     // Summer records are summer-specific; regular records are regular.
     expect(stored.filter((c) => c.summerCourseId != null).every((c) => SUMMER_GRADE_COMPLETED_OPTIONS.includes(c.gradeCompleted))).toBe(true);
     expect(stored.filter((c) => c.courseId != null).every((c) => REGULAR_GRADE_COMPLETED_OPTIONS.includes(c.gradeCompleted))).toBe(true);
@@ -111,5 +111,51 @@ describe("guest completed courses service", () => {
     await expect(
       svc.updateCompletedCourse(summerId, { gradeCompleted: "Freshman (9)" as GradeCompleted })
     ).rejects.toThrow("Summer School courses must keep a Summer-specific period");
+  });
+
+  it("round-trips a Summer School course saved as Freshman Summer", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await svc.addCompletedCourse({
+      summerCourseId: 100,
+      gradeCompleted: "Freshman Summer",
+      summerCourse: makeSummerCourse(100),
+    });
+    const stored = await svc.getCompletedCourses();
+    expect(stored.find((c) => c.summerCourseId === 100)?.gradeCompleted).toBe("Freshman Summer");
+  });
+
+  it("round-trips a regular course saved as Freshman and keeps contexts separate on edit", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await svc.addCompletedCourse(1, "Freshman (9)");
+    await svc.addCompletedCourse({
+      summerCourseId: 100,
+      gradeCompleted: "Middle School Summer",
+      summerCourse: makeSummerCourse(100),
+    });
+    let stored = await svc.getCompletedCourses();
+
+    const regularId = stored.find((c) => c.courseId != null)!.id;
+    const summerId = stored.find((c) => c.summerCourseId != null)!.id;
+
+    expect(stored.find((c) => c.courseId === 1)?.gradeCompleted).toBe("Freshman (9)");
+    expect(stored.find((c) => c.summerCourseId === 100)?.gradeCompleted).toBe("Middle School Summer");
+
+    // Edit within the correct context: regular stays regular, summer stays summer.
+    await svc.updateCompletedCourse(regularId, { gradeCompleted: "Sophomore (10)" as GradeCompleted });
+    await svc.updateCompletedCourse(summerId, { gradeCompleted: "Freshman Summer" as GradeCompleted });
+    stored = await svc.getCompletedCourses();
+    expect(stored.find((c) => c.id === regularId)?.gradeCompleted).toBe("Sophomore (10)");
+    expect(stored.find((c) => c.id === summerId)?.gradeCompleted).toBe("Freshman Summer");
+  });
+
+  it("still accepts the legacy generic Summer School grade for existing summer records", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await svc.addCompletedCourse({
+      summerCourseId: 100,
+      gradeCompleted: "Summer School",
+      summerCourse: makeSummerCourse(100),
+    });
+    const stored = await svc.getCompletedCourses();
+    expect(stored.find((c) => c.summerCourseId === 100)?.gradeCompleted).toBe("Summer School");
   });
 });

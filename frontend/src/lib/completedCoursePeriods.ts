@@ -3,13 +3,18 @@ import {
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
+import { normalizeTitle } from "@/lib/normalize";
 
 // Defines the grade-level options shown when recording a completed course.
 // The per-year summer values are kept here (data entry) so a student can
 // record which year a summer course was taken; they are only collapsed for
-// *display/filtering* on the Completed Courses page.
+// *display/filtering* on the Completed Courses page. "Middle School Summer" is
+// the summer-before-middle-school period; the other per-year values are the
+// summer between each grade (e.g. "Freshman Summer" = the summer between
+// middle school and 9th grade).
 export const ACADEMIC_PERIODS = [
   { label: "Middle School", values: ["Middle School"] },
+  { label: "Middle School Summer", values: ["Middle School Summer"] },
   { label: "Freshman", values: ["Freshman (9)"] },
   { label: "Freshman Summer", values: ["Freshman Summer"] },
   { label: "Sophomore", values: ["Sophomore (10)"] },
@@ -18,12 +23,17 @@ export const ACADEMIC_PERIODS = [
   { label: "Junior Summer", values: ["Junior Summer"] },
   { label: "Senior", values: ["Senior (12)"] },
   { label: "Senior Summer", values: ["Senior Summer"] },
+  // Legacy stored value for summer work. It is retained so existing records
+  // keep loading, but it is NOT offered as a grade level anywhere: Summer
+  // School is a course/program context, not a grade level.
   { label: "Summer School", values: ["Summer School"] },
 ] as const;
 
-// Filter buttons shown on the Completed Courses page. The per-year summer
-// filters are intentionally omitted; all summer courses surface under a
-// single "Summer School" filter, which is subdivided by year when displayed.
+// Filter buttons shown on the Completed Courses page. "Summer School" is a
+// program context, not a grade level, so it is NOT a filter option. Per-year
+// summer values are intentionally omitted as filters too; all summer courses
+// surface under "All", consolidated into a single Summer School section that is
+// subdivided by year when displayed.
 export const FILTER_ORDER = [
   "All",
   "Middle School",
@@ -31,7 +41,6 @@ export const FILTER_ORDER = [
   "Sophomore",
   "Junior",
   "Senior",
-  "Summer School",
 ] as const;
 export type CompletedCourseFilter = (typeof FILTER_ORDER)[number];
 
@@ -52,8 +61,10 @@ const NON_SUMMER_DISPLAY_ORDER: AcademicPeriodLabel[] = [
   "Senior",
 ];
 
-/** gradeCompleted values that represent summer work. */
+/** gradeCompleted values that represent summer work. Includes the legacy
+ * generic "Summer School" value so existing records stay valid. */
 const SUMMER_GRADES: ReadonlySet<GradeCompleted> = new Set<GradeCompleted>([
+  "Middle School Summer",
   "Freshman Summer",
   "Sophomore Summer",
   "Junior Summer",
@@ -61,12 +72,20 @@ const SUMMER_GRADES: ReadonlySet<GradeCompleted> = new Set<GradeCompleted>([
   "Summer School",
 ]);
 
-/** Order of the year-based subsections shown inside the Summer School group. */
-const SUMMER_SUBSECTION_ORDER: GradeCompleted[] = [
+/** The Summer-specific grade periods a selector should offer, in progression
+ * order (summer before middle school, then between each grade). The generic
+ * "Summer School" value is a program context and is intentionally excluded. */
+const SUMMER_PERIOD_OPTIONS = [
+  "Middle School Summer",
   "Freshman Summer",
   "Sophomore Summer",
   "Junior Summer",
   "Senior Summer",
+] as const;
+
+/** Order of the year-based subsections shown inside the Summer School group. */
+const SUMMER_SUBSECTION_ORDER: GradeCompleted[] = [
+  ...SUMMER_PERIOD_OPTIONS,
   "Summer School",
 ];
 
@@ -161,8 +180,27 @@ export function filterCompletedCoursesByPeriod(
   filter: CompletedCourseFilter
 ): CompletedCourse[] {
   if (filter === "All") return courses;
-  if (filter === "Summer School") return courses.filter(isSummerCompletedCourse);
   return courses.filter((course) => getAcademicPeriodLabel(course.gradeCompleted) === filter);
+}
+
+/**
+ * Live, case-insensitive search over Summer School courses by title. Matches
+ * against normalized titles so punctuation and casing never block a result
+ * (e.g. "careers" or "careers in" both find "Careers in Business"). An empty
+ * query returns every course unchanged.
+ */
+export function filterSummerCoursesByQuery<T extends { title: string }>(
+  courses: T[],
+  query: string
+): T[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return courses;
+  const qNorm = normalizeTitle(q);
+  return courses.filter((course) => {
+    const title = course.title.toLowerCase();
+    const titleNorm = normalizeTitle(course.title);
+    return title.includes(q) || (titleNorm.length > 0 && titleNorm.includes(qNorm));
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -176,9 +214,7 @@ export const REGULAR_GRADE_COMPLETED_OPTIONS: GradeCompleted[] = GRADE_COMPLETED
   (g) => !SUMMER_GRADES.has(g)
 );
 
-export const SUMMER_GRADE_COMPLETED_OPTIONS: GradeCompleted[] = GRADE_COMPLETED_OPTIONS.filter((g) =>
-  SUMMER_GRADES.has(g)
-);
+export const SUMMER_GRADE_COMPLETED_OPTIONS: GradeCompleted[] = [...SUMMER_PERIOD_OPTIONS];
 
 /** The grade options a completed-course selector should offer for a course type. */
 export function gradeOptionsForContext(isSummer: boolean): GradeCompleted[] {
@@ -192,11 +228,11 @@ export function isGradeValidForContext(grade: GradeCompleted, isSummer: boolean)
 
 /**
  * Context-appropriate default grade. Preserves `preferred` when it belongs to
- * the context; otherwise falls back to the generic option for that context.
+ * the context; otherwise falls back to the first option for that context.
  * Used when opening a selector or when an existing record holds a grade that
  * does not match its course type (defensive recovery instead of a mixed state).
  */
 export function defaultGradeForContext(isSummer: boolean, preferred?: GradeCompleted): GradeCompleted {
   if (preferred && isGradeValidForContext(preferred, isSummer)) return preferred;
-  return isSummer ? "Summer School" : "Middle School";
+  return isSummer ? "Middle School Summer" : "Middle School";
 }

@@ -521,8 +521,13 @@ function CompletedCourseCard({
   const periodLabel = isSummerCompletedCourse(cc) ? cc.gradeCompleted : getAcademicPeriodLabel(cc.gradeCompleted);
   // Edit context follows the course type (summerCourseId vs courseId), not the
   // stored grade, so a Summer School record can never be edited into a regular
-  // period (or vice versa).
-  const editGradeOptions = gradeOptionsForContext(cc.summerCourseId != null);
+  // period (or vice versa). A stored value that is no longer offered (e.g. the
+  // legacy generic "Summer School" grade) is kept as an option so editing never
+  // silently drops it.
+  const contextGradeOptions = gradeOptionsForContext(cc.summerCourseId != null);
+  const editGradeOptions = contextGradeOptions.includes(editGrade)
+    ? contextGradeOptions
+    : [editGrade, ...contextGradeOptions];
 
   return (
     <div
