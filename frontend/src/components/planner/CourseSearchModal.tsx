@@ -93,7 +93,7 @@ export function CourseSearchModal({
             </button>
           </div>
         </div>
-        <div style={{ flex: 1, overflow: "hidden" }}>
+        <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
           <CoursePicker onSelect={onSelect} isSaved={isSaved} actionLabel="Add →" />
         </div>
       </div>

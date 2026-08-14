@@ -160,8 +160,8 @@ export function CoursePicker({
   }, [allCourses, excludeCourseIds, simple, filters.division, submitted, searchIndex]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <div style={{ padding: "0 24px 16px" }}>
+    <div style={{ display: "flex", flexDirection: "column", flex: "1 1 0%", minHeight: 0 }}>
+      <div style={{ padding: "0 24px 16px", flexShrink: 0 }}>
         <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
           <div style={{ position: "relative", flex: 1, display: "flex", alignItems: "stretch" }}>
             <input
@@ -251,7 +251,7 @@ export function CoursePicker({
         )}
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 24px 24px" }}>
+      <div style={{ flex: "1 1 0%", minHeight: 0, overflowY: "auto", padding: "0 24px 24px" }}>
         {loading ? (
           <p style={{ color: tone === "light" ? pickerCardPalette.muted : "#9ca3af", textAlign: "center" }}>Loading courses...</p>
         ) : filtered.length === 0 ? (

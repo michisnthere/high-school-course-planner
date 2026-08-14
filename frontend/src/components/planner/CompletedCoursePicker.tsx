@@ -112,7 +112,7 @@ export function CompletedCoursePicker({
           style={{
             width: "100%",
             maxWidth: isMobile ? "100%" : "600px",
-            maxHeight: isMobile ? "100%" : "calc(100dvh - 48px)",
+            maxHeight: isMobile ? "100%" : "calc(100vh - 48px)",
             height: isMobile ? "100%" : "auto",
             backgroundColor: "var(--bg-card)",
             border: isMobile ? "none" : "1px solid var(--border-default)",
@@ -229,7 +229,7 @@ export function CompletedCoursePicker({
               </select>
             </div>
           </div>
-          <div style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>
+          <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
             {tab === "regular" ? (
               <CoursePicker
                 onSelect={setSelectedCourseId}
@@ -248,7 +248,7 @@ export function CompletedCoursePicker({
                 {summerError}
               </div>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
+              <>
                 <div style={{ padding: "0 24px 12px", flexShrink: 0 }}>
                   <div style={{ position: "relative" }}>
                     <input
@@ -289,7 +289,7 @@ export function CompletedCoursePicker({
                     )}
                   </div>
                 </div>
-                <div style={{ overflowY: "auto", flex: 1, padding: "0 24px 16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div style={{ overflowY: "auto", flex: 1, minHeight: 0, padding: "0 24px 16px", display: "flex", flexDirection: "column", gap: "10px" }}>
                   {filteredSummerCourses.length === 0 ? (
                     <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "14px" }}>
                       {query.trim() !== ""
@@ -343,7 +343,7 @@ export function CompletedCoursePicker({
                     })
                   )}
                 </div>
-              </div>
+              </>
             )}
           </div>
           <div
