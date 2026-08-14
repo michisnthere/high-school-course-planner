@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { CoursePicker } from "./CoursePicker";
 import type { GradeCompleted } from "@/lib/completedCourses";
-import { ACADEMIC_PERIODS } from "@/lib/completedCoursePeriods";
+import {
+  defaultGradeForContext,
+  getAcademicPeriodLabel,
+  gradeOptionsForContext,
+} from "@/lib/completedCoursePeriods";
 import { getSummerCourses, type SummerCourse } from "@/lib/summerCourse";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
@@ -67,6 +71,11 @@ export function CompletedCoursePicker({
   };
 
   const excludedSummerIds = new Set(excludeSummerCourseIds ?? []);
+
+  // The grade options derive from the active tab's course context. The two
+  // sets are mutually exclusive and the selected grade is reset when switching
+  // contexts so a mixed value can never be carried across.
+  const gradeOptions = gradeOptionsForContext(tab === "summer");
 
   return (
     <>
@@ -161,6 +170,7 @@ export function CompletedCoursePicker({
                     setTab(t);
                     setSelectedSummer(null);
                     setSelectedCourseId(null);
+                    setGradeCompleted(defaultGradeForContext(t === "summer", defaultGrade));
                     if (t === "summer") loadSummerCourses();
                   }}
                   style={{
@@ -200,9 +210,9 @@ export function CompletedCoursePicker({
                   flex: 1,
                 }}
               >
-                {ACADEMIC_PERIODS.map((period) => (
-                  <option key={period.label} value={period.values[0]}>
-                    {period.label}
+                {gradeOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {getAcademicPeriodLabel(option)}
                   </option>
                 ))}
               </select>

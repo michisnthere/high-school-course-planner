@@ -2,6 +2,7 @@ import type { ICompletedCoursesService } from "./types";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import type { SummerCourse } from "@/lib/summerCourse";
 import type { GuestDataStore } from "./guestStore";
+import { isGradeValidForContext, isSummerGrade } from "@/lib/completedCoursePeriods";
 import {
   getCompletedCourses as authGetCompletedCourses,
   addCompletedCourse as authAddCompletedCourse,
@@ -57,6 +58,11 @@ export function createGuestCompletedCoursesService(store?: GuestDataStore): ICom
       courseDetails?: PlannerCourseDetails
     ) {
       if (typeof courseIdOrItem !== "number") {
+        // A Summer School course must be recorded in a Summer-specific period;
+        // regular periods must never be attached to summer coursework.
+        if (!isSummerGrade(courseIdOrItem.gradeCompleted)) {
+          throw new Error("Summer School courses must be marked completed in a Summer-specific period.");
+        }
         const summer = courseIdOrItem.summerCourse;
         // The Summer School course is the same course attempt as its matched
         // regular equivalent. Block when the regular equivalent is already
@@ -89,6 +95,12 @@ export function createGuestCompletedCoursesService(store?: GuestDataStore): ICom
         return { ...entry, course: null };
       }
       const courseId = courseIdOrItem;
+      const effectiveGrade = (gradeCompleted ?? "Middle School") as GradeCompleted;
+      // A regular course must be recorded in a regular period; Summer-specific
+      // periods must never be attached to regular coursework.
+      if (isSummerGrade(effectiveGrade)) {
+        throw new Error("Regular courses cannot be marked completed in a Summer-specific period.");
+      }
       const details = courseDetails ?? {
         id: courseId,
         title: `Course ${courseId}`,
@@ -136,7 +148,7 @@ export function createGuestCompletedCoursesService(store?: GuestDataStore): ICom
         userId: -1,
         courseId,
         summerCourseId: null,
-        gradeCompleted: (gradeCompleted ?? "Middle School") as GradeCompleted,
+        gradeCompleted: effectiveGrade,
         credits: details.credits,
         course: { ...details },
         summerCourse: null,
@@ -152,7 +164,17 @@ export function createGuestCompletedCoursesService(store?: GuestDataStore): ICom
     ) {
       const entry = courses.find((c) => c.id === id);
       if (!entry) throw new Error("Completed course not found");
-      if (updates.gradeCompleted !== undefined) entry.gradeCompleted = updates.gradeCompleted;
+      if (updates.gradeCompleted !== undefined) {
+        const isSummerContext = entry.summerCourseId != null;
+        if (isGradeValidForContext(updates.gradeCompleted, isSummerContext) === false) {
+          throw new Error(
+            isSummerContext
+              ? "Summer School courses must keep a Summer-specific period."
+              : "Regular courses cannot be marked completed in a Summer-specific period."
+          );
+        }
+        entry.gradeCompleted = updates.gradeCompleted;
+      }
       save();
       return { ...entry, course: entry.course ? { ...entry.course } : null };
     },

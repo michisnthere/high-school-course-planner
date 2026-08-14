@@ -58,12 +58,14 @@ function clonePlanner(p: Planner): Planner {
 }
 
 // Following-year mapping for Summer School completions (a summer course planned
-// in year N's section is taken the summer before grade N), mirroring the backend.
+// in year N's section is taken the summer before grade N), mirroring the backend
+// SUMMER_GRADE_COMPLETED_BY_YEAR. Summer work is always recorded in a
+// Summer-specific period so it is never mistaken for regular-year coursework.
 const GUEST_SUMMER_GRADE_BY_YEAR: Record<number, GradeCompleted> = {
-  9: "Freshman (9)",
-  10: "Sophomore (10)",
-  11: "Junior (11)",
-  12: "Senior (12)",
+  9: "Freshman Summer",
+  10: "Sophomore Summer",
+  11: "Junior Summer",
+  12: "Senior Summer",
 };
 
 function buildSummerPlannedCourse(

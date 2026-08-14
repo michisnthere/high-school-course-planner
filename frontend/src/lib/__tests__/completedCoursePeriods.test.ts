@@ -5,6 +5,11 @@ import {
   getAcademicPeriodLabel,
   groupCompletedCoursesByPeriod,
   isSummerCompletedCourse,
+  REGULAR_GRADE_COMPLETED_OPTIONS,
+  SUMMER_GRADE_COMPLETED_OPTIONS,
+  defaultGradeForContext,
+  gradeOptionsForContext,
+  isGradeValidForContext,
 } from "@/lib/completedCoursePeriods";
 
 function course(id: number, title: string, gradeCompleted: CompletedCourse["gradeCompleted"]): CompletedCourse {
@@ -163,5 +168,52 @@ describe("completed course summer consolidation", () => {
     ]);
     expect(filterCompletedCoursesByPeriod(courses, "All")).toHaveLength(3);
     expect(filterCompletedCoursesByPeriod(courses, "Freshman").map((c) => c.course.title)).toEqual(["English I"]);
+  });
+});
+
+describe("context-aware grade options", () => {
+  it("regular options contain only regular-year periods, never Summer-specific ones", () => {
+    expect(REGULAR_GRADE_COMPLETED_OPTIONS).toContain("Middle School");
+    expect(REGULAR_GRADE_COMPLETED_OPTIONS).toContain("Freshman (9)");
+    expect(REGULAR_GRADE_COMPLETED_OPTIONS).toContain("Sophomore (10)");
+    expect(REGULAR_GRADE_COMPLETED_OPTIONS).toContain("Junior (11)");
+    expect(REGULAR_GRADE_COMPLETED_OPTIONS).toContain("Senior (12)");
+    for (const summer of SUMMER_GRADE_COMPLETED_OPTIONS) {
+      expect(REGULAR_GRADE_COMPLETED_OPTIONS).not.toContain(summer);
+    }
+  });
+
+  it("summer options contain only Summer-specific periods, never regular ones", () => {
+    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Freshman Summer");
+    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Sophomore Summer");
+    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Junior Summer");
+    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Senior Summer");
+    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Summer School");
+    for (const regular of REGULAR_GRADE_COMPLETED_OPTIONS) {
+      expect(SUMMER_GRADE_COMPLETED_OPTIONS).not.toContain(regular);
+    }
+  });
+
+  it("switching course context swaps the entire option set (never a mix)", () => {
+    expect(gradeOptionsForContext(false)).toEqual(REGULAR_GRADE_COMPLETED_OPTIONS);
+    expect(gradeOptionsForContext(true)).toEqual(SUMMER_GRADE_COMPLETED_OPTIONS);
+    expect(gradeOptionsForContext(true).some((g) => REGULAR_GRADE_COMPLETED_OPTIONS.includes(g))).toBe(false);
+    expect(gradeOptionsForContext(false).some((g) => SUMMER_GRADE_COMPLETED_OPTIONS.includes(g))).toBe(false);
+  });
+
+  it("defaultGradeForContext preserves a valid grade and falls back to the generic option", () => {
+    expect(defaultGradeForContext(false, "Freshman (9)")).toBe("Freshman (9)");
+    expect(defaultGradeForContext(false, "Freshman Summer")).toBe("Middle School");
+    expect(defaultGradeForContext(true, "Sophomore Summer")).toBe("Sophomore Summer");
+    expect(defaultGradeForContext(true, "Senior (12)")).toBe("Summer School");
+    expect(defaultGradeForContext(true)).toBe("Summer School");
+    expect(defaultGradeForContext(false)).toBe("Middle School");
+  });
+
+  it("isGradeValidForContext rejects mixed values in both directions", () => {
+    expect(isGradeValidForContext("Freshman (9)", false)).toBe(true);
+    expect(isGradeValidForContext("Freshman Summer", false)).toBe(false);
+    expect(isGradeValidForContext("Freshman Summer", true)).toBe(true);
+    expect(isGradeValidForContext("Freshman (9)", true)).toBe(false);
   });
 });

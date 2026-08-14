@@ -266,7 +266,7 @@ describe("Summer School end-to-end (guest stack)", () => {
 
     await stack.completedService.addCompletedCourse({
       summerCourseId: summerHealth.id,
-      gradeCompleted: "Sophomore (10)",
+      gradeCompleted: "Sophomore Summer",
       summerCourse: summerHealth,
     });
     await stack.plannerService.addPlannedCourse(sophomore.id, healthDependent.id, 1, 1);
@@ -285,9 +285,9 @@ describe("Summer School end-to-end (guest stack)", () => {
     expect(analysis.credits.total).toBe(1);
     expect(analysis.earned?.credits.total).toBe(0);
 
-    await stack.completedService.addCompletedCourse({
+await stack.completedService.addCompletedCourse({
       summerCourseId: summerAlgebra.id,
-      gradeCompleted: "Sophomore (10)",
+      gradeCompleted: "Sophomore Summer",
       summerCourse: summerAlgebra,
     });
 
@@ -331,7 +331,7 @@ describe("Summer School end-to-end (guest stack)", () => {
     );
   });
 
-  it("completing the Sophomore year records the 9→10 summer course under Sophomore (10)", async () => {
+  it("completing the Sophomore year records the 9→10 summer course under Sophomore Summer", async () => {
     const stack = buildStack();
     const sophomore = (await stack.plannerService.getPlanners()).find((p) => p.schoolYear === 10)!;
     await stack.plannerService.addSummerCourse(sophomore.id, summerHealth, 3);
@@ -340,7 +340,7 @@ describe("Summer School end-to-end (guest stack)", () => {
     const completed = await stack.completedService.getCompletedCourses();
     const summerRecord = completed.find((cc) => cc.summerCourseId === summerHealth.id)!;
     expect(summerRecord).toBeDefined();
-    expect(summerRecord.gradeCompleted).toBe("Sophomore (10)");
+    expect(summerRecord.gradeCompleted).toBe("Sophomore Summer");
     expect(summerRecord.credits).toBe(1);
   });
 });

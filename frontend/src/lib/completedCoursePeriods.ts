@@ -1,4 +1,8 @@
-import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
+import {
+  GRADE_COMPLETED_OPTIONS,
+  type CompletedCourse,
+  type GradeCompleted,
+} from "@/lib/completedCourses";
 
 // Defines the grade-level options shown when recording a completed course.
 // The per-year summer values are kept here (data entry) so a student can
@@ -159,4 +163,40 @@ export function filterCompletedCoursesByPeriod(
   if (filter === "All") return courses;
   if (filter === "Summer School") return courses.filter(isSummerCompletedCourse);
   return courses.filter((course) => getAcademicPeriodLabel(course.gradeCompleted) === filter);
+}
+
+// ---------------------------------------------------------------------------
+// Context-aware grade option subsets. These are the canonical lists a
+// completed-course grade selector should offer, and they are mutually
+// exclusive: a regular course selector NEVER shows summer periods and a Summer
+// School selector NEVER shows regular periods.
+// ---------------------------------------------------------------------------
+
+export const REGULAR_GRADE_COMPLETED_OPTIONS: GradeCompleted[] = GRADE_COMPLETED_OPTIONS.filter(
+  (g) => !SUMMER_GRADES.has(g)
+);
+
+export const SUMMER_GRADE_COMPLETED_OPTIONS: GradeCompleted[] = GRADE_COMPLETED_OPTIONS.filter((g) =>
+  SUMMER_GRADES.has(g)
+);
+
+/** The grade options a completed-course selector should offer for a course type. */
+export function gradeOptionsForContext(isSummer: boolean): GradeCompleted[] {
+  return isSummer ? SUMMER_GRADE_COMPLETED_OPTIONS : REGULAR_GRADE_COMPLETED_OPTIONS;
+}
+
+/** Whether a gradeCompleted value belongs to the given course context. */
+export function isGradeValidForContext(grade: GradeCompleted, isSummer: boolean): boolean {
+  return SUMMER_GRADES.has(grade) === isSummer;
+}
+
+/**
+ * Context-appropriate default grade. Preserves `preferred` when it belongs to
+ * the context; otherwise falls back to the generic option for that context.
+ * Used when opening a selector or when an existing record holds a grade that
+ * does not match its course type (defensive recovery instead of a mixed state).
+ */
+export function defaultGradeForContext(isSummer: boolean, preferred?: GradeCompleted): GradeCompleted {
+  if (preferred && isGradeValidForContext(preferred, isSummer)) return preferred;
+  return isSummer ? "Summer School" : "Middle School";
 }

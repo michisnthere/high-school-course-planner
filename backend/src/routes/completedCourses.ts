@@ -33,6 +33,19 @@ export const LETTER_GRADE_OPTIONS = ["A", "B", "C", "D", "F"] as const;
 
 type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
 
+/** gradeCompleted values that represent summer work (mirrors the frontend SUMMER_GRADES set). */
+const SUMMER_GRADE_COMPLETED_OPTIONS: ReadonlySet<GradeCompleted> = new Set<GradeCompleted>([
+  "Freshman Summer",
+  "Sophomore Summer",
+  "Junior Summer",
+  "Senior Summer",
+  "Summer School",
+]);
+
+function isSummerGrade(grade: string): boolean {
+  return SUMMER_GRADE_COMPLETED_OPTIONS.has(grade as GradeCompleted);
+}
+
 type CompletedCourseResponse = {
   id: number;
   userId: number;
@@ -121,6 +134,11 @@ router.post("/", requireAuth, asyncHandler(async (req, res) => {
   }
 
   if (courseId) {
+    // A regular course must be recorded in a regular period; the two context
+    // sets must never be mixed.
+    if (isSummerGrade(gradeCompleted)) {
+      return res.status(400).json({ error: "Regular courses cannot be marked completed in a Summer-specific period." });
+    }
     const course = await prisma.course.findUnique({
       where: { id: Number(courseId) },
       include: {
@@ -232,6 +250,10 @@ router.post("/", requireAuth, asyncHandler(async (req, res) => {
   }
 
   if (summerCourseId) {
+    // A Summer School course must be recorded in a Summer-specific period.
+    if (!isSummerGrade(gradeCompleted)) {
+      return res.status(400).json({ error: "Summer School courses must be marked completed in a Summer-specific period." });
+    }
     const summer = await prisma.summerCourse.findUnique({
       where: { id: Number(summerCourseId) },
       include: {
@@ -378,6 +400,18 @@ router.put("/:id", requireAuth, asyncHandler(async (req, res) => {
 
   if (gradeCompleted != null && !GRADE_COMPLETED_OPTIONS.includes(gradeCompleted)) {
     return res.status(400).json({ error: "Invalid gradeCompleted value" });
+  }
+
+  // The edited record must keep a period that matches its course context.
+  if (gradeCompleted != null) {
+    const isSummerContext = existing.summerCourseId != null;
+    if (isSummerGrade(gradeCompleted) !== isSummerContext) {
+      return res.status(400).json({
+        error: isSummerContext
+          ? "Summer School courses must keep a Summer-specific period."
+          : "Regular courses cannot be marked completed in a Summer-specific period.",
+      });
+    }
   }
 
   const updated = await prisma.completedCourse.update({

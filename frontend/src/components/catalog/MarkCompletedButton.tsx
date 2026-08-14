@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import type { Course } from "@/types/course";
 import { useCompletedCoursesService } from "@/services/ServiceContext";
 import { courseToPlannerDetails } from "@/lib/planner";
-import { ACADEMIC_PERIODS } from "@/lib/completedCoursePeriods";
+import { defaultGradeForContext, getAcademicPeriodLabel, gradeOptionsForContext } from "@/lib/completedCoursePeriods";
 import type { GradeCompleted } from "@/lib/completedCourses";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
@@ -45,12 +45,20 @@ export function MarkCompletedButton({
 
   const isCompleted = completedIds.has(course.id);
 
+  // Regular catalog courses have positive ids; Summer School courses reach this
+  // catalog as normalized `Course` objects with a negative id (see
+  // normalizeSummerCourseForCatalog). The grade options follow the course
+  // context so the two period sets are never mixed in one selector.
+  const isSummerCourse = course.id < 0;
+  const gradeOptions = gradeOptionsForContext(isSummerCourse);
+
   const handleClick = () => {
     if (isCompleted) {
       window.location.href = "/completed";
       return;
     }
     setError(null);
+    setGrade(defaultGradeForContext(isSummerCourse));
     setModalOpen(true);
   };
 
@@ -163,9 +171,9 @@ export function MarkCompletedButton({
                 marginBottom: "16px",
               }}
             >
-              {ACADEMIC_PERIODS.map((period) => (
-                <option key={period.label} value={period.values[0]}>
-                  {period.label}
+              {gradeOptions.map((option) => (
+                <option key={option} value={option}>
+                  {getAcademicPeriodLabel(option)}
                 </option>
               ))}
             </select>

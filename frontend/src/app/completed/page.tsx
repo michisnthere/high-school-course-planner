@@ -4,7 +4,6 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useCompletedCoursesService } from "@/services/ServiceContext";
 import {
-  GRADE_COMPLETED_OPTIONS,
   type CompletedCourse,
   type GradeCompleted,
 } from "@/lib/completedCourses";
@@ -12,8 +11,10 @@ import { CompletedCoursePicker, type CompletedCourseSelection } from "@/componen
 import { formatCredits } from "@/lib/courseCredits";
 import {
   FILTER_ORDER,
+  defaultGradeForContext,
   filterCompletedCoursesByPeriod,
   getAcademicPeriodLabel,
+  gradeOptionsForContext,
   groupCompletedCoursesByPeriod,
   isSummerCompletedCourse,
   type CompletedCourseFilter,
@@ -432,7 +433,7 @@ function CompletedCoursesContent(): React.ReactElement {
                                         onEditGrade={setEditGrade}
                                         onStartEdit={() => {
                                           setEditingId(cc.id);
-                                          setEditGrade(cc.gradeCompleted);
+                                          setEditGrade(defaultGradeForContext(cc.summerCourseId != null, cc.gradeCompleted));
                                         }}
                                         onCancelEdit={() => setEditingId(null)}
                                         onSave={() => handleUpdate(cc.id)}
@@ -456,7 +457,7 @@ function CompletedCoursesContent(): React.ReactElement {
                                     onEditGrade={setEditGrade}
                                     onStartEdit={() => {
                                       setEditingId(cc.id);
-                                      setEditGrade(cc.gradeCompleted);
+                                      setEditGrade(defaultGradeForContext(cc.summerCourseId != null, cc.gradeCompleted));
                                     }}
                                     onCancelEdit={() => setEditingId(null)}
                                     onSave={() => handleUpdate(cc.id)}
@@ -518,6 +519,10 @@ function CompletedCourseCard({
   const bgTint = getDivisionBackgroundColor(division);
   const isEditing = editingId === cc.id;
   const periodLabel = isSummerCompletedCourse(cc) ? cc.gradeCompleted : getAcademicPeriodLabel(cc.gradeCompleted);
+  // Edit context follows the course type (summerCourseId vs courseId), not the
+  // stored grade, so a Summer School record can never be edited into a regular
+  // period (or vice versa).
+  const editGradeOptions = gradeOptionsForContext(cc.summerCourseId != null);
 
   return (
     <div
@@ -592,7 +597,7 @@ function CompletedCourseCard({
                 marginRight: "8px",
               }}
             >
-              {GRADE_COMPLETED_OPTIONS.map((g) => (
+              {editGradeOptions.map((g) => (
                 <option key={g} value={g}>{getAcademicPeriodLabel(g)}</option>
               ))}
             </select>

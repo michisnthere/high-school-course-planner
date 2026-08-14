@@ -44,6 +44,7 @@ import {
   getEligibleCompletedGrades,
   getDefaultCompletedGrade,
 } from "@/lib/completedCourses";
+import { isSummerGrade } from "@/lib/completedCoursePeriods";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { StudentPlanningData } from "@/lib/studentData";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
@@ -3797,7 +3798,7 @@ function WarningActionModal({
   );
 
   const eligibleCompletedGrades = useMemo(
-    () => getEligibleCompletedGrades(currentYear),
+    () => getEligibleCompletedGrades(currentYear).filter((g) => !isSummerGrade(g)),
     [currentYear]
   );
 
