@@ -51,7 +51,6 @@ function course(id: number, title: string, gradeCompleted: CompletedCourse["grad
 describe("completed course academic periods", () => {
   it("maps existing stored values to display periods", () => {
     expect(getAcademicPeriodLabel("Middle School")).toBe("Middle School");
-    expect(getAcademicPeriodLabel("Middle School Summer")).toBe("Middle School Summer (Before Middle School)");
     expect(getAcademicPeriodLabel("Freshman (9)")).toBe("Freshman");
     expect(getAcademicPeriodLabel("Freshman Summer")).toBe("Freshman Summer (Middle School → 9th Grade)");
     expect(getAcademicPeriodLabel("Sophomore (10)")).toBe("Sophomore");
@@ -67,7 +66,6 @@ describe("completed course academic periods", () => {
     // Stored values stay exactly as they were persisted; only the rendered
     // label carries the transition description.
     expect(SUMMER_GRADE_COMPLETED_OPTIONS).toEqual([
-      "Middle School Summer",
       "Freshman Summer",
       "Sophomore Summer",
       "Junior Summer",
@@ -98,7 +96,6 @@ describe("completed course academic periods", () => {
     expect(FILTER_ORDER).toContain("Senior");
     // Per-year summer values are NOT separate filters (they collapse under
     // the Summer School category).
-    expect(FILTER_ORDER).not.toContain("Middle School Summer");
     expect(FILTER_ORDER).not.toContain("Freshman Summer");
     expect(FILTER_ORDER).not.toContain("Senior Summer");
   });
@@ -134,7 +131,7 @@ describe("completed course summer consolidation", () => {
     const grouped = groupCompletedCoursesByPeriod([
       course(1, "English I", "Freshman (9)"),
       course(2, "Algebra I", "Middle School"),
-      course(3, "Summer Math", "Middle School Summer"),
+      course(3, "Summer Math", "Freshman Summer"),
       course(4, "Summer Physics", "Freshman Summer"),
       course(5, "Summer Chem", "Sophomore Summer"),
       course(6, "Summer Calc", "Junior Summer"),
@@ -169,13 +166,11 @@ describe("completed course summer consolidation", () => {
     const grouped = groupCompletedCoursesByPeriod([
       course(1, "Senior Summer Course", "Senior Summer"),
       course(2, "Freshman Summer Course", "Freshman Summer"),
-      course(3, "Middle School Summer Course", "Middle School Summer"),
-      course(4, "Junior Summer Course", "Junior Summer"),
+      course(3, "Junior Summer Course", "Junior Summer"),
     ]);
 
     const summer = grouped.find((g) => g.label === "Summer School");
     expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual([
-      "Middle School Summer",
       "Freshman Summer",
       "Junior Summer",
       "Senior Summer",
@@ -193,8 +188,7 @@ describe("completed course summer consolidation", () => {
   });
 
   it("isSummerCompletedCourse identifies each summer grade", () => {
-    expect(isSummerCompletedCourse(course(1, "A", "Middle School Summer"))).toBe(true);
-    expect(isSummerCompletedCourse(course(2, "B", "Freshman Summer"))).toBe(true);
+    expect(isSummerCompletedCourse(course(1, "A", "Freshman Summer"))).toBe(true);
     expect(isSummerCompletedCourse(course(3, "C", "Sophomore Summer"))).toBe(true);
     expect(isSummerCompletedCourse(course(4, "D", "Junior Summer"))).toBe(true);
     expect(isSummerCompletedCourse(course(5, "E", "Senior Summer"))).toBe(true);
@@ -218,7 +212,7 @@ describe("completed course summer consolidation", () => {
 
   it("never treats a regular filter as a Summer School filter", () => {
     const courses = [
-      course(1, "Summer Course", "Middle School Summer"),
+      course(1, "Summer Course", "Freshman Summer"),
       course(2, "Algebra I", "Middle School"),
     ];
 
@@ -228,7 +222,7 @@ describe("completed course summer consolidation", () => {
 
   it("Summer School filter returns every summer-period course across all years", () => {
     const courses = [
-      course(1, "MS Summer Math", "Middle School Summer"),
+      course(1, "Summer Math Prep", "Freshman Summer"),
       course(2, "Freshman Summer Physics", "Freshman Summer"),
       course(3, "Sophomore Summer Chem", "Sophomore Summer"),
       course(4, "Junior Summer Calc", "Junior Summer"),
@@ -240,7 +234,7 @@ describe("completed course summer consolidation", () => {
 
     const summer = filterCompletedCoursesByPeriod(courses, "Summer School");
     expect(summer.map((c) => c.course.title)).toEqual([
-      "MS Summer Math",
+      "Summer Math Prep",
       "Freshman Summer Physics",
       "Sophomore Summer Chem",
       "Junior Summer Calc",
@@ -252,7 +246,7 @@ describe("completed course summer consolidation", () => {
 
   it("Summer School filter is a category that groups all summer periods under one section", () => {
     const courses = [
-      course(1, "Middle School Summer Course", "Middle School Summer"),
+      course(1, "Freshman Summer Course", "Freshman Summer"),
       course(2, "Senior Summer Course", "Senior Summer"),
     ];
 
@@ -260,11 +254,11 @@ describe("completed course summer consolidation", () => {
     const grouped = groupCompletedCoursesByPeriod(filtered);
     const summer = grouped.find((g) => g.label === "Summer School");
     expect(summer?.courses.map((c) => c.course.title)).toEqual([
-      "Middle School Summer Course",
+      "Freshman Summer Course",
       "Senior Summer Course",
     ]);
     expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual([
-      "Middle School Summer",
+      "Freshman Summer",
       "Senior Summer",
     ]);
     // No regular grade group is produced by the Summer School category filter.
@@ -285,7 +279,6 @@ describe("context-aware grade options", () => {
   });
 
   it("summer options contain only Summer-specific periods, never regular ones or the generic context", () => {
-    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Middle School Summer");
     expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Freshman Summer");
     expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Sophomore Summer");
     expect(SUMMER_GRADE_COMPLETED_OPTIONS).toContain("Junior Summer");
@@ -303,14 +296,13 @@ describe("context-aware grade options", () => {
     expect(gradeOptionsForContext(false).some((g) => SUMMER_GRADE_COMPLETED_OPTIONS.includes(g))).toBe(false);
   });
 
-  it("defaultGradeForContext preserves a valid grade and falls back to the generic option", () => {
+  it("defaultGradeForContext preserves a valid grade and falls back to the first context option", () => {
     expect(defaultGradeForContext(false, "Freshman (9)")).toBe("Freshman (9)");
     expect(defaultGradeForContext(false, "Freshman Summer")).toBe("Middle School");
     expect(defaultGradeForContext(true, "Sophomore Summer")).toBe("Sophomore Summer");
-    expect(defaultGradeForContext(true, "Middle School Summer")).toBe("Middle School Summer");
-    expect(defaultGradeForContext(true, "Senior (12)")).toBe("Middle School Summer");
+    expect(defaultGradeForContext(true, "Senior (12)")).toBe("Freshman Summer");
     expect(defaultGradeForContext(true, "Summer School")).toBe("Summer School");
-    expect(defaultGradeForContext(true)).toBe("Middle School Summer");
+    expect(defaultGradeForContext(true)).toBe("Freshman Summer");
     expect(defaultGradeForContext(false)).toBe("Middle School");
   });
 

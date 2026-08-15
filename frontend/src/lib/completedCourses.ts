@@ -3,7 +3,6 @@ import type { SummerCourse } from "@/lib/summerCourse";
 
 export const GRADE_COMPLETED_OPTIONS = [
   "Middle School",
-  "Middle School Summer",
   "Summer School",
   "Freshman (9)",
   "Freshman Summer",

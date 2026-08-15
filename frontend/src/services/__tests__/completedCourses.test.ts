@@ -55,7 +55,6 @@ describe("guest completed courses service", () => {
       "Senior (12)",
     ]);
     expect(summerCreated.map((course) => course.gradeCompleted)).toEqual([
-      "Middle School Summer",
       "Freshman Summer",
       "Sophomore Summer",
       "Junior Summer",
@@ -129,7 +128,7 @@ describe("guest completed courses service", () => {
     await svc.addCompletedCourse(1, "Freshman (9)");
     await svc.addCompletedCourse({
       summerCourseId: 100,
-      gradeCompleted: "Middle School Summer",
+      gradeCompleted: "Sophomore Summer",
       summerCourse: makeSummerCourse(100),
     });
     let stored = await svc.getCompletedCourses();
@@ -138,7 +137,7 @@ describe("guest completed courses service", () => {
     const summerId = stored.find((c) => c.summerCourseId != null)!.id;
 
     expect(stored.find((c) => c.courseId === 1)?.gradeCompleted).toBe("Freshman (9)");
-    expect(stored.find((c) => c.summerCourseId === 100)?.gradeCompleted).toBe("Middle School Summer");
+    expect(stored.find((c) => c.summerCourseId === 100)?.gradeCompleted).toBe("Sophomore Summer");
 
     // Edit within the correct context: regular stays regular, summer stays summer.
     await svc.updateCompletedCourse(regularId, { gradeCompleted: "Sophomore (10)" as GradeCompleted });
