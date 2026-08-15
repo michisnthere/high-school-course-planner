@@ -124,11 +124,14 @@ export function isSummerCompletedCourse(course: CompletedCourse): boolean {
 }
 
 /**
- * Year-based subsection label for a summer course. Falls back to the
- * gradeCompleted value itself (e.g. "Freshman Summer" -> "Freshman Summer").
+ * Year-based subsection label for a summer course. Uses the centralized
+ * display label (e.g. "Freshman Summer" -> "Freshman Summer (Middle School →
+ * 9th Grade)") so every Summer School section heading carries the same
+ * transition description as the period shown in grade selectors. The legacy
+ * generic "Summer School" value keeps its plain label.
  */
 export function summerYearLabel(gradeCompleted: GradeCompleted): string {
-  return gradeCompleted;
+  return getAcademicPeriodLabel(gradeCompleted);
 }
 
 export function groupCompletedCoursesByPeriod(courses: CompletedCourse[]): CompletedCourseGroup[] {

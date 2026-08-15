@@ -12,6 +12,7 @@ import {
   defaultGradeForContext,
   gradeOptionsForContext,
   isGradeValidForContext,
+  summerYearLabel,
 } from "@/lib/completedCoursePeriods";
 
 function course(id: number, title: string, gradeCompleted: CompletedCourse["gradeCompleted"]): CompletedCourse {
@@ -171,11 +172,11 @@ describe("completed course summer consolidation", () => {
 
     const summer = grouped.find((g) => g.label === "Summer School");
     expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual([
-      "Freshman Summer",
-      "Junior Summer",
-      "Senior Summer",
+      "Freshman Summer (Middle School → 9th Grade)",
+      "Junior Summer (10th → 11th Grade)",
+      "Senior Summer (11th → 12th Grade)",
     ]);
-    expect(summer?.summerSubSections?.find((s) => s.yearLabel === "Senior Summer")?.courses.map((c) => c.course.title)).toEqual(["Senior Summer Course"]);
+    expect(summer?.summerSubSections?.find((s) => s.yearLabel === "Senior Summer (11th → 12th Grade)")?.courses.map((c) => c.course.title)).toEqual(["Senior Summer Course"]);
   });
 
   it("omits empty summer subsections", () => {
@@ -184,7 +185,18 @@ describe("completed course summer consolidation", () => {
     ]);
 
     const summer = grouped.find((g) => g.label === "Summer School");
-    expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual(["Freshman Summer"]);
+    expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual(["Freshman Summer (Middle School → 9th Grade)"]);
+  });
+
+  it("renders each Summer School period heading with its grade-transition label", () => {
+    expect(summerYearLabel("Freshman Summer")).toBe("Freshman Summer (Middle School → 9th Grade)");
+    expect(summerYearLabel("Sophomore Summer")).toBe("Sophomore Summer (9th → 10th Grade)");
+    expect(summerYearLabel("Junior Summer")).toBe("Junior Summer (10th → 11th Grade)");
+    expect(summerYearLabel("Senior Summer")).toBe("Senior Summer (11th → 12th Grade)");
+    // The legacy generic value keeps its plain label (program context).
+    expect(summerYearLabel("Summer School")).toBe("Summer School");
+    // Regular-year periods never gain a transition parenthetical.
+    expect(summerYearLabel("Freshman (9)")).toBe("Freshman");
   });
 
   it("isSummerCompletedCourse identifies each summer grade", () => {
@@ -258,8 +270,8 @@ describe("completed course summer consolidation", () => {
       "Senior Summer Course",
     ]);
     expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual([
-      "Freshman Summer",
-      "Senior Summer",
+      "Freshman Summer (Middle School → 9th Grade)",
+      "Senior Summer (11th → 12th Grade)",
     ]);
     // No regular grade group is produced by the Summer School category filter.
     expect(grouped.filter((g) => !g.isSummer).every((g) => g.courses.length === 0)).toBe(true);
