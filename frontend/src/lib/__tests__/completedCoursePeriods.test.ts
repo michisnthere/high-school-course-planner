@@ -51,20 +51,44 @@ function course(id: number, title: string, gradeCompleted: CompletedCourse["grad
 describe("completed course academic periods", () => {
   it("maps existing stored values to display periods", () => {
     expect(getAcademicPeriodLabel("Middle School")).toBe("Middle School");
-    expect(getAcademicPeriodLabel("Middle School Summer")).toBe("Middle School Summer");
+    expect(getAcademicPeriodLabel("Middle School Summer")).toBe("Middle School Summer (Before Middle School)");
     expect(getAcademicPeriodLabel("Freshman (9)")).toBe("Freshman");
-    expect(getAcademicPeriodLabel("Freshman Summer")).toBe("Freshman Summer");
+    expect(getAcademicPeriodLabel("Freshman Summer")).toBe("Freshman Summer (Middle School → 9th Grade)");
     expect(getAcademicPeriodLabel("Sophomore (10)")).toBe("Sophomore");
-    expect(getAcademicPeriodLabel("Sophomore Summer")).toBe("Sophomore Summer");
+    expect(getAcademicPeriodLabel("Sophomore Summer")).toBe("Sophomore Summer (9th → 10th Grade)");
     expect(getAcademicPeriodLabel("Junior (11)")).toBe("Junior");
-    expect(getAcademicPeriodLabel("Junior Summer")).toBe("Junior Summer");
+    expect(getAcademicPeriodLabel("Junior Summer")).toBe("Junior Summer (10th → 11th Grade)");
     expect(getAcademicPeriodLabel("Senior (12)")).toBe("Senior");
-    expect(getAcademicPeriodLabel("Senior Summer")).toBe("Senior Summer");
+    expect(getAcademicPeriodLabel("Senior Summer")).toBe("Senior Summer (11th → 12th Grade)");
     expect(getAcademicPeriodLabel("Summer School")).toBe("Summer School");
   });
 
-  it("does not offer Summer School as a grade-level filter (program context, not a grade)", () => {
-    expect(FILTER_ORDER).not.toContain("Summer School");
+  it("adds transition parentheticals only to Summer display labels, never to stored values", () => {
+    // Stored values stay exactly as they were persisted; only the rendered
+    // label carries the transition description.
+    expect(SUMMER_GRADE_COMPLETED_OPTIONS).toEqual([
+      "Middle School Summer",
+      "Freshman Summer",
+      "Sophomore Summer",
+      "Junior Summer",
+      "Senior Summer",
+    ]);
+    // Every Summer selector option renders a transitioned label.
+    for (const grade of SUMMER_GRADE_COMPLETED_OPTIONS) {
+      expect(getAcademicPeriodLabel(grade)).not.toBe(grade);
+    }
+    // The legacy generic value keeps its plain label (program context).
+    expect(getAcademicPeriodLabel("Summer School")).toBe("Summer School");
+    // Regular-year options never gain a parenthetical.
+    expect(getAcademicPeriodLabel("Freshman (9)")).toBe("Freshman");
+    expect(getAcademicPeriodLabel("Sophomore (10)")).toBe("Sophomore");
+    expect(getAcademicPeriodLabel("Junior (11)")).toBe("Junior");
+    expect(getAcademicPeriodLabel("Senior (12)")).toBe("Senior");
+  });
+
+  it("offers Summer School as a grouping filter alongside the regular grade-level filters", () => {
+    // Summer School is a filter category, so it appears as a filter button.
+    expect(FILTER_ORDER).toContain("Summer School");
     // Regular grade levels remain available as filters.
     expect(FILTER_ORDER).toContain("All");
     expect(FILTER_ORDER).toContain("Middle School");
@@ -72,6 +96,11 @@ describe("completed course academic periods", () => {
     expect(FILTER_ORDER).toContain("Sophomore");
     expect(FILTER_ORDER).toContain("Junior");
     expect(FILTER_ORDER).toContain("Senior");
+    // Per-year summer values are NOT separate filters (they collapse under
+    // the Summer School category).
+    expect(FILTER_ORDER).not.toContain("Middle School Summer");
+    expect(FILTER_ORDER).not.toContain("Freshman Summer");
+    expect(FILTER_ORDER).not.toContain("Senior Summer");
   });
 
   it("groups completed courses by academic period", () => {
@@ -195,6 +224,51 @@ describe("completed course summer consolidation", () => {
 
     expect(filterCompletedCoursesByPeriod(courses, "All")).toHaveLength(2);
     expect(filterCompletedCoursesByPeriod(courses, "Middle School").map((c) => c.course.title)).toEqual(["Algebra I"]);
+  });
+
+  it("Summer School filter returns every summer-period course across all years", () => {
+    const courses = [
+      course(1, "MS Summer Math", "Middle School Summer"),
+      course(2, "Freshman Summer Physics", "Freshman Summer"),
+      course(3, "Sophomore Summer Chem", "Sophomore Summer"),
+      course(4, "Junior Summer Calc", "Junior Summer"),
+      course(5, "Senior Summer Stats", "Senior Summer"),
+      course(6, "Legacy Summer PE", "Summer School"),
+      course(7, "English I", "Freshman (9)"),
+      course(8, "Algebra I", "Middle School"),
+    ];
+
+    const summer = filterCompletedCoursesByPeriod(courses, "Summer School");
+    expect(summer.map((c) => c.course.title)).toEqual([
+      "MS Summer Math",
+      "Freshman Summer Physics",
+      "Sophomore Summer Chem",
+      "Junior Summer Calc",
+      "Senior Summer Stats",
+      "Legacy Summer PE",
+    ]);
+    expect(summer.every((c) => isSummerCompletedCourse(c))).toBe(true);
+  });
+
+  it("Summer School filter is a category that groups all summer periods under one section", () => {
+    const courses = [
+      course(1, "Middle School Summer Course", "Middle School Summer"),
+      course(2, "Senior Summer Course", "Senior Summer"),
+    ];
+
+    const filtered = filterCompletedCoursesByPeriod(courses, "Summer School");
+    const grouped = groupCompletedCoursesByPeriod(filtered);
+    const summer = grouped.find((g) => g.label === "Summer School");
+    expect(summer?.courses.map((c) => c.course.title)).toEqual([
+      "Middle School Summer Course",
+      "Senior Summer Course",
+    ]);
+    expect(summer?.summerSubSections?.map((s) => s.yearLabel)).toEqual([
+      "Middle School Summer",
+      "Senior Summer",
+    ]);
+    // No regular grade group is produced by the Summer School category filter.
+    expect(grouped.filter((g) => !g.isSummer).every((g) => g.courses.length === 0)).toBe(true);
   });
 });
 

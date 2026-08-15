@@ -12,17 +12,27 @@ import { normalizeTitle } from "@/lib/normalize";
 // the summer-before-middle-school period; the other per-year values are the
 // summer between each grade (e.g. "Freshman Summer" = the summer between
 // middle school and 9th grade).
+//
+// The `values` are the exact stored GradeCompleted strings and are NEVER
+// changed. The `label` for each Summer period is its display text, which adds
+// the transition that period covers (e.g. "Freshman Summer (Middle School →
+// 9th Grade)") so grade selectors clearly communicate the progression. These
+// labels are the single source of truth for every selector that renders a
+// Summer grade option. "Middle School Summer" is described without an arrow
+// because the grade model has nothing before "Middle School" to transition
+// from — a transition like "Elementary → Middle School" would invent a grade
+// the model does not define.
 export const ACADEMIC_PERIODS = [
   { label: "Middle School", values: ["Middle School"] },
-  { label: "Middle School Summer", values: ["Middle School Summer"] },
+  { label: "Middle School Summer (Before Middle School)", values: ["Middle School Summer"] },
   { label: "Freshman", values: ["Freshman (9)"] },
-  { label: "Freshman Summer", values: ["Freshman Summer"] },
+  { label: "Freshman Summer (Middle School → 9th Grade)", values: ["Freshman Summer"] },
   { label: "Sophomore", values: ["Sophomore (10)"] },
-  { label: "Sophomore Summer", values: ["Sophomore Summer"] },
+  { label: "Sophomore Summer (9th → 10th Grade)", values: ["Sophomore Summer"] },
   { label: "Junior", values: ["Junior (11)"] },
-  { label: "Junior Summer", values: ["Junior Summer"] },
+  { label: "Junior Summer (10th → 11th Grade)", values: ["Junior Summer"] },
   { label: "Senior", values: ["Senior (12)"] },
-  { label: "Senior Summer", values: ["Senior Summer"] },
+  { label: "Senior Summer (11th → 12th Grade)", values: ["Senior Summer"] },
   // Legacy stored value for summer work. It is retained so existing records
   // keep loading, but it is NOT offered as a grade level anywhere: Summer
   // School is a course/program context, not a grade level.
@@ -30,10 +40,11 @@ export const ACADEMIC_PERIODS = [
 ] as const;
 
 // Filter buttons shown on the Completed Courses page. "Summer School" is a
-// program context, not a grade level, so it is NOT a filter option. Per-year
-// summer values are intentionally omitted as filters too; all summer courses
-// surface under "All", consolidated into a single Summer School section that is
-// subdivided by year when displayed.
+// grouping/filter category, NOT a grade level: selecting it shows every
+// summer-period course (Middle School Summer, Freshman Summer, … and the
+// legacy "Summer School" value), consolidated into the single Summer School
+// section that is subdivided by year when displayed. Per-year summer values
+// are intentionally omitted as individual filters.
 export const FILTER_ORDER = [
   "All",
   "Middle School",
@@ -41,6 +52,7 @@ export const FILTER_ORDER = [
   "Sophomore",
   "Junior",
   "Senior",
+  "Summer School",
 ] as const;
 export type CompletedCourseFilter = (typeof FILTER_ORDER)[number];
 
@@ -180,6 +192,12 @@ export function filterCompletedCoursesByPeriod(
   filter: CompletedCourseFilter
 ): CompletedCourse[] {
   if (filter === "All") return courses;
+  // "Summer School" is a grouping/filter category, not a single grade label:
+  // it matches every summer period (Middle School Summer, Freshman Summer, …
+  // and the legacy "Summer School" value).
+  if (filter === "Summer School") {
+    return courses.filter((course) => isSummerCompletedCourse(course));
+  }
   return courses.filter((course) => getAcademicPeriodLabel(course.gradeCompleted) === filter);
 }
 
