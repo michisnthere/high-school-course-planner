@@ -13,10 +13,10 @@ const FEEDBACK_FORM_URL = "https://forms.gle/gPebJ41P8r8sUEsW6";
 const navItems = [
   { label: "Dashboard", href: "/" },
   { label: "Course Catalog", href: "/catalog" },
-  { label: "Saved Courses", href: "/saved" },
-  { label: "Completed Courses", href: "/completed-courses" },
   { label: "My Planner", href: "/planner" },
   { label: "Graduation Requirements", href: "/requirements" },
+  { label: "Saved Courses", href: "/saved" },
+  { label: "Completed Courses", href: "/completed-courses" },
 ];
 
 export function MobileNav() {
