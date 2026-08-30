@@ -157,4 +157,42 @@ describe("guest completed courses service", () => {
     const stored = await svc.getCompletedCourses();
     expect(stored.find((c) => c.summerCourseId === 100)?.gradeCompleted).toBe("Summer School");
   });
+
+  it("accepts CompletedCourseInput with courseId (union type from picker)", async () => {
+    const svc = createGuestCompletedCoursesService();
+    const result = await svc.addCompletedCourse({ courseId: 42, gradeCompleted: "Freshman (9)" });
+    expect(result.courseId).toBe(42);
+    expect(result.gradeCompleted).toBe("Freshman (9)");
+    const stored = await svc.getCompletedCourses();
+    expect(stored.some((c) => c.courseId === 42)).toBe(true);
+  });
+
+  it("rejects CompletedCourseInput with summerCourseId but no summerCourse data", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await expect(
+      svc.addCompletedCourse({ summerCourseId: 100, gradeCompleted: "Freshman Summer" })
+    ).rejects.toThrow("Summer School courses require the full summer course data");
+  });
+
+  it("rejects CompletedCourseInput with neither courseId nor summerCourseId", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await expect(
+      svc.addCompletedCourse({ gradeCompleted: "Freshman (9)" } as any)
+    ).rejects.toThrow("A courseId or summerCourseId is required");
+  });
+
+  it("rejects duplicate regular course via CompletedCourseInput", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await svc.addCompletedCourse({ courseId: 42, gradeCompleted: "Freshman (9)" });
+    await expect(
+      svc.addCompletedCourse({ courseId: 42, gradeCompleted: "Sophomore (10)" })
+    ).rejects.toThrow();
+  });
+
+  it("rejects CompletedCourseInput with summer grade for regular course", async () => {
+    const svc = createGuestCompletedCoursesService();
+    await expect(
+      svc.addCompletedCourse({ courseId: 42, gradeCompleted: "Freshman Summer" })
+    ).rejects.toThrow("Regular courses cannot be marked completed in a Summer-specific period");
+  });
 });

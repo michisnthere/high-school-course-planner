@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCompletedCoursesService } from "@/services/ServiceContext";
 import {
   type CompletedCourse,
+  type CompletedCourseInput,
   type GradeCompleted,
 } from "@/lib/completedCourses";
 import { CompletedCoursePicker, type CompletedCourseSelection } from "@/components/planner/CompletedCoursePicker";
@@ -93,7 +94,7 @@ function CompletedCoursesContent(): React.ReactElement {
   const handleAdd = useCallback(
     async (selection: CompletedCourseSelection) => {
       try {
-        await completedService.addCompletedCourse(selection as any);
+        await completedService.addCompletedCourse(selection as CompletedCourseInput);
         setPickerOpen(false);
         await load();
       } catch (err) {

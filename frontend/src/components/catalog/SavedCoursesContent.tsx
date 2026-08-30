@@ -10,6 +10,7 @@ import { useSavedCourses } from "@/hooks/useSavedCourses";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { breakpoints } from "@/lib/responsive";
 import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
+import { SavedToPlannerModal } from "./SavedToPlannerModal";
 
 type SavedCoursesContentProps = {
   courses: Course[];
@@ -134,6 +135,7 @@ export function SavedCoursesContent({
   const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit(
     searchParams.get("q") ?? ""
   );
+  const [addToPlannerCourse, setAddToPlannerCourse] = useState<Course | null>(null);
 
   const syncUrl = useCallback((q: string, dept: string, s: string) => {
     const params = new URLSearchParams();
@@ -515,6 +517,16 @@ export function SavedCoursesContent({
                   </Link>
                   <button
                     type="button"
+                    onClick={() => setAddToPlannerCourse(course)}
+                    style={{
+                      ...viewLinkStyle,
+                      backgroundColor: "var(--status-success, #059669)",
+                    }}
+                  >
+                    Add to Planner
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => toggle(course.id)}
                     style={removeButtonStyle}
                   >
@@ -527,6 +539,13 @@ export function SavedCoursesContent({
         </div>
       )}
         </>
+      )}
+      {addToPlannerCourse && (
+        <SavedToPlannerModal
+          courseId={addToPlannerCourse.id}
+          courseTitle={addToPlannerCourse.title}
+          onClose={() => setAddToPlannerCourse(null)}
+        />
       )}
     </div>
   );

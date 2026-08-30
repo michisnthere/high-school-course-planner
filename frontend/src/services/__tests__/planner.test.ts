@@ -283,10 +283,16 @@ describe("guest planner service", () => {
 
     it("does not partially place American Studies when both semesters lack adjacent space", async () => {
       const service = createGuestPlannerService();
-      service.seedCourseCatalog([...catalog, americanStudies]);
+      const fillers: PlannerCourseDetails[] = [1, 3, 5, 7].map((id) => ({
+        ...biology,
+        id,
+        title: `Filler ${id}`,
+        normalizedTitle: `filler ${id}`,
+      }));
+      service.seedCourseCatalog([...catalog, americanStudies, ...fillers]);
       const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
-      for (const slot of [1, 3, 5, 7]) {
-        await service.addPlannedCourse(planner.id, biology.id, 1, slot);
+      for (let i = 0; i < fillers.length; i++) {
+        await service.addPlannedCourse(planner.id, fillers[i].id, 1, [1, 3, 5, 7][i]);
       }
 
       await expect(service.addPlannedCourse(planner.id, americanStudies.id, 1, 1)).rejects.toThrow(
@@ -318,12 +324,13 @@ describe("guest planner service", () => {
       ).rejects.toThrow("already has a course");
     });
 
-    it("allows independent courses in Summer S1 and S2", async () => {
+    it("allows different courses in Summer S1 and S2", async () => {
       const service = createGuestPlannerService();
-      service.seedCourseCatalog([...catalog, health]);
+      const music: PlannerCourseDetails = { ...health, id: 6, title: "Music", normalizedTitle: "music" };
+      service.seedCourseCatalog([...catalog, health, music]);
       const planner = (await service.getPlanners()).find((p) => p.schoolYear === 11)!;
       await service.addPlannedCourse(planner.id, health.id, 3, 1);
-      await service.addPlannedCourse(planner.id, health.id, 4, 1);
+      await service.addPlannedCourse(planner.id, music.id, 4, 1);
       const after = await service.getPlanner(11);
       const s1 = after.plannedCourses.filter((pc) => pc.semester === 3);
       const s2 = after.plannedCourses.filter((pc) => pc.semester === 4);
@@ -470,6 +477,44 @@ describe("guest planner service", () => {
         [1, 4],
         [2, 4],
       ]);
+    });
+
+    it("rejects adding a duplicate course already planned in the same year", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog(catalog);
+      const planners = await service.getPlanners();
+      const planner = planners.find((p) => p.schoolYear === 9)!;
+      await service.addPlannedCourse(planner.id, chemistry.id, 1, 1);
+      await expect(
+        service.addPlannedCourse(planner.id, chemistry.id, 1, 2)
+      ).rejects.toThrow("already planned");
+    });
+
+    it("rejects adding a course when slot is occupied by a full-year course", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog(catalog);
+      const planners = await service.getPlanners();
+      const planner = planners.find((p) => p.schoolYear === 9)!;
+      // Chemistry (duration=2) occupies slot 1 in both semesters
+      await service.addPlannedCourse(planner.id, chemistry.id, 1, 1);
+      // Trying to add biology (also duration=2) at the same slot should fail
+      await expect(
+        service.addPlannedCourse(planner.id, biology.id, 1, 1)
+      ).rejects.toThrow("already occupied");
+    });
+
+    it("adds a course from saved list (simulating Add to Planner flow)", async () => {
+      const service = createGuestPlannerService();
+      service.seedCourseCatalog(catalog);
+      const planners = await service.getPlanners();
+      const planner = planners.find((p) => p.schoolYear === 10)!;
+      // Simulate adding a saved course to the planner at year 10, semester 1, slot 3
+      const updated = await service.addPlannedCourse(planner.id, chemistry.id, 1, 3);
+      const added = updated.plannedCourses.find((pc) => pc.courseId === chemistry.id);
+      expect(added).toBeDefined();
+      expect(added!.course.title).toBe("Chemistry");
+      // Chemistry is duration=2, so it should be in both semesters
+      expect(updated.plannedCourses.filter((pc) => pc.courseId === chemistry.id)).toHaveLength(2);
     });
   });
 });

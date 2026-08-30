@@ -1,6 +1,6 @@
 import type { Planner, PlannerCourseDetails, PlannerOption } from "@/lib/planner";
 import type { SummerCourse } from "@/lib/summerCourse";
-import type { CompletedCourse, GradeCompleted } from "@/lib/completedCourses";
+import type { CompletedCourse, CompletedCourseInput, GradeCompleted } from "@/lib/completedCourses";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 import type { StudentPlanningData } from "@/lib/studentData";
 import type { RequirementResolution } from "@/lib/api";
@@ -25,6 +25,7 @@ export interface ICompletedCoursesService {
   getCompletedCourses(): Promise<CompletedCourse[]>;
   addCompletedCourse(courseId: number, gradeCompleted: GradeCompleted, courseDetails?: PlannerCourseDetails): Promise<CompletedCourse>;
   addCompletedCourse(item: { summerCourseId: number; gradeCompleted: GradeCompleted; summerCourse: SummerCourse }): Promise<CompletedCourse>;
+  addCompletedCourse(selection: CompletedCourseInput): Promise<CompletedCourse>;
   updateCompletedCourse(id: number, updates: { gradeCompleted?: GradeCompleted }): Promise<CompletedCourse>;
   removeCompletedCourse(id: number): Promise<void>;
 }

@@ -257,6 +257,25 @@ export function createGuestPlannerService(store?: GuestDataStore): IPlannerServi
           }
         }
 
+        // Mirror the backend duplicate check: a non-repeatable course may
+        // only appear once across all planners. Repeatable courses may appear
+        // once per planner per semester.
+        if (isRepeatableOneSemesterPe(courseDetails)) {
+          const existingDuplicate = planner.plannedCourses.some(
+            (pc) => pc.courseId === courseIdOrItem && pc.semester === semester
+          );
+          if (existingDuplicate) {
+            throw new Error("This course is already planned in your schedule");
+          }
+        } else {
+          const existingDuplicate = planners.some((p) =>
+            p.plannedCourses.some((pc) => pc.courseId === courseIdOrItem)
+          );
+          if (existingDuplicate) {
+            throw new Error("This course is already planned in your schedule");
+          }
+        }
+
         if (semester != null && semester > 2) {
           const sectionName = semester <= 4 ? "Summer School" : "Online Courses";
           const targetSemesters = courseDetails.duration === 2 ? (semester <= 4 ? [3, 4] : [5, 6]) : [semester];
