@@ -44,10 +44,42 @@ export function CourseDetailPopover({
 }: CourseDetailPopoverProps): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
   const slug = getCourseSlug({ title: course.title, normalizedTitle: course.normalizedTitle });
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const previousFocusRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    dialogRef.current?.focus();
+    return () => {
+      previousFocusRef.current?.focus();
+    };
+  }, []);
 
   React.useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
@@ -71,10 +103,12 @@ export function CourseDetailPopover({
         onClick={onClose}
       >
         <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="course-detail-popover-title"
+          tabIndex={-1}
           style={{
-            width: "100%",
-            maxWidth: mobile ? "100%" : "520px",
-            maxHeight: mobile ? "100%" : "80vh",
             height: mobile ? "100%" : "auto",
             backgroundColor: "var(--bg-card)",
             border: mobile ? "none" : "1px solid var(--border-default)",
@@ -101,6 +135,7 @@ export function CourseDetailPopover({
               }}
             >
               <h2
+                id="course-detail-popover-title"
                 style={{
                   margin: 0,
                   fontSize: mobile ? "20px" : "22px",

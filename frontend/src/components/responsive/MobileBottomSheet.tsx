@@ -95,8 +95,13 @@ export function MobileBottomSheet({ isOpen, onClose, children, title }: MobileBo
           }
         }
       `}</style>
-      <div className="rs-sheet-overlay" onClick={onClose} />
-      <div className="rs-sheet-panel">
+      <div className="rs-sheet-overlay" onClick={onClose} aria-hidden="true" />
+      <div
+        className="rs-sheet-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label={title || "Dialog"}
+      >
         <div className="rs-sheet-handle" />
         <div className="rs-sheet-header">
           {title && (

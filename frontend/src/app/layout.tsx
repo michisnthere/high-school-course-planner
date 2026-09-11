@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { AuthProvider } from "@/context/AuthContext";
+import { PreferencesProvider } from "@/context/PreferencesContext";
 import { ServiceProvider } from "@/services/ServiceContext";
 import { AuthToast } from "@/components/auth/AuthToast";
 import { breakpoints } from "@/lib/responsive";
@@ -72,25 +73,33 @@ export default function RootLayout({
           }
         `}</style>
         <AuthProvider>
-          <ServiceProvider>
-            <div className="rs-layout-header">
-              <Header />
-            </div>
-            <div className="rs-layout-mobile-nav">
-              <MobileNav />
-            </div>
-            <div
-              className="rs-layout-body"
-              style={{ display: "flex" }}
-            >
-              <div className="rs-layout-sidebar">
-                <Sidebar />
+          <PreferencesProvider>
+            <ServiceProvider>
+              <a
+                href="#main-content"
+                className="rs-skip-link"
+              >
+                Skip to main content
+              </a>
+              <div className="rs-layout-header">
+                <Header />
               </div>
-              <main style={{ flex: 1, minWidth: 0 }}>
-                {children}
-              </main>
-            </div>
-          </ServiceProvider>
+              <div className="rs-layout-mobile-nav">
+                <MobileNav />
+              </div>
+              <div
+                className="rs-layout-body"
+                style={{ display: "flex" }}
+              >
+                <div className="rs-layout-sidebar">
+                  <Sidebar />
+                </div>
+                <main id="main-content" style={{ flex: 1, minWidth: 0 }}>
+                  {children}
+                </main>
+              </div>
+            </ServiceProvider>
+          </PreferencesProvider>
           <AuthToast />
         </AuthProvider>
       </body>

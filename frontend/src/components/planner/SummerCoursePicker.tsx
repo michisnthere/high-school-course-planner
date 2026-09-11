@@ -225,6 +225,7 @@ export function SummerCoursePicker({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search summer courses..."
+            aria-label="Search summer courses"
             style={{
               width: "100%",
               boxSizing: "border-box",

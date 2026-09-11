@@ -27,6 +27,11 @@ function ProgressBar({
       }}
     >
       <div
+        role="progressbar"
+        aria-valuenow={Math.round(percent)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Progress: ${formatCredits(earned)} of ${required} credits`}
         style={{
           flex: 1,
           height: "6px",

@@ -140,6 +140,7 @@ export function CoursePicker({
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={handleKeyDown}
               autoFocus
+              aria-label="Search by course title"
               className={tone === "light" ? "rs-picker-search" : undefined}
               style={
                 tone === "light"
@@ -157,7 +158,6 @@ export function CoursePicker({
                       boxSizing: "border-box",
                     }
               }
-              aria-label="Search courses"
             />
             {draft && (
               <button

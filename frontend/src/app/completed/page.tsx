@@ -593,6 +593,7 @@ function CompletedCourseCard({
             <select
               value={editGrade}
               onChange={(e) => onEditGrade(e.target.value as GradeCompleted)}
+              aria-label="Edit grade level"
               style={{
                 padding: "4px 8px",
                 fontSize: "13px",

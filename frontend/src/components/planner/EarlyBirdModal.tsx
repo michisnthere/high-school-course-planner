@@ -9,9 +9,42 @@ type EarlyBirdModalProps = {
 };
 
 export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModalProps): React.ReactElement {
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const previousFocusRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    dialogRef.current?.focus();
+    return () => {
+      previousFocusRef.current?.focus();
+    };
+  }, []);
+
   React.useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
@@ -32,10 +65,12 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="early-bird-modal-title"
+        tabIndex={-1}
         style={{
-          width: "100%",
-          maxWidth: "520px",
-          backgroundColor: "#1f2937",
           border: "1px solid #374151",
           borderRadius: "16px",
           padding: "32px",
@@ -43,6 +78,7 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
         onClick={(e) => e.stopPropagation()}
       >
         <h2
+          id="early-bird-modal-title"
           style={{
             margin: "0 0 16px",
             fontSize: "22px",

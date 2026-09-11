@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
 import { GuestUpgradePrompt } from "@/components/auth/GuestUpgradePrompt";
 import { SavedCoursesSection } from "@/components/dashboard/SavedCoursesSection";
+import { AccessibilitySettings } from "@/components/settings/AccessibilitySettings";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { breakpoints } from "@/lib/responsive";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
@@ -227,6 +228,8 @@ export default function Home() {
             </section>
           </>
         )}
+
+        <AccessibilitySettings />
       </ResponsivePage>
     </>
   );
@@ -283,6 +286,11 @@ function SummaryCard({
 function ProgressBar({ value }: { value: number }): React.ReactElement {
   return (
     <div
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={`Progress: ${value}%`}
       style={{
         width: "100%",
         height: "8px",

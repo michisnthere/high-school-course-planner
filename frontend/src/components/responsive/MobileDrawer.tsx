@@ -73,8 +73,14 @@ export function MobileDrawer({ isOpen, onClose, children, side = "left" }: Mobil
           to { transform: translateX(0); }
         }
       `}</style>
-      <div className="rs-drawer-overlay" onClick={onClose} />
-      <div className="rs-drawer-panel" style={panelStyle}>
+      <div className="rs-drawer-overlay" onClick={onClose} aria-hidden="true" />
+      <div
+        className="rs-drawer-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        style={panelStyle}
+      >
         {children}
       </div>
     </>

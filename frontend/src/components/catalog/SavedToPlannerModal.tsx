@@ -58,6 +58,8 @@ export function SavedToPlannerModal({
   const router = useRouter();
   const plannerService = usePlannerService();
   const { isMobile } = useBreakpoint();
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const previousFocusRef = React.useRef<HTMLElement | null>(null);
 
   const [year, setYear] = useState(9);
   const [semester, setSemester] = useState(1);
@@ -66,6 +68,14 @@ export function SavedToPlannerModal({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [planners, setPlanners] = useState<Planner[]>([]);
+
+  useEffect(() => {
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    dialogRef.current?.focus();
+    return () => {
+      previousFocusRef.current?.focus();
+    };
+  }, []);
 
   useEffect(() => {
     plannerService.getPlanners().then(setPlanners).catch(() => {});
@@ -102,10 +112,32 @@ export function SavedToPlannerModal({
     router.push(`/planner/${year}`);
   }, [router, year]);
 
-  // Close on Escape key
+  // Close on Escape key and trap focus
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
@@ -126,10 +158,12 @@ export function SavedToPlannerModal({
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="saved-to-planner-modal-title"
+        tabIndex={-1}
         style={{
-          width: "100%",
-          maxWidth: isMobile ? "100%" : "480px",
-          maxHeight: isMobile ? "100%" : "calc(100vh - 48px)",
           height: isMobile ? "100%" : "auto",
           backgroundColor: "var(--bg-card)",
           border: isMobile ? "none" : "1px solid var(--border-default)",
@@ -158,6 +192,7 @@ export function SavedToPlannerModal({
             }}
           >
             <h2
+              id="saved-to-planner-modal-title"
               style={{
                 margin: 0,
                 fontSize: "20px",

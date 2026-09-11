@@ -1327,6 +1327,11 @@ function ProgressBar({
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <div
+        role="progressbar"
+        aria-valuenow={Math.round(clamped)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Progress: ${Math.round(clamped)}%`}
         style={{
           flex: 1,
           height,

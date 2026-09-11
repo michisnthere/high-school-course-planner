@@ -38,7 +38,7 @@ html, body {
   /* ── Text ── */
   --text-primary: #111827;
   --text-secondary: #4B5563;
-  --text-muted: #9CA3AF;
+  --text-muted: #6B7280;
   --text-on-dark: #FFFFFF;
   --text-on-accent: #FFFFFF;
 
@@ -90,4 +90,72 @@ html, body {
 
 .rs-picker-search:focus {
   border-color: #D1D5DB;
+}
+
+/* ── Focus Visible ── */
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
+
+/* Remove default outline only when focus-visible is not supported */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Skip Link ── */
+.rs-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 10000;
+}
+.rs-skip-link:focus {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background-color: var(--brand-primary);
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Reduced Motion ── */
+/* Always respect the OS preference as a baseline. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* User-chosen reduced motion via settings. */
+.rs-reduced-motion,
+.rs-reduced-motion *,
+.rs-reduced-motion *::before,
+.rs-reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ── Larger Text ── */
+/* Modest scale factor applied to the root. Preserves layout while increasing readability. */
+.rs-larger-text {
+  font-size: 112.5%;
 }

@@ -41,6 +41,8 @@ export function AuthToast(): React.ReactElement | null {
 
   return (
     <div
+      role="status"
+      aria-live="polite"
       style={{
         position: "fixed",
         bottom: "24px",
