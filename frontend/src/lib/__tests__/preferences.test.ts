@@ -1,6 +1,13 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-
-const STORAGE_KEY = "stevenson-preferences";
+import {
+  DEFAULT_PREFERENCES,
+  PREFERENCES_STORAGE_KEY,
+  loadPreferencesFromStorage,
+  normalizePreferences,
+  savePreferencesToStorage,
+  shouldHandleApplicationShortcut,
+  type Preferences,
+} from "@/lib/preferences";
 
 // Minimal localStorage mock for Node test environment
 const storage: Record<string, string> = {};
@@ -15,44 +22,57 @@ const mockLocalStorage = {
 
 vi.stubGlobal("localStorage", mockLocalStorage);
 
-function loadPrefs(): Record<string, unknown> | null {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
 describe("Preferences localStorage persistence", () => {
   beforeEach(() => {
-    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(PREFERENCES_STORAGE_KEY);
     vi.clearAllMocks();
   });
 
-  it("returns null when no preferences are stored", () => {
-    expect(loadPrefs()).toBeNull();
+  it("returns defaults when no preferences are stored", () => {
+    expect(loadPreferencesFromStorage(localStorage)).toEqual(DEFAULT_PREFERENCES);
   });
 
   it("stores and retrieves preferences", () => {
-    const prefs = {
+    const prefs: Preferences = {
       keyboardShortcuts: true,
       reducedMotion: "on",
       largerText: false,
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-    expect(loadPrefs()).toEqual(prefs);
+    savePreferencesToStorage(prefs, localStorage);
+    expect(loadPreferencesFromStorage(localStorage)).toEqual(prefs);
   });
 
   it("handles corrupted data gracefully", () => {
-    localStorage.setItem(STORAGE_KEY, "not-valid-json{{{");
-    expect(loadPrefs()).toBeNull();
+    localStorage.setItem(PREFERENCES_STORAGE_KEY, "not-valid-json{{{");
+    expect(loadPreferencesFromStorage(localStorage)).toEqual(DEFAULT_PREFERENCES);
   });
 
   it("defaults missing fields", () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ keyboardShortcuts: true }));
-    const result = loadPrefs();
-    expect(result).toEqual({ keyboardShortcuts: true });
+    expect(normalizePreferences({ keyboardShortcuts: true })).toEqual({
+      keyboardShortcuts: true,
+      reducedMotion: "system",
+      largerText: false,
+    });
+  });
+
+  it("ignores invalid reduced motion values", () => {
+    expect(
+      normalizePreferences({
+        keyboardShortcuts: true,
+        reducedMotion: "sometimes",
+        largerText: true,
+      })
+    ).toEqual({
+      keyboardShortcuts: true,
+      reducedMotion: "system",
+      largerText: true,
+    });
+  });
+
+  it("does not handle future application shortcuts when disabled", () => {
+    const event = { target: null } as KeyboardEvent;
+    expect(
+      shouldHandleApplicationShortcut(event, { keyboardShortcuts: false })
+    ).toBe(false);
   });
 });

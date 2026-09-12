@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { breakpoints } from "@/lib/responsive";
+import { AccessibilitySettingsButton } from "@/components/settings/AccessibilitySettings";
 
 type MobileAppBarProps = {
   onMenuClick: () => void;
@@ -110,6 +111,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
         <span className="rs-mobile-appbar-title">{title}</span>
 
         <div className="rs-mobile-appbar-right">
+          <AccessibilitySettingsButton />
           {(user || isGuest) && (
             <button
               type="button"

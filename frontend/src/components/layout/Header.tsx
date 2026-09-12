@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AuthStatus } from "@/components/auth/AuthStatus";
+import { AccessibilitySettingsButton } from "@/components/settings/AccessibilitySettings";
 
 export function Header(): React.ReactElement {
   return (
@@ -53,6 +54,7 @@ export function Header(): React.ReactElement {
           gap: "12px",
         }}
       >
+        <AccessibilitySettingsButton />
         <AuthStatus />
       </div>
     </header>

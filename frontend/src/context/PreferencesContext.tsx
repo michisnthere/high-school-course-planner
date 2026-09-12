@@ -6,18 +6,15 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
-
-const STORAGE_KEY = "stevenson-preferences";
-
-type ReducedMotionOption = "system" | "on" | "off";
-
-type Preferences = {
-  keyboardShortcuts: boolean;
-  reducedMotion: ReducedMotionOption;
-  largerText: boolean;
-};
+import {
+  loadPreferencesFromStorage,
+  savePreferencesToStorage,
+  type Preferences,
+  type ReducedMotionOption,
+} from "@/lib/preferences";
 
 type PreferencesContextType = {
   preferences: Preferences;
@@ -28,64 +25,52 @@ type PreferencesContextType = {
   isReducedMotionActive: boolean;
 };
 
-const DEFAULTS: Preferences = {
-  keyboardShortcuts: false,
-  reducedMotion: "system",
-  largerText: false,
-};
-
 const PreferencesContext = createContext<PreferencesContextType | undefined>(
   undefined
 );
 
-function loadPreferences(): Preferences {
-  if (typeof window === "undefined") return DEFAULTS;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULTS;
-    const parsed = JSON.parse(raw);
-    return {
-      keyboardShortcuts:
-        typeof parsed.keyboardShortcuts === "boolean"
-          ? parsed.keyboardShortcuts
-          : DEFAULTS.keyboardShortcuts,
-      reducedMotion:
-        parsed.reducedMotion === "on" ||
-        parsed.reducedMotion === "off" ||
-        parsed.reducedMotion === "system"
-          ? parsed.reducedMotion
-          : DEFAULTS.reducedMotion,
-      largerText:
-        typeof parsed.largerText === "boolean"
-          ? parsed.largerText
-          : DEFAULTS.largerText,
-    };
-  } catch {
-    return DEFAULTS;
-  }
-}
-
-function savePreferences(prefs: Preferences) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-  } catch {
-    // Storage full or unavailable — silently ignore.
-  }
-}
-
 function useSystemReducedMotion(): boolean {
-  const [matches, setMatches] = useState(false);
+  return useSyncExternalStore(
+    (callback) => {
+      if (typeof window === "undefined") return () => undefined;
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      mq.addEventListener("change", callback);
+      return () => mq.removeEventListener("change", callback);
+    },
+    () => {
+      if (typeof window === "undefined") return false;
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    },
+    () => false
+  );
+}
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setMatches(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+function getInitialPreferences(): Preferences {
+  return loadPreferencesFromStorage();
+}
 
-  return matches;
+function syncPreferenceClasses(
+  preferences: Preferences,
+  isReducedMotionActive: boolean
+): void {
+  if (typeof document === "undefined") return;
+
+  const root = document.documentElement;
+  if (isReducedMotionActive) {
+    root.classList.add("rs-reduced-motion");
+  } else {
+    root.classList.remove("rs-reduced-motion");
+  }
+  if (preferences.reducedMotion === "off") {
+    root.classList.add("rs-motion-off");
+  } else {
+    root.classList.remove("rs-motion-off");
+  }
+  if (preferences.largerText) {
+    root.classList.add("rs-larger-text");
+  } else {
+    root.classList.remove("rs-larger-text");
+  }
 }
 
 export function PreferencesProvider({
@@ -93,22 +78,13 @@ export function PreferencesProvider({
 }: {
   children: ReactNode;
 }): React.ReactElement {
-  const [preferences, setPreferences] = useState<Preferences>(DEFAULTS);
-  const [hydrated, setHydrated] = useState(false);
+  const [preferences, setPreferences] = useState<Preferences>(getInitialPreferences);
   const systemReducedMotion = useSystemReducedMotion();
 
-  // Hydrate from localStorage after mount (avoid SSR mismatch).
+  // Persist whenever preferences change.
   useEffect(() => {
-    setPreferences(loadPreferences());
-    setHydrated(true);
-  }, []);
-
-  // Persist whenever preferences change (after hydration).
-  useEffect(() => {
-    if (hydrated) {
-      savePreferences(preferences);
-    }
-  }, [preferences, hydrated]);
+    savePreferencesToStorage(preferences);
+  }, [preferences]);
 
   // Compute whether reduced motion is active.
   const isReducedMotionActive =
@@ -117,19 +93,8 @@ export function PreferencesProvider({
 
   // Apply CSS classes to <html> for reduced motion and larger text.
   useEffect(() => {
-    if (!hydrated) return;
-    const root = document.documentElement;
-    if (isReducedMotionActive) {
-      root.classList.add("rs-reduced-motion");
-    } else {
-      root.classList.remove("rs-reduced-motion");
-    }
-    if (preferences.largerText) {
-      root.classList.add("rs-larger-text");
-    } else {
-      root.classList.remove("rs-larger-text");
-    }
-  }, [isReducedMotionActive, preferences.largerText, hydrated]);
+    syncPreferenceClasses(preferences, isReducedMotionActive);
+  }, [isReducedMotionActive, preferences]);
 
   const setKeyboardShortcuts = useCallback((enabled: boolean) => {
     setPreferences((prev) => ({ ...prev, keyboardShortcuts: enabled }));

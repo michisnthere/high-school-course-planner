@@ -26,8 +26,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var raw = window.localStorage.getItem("stevenson-preferences");
+                  if (!raw) return;
+                  var prefs = JSON.parse(raw);
+                  var root = document.documentElement;
+                  if (prefs && prefs.largerText === true) root.classList.add("rs-larger-text");
+                  if (prefs && prefs.reducedMotion === "off") root.classList.add("rs-motion-off");
+                  if (prefs && prefs.reducedMotion === "on") root.classList.add("rs-reduced-motion");
+                } catch (error) {}
+              })();
+            `,
+          }}
+        />
         <style>{`
           .rs-layout-header {
             display: block;
