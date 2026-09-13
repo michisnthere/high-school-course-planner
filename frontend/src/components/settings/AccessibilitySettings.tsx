@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { usePreferences } from "@/context/PreferencesContext";
 
 const focusableSelector = [
@@ -88,24 +89,15 @@ function SettingRow({
 
 function AccessibilityIcon(): React.ReactElement {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <Image
+      src="/accessibility-icon.png"
+      alt=""
+      width={32}
+      height={32}
+      className="rs-a11y-button-icon"
       aria-hidden="true"
-      focusable="false"
-    >
-      <circle cx="12" cy="4" r="2" />
-      <path d="M4 10h16" />
-      <path d="M12 6v14" />
-      <path d="m8 14-3 7" />
-      <path d="m16 14 3 7" />
-    </svg>
+      unoptimized
+    />
   );
 }
 
@@ -347,6 +339,32 @@ function AccessibilityDialog({
           <p>
             These settings support accessibility but do not by themselves
             establish WCAG 2.2 conformance.
+          </p>
+        </section>
+
+        <section
+          className="rs-a11y-icon-attribution"
+          aria-labelledby="rs-a11y-icon-attribution-title"
+        >
+          <h3 id="rs-a11y-icon-attribution-title">Icon attribution</h3>
+          <p>
+            Accessibility icon: Dave Braunschweig,{" "}
+            <a
+              href="https://commons.wikimedia.org/wiki/File:Accessibility.svg"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Accessibility.svg
+            </a>
+            . Licensed under{" "}
+            <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              CC BY-SA 4.0
+            </a>
+            . Used without modification.
           </p>
         </section>
       </div>

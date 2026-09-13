@@ -157,6 +157,13 @@ html, body {
   background: var(--a11y-button-bg-hover);
 }
 
+.rs-a11y-button-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
 .rs-a11y-overlay {
   position: fixed;
   inset: 0;
@@ -408,6 +415,32 @@ html, body {
   font-size: 0.8125rem;
   font-weight: 700;
   color: var(--text-primary);
+}
+
+.rs-a11y-icon-attribution {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+
+.rs-a11y-icon-attribution h3 {
+  margin: 0 0 4px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.rs-a11y-icon-attribution p {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.rs-a11y-icon-attribution a {
+  color: var(--brand-primary);
+  font-weight: 600;
 }
 
 .rs-visually-hidden {

@@ -35,3 +35,17 @@ WCAG Success Criteria.
 - The Accessibility & Preferences dialog is modal, receives focus when opened,
   traps keyboard focus while open, closes with Escape or the Close button, and
   returns focus to the accessibility button after closing.
+
+## Third-Party Icon Attribution
+
+The accessibility button uses the third-party accessibility icon asset
+`public/accessibility-icon.png`. The icon is attributed as follows:
+
+Accessibility icon: Dave Braunschweig,
+[Accessibility.svg](https://commons.wikimedia.org/wiki/File:Accessibility.svg).
+Licensed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Used without
+modification.
+
+The CC BY-SA 4.0 license applies to this accessibility icon asset. It does not
+automatically apply to the entire Stevenson Course Planner project.
