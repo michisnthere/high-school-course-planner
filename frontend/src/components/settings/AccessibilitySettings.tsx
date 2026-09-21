@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { usePreferences } from "@/context/PreferencesContext";
-import { LanguageSelector } from "./LanguageSelector";
 
 const focusableSelector = [
   "a[href]",
@@ -297,8 +296,6 @@ function AccessibilityDialog({
               ))}
             </fieldset>
           </SettingRow>
-
-          <LanguageSelector />
         </div>
 
         <section
@@ -386,6 +383,7 @@ export function AccessibilitySettingsButton(): React.ReactElement {
         ref={buttonRef}
         type="button"
         className="rs-a11y-button"
+        data-tour="a11y-settings"
         aria-label="Accessibility & Preferences"
         title="Accessibility & Preferences"
         aria-haspopup="dialog"

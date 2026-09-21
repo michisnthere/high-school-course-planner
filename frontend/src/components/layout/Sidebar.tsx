@@ -24,12 +24,12 @@ export function Sidebar(): React.ReactElement {
   const { t } = useTranslation();
 
   const navItems = [
-    { label: t("nav.dashboard"), href: "/" },
-    { label: t("nav.courseCatalog"), href: "/catalog" },
-    { label: t("nav.myPlanner"), href: "/planner" },
-    { label: t("nav.graduationRequirements"), href: "/requirements" },
-    { label: t("nav.savedCourses"), href: "/saved" },
-    { label: t("nav.completedCourses"), href: "/completed-courses" },
+    { label: t("nav.dashboard"), href: "/", tourId: "nav-dashboard" },
+    { label: t("nav.courseCatalog"), href: "/catalog", tourId: "nav-catalog" },
+    { label: t("nav.myPlanner"), href: "/planner", tourId: "nav-planner" },
+    { label: t("nav.graduationRequirements"), href: "/requirements", tourId: "nav-requirements" },
+    { label: t("nav.savedCourses"), href: "/saved", tourId: "nav-saved" },
+    { label: t("nav.completedCourses"), href: "/completed-courses", tourId: "nav-completed" },
   ];
 
   return (
@@ -49,7 +49,12 @@ export function Sidebar(): React.ReactElement {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
         <nav aria-label="Main navigation" style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} style={navLinkStyle(pathname === item.href)}>
+            <Link
+              key={item.href}
+              href={item.href}
+              data-tour={item.tourId}
+              style={navLinkStyle(pathname === item.href)}
+            >
               {item.label}
             </Link>
           ))}

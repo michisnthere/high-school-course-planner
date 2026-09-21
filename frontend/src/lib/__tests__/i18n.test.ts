@@ -7,9 +7,13 @@ describe("i18n translate()", () => {
     expect(translate("en", "nav.dashboard")).toBe("Dashboard");
   });
 
-  it("falls back to English when locale has no translation", () => {
-    // es currently maps to en.json, so it returns English
-    expect(translate("es", "nav.dashboard")).toBe("Dashboard");
+  it("returns translated text for Spanish locale", () => {
+    expect(translate("es", "nav.dashboard")).toBe("Panel");
+  });
+
+  it("falls back to English for keys missing in a locale", () => {
+    // Keys present in en but not in es should fall back to English
+    expect(translate("es", "nonexistent.key")).toBe("nonexistent.key");
   });
 
   it("falls back to the key itself for unknown keys", () => {

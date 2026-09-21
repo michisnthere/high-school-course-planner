@@ -12,6 +12,7 @@ import React, {
 import {
   loadPreferencesFromStorage,
   savePreferencesToStorage,
+  CURRENT_TUTORIAL_VERSION,
   type Preferences,
   type ReducedMotionOption,
   type Locale,
@@ -25,6 +26,10 @@ type PreferencesContextType = {
   setLocale: (locale: Locale) => void;
   /** Whether reduced motion is currently active (either user-chosen or system preference). */
   isReducedMotionActive: boolean;
+  /** Mark the tutorial as completed for the current version. */
+  markTutorialCompleted: () => void;
+  /** Reset tutorial state (for re-triggering). */
+  resetTutorial: () => void;
 };
 
 const PreferencesContext = createContext<PreferencesContextType | undefined>(
@@ -114,6 +119,22 @@ export function PreferencesProvider({
     setPreferences((prev) => ({ ...prev, locale }));
   }, []);
 
+  const markTutorialCompleted = useCallback(() => {
+    setPreferences((prev) => ({
+      ...prev,
+      tutorialCompleted: true,
+      tutorialVersion: CURRENT_TUTORIAL_VERSION,
+    }));
+  }, []);
+
+  const resetTutorial = useCallback(() => {
+    setPreferences((prev) => ({
+      ...prev,
+      tutorialCompleted: false,
+      tutorialVersion: 0,
+    }));
+  }, []);
+
   // Sync html lang attribute when locale changes.
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -130,6 +151,8 @@ export function PreferencesProvider({
         setLargerText,
         setLocale,
         isReducedMotionActive,
+        markTutorialCompleted,
+        resetTutorial,
       }}
     >
       {children}

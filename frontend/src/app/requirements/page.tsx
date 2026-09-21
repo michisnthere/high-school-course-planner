@@ -502,6 +502,7 @@ function RequirementsContent(): React.ReactElement {
               </p>
               <div
                 className={isMobile ? "rs-req-grid" : undefined}
+                data-tour="requirements-grid"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",

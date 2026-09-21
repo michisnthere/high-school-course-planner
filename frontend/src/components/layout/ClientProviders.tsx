@@ -3,6 +3,8 @@
 import React, { type ReactNode } from "react";
 import { PreferencesProvider, usePreferences } from "@/context/PreferencesContext";
 import { I18nProvider } from "@/context/I18nContext";
+import { TutorialProvider } from "@/context/TutorialContext";
+import { TutorialOverlay } from "@/components/tutorial/TutorialOverlay";
 
 function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
   const { preferences, setLocale } = usePreferences();
@@ -13,10 +15,25 @@ function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
   );
 }
 
+function TutorialBridge({ children }: { children: ReactNode }): React.ReactElement {
+  const { preferences, markTutorialCompleted } = usePreferences();
+  return (
+    <TutorialProvider
+      preferences={preferences}
+      onMarkCompleted={markTutorialCompleted}
+    >
+      {children}
+      <TutorialOverlay />
+    </TutorialProvider>
+  );
+}
+
 export function ClientProviders({ children }: { children: ReactNode }): React.ReactElement {
   return (
     <PreferencesProvider>
-      <I18nBridge>{children}</I18nBridge>
+      <I18nBridge>
+        <TutorialBridge>{children}</TutorialBridge>
+      </I18nBridge>
     </PreferencesProvider>
   );
 }

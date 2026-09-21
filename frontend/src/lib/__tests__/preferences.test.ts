@@ -38,6 +38,8 @@ describe("Preferences localStorage persistence", () => {
       reducedMotion: "on",
       largerText: false,
       locale: "en",
+      tutorialCompleted: false,
+      tutorialVersion: 0,
     };
     savePreferencesToStorage(prefs, localStorage);
     expect(loadPreferencesFromStorage(localStorage)).toEqual(prefs);
@@ -54,6 +56,8 @@ describe("Preferences localStorage persistence", () => {
       reducedMotion: "system",
       largerText: false,
       locale: "en",
+      tutorialCompleted: false,
+      tutorialVersion: 0,
     });
   });
 
@@ -69,6 +73,8 @@ describe("Preferences localStorage persistence", () => {
       reducedMotion: "system",
       largerText: true,
       locale: "en",
+      tutorialCompleted: false,
+      tutorialVersion: 0,
     });
   });
 

@@ -36,6 +36,7 @@ export function CourseGrid({ courses, getCourseHref, showSaveButtons = true }: C
   return (
     <div
       className="rs-catalog-grid"
+      data-tour="catalog-grid"
       style={{
         display: "grid",
         gap: "24px",

@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "dashboard": "仪表板",
+    "courseCatalog": "课程目录",
+    "myPlanner": "我的计划",
+    "graduationRequirements": "毕业要求",
+    "savedCourses": "已保存课程",
+    "completedCourses": "已完成课程"
+  },
+  "mobileAppBar": {
+    "dashboard": "仪表板",
+    "courseCatalog": "课程目录",
+    "savedCourses": "已保存课程",
+    "completedCourses": "已完成课程",
+    "myPlanner": "我的计划",
+    "graduationRequirements": "毕业要求",
+    "profile": "个人资料",
+    "signIn": "登录",
+    "fallbackTitle": "Stevenson Course Planner"
+  },
+  "aria": {
+    "openNavigationMenu": "打开导航菜单",
+    "stevensonHighSchool": "Stevenson High School",
+    "profile": "个人资料",
+    "mainNavigation": "主导航",
+    "navigationMenu": "导航菜单",
+    "dialog": "对话框"
+  },
+  "header": {
+    "siteTitle": "Stevenson Course Planner"
+  },
+  "footer": {
+    "productName": "Stevenson Course Planner",
+    "version": "Beta v1.0",
+    "about": "关于",
+    "privacy": "隐私",
+    "reportBug": "报告问题",
+    "sendFeedback": "发送反馈",
+    "disclaimer": "Stevenson High School 的非官方规划资源。"
+  },
+  "mobileNav": {
+    "signIn": "登录",
+    "about": "关于",
+    "privacy": "隐私",
+    "reportBug": "报告问题",
+    "sendFeedback": "发送反馈",
+    "productName": "Stevenson Course Planner",
+    "version": "Beta v1.0",
+    "disclaimer": "Stevenson High School 的非官方规划资源。",
+    "exitGuestMode": "退出访客模式",
+    "signOut": "退出登录"
+  },
+  "dashboard": {
+    "note": "注意：",
+    "disclaimerBanner": "这是一个规划工具，与学区无关或未获学区认可。课程设置、毕业要求和其他所有信息可能不代表最新数据。请始终咨询学校辅导员或官方课程目录以获取权威信息。",
+    "welcomeGuest": "欢迎使用 Stevenson Course Planner 👋",
+    "welcomeBack": "欢迎回来，{name} 👋",
+    "welcomeSubtitle": "规划你的课程，跟踪毕业进度，探索机会。",
+    "quickActions": "快速操作",
+    "actionPlanner": "计划",
+    "actionExploreCourses": "探索课程",
+    "actionGraduationRequirements": "毕业要求",
+    "actionCompletedCourses": "已完成课程",
+    "actionSavedCourses": "已保存课程",
+    "graduationProgress": "毕业进度",
+    "earnedCredits": "已获学分",
+    "projectedCredits": "预计学分",
+    "graduationProgressCard": "毕业进度",
+    "plannerCompletion": "计划完成度",
+    "plannerCompletionSection": "计划完成度",
+    "recentActivity": "最近活动",
+    "studentFallback": "学生",
+    "openPlanner": "打开计划 →",
+    "progressLabel": "进度：{value}%"
+  },
+  "year": {
+    "9": "九年级",
+    "10": "十年级",
+    "11": "十一年级",
+    "12": "十二年级",
+    "9WithGrade": "九年级 (9)",
+    "10WithGrade": "十年级 (10)",
+    "11WithGrade": "十一年级 (11)",
+    "12WithGrade": "十二年级 (12)"
+  },
+  "planner": {
+    "loading": "正在加载你的四年计划...",
+    "guestTitle": "计划",
+    "guestDescription": "登录以创建和保存你的四年学术计划。你的计划将被安全存储并跨设备同步。",
+    "heading": "我的计划",
+    "description": "查看你的四年计划并编辑各个年份。",
+    "markCompletedTitle": "将 {yearLabel} 年标记为已完成？",
+    "markCompletedDescription": "这将把所有计划中的课程移至已完成课程。",
+    "cancel": "取消",
+    "confirm": "确认",
+    "markActiveTitle": "将 {yearLabel} 年标记为活跃？",
+    "markActiveDescription": "这将解锁计划以进行编辑。此年份自动生成的已完成课程将被删除。手动添加的已完成课程将保留。",
+    "restore": "恢复"
+  },
+  "requirements": {
+    "heading": "毕业要求",
+    "subtitle": "查看你的毕业要求进度。",
+    "yearLevel": "年级要求",
+    "graduation": "毕业要求",
+    "satisfied": "已满足",
+    "partial": "部分满足",
+    "notStarted": "未开始",
+    "onTrack": "进行中",
+    "onTrackSubtitle": "查看下方每个要求的进度。",
+    "loading": "正在加载要求..."
+  },
+  "completedCourses": {
+    "heading": "已完成课程",
+    "subtitle": "管理你的已完成课程和毕业进度。",
+    "addCourse": "添加课程",
+    "empty": "暂无已完成课程。",
+    "filterAll": "全部",
+    "filterSummer": "暑期学校",
+    "loading": "正在加载已完成课程..."
+  },
+  "savedCourses": {
+    "recentlySaved": "最近保存的课程",
+    "loading": "正在加载已保存课程...",
+    "empty": "暂无已保存课程。",
+    "viewAll": "查看所有已保存课程 ({count}) →"
+  },
+  "status": {
+    "satisfied": "已满足",
+    "partial": "部分满足",
+    "notStarted": "未开始"
+  },
+  "language": {
+    "label": "语言",
+    "description": "选择应用程序的显示语言。",
+    "dialogTitle": "语言设置",
+    "dialogDescription": "选择界面语言。你的偏好将被保存并应用于整个应用程序。"
+  },
+  "a11y": {
+    "title": "辅助功能和偏好设置",
+    "description": "自定义课程规划器的外观和行为。这些设置是可选的，可以随时更改。",
+    "close": "关闭",
+    "keyboardShortcuts": "键盘快捷键",
+    "keyboardShortcutsDesc": "使用键盘快捷键进行更快的导航和操作。",
+    "keyboardShortcutsNote": "当前没有激活的应用级字符键快捷键。此偏好设置已保存以备将来使用。",
+    "largerText": "更大文本",
+    "largerTextDesc": "增大整个网站的文本大小。",
+    "reduceMotion": "减少动画",
+    "reduceMotionDesc": "减少整个网站的动画和过渡效果。",
+    "followSystem": "跟随系统",
+    "on": "开启",
+    "off": "关闭",
+    "howTheseHelp": "这些设置如何提供帮助",
+    "howTheseHelpIntro": "课程规划器旨在让所有用户都能访问。这些可选偏好允许用户自定义体验的某些方面。",
+    "iconAttribution": "图标归属",
+    "languageLabel": "语言",
+    "languageDescription": "选择应用程序的显示语言。"
+  },
+  "catalog": {
+    "sourceRegular": "常规课程",
+    "sourceSummer": "暑期学校",
+    "viewSaved": "查看已保存课程"
+  },
+  "errors": {
+    "failedToLoad": "加载数据失败。",
+    "tryAgain": "重试",
+    "notFound": "未找到。",
+    "goHome": "返回首页",
+    "networkError": "网络错误。请检查你的连接。",
+    "unknownError": "发生意外错误。"
+  },
+  "guestUpgrade": {
+    "title": "保存你的进度",
+    "description": "登录以将你的计划和已完成课程保存到你的账户。",
+    "signIn": "使用 Google 登录"
+  },
+  "guestEmptyState": {
+    "message": "登录以访问此功能。"
+  },
+  "authToast": {
+    "signedIn": "已登录为 {name}",
+    "guestMode": "继续以访客模式..."
+  },
+  "tutorial": {
+    "actions": {
+      "skip": "跳过教程",
+      "back": "返回",
+      "next": "下一步",
+      "finish": "完成"
+    },
+    "chapters": {
+      "welcome": "欢迎",
+      "exploreCourses": "探索课程",
+      "buildPlan": "制定计划",
+      "checkPlan": "检查计划",
+      "trackGraduation": "跟踪毕业",
+      "keepRecords": "保存记录",
+      "personalize": "个性化"
+    },
+    "steps": {
+      "welcomeIntro": {
+        "title": "欢迎使用 Stevenson Course Planner",
+        "description": "Stevenson Course Planner (SCP) 是一个免费的规划工具，旨在帮助 Stevenson High School 的学生探索课程、制定四年学术计划并跟踪毕业进度。"
+      },
+      "catalogIntro": {
+        "title": "课程目录",
+        "description": "课程目录是您在决定将什么添加到计划之前探索所有可用课程的地方。"
+      },
+      "searchVsFilters": {
+        "title": "搜索：搜索栏与筛选器",
+        "description": "使用搜索栏按名称或课程代码查找特定课程。使用筛选器按部门、年级或其他类别缩小目录范围。"
+      },
+      "courseCards": {
+        "title": "了解课程卡片",
+        "description": "每张课程卡片显示课程标题、学分、简要描述、先决条件和推荐信息。"
+      },
+      "plannerIntro": {
+        "title": "我的计划",
+        "description": "我的计划是您将潜在课程组织到四年计划中的地方。"
+      },
+      "fourYearsSemesters": {
+        "title": "了解四年和学期",
+        "description": "您的计划按年级组织：九年级、十年级、十一年级和十二年级。每年有两个学期。"
+      },
+      "addingCourses": {
+        "title": "添加课程",
+        "description": "要添加课程，请打开计划年份并在任何学期插槽中单击「+ 添加课程」按钮。"
+      },
+      "courseEligibility": {
+        "title": "课程资格",
+        "description": "某些课程有年级限制或先决条件，必须在计划之前满足。"
+      },
+      "movingCourses": {
+        "title": "移动课程",
+        "description": "您可以通过拖放在不同学期之间移动课程。移动课程可能影响您的学期平衡。"
+      },
+      "removingCourses": {
+        "title": "移除课程",
+        "description": "要从计划中移除课程，请单击课程卡片并使用移除选项。"
+      },
+      "waivers": {
+        "title": "豁免",
+        "description": "某些毕业要求（如体育）在特定条件下可以豁免。"
+      },
+      "needsAttention": {
+        "title": "需要关注",
+        "description": "需要关注部分突出显示您计划中应审查的潜在问题。"
+      },
+      "understandingWarnings": {
+        "title": "理解警告",
+        "description": "当规划器显示警告时，请问三个问题：规划器识别了什么问题？为什么重要？下一步应该调查什么？"
+      },
+      "resolvingWarnings": {
+        "title": "解决警告",
+        "description": "您可以通过添加缺失课程、标记先决条件为已完成或移动课程来解决警告。"
+      },
+      "creditProgress": {
+        "title": "学分进度",
+        "description": "计划摘要显示您的计划学分以及与毕业要求的比较。"
+      },
+      "graduationRequirements": {
+        "title": "毕业要求",
+        "description": "毕业要求页面显示您需要满足的所有毕业要求。"
+      },
+      "requirementProgress": {
+        "title": "了解要求进度",
+        "description": "每张要求卡片显示您的进度：已完成的课程和计划中的课程。"
+      },
+      "completedCourses": {
+        "title": "已完成课程",
+        "description": "记录您已完成的课程，以便规划器准确跟踪您的毕业进度。"
+      },
+      "savedCourses": {
+        "title": "已保存课程",
+        "description": "已保存课程是您感兴趣但尚未放入计划的课程。"
+      },
+      "language": {
+        "title": "语言设置",
+        "description": "您可以使用语言选择器更改界面语言。您的语言偏好将被保存。"
+      },
+      "accessibility": {
+        "title": "辅助功能设置",
+        "description": "辅助功能和偏好设置面板包括更大文本、减少动画和键盘快捷键选项。"
+      },
+      "accountGuest": {
+        "title": "账户和访客模式",
+        "description": "您可以以访客身份使用 Stevenson Course Planner，或使用 Google 帐户登录。"
+      }
+    }
+  }
+}

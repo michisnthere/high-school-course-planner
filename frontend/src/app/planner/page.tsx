@@ -194,7 +194,7 @@ function PlannerContent(): React.ReactElement {
               }
             }
           `}</style>
-          <div className="planner-year-grid">
+          <div className="planner-year-grid" data-tour="planner-years">
             {ALL_YEARS.map((year) => {
               const planner = planners.find((p) => p.schoolYear === year);
               const yr = analysis?.yearRequirements.find((r) => r.grade === year);

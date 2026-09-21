@@ -1786,6 +1786,7 @@ function SummarySidebar({
 
   return (
     <aside
+      data-tour="planner-summary"
       style={{
         flex: "0 0 320px",
         minWidth: "280px",
@@ -2079,6 +2080,7 @@ function AddCourseCard({
   return (
     <button
       type="button"
+      data-tour="planner-add-course"
       onClick={onClick}
       style={{
         display: "flex",
@@ -2450,6 +2452,7 @@ function PlannedCourseCard({
 
       {warnings.length > 0 && (
         <div
+          data-tour="planner-warnings"
           style={{
             marginTop: "4px",
             padding: "8px 10px",

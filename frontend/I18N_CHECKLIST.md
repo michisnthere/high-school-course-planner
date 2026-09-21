@@ -41,7 +41,7 @@
 
 ## Translation Keys in `locales/en.json`
 
-~200 keys across these categories:
+~350 keys across these categories:
 - `nav.*` — Navigation labels (6)
 - `mobileNav.*` — Mobile navigation (7)
 - `mobileAppBar.*` — Mobile app bar titles (3)
@@ -66,6 +66,10 @@
 - `guestUpgrade.*` — Guest upgrade prompt (3)
 - `guestEmptyState.*` — Guest empty state (1)
 - `authToast.*` — Auth toast (2)
+- `tutorial.*` — Interactive tutorial (50+)
+  - `tutorial.actions.*` — Button labels (4)
+  - `tutorial.chapters.*` — Chapter names (7)
+  - `tutorial.steps.*` — Step titles and descriptions (22 steps × 2 = 44 keys)
 
 ## Strings That Should NEVER Be Auto-Translated
 
@@ -92,11 +96,22 @@
 |---|---|---|
 | `lib/__tests__/i18n.test.ts` | 13 tests (translate, isValidLocale, key existence) | ✅ Passing |
 | `lib/__tests__/preferences.test.ts` | 6 tests (locale persistence) | ✅ Passing |
+| `lib/__tests__/tutorial.test.ts` | 35 tests (step definitions, chapters, navigation, persistence) | ✅ Passing |
 
 ## Build Status
 
 - `npm run build` — ✅ Passes
-- `npm test` — ✅ 274 tests, 19 files, 0 failures
+- `npm test` — ✅ 322 tests, 21 files, 0 failures
+
+## Locale Files
+
+| Locale | File | Status |
+|--------|------|--------|
+| English | `locales/en.json` | ✅ Complete — all keys |
+| Spanish | `locales/es.json` | ✅ Complete — all UI keys translated |
+| Simplified Chinese | `locales/zh-CN.json` | ✅ Complete — all UI keys translated |
+
+**Note**: Course titles, course codes, brand names, and academic identifiers remain in English per i18n rules.
 
 ## Remaining Work (Phase 4+)
 
@@ -106,4 +121,10 @@
 4. Add Azure Translator backend (Phase 4)
 5. Add dynamic content translation (Phase 5)
 6. Build pre-generation CLI (Phase 6)
-7. Create es.json and zh-CN.json locale files (Phase 3 continued)
+
+## Tutorial i18n Status
+
+- **English (en)**: ✅ Complete — all 50+ tutorial keys in `locales/en.json`
+- **Spanish (es)**: ✅ Complete — all tutorial keys in `locales/es.json`
+- **Simplified Chinese (zh-CN)**: ✅ Complete — all tutorial keys in `locales/zh-CN.json`
+- **Translation status**: All tutorial text uses `tutorial.chapters.*`, `tutorial.steps.*`, and `tutorial.actions.*` namespaces

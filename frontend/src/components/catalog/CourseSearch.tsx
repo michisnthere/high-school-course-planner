@@ -38,7 +38,7 @@ export function CourseSearch({ value, onChange, onSubmit, onKeyDown, disabled, o
   }, [onClear]);
 
   return (
-    <div className="rs-catalog-search" style={{ marginBottom: "24px" }}>
+    <div className="rs-catalog-search" data-tour="catalog-search" style={{ marginBottom: "24px" }}>
       <div
         style={{
           display: "flex",

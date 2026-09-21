@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "courseCatalog": "Catálogo de Cursos",
+    "myPlanner": "Mi Planificador",
+    "graduationRequirements": "Requisitos de Graduación",
+    "savedCourses": "Cursos Guardados",
+    "completedCourses": "Cursos Completados"
+  },
+  "mobileAppBar": {
+    "dashboard": "Panel",
+    "courseCatalog": "Catálogo de Cursos",
+    "savedCourses": "Cursos Guardados",
+    "completedCourses": "Cursos Completados",
+    "myPlanner": "Mi Planificador",
+    "graduationRequirements": "Requisitos de Graduación",
+    "profile": "Perfil",
+    "signIn": "Iniciar Sesión",
+    "fallbackTitle": "Stevenson Course Planner"
+  },
+  "aria": {
+    "openNavigationMenu": "Abrir menú de navegación",
+    "stevensonHighSchool": "Stevenson High School",
+    "profile": "Perfil",
+    "mainNavigation": "Navegación principal",
+    "navigationMenu": "Menú de navegación",
+    "dialog": "Diálogo"
+  },
+  "header": {
+    "siteTitle": "Stevenson Course Planner"
+  },
+  "footer": {
+    "productName": "Stevenson Course Planner",
+    "version": "Beta v1.0",
+    "about": "Acerca de",
+    "privacy": "Privacidad",
+    "reportBug": "Reportar un Error",
+    "sendFeedback": "Enviar Comentarios",
+    "disclaimer": "Recurso de planificación no oficial para Stevenson High School."
+  },
+  "mobileNav": {
+    "signIn": "Iniciar Sesión",
+    "about": "Acerca de",
+    "privacy": "Privacidad",
+    "reportBug": "Reportar un Error",
+    "sendFeedback": "Enviar Comentarios",
+    "productName": "Stevenson Course Planner",
+    "version": "Beta v1.0",
+    "disclaimer": "Recurso de planificación no oficial para Stevenson High School.",
+    "exitGuestMode": "Salir del Modo Invitado",
+    "signOut": "Cerrar Sesión"
+  },
+  "dashboard": {
+    "note": "Nota:",
+    "disclaimerBanner": "Esta es una herramienta de planificación que no está afiliada ni respaldada por el distrito escolar. La oferta de cursos, los requisitos de graduación y toda otra información pueden no reflejar los datos más recientes. Siempre consulte a su consejero escolar o al catálogo oficial de cursos para información autorizada.",
+    "welcomeGuest": "Bienvenido a Stevenson Course Planner 👋",
+    "welcomeBack": "Bienvenido de nuevo, {name} 👋",
+    "welcomeSubtitle": "Planifica tus cursos, rastrea el progreso de graduación y explora oportunidades.",
+    "quickActions": "Acciones Rápidas",
+    "actionPlanner": "Planificador",
+    "actionExploreCourses": "Explorar Cursos",
+    "actionGraduationRequirements": "Requisitos de Graduación",
+    "actionCompletedCourses": "Cursos Completados",
+    "actionSavedCourses": "Cursos Guardados",
+    "graduationProgress": "Progreso de Graduación",
+    "earnedCredits": "Créditos Obtenidos",
+    "projectedCredits": "Créditos Proyectados",
+    "graduationProgressCard": "Progreso de Graduación",
+    "plannerCompletion": "Completitud del Planificador",
+    "plannerCompletionSection": "Completitud del Planificador",
+    "recentActivity": "Actividad Reciente",
+    "studentFallback": "Estudiante",
+    "openPlanner": "Abrir Planificador →",
+    "progressLabel": "Progreso: {value}%"
+  },
+  "year": {
+    "9": "Estudiante de Primer Año",
+    "10": "Estudiante de Segundo Año",
+    "11": "Estudiante de Tercer Año",
+    "12": "Estudiante de Cuarto Año",
+    "9WithGrade": "Primer Año (9)",
+    "10WithGrade": "Segundo Año (10)",
+    "11WithGrade": "Tercer Año (11)",
+    "12WithGrade": "Cuarto Año (12)"
+  },
+  "planner": {
+    "loading": "Cargando tu plan de cuatro años...",
+    "guestTitle": "Planificador",
+    "guestDescription": "Inicia sesión para crear y guardar tu plan académico de cuatro años. Tu planificador se almacenará de forma segura y se sincronizará entre dispositivos.",
+    "heading": "Mi Planificador",
+    "description": "Revisa tu plan de cuatro años y edita años individuales.",
+    "markCompletedTitle": "¿Marcar {yearLabel} Año como completado?",
+    "markCompletedDescription": "Esto moverá todos los cursos planificados a tus cursos completados.",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "markActiveTitle": "¿Marcar {yearLabel} Año como Activo?",
+    "markActiveDescription": "Esto desbloqueará el planificador para edición. Los cursos completados auto-generados de este año serán eliminados. Los cursos completados agregados manualmente permanecerán.",
+    "restore": "Restaurar"
+  },
+  "requirements": {
+    "heading": "Requisitos de Graduación",
+    "subtitle": "Revisa tu progreso hacia los requisitos de graduación.",
+    "yearLevel": "Requisitos por Nivel de Año",
+    "graduation": "Requisitos de Graduación",
+    "satisfied": "Satisfecho",
+    "partial": "Parcial",
+    "notStarted": "No Iniciado",
+    "onTrack": "En Curso",
+    "onTrackSubtitle": "Revisa el progreso de cada requisito a continuación.",
+    "loading": "Cargando requisitos..."
+  },
+  "completedCourses": {
+    "heading": "Cursos Completados",
+    "subtitle": "Gestiona tus cursos completados y el progreso de graduación.",
+    "addCourse": "Agregar Curso",
+    "empty": "No hay cursos completados aún.",
+    "filterAll": "Todos",
+    "filterSummer": "Escuela de Verano",
+    "loading": "Cargando cursos completados..."
+  },
+  "savedCourses": {
+    "recentlySaved": "Cursos Guardados Recientemente",
+    "loading": "Cargando cursos guardados...",
+    "empty": "No hay cursos guardados aún.",
+    "viewAll": "Ver todos los cursos guardados ({count}) →"
+  },
+  "status": {
+    "satisfied": "Satisfecho",
+    "partial": "Parcial",
+    "notStarted": "No Iniciado"
+  },
+  "language": {
+    "label": "Idioma",
+    "description": "Elige el idioma de visualización de la aplicación.",
+    "dialogTitle": "Configuración de Idioma",
+    "dialogDescription": "Selecciona el idioma de la interfaz. Tu preferencia se guardará y aplicará en toda la aplicación."
+  },
+  "a11y": {
+    "title": "Accesibilidad y Preferencias",
+    "description": "Personaliza la apariencia y el comportamiento del Planificador de Cursos. Estas configuraciones son opcionales y pueden cambiarse en cualquier momento.",
+    "close": "Cerrar",
+    "keyboardShortcuts": "Atajos de Teclado",
+    "keyboardShortcutsDesc": "Usa atajos de teclado para una navegación y acciones más rápidas.",
+    "keyboardShortcutsNote": "No hay atajos de caracteres a nivel de aplicación actualmente activos. Esta preferencia se guarda para futuros atajos.",
+    "largerText": "Texto Más Grande",
+    "largerTextDesc": "Aumenta el tamaño del texto en todo el sitio web.",
+    "reduceMotion": "Reducir Movimiento",
+    "reduceMotionDesc": "Reduce las animaciones y transiciones en todo el sitio web.",
+    "followSystem": "Seguir Sistema",
+    "on": "Activado",
+    "off": "Desactivado",
+    "howTheseHelp": "Cómo ayudan estas configuraciones",
+    "howTheseHelpIntro": "El Planificador de Cursos está diseñado para ser accesible a todos los usuarios. Estas preferencias opcionales permiten a los usuarios personalizar ciertos aspectos de la experiencia.",
+    "iconAttribution": "Atribución de Icono",
+    "languageLabel": "Idioma",
+    "languageDescription": "Elige el idioma de visualización de la aplicación."
+  },
+  "catalog": {
+    "sourceRegular": "Cursos Regulares",
+    "sourceSummer": "Escuela de Verano",
+    "viewSaved": "Ver Cursos Guardados"
+  },
+  "errors": {
+    "failedToLoad": "Error al cargar los datos.",
+    "tryAgain": "Intentar de nuevo",
+    "notFound": "No encontrado.",
+    "goHome": "Ir al Inicio",
+    "networkError": "Error de red. Por favor, verifica tu conexión.",
+    "unknownError": "Ocurrió un error inesperado."
+  },
+  "guestUpgrade": {
+    "title": "Guarda tu progreso",
+    "description": "Inicia sesión para guardar tu planificador y cursos completados en tu cuenta.",
+    "signIn": "Iniciar Sesión con Google"
+  },
+  "guestEmptyState": {
+    "message": "Inicia sesión para acceder a esta función."
+  },
+  "authToast": {
+    "signedIn": "Sesión iniciada como {name}",
+    "guestMode": "Continuando en Modo Invitado..."
+  },
+  "tutorial": {
+    "actions": {
+      "skip": "Omitir Tutorial",
+      "back": "Atrás",
+      "next": "Siguiente",
+      "finish": "Finalizar"
+    },
+    "chapters": {
+      "welcome": "Bienvenido",
+      "exploreCourses": "Explorar Cursos",
+      "buildPlan": "Construye Tu Plan",
+      "checkPlan": "Revisa Tu Plan",
+      "trackGraduation": "Rastrea la Graduación",
+      "keepRecords": "Mantén tus Registros",
+      "personalize": "Personaliza"
+    },
+    "steps": {
+      "welcomeIntro": {
+        "title": "Bienvenido a Stevenson Course Planner",
+        "description": "Stevenson Course Planner (SCP) es una herramienta de planificación gratuita diseñada para ayudar a los estudiantes de Stevenson High School a explorar cursos, crear un plan académico de cuatro años y rastrear el progreso de graduación. Úsalo para organizar tus selecciones de cursos, verificar prerrequisitos y visualizar tu camino hacia la graduación. Recuerda: este es un recurso de planificación y no debe reemplazar la información oficial de la escuela o las conversaciones con tu consejero."
+      },
+      "catalogIntro": {
+        "title": "Catálogo de Cursos",
+        "description": "El Catálogo de Cursos es donde puedes explorar todos los cursos disponibles antes de decidir qué agregar a tu plan. Explora por departamento, división o nivel de grado para encontrar cursos que te interesen. Cada tarjeta de curso muestra el título, créditos, descripción, prerrequisitos y requisitos de graduación que puede cumplir."
+      },
+      "searchVsFilters": {
+        "title": "Búsqueda: Barra de Búsqueda vs. Filtros",
+        "description": "Usa la barra de búsqueda para buscar un curso específico por nombre o código. Usa los filtros para reducir el catálogo por departamento, división, tipo de crédito, elegibilidad de grado o semestre. Puedes combinar búsqueda y filtros para encontrar exactamente lo que necesitas."
+      },
+      "courseCards": {
+        "title": "Entendiendo las Tarjetas de Curso",
+        "description": "Cada tarjeta de curso muestra el título, código, créditos y una breve descripción. Busca prerrequisitos (cursos que debes tomar primero), recomendaciones (preparación sugerida) e insignias de requisitos de graduación que indican qué requisitos puede cumplir un curso."
+      },
+      "plannerIntro": {
+        "title": "Mi Planificador",
+        "description": "Mi Planificador es donde organizas cursos potenciales en un plan de cuatro años. Agregar un curso al planificador representa un curso futuro planificado, no uno completado."
+      },
+      "fourYearsSemesters": {
+        "title": "Entendiendo Cuatro Años y Semestres",
+        "description": "Tu planificador está organizado por nivel de grado: Primer Año (9), Segundo Año (10), Tercer Año (11) y Cuarto Año (12). Cada año tiene dos semestres."
+      },
+      "addingCourses": {
+        "title": "Agregar Cursos",
+        "description": "Para agregar un curso, abre un año del planificador y haz clic en el botón '+ Agregar Curso' en cualquier ranura de semestre. Busca un curso por nombre o código, luego selecciónalo para agregarlo a tu plan."
+      },
+      "courseEligibility": {
+        "title": "Elegibilidad de Cursos",
+        "description": "Algunos cursos tienen restricciones de nivel de grado o prerrequisitos que deben cumplirse antes de poder planificarlos. Si un curso no aparece en tu planificador, revisa su información en el Catálogo de Cursos."
+      },
+      "movingCourses": {
+        "title": "Mover Cursos",
+        "description": "Puedes mover cursos entre semestres arrastrándolos y soltándolos en una ranura diferente. Mover un curso puede afectar tu balance de semestres y el tiempo de prerrequisitos."
+      },
+      "removingCourses": {
+        "title": "Eliminar Cursos",
+        "description": "Para eliminar un curso de tu planificador, haz clic en la tarjeta del curso y usa la opción de eliminar. Eliminar un curso puede afectar tus totales de créditos y el progreso de graduación."
+      },
+      "waivers": {
+        "title": "Exenciones",
+        "description": "Algunos requisitos de graduación, como Educación Física, pueden eximirse bajo ciertas condiciones. El planificador muestra el estado de exención."
+      },
+      "needsAttention": {
+        "title": "Necesita Atención",
+        "description": "La sección Necesita Atención resalta problemas potenciales en tu plan que debes revisar. Los elementos aquí no son necesariamente errores—son indicaciones para ayudarte a verificar que tu plan cumple todos los requisitos."
+      },
+      "understandingWaternings": {
+        "title": "Entendiendo las Advertencias",
+        "description": "Cuando el planificador muestra una advertencia, hazte tres preguntas: ¿Qué problema está identificando? ¿Por qué podría importar? ¿Qué deberías investigar?"
+      },
+      "resolvingWaternings": {
+        "title": "Resolviendo Advertencias",
+        "description": "Puedes resolver advertencias tomando acciones como agregar un curso faltante, marcar un prerrequisito como completado, o mover un curso a un semestre diferente."
+      },
+      "creditProgress": {
+        "title": "Progreso de Créditos",
+        "description": "El resumen del planificador muestra tus créditos planificados y cómo se comparan con los requisitos de graduación."
+      },
+      "graduationRequirements": {
+        "title": "Requisitos de Graduación",
+        "description": "La página de Requisitos de Graduación muestra todos los requisitos que necesitas cumplir para graduarte."
+      },
+      "requirementProgress": {
+        "title": "Entendiendo el Progreso de Requisitos",
+        "description": "Cada tarjeta de requisito muestra tu progreso: cursos completados que satisfacen el requisito y cursos planificados que pueden contribuir."
+      },
+      "completedCourses": {
+        "title": "Cursos Completados",
+        "description": "Registra los cursos que ya has completado para que el planificador pueda rastrear con precisión tu progreso de graduación."
+      },
+      "savedCourses": {
+        "title": "Cursos Guardados",
+        "description": "Los cursos guardados son cursos que te interesan pero aún no has colocado en tu planificador. Úsalos como una lista de selección."
+      },
+      "language": {
+        "title": "Configuración de Idioma",
+        "description": "Puedes cambiar el idioma de la interfaz usando el selector de idioma. Tu preferencia de idioma se guardará y aplicará en toda la aplicación."
+      },
+      "accessibility": {
+        "title": "Configuración de Accesibilidad",
+        "description": "El panel de Accesibilidad y Preferencias incluye opciones para texto más grande, movimiento reducido y atajos de teclado."
+      },
+      "accountGuest": {
+        "title": "Cuenta y Modo Invitado",
+        "description": "Puedes usar Stevenson Course Planner como invitado o iniciar sesión con una cuenta de Google. El modo invitado almacena tus datos localmente en tu navegador."
+      }
+    }
+  }
+}

@@ -6,11 +6,15 @@ export type ReducedMotionOption = "system" | "on" | "off";
 
 export type Locale = "en" | "es" | "zh-CN";
 
+export const CURRENT_TUTORIAL_VERSION = 1;
+
 export type Preferences = {
   keyboardShortcuts: boolean;
   reducedMotion: ReducedMotionOption;
   largerText: boolean;
   locale: Locale;
+  tutorialCompleted: boolean;
+  tutorialVersion: number;
 };
 
 export const DEFAULT_PREFERENCES: Preferences = {
@@ -18,6 +22,8 @@ export const DEFAULT_PREFERENCES: Preferences = {
   reducedMotion: "system",
   largerText: false,
   locale: "en",
+  tutorialCompleted: false,
+  tutorialVersion: 0,
 };
 
 export function normalizePreferences(value: unknown): Preferences {
@@ -45,6 +51,14 @@ export function normalizePreferences(value: unknown): Preferences {
       validLocales.includes(parsed.locale as Locale)
         ? (parsed.locale as Locale)
         : DEFAULT_PREFERENCES.locale,
+    tutorialCompleted:
+      typeof parsed.tutorialCompleted === "boolean"
+        ? parsed.tutorialCompleted
+        : DEFAULT_PREFERENCES.tutorialCompleted,
+    tutorialVersion:
+      typeof parsed.tutorialVersion === "number" && parsed.tutorialVersion >= 0
+        ? parsed.tutorialVersion
+        : DEFAULT_PREFERENCES.tutorialVersion,
   };
 }
 

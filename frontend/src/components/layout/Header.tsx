@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AuthStatus } from "@/components/auth/AuthStatus";
 import { AccessibilitySettingsButton } from "@/components/settings/AccessibilitySettings";
+import { LanguageSettingsButton } from "@/components/settings/LanguageSettings";
 import { useTranslation } from "@/context/I18nContext";
 
 export function Header(): React.ReactElement {
@@ -59,6 +60,7 @@ export function Header(): React.ReactElement {
           gap: "12px",
         }}
       >
+        <LanguageSettingsButton />
         <AccessibilitySettingsButton />
         <AuthStatus />
       </div>

@@ -341,6 +341,115 @@
   },
   "language": {
     "label": "Language",
-    "description": "Choose the display language for the application."
+    "description": "Choose the display language for the application.",
+    "dialogTitle": "Language Settings",
+    "dialogDescription": "Select the interface language. Your preference will be saved and applied across the application."
+  },
+  "tutorial": {
+    "actions": {
+      "skip": "Skip Tutorial",
+      "back": "Back",
+      "next": "Next",
+      "finish": "Finish"
+    },
+    "chapters": {
+      "welcome": "Welcome",
+      "exploreCourses": "Explore Courses",
+      "buildPlan": "Build Your Plan",
+      "checkPlan": "Check Your Plan",
+      "trackGraduation": "Track Graduation",
+      "keepRecords": "Keep Your Records",
+      "personalize": "Personalize"
+    },
+    "steps": {
+      "welcomeIntro": {
+        "title": "Welcome to Stevenson Course Planner",
+        "description": "Stevenson Course Planner (SCP) is a free planning tool designed to help Stevenson High School students explore courses, build a four-year academic plan, and track graduation progress. Use it to organize your course selections, check prerequisites, and visualize your path to graduation. Remember: this is a planning resource and should not replace official school information or conversations with your counselor."
+      },
+      "catalogIntro": {
+        "title": "Course Catalog",
+        "description": "The Course Catalog is where you can explore all available courses before deciding what to add to your plan. Browse by department, division, or grade level to find courses that interest you. Each course card shows the title, credits, description, prerequisites, and graduation requirements it may fulfill."
+      },
+      "searchVsFilters": {
+        "title": "Searching: Search Bar vs. Filters",
+        "description": "Use the search bar to look for a specific course by name or course code. Use the filters below to narrow down the catalog by department, division, credit type, grade eligibility, or semester. You can combine search and filters to find exactly what you need."
+      },
+      "courseCards": {
+        "title": "Understanding Course Cards",
+        "description": "Each course card shows the course title, course code, credits, and a brief description. Look for prerequisites (courses you must take first), recommendations (suggested preparation), and graduation requirement badges that indicate which requirements a course may fulfill. Click a card for full details."
+      },
+      "plannerIntro": {
+        "title": "My Planner",
+        "description": "My Planner is where you organize potential courses into a four-year plan. Adding a course to the planner represents a planned future course, not a completed one. Your planner helps you visualize your schedule and ensures you meet graduation requirements."
+      },
+      "fourYearsSemesters": {
+        "title": "Understanding Four Years and Semesters",
+        "description": "Your planner is organized by grade level: Freshman (9), Sophomore (10), Junior (11), and Senior (12). Each year has two semesters. Use this structure to plan which courses you want to take each semester across your high school career."
+      },
+      "addingCourses": {
+        "title": "Adding Courses",
+        "description": "To add a course, open a planner year and click the '+ Add Course' button in any semester slot. Search for a course by name or code, then select it to add it to your plan. Not all courses may be available for every grade level due to eligibility rules."
+      },
+      "courseEligibility": {
+        "title": "Course Eligibility",
+        "description": "Some courses have grade-level restrictions or prerequisites that must be met before you can plan them. If a course doesn't appear in your planner, check its information in the Course Catalog to understand the eligibility requirements. Prerequisites may include completed courses or placement scores."
+      },
+      "movingCourses": {
+        "title": "Moving Courses",
+        "description": "You can move courses between semesters by dragging and dropping them to a different slot. Moving a course may affect your semester balance, prerequisite timing, and graduation progress. Review your plan after making changes to ensure everything still aligns."
+      },
+      "removingCourses": {
+        "title": "Removing Courses",
+        "description": "To remove a course from your planner, click the course card and use the remove option. Removing a course may affect your credit totals, graduation progress, and prerequisite relationships. The planner will update warnings and recommendations accordingly."
+      },
+      "waivers": {
+        "title": "Waivers",
+        "description": "Some graduation requirements, such as Physical Education, may be waived under certain conditions. The planner shows waiver status and indicates which requirements have been waived. Check the waiver section in the planner summary for details about your specific situation."
+      },
+      "needsAttention": {
+        "title": "Needs Attention",
+        "description": "The Needs Attention section highlights potential issues in your plan that you should review. Items here are not necessarily errors—they are prompts to help you verify that your plan meets all requirements. Each item suggests an action you might consider."
+      },
+      "understandingWarnings": {
+        "title": "Understanding Warnings",
+        "description": "When the planner shows a warning, ask three questions: What issue is the planner identifying? Why might this matter for your graduation? What should you investigate next? Warnings help you catch potential problems before they become real issues."
+      },
+      "resolvingWarnings": {
+        "title": "Resolving Warnings",
+        "description": "You can resolve warnings by taking actions like adding a missing course, marking a prerequisite as completed, moving a course to a different semester, or completing a placement action. Review the suggested action before applying it to make sure it fits your plan."
+      },
+      "creditProgress": {
+        "title": "Credit Progress",
+        "description": "The planner summary shows your planned credits and how they compare to graduation requirements. Planned credits represent courses you intend to take, while completed credits are courses you've already finished. Changing your plan will update these totals."
+      },
+      "graduationRequirements": {
+        "title": "Graduation Requirements",
+        "description": "The Graduation Requirements page shows all requirements you need to fulfill to graduate. Review each requirement to understand what courses can satisfy it. The page tracks both completed coursework and planned courses toward each requirement."
+      },
+      "requirementProgress": {
+        "title": "Understanding Requirement Progress",
+        "description": "Each requirement card shows your progress: completed courses that satisfy the requirement, and planned courses that may contribute. Progress bars distinguish between completed and planned coursework. Review the details behind each requirement rather than relying only on the progress indicator."
+      },
+      "completedCourses": {
+        "title": "Completed Courses",
+        "description": "Record courses you have already completed so the planner can accurately track your graduation progress. Completed courses differ from planned courses—they represent work you've already finished. You can organize them by academic period and include summer school records."
+      },
+      "savedCourses": {
+        "title": "Saved Courses",
+        "description": "Saved courses are courses you're interested in but haven't placed into your planner yet. Use saved courses as a shortlist while you decide what to plan. When you're ready, you can add a saved course directly to your four-year plan."
+      },
+      "language": {
+        "title": "Language Settings",
+        "description": "You can change the interface language using the language selector in Accessibility & Preferences. Your language preference is saved and will be applied across the application. Available languages include English, Español, and 简体中文."
+      },
+      "accessibility": {
+        "title": "Accessibility Settings",
+        "description": "The Accessibility & Preferences panel includes options for larger text, reduced motion, and keyboard shortcuts. These settings help make the application comfortable and usable for everyone. Your preferences are saved automatically."
+      },
+      "accountGuest": {
+        "title": "Account & Guest Mode",
+        "description": "You can use Stevenson Course Planner as a guest or sign in with a Google account. Guest mode stores your data locally in your browser—it will be lost if you clear your data or switch browsers. Signing in saves your planner and completed courses to your account, accessible from any device."
+      }
+    }
   }
 }
