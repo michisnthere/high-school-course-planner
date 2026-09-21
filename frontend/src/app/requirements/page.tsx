@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState, useCallback, useMemo, useRef } fr
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 import { ServiceProvider, useServices } from "@/services/ServiceContext";
 import { courseToPlannerDetails, type Planner } from "@/lib/planner";
 import { getCourses } from "@/lib/api";
@@ -91,6 +92,7 @@ function RequirementsContent(): React.ReactElement {
   const searchParams = useSearchParams();
   const router = useRouter();
   const services = useServices();
+  const { t } = useTranslation();
   const { planner: plannerService, completedCourses: completedService, resolutions: resolutionsService, analysis: analysisService } = services;
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
@@ -131,7 +133,7 @@ function RequirementsContent(): React.ReactElement {
       setError(null);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to load graduation requirements"
+        err instanceof Error ? err.message : t("requirements.loadError")
       );
     } finally {
       setLoading(false);
@@ -234,7 +236,7 @@ function RequirementsContent(): React.ReactElement {
     return (
       <div style={{ padding: "32px", minHeight: "calc(100dvh - 64px)" }}>
         <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
-          Loading...
+          {t("auth.loading")}
         </p>
       </div>
     );
@@ -243,8 +245,8 @@ function RequirementsContent(): React.ReactElement {
   if (!mode) {
     return (
       <GuestEmptyState
-        title="Graduation Requirements"
-        description="Sign in to track your graduation progress and requirement completion. Your progress will be stored securely and synced across devices."
+        title={t("requirements.guestTitle")}
+        description={t("requirements.guestDescription")}
       />
     );
   }
@@ -398,12 +400,12 @@ function RequirementsContent(): React.ReactElement {
         </h1>
 
         {loading ? (
-          <p style={{ color: "var(--text-secondary)" }}>Loading graduation requirements...</p>
+          <p style={{ color: "var(--text-secondary)" }}>{t("requirements.loading")}</p>
         ) : error ? (
           <p style={{ color: "#ef4444" }}>{error}</p>
         ) : !analysis || visibleRequirements.length === 0 ? (
           <p style={{ color: "var(--text-secondary)" }}>
-            No graduation requirements found. Requirements are populated from the course catalog.
+            {t("requirements.empty")}
           </p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
@@ -457,7 +459,7 @@ function RequirementsContent(): React.ReactElement {
                 Year-Level Requirements
               </h2>
               <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "var(--text-muted)" }}>
-                Am I meeting this year&apos;s requirements?
+                {t("requirements.yearLevelSubtitle")}
               </p>
               <div
                 style={{
@@ -496,7 +498,7 @@ function RequirementsContent(): React.ReactElement {
                 Graduation Requirements
               </h2>
               <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "var(--text-muted)" }}>
-                Am I on track to graduate?
+                {t("requirements.onTrackSubtitle")}
               </p>
               <div
                 className={isMobile ? "rs-req-grid" : undefined}
@@ -570,7 +572,7 @@ function RequirementsContent(): React.ReactElement {
                     color: "var(--text-primary)",
                   }}
                 >
-                  Helpful Information
+                  {t("requirements.helpfulInformation")}
                 </h2>
                 <div
                   className={isMobile ? "rs-req-info-grid" : undefined}

@@ -14,6 +14,7 @@ import {
   savePreferencesToStorage,
   type Preferences,
   type ReducedMotionOption,
+  type Locale,
 } from "@/lib/preferences";
 
 type PreferencesContextType = {
@@ -21,6 +22,7 @@ type PreferencesContextType = {
   setKeyboardShortcuts: (enabled: boolean) => void;
   setReducedMotion: (option: ReducedMotionOption) => void;
   setLargerText: (enabled: boolean) => void;
+  setLocale: (locale: Locale) => void;
   /** Whether reduced motion is currently active (either user-chosen or system preference). */
   isReducedMotionActive: boolean;
 };
@@ -108,6 +110,17 @@ export function PreferencesProvider({
     setPreferences((prev) => ({ ...prev, largerText: enabled }));
   }, []);
 
+  const setLocale = useCallback((locale: Locale) => {
+    setPreferences((prev) => ({ ...prev, locale }));
+  }, []);
+
+  // Sync html lang attribute when locale changes.
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = preferences.locale;
+    }
+  }, [preferences.locale]);
+
   return (
     <PreferencesContext.Provider
       value={{
@@ -115,6 +128,7 @@ export function PreferencesProvider({
         setKeyboardShortcuts,
         setReducedMotion,
         setLargerText,
+        setLocale,
         isReducedMotionActive,
       }}
     >

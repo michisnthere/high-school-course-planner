@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { breakpoints } from "@/lib/responsive";
 
@@ -39,6 +42,8 @@ const listItemStyle: React.CSSProperties = {
 };
 
 export default function PrivacyPage(): React.ReactElement {
+  const { t } = useTranslation();
+
   return (
     <>
       <style>{`
@@ -64,7 +69,7 @@ export default function PrivacyPage(): React.ReactElement {
             margin: "0 0 28px",
           }}
         >
-          Privacy
+          {t("privacy.heading")}
         </h1>
 
         <p
@@ -73,55 +78,47 @@ export default function PrivacyPage(): React.ReactElement {
             marginBottom: "24px",
           }}
         >
-          This page explains what data the Stevenson Course Planner stores and how it is used.
+          {t("privacy.intro")}
         </p>
 
         <div style={cardStyle}>
-          <h2 style={headingStyle}>Signed-In Users</h2>
+          <h2 style={headingStyle}>{t("privacy.signedInUsers")}</h2>
           <p style={bodyStyle}>
-            When you sign in with Google, the following data is stored on the server and
-            associated with your account:
+            {t("privacy.signedInDescription")}
           </p>
           <ul style={listStyle}>
             <li className="rs-privacy-list-item" style={listItemStyle}>
-              Your Google account name, email address, and Google ID (required for
-              authentication)
+              {t("privacy.signedInItem1")}
             </li>
             <li className="rs-privacy-list-item" style={listItemStyle}>
-              Courses you have saved to your planner
+              {t("privacy.signedInItem2")}
             </li>
             <li className="rs-privacy-list-item" style={listItemStyle}>
-              Courses you have marked as completed
+              {t("privacy.signedInItem3")}
             </li>
             <li className="rs-privacy-list-item" style={listItemStyle}>
-              Your graduation progress across all requirement areas
+              {t("privacy.signedInItem4")}
             </li>
           </ul>
           <p style={bodyStyle}>
-            This data is used only to provide planner functionality. No grades, transcripts,
-            or personal academic records are collected or shared.
+            {t("privacy.signedInNote")}
           </p>
         </div>
 
         <div style={cardStyle}>
-          <h2 style={headingStyle}>Guest Users</h2>
+          <h2 style={headingStyle}>{t("privacy.guestUsers")}</h2>
           <p style={bodyStyle}>
-            If you use the planner without signing in, all data exists only in your browser's
-            memory. Refreshing or closing the tab clears all guest data. No guest information
-            is stored on the server.
+            {t("privacy.guestDescription")}
           </p>
         </div>
 
         <div style={cardStyle}>
-          <h2 style={headingStyle}>Data Sharing</h2>
+          <h2 style={headingStyle}>{t("privacy.dataSharing")}</h2>
           <p style={bodyStyle}>
-            Your data is used solely to provide the course planning functionality within this
-            application. No planner data, course selections, or graduation information is
-            shared with third parties, the school, or the school district.
+            {t("privacy.dataSharingDescription")}
           </p>
           <p style={bodyStyle}>
-            This tool is not affiliated with or endorsed by the school district. It is an
-            independent planning aid built to help students prepare for counselor meetings.
+            {t("privacy.dataSharingNote")}
           </p>
         </div>
       </ResponsivePage>

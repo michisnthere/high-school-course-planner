@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
+import { useTranslation } from "@/context/I18nContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
 import { YearOverviewCard } from "@/components/dashboard/YearOverviewCard";
@@ -12,12 +13,6 @@ import type { GradeCompleted } from "@/lib/completedCourses";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
 
 const ALL_YEARS = [9, 10, 11, 12];
-const YEAR_LABELS: Record<number, string> = {
-  9: "Freshman",
-  10: "Sophomore",
-  11: "Junior",
-  12: "Senior",
-};
 
 export default function PlannerPage(): React.ReactElement {
   return <PlannerContent />;
@@ -26,6 +21,7 @@ export default function PlannerPage(): React.ReactElement {
 function PlannerContent(): React.ReactElement {
   const { mode, loading: authLoading } = useAuth();
   const services = useServices();
+  const { t } = useTranslation();
   const [planners, setPlanners] = useState<Planner[]>([]);
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
@@ -67,10 +63,10 @@ function PlannerContent(): React.ReactElement {
   }, [services, mode]);
 
   const GRADE_LABELS: Record<number, GradeCompleted> = {
-    9: "Freshman (9)",
-    10: "Sophomore (10)",
-    11: "Junior (11)",
-    12: "Senior (12)",
+    9: t("year.9WithGrade") as GradeCompleted,
+    10: t("year.10WithGrade") as GradeCompleted,
+    11: t("year.11WithGrade") as GradeCompleted,
+    12: t("year.12WithGrade") as GradeCompleted,
   };
 
   async function handleConfirmMarkCompleted() {
@@ -129,7 +125,7 @@ function PlannerContent(): React.ReactElement {
     return (
       <ResponsivePage>
         <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
-          Loading your four-year plan...
+          {t("planner.loading")}
         </p>
       </ResponsivePage>
     );
@@ -138,8 +134,8 @@ function PlannerContent(): React.ReactElement {
   if (!mode) {
     return (
       <GuestEmptyState
-        title="Planner"
-        description="Sign in to build and save your four-year academic plan. Your planner will be securely stored and synced across devices."
+        title={t("planner.guestTitle")}
+        description={t("planner.guestDescription")}
       />
     );
   }
@@ -155,7 +151,7 @@ function PlannerContent(): React.ReactElement {
           lineHeight: 1.2,
         }}
       >
-        My Planner
+        {t("planner.heading")}
       </h1>
       <p
         style={{
@@ -164,12 +160,12 @@ function PlannerContent(): React.ReactElement {
           color: "var(--text-secondary)",
         }}
       >
-        Review your four-year plan and edit individual years.
+        {t("planner.description")}
       </p>
 
       {loading ? (
         <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
-          Loading your four-year plan...
+          {t("planner.loading")}
         </p>
       ) : (
         <>
@@ -266,10 +262,10 @@ function PlannerContent(): React.ReactElement {
                 onClick={(e) => e.stopPropagation()}
               >
                 <h2 style={{ margin: "0 0 12px", fontSize: "20px", color: "var(--text-primary)" }}>
-                  Mark {YEAR_LABELS[confirmActivePlanner.schoolYear]} Year as Active?
+                  {t("planner.markActiveTitle", { yearLabel: t(`year.${confirmActivePlanner.schoolYear}`) })}
                 </h2>
                 <p style={{ margin: "0 0 20px", fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  This will unlock the planner for editing. Auto-generated completed courses from this year will be removed. Manually added completed courses will remain.
+                  {t("planner.markActiveDescription")}
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
                   <button
@@ -286,7 +282,7 @@ function PlannerContent(): React.ReactElement {
                       fontWeight: 600,
                     }}
                   >
-                    Cancel
+                    {t("planner.cancel")}
                   </button>
                   <button
                     type="button"
@@ -302,7 +298,7 @@ function PlannerContent(): React.ReactElement {
                       fontWeight: 700,
                     }}
                   >
-                    Restore
+                    {t("planner.restore")}
                   </button>
                 </div>
               </div>
@@ -337,10 +333,10 @@ function PlannerContent(): React.ReactElement {
                 onClick={(e) => e.stopPropagation()}
               >
                 <h2 style={{ margin: "0 0 12px", fontSize: "20px", color: "var(--text-primary)" }}>
-                  Mark {YEAR_LABELS[confirmPlanner.schoolYear]} Year as completed?
+                  {t("planner.markCompletedTitle", { yearLabel: t(`year.${confirmPlanner.schoolYear}`) })}
                 </h2>
                 <p style={{ margin: "0 0 20px", fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                  This will move all planned courses into your completed courses.
+                  {t("planner.markCompletedDescription")}
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
                   <button
@@ -357,7 +353,7 @@ function PlannerContent(): React.ReactElement {
                       fontWeight: 600,
                     }}
                   >
-                    Cancel
+                    {t("planner.cancel")}
                   </button>
                   <button
                     type="button"
@@ -373,7 +369,7 @@ function PlannerContent(): React.ReactElement {
                       fontWeight: 700,
                     }}
                   >
-                    Confirm
+                    {t("planner.confirm")}
                   </button>
                 </div>
               </div>

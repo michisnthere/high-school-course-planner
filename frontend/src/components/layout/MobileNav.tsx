@@ -6,25 +6,27 @@ import { usePathname } from "next/navigation";
 import { MobileAppBar } from "@/components/layout/MobileAppBar";
 import { MobileDrawer } from "@/components/responsive/MobileDrawer";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 import { breakpoints } from "@/lib/responsive";
 
 const FEEDBACK_FORM_URL = "https://forms.gle/gPebJ41P8r8sUEsW6";
-
-const navItems = [
-  { label: "Dashboard", href: "/" },
-  { label: "Course Catalog", href: "/catalog" },
-  { label: "My Planner", href: "/planner" },
-  { label: "Graduation Requirements", href: "/requirements" },
-  { label: "Saved Courses", href: "/saved" },
-  { label: "Completed Courses", href: "/completed-courses" },
-];
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { logout, isGuest, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
 
   const handleClose = useCallback(() => setIsOpen(false), []);
+
+  const navItems = [
+    { label: t("nav.dashboard"), href: "/" },
+    { label: t("nav.courseCatalog"), href: "/catalog" },
+    { label: t("nav.myPlanner"), href: "/planner" },
+    { label: t("nav.graduationRequirements"), href: "/requirements" },
+    { label: t("nav.savedCourses"), href: "/saved" },
+    { label: t("nav.completedCourses"), href: "/completed-courses" },
+  ];
 
   return (
     <>
@@ -110,7 +112,7 @@ export function MobileNav() {
                 const isActive = pathname === item.href;
                 return (
                   <Link
-                    key={item.label}
+                    key={item.href}
                     href={item.href}
                     className={`rs-mobile-nav-link${isActive ? " rs-mobile-nav-link--active" : ""}`}
                     onClick={handleClose}
@@ -146,7 +148,7 @@ export function MobileNav() {
                   boxSizing: "border-box",
                 }}
               >
-                Sign In
+                {t("mobileNav.signIn")}
               </button>
             </div>
           )}
@@ -168,39 +170,39 @@ export function MobileNav() {
                 fontSize: "13px",
               }}
             >
-              <Link
-                href="/about"
-                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
-                onClick={handleClose}
-              >
-                About
-              </Link>
-              <span style={{ color: "var(--text-muted)" }}>•</span>
-              <Link
-                href="/privacy"
-                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
-                onClick={handleClose}
-              >
-                Privacy
-              </Link>
-              <span style={{ color: "var(--text-muted)" }}>•</span>
-              <a
-                href={FEEDBACK_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
-              >
-                Report a Bug
-              </a>
-              <span style={{ color: "var(--text-muted)" }}>•</span>
-              <a
-                href={FEEDBACK_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
-              >
-                Send Feedback
-              </a>
+                <Link
+                  href="/about"
+                  style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+                  onClick={handleClose}
+                >
+                  {t("mobileNav.about")}
+                </Link>
+                <span style={{ color: "var(--text-muted)" }}>•</span>
+                <Link
+                  href="/privacy"
+                  style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+                  onClick={handleClose}
+                >
+                  {t("mobileNav.privacy")}
+                </Link>
+                <span style={{ color: "var(--text-muted)" }}>•</span>
+                <a
+                  href={FEEDBACK_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+                >
+                  {t("mobileNav.reportBug")}
+                </a>
+                <span style={{ color: "var(--text-muted)" }}>•</span>
+                <a
+                  href={FEEDBACK_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--text-secondary)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+                >
+                  {t("mobileNav.sendFeedback")}
+                </a>
             </div>
             <p style={{ margin: "8px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
               Stevenson Course Planner
@@ -223,7 +225,7 @@ export function MobileNav() {
                   logout();
                 }}
               >
-                {isGuest ? "Exit Guest Mode" : "Sign Out"}
+                {isGuest ? t("mobileNav.exitGuestMode") : t("mobileNav.signOut")}
               </button>
             </div>
           )}

@@ -37,6 +37,7 @@ describe("Preferences localStorage persistence", () => {
       keyboardShortcuts: true,
       reducedMotion: "on",
       largerText: false,
+      locale: "en",
     };
     savePreferencesToStorage(prefs, localStorage);
     expect(loadPreferencesFromStorage(localStorage)).toEqual(prefs);
@@ -52,6 +53,7 @@ describe("Preferences localStorage persistence", () => {
       keyboardShortcuts: true,
       reducedMotion: "system",
       largerText: false,
+      locale: "en",
     });
   });
 
@@ -66,6 +68,7 @@ describe("Preferences localStorage persistence", () => {
       keyboardShortcuts: true,
       reducedMotion: "system",
       largerText: true,
+      locale: "en",
     });
   });
 

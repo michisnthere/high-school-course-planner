@@ -3,10 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 import { breakpoints } from "@/lib/responsive";
 
 export default function LoginPage(): React.ReactElement {
   const { loginAsGuest } = useAuth();
+  const { t } = useTranslation();
 
   const isValidRedirect = (url: string): boolean => {
     if (!url || url.startsWith("//")) return false;
@@ -79,7 +81,7 @@ export default function LoginPage(): React.ReactElement {
         >
           <Image
             src="/stevensonlogo.png"
-            alt="Stevenson High School"
+            alt={t("aria.stevensonHighSchool")}
             width={64}
             height={64}
             style={{ margin: "0 auto 16px" }}
@@ -93,7 +95,7 @@ export default function LoginPage(): React.ReactElement {
               lineHeight: 1.2,
             }}
           >
-            Stevenson Course Planner
+            {t("login.siteTitle")}
           </h1>
           <p
             style={{
@@ -103,8 +105,7 @@ export default function LoginPage(): React.ReactElement {
               lineHeight: 1.5,
             }}
           >
-            Sign in with your Google account to plan your courses, track requirements, and explore the
-            Stevenson course catalog.
+            {t("login.description")}
           </p>
           <div style={{ height: "16px" }} />
           <button
@@ -124,7 +125,7 @@ export default function LoginPage(): React.ReactElement {
               boxSizing: "border-box",
             }}
           >
-            Sign in with Google
+            {t("login.signInWithGoogle")}
           </button>
           <div style={{ marginTop: "16px" }}>
             <button
@@ -144,7 +145,7 @@ export default function LoginPage(): React.ReactElement {
                 boxSizing: "border-box",
               }}
             >
-              Continue as Guest
+              {t("login.continueAsGuest")}
             </button>
             <div
               style={{
@@ -163,7 +164,7 @@ export default function LoginPage(): React.ReactElement {
                   color: "var(--text-secondary)",
                 }}
               >
-                Guest Mode
+                {t("login.guestMode")}
               </p>
               <p
                 style={{
@@ -173,7 +174,7 @@ export default function LoginPage(): React.ReactElement {
                   lineHeight: 1.4,
                 }}
               >
-                Your changes will not be saved after leaving this session.
+                {t("login.guestWarning")}
               </p>
             </div>
           </div>

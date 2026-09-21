@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { breakpoints } from "@/lib/responsive";
 
@@ -35,6 +38,8 @@ const statusGridStyle: React.CSSProperties = {
 };
 
 export default function AboutPage(): React.ReactElement {
+  const { t } = useTranslation();
+
   return (
     <>
       <style>{`
@@ -54,45 +59,35 @@ export default function AboutPage(): React.ReactElement {
             margin: "0 0 28px",
           }}
         >
-          About
+          {t("about.heading")}
         </h1>
 
         <div style={cardStyle}>
           <p style={bodyStyle}>
-            The Stevenson Course Planner is an unofficial planning tool created to help students
-            understand graduation requirements, prerequisites, and course options before meeting
-            with their counselor. It provides a visual way to explore how different course choices
-            affect graduation progress across subject areas.
+            {t("about.introParagraph1")}
           </p>
           <p style={bodyStyle}>
-            Official course requests are still made during your scheduled course selection
-            appointment with your school counselor. This tool is meant to prepare you for that
-            conversation, not replace it.
+            {t("about.introParagraph2")}
           </p>
           <p style={bodyStyle}>
-            Course offerings, prerequisites, and graduation requirements are subject to change.
-            Always verify current information with your counselor or the official course catalog.
+            {t("about.introParagraph3")}
           </p>
         </div>
 
         <div style={sectionStyle}>
-          <h2 style={headingStyle}>How It Works</h2>
+          <h2 style={headingStyle}>{t("about.howItWorks")}</h2>
           <div style={cardStyle}>
             <p style={bodyStyle}>
-              Browse the course catalog to explore available classes and their prerequisites. Add
-              courses to your plan, track completed courses, and monitor your graduation progress
-              across all requirement areas. The planner gives you a real-time view of how your
-              choices fit together.
+              {t("about.howItWorksParagraph1")}
             </p>
             <p style={bodyStyle}>
-              You can experiment with different four-year plans, see which requirements are
-              satisfied, and identify gaps before your counselor meeting.
+              {t("about.howItWorksParagraph2")}
             </p>
           </div>
         </div>
 
         <div style={sectionStyle}>
-          <h2 style={headingStyle}>Project Status</h2>
+          <h2 style={headingStyle}>{t("about.projectStatus")}</h2>
           <div style={{ ...cardStyle, ...statusGridStyle }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <span
@@ -108,22 +103,19 @@ export default function AboutPage(): React.ReactElement {
                   letterSpacing: "0.03em",
                 }}
               >
-                Beta
+                {t("about.beta")}
               </span>
               <span style={{ fontSize: "14px", color: "var(--text-secondary)" }}>
-                Active development — features and data are still being refined
+                {t("about.activeDevelopment")}
               </span>
             </div>
 
             <p style={bodyStyle}>
-              Built by a Stevenson student as a side project to help peers navigate course
-              selection. This tool is intended to support — not replace — the guidance provided
-              by school counselors.
+              {t("about.builtBy")}
             </p>
 
             <p style={bodyStyle}>
-              If you encounter issues or have suggestions, use the Feedback page to report them.
-              Your input helps make the planner better for everyone.
+              {t("about.feedbackPrompt")}
             </p>
           </div>
         </div>

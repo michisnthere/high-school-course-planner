@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 import { breakpoints } from "@/lib/responsive";
 import { AccessibilitySettingsButton } from "@/components/settings/AccessibilitySettings";
 
@@ -11,22 +12,23 @@ type MobileAppBarProps = {
   onMenuClick: () => void;
 };
 
-const pageTitles: Record<string, string> = {
-  "/": "Dashboard",
-  "/catalog": "Course Catalog",
-  "/saved": "Saved Courses",
-  "/completed-courses": "Completed Courses",
-  "/planner": "My Planner",
-  "/requirements": "Graduation Requirements",
-  "/profile": "Profile",
-  "/login": "Sign In",
-};
-
 export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
   const pathname = usePathname();
   const { user, isGuest } = useAuth();
+  const { t } = useTranslation();
 
-  const title = pageTitles[pathname] ?? "Stevenson Course Planner";
+  const pageTitles: Record<string, string> = {
+    "/": t("nav.dashboard"),
+    "/catalog": t("nav.courseCatalog"),
+    "/saved": t("nav.savedCourses"),
+    "/completed-courses": t("nav.completedCourses"),
+    "/planner": t("nav.myPlanner"),
+    "/requirements": t("nav.graduationRequirements"),
+    "/profile": t("mobileAppBar.profile"),
+    "/login": t("mobileAppBar.signIn"),
+  };
+
+  const title = pageTitles[pathname] ?? t("mobileAppBar.fallbackTitle");
 
   return (
     <>
@@ -91,7 +93,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
           type="button"
           className="rs-mobile-appbar-btn"
           onClick={onMenuClick}
-          aria-label="Open navigation menu"
+          aria-label={t("aria.openNavigationMenu")}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="6" x2="21" y2="6" />
@@ -117,7 +119,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
               type="button"
               className="rs-mobile-appbar-btn"
               onClick={() => { window.location.href = "/profile"; }}
-              aria-label="Profile"
+              aria-label={t("aria.profile")}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="8" r="4" />

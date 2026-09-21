@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
+import { useTranslation } from "@/context/I18nContext";
 import type { PlannerCourseDetails } from "@/lib/planner";
 
 const BACKEND = typeof window !== "undefined" && window.location.hostname === "localhost"
@@ -17,6 +18,7 @@ async function fetchAllCourses(): Promise<PlannerCourseDetails[]> {
 
 export function SavedCoursesSection(): React.ReactElement {
   const { savedIds, loading: idsLoading } = useSavedCourses();
+  const { t } = useTranslation();
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,19 +38,19 @@ export function SavedCoursesSection(): React.ReactElement {
 
   if (loading || idsLoading) {
     return (
-      <Section title="Recently Saved Courses">
+      <Section title={t("savedCourses.recentlySaved")}>
         <p style={{ margin: 0, fontSize: "15px", color: "var(--text-muted)" }}>
-          Loading saved courses...
+          {t("savedCourses.loading")}
         </p>
       </Section>
     );
   }
 
   return (
-    <Section title="Recently Saved Courses">
+    <Section title={t("savedCourses.recentlySaved")}>
       {savedCourses.length === 0 ? (
         <p style={{ margin: 0, fontSize: "15px", color: "var(--text-muted)" }}>
-          No saved courses yet.
+          {t("savedCourses.empty")}
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -96,7 +98,7 @@ export function SavedCoursesSection(): React.ReactElement {
                 marginTop: "4px",
               }}
             >
-              View all saved courses ({savedIds.length}) →
+              {t("savedCourses.viewAll", { count: String(savedIds.length) })}
             </Link>
           )}
         </div>

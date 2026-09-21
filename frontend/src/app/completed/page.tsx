@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 import { useCompletedCoursesService } from "@/services/ServiceContext";
 import {
   type CompletedCourse,
@@ -26,12 +27,13 @@ import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
 
 export default function CompletedCoursesPage(): React.ReactElement {
   const { mode } = useAuth();
+  const { t } = useTranslation();
 
   if (!mode) {
     return (
       <GuestEmptyState
-        title="Completed Courses"
-        description="Sign in to view your completed coursework and prerequisite history. Your completed courses will be stored securely and synced across devices."
+        title={t("completedCourses.guestTitle")}
+        description={t("completedCourses.guestDescription")}
       />
     );
   }
@@ -41,6 +43,7 @@ export default function CompletedCoursesPage(): React.ReactElement {
 
 function CompletedCoursesContent(): React.ReactElement {
   const completedService = useCompletedCoursesService();
+  const { t } = useTranslation();
   const [courses, setCourses] = useState<CompletedCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,7 +81,7 @@ function CompletedCoursesContent(): React.ReactElement {
       setCourses(data);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load completed courses");
+      setError(err instanceof Error ? err.message : t("completedCourses.loadError"));
     } finally {
       setLoading(false);
     }
@@ -98,7 +101,7 @@ function CompletedCoursesContent(): React.ReactElement {
         setPickerOpen(false);
         await load();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to add completed course");
+        setError(err instanceof Error ? err.message : t("completedCourses.addError"));
       }
     },
     [load, completedService]
@@ -113,7 +116,7 @@ function CompletedCoursesContent(): React.ReactElement {
         setEditingId(null);
         await load();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to update completed course");
+        setError(err instanceof Error ? err.message : t("completedCourses.updateError"));
       }
     },
     [load, editGrade, completedService]
@@ -125,7 +128,7 @@ function CompletedCoursesContent(): React.ReactElement {
         await completedService.removeCompletedCourse(id);
         await load();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to remove completed course");
+        setError(err instanceof Error ? err.message : t("completedCourses.removeError"));
       }
     },
     [load, completedService]
@@ -190,7 +193,7 @@ function CompletedCoursesContent(): React.ReactElement {
             lineHeight: 1.2,
           }}
         >
-          Completed Courses
+          {t("completedCourses.heading")}
         </h1>
 
         {loading ? (

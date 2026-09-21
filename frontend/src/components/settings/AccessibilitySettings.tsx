@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { usePreferences } from "@/context/PreferencesContext";
+import { LanguageSelector } from "./LanguageSelector";
 
 const focusableSelector = [
   "a[href]",
@@ -296,6 +297,8 @@ function AccessibilityDialog({
               ))}
             </fieldset>
           </SettingRow>
+
+          <LanguageSelector />
         </div>
 
         <section

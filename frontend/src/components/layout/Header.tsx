@@ -1,10 +1,15 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AuthStatus } from "@/components/auth/AuthStatus";
 import { AccessibilitySettingsButton } from "@/components/settings/AccessibilitySettings";
+import { useTranslation } from "@/context/I18nContext";
 
 export function Header(): React.ReactElement {
+  const { t } = useTranslation();
+
   return (
     <header
       style={{
@@ -29,7 +34,7 @@ export function Header(): React.ReactElement {
       >
         <Image
           src="/stevensonlogo.png"
-          alt="Stevenson High School"
+          alt={t("aria.stevensonHighSchool")}
           width={32}
           height={32}
           style={{ flexShrink: 0 }}
@@ -42,7 +47,7 @@ export function Header(): React.ReactElement {
             lineHeight: 1.2,
           }}
         >
-          Stevenson Course Planner
+          {t("header.siteTitle")}
         </span>
       </Link>
 

@@ -4,15 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarFooter } from "./SidebarFooter";
-
-const navItems = [
-  { label: "Dashboard", href: "/" },
-  { label: "Course Catalog", href: "/catalog" },
-  { label: "My Planner", href: "/planner" },
-  { label: "Graduation Requirements", href: "/requirements" },
-  { label: "Saved Courses", href: "/saved" },
-  { label: "Completed Courses", href: "/completed-courses" },
-];
+import { useTranslation } from "@/context/I18nContext";
 
 function navLinkStyle(isActive: boolean): React.CSSProperties {
   return {
@@ -29,6 +21,16 @@ function navLinkStyle(isActive: boolean): React.CSSProperties {
 
 export function Sidebar(): React.ReactElement {
   const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const navItems = [
+    { label: t("nav.dashboard"), href: "/" },
+    { label: t("nav.courseCatalog"), href: "/catalog" },
+    { label: t("nav.myPlanner"), href: "/planner" },
+    { label: t("nav.graduationRequirements"), href: "/requirements" },
+    { label: t("nav.savedCourses"), href: "/saved" },
+    { label: t("nav.completedCourses"), href: "/completed-courses" },
+  ];
 
   return (
     <aside
@@ -47,7 +49,7 @@ export function Sidebar(): React.ReactElement {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
         <nav aria-label="Main navigation" style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
           {navItems.map((item) => (
-            <Link key={item.label} href={item.href} style={navLinkStyle(pathname === item.href)}>
+            <Link key={item.href} href={item.href} style={navLinkStyle(pathname === item.href)}>
               {item.label}
             </Link>
           ))}

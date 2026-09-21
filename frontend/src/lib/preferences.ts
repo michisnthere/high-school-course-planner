@@ -4,22 +4,27 @@ export const PREFERENCES_STORAGE_KEY = "stevenson-preferences";
 
 export type ReducedMotionOption = "system" | "on" | "off";
 
+export type Locale = "en" | "es" | "zh-CN";
+
 export type Preferences = {
   keyboardShortcuts: boolean;
   reducedMotion: ReducedMotionOption;
   largerText: boolean;
+  locale: Locale;
 };
 
 export const DEFAULT_PREFERENCES: Preferences = {
   keyboardShortcuts: false,
   reducedMotion: "system",
   largerText: false,
+  locale: "en",
 };
 
 export function normalizePreferences(value: unknown): Preferences {
   if (!value || typeof value !== "object") return DEFAULT_PREFERENCES;
 
   const parsed = value as Partial<Preferences>;
+  const validLocales: Locale[] = ["en", "es", "zh-CN"];
   return {
     keyboardShortcuts:
       typeof parsed.keyboardShortcuts === "boolean"
@@ -35,6 +40,11 @@ export function normalizePreferences(value: unknown): Preferences {
       typeof parsed.largerText === "boolean"
         ? parsed.largerText
         : DEFAULT_PREFERENCES.largerText,
+    locale:
+      typeof parsed.locale === "string" &&
+      validLocales.includes(parsed.locale as Locale)
+        ? (parsed.locale as Locale)
+        : DEFAULT_PREFERENCES.locale,
   };
 }
 

@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { AuthProvider } from "@/context/AuthContext";
-import { PreferencesProvider } from "@/context/PreferencesContext";
+import { ClientProviders } from "@/components/layout/ClientProviders";
 import { ServiceProvider } from "@/services/ServiceContext";
 import { AuthToast } from "@/components/auth/AuthToast";
 import { breakpoints } from "@/lib/responsive";
@@ -90,7 +90,7 @@ export default function RootLayout({
           }
         `}</style>
         <AuthProvider>
-          <PreferencesProvider>
+          <ClientProviders>
             <ServiceProvider>
               <a
                 href="#main-content"
@@ -116,7 +116,7 @@ export default function RootLayout({
                 </main>
               </div>
             </ServiceProvider>
-          </PreferencesProvider>
+          </ClientProviders>
           <AuthToast />
         </AuthProvider>
       </body>

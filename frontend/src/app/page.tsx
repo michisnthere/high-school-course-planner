@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useServices } from "@/services/ServiceContext";
+import { useTranslation } from "@/context/I18nContext";
 import { GuestUpgradePrompt } from "@/components/auth/GuestUpgradePrompt";
 import { SavedCoursesSection } from "@/components/dashboard/SavedCoursesSection";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
@@ -14,11 +15,11 @@ import { formatCredits } from "@/lib/courseCredits";
 import { calculatePlannerCompletionPercentage, calculatePlannerOccupancy, TOTAL_PLANNER_SLOTS } from "@/lib/plannerOccupancy";
 
 const YEARS = [9, 10, 11, 12] as const;
-const YEAR_LABELS: Record<number, string> = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
 
 export default function Home() {
   const { user, isGuest } = useAuth();
   const services = useServices();
+  const { t } = useTranslation();
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [planners, setPlanners] = useState<Planner[]>([]);
   const [loading, setLoading] = useState(true);
@@ -94,10 +95,7 @@ export default function Home() {
             lineHeight: 1.5,
           }}
         >
-          <strong style={{ color: "#ECBA2B" }}>Note:</strong> This is a planning tool and is not
-          affiliated with or endorsed by the school district. Course offerings, graduation requirements,
-          and all other information may not reflect the most current data. Always consult your school
-          counselor or the official course catalog for authoritative information.
+          <strong style={{ color: "#ECBA2B" }}>{t("dashboard.note")}</strong> {t("dashboard.disclaimerBanner")}
         </div>
 
         <div className="dash-welcome" style={{ marginBottom: "32px" }}>
@@ -111,8 +109,8 @@ export default function Home() {
             }}
           >
             {isGuest
-              ? "Welcome to Stevenson Course Planner \uD83D\uDC4B"
-              : `Welcome back, ${displayName(user?.name)} \uD83D\uDC4B`}
+              ? t("dashboard.welcomeGuest")
+              : t("dashboard.welcomeBack", { name: displayName(user?.name, t("dashboard.studentFallback")) })}
           </h1>
           <p
             style={{
@@ -121,7 +119,7 @@ export default function Home() {
               color: "var(--text-secondary)",
             }}
           >
-            Plan your courses, track graduation progress, and explore opportunities.
+            {t("dashboard.welcomeSubtitle")}
           </p>
         </div>
 
@@ -145,11 +143,11 @@ export default function Home() {
                   gap: "12px",
                 }}
               >
-                <ActionCard label="Planner" href="/planner" />
-                <ActionCard label="Explore Courses" href="/catalog" />
-                <ActionCard label="Graduation Requirements" href="/requirements" />
-                <ActionCard label="Completed Courses" href="/completed-courses" />
-                <ActionCard label="Saved Courses" href="/saved" />
+                <ActionCard label={t("dashboard.actionPlanner")} href="/planner" />
+                <ActionCard label={t("dashboard.actionExploreCourses")} href="/catalog" />
+                <ActionCard label={t("dashboard.actionGraduationRequirements")} href="/requirements" />
+                <ActionCard label={t("dashboard.actionCompletedCourses")} href="/completed-courses" />
+                <ActionCard label={t("dashboard.actionSavedCourses")} href="/saved" />
               </div>
             </section>
 
@@ -172,13 +170,13 @@ export default function Home() {
                   gap: "16px",
                 }}
               >
-                <SummaryCard label="Earned Credits" value={`${formatCredits(earnedCredits)} / ${formatCredits(totalRequired)}`} />
-                <SummaryCard label="Projected Credits" value={`${formatCredits(projectedCredits)} / ${formatCredits(totalRequired)}`} />
-                <SummaryCard label="Graduation Progress" value={`${gradProgress}%`}>
-                  <ProgressBar value={gradProgress} />
+                <SummaryCard label={t("dashboard.earnedCredits")} value={`${formatCredits(earnedCredits)} / ${formatCredits(totalRequired)}`} />
+                <SummaryCard label={t("dashboard.projectedCredits")} value={`${formatCredits(projectedCredits)} / ${formatCredits(totalRequired)}`} />
+                <SummaryCard label={t("dashboard.graduationProgressCard")} value={`${gradProgress}%`}>
+                  <ProgressBar value={gradProgress} ariaLabel={t("dashboard.progressLabel", { value: String(gradProgress) })} />
                 </SummaryCard>
-                <SummaryCard label="Planner Completion" value={`${plannerCompletion}%`}>
-                  <ProgressBar value={plannerCompletion} />
+                <SummaryCard label={t("dashboard.plannerCompletion")} value={`${plannerCompletion}%`}>
+                  <ProgressBar value={plannerCompletion} ariaLabel={t("dashboard.progressLabel", { value: String(plannerCompletion) })} />
                 </SummaryCard>
               </div>
             </section>
@@ -205,8 +203,9 @@ export default function Home() {
                   <YearCard
                     key={year}
                     year={year}
-                    label={YEAR_LABELS[year]}
+                    label={t(`year.${year}`)}
                     percentage={yearCompletion(year)}
+                    plannerLinkText={t("dashboard.openPlanner")}
                   />
                 ))}
               </div>
@@ -221,7 +220,7 @@ export default function Home() {
                   color: "var(--text-primary)",
                 }}
               >
-                Recent Activity
+                {t("dashboard.recentActivity")}
               </h2>
               <SavedCoursesSection />
             </section>
@@ -232,9 +231,9 @@ export default function Home() {
   );
 }
 
-function displayName(name: string | null | undefined): string {
-  if (!name) return "Student";
-  if (name === "Guest") return "Student";
+function displayName(name: string | null | undefined, fallback: string): string {
+  if (!name) return fallback;
+  if (name === "Guest") return fallback;
   return name.includes(" ") ? name.split(" ")[0] : name;
 }
 
@@ -280,14 +279,14 @@ function SummaryCard({
   );
 }
 
-function ProgressBar({ value }: { value: number }): React.ReactElement {
+function ProgressBar({ value, ariaLabel }: { value: number; ariaLabel?: string }): React.ReactElement {
   return (
     <div
       role="progressbar"
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label={`Progress: ${value}%`}
+      aria-label={ariaLabel}
       style={{
         width: "100%",
         height: "8px",
@@ -348,10 +347,12 @@ function YearCard({
   year,
   label,
   percentage,
+  plannerLinkText,
 }: {
   year: number;
   label: string;
   percentage: number;
+  plannerLinkText: string;
 }): React.ReactElement {
   return (
     <div
@@ -393,7 +394,7 @@ function YearCard({
           textDecoration: "none",
         }}
       >
-        Open Planner &rarr;
+        {plannerLinkText} &rarr;
       </Link>
     </div>
   );
