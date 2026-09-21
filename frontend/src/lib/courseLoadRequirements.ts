@@ -1,5 +1,5 @@
 import type { PlannedCourse } from "./planner";
-import { effectiveSlotSpan, getCourseCredits, getPlacementKey, getSemesterCredits } from "./courseCredits";
+import { effectiveSlotSpan, getCourseCredits, getPlacementKey, getSemesterCredits, isOnePointFivePeriodScienceCourse } from "./courseCredits";
 import { isOutOfSemester } from "./plannerSemesters";
 
 export type SemesterCreditStatus = {
@@ -19,6 +19,17 @@ export type SixthPeriodStatus = {
 export type CourseLoadRequirements = {
   semesterCredits: SemesterCreditStatus[];
   sixthPeriod: SixthPeriodStatus[];
+};
+
+export type LunchLength = "Full Lunch" | "Half Lunch";
+
+export type SemesterLunchLength = {
+  semester: number;
+  lunchLength: LunchLength;
+};
+
+export type LunchLengthResult = {
+  semesters: SemesterLunchLength[];
 };
 
 export function computeSemesterCredits(plannedCourses: PlannedCourse[]): SemesterCreditStatus[] {
@@ -85,4 +96,39 @@ export function computeCourseLoadRequirements(
     semesterCredits: computeSemesterCredits(plannedCourses),
     sixthPeriod: computeSixthPeriod(plannedCourses, grade),
   };
+}
+
+/**
+ * Compute lunch length for each semester based on 1.5-period science courses.
+ *
+ * Rules:
+ * - Half Lunch if: one non-Early Bird 1.5-period science course in the semester,
+ *   OR two 1.5-period science courses (regardless of Early Bird status).
+ * - Full Lunch otherwise.
+ */
+export function computeLunchLength(plannedCourses: PlannedCourse[]): LunchLengthResult {
+  const perSemester: Record<number, PlannedCourse[]> = { 1: [], 2: [] };
+
+  for (const pc of plannedCourses) {
+    if (isOutOfSemester(pc.semester)) continue;
+    if (pc.semester !== 1 && pc.semester !== 2) continue;
+    if (!isOnePointFivePeriodScienceCourse(pc.course)) continue;
+    perSemester[pc.semester].push(pc);
+  }
+
+  const semesters: SemesterLunchLength[] = [1, 2].map((semester) => {
+    const courses = perSemester[semester];
+    const lunchLength = computeSemesterLunchLength(courses);
+    return { semester, lunchLength };
+  });
+
+  return { semesters };
+}
+
+function computeSemesterLunchLength(courses: PlannedCourse[]): LunchLength {
+  if (courses.length === 0) return "Full Lunch";
+  if (courses.length === 1) {
+    return courses[0].isEarlyBird ? "Full Lunch" : "Half Lunch";
+  }
+  return courses.every((c) => c.isEarlyBird) ? "Full Lunch" : "Half Lunch";
 }

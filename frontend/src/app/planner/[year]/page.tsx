@@ -50,7 +50,7 @@ import type { StudentPlanningData } from "@/lib/studentData";
 import { CompletedCoursePicker } from "@/components/planner/CompletedCoursePicker";
 import { EarlyBirdModal } from "@/components/planner/EarlyBirdModal";
 import { normalizePrerequisite, prerequisiteMatches } from "@/lib/prerequisiteNormalization";
-import { computeCourseLoadRequirements } from "@/lib/courseLoadRequirements";
+import { computeCourseLoadRequirements, computeLunchLength } from "@/lib/courseLoadRequirements";
 import {
   SUMMER_SEMESTER,
   SUMMER_SEMESTER_2,
@@ -1935,6 +1935,10 @@ function SummarySidebar({
         )}
       />
 
+      <LunchLengthSection
+        plannedCourses={currentPlanner?.plannedCourses ?? []}
+      />
+
       <div
         style={{
           marginTop: "24px",
@@ -1997,6 +2001,66 @@ function SummaryRow({ label, value }: { label: string; value: string }): React.R
     >
       <span style={{ color: "var(--text-secondary)" }}>{label}</span>
       <span style={{ fontWeight: 400, color: "var(--text-primary)" }}>{value}</span>
+    </div>
+  );
+}
+
+function LunchLengthSection({
+  plannedCourses,
+}: {
+  plannedCourses: PlannedCourse[];
+}): React.ReactElement {
+  const { semesters } = computeLunchLength(plannedCourses);
+
+  return (
+    <div
+      style={{
+        marginTop: "24px",
+        paddingTop: "20px",
+        borderTop: "1px solid var(--border-default)",
+      }}
+    >
+      <h3
+        style={{
+          margin: "0 0 12px",
+          fontSize: "16px",
+          fontWeight: 700,
+          color: "var(--text-primary)",
+        }}
+      >
+        Lunch Length
+      </h3>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+        }}
+      >
+        {semesters.map((s) => (
+          <div
+            key={s.semester}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "14px",
+            }}
+          >
+            <span style={{ color: "var(--text-secondary)" }}>
+              Semester {s.semester}
+            </span>
+            <span
+              style={{
+                fontWeight: 600,
+                color: s.lunchLength === "Half Lunch" ? "var(--brand-accent)" : "var(--text-primary)",
+              }}
+            >
+              {s.lunchLength}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
