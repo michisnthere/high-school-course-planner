@@ -908,7 +908,12 @@
       "skip": "튜토리얼 건너뛰기",
       "back": "뒤로",
       "next": "다음",
-      "finish": "완료"
+      "finish": "완료",
+      "goToCourseCatalog": "과정 카탈로그로 이동",
+      "goToMyPlanner": "내 계획으로 이동",
+      "goToGraduationRequirements": "졸업 요건으로 이동",
+      "goToCompletedCourses": "완료된 과정으로 이동",
+      "goToSavedCourses": "저장된 과정으로 이동"
     },
     "chapters": {
       "welcome": "환영합니다",

@@ -908,7 +908,12 @@
       "skip": "Пропустить обучение",
       "back": "Назад",
       "next": "Далее",
-      "finish": "Завершить"
+      "finish": "Завершить",
+      "goToCourseCatalog": "Перейти к каталогу курсов",
+      "goToMyPlanner": "Перейти к моему плану",
+      "goToGraduationRequirements": "Перейти к требованиям для выпуска",
+      "goToCompletedCourses": "Перейти к завершённым курсам",
+      "goToSavedCourses": "Перейти к сохранённым курсам"
     },
     "chapters": {
       "welcome": "Добро пожаловать",

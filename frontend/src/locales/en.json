@@ -908,7 +908,12 @@
       "skip": "Skip Tutorial",
       "back": "Back",
       "next": "Next",
-      "finish": "Finish"
+      "finish": "Finish",
+      "goToCourseCatalog": "Go to Course Catalog",
+      "goToMyPlanner": "Go to My Planner",
+      "goToGraduationRequirements": "Go to Graduation Requirements",
+      "goToCompletedCourses": "Go to Completed Courses",
+      "goToSavedCourses": "Go to Saved Courses"
     },
     "chapters": {
       "welcome": "Welcome",

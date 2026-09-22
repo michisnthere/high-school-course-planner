@@ -908,7 +908,12 @@
       "skip": "Omitir Tutorial",
       "back": "Atrás",
       "next": "Siguiente",
-      "finish": "Finalizar"
+      "finish": "Finalizar",
+      "goToCourseCatalog": "Ir al Catálogo de Cursos",
+      "goToMyPlanner": "Ir a Mi Planificador",
+      "goToGraduationRequirements": "Ir a Requisitos de Graduación",
+      "goToCompletedCourses": "Ir a Cursos Completados",
+      "goToSavedCourses": "Ir a Cursos Guardados"
     },
     "chapters": {
       "welcome": "Bienvenido",

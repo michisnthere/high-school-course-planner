@@ -239,3 +239,53 @@ describe("Tutorial chapter structure", () => {
     expect(TUTORIAL_CHAPTERS[6].steps).toHaveLength(3);
   });
 });
+
+describe("Tutorial navigation steps", () => {
+  it("catalog-intro is a navigation step requiring /catalog", () => {
+    const result = findStepById("catalog-intro");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/catalog");
+    expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToCourseCatalog");
+  });
+
+  it("planner-intro is a navigation step requiring /planner", () => {
+    const result = findStepById("planner-intro");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/planner");
+    expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToMyPlanner");
+  });
+
+  it("graduation-requirements is a navigation step requiring /requirements", () => {
+    const result = findStepById("graduation-requirements");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/requirements");
+    expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToGraduationRequirements");
+  });
+
+  it("completed-courses is a navigation step requiring /completed-courses", () => {
+    const result = findStepById("completed-courses");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/completed-courses");
+    expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToCompletedCourses");
+  });
+
+  it("saved-courses is a navigation step requiring /saved", () => {
+    const result = findStepById("saved-courses");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/saved");
+    expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToSavedCourses");
+  });
+
+  it("non-navigation steps do not have navigationLabelKey", () => {
+    const result = findStepById("welcome-intro");
+    expect(result).not.toBeNull();
+    expect(result!.step.navigationLabelKey).toBeUndefined();
+  });
+
+  it("search-vs-filters has requiredPath but no navigationLabelKey (not a nav step)", () => {
+    const result = findStepById("search-vs-filters");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/catalog");
+    expect(result!.step.navigationLabelKey).toBeUndefined();
+  });
+});

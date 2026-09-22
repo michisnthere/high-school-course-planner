@@ -12,6 +12,124 @@ type SpotlightRect = {
   height: number;
 } | null;
 
+const EDGE_MARGIN = 16;
+const POPUP_MAX_WIDTH = 400;
+const TARGET_GAP = 12;
+const POPUP_PADDING = 24;
+
+function computePopupPosition(
+  targetRect: DOMRect,
+  preferredPosition: "top" | "bottom" | "left" | "right",
+  popupHeight: number
+): { top: number; left: number; transform: string; position: string } {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const popupWidth = Math.min(POPUP_MAX_WIDTH, vw - EDGE_MARGIN * 2);
+
+  // Available space in each direction from the target.
+  const spaceAbove = targetRect.top - EDGE_MARGIN;
+  const spaceBelow = vh - targetRect.bottom - EDGE_MARGIN;
+  const spaceLeft = targetRect.left - EDGE_MARGIN;
+  const spaceRight = vw - targetRect.right - EDGE_MARGIN;
+
+  // Determine which positions can fit the popup.
+  const canFitTop = spaceAbove >= popupHeight;
+  const canFitBottom = spaceBelow >= popupHeight;
+  const canFitLeft = spaceLeft >= popupWidth;
+  const canFitRight = spaceRight >= popupWidth;
+
+  // On small screens, prefer centered placement if no side fits well.
+  const isSmallScreen = vw < 640;
+
+  let position: "top" | "bottom" | "left" | "right" | "centered" = preferredPosition;
+
+  // If the preferred position doesn't fit, try alternatives.
+  if (position === "top" && !canFitTop) {
+    position = canFitBottom ? "bottom" : canFitRight ? "right" : canFitLeft ? "left" : "centered";
+  } else if (position === "bottom" && !canFitBottom) {
+    position = canFitTop ? "top" : canFitRight ? "right" : canFitLeft ? "left" : "centered";
+  } else if (position === "left" && !canFitLeft) {
+    position = canFitRight ? "right" : canFitTop ? "top" : canFitBottom ? "bottom" : "centered";
+  } else if (position === "right" && !canFitRight) {
+    position = canFitLeft ? "left" : canFitTop ? "top" : canFitBottom ? "bottom" : "centered";
+  }
+
+  // On small screens, prefer centered placement over cramped side placement.
+  if (isSmallScreen && position !== "top" && position !== "bottom") {
+    if (!canFitLeft && !canFitRight) {
+      position = "centered";
+    }
+  }
+
+  if (position === "centered") {
+    return {
+      top: Math.max(EDGE_MARGIN, (vh - popupHeight) / 2),
+      left: Math.max(EDGE_MARGIN, (vw - popupWidth) / 2),
+      transform: "",
+      position: "centered",
+    };
+  }
+
+  let top: number;
+  let left: number;
+  let transform = "";
+
+  switch (position) {
+    case "top":
+      top = targetRect.top - TARGET_GAP - popupHeight;
+      left = targetRect.left + targetRect.width / 2;
+      transform = "translate(-50%, 0)";
+      break;
+    case "bottom":
+      top = targetRect.bottom + TARGET_GAP;
+      left = targetRect.left + targetRect.width / 2;
+      transform = "translate(-50%, 0)";
+      break;
+    case "left":
+      top = targetRect.top + targetRect.height / 2;
+      left = targetRect.left - TARGET_GAP - popupWidth;
+      transform = "translate(0, -50%)";
+      break;
+    case "right":
+    default:
+      top = targetRect.top + targetRect.height / 2;
+      left = targetRect.right + TARGET_GAP;
+      transform = "translate(0, -50%)";
+      break;
+  }
+
+  // Clamp horizontally.
+  if (left < EDGE_MARGIN) {
+    if (transform.includes("translate(-50%")) {
+      // Shift right to stay in view.
+      left = EDGE_MARGIN;
+      // Remove the -50% horizontal shift since we're anchored to left edge.
+      transform = transform.replace("translate(-50%,", "translate(0,");
+    } else {
+      left = EDGE_MARGIN;
+    }
+  } else if (left + popupWidth > vw - EDGE_MARGIN) {
+    if (transform.includes("translate(-50%")) {
+      left = vw - EDGE_MARGIN - popupWidth;
+    } else {
+      left = vw - EDGE_MARGIN - popupWidth;
+    }
+  }
+
+  // Clamp vertically.
+  if (top < EDGE_MARGIN) {
+    top = EDGE_MARGIN;
+  } else if (top + popupHeight > vh - EDGE_MARGIN) {
+    top = vh - EDGE_MARGIN - popupHeight;
+  }
+
+  // Final safety clamp.
+  top = Math.max(EDGE_MARGIN, Math.min(top, vh - EDGE_MARGIN - popupHeight));
+  left = Math.max(EDGE_MARGIN, Math.min(left, vw - EDGE_MARGIN - popupWidth));
+
+  return { top, left, transform, position };
+}
+
 export function TutorialOverlay(): React.ReactElement | null {
   const {
     isOpen,
@@ -23,6 +141,8 @@ export function TutorialOverlay(): React.ReactElement | null {
     chapterStepCount,
     stepInChapter,
     hasTarget,
+    isNavigationStep,
+    navigationReady,
     nextStep,
     prevStep,
     skipTutorial,
@@ -35,8 +155,7 @@ export function TutorialOverlay(): React.ReactElement | null {
   const popupRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  const isLastStep =
-    currentStepIndex === totalSteps - 1;
+  const isLastStep = currentStepIndex === totalSteps - 1;
   const isFirstStep = currentStepIndex === 0;
 
   // Compute spotlight and popup position when step changes.
@@ -86,47 +205,24 @@ export function TutorialOverlay(): React.ReactElement | null {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    // Position popup relative to target.
-    const position = currentStep.target.position ?? "bottom";
-    const gap = 16;
-    const popupWidth = 400;
-    const popupMaxWidth = Math.min(popupWidth, window.innerWidth - 32);
-
-    let top: number;
-    let left: number;
-    let transform = "";
-
-    switch (position) {
-      case "top":
-        top = rect.top - gap;
-        left = rect.left + rect.width / 2;
-        transform = "translate(-50%, -100%)";
-        break;
-      case "bottom":
-        top = rect.bottom + gap;
-        left = rect.left + rect.width / 2;
-        transform = "translate(-50%, 0)";
-        break;
-      case "left":
-        top = rect.top + rect.height / 2;
-        left = rect.left - gap;
-        transform = "translate(-100%, -50%)";
-        break;
-      case "right":
-      default:
-        top = rect.top + rect.height / 2;
-        left = rect.right + gap;
-        transform = "translate(0, -50%)";
-        break;
+    // Measure popup height by temporarily making it visible off-screen.
+    const popupEl = popupRef.current;
+    let popupHeight = 200; // fallback
+    if (popupEl) {
+      popupEl.style.position = "fixed";
+      popupEl.style.top = "-9999px";
+      popupEl.style.left = "-9999px";
+      popupEl.style.visibility = "hidden";
+      popupEl.style.zIndex = "-1";
+      popupHeight = popupEl.scrollHeight;
+      popupEl.style.visibility = "";
+      popupEl.style.zIndex = "";
     }
 
-    // Clamp to viewport.
-    const maxLeft = window.innerWidth - popupMaxWidth - 16;
-    const clampedLeft = Math.max(16, Math.min(left, maxLeft));
-    if (clampedLeft !== left) {
-      transform = transform.replace("translate(-50%", "translate(0");
-      left = clampedLeft;
-    }
+    const preferredPosition = currentStep.target.position ?? "bottom";
+    const { top, left, transform } = computePopupPosition(rect, preferredPosition, popupHeight);
+
+    const popupMaxWidth = Math.min(POPUP_MAX_WIDTH, window.innerWidth - EDGE_MARGIN * 2);
 
     setPopupStyle({
       position: "fixed",
@@ -138,6 +234,19 @@ export function TutorialOverlay(): React.ReactElement | null {
       zIndex: 10002,
     });
   }, [isOpen, currentStep, hasTarget]);
+
+  // Recalculate on window resize.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleResize = () => {
+      // Force re-render to recalculate position.
+      setPopupStyle((prev) => ({ ...prev }));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isOpen]);
 
   // Focus the close button when step changes.
   useEffect(() => {
@@ -156,6 +265,8 @@ export function TutorialOverlay(): React.ReactElement | null {
         skipTutorial();
       } else if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
+        // Don't allow keyboard advance on navigation steps (user must click the nav item).
+        if (isNavigationStep && !navigationReady) return;
         if (isLastStep) {
           completeTutorial();
         } else {
@@ -168,7 +279,7 @@ export function TutorialOverlay(): React.ReactElement | null {
         }
       }
     },
-    [isOpen, isFirstStep, isLastStep, nextStep, prevStep, skipTutorial, completeTutorial]
+    [isOpen, isFirstStep, isLastStep, isNavigationStep, navigationReady, nextStep, prevStep, skipTutorial, completeTutorial]
   );
 
   useEffect(() => {
@@ -258,10 +369,13 @@ export function TutorialOverlay(): React.ReactElement | null {
           backgroundColor: "var(--bg-card)",
           border: "1px solid var(--border-default)",
           borderRadius: "16px",
-          padding: "24px",
+          padding: `${POPUP_PADDING}px`,
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
-          maxWidth: "400px",
+          maxWidth: `${Math.min(POPUP_MAX_WIDTH, window.innerWidth - EDGE_MARGIN * 2)}px`,
           width: "100%",
+          maxHeight: `calc(100vh - ${EDGE_MARGIN * 2}px)`,
+          overflowY: "auto",
+          boxSizing: "border-box",
         }}
       >
         {/* Chapter label */}
@@ -397,23 +511,44 @@ export function TutorialOverlay(): React.ReactElement | null {
                 {t("tutorial.actions.back")}
               </button>
             )}
-            <button
-              onClick={isLastStep ? completeTutorial : nextStep}
-              style={{
-                fontSize: "14px",
-                fontWeight: 600,
-                color: "#FFFFFF",
-                backgroundColor: "var(--brand-accent)",
-                border: "none",
-                borderRadius: "8px",
-                padding: "8px 20px",
-                cursor: "pointer",
-              }}
-            >
-              {isLastStep
-                ? t("tutorial.actions.finish")
-                : t("tutorial.actions.next")}
-            </button>
+            {isNavigationStep && !navigationReady ? (
+              <button
+                disabled
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#FFFFFF",
+                  backgroundColor: "var(--brand-accent)",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "8px 20px",
+                  cursor: "not-allowed",
+                  opacity: 0.7,
+                }}
+              >
+                {currentStep.navigationLabelKey
+                  ? t(currentStep.navigationLabelKey)
+                  : t("tutorial.actions.next")}
+              </button>
+            ) : (
+              <button
+                onClick={isLastStep ? completeTutorial : nextStep}
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#FFFFFF",
+                  backgroundColor: "var(--brand-accent)",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "8px 20px",
+                  cursor: "pointer",
+                }}
+              >
+                {isLastStep
+                  ? t("tutorial.actions.finish")
+                  : t("tutorial.actions.next")}
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -908,7 +908,12 @@
       "skip": "跳过教程",
       "back": "返回",
       "next": "下一步",
-      "finish": "完成"
+      "finish": "完成",
+      "goToCourseCatalog": "前往课程目录",
+      "goToMyPlanner": "前往我的计划",
+      "goToGraduationRequirements": "前往毕业要求",
+      "goToCompletedCourses": "前往已完成课程",
+      "goToSavedCourses": "前往已保存课程"
     },
     "chapters": {
       "welcome": "欢迎",

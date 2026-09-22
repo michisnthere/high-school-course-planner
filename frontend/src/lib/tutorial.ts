@@ -20,6 +20,8 @@ export type TutorialStep = {
   target?: TutorialStepTarget;
   /** Whether this step requires a specific page to be loaded. */
   requiredPath?: string;
+  /** Translation key for the navigation action button label (e.g., "Go to Course Catalog"). */
+  navigationLabelKey?: string;
 };
 
 export type TutorialChapter = {
@@ -55,6 +57,8 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
           selector: "[data-tour='nav-catalog']",
           position: "right",
         },
+        requiredPath: "/catalog",
+        navigationLabelKey: "tutorial.actions.goToCourseCatalog",
       },
       {
         id: "search-vs-filters",
@@ -90,6 +94,8 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
           selector: "[data-tour='nav-planner']",
           position: "right",
         },
+        requiredPath: "/planner",
+        navigationLabelKey: "tutorial.actions.goToMyPlanner",
       },
       {
         id: "four-years-semesters",
@@ -181,6 +187,8 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
           selector: "[data-tour='nav-requirements']",
           position: "right",
         },
+        requiredPath: "/requirements",
+        navigationLabelKey: "tutorial.actions.goToGraduationRequirements",
       },
       {
         id: "requirement-progress",
@@ -206,6 +214,8 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
           selector: "[data-tour='nav-completed']",
           position: "right",
         },
+        requiredPath: "/completed-courses",
+        navigationLabelKey: "tutorial.actions.goToCompletedCourses",
       },
       {
         id: "saved-courses",
@@ -215,6 +225,8 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
           selector: "[data-tour='nav-saved']",
           position: "right",
         },
+        requiredPath: "/saved",
+        navigationLabelKey: "tutorial.actions.goToSavedCourses",
       },
     ],
   },

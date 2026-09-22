@@ -43,6 +43,10 @@ type TutorialContextType = {
   stepInChapter: number;
   /** Whether the current step has a valid target element. */
   hasTarget: boolean;
+  /** Whether the current step requires navigation to a specific route. */
+  isNavigationStep: boolean;
+  /** Whether the user has navigated to the required route (or the step has no required path). */
+  navigationReady: boolean;
   /** Open the tutorial from the beginning. */
   startTutorial: () => void;
   /** Open the tutorial at a specific step. */
@@ -90,19 +94,33 @@ function findChapterForStepIndex(
   };
 }
 
+/**
+ * Check if the current pathname matches the required path.
+ * Uses startsWith for paths like "/planner/" that match "/planner/12".
+ */
+function isPathMatch(pathname: string, requiredPath: string): boolean {
+  if (requiredPath.endsWith("/")) {
+    return pathname === requiredPath || pathname.startsWith(requiredPath);
+  }
+  return pathname === requiredPath || pathname.startsWith(requiredPath + "/");
+}
+
 export function TutorialProvider({
   preferences,
   onMarkCompleted,
+  pathname,
   children,
 }: {
   preferences: Preferences;
   onMarkCompleted: () => void;
+  pathname: string;
   children: ReactNode;
 }): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const [flatIndex, setFlatIndex] = useState(0);
   const [hasTarget, setHasTarget] = useState(false);
   const stepCheckRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoAdvanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const flatSteps = getFlatSteps();
   const totalSteps = flatSteps.length;
@@ -127,6 +145,12 @@ export function TutorialProvider({
 
   const chapterStepCount = currentChapter?.steps.length ?? 0;
 
+  // Determine if the current step is a navigation step and if the route is satisfied.
+  const isNavigationStep = Boolean(currentStep?.requiredPath);
+  const navigationReady = currentStep?.requiredPath
+    ? isPathMatch(pathname, currentStep.requiredPath)
+    : true;
+
   // Check if the current step's target element exists in the DOM.
   const checkTarget = useCallback(() => {
     if (!currentStep?.target) {
@@ -147,6 +171,21 @@ export function TutorialProvider({
       };
     }
   }, [isOpen, currentStep, checkTarget]);
+
+  // Auto-advance when the user navigates to the required route.
+  useEffect(() => {
+    if (!isOpen || !currentStep?.requiredPath) return;
+    if (isPathMatch(pathname, currentStep.requiredPath)) {
+      // Small delay to let the new page render its elements.
+      if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+      autoAdvanceRef.current = setTimeout(() => {
+        checkTarget();
+      }, 400);
+      return () => {
+        if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+      };
+    }
+  }, [isOpen, currentStep, pathname, checkTarget]);
 
   // Auto-show for first-time users.
   useEffect(() => {
@@ -222,6 +261,8 @@ export function TutorialProvider({
     chapterStepCount,
     stepInChapter: stepInChapter + 1,
     hasTarget,
+    isNavigationStep,
+    navigationReady,
     startTutorial,
     goToStep,
     nextStep,

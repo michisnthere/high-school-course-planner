@@ -1,6 +1,7 @@
 "use client";
 
 import React, { type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { PreferencesProvider, usePreferences } from "@/context/PreferencesContext";
 import { I18nProvider } from "@/context/I18nContext";
 import { TutorialProvider } from "@/context/TutorialContext";
@@ -17,10 +18,12 @@ function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
 
 function TutorialBridge({ children }: { children: ReactNode }): React.ReactElement {
   const { preferences, markTutorialCompleted } = usePreferences();
+  const pathname = usePathname();
   return (
     <TutorialProvider
       preferences={preferences}
       onMarkCompleted={markTutorialCompleted}
+      pathname={pathname}
     >
       {children}
       <TutorialOverlay />
