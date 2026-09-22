@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 import { usePlannerService, useCompletedCoursesService, useSavedCoursesService, useResolutionsService } from "@/services/ServiceContext";
 import { hasGuestProgress } from "@/lib/guestProgress";
 import { breakpoints } from "@/lib/responsive";
@@ -10,6 +11,7 @@ const DISMISS_KEY = "guest_upgrade_dismissed";
 
 export function GuestUpgradePrompt() {
   const { isGuest } = useAuth();
+  const { t } = useTranslation();
   const plannerService = usePlannerService();
   const completedCoursesService = useCompletedCoursesService();
   const savedCoursesService = useSavedCoursesService();
@@ -133,9 +135,9 @@ export function GuestUpgradePrompt() {
           <strong>You&apos;re in Guest Mode.</strong> Your courses and plans won&apos;t be saved after you leave. Sign in with Google to keep your progress.
         </div>
         <button type="button" className="guest-upgrade-btn" onClick={handleSignIn}>
-          Sign In
+          {t("auth.signIn")}
         </button>
-        <button type="button" className="guest-upgrade-close" onClick={handleDismiss} aria-label="Dismiss">
+        <button type="button" className="guest-upgrade-close" onClick={handleDismiss} aria-label={t("common.dismiss")}>
           ×
         </button>
       </div>

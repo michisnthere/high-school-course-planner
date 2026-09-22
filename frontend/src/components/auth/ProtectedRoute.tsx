@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -13,11 +14,12 @@ export function ProtectedRoute({
   fallback,
 }: ProtectedRouteProps): React.ReactElement | null {
   const { mode, loading } = useAuth();
+  const { t } = useTranslation();
 
   if (loading) {
     return (
       <div style={{ padding: "32px" }}>
-        Loading...
+        {t("auth.loading")}
       </div>
     );
   }

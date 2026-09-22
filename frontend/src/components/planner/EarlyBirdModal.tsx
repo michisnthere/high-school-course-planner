@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 type EarlyBirdModalProps = {
   courseTitle: string;
@@ -9,6 +10,7 @@ type EarlyBirdModalProps = {
 };
 
 export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModalProps): React.ReactElement {
+  const { t } = useTranslation();
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const previousFocusRef = React.useRef<HTMLElement | null>(null);
 
@@ -86,7 +88,7 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
             color: "#ffffff",
           }}
         >
-          Take this course as Early Bird?
+          {t("plannerEarlyBird.takeEarlyBird")}
         </h2>
 
         <p style={{ margin: "0 0 8px", fontSize: "15px", color: "#e5e7eb", fontWeight: 600 }}>
@@ -105,28 +107,28 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
           }}
         >
           <p style={{ margin: "0 0 12px", fontWeight: 600, color: "#e5e7eb" }}>
-            Early Bird classes meet:
+            {t("plannerEarlyBird.earlyBirdClassesMeet")}
           </p>
           <p style={{ margin: "0 0 4px" }}>
-            • Monday, Wednesday, Friday
+            {t("plannerEarlyBird.mwf")}
           </p>
           <p style={{ margin: "0 0 12px", paddingLeft: "20px" }}>
-            7:45 AM
+            {t("plannerEarlyBird.mwfTime")}
           </p>
           <p style={{ margin: "0 0 12px" }}>
-            • Tuesday, Thursday
+            {t("plannerEarlyBird.tt")}
           </p>
           <p style={{ margin: "0 0 16px", paddingLeft: "20px" }}>
-            Regular school time
+            {t("plannerEarlyBird.ttTime")}
           </p>
           <p style={{ margin: "0 0 4px", fontWeight: 600, color: "#fca5a5" }}>
-            Please note:
+            {t("plannerEarlyBird.pleaseNote")}
           </p>
           <p style={{ margin: "0 0 4px" }}>
-            • Stevenson does NOT provide bus transportation for Early Bird classes.
+            {t("plannerEarlyBird.noBus")}
           </p>
           <p style={{ margin: 0 }}>
-            • Students are responsible for arranging transportation on Monday, Wednesday, and Friday.
+            {t("plannerEarlyBird.transportationNote")}
           </p>
         </div>
 
@@ -145,7 +147,7 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
               cursor: "pointer",
             }}
           >
-            Regular Section
+            {t("plannerEarlyBird.regularSection")}
           </button>
           <button
             type="button"
@@ -161,7 +163,7 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
               cursor: "pointer",
             }}
           >
-            🐤 Early Bird
+            {t("plannerEarlyBird.earlyBirdButton")}
           </button>
         </div>
       </div>

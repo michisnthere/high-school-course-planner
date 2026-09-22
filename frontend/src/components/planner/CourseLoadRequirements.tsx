@@ -1,6 +1,7 @@
 import React from "react";
 import type { CourseLoadRequirements } from "@/lib/courseLoadRequirements";
 import { formatCredits } from "@/lib/courseCredits";
+import { useTranslation } from "@/context/I18nContext";
 
 type Props = {
   requirements: CourseLoadRequirements;
@@ -13,6 +14,7 @@ function ProgressBar({
   earned: number;
   required: number;
 }): React.ReactElement {
+  const { t } = useTranslation();
   const percent = required > 0 ? Math.min(100, (earned / required) * 100) : 0;
   const isMet = earned >= required;
 
@@ -31,7 +33,7 @@ function ProgressBar({
         aria-valuenow={Math.round(percent)}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`Progress: ${formatCredits(earned)} of ${required} credits`}
+        aria-label={t("plannerCourseLoad.progressAriaLabel", { earned: formatCredits(earned), required: String(required) })}
         style={{
           flex: 1,
           height: "6px",
@@ -51,7 +53,7 @@ function ProgressBar({
         />
       </div>
       <span style={{ minWidth: "70px", textAlign: "right", fontWeight: 400 }}>
-        {formatCredits(earned)} / {required}
+        {t("plannerCourseLoad.progressDisplay", { earned: formatCredits(earned), required: String(required) })}
       </span>
     </div>
   );
@@ -61,6 +63,7 @@ export function CourseLoadRequirements({
   requirements,
 }: Props): React.ReactElement | null {
   const { semesterCredits, sixthPeriod } = requirements;
+  const { t } = useTranslation();
   const allMet =
     semesterCredits.every((s) => s.isMet) &&
     sixthPeriod.every((s) => s.isMet);
@@ -81,7 +84,7 @@ export function CourseLoadRequirements({
           color: "#275D38",
         }}
       >
-        Course Load Requirements
+        {t("plannerCourseLoad.courseLoadRequirements")}
       </h3>
 
       <ul
@@ -108,12 +111,12 @@ export function CourseLoadRequirements({
             <span style={{ fontSize: "16px" }}>
               {semesterCredits.every((s) => s.isMet) ? "✓" : "⚠"}
             </span>
-            <span>At least five credits of coursework</span>
+            <span>{t("plannerCourseLoad.atLeastFiveCredits")}</span>
           </div>
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "4px" }}>
             {semesterCredits.map((s) => (
               <div key={s.semester} style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
-                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>Semester {s.semester}:</span>{" "}
+                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>{t("plannerCourseLoad.semesterPrefix")}{s.semester}:</span>{" "}
                 <ProgressBar earned={s.earnedCredits} required={s.requiredCredits} />
               </div>
             ))}
@@ -134,7 +137,7 @@ export function CourseLoadRequirements({
             <span style={{ fontSize: "16px" }}>
               {sixthPeriod.every((s) => s.isMet) ? "✓" : "⚠"}
             </span>
-            <span>A sixth supervised period</span>
+            <span>{t("plannerCourseLoad.sixthSupervisedPeriod")}</span>
           </div>
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "4px" }}>
             {sixthPeriod.map((s) => (
@@ -145,7 +148,7 @@ export function CourseLoadRequirements({
                   color: s.isMet ? "var(--brand-primary-hover)" : "var(--brand-accent)",
                 }}
               >
-                Semester {s.semester}: {s.filledCount} / {s.requiredCount} periods filled
+                {t("plannerCourseLoad.periodStatus", { semester: String(s.semester), filled: String(s.filledCount), required: String(s.requiredCount) })}
               </div>
             ))}
           </div>

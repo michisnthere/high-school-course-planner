@@ -2,14 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-
-const actions = [
-  { label: "Browse Catalog", href: "/catalog" },
-  { label: "My Planner", href: "/planner" },
-  { label: "Graduation Requirements", href: "/requirements" },
-];
+import { useTranslation } from "@/context/I18nContext";
 
 export function DashboardActions(): React.ReactElement {
+  const { t } = useTranslation();
+  const actions = [
+    { label: t("dashboard.browseCourses"), href: "/catalog" },
+    { label: t("dashboard.actionPlanner"), href: "/planner" },
+    { label: t("dashboard.actionGraduationRequirements"), href: "/requirements" },
+  ];
+
   return (
     <div
       style={{

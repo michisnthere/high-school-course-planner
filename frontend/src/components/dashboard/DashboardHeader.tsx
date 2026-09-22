@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 export function DashboardHeader(): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <div style={{ marginBottom: "32px" }}>
       <h1
@@ -12,7 +14,7 @@ export function DashboardHeader(): React.ReactElement {
           lineHeight: 1.2,
         }}
       >
-        Dashboard
+        {t("dashboard.dashboardTitle")}
       </h1>
       <p
         style={{
@@ -21,7 +23,7 @@ export function DashboardHeader(): React.ReactElement {
           color: "var(--text-secondary)",
         }}
       >
-        Explore courses, plan your schedule, and track graduation requirements all in one place.
+        {t("dashboard.dashboardSubtitle")}
       </p>
     </div>
   );

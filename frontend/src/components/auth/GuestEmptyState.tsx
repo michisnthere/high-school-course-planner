@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "@/context/I18nContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 
 type GuestEmptyStateProps = {
@@ -30,6 +31,7 @@ export function GuestEmptyState({
   title,
   description,
 }: GuestEmptyStateProps): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <ResponsivePage>
       <h1
@@ -63,7 +65,7 @@ export function GuestEmptyState({
           {description}
         </p>
         <Link href="/login" style={guestButtonStyle}>
-          Sign In
+          {t("auth.signIn")}
         </Link>
       </div>
     </ResponsivePage>

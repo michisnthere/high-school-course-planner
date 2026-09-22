@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Course } from "@/types/course";
 import { formatCreditType } from "@/lib/catalog";
 import { getCourseSlug } from "@/lib/normalize";
+import { useTranslation } from "@/context/I18nContext";
 
 type RecentCoursesProps = {
   courses: Course[];
@@ -13,6 +14,7 @@ export function RecentCourses({
   courses,
   limit = 5,
 }: RecentCoursesProps): React.ReactElement {
+  const { t } = useTranslation();
   const preview = courses.slice(0, limit);
 
   return (
@@ -34,7 +36,7 @@ export function RecentCourses({
         color: "var(--text-primary)",
       }}
     >
-      Recent Courses
+      {t("dashboard.recentCourses")}
       </h2>
 
       {preview.length === 0 ? (
@@ -44,7 +46,7 @@ export function RecentCourses({
             fontSize: "14px",
           }}
         >
-          No courses available.
+          {t("dashboard.noCoursesAvailable")}
         </p>
       ) : (
         <ul

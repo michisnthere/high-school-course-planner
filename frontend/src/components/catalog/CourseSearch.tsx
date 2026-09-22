@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useCallback } from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 type CourseSearchProps = {
   value: string;
@@ -30,6 +31,7 @@ const searchBtnStyle: React.CSSProperties = {
 };
 
 export function CourseSearch({ value, onChange, onSubmit, onKeyDown, disabled, onClear }: CourseSearchProps): React.ReactElement {
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClear = useCallback(() => {
@@ -51,8 +53,8 @@ export function CourseSearch({ value, onChange, onSubmit, onKeyDown, disabled, o
           <input
             ref={inputRef}
             type="text"
-            aria-label="Search courses"
-            placeholder="Search courses..."
+            aria-label={t("courseSearch.searchAriaLabel")}
+            placeholder={t("courseSearch.searchPlaceholder")}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={onKeyDown}
@@ -73,7 +75,7 @@ export function CourseSearch({ value, onChange, onSubmit, onKeyDown, disabled, o
             <button
               type="button"
               onClick={handleClear}
-              aria-label="Clear search"
+              aria-label={t("courseSearch.clearSearch")}
               style={{
                 position: "absolute",
                 right: "4px",
@@ -101,7 +103,7 @@ export function CourseSearch({ value, onChange, onSubmit, onKeyDown, disabled, o
           type="button"
           onClick={onSubmit}
           disabled={disabled}
-          aria-label="Search"
+          aria-label={t("courseSearch.searchButtonAriaLabel")}
           style={{
             ...searchBtnStyle,
             opacity: disabled ? 0.5 : 1,
@@ -112,7 +114,7 @@ export function CourseSearch({ value, onChange, onSubmit, onKeyDown, disabled, o
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.35-4.35" />
           </svg>
-          Search
+           {t("courseSearch.searchButton")}
         </button>
       </div>
     </div>

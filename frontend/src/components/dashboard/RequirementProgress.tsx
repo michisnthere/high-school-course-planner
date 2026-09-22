@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 const placeholderRequirements = [
   { label: "English", value: 8, total: 8 },
@@ -8,6 +9,7 @@ const placeholderRequirements = [
 ];
 
 export function RequirementProgress(): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -27,7 +29,7 @@ export function RequirementProgress(): React.ReactElement {
         color: "var(--text-primary)",
       }}
     >
-      Requirement Progress
+      {t("dashboard.requirementProgress")}
       </h2>
 
       <div

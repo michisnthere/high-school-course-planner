@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "@/context/I18nContext";
 import {
   computeWaiverEligibility,
   computeAthleticVariantEligibility,
@@ -18,11 +19,13 @@ type WaiverSectionProps = {
   onRemoveResolution: (id: number) => void;
 };
 
-const VARIANT_INFO: Record<WaiverVariant, { label: string; subtitle: string }> = {
-  academic: { label: "Academic PE Waiver", subtitle: "Only available to Seniors with 6 credit-bearing classes" },
-  athletic: { label: "Athletic PE Waiver", subtitle: "Available to Juniors and Seniors" },
-  "marching-band": { label: "Marching Band PE Waiver", subtitle: "Available Grades 9–12" },
-};
+function getVariantInfo(t: (key: string) => string): Record<WaiverVariant, { label: string; subtitle: string }> {
+  return {
+    academic: { label: t("plannerWaivers.academicWaiver"), subtitle: t("plannerWaivers.academicWaiverSubtitle") },
+    athletic: { label: t("plannerWaivers.athleticWaiver"), subtitle: t("plannerWaivers.athleticWaiverSubtitle") },
+    "marching-band": { label: t("plannerWaivers.marchingBandWaiver"), subtitle: t("plannerWaivers.marchingBandWaiverSubtitle") },
+  };
+}
 
 // Existing app palette accents preserved per waiver type.
 const VARIANT_ACCENT: Record<WaiverVariant, string> = {
@@ -88,6 +91,7 @@ export function WaiverSection({
   onAddResolution,
   onRemoveResolution,
 }: WaiverSectionProps): React.ReactElement {
+  const { t } = useTranslation();
   const [addingVariant, setAddingVariant] = useState<WaiverVariant | null>(null);
   const [showSportQuestion, setShowSportQuestion] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState<string | null>(null);
@@ -146,14 +150,14 @@ export function WaiverSection({
   return (
     <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--border-default)" }}>
       <h3 style={{ margin: "0 0 12px", fontSize: "16px", fontWeight: 700, color: "#275D38" }}>
-        PE Waivers
+        {t("plannerWaivers.peWaivers")}
       </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         {displayedVariants.map((variant) => {
           const applied = hasVariant(variant);
           const active = addingVariant === variant;
-          const info = VARIANT_INFO[variant];
+          const info = getVariantInfo(t)[variant];
           const accent = VARIANT_ACCENT[variant];
           const elig =
             variant === "academic" ? eligibility.academic :
@@ -182,7 +186,7 @@ export function WaiverSection({
                     onClick={() => onRemoveResolution(yearWaivers.find((r) => findVariant(r) === variant)!.id)}
                     style={secondaryButtonStyle()}
                   >
-                    Remove
+                    {t("plannerWaivers.remove")}
                   </button>
                 </div>
               ) : active && variant !== "academic" ? (
@@ -219,7 +223,7 @@ export function WaiverSection({
                     onClick={() => handleAdd(variant)}
                     style={waiverButtonStyle(accent, elig.eligible)}
                   >
-                    Apply
+                    {t("plannerWaivers.apply")}
                   </button>
                 </div>
               )}
@@ -246,29 +250,27 @@ export function WaiverSection({
             }}
           >
             <h3 style={{ margin: "0 0 16px", fontSize: "20px", fontWeight: 700, color: "#ffffff" }}>
-              Marching Band PE Waiver
+              {t("plannerWaivers.marchingBandTitle")}
             </h3>
             <p style={{ margin: "0 0 16px", fontSize: "14px", color: "#d1d5db", lineHeight: 1.6 }}>
-              Any student in grades 9–12 who is enrolled in one of these courses
-              and is a member of the Marching Band may waive their Physical
-              Education requirement during first semester.
+              {t("plannerWaivers.marchingBandDescription")}
             </p>
             <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "#ffffff" }}>
-              Eligible courses:
+              {t("plannerWaivers.eligibleCourses")}
             </p>
             <ul style={{ margin: "0 0 20px", padding: "0 0 0 20px", fontSize: "14px", color: "#d1d5db", lineHeight: 1.8 }}>
-              <li>Freshman Band</li>
-              <li>Wind Ensemble</li>
-              <li>Symphonic Band</li>
-              <li>Wind Symphony</li>
-              <li>Color Guard</li>
+              <li>{t("plannerWaivers.freshmanBand")}</li>
+              <li>{t("plannerWaivers.windEnsemble")}</li>
+              <li>{t("plannerWaivers.symphonicBand")}</li>
+              <li>{t("plannerWaivers.windSymphony")}</li>
+              <li>{t("plannerWaivers.colorGuard")}</li>
             </ul>
             <button
               type="button"
               onClick={() => setShowBandModal(false)}
               style={secondaryButtonStyle()}
             >
-              Close
+              {t("plannerWaivers.close")}
             </button>
           </div>
         </div>
@@ -298,6 +300,7 @@ function AddVariantFlow({
   setShowBandModal: (v: boolean) => void;
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
 }): React.ReactElement | null {
+  const { t } = useTranslation();
   if (variant === "marching-band") {
     const elig = eligibility.marchingBand;
     return (
@@ -308,15 +311,15 @@ function AddVariantFlow({
         {elig.eligible && (
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             <button type="button" onClick={onConfirm} style={waiverButtonStyle(accent, true)}>
-              Apply Waiver
+              {t("plannerWaivers.applyWaiver")}
             </button>
             <button type="button" onClick={() => setShowBandModal(true)} style={secondaryButtonStyle()}>
-              Learn More
+              {t("plannerWaivers.learnMore")}
             </button>
           </div>
         )}
         <button type="button" onClick={onCancel} style={{ ...secondaryButtonStyle(), alignSelf: "flex-start" }}>
-          Cancel
+          {t("planner.cancel")}
         </button>
       </div>
     );
@@ -328,7 +331,7 @@ function AddVariantFlow({
         <div>
           <p style={{ margin: "0 0 8px", fontSize: "12px", color: "#4B5563" }}>{confirmMessage}</p>
           <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
-            OK
+            {t("plannerWaivers.ok")}
           </button>
         </div>
       );
@@ -337,13 +340,13 @@ function AddVariantFlow({
     if (showSportQuestion) {
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <p style={{ margin: 0, fontSize: "12px", color: "#374151" }}>Are you participating in a JV or Varsity sport?</p>
+          <p style={{ margin: 0, fontSize: "12px", color: "#374151" }}>{t("plannerWaivers.participatingInSport")}</p>
           <div style={{ display: "flex", gap: "8px" }}>
             <button type="button" onClick={() => { setShowSportQuestion(false); onConfirm(); }} style={waiverButtonStyle(accent, true)}>
-              Yes
+              {t("plannerWaivers.yes")}
             </button>
             <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
-              No
+              {t("plannerWaivers.no")}
             </button>
           </div>
         </div>
@@ -353,7 +356,7 @@ function AddVariantFlow({
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <div style={{ fontSize: "12px", color: "#374151" }}>
-          How many JV/Varsity sports do you participate in?
+          {t("plannerWaivers.howManySports")}
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
           {(["one", "two-or-more"] as const).map((count) => (
@@ -364,11 +367,11 @@ function AddVariantFlow({
                 onAddResolution({ type: "pe_waiver", metadata: { variant: "athletic", athleticVariant: result.variant, year: grade } });
               }}
               style={waiverButtonStyle(accent, true)}>
-              {count === "one" ? "One sport" : "Two or more sports"}
+              {count === "one" ? t("plannerWaivers.oneSport") : t("plannerWaivers.twoOrMoreSports")}
             </button>
           ))}
           <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
-            Cancel
+            {t("planner.cancel")}
           </button>
         </div>
       </div>

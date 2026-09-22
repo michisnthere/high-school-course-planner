@@ -903,4 +903,80 @@ describe("computePlannerAnalysis", () => {
       expect(ush?.earnedValue).toBe(2);
     });
   });
+
+  describe("completed vs planned breakdown", () => {
+    it("shows completed and planned values separately for a requirement with both", () => {
+      const planners = [makePlanner(9, [makePlanned(english10, 1, 1)]), makePlanner(10)];
+      const completed = [makeCompleted(english9, "Freshman (9)")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      const eng = result.graduationRequirements.find((r) => r.name === "English");
+      expect(eng).toBeDefined();
+      expect(eng!.completedValue).toBe(2);
+      expect(eng!.plannedValue).toBe(2);
+      expect(eng!.earnedValue).toBe(4);
+    });
+
+    it("planned courses are not counted in the earned view", () => {
+      const planners = [makePlanner(9, [makePlanned(english10, 1, 1)])];
+      const completed: CompletedCourse[] = [];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      const engEarned = result.earned?.graduationRequirements.find((r) => r.name === "English");
+      const engProjected = result.graduationRequirements.find((r) => r.name === "English");
+      expect(engEarned!.earnedValue).toBe(0);
+      expect(engProjected!.earnedValue).toBe(2);
+      expect(engProjected!.completedValue).toBe(0);
+      expect(engProjected!.plannedValue).toBe(2);
+    });
+
+    it("no double-counting between completed and planned", () => {
+      const planners = [makePlanner(9, [makePlanned(english9, 1, 1)])];
+      const completed = [makeCompleted(english9, "Freshman (9)")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+      const eng = result.graduationRequirements.find((r) => r.name === "English");
+      // completed=2 (from completedCourses), planned=0 (deduplicated out since completed year)
+      expect(eng!.completedValue).toBe(2);
+      expect(eng!.plannedValue).toBe(0);
+      expect(eng!.earnedValue).toBe(2);
+    });
+
+    it("marking a planned course as completed moves credits from planned to completed", () => {
+      // Before: English 9 planned (not completed) -> planned
+      const plannersBefore = [makePlanner(9, [makePlanned(english9, 1, 1)]), makePlanner(10)];
+      const resultBefore = computePlannerAnalysis({ planners: plannersBefore, completedCourses: [], resolutions: [], allCourses });
+      const engBefore = resultBefore.graduationRequirements.find((r) => r.name === "English");
+      expect(engBefore!.completedValue).toBe(0);
+      expect(engBefore!.plannedValue).toBe(2);
+
+      // After: English 9 completed -> moves to completed
+      const plannersAfter = [makePlanner(9, []), makePlanner(10)];
+      const completedAfter = [makeCompleted(english9, "Freshman (9)")];
+      const resultAfter = computePlannerAnalysis({ planners: plannersAfter, completedCourses: completedAfter, resolutions: [], allCourses });
+      const engAfter = resultAfter.graduationRequirements.find((r) => r.name === "English");
+      expect(engAfter!.completedValue).toBe(2);
+      expect(engAfter!.plannedValue).toBe(0);
+    });
+
+    it("removing a planned course decreases the planned portion", () => {
+      // With planned course
+      const plannersWith = [makePlanner(9, [makePlanned(english9, 1, 1)]), makePlanner(10)];
+      const resultWith = computePlannerAnalysis({ planners: plannersWith, completedCourses: [], resolutions: [], allCourses });
+      const engWith = resultWith.graduationRequirements.find((r) => r.name === "English");
+      expect(engWith!.plannedValue).toBe(2);
+
+      // Without planned course
+      const plannersWithout = [makePlanner(9, []), makePlanner(10)];
+      const resultWithout = computePlannerAnalysis({ planners: plannersWithout, completedCourses: [], resolutions: [], allCourses });
+      const engWithout = resultWithout.graduationRequirements.find((r) => r.name === "English");
+      expect(engWithout!.plannedValue).toBe(0);
+    });
+
+    it("earned view has plannedValue=0 for all requirements", () => {
+      const planners = [makePlanner(9, [makePlanned(english9, 1, 1)])];
+      const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions: [], allCourses });
+      for (const req of result.earned!.graduationRequirements) {
+        expect(req.plannedValue).toBe(0);
+        expect(req.completedValue).toBe(req.earnedValue);
+      }
+    });
+  });
 });

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/context/I18nContext";
+
 export default function PlannerError({
   error,
   reset,
@@ -7,6 +9,8 @@ export default function PlannerError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -85,7 +89,7 @@ export default function PlannerError({
               cursor: "pointer",
             }}
           >
-            Refresh
+            {t("errorPagePlanner.refresh")}
           </button>
           <a
             href="/planner"
@@ -101,7 +105,7 @@ export default function PlannerError({
               textDecoration: "none",
             }}
           >
-            Return to Planner
+            {t("errorPagePlanner.returnToPlanner")}
           </a>
           <a
             href="/"
@@ -117,7 +121,7 @@ export default function PlannerError({
               textDecoration: "none",
             }}
           >
-            Dashboard
+            {t("errorPagePlanner.dashboard")}
           </a>
           <a
             href="https://forms.gle/gPebJ41P8r8sUEsW6"
@@ -135,7 +139,7 @@ export default function PlannerError({
               textDecoration: "none",
             }}
           >
-            Report a Bug
+            {t("errorPagePlanner.reportBug")}
           </a>
         </div>
       </div>

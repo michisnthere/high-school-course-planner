@@ -28,7 +28,7 @@ function GlobeIcon(): React.ReactElement {
       height="28"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke="var(--a11y-icon-color)"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -223,6 +223,7 @@ function LanguageDialog({
 export function LanguageSettingsButton(): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -231,8 +232,8 @@ export function LanguageSettingsButton(): React.ReactElement {
         type="button"
         className="rs-a11y-button"
         data-tour="language-settings"
-        aria-label="Language Settings"
-        title="Language Settings"
+        aria-label={t("language.dialogTitle")}
+        title={t("language.dialogTitle")}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         aria-controls={isOpen ? "rs-lang-dialog" : undefined}

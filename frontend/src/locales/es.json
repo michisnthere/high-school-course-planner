@@ -71,7 +71,25 @@
     "recentActivity": "Actividad Reciente",
     "studentFallback": "Estudiante",
     "openPlanner": "Abrir Planificador →",
-    "progressLabel": "Progreso: {value}%"
+    "progressLabel": "Progreso: {value}%",
+    "dashboardTitle": "Panel",
+    "dashboardSubtitle": "Explora cursos, planifica tu horario y rastrea los requisitos de graduación, todo en un solo lugar.",
+    "browseCourses": "Examinar Cursos",
+    "buildMyPlanner": "Crear Mi Planificador",
+    "viewRequirements": "Ver Requisitos",
+    "exploreCourses": "Explorar Cursos",
+    "recentCourses": "Cursos Recientes",
+    "noCoursesAvailable": "No hay cursos disponibles.",
+    "noRequirementsFound": "No se encontraron requisitos de graduación.",
+    "requirementProgress": "Progreso de Requisitos",
+    "loadingGpa": "Cargando proyección de GPA...",
+    "gpaProjection": "Proyección de GPA",
+    "currentGpa": "GPA Actual",
+    "creditsCompleted": "Créditos Completados",
+    "projectedGpa": "GPA Proyectado",
+    "gpaDescription": "Tu GPA proyectado se calcula usando tus cursos completados y el coursework planificado. La proyección se actualiza cuando ajustas tu plan de cuatro años, incluyendo la selección de cursos y el nivel de dificultad.",
+    "weighted": "Ponderado",
+    "unweighted": "No Ponderado"
   },
   "year": {
     "9": "Estudiante de Primer Año",
@@ -95,28 +113,783 @@
     "confirm": "Confirmar",
     "markActiveTitle": "¿Marcar {yearLabel} Año como Activo?",
     "markActiveDescription": "Esto desbloqueará el planificador para edición. Los cursos completados auto-generados de este año serán eliminados. Los cursos completados agregados manualmente permanecerán.",
-    "restore": "Restaurar"
+    "restore": "Restaurar",
+    "invalidSchoolYear": "Año escolar no válido.",
+    "plannerNotFound": "Planificador no encontrado.",
+    "plannerSummary": "Resumen del Planificador",
+    "totalCredits": "Total de Créditos",
+    "plannedCourses": "Cursos Planificados",
+    "fullYearCourses": "Cursos de Año Completo",
+    "semesterCourses": "Cursos de Semestre",
+    "overallCredits": "Créditos Totales",
+    "courseSlotsFilled": "Ranuras de Cursos Llenas",
+    "lunchLength": "Duración del Almuerzo",
+    "removeCourse": "¿Eliminar Curso?",
+    "removeCourseBody": "¿Está seguro de que desea eliminar ... del Semestre {semester}?",
+    "emptySlot": "Vacío - edición deshabilitada",
+    "slotLabel": "Ranura {slot}",
+    "addCourseTo": "+ Agregar Curso a {sectionName} Semestre {subIndex}",
+    "noCourseInSemester": "No hay curso de {sectionName} en el Semestre {subIndex}.",
+    "semesterLabel": "Semestre {semester}",
+    "summerSchoolSection": "Escuela de Verano",
+    "onlineCoursesSection": "Cursos en Línea",
+    "subSemesterLabel": "Semestre {i}",
+    "completedBadge": "✓ Completado",
+    "viewOnlyMode": "Este planificador está en modo de solo vista.",
+    "backToPlanner": "← Volver al Planificador",
+    "loadingPlanner": "Cargando planificador...",
+    "mobilePlannerTitle": "Planificador {yearLabel}",
+    "desktopPlannerTitle": "Planificador {yearLabel}",
+    "noCoursesPlanned": "No hay cursos planificados.",
+    "addCourseToSemester": "+ Agregar Curso al Semestre {semester}",
+    "noCourseAdded": "No se agregó ningún curso.",
+    "plannerSummaryToggle": "Resumen del Planificador"
+  },
+  "plannerCourseCard": {
+    "removeCourse": "Eliminar curso",
+    "earlyBird": "Early Bird",
+    "earlyBirdBadge": "🐤 Early Bird",
+    "summerBadge": "☀ Verano",
+    "fullSummer": "Verano Completo",
+    "fullYear": "Año Completo",
+    "oneSemester": "Un Semestre",
+    "credits": "créditos",
+    "consecutivePeriods": "períodos consecutivos",
+    "graduationRequirementFulfilled": "Requisito de graduación cumplido",
+    "alreadyPlanned": "Ya planificado",
+    "addToPlanner": "Agregar →",
+    "slotRange": "Ranuras {start}-{end}",
+    "singleSlot": "Ranura {slot}"
+  },
+  "plannerDialogs": {
+    "thisCourseIsAlreadyPlanned": "Este curso ya está planificado",
+    "location": "Ubicación:",
+    "semester": "Semestre:",
+    "slot": "Ranura:",
+    "goToCourse": "Ir al Curso",
+    "undo": "Deshacer",
+    "dismiss": "Descartar"
+  },
+  "plannerSearch": {
+    "addOnlineCourse": "Agregar un Curso en Línea",
+    "addCourse": "Agregar un Curso",
+    "searchPlaceholder": "Buscar por título del curso...",
+    "searchAriaLabel": "Buscar cursos",
+    "clearSearch": "Limpiar búsqueda",
+    "filterByDivision": "Filtrar por división",
+    "allDivisions": "Todas las Divisiones",
+    "loadingCourses": "Cargando cursos...",
+    "noMatchSearchAndFilter": "Ningún curso coincide con su búsqueda y filtro de división.",
+    "noMatchSearch": "Ningún curso coincide con su búsqueda.",
+    "noMatchDivision": "Ningún curso coincide con la división seleccionada.",
+    "noCoursesAvailable": "No hay cursos disponibles.",
+    "saved": "Guardado"
+  },
+  "plannerWarnings": {
+    "prerequisiteNotScheduled": "{courseTitle} generalmente requiere {prereq} primero.",
+    "prerequisiteNotScheduledGeneric": "Un prerrequisito de este curso no está programado antes de él.",
+    "onlyOneEarlyBird": "Solo puede tomar un curso Early Bird por semestre.",
+    "twoApScienceWarning": "Dos cursos de ciencias AP de 1.5 períodos solo pueden tomarse juntos si uno está programado como sección Early Bird.",
+    "driverEdCompletedOutside": "La Educación Vehicular ya está marcada como completada fuera de la escuela. Deshaga eso primero.",
+    "removeAcademicWaiverWarning": "Eliminar este curso lo hará inelegible para la Exención de ED Académica. La exención será revocada si continúa.",
+    "removeAthleticWaiverWarning": "Eliminar este curso lo hará inelegible para la Exención de ED Atlética. La exención será revocada si continúa.",
+    "removeMarchingBandWaiverWarning": "Eliminar este curso revocará la Exención de ED de la Banda de Marcha.",
+    "ignoreWarning": "Ignorar Advertencia",
+    "ignoreWarningConfirm": "¿Está seguro de que desea ignorar esta advertencia?",
+    "yesIgnore": "Sí, ignorar"
+  },
+  "plannerToasts": {
+    "courseAdded": "Curso agregado.",
+    "failedToAddCourse": "Error al agregar curso",
+    "summerCourseAdded": "Curso de verano agregado.",
+    "failedToAddSummerCourse": "Error al agregar curso de verano",
+    "prerequisiteAdded": "Prerrequisito agregado.",
+    "failedToAddPrerequisite": "Error al agregar prerrequisito",
+    "courseMovedAndPrereqAdded": "Curso movido y prerrequisito agregado.",
+    "failedToAdjustSchedule": "Error al ajustar el horario",
+    "courseRemoved": "Curso eliminado.",
+    "failedToRemoveCourse": "Error al eliminar curso",
+    "courseMarkedEarlyBird": "Curso marcado como Early Bird.",
+    "earlyBirdRemoved": "Early Bird eliminado.",
+    "failedToUpdateEarlyBird": "Error al actualizar Early Bird",
+    "courseReplaced": "Curso reemplazado.",
+    "failedToReplaceCourse": "Error al reemplazar curso",
+    "courseMoved": "Curso movido.",
+    "failedToMoveCourse": "Error al mover curso",
+    "courseMarkedCompleted": "Curso marcado como completado.",
+    "failedToMarkCompleted": "Error al marcar curso como completado",
+    "failedToAddResolution": "Error al agregar resolución",
+    "failedToRemoveResolution": "Error al eliminar resolución",
+    "driverEdAlreadyCompleted": "La Educación Vehicular ya está marcada como completada fuera de la escuela. Deshaga eso primero para agregarla a su planificador.",
+    "markedAsCompleted": "Marcado como completado.",
+    "failedToMarkCompletedGeneral": "Error al marcar como completado",
+    "placementTestRecorded": "Examen de ubicación registrado.",
+    "failedToRecordPlacementTest": "Error al registrar examen de ubicación",
+    "markedMiddleSchool": "Marcado como completado en la escuela intermedia.",
+    "failedToRecordMiddleSchool": "Error al registrar finalización de escuela intermedia",
+    "markedSummerSchool": "Marcado como completado en la escuela de verano.",
+    "failedToRecordSummerSchool": "Error al registrar finalización de escuela de verano",
+    "noRoomToSwap": "No hay espacio para intercambiar semestres.",
+    "failedToSwapSemesters": "Error al intercambiar semestres",
+    "cannotRestoreCourse": "No se puede restaurar el curso planificado: falta courseId y plannerOptionId"
+  },
+  "plannerEarlyBird": {
+    "takeEarlyBird": "¿Tomar este curso como Early Bird?",
+    "earlyBirdClassesMeet": "Las clases Early Bird se reúnen:",
+    "mwf": "• Lunes, Miércoles, Viernes",
+    "mwfTime": "7:45 AM",
+    "tt": "• Martes, Jueves",
+    "ttTime": "Horario regular de escuela",
+    "pleaseNote": "Por favor note:",
+    "noBus": "• Stevenson NO proporciona transporte en autobús para las clases Early Bird.",
+    "transportation": "• Los estudiantes son responsables de organizar su transporte los lunes, miércoles y viernes.",
+    "regularSection": "Sección Regular",
+    "earlyBirdButton": "🐤 Early Bird",
+    "onlyOneEarlyBirdPerSemester": "Solo puede tomar un curso Early Bird por semestre.",
+    "twoApScienceWarning": "Dos cursos de ciencias AP de 1.5 períodos solo pueden tomarse juntos si uno está programado como sección Early Bird."
+  },
+  "plannerDuplicate": {
+    "thisCourseIsAlreadyPlanned": "Este curso ya está planificado",
+    "location": "Ubicación:",
+    "semester": "Semestre:",
+    "slot": "Ranura:",
+    "goToCourse": "Ir al Curso",
+    "cancel": "Cancelar"
+  },
+  "plannerReplace": {
+    "replaceCourse": "¿Reemplazar curso?",
+    "replaceCourseBody": "Esto mantendrá el mismo semestre y eliminará el curso actual.",
+    "replacing": "Reemplazando...",
+    "replaceCourseButton": "Reemplazar Curso",
+    "replaceWith": "Reemplazar {currentTitle} con {newTitle}",
+    "addToPreviousYear": "Agregar {courseTitle} a un año anterior",
+    "addToLocation": "Agregar {courseTitle} a {location}.",
+    "moveAndAdd": "Mover {courseA} al Semestre 2 y agregar {courseB} al Semestre 1 Ranura {slot}.",
+    "swapSemesters": "Intercambiar semestres",
+    "verifyChanges": "Verificar Cambios",
+    "resolveWarning": "Resolver Advertencia",
+    "requirementImpactWarning": "Advertencia de Impacto en Requisitos",
+    "replacingWillAffect": "Reemplazar {courseTitle} afectará:",
+    "mayNoLongerSatisfy": "Puede que ya no satisfaga estos requisitos.",
+    "noGraduationRequirementsAffected": "Ningún requisito de graduación será afectado."
+  },
+  "plannerAddPrereq": {
+    "addPrereqTitle": "Agregar curso prerrequisito",
+    "selectPrereqCourse": "Seleccionar curso prerrequisito",
+    "selectCoursePlaceholder": "Seleccionar un curso prerrequisito",
+    "noMatchingCourse": "No se encontró ningún curso coincidente para este prerrequisito.",
+    "recording": "Registrando...",
+    "markPlacementTestCompleted": "Marcar Examen de Ubicación como Completado"
+  },
+  "plannerScheduleChanges": {
+    "reviewProposedChanges": "Revisar Cambios de Horario Propuestos",
+    "added": "agregado",
+    "moved": "movido",
+    "replaced": "reemplazado",
+    "removed": "eliminado",
+    "important": "Importante",
+    "disclaimerText": "Este planificador proporciona sugerencias de horario basadas en la Guía de Cursos de Stevenson High School y su plan académico actual.",
+    "recommendationsMayNotAccount": "Las recomendaciones pueden no considerar cada situación, incluyendo:",
+    "counselorApprovals": "aprobaciones o exenciones del consejero",
+    "placementTests": "exámenes de ubicación",
+    "futureCourseAvailability": "disponibilidad futura de cursos",
+    "scheduleConflicts": "conflictos de horario fuera de este planificador",
+    "individualGraduationExceptions": "excepciones individuales de graduación",
+    "reviewChangesCarefully": "Por favor revise estos cambios cuidadosamente antes de aplicarlos. Si no está seguro, consulte a su consejero escolar.",
+    "officialScheduleInfo": "Este planificador está diseñado para ayudarle a explorar horarios posibles. Su horario oficial, estado de graduación y elegibilidad de cursos son determinados por Stevenson High School y su consejero escolar.",
+    "reviewedChanges": "He revisado estos cambios de horario propuestos.",
+    "applyChanges": "Aplicar Cambios",
+    "before": "Antes",
+    "after": "Después",
+    "noCourses": "No hay cursos",
+    "slotDisplay": "Ranura {slot}: {title}",
+    "newBadge": "Nuevo",
+    "movedBadge": "Movido",
+    "willMove": "(se moverá)",
+    "semester1Short": "S1",
+    "semester2Short": "S2",
+    "bestPlacement": "Mejor ubicación: Año {yearLabel}, Semestre {semester} Ranura {slot} (recomendado)",
+    "chooseAnotherYear": "O elegir otro año",
+    "noOpenSlots": "No hay ranuras abiertas",
+    "foundAvailableSlot": "✓ Se encontró una ranura disponible.",
+    "locationText": "Año {yearLabel}, Semestre {semester} Ranura {slot}",
+    "noAvailableSlotFound": "No se encontró una ranura disponible en el planificador.",
+    "selectCourseToReplace": "Seleccione un curso para reemplazar",
+    "noCoursesToReplace": "No hay cursos en este año para reemplazar.",
+    "yearSemesterLabel": "{yearLabel} Semestre {semester}",
+    "recommendedBadge": "(Recomendado)",
+    "chooseDifferentYear": "Elegir un año diferente",
+    "back": "← Atrás",
+    "addCourseToPlanner": "Agregar al Planificador",
+    "markAsPreviouslyCompleted": "Marcar como Completado Anteriormente",
+    "completedIn": "Completado en:",
+    "markAsCompleted": "Marcar {courseTitle} como completado anteriormente",
+    "autoReorganize": "Esto reorganizará automáticamente su horario para satisfacer el prerrequisito con la menor cantidad de cambios posible.",
+    "loading": "Cargando...",
+    "adding": "Agregando...",
+    "addCourseButton": "Agregar Curso"
+  },
+  "plannerDriverEd": {
+    "driverEducation": "Educación Vehicular",
+    "completedOutsideSchool": "✓ Completado fuera de la escuela",
+    "undo": "Deshacer",
+    "alreadyInPlanner": "La Educación Vehicular ya está en su planificador, por lo que se completará a través de ese curso.",
+    "markCompletedOutside": "Marcar como completado fuera de la escuela",
+    "driverEdDescription": "Si completó la Educación Vehicular en una escuela comercial o obtuvo su licencia antes de los 18 años."
+  },
+  "plannerWaivers": {
+    "peWaivers": "Exenciones de ED",
+    "academicWaiver": "Exención de ED Académica",
+    "academicWaiverSubtitle": "Solo disponible para Estudiantes de Cuarto Año con 6 clases con crédito",
+    "athleticWaiver": "Exención de ED Atlética",
+    "athleticWaiverSubtitle": "Disponible para Estudiantes de Tercer y Cuarto Año",
+    "marchingBandWaiver": "Exención de ED de la Banda de Marcha",
+    "marchingBandWaiverSubtitle": "Disponible para Grados 9–12",
+    "creditLabel": "(Con Crédito)",
+    "nonCreditLabel": "(Sin Crédito)",
+    "remove": "Eliminar",
+    "apply": "Aplicar",
+    "marchingBandTitle": "Exención de ED de la Banda de Marcha",
+    "marchingBandDescription": "Cualquier estudiante en los grados 9–12 que esté inscrito en uno de estos cursos y sea miembro de la Banda de Marcha puede eximirse del requisito de Educación Física durante el primer semestre.",
+    "eligibleCourses": "Cursos elegibles:",
+    "freshmanBand": "Banda de Primer Año",
+    "windEnsemble": "Ensemble de Viento",
+    "symphonicBand": "Banda Sinfónica",
+    "windSymphony": "Sinfonía de Viento",
+    "colorGuard": "Color Guard",
+    "close": "Cerrar",
+    "applyWaiver": "Aplicar Exención",
+    "learnMore": "Más Información",
+    "ok": "OK",
+    "participatingInSport": "¿Está participando en un deporte JV o Varsity?",
+    "yes": "Sí",
+    "no": "No",
+    "howManySports": "¿En cuántos deportes JV/Varsity participa?",
+    "oneSport": "Un deporte",
+    "twoOrMoreSports": "Dos o más deportes"
+  },
+  "plannerSummerPicker": {
+    "addSummerCourse": "Agregar un Curso de Verano",
+    "sessionSubtitle": "{session} · el verano entre el grado {gradePrev} y el grado {gradeNext}",
+    "searchPlaceholder": "Buscar cursos de verano...",
+    "searchAriaLabel": "Buscar cursos de verano",
+    "loadingSummerCourses": "Cargando cursos de verano...",
+    "noMatchSearch": "Ningún curso de verano coincide con su búsqueda.",
+    "noSummerCoursesAvailable": "No hay cursos de verano disponibles para esta sesión.",
+    "prerequisites": "Prerrequisitos: ",
+    "corequisites": "Correquisitos: ",
+    "alreadyPlanned": "Ya planificado en su horario",
+    "regularEquivalentPlanned": "El equivalente regular de este curso ya está planificado",
+    "regularEquivalentCompleted": "El equivalente regular de este curso ya está completado",
+    "openToGrades": "Abierto a {grades}",
+    "notOfferedFullSummer": "No ofrecido para el verano completo",
+    "notOfferedInSession": "No ofrecido en {session}",
+    "session1": "Sesión 1",
+    "session2": "Sesión 2",
+    "failedToLoad": "Error al cargar los cursos de la Escuela de Verano."
+  },
+  "plannerCompletedPicker": {
+    "markCourseCompleted": "Marcar un curso como completado",
+    "regularCourses": "Cursos Regulares",
+    "summerCourses": "Cursos de Verano",
+    "gradeLevel": "Nivel de Grado:",
+    "loadingSummerCourses": "Cargando cursos de verano...",
+    "searchPlaceholder": "Buscar cursos de verano...",
+    "searchAriaLabel": "Buscar cursos de verano",
+    "clearSearch": "Limpiar búsqueda",
+    "noMatchSearch": "Ningún curso de verano coincide con su búsqueda.",
+    "noSummerCoursesAvailable": "No hay cursos de verano disponibles.",
+    "alreadyRecorded": "Ya registrado como completado",
+    "select": "Seleccionar",
+    "save": "Guardar"
+  },
+  "plannerCoursePicker": {
+    "select": "Seleccionar",
+    "searchPlaceholder": "Buscar por título del curso...",
+    "searchAriaLabel": "Buscar por título del curso",
+    "clearSearch": "Limpiar búsqueda",
+    "searchButton": "Buscar",
+    "loadingCourses": "Cargando cursos...",
+    "noCoursesAvailable": "No hay cursos disponibles.",
+    "noMatchSearch": "Ningún curso coincide con su búsqueda.",
+    "creditsTag": "{credits} créditos",
+    "fullYearTag": "Año Completo",
+    "oneSemesterTag": "Un Semestre"
+  },
+  "plannerCourseLoad": {
+    "courseLoadRequirements": "Requisitos de Carga Académica",
+    "progressAriaLabel": "Progreso: {earned} de {required} créditos",
+    "progressDisplay": "{earned} / {required}",
+    "atLeastFiveCredits": "Al menos cinco créditos de coursework",
+    "semesterPrefix": "Semestre ",
+    "sixthSupervisedPeriod": "Un sexto período supervisado",
+    "periodStatus": "Semestre {semester}: {filled} / {required} períodos llenos"
+  },
+  "plannerGradeRequirements": {
+    "gradeRequirements": "Requisitos de Grado {grade}",
+    "physicalEducation": "Educación Física",
+    "semesterPrefix": "Semestre ",
+    "waiverSuffix": " (exención)"
   },
   "requirements": {
-    "heading": "Requisitos de Graduación",
-    "subtitle": "Revisa tu progreso hacia los requisitos de graduación.",
-    "yearLevel": "Requisitos por Nivel de Año",
-    "graduation": "Requisitos de Graduación",
+    "heading": "Progreso de Graduación",
+    "loading": "Cargando requisitos de graduación...",
+    "loadError": "Error al cargar los requisitos de graduación",
+    "empty": "No se encontraron requisitos de graduación. Los requisitos se completan desde el catálogo de cursos.",
+    "creditsCompleted": "/ {total} Créditos Completados",
+    "projectedCredits": "Proyectado con el plan actual: {earned} / {total}",
+    "yearLevelRequirements": "Requisitos por Nivel de Año",
+    "yearLevelSubtitle": "¿Estoy cumpliendo los requisitos de este año?",
+    "requirementsMet": "{satisfiedCount}/{totalCount} requisitos cumplidos",
     "satisfied": "Satisfecho",
     "partial": "Parcial",
-    "notStarted": "No Iniciado",
-    "onTrack": "En Curso",
-    "onTrackSubtitle": "Revisa el progreso de cada requisito a continuación.",
-    "loading": "Cargando requisitos..."
+    "itemSatisfied": "Satisfecho",
+    "itemMissing": "Faltante",
+    "creditRatio": "{earned} / {required} créditos",
+    "graduationRequirementsSection": "Requisitos de Graduación",
+    "onTrackSubtitle": "¿Estoy en camino de graduarme?",
+    "statusSatisfied": "Satisfecho",
+    "statusPartial": "Parcial",
+    "statusNotStarted": "No Iniciado",
+    "statusPlanned": "Planificado",
+    "earned": "Obtenidos: ",
+    "required": "Requeridos: ",
+    "remaining": "Restantes: ",
+    "requirementBody": "Este requisito requiere {required} créditos. Ha obtenido {earned} créditos hasta ahora.",
+    "peBodyText": "La Educación Física se requiere cada semestre. Cada semestre se satisface con un curso de ED o una exención aprobada.",
+    "peRequiredEachSemester": "Requerido cada semestre",
+    "physicalEducation": "Educación Física",
+    "waived": "(Exento)",
+    "waiver": "(Exención)",
+    "recommendedCourses": "Cursos Recomendados",
+    "viewAll": "Ver Todos ({totalMatching})",
+    "helpfulInformation": "Información Útil",
+    "completedOutsideSchool": "Completado Fuera de la Escuela",
+    "completedOutsideStatus": "✓ Completado fuera de la escuela",
+    "undo": "Deshacer",
+    "driverEdInPlanner": "La Educación Vehicular ya está en su planificador, por lo que se completará a través de ese curso.",
+    "markCompletedOutside": "Marcar como completado fuera de la escuela",
+    "driverEdDescription": "Completó la Educación Vehicular en una escuela comercial o obtuvo su licencia antes de los 18 años.",
+    "source": "Fuente: {sourceReference}",
+    "close": "Cerrar",
+    "progressLabel": "Progreso: {value}%",
+    "guestTitle": "Requisitos de Graduación",
+    "guestDescription": "Inicia sesión para rastrear tu progreso de graduación y completitud de requisitos. Tu progreso se almacenará de forma segura y se sincronizará entre dispositivos.",
+    "completedLabel": "Completados:",
+    "plannedLabel": "Planificados:",
+    "remainingLabel": "Restantes:",
+    "creditsUnit": "créditos"
+  },
+  "gradReq": {
+    "satisfied": "Satisfecho",
+    "inProgress": "En Progreso",
+    "missing": "Faltante",
+    "heading": "Requisitos de Graduación",
+    "allOnTrack": "✓ Todos los requisitos de graduación en camino"
+  },
+  "yearOverview": {
+    "yearFallback": "Año {year}",
+    "badgeCompleted": "✓ Completado",
+    "badgeNotPlanned": "No Planificado",
+    "badgeOnTrack": "En Camino",
+    "badgeNeedsAttention": "Necesita Atención",
+    "viewPlanner": "Ver Planificador →",
+    "editPlanner": "Editar Planificador →",
+    "yearCompleted": "✓ Año Completado",
+    "needsAttention": "Necesita atención:",
+    "missingWithCredits": "Falta {category} ({earned} / {required} créditos)",
+    "missing": "Falta {category}",
+    "summerSchool": "Escuela de Verano",
+    "online": "En Línea",
+    "coursesPlanned": "{filled} / {total} cursos planificados",
+    "markCompleted": "Marcar Año como Completado",
+    "marking": "Marcando...",
+    "markActive": "Marcar como Activo",
+    "restoring": "Restaurando...",
+    "semester": "Semestre {n}",
+    "summerSemester": "Escuela de Verano",
+    "onlineSemester": "En Línea",
+    "empty": "Vacío"
+  },
+  "about": {
+    "heading": "Acerca de",
+    "introParagraph1": "El Stevenson Course Planner es una herramienta de planificación no oficial creada para ayudar a los estudiantes a comprender los requisitos de graduación, los prerrequisitos y las opciones de cursos antes de reunirse con su consejero. Proporciona una forma visual de explorar cómo las diferentes selecciones de cursos afectan el progreso de graduación en todas las áreas de requisitos.",
+    "introParagraph2": "Las solicitudes oficiales de cursos se realizan durante su cita programada de selección de cursos con su consejero escolar. Esta herramienta está diseñada para prepararle para esa conversación, no para reemplazarla.",
+    "introParagraph3": "La oferta de cursos, los prerrequisitos y los requisitos de graduación están sujetos a cambios. Siempre verifique la información actual con su consejero o el catálogo oficial de cursos.",
+    "howItWorks": "Cómo Funciona",
+    "howItWorksParagraph1": "Examine el catálogo de cursos para explorar las clases disponibles y sus prerrequisitos. Agregue cursos a su plan, rastree los cursos completados y monitoree su progreso de graduación en todas las áreas de requisitos. El planificador le proporciona una vista en tiempo real de cómo sus opciones se combinan.",
+    "howItWorksParagraph2": "Puede experimentar con diferentes planes de cuatro años, ver qué requisitos se satisfacen e identificar vacíos antes de su reunión con el consejero.",
+    "projectStatus": "Estado del Proyecto",
+    "beta": "Beta",
+    "activeDevelopment": "Desarrollo activo — las funciones y los datos aún se están refinando",
+    "builtBy": "Creado por un estudiante de Stevenson como un proyecto personal para ayudar a sus compañeros a navegar la selección de cursos. Esta herramienta está diseñada para apoyar — no para reemplazar — la orientación proporcionada por los consejeros escolares.",
+    "feedbackPrompt": "Si encuentra problemas o tiene sugerencias, use la página de Comentarios para reportarlos. Su aporte ayuda a mejorar el planificador para todos."
+  },
+  "privacy": {
+    "heading": "Privacidad",
+    "intro": "Esta página explica qué datos almacena el Stevenson Course Planner y cómo se utilizan.",
+    "signedInUsers": "Usuarios Registrados",
+    "signedInDescription": "Cuando inicia sesión con Google, los siguientes datos se almacenan en el servidor y se asocian con su cuenta:",
+    "signedInItem1": "Su nombre de cuenta de Google, dirección de correo electrónico y ID de Google (requerido para la autenticación)",
+    "signedInItem2": "Los cursos que ha guardado en su planificador",
+    "signedInItem3": "Los cursos que ha marcado como completados",
+    "signedInItem4": "Su progreso de graduación en todas las áreas de requisitos",
+    "signedInNote": "Estos datos se utilizan únicamente para proporcionar la funcionalidad del planificador. No se recopilan ni comparten calificaciones, transcripciones ni registros académicos personales.",
+    "guestUsers": "Usuarios Invitados",
+    "guestDescription": "Si usa el planificador sin iniciar sesión, todos los datos existen solo en la memoria de su navegador. Al actualizar o cerrar la pestaña se eliminan todos los datos de invitado. No se almacena ninguna información de invitado en el servidor.",
+    "dataSharing": "Intercambio de Datos",
+    "dataSharingDescription": "Sus datos se utilizan únicamente para proporcionar la funcionalidad de planificación de cursos dentro de esta aplicación. No se comparten datos del planificador, selecciones de cursos ni información de graduación con terceros, la escuela o el distrito escolar.",
+    "dataSharingNote": "Esta herramienta no está afiliada ni respaldada por el distrito escolar. Es una herramienta de planificación independiente creada para ayudar a los estudiantes a prepararse para las reuniones con los consejeros."
+  },
+  "login": {
+    "siteTitle": "Stevenson Course Planner",
+    "description": "Inicie sesión con su cuenta de Google para planificar sus cursos, rastrear requisitos y explorar el catálogo de cursos de Stevenson.",
+    "signInWithGoogle": "Iniciar Sesión con Google",
+    "continueAsGuest": "Continuar como Invitado",
+    "guestMode": "Modo Invitado",
+    "guestWarning": "Sus cambios no se guardarán después de salir de esta sesión."
+  },
+  "auth": {
+    "loading": "Cargando...",
+    "signIn": "Iniciar Sesión",
+    "guestMode": "Modo Invitado",
+    "guestModeTooltip": "Sus cambios no se guardarán después de salir de esta sesión.",
+    "signOut": "Cerrar Sesión"
+  },
+  "authToast": {
+    "signedIn": "Sesión iniciada como {name}",
+    "guestMode": "Continuando en Modo Invitado. Su progreso solo se guardará hasta que salga o actualice esta página."
+  },
+  "guestUpgrade": {
+    "message": "Está en Modo Invitado. Sus cursos y planes no se guardarán después de salir. Inicie sesión con Google para conservar su progreso.",
+    "signIn": "Iniciar Sesión",
+    "dismiss": "Descartar"
+  },
+  "guestEmptyState": {
+    "signIn": "Iniciar Sesión"
+  },
+  "catalog": {
+    "heading": "Catálogo de Cursos",
+    "description": "Examine todos los cursos disponibles en Stevenson High School.",
+    "viewSavedCourses": "Ver Cursos Guardados",
+    "regularCoursebook": "Libro de Cursos Regular",
+    "summerCoursebook": "Libro de Cursos de Escuela de Verano",
+    "noMatchSearchAndFilter": "Ningún curso coincide con su búsqueda y filtros.",
+    "noMatchSearch": "Ningún curso coincide con su búsqueda.",
+    "noMatchFilter": "Ningún curso coincide con sus filtros.",
+    "noCoursesFound": "No se encontraron cursos.",
+    "loadingSummerCourses": "Cargando cursos de la Escuela de Verano...",
+    "retry": "Reintentar",
+    "sourceRegular": "Cursos Regulares",
+    "sourceSummer": "Escuela de Verano",
+    "viewSaved": "Ver Cursos Guardados"
+  },
+  "catalogHeader": {
+    "courseCatalog": "Catálogo de Cursos",
+    "browseDescription": "Examine todos los cursos disponibles en Stevenson High School.",
+    "viewSavedCourses": "Ver Cursos Guardados"
+  },
+  "courseSearch": {
+    "searchAriaLabel": "Buscar cursos",
+    "searchPlaceholder": "Buscar cursos...",
+    "clearSearch": "Limpiar búsqueda",
+    "searchButtonAriaLabel": "Buscar",
+    "searchButton": "Buscar"
+  },
+  "courseFilters": {
+    "creditType": "Tipo de Crédito",
+    "semester": "Semestre",
+    "division": "División",
+    "department": "Departamento",
+    "gradeLevel": "Nivel de Grado",
+    "gradeLabel": "Grado {grade}",
+    "graduationRequirement": "Requisito de Graduación",
+    "activeFilters": "Filtros activos",
+    "clearAll": "Limpiar todo"
+  },
+  "courseDetail": {
+    "backToCatalog": "← Volver al Catálogo",
+    "backToDashboard": "← Volver al Panel",
+    "backToRequirements": "← Volver a Requisitos de Graduación",
+    "back": "← Atrás",
+    "recommendedFor": "Recomendado para: ",
+    "description": "Descripción",
+    "noDescription": "No hay descripción disponible.",
+    "notes": "Notas",
+    "prerequisites": "Prerrequisitos",
+    "none": "Ninguno",
+    "corequisites": "Correquisitos",
+    "graduationRequirement": "Requisito de Graduación",
+    "additionalInfo": "Información Adicional",
+    "fulfills": "Cumple",
+    "graduationRequirements": "Requisitos de Graduación",
+    "attributes": "Atributos",
+    "openFullCatalogPage": "Abrir Página Completa del Catálogo",
+    "courseCode": "Código del Curso",
+    "session": "Sesión",
+    "duration": "Duración",
+    "dates": "Fechas",
+    "time": "Horario",
+    "openTo": "Abierto a",
+    "credit": "Crédito",
+    "grading": "Calificación",
+    "passFail": "Aprobado/Reprobado",
+    "cost": "Costo"
+  },
+  "courseOfferings": {
+    "oneSemester": "Un Semestre",
+    "fullYear": "Año Completo",
+    "semesters": "{count} Semestres",
+    "other": "Otro",
+    "grades": "Grados",
+    "mathNote": "Los estudiantes que completen el curso prerrequisito antes pueden inscribirse en este curso en un grado anterior.",
+    "totalCredits": "Total de Créditos",
+    "courseCodes": "Códigos de Cursos"
+  },
+  "courseAttributes": {
+    "fulfills": "Cumple",
+    "graduationRequirements": "Requisitos de Graduación",
+    "attributes": "Atributos"
+  },
+  "courseRequiredFor": {
+    "requiredFor": "Requerido Para",
+    "noCoursesRequire": "Ningún curso requiere actualmente este curso como prerrequisito."
+  },
+  "coursePrerequisites": {
+    "prerequisites": "Prerrequisitos",
+    "none": "Ninguno"
+  },
+  "savedCoursesContent": {
+    "recentlySaved": "Guardados Recientemente",
+    "alphabetical": "Alfabético (A–Z)",
+    "department": "Departamento",
+    "gradeAvailability": "Disponibilidad por Grado",
+    "allDepartments": "Todos los Departamentos",
+    "savedCoursesTitle": "Cursos Guardados",
+    "savedCoursesDescription": "Inicie sesión para guardar cursos interesantes y revisarlos después. Sus cursos guardados se almacenarán de forma segura y se sincronizarán entre dispositivos.",
+    "heading": "Cursos Guardados",
+    "loading": "Cargando cursos guardados...",
+    "empty": "No hay cursos guardados aún.",
+    "searchPlaceholder": "Buscar por título o código del curso...",
+    "searchAriaLabel": "Buscar cursos guardados",
+    "clearSearch": "Limpiar búsqueda",
+    "searchButton": "Buscar",
+    "filterByDepartment": "Filtrar por departamento",
+    "sortBy": "Ordenar por:",
+    "sortByAriaLabel": "Ordenar por",
+    "noMatchesFound": "No se encontraron coincidencias",
+    "tryAdjustingSearch": "Intente ajustar su búsqueda o filtro de departamento.",
+    "tryDifferentSearch": "Intente un término de búsqueda diferente.",
+    "tryDifferentDepartment": "Intente seleccionar un departamento diferente.",
+    "viewCourse": "Ver Curso",
+    "addToPlanner": "Agregar al Planificador",
+    "remove": "Eliminar"
+  },
+  "saveCourseButton": {
+    "saved": "Guardado",
+    "saveCourse": "Guardar Curso"
+  },
+  "markCompletedButton": {
+    "failedToMark": "Error al marcar curso como completado",
+    "viewCompletedCourses": "Ver cursos completados",
+    "completed": "Completado ✓",
+    "markAsCompleted": "Marcar como Completado",
+    "markAsCompletedAria": "Marcar como completado",
+    "gradeLevel": "Nivel de Grado",
+    "cancel": "Cancelar",
+    "saving": "Guardando…",
+    "markCompleted": "Marcar Completado"
+  },
+  "summerCourseDetail": {
+    "backToSummerCatalog": "← Volver al Catálogo de Verano",
+    "backToDashboard": "← Volver al Panel",
+    "backToCatalog": "← Volver al Catálogo",
+    "backToRequirements": "← Volver a Requisitos de Graduación",
+    "back": "← Atrás",
+    "summerSchool": "Escuela de Verano",
+    "fullSummer": "Verano Completo",
+    "courseCode": "Código del Curso",
+    "session": "Sesión",
+    "duration": "Duración",
+    "dates": "Fechas",
+    "time": "Horario",
+    "openTo": "Abierto a",
+    "credit": "Crédito",
+    "grading": "Calificación",
+    "passFail": "Aprobado/Reprobado",
+    "cost": "Costo",
+    "prerequisite": "Prerrequisito",
+    "none": "Ninguno",
+    "corequisite": "Correquisito",
+    "graduationRequirement": "Requisito de Graduación",
+    "description": "Descripción",
+    "noDescription": "No hay descripción disponible.",
+    "notes": "Notas",
+    "additionalInfo": "Información Adicional"
+  },
+  "savedToPlannerModal": {
+    "freshmanGrade9": "Primer Año (Grado 9)",
+    "sophomoreGrade10": "Segundo Año (Grado 10)",
+    "juniorGrade11": "Tercer Año (Grado 11)",
+    "seniorGrade12": "Cuarto Año (Grado 12)",
+    "semester1": "Semestre 1",
+    "semester2": "Semestre 2",
+    "slotLabel": "Ranura {n}",
+    "plannerNotFound": "Planificador no encontrado para el año seleccionado.",
+    "failedToAdd": "Error al agregar curso al planificador",
+    "addToPlanner": "Agregar al Planificador",
+    "close": "Cerrar",
+    "courseAddedSuccess": "¡Curso agregado a su planificador!",
+    "goToPlanner": "Ir al Planificador",
+    "schoolYear": "Año Escolar",
+    "semester": "Semestre",
+    "slot": "Ranura",
+    "cancel": "Cancelar",
+    "adding": "Agregando...",
+    "addButton": "Agregar al Planificador"
+  },
+  "emptyState": {
+    "noCoursesFound": "No se encontraron cursos."
+  },
+  "a11y": {
+    "dialogTitle": "Accesibilidad y Preferencias",
+    "dialogDescription": "Personaliza la apariencia y el comportamiento del Planificador de Cursos. Estas configuraciones son opcionales y pueden cambiarse en cualquier momento.",
+    "close": "Cerrar",
+    "closeAriaLabel": "Cerrar Accesibilidad y Preferencias",
+    "keyboardShortcuts": "Atajos de Teclado",
+    "keyboardShortcutsDescription": "Usa atajos de teclado para una navegación y acciones más rápidas.",
+    "keyboardShortcutsNote": "No hay atajos de caracteres a nivel de aplicación actualmente activos. Esta preferencia se guarda para futuros atajos de la aplicación.",
+    "largerText": "Texto Más Grande",
+    "largerTextDescription": "Aumenta el tamaño del texto en todo el sitio web.",
+    "reduceMotion": "Reducir Movimiento",
+    "reduceMotionDescription": "Reduce las animaciones y transiciones en todo el sitio web.",
+    "reduceMotionLegend": "Reducir movimiento",
+    "followSystem": "Seguir Sistema",
+    "onOption": "Activado",
+    "offOption": "Desactivado",
+    "howSettingsHelp": "Cómo ayudan estas configuraciones",
+    "infoText": "El Planificador de Cursos está diseñado para ser accesible a todos los usuarios. Estas preferencias opcionales permiten a los usuarios personalizar ciertos aspectos de la experiencia.",
+    "dtKeyboardShortcuts": "Atajos de Teclado",
+    "ddKeyboardShortcuts": "WCAG 2.2 2.1.4 Atajos de Teclado de Carácter, Nivel A: si se utilizan atajos de caracteres de un solo carácter a nivel de aplicación, los usuarios deben poder desactivarlos, reasignarlos o restringirlos a un componente relevante.",
+    "dtLargerText": "Texto Más Grande",
+    "ddLargerText": "WCAG 2.2 1.4.4 Redimensionar Texto y 1.4.10 Reajuste, Nivel AA: el contenido debe permanecer usable cuando se amplía el texto. Esta configuración es una presentación de texto más grande opcional y no reemplaza el zoom del navegador.",
+    "dtReduceMotion": "Reducir Movimiento",
+    "ddReduceMotion": "WCAG 2.2 2.3.3 Animación a partir de Interacciones, Nivel AAA: reducir el movimiento innecesario puede mejorar la comodidad. El sitio también respeta la configuración del sistema de prefers-reduced-motion.",
+    "wcagDisclaimer": "Estas configuraciones admiten la accesibilidad pero no establecen por sí mismas la conformidad con WCAG 2.2.",
+    "iconAttribution": "Atribución de Icono",
+    "iconAttributionText": "Icono de accesibilidad: Dave Braunschweig, Accessibility.svg. Licenciado bajo CC BY-SA 4.0. Usado sin modificación.",
+    "buttonLabel": "Accesibilidad y Preferencias"
+  },
+  "language": {
+    "label": "Idioma",
+    "description": "Elige el idioma de visualización de la aplicación.",
+    "dialogTitle": "Configuración de Idioma",
+    "dialogDescription": "Selecciona el idioma de la interfaz. Tu preferencia se guardará y aplicará en toda la aplicación."
   },
   "completedCourses": {
+    "guestTitle": "Cursos Completados",
+    "guestDescription": "Inicie sesión para ver su coursework completado y el historial de prerrequisitos. Sus cursos completados se almacenarán de forma segura y se sincronizarán entre dispositivos.",
     "heading": "Cursos Completados",
-    "subtitle": "Gestiona tus cursos completados y el progreso de graduación.",
-    "addCourse": "Agregar Curso",
-    "empty": "No hay cursos completados aún.",
-    "filterAll": "Todos",
-    "filterSummer": "Escuela de Verano",
-    "loading": "Cargando cursos completados..."
+    "loadError": "Error al cargar los cursos completados",
+    "addError": "Error al agregar curso completado",
+    "updateError": "Error al actualizar curso completado",
+    "removeError": "Error al eliminar curso completado",
+    "addButton": "+ Agregar Curso Completado",
+    "emptyHeading": "No hay cursos completados aún",
+    "emptyDescription": "Agregue cursos que ya haya completado para mejorar las advertencias de su planificador y rastrear su progreso de graduación.",
+    "noFilterResults": "Ningún curso completado coincide con este filtro.",
+    "course": "curso",
+    "courses": "cursos",
+    "noCoursesRecorded": "No hay cursos registrados.",
+    "summer": "Verano",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "editTitle": "Editar",
+    "remove": "Eliminar",
+    "unknownCourse": "Curso Desconocido",
+    "editGradeLabel": "Editar nivel de grado",
+    "credits": "créditos",
+    "filter": {
+      "all": "Todos",
+      "middleSchool": "Escuela Intermedia",
+      "freshman": "Primer Año",
+      "sophomore": "Segundo Año",
+      "junior": "Tercer Año",
+      "senior": "Cuarto Año",
+      "summerSchool": "Escuela de Verano"
+    },
+    "period": {
+      "middleSchool": "Escuela Intermedia",
+      "freshman": "Primer Año",
+      "freshmanSummer": "Verano de Primer Año (Escuela Intermedia → Grado 9)",
+      "sophomore": "Segundo Año",
+      "sophomoreSummer": "Verano de Segundo Año (Grado 9 → Grado 10)",
+      "junior": "Tercer Año",
+      "juniorSummer": "Verano de Tercer Año (Grado 10 → Grado 11)",
+      "senior": "Cuarto Año",
+      "seniorSummer": "Verano de Cuarto Año (Grado 11 → Grado 12)",
+      "summerSchoolLegacy": "Escuela de Verano"
+    },
+    "grade": {
+      "middleSchool": "Escuela Intermedia",
+      "summerSchool": "Escuela de Verano",
+      "freshman9": "Primer Año (9)",
+      "freshmanSummer": "Verano de Primer Año",
+      "sophomore10": "Segundo Año (10)",
+      "sophomoreSummer": "Verano de Segundo Año",
+      "junior11": "Tercer Año (11)",
+      "juniorSummer": "Verano de Tercer Año",
+      "senior12": "Cuarto Año (12)",
+      "seniorSummer": "Verano de Cuarto Año"
+    }
+  },
+  "errors": {
+    "fetchCompletedCourses": "Error al obtener los cursos completados",
+    "addCompletedCourse": "Error al agregar curso completado",
+    "updateCompletedCourse": "Error al actualizar curso completado",
+    "removeCompletedCourse": "Error al eliminar curso completado",
+    "fetchPlannerAnalysis": "Error al obtener el análisis del planificador",
+    "fetchCourses": "Error al obtener los cursos",
+    "fetchResolutions": "Error al obtener las resoluciones",
+    "createResolution": "Error al crear resolución",
+    "deleteResolution": "Error al eliminar resolución",
+    "fetchSession": "Error al obtener la sesión",
+    "logout": "Error al cerrar sesión",
+    "fetchSavedCourses": "Error al obtener los cursos guardados",
+    "saveCourse": "Error al guardar curso",
+    "removeSavedCourse": "Error al eliminar curso guardado",
+    "fetchSummerCourses": "Error al obtener los cursos de verano",
+    "fetchPlanners": "Error al obtener los planificadores",
+    "plannerNotFound": "Planificador no encontrado para el año {year}",
+    "fetchPlannerOptions": "Error al obtener las opciones del planificador",
+    "searchCourses": "Error al buscar cursos",
+    "addPlannedCourse": "Error al agregar curso",
+    "removePlannedCourse": "Error al eliminar curso",
+    "updateEarlyBird": "Error al actualizar Early Bird",
+    "movePlannedCourse": "Error al mover curso",
+    "markYearCompleted": "Error al marcar año como completado",
+    "unmarkYearCompleted": "Error al desmarcar año completado",
+    "fetchPlannerAnalysisApi": "Error al obtener el análisis del planificador",
+    "fetchGpaProjection": "Error al obtener la proyección de GPA",
+    "failedToLoad": "Error al cargar los datos.",
+    "tryAgain": "Intentar de nuevo",
+    "notFound": "No encontrado.",
+    "goHome": "Ir al Inicio",
+    "networkError": "Error de red. Por favor, verifica tu conexión.",
+    "unknownError": "Ocurrió un error inesperado."
+  },
+  "errorPage": {
+    "somethingWentWrong": "Algo salió mal.",
+    "errorDescription": "Ocurrió un error inesperado. Por favor, intente actualizar la página. Si el problema persiste, puede reportar el problema.",
+    "refresh": "Actualizar",
+    "returnToDashboard": "Volver al Panel",
+    "reportBug": "Reportar un Error"
+  },
+  "catalogNotFound": {
+    "courseNotFound": "Curso no encontrado",
+    "courseNotFoundDescription": "No pudimos encontrar un curso que coincida con ese enlace. Puede haber sido eliminado o renombrado.",
+    "backToCatalog": "Volver al Catálogo"
   },
   "savedCourses": {
     "recentlySaved": "Cursos Guardados Recientemente",
@@ -127,58 +900,8 @@
   "status": {
     "satisfied": "Satisfecho",
     "partial": "Parcial",
-    "notStarted": "No Iniciado"
-  },
-  "language": {
-    "label": "Idioma",
-    "description": "Elige el idioma de visualización de la aplicación.",
-    "dialogTitle": "Configuración de Idioma",
-    "dialogDescription": "Selecciona el idioma de la interfaz. Tu preferencia se guardará y aplicará en toda la aplicación."
-  },
-  "a11y": {
-    "title": "Accesibilidad y Preferencias",
-    "description": "Personaliza la apariencia y el comportamiento del Planificador de Cursos. Estas configuraciones son opcionales y pueden cambiarse en cualquier momento.",
-    "close": "Cerrar",
-    "keyboardShortcuts": "Atajos de Teclado",
-    "keyboardShortcutsDesc": "Usa atajos de teclado para una navegación y acciones más rápidas.",
-    "keyboardShortcutsNote": "No hay atajos de caracteres a nivel de aplicación actualmente activos. Esta preferencia se guarda para futuros atajos.",
-    "largerText": "Texto Más Grande",
-    "largerTextDesc": "Aumenta el tamaño del texto en todo el sitio web.",
-    "reduceMotion": "Reducir Movimiento",
-    "reduceMotionDesc": "Reduce las animaciones y transiciones en todo el sitio web.",
-    "followSystem": "Seguir Sistema",
-    "on": "Activado",
-    "off": "Desactivado",
-    "howTheseHelp": "Cómo ayudan estas configuraciones",
-    "howTheseHelpIntro": "El Planificador de Cursos está diseñado para ser accesible a todos los usuarios. Estas preferencias opcionales permiten a los usuarios personalizar ciertos aspectos de la experiencia.",
-    "iconAttribution": "Atribución de Icono",
-    "languageLabel": "Idioma",
-    "languageDescription": "Elige el idioma de visualización de la aplicación."
-  },
-  "catalog": {
-    "sourceRegular": "Cursos Regulares",
-    "sourceSummer": "Escuela de Verano",
-    "viewSaved": "Ver Cursos Guardados"
-  },
-  "errors": {
-    "failedToLoad": "Error al cargar los datos.",
-    "tryAgain": "Intentar de nuevo",
-    "notFound": "No encontrado.",
-    "goHome": "Ir al Inicio",
-    "networkError": "Error de red. Por favor, verifica tu conexión.",
-    "unknownError": "Ocurrió un error inesperado."
-  },
-  "guestUpgrade": {
-    "title": "Guarda tu progreso",
-    "description": "Inicia sesión para guardar tu planificador y cursos completados en tu cuenta.",
-    "signIn": "Iniciar Sesión con Google"
-  },
-  "guestEmptyState": {
-    "message": "Inicia sesión para acceder a esta función."
-  },
-  "authToast": {
-    "signedIn": "Sesión iniciada como {name}",
-    "guestMode": "Continuando en Modo Invitado..."
+    "notStarted": "No Iniciado",
+    "planned": "Planificado"
   },
   "tutorial": {
     "actions": {
@@ -207,84 +930,130 @@
       },
       "searchVsFilters": {
         "title": "Búsqueda: Barra de Búsqueda vs. Filtros",
-        "description": "Usa la barra de búsqueda para buscar un curso específico por nombre o código. Usa los filtros para reducir el catálogo por departamento, división, tipo de crédito, elegibilidad de grado o semestre. Puedes combinar búsqueda y filtros para encontrar exactamente lo que necesitas."
+        "description": "Usa la barra de búsqueda para buscar un curso específico por nombre o código de curso. Usa los filtros a continuación para reducir el catálogo por departamento, división, tipo de crédito, elegibilidad de grado o semestre. Puedes combinar búsqueda y filtros para encontrar exactamente lo que necesitas."
       },
       "courseCards": {
         "title": "Entendiendo las Tarjetas de Curso",
-        "description": "Cada tarjeta de curso muestra el título, código, créditos y una breve descripción. Busca prerrequisitos (cursos que debes tomar primero), recomendaciones (preparación sugerida) e insignias de requisitos de graduación que indican qué requisitos puede cumplir un curso."
+        "description": "Cada tarjeta de curso muestra el título del curso, código del curso, créditos y una breve descripción. Busca prerrequisitos (cursos que debes tomar primero), recomendaciones (preparación sugerida) e insignias de requisitos de graduación que indican qué requisitos puede cumplir un curso. Haz clic en una tarjeta para ver los detalles completos."
       },
       "plannerIntro": {
         "title": "Mi Planificador",
-        "description": "Mi Planificador es donde organizas cursos potenciales en un plan de cuatro años. Agregar un curso al planificador representa un curso futuro planificado, no uno completado."
+        "description": "Mi Planificador es donde organizas cursos potenciales en un plan de cuatro años. Agregar un curso al planificador representa un curso futuro planificado, no uno completado. Tu planificador te ayuda a visualizar tu horario y asegura que cumplas los requisitos de graduación."
       },
       "fourYearsSemesters": {
         "title": "Entendiendo Cuatro Años y Semestres",
-        "description": "Tu planificador está organizado por nivel de grado: Primer Año (9), Segundo Año (10), Tercer Año (11) y Cuarto Año (12). Cada año tiene dos semestres."
+        "description": "Tu planificador está organizado por nivel de grado: Primer Año (9), Segundo Año (10), Tercer Año (11) y Cuarto Año (12). Cada año tiene dos semestres. Usa esta estructura para planificar qué cursos quieres tomar cada semestre a lo largo de tu carrera de preparatoria."
       },
       "addingCourses": {
         "title": "Agregar Cursos",
-        "description": "Para agregar un curso, abre un año del planificador y haz clic en el botón '+ Agregar Curso' en cualquier ranura de semestre. Busca un curso por nombre o código, luego selecciónalo para agregarlo a tu plan."
+        "description": "Para agregar un curso, abre un año del planificador y haz clic en el botón '+ Agregar Curso' en cualquier ranura de semestre. Busca un curso por nombre o código, luego selecciónalo para agregarlo a tu plan. No todos los cursos pueden estar disponibles para cada nivel de grado debido a las reglas de elegibilidad."
       },
       "courseEligibility": {
         "title": "Elegibilidad de Cursos",
-        "description": "Algunos cursos tienen restricciones de nivel de grado o prerrequisitos que deben cumplirse antes de poder planificarlos. Si un curso no aparece en tu planificador, revisa su información en el Catálogo de Cursos."
+        "description": "Algunos cursos tienen restricciones de nivel de grado o prerrequisitos que deben cumplirse antes de poder planificarlos. Si un curso no aparece en tu planificador, revisa su información en el Catálogo de Cursos para comprender los requisitos de elegibilidad. Los prerrequisitos pueden incluir cursos completados o puntajes de ubicación."
       },
       "movingCourses": {
         "title": "Mover Cursos",
-        "description": "Puedes mover cursos entre semestres arrastrándolos y soltándolos en una ranura diferente. Mover un curso puede afectar tu balance de semestres y el tiempo de prerrequisitos."
+        "description": "Puedes mover cursos entre semestres arrastrándolos y soltándolos en una ranura diferente. Mover un curso puede afectar tu balance de semestres, el tiempo de prerrequisitos y el progreso de graduación. Revisa tu plan después de hacer cambios para asegurar que todo siga alineado."
       },
       "removingCourses": {
         "title": "Eliminar Cursos",
-        "description": "Para eliminar un curso de tu planificador, haz clic en la tarjeta del curso y usa la opción de eliminar. Eliminar un curso puede afectar tus totales de créditos y el progreso de graduación."
+        "description": "Para eliminar un curso de tu planificador, haz clic en la tarjeta del curso y usa la opción de eliminar. Eliminar un curso puede afectar tus totales de créditos, el progreso de graduación y las relaciones de prerrequisitos. El planificador actualizará las advertencias y recomendaciones en consecuencia."
       },
       "waivers": {
         "title": "Exenciones",
-        "description": "Algunos requisitos de graduación, como Educación Física, pueden eximirse bajo ciertas condiciones. El planificador muestra el estado de exención."
+        "description": "Algunos requisitos de graduación, como Educación Física, pueden eximirse bajo ciertas condiciones. El planificador muestra el estado de exención e indica qué requisitos han sido exentos. Revisa la sección de exenciones en el resumen del planificador para detalles sobre tu situación específica."
       },
       "needsAttention": {
         "title": "Necesita Atención",
-        "description": "La sección Necesita Atención resalta problemas potenciales en tu plan que debes revisar. Los elementos aquí no son necesariamente errores—son indicaciones para ayudarte a verificar que tu plan cumple todos los requisitos."
+        "description": "La sección Necesita Atención resalta problemas potenciales en tu plan que debes revisar. Los elementos aquí no son necesariamente errores—son indicaciones para ayudarte a verificar que tu plan cumple todos los requisitos. Cada elemento sugiere una acción que podrías considerar."
       },
-      "understandingWaternings": {
+      "understandingWarnings": {
         "title": "Entendiendo las Advertencias",
-        "description": "Cuando el planificador muestra una advertencia, hazte tres preguntas: ¿Qué problema está identificando? ¿Por qué podría importar? ¿Qué deberías investigar?"
+        "description": "Cuando el planificador muestra una advertencia, hazte tres preguntas: ¿Qué problema está identificando el planificador? ¿Por qué podría importar para tu graduación? ¿Qué deberías investigar a continuación? Las advertencias te ayudan a detectar problemas potenciales antes de que se conviertan en problemas reales."
       },
-      "resolvingWaternings": {
+      "resolvingWarnings": {
         "title": "Resolviendo Advertencias",
-        "description": "Puedes resolver advertencias tomando acciones como agregar un curso faltante, marcar un prerrequisito como completado, o mover un curso a un semestre diferente."
+        "description": "Puedes resolver advertencias tomando acciones como agregar un curso faltante, marcar un prerrequisito como completado, mover un curso a un semestre diferente, o completar una acción de ubicación. Revisa la acción sugerida antes de aplicarla para asegurar que se ajuste a tu plan."
       },
       "creditProgress": {
         "title": "Progreso de Créditos",
-        "description": "El resumen del planificador muestra tus créditos planificados y cómo se comparan con los requisitos de graduación."
+        "description": "El resumen del planificador muestra tus créditos planificados y cómo se comparan con los requisitos de graduación. Los créditos planificados representan cursos que planeas tomar, mientras que los créditos completados son cursos que ya has terminado. Cambiar tu plan actualizará estos totales."
       },
       "graduationRequirements": {
         "title": "Requisitos de Graduación",
-        "description": "La página de Requisitos de Graduación muestra todos los requisitos que necesitas cumplir para graduarte."
+        "description": "La página de Requisitos de Graduación muestra todos los requisitos que necesitas cumplir para graduarte. Revisa cada requisito para comprender qué cursos pueden satisfacerlo. La página rastrea tanto el coursework completado como los cursos planificados hacia cada requisito."
       },
       "requirementProgress": {
         "title": "Entendiendo el Progreso de Requisitos",
-        "description": "Cada tarjeta de requisito muestra tu progreso: cursos completados que satisfacen el requisito y cursos planificados que pueden contribuir."
+        "description": "Cada tarjeta de requisito muestra tu progreso: cursos completados que satisfacen el requisito y cursos planificados que pueden contribuir. Las barras de progreso distinguen entre coursework completado y planificado. Revisa los detalles detrás de cada requisito en lugar de depender solo del indicador de progreso."
       },
       "completedCourses": {
         "title": "Cursos Completados",
-        "description": "Registra los cursos que ya has completado para que el planificador pueda rastrear con precisión tu progreso de graduación."
+        "description": "Registra los cursos que ya has completado para que el planificador pueda rastrear con precisión tu progreso de graduación. Los cursos completados difieren de los cursos planificados—representan el trabajo que ya has terminado. Puedes organizarlos por período académico e incluir registros de escuela de verano."
       },
       "savedCourses": {
         "title": "Cursos Guardados",
-        "description": "Los cursos guardados son cursos que te interesan pero aún no has colocado en tu planificador. Úsalos como una lista de selección."
+        "description": "Los cursos guardados son cursos que te interesan pero aún no has colocado en tu planificador. Usa los cursos guardados como una lista de selección mientras decides qué planificar. Cuando estés listo, puedes agregar un curso guardado directamente a tu plan de cuatro años."
       },
       "language": {
         "title": "Configuración de Idioma",
-        "description": "Puedes cambiar el idioma de la interfaz usando el selector de idioma. Tu preferencia de idioma se guardará y aplicará en toda la aplicación."
+        "description": "Puedes cambiar el idioma de la interfaz usando el selector de idioma en Accesibilidad y Preferencias. Tu preferencia de idioma se guardará y se aplicará en toda la aplicación. Los idiomas disponibles incluyen English, Español y 简体中文."
       },
       "accessibility": {
         "title": "Configuración de Accesibilidad",
-        "description": "El panel de Accesibilidad y Preferencias incluye opciones para texto más grande, movimiento reducido y atajos de teclado."
+        "description": "El panel de Accesibilidad y Preferencias incluye opciones para texto más grande, movimiento reducido y atajos de teclado. Estas configuraciones ayudan a que la aplicación sea cómoda y usable para todos. Tus preferencias se guardan automáticamente."
       },
       "accountGuest": {
         "title": "Cuenta y Modo Invitado",
-        "description": "Puedes usar Stevenson Course Planner como invitado o iniciar sesión con una cuenta de Google. El modo invitado almacena tus datos localmente en tu navegador."
+        "description": "Puedes usar Stevenson Course Planner como invitado o iniciar sesión con una cuenta de Google. El modo invitado almacena tus datos localmente en tu navegador—se perderá si borras tus datos o cambias de navegador. Iniciar sesión guarda tu planificador y cursos completados en tu cuenta, accesibles desde cualquier dispositivo."
       }
     }
+  },
+  "helpfulInformation": {
+    "heading": "Información Útil",
+    "subtitle": "Información importante sobre políticas, procedimientos y requisitos de graduación.",
+    "empty": "No hay información útil disponible en este momento.",
+    "guestTitle": "Información Útil",
+    "guestDescription": "Inicia sesión para ver información útil sobre políticas y requisitos de graduación.",
+    "close": "Cerrar"
+  },
+  "semester": {
+    "session1": "Sesión 1",
+    "session2": "Sesión 2"
+  },
+  "feedback": {
+    "heading": "Comentarios",
+    "body": "¿Encontraste un error? ¿Tienes una sugerencia? Tus comentarios ayudan a mejorar el planificador para todos.",
+    "reportBug": "Reportar un Error",
+    "sendFeedback": "Enviar Comentarios"
+  },
+  "profile": {
+    "heading": "Tu Perfil",
+    "description": "Esta página solo es visible para usuarios registrados. Más configuraciones de cuenta se agregarán aquí en el futuro."
+  },
+  "errorPagePlanner": {
+    "refresh": "Actualizar",
+    "returnToPlanner": "Volver al Planificador",
+    "dashboard": "Panel",
+    "reportBug": "Reportar un Error"
+  },
+  "errorPageRequirements": {
+    "refresh": "Actualizar",
+    "reloadPage": "Recargar Página",
+    "dashboard": "Panel",
+    "reportBug": "Reportar un Error"
+  },
+  "common": {
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "remove": "Eliminar",
+    "search": "Buscar",
+    "clearSearch": "Limpiar búsqueda",
+    "dismiss": "Descartar",
+    "undo": "Deshacer",
+    "back": "Atrás",
+    "refresh": "Actualizar",
+    "uncategorized": "Sin categoría"
   }
 }

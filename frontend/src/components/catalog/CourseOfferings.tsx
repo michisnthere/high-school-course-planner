@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import { formatSemesterLabel } from "@/lib/catalog";
 
@@ -40,11 +41,11 @@ function getNormalizedDuration(course: Course): number | null {
   return null;
 }
 
-function formatDuration(raw: number | null): string | null {
+function formatDuration(raw: number | null, t: (key: string, params?: Record<string, string>) => string): string | null {
   if (raw == null) return null;
-  if (raw === 1) return "One Semester";
-  if (raw === 2) return "Full Year";
-  return `${raw} Semesters`;
+  if (raw === 1) return t("courseOfferings.oneSemester");
+  if (raw === 2) return t("courseOfferings.fullYear");
+  return t("courseOfferings.semesters", { count: String(raw) });
 }
 
 function totalCredits(course: Course): number | null {
@@ -67,11 +68,11 @@ function isMathCourse(course: Course): boolean {
   return name.includes("math");
 }
 
-function groupOfferingsBySemester(course: Course): Map<string, string[]> {
+function groupOfferingsBySemester(course: Course, t: (key: string) => string): Map<string, string[]> {
   const groups = new Map<string, string[]>();
   for (const option of course.options ?? []) {
     for (const offering of option.offerings ?? []) {
-      const semester = offering.semesterLabel || "Other";
+      const semester = offering.semesterLabel || t("courseOfferings.other");
       if (!groups.has(semester)) groups.set(semester, []);
       groups.get(semester)!.push(offering.courseCode);
     }
@@ -80,11 +81,12 @@ function groupOfferingsBySemester(course: Course): Map<string, string[]> {
 }
 
 export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.ReactElement {
+  const { t } = useTranslation();
   const gradeLevels = getGradeLevels(course);
   const rawDuration = getNormalizedDuration(course);
-  const durationLabel = formatDuration(rawDuration);
+  const durationLabel = formatDuration(rawDuration, t);
   const creditsRaw = totalCredits(course);
-  const semesterGroups = groupOfferingsBySemester(course);
+  const semesterGroups = groupOfferingsBySemester(course, t);
   const showMathNote = gradeLevels != null && isMathCourse(course);
 
   if (!durationLabel && creditsRaw == null && !gradeLevels && semesterGroups.size === 0) {
@@ -109,7 +111,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
           color: "var(--text-primary)",
         }}
       >
-        Additional Information
+        {t("courseOfferings.additionalInformation")}
       </h2>
 
       <div
@@ -122,7 +124,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
       >
         {gradeLevels && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>Grades</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>{t("courseOfferings.grades")}</div>
             <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>
               {gradeLevels}
               {showMathNote && (
@@ -136,8 +138,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
                     fontStyle: "italic",
                   }}
                 >
-                  Students who complete the prerequisite course earlier may enroll
-                  in this course in an earlier grade.
+                  {t("courseOfferings.mathNote")}
                 </p>
               )}
             </div>
@@ -146,14 +147,14 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
 
         {durationLabel && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>Duration</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>{t("courseOfferings.duration")}</div>
             <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>{durationLabel}</div>
           </>
         )}
 
         {creditsRaw != null && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>Total Credits</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>{t("courseOfferings.totalCredits")}</div>
             <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>{creditsRaw}</div>
           </>
         )}
@@ -170,7 +171,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
                 paddingTop: "12px",
               }}
             >
-              Course Codes
+              {t("courseOfferings.courseCodes")}
             </div>
             {Array.from(semesterGroups.entries()).map(([semester, codes]) => (
               <React.Fragment key={semester}>

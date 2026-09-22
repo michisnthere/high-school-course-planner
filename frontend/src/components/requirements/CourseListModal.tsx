@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useTranslation } from "@/context/I18nContext";
 import type { PlannerCourseDetails } from "@/lib/planner";
 
 type CourseListModalProps = {
@@ -42,6 +43,7 @@ export function CourseListModal({
   onNavigate,
 }: CourseListModalProps): React.ReactElement {
   const { isMobile } = useBreakpoint();
+  const { t } = useTranslation();
   const [dragged, setDragged] = useState(0);
   const dragStart = useRef(0);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -127,7 +129,7 @@ export function CourseListModal({
       ref={overlayRef}
       role="dialog"
       aria-modal="true"
-      aria-label={`Courses that satisfy ${requirementName}`}
+      aria-label={t("planner.coursesThatSatisfy", { requirement: requirementName })}
       tabIndex={-1}
       onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
       style={{
@@ -220,12 +222,12 @@ export function CourseListModal({
               lineHeight: 1.3,
             }}
           >
-            Courses that satisfy {requirementName}
+            {t("planner.coursesThatSatisfy", { requirement: requirementName })}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close"
+            aria-label={t("planner.cancel")}
             style={{
               width: isMobile ? "44px" : "36px",
               height: isMobile ? "44px" : "36px",

@@ -2,9 +2,11 @@
 
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 
 export function AuthStatus(): React.ReactElement {
   const { user, mode, loading, logout } = useAuth();
+  const { t } = useTranslation();
 
   const handleSignIn = () => {
     const currentPath = window.location.pathname + window.location.search;
@@ -26,7 +28,7 @@ export function AuthStatus(): React.ReactElement {
           opacity: 0.7,
         }}
       >
-        Loading...
+        {t("auth.loading")}
       </span>
     );
   }
@@ -49,7 +51,7 @@ export function AuthStatus(): React.ReactElement {
           boxSizing: "border-box",
         }}
       >
-        Sign In
+        {t("auth.signIn")}
       </button>
     );
   }
@@ -91,7 +93,7 @@ export function AuthStatus(): React.ReactElement {
             }}
             title="Your changes will not be saved after leaving this session."
           >
-            Guest Mode
+          {t("auth.guestMode")}
           </span>
         )}
       </div>
@@ -111,7 +113,7 @@ export function AuthStatus(): React.ReactElement {
           boxSizing: "border-box",
         }}
       >
-        Sign Out
+        {t("auth.signOut")}
       </button>
     </div>
   );

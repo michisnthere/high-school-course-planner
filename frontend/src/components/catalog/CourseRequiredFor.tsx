@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { getCoursesRequiringPrerequisite } from "@/lib/catalog";
@@ -10,6 +11,7 @@ type CourseRequiredForProps = {
 };
 
 export function CourseRequiredFor({ course, allCourses }: CourseRequiredForProps): React.ReactElement {
+  const { t } = useTranslation();
   const dependents = getCoursesRequiringPrerequisite(course, allCourses);
 
   const currentSlug = getCourseSlug(course);
@@ -33,7 +35,7 @@ export function CourseRequiredFor({ course, allCourses }: CourseRequiredForProps
           color: "var(--text-primary)",
         }}
       >
-        Required For
+        {t("courseRequiredFor.requiredFor")}
       </h2>
 
       {dependents.length === 0 ? (
@@ -44,7 +46,7 @@ export function CourseRequiredFor({ course, allCourses }: CourseRequiredForProps
             color: "var(--text-muted)",
           }}
         >
-          No courses currently require this course as a prerequisite.
+          {t("courseRequiredFor.noCoursesRequire")}
         </p>
       ) : (
         <div

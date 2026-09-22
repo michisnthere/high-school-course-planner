@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import { useSavedCourses } from "@/hooks/useSavedCourses";
 
@@ -11,6 +12,7 @@ type SaveCourseButtonProps = {
 export function SaveCourseButton({
   course,
 }: SaveCourseButtonProps): React.ReactElement {
+  const { t } = useTranslation();
   const { isSaved, toggle, isAuthenticated } = useSavedCourses();
   const saved = isSaved(course.id);
 
@@ -40,7 +42,7 @@ export function SaveCourseButton({
 
       }}
     >
-      {saved ? "Saved" : "Save Course"}
+      {saved ? t("saveCourseButton.saved") : t("saveCourseButton.saveCourse")}
     </button>
   );
 }

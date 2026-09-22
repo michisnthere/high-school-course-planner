@@ -25,6 +25,8 @@ export type PlannerAnalysis = {
       requirementType: string | null;
       requiredValue: number | null;
       earnedValue: number;
+      completedValue: number;
+      plannedValue: number;
       remainingValue: number;
       status: "satisfied" | "partial" | "notStarted";
       recommendedCourses: Array<{
@@ -41,6 +43,8 @@ export type PlannerAnalysis = {
     requirementType: string | null;
     requiredValue: number | null;
     earnedValue: number;
+    completedValue: number;
+    plannedValue: number;
     remainingValue: number;
     status: "satisfied" | "partial" | "notStarted";
     recommendedCourses: Array<{

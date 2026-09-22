@@ -73,6 +73,7 @@ html, body {
   /* Accessibility preferences */
   --a11y-button-bg: #FFFFFF;
   --a11y-button-bg-hover: #F9FAFB;
+  --a11y-icon-color: #1A5CB0;
 
   /* ── Font ── */
   --font-sans: var(--font-inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);

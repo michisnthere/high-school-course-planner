@@ -81,6 +81,12 @@ const STATUS_CONFIG: Record<string, { label: string; badge: string; light: strin
     light: "#fef2f2",
     textColor: "#ffffff",
   },
+  planned: {
+    label: "Planned",
+    badge: "#ECBA2B",
+    light: "#FCF5DF",
+    textColor: "#111827",
+  },
 };
 
 function formatNumber(n: number): string {
@@ -97,7 +103,6 @@ function RequirementsContent(): React.ReactElement {
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [modalItem, setModalItem] = useState<PlannerAnalysis["informationItems"][number] | null>(null);
   const [viewAllReq, setViewAllReq] = useState<string | null>(() => searchParams.get("viewAll"));
   const [allCourseDetails, setAllCourseDetails] = useState<PlannerCourseDetails[]>([]);
   const [planners, setPlanners] = useState<Planner[]>([]);
@@ -228,10 +233,6 @@ function RequirementsContent(): React.ReactElement {
   const visibleRequirements = earnedRequirements.filter(
     (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
   );
-  const visibleInformationItems = analysis?.informationItems.filter(
-    (item) => !item.name.toLowerCase().includes("46th") && !item.name.toLowerCase().includes("external credits")
-  ) ?? [];
-
   if (authLoading) {
     return (
       <div style={{ padding: "32px", minHeight: "calc(100dvh - 64px)" }}>
@@ -396,7 +397,7 @@ function RequirementsContent(): React.ReactElement {
             lineHeight: 1.2,
           }}
         >
-          Graduation Progress
+          {t("requirements.heading")}
         </h1>
 
         {loading ? (
@@ -414,7 +415,7 @@ function RequirementsContent(): React.ReactElement {
                 <strong style={{ fontSize: "28px", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
                   {formatNumber(earnedCreditsTotal)}{" "}
                   <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
-                    / {TOTAL_REQUIRED_CREDITS} Credits Completed
+                    / {TOTAL_REQUIRED_CREDITS} {t("requirements.creditsCompleted", { total: String(TOTAL_REQUIRED_CREDITS) })}
                   </span>
                 </strong>
               </div>
@@ -430,7 +431,7 @@ function RequirementsContent(): React.ReactElement {
               >
                 {formatNumber(earnedCreditsTotal)}{" "}
                 <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
-                  / {TOTAL_REQUIRED_CREDITS} Credits Completed
+                  / {TOTAL_REQUIRED_CREDITS} {t("requirements.creditsCompleted", { total: String(TOTAL_REQUIRED_CREDITS) })}
                 </span>
               </p>
             ) : null}
@@ -443,7 +444,7 @@ function RequirementsContent(): React.ReactElement {
                   color: "var(--text-muted)",
                 }}
               >
-                Projected with current plan: {formatNumber(projectedCreditsTotal)} / {TOTAL_REQUIRED_CREDITS}
+                {t("requirements.projectedCredits", { earned: formatNumber(projectedCreditsTotal), total: String(TOTAL_REQUIRED_CREDITS) })}
               </p>
             )}
 
@@ -456,7 +457,7 @@ function RequirementsContent(): React.ReactElement {
                   color: "var(--text-primary)",
                 }}
               >
-                Year-Level Requirements
+                {t("requirements.yearLevelRequirements")}
               </h2>
               <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "var(--text-muted)" }}>
                 {t("requirements.yearLevelSubtitle")}
@@ -495,7 +496,7 @@ function RequirementsContent(): React.ReactElement {
                   color: "var(--text-primary)",
                 }}
               >
-                Graduation Requirements
+                {t("requirements.graduationRequirementsSection")}
               </h2>
               <p style={{ margin: "-12px 0 16px", fontSize: "14px", color: "var(--text-muted)" }}>
                 {t("requirements.onTrackSubtitle")}
@@ -563,43 +564,6 @@ function RequirementsContent(): React.ReactElement {
               </div>
             </section>
 
-            {visibleInformationItems.length > 0 && (
-              <section>
-                <h2
-                  style={{
-                    margin: "0 0 16px",
-                    fontSize: "20px",
-                    fontWeight: 700,
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  {t("requirements.helpfulInformation")}
-                </h2>
-                <div
-                  className={isMobile ? "rs-req-info-grid" : undefined}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                    gap: "16px",
-                  }}
-                >
-                  {visibleInformationItems.map((item) => (
-                    <InfoCard
-                      key={item.id}
-                      item={item}
-                      onOpen={() => setModalItem(item)}
-                    />
-                  ))}
-                   {modalItem && (
-                    <InfoModal
-                      item={modalItem}
-                      onClose={() => setModalItem(null)}
-                    />
-                  )}
-                </div>
-              </section>
-            )}
-
             {viewAllReq && allCourseDetails.length > 0 && (
               <CourseListModal
                 requirementName={viewAllReq}
@@ -633,6 +597,7 @@ type YearLevelCardProps = {
 
 function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: YearLevelCardProps): React.ReactElement {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const { t } = useTranslation();
 
   const peItem = pePerSemester.length > 0
     ? {
@@ -648,7 +613,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
   const satisfiedCount = allItems.filter((i) => i.met).length;
   const totalCount = allItems.length;
   const allMet = satisfiedCount === totalCount;
-  const statusLabel = allMet ? "Satisfied" : "Partial";
+  const statusLabel = allMet ? t("requirements.statusSatisfied") : t("requirements.statusPartial");
   const statusColor = allMet ? "#275D38" : "#ECBA2B";
 
   return (
@@ -727,7 +692,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
                   {item.category}
                 </p>
                 <p style={{ margin: "4px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
-                  {formatNumber(item.earnedCredits)} / {formatNumber(item.requiredCredits)} credits
+                  {formatNumber(item.earnedCredits)} / {formatNumber(item.requiredCredits)} {t("requirements.creditsUnit")}
                 </p>
               </div>
               <span
@@ -738,7 +703,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
                   whiteSpace: "nowrap",
                 }}
               >
-                {item.met ? "Satisfied" : "Missing"}
+                {item.met ? t("requirements.statusSatisfied") : t("requirements.statusMissing")}
               </span>
             </div>
           ))}
@@ -789,6 +754,7 @@ function RequirementCard({
 }: RequirementCardProps): React.ReactElement {
   const isPe = req.name.toLowerCase() === "physical education";
   const isDriverEd = req.name.toLowerCase() === "driver education";
+  const { t } = useTranslation();
   const showPeGrid = isPe && !!peYearRows;
   const peMetCount = peYearRows
     ? peYearRows.reduce(
@@ -805,6 +771,8 @@ function RequirementCard({
       : peNoneMet
       ? STATUS_CONFIG.notStarted
       : STATUS_CONFIG.partial
+    : req.plannedValue > 0
+    ? STATUS_CONFIG.planned
     : STATUS_CONFIG[req.status];
   const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
   const effectiveEarned = isPe && hasPeWaiver ? effectiveRequired : req.earnedValue;
@@ -829,7 +797,7 @@ function RequirementCard({
   const displayCourses = displayRecs.length > 0 ? displayRecs : fallbackDisplayRecs;
 
   const bodyText = showPeGrid
-    ? "Physical Education is required each semester. Each semester is satisfied by a PE course or an approved waiver."
+    ? t("requirements.peBodyText")
     : req.requiredValue != null
     ? `This requirement requires ${formatNumber(req.requiredValue)} credits. You have earned ${formatNumber(req.earnedValue)} credits so far.`
     : null;
@@ -881,7 +849,7 @@ function RequirementCard({
             }}
           >
             {req.name}
-            {isPe && hasPeWaiver && <span style={{ marginLeft: "8px", fontSize: "12px", color: "var(--status-success)", fontWeight: 600 }}>(Waived)</span>}
+            {isPe && hasPeWaiver && <span style={{ marginLeft: "8px", fontSize: "12px", color: "var(--status-success)", fontWeight: 600 }}>            {t("requirements.waived")}</span>}
           </h3>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
             <span
@@ -894,7 +862,7 @@ function RequirementCard({
                 borderRadius: "9999px",
               }}
             >
-              {config.label}
+              {config === STATUS_CONFIG.satisfied ? t("requirements.statusSatisfied") : config === STATUS_CONFIG.partial ? t("requirements.statusPartial") : config === STATUS_CONFIG.notStarted ? t("requirements.statusNotStarted") : t("requirements.statusPlanned")}
             </span>
             <span
               aria-hidden="true"
@@ -920,7 +888,7 @@ function RequirementCard({
             }}
           >
             <p style={{ margin: 0, fontSize: "13px", color: "var(--text-muted)" }}>
-              Required each semester
+              {t("requirements.peRequiredEachSemester")}
             </p>
             {peYearRows!.map((row) => (
               <div
@@ -965,19 +933,26 @@ function RequirementCard({
               }}
             >
               <span>
-                Earned:{" "}
-                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveEarned)}</strong>
+                {t("requirements.completedLabel")}{" "}
+                <strong style={{ color: "#275D38" }}>{formatNumber(req.completedValue)}</strong>
               </span>
+              {req.plannedValue > 0 && (
+                <span>
+                  {t("requirements.plannedLabel")}{" "}
+                  <strong style={{ color: "#ECBA2B" }}>{formatNumber(req.plannedValue)}</strong>
+                </span>
+              )}
               <span>
-                Required:{" "}
-                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(effectiveRequired)}</strong>
-              </span>
-              <span>
-                Remaining:{" "}
+                {t("requirements.remainingLabel")}{" "}
                 <strong style={{ color: "var(--text-primary)" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
               </span>
             </div>
-            <ProgressBar percent={percent} color={config.badge} showLabel />
+            <ProgressBar
+              percent={percent}
+              completedPercent={effectiveRequired > 0 ? Math.min(100, (req.completedValue / effectiveRequired) * 100) : 0}
+              plannedPercent={effectiveRequired > 0 ? Math.min(100, (req.plannedValue / effectiveRequired) * 100) : 0}
+              showLabel
+            />
           </>
         )}
       </div>
@@ -998,7 +973,7 @@ function RequirementCard({
           {displayCourses.length > 0 && (
             <div>
               <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
-                Recommended Courses
+                {t("requirements.recommendedCourses")}
               </p>
               <div className="rs-req-recs" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {displayCourses.map((course) => (
@@ -1033,7 +1008,7 @@ function RequirementCard({
                       onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }}
                       onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
                     >
-                      View All ({totalMatching})
+                      {t("requirements.viewAll", { totalMatching: String(totalMatching) })}
                     </button>
                 )}
               </div>
@@ -1043,12 +1018,12 @@ function RequirementCard({
           {isDriverEd && (
             <div style={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid var(--border-light)" }}>
               <p style={{ margin: "0 0 10px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
-                Completed Outside of School
+                {t("requirements.completedOutsideSchool")}
               </p>
               {driverEdExternalResolution ? (
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
                   <span style={{ fontSize: "13px", color: "var(--status-success)" }}>
-                    ✓ Completed outside school
+                    {t("requirements.completedOutsideStatus")}
                   </span>
                   <button
                     type="button"
@@ -1063,13 +1038,13 @@ function RequirementCard({
                       cursor: "pointer",
                     }}
                   >
-                    Undo
+                    {t("requirements.undo")}
                   </button>
                 </div>
               ) : driverEdInPlanner ? (
                 <div>
                   <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
-                    Driver Education is already in your planner, so it will be completed through that course.
+                    {t("requirements.driverEdInPlanner")}
                   </p>
                 </div>
               ) : (
@@ -1087,10 +1062,10 @@ function RequirementCard({
                       cursor: "pointer",
                     }}
                   >
-                    Mark completed outside school
+                    {t("requirements.markCompletedOutside")}
                   </button>
                   <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
-                    Completed Driver Education at a commercial school or obtained your license before age 18.
+                    {t("requirements.driverEdDescription")}
                   </p>
                 </div>
               )}
@@ -1103,6 +1078,7 @@ function RequirementCard({
 }
 
 function PeSemesterCell({ cell }: { cell: PeSemesterCell }): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <span
       title={cell.courseTitle ?? cell.requiredLabel}
@@ -1120,212 +1096,100 @@ function PeSemesterCell({ cell }: { cell: PeSemesterCell }): React.ReactElement 
       <span style={{ fontWeight: 700 }}>{cell.met ? "\u2713" : "\u25CB"}</span>
       <span>S{cell.semester}</span>
       {cell.reason === "waiver" && (
-        <span style={{ fontSize: "12px", color: "var(--status-success)" }}>(Waiver)</span>
+        <span style={{ fontSize: "12px", color: "var(--status-success)" }}>{t("requirements.waiver")}</span>
       )}
     </span>
   );
 }
 
-type InfoCardProps = {
-  item: PlannerAnalysis["informationItems"][number];
-  onOpen: () => void;
-};
-
-function InfoCard({ item, onOpen }: InfoCardProps): React.ReactElement {
-  const [hovered, setHovered] = React.useState(false);
-
-  return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={onOpen}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onOpen(); }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        minWidth: 0,
-        padding: "20px",
-        backgroundColor: "var(--bg-card)",
-        border: "1px solid var(--border-default)",
-        borderRadius: "12px",
-        cursor: "pointer",
-        transition: "box-shadow 0.15s ease, border-color 0.15s ease",
-        outline: "none",
-        boxShadow: hovered ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
-        borderColor: hovered ? "var(--brand-accent)" : "var(--border-default)",
-      }}
-    >
-      <h3
-        style={{
-          margin: 0,
-          fontSize: "16px",
-          fontWeight: 700,
-          color: "var(--text-primary)",
-          lineHeight: 1.3,
-          overflowWrap: "break-word",
-          wordBreak: "break-word",
-        }}
-      >
-        {item.name}
-      </h3>
-      {item.explanation && (
-        <p
-          style={{
-            margin: "8px 0 0",
-            fontSize: "14px",
-            color: "var(--text-muted)",
-            lineHeight: 1.5,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {item.explanation}
-        </p>
-      )}
-    </div>
-  );
-}
-
-function InfoModal({
-  item,
-  onClose,
-}: {
-  item: PlannerAnalysis["informationItems"][number];
-  onClose: () => void;
-}): React.ReactElement {
-  const { isMobile: mobile } = useBreakpoint();
-
-  React.useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
-  }, [onClose]);
-
-  return (
-    <>
-      {mobile && <style>{`
-        @keyframes info-slide-up {
-          from { transform: translateY(100%); }
-          to { transform: translateY(0); }
-        }
-      `}</style>}
-      <div
-        role="dialog"
-        aria-modal="true"
-        onClick={onClose}
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 1000,
-          display: "flex",
-          alignItems: mobile ? "flex-end" : "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          padding: mobile ? 0 : "32px",
-        }}
-      >
-        <div
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            maxWidth: mobile ? "100%" : "560px",
-            width: "100%",
-            maxHeight: mobile ? "100%" : "80vh",
-            height: mobile ? "100%" : "auto",
-            overflowY: "auto",
-            backgroundColor: "var(--bg-card)",
-            borderRadius: mobile ? 0 : "12px",
-            padding: mobile ? "calc(24px + var(--safe-area-top, 0px)) 24px calc(24px + var(--safe-area-bottom, 0px))" : "28px",
-            position: "relative",
-            animation: mobile ? "info-slide-up 0.25s ease-out" : undefined,
-            boxSizing: "border-box",
-          }}
-        >
-          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "12px" }}>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close"
-              style={{
-                width: mobile ? "44px" : "36px",
-                height: mobile ? "44px" : "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "none",
-                borderRadius: "8px",
-                backgroundColor: "var(--bg-muted)",
-                color: "var(--text-muted)",
-                fontSize: "18px",
-                fontWeight: 500,
-                cursor: "pointer",
-                lineHeight: 1,
-              }}
-            >
-              {"\u2715"}
-            </button>
-          </div>
-          <h2
-            style={{
-              margin: "0 0 16px",
-              fontSize: mobile ? "20px" : "22px",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              lineHeight: 1.3,
-            }}
-          >
-            {item.name}
-          </h2>
-          {item.explanation && (
-            <p
-              style={{
-                margin: "0 0 16px",
-                fontSize: mobile ? "15px" : "15px",
-                color: "var(--text-secondary)",
-                lineHeight: 1.7,
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {item.explanation}
-            </p>
-          )}
-          {item.sourceReference && (
-            <p
-              style={{
-                margin: 0,
-                fontSize: "13px",
-                color: "var(--text-muted)",
-              }}
-            >
-              Source: {item.sourceReference}
-            </p>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
-
 function ProgressBar({
   percent,
+  completedPercent,
+  plannedPercent,
   color = "var(--brand-accent)",
   height = 8,
   showLabel = false,
 }: {
   percent: number;
+  completedPercent?: number;
+  plannedPercent?: number;
   color?: string;
   height?: number;
   showLabel?: boolean;
 }): React.ReactElement {
+  const { t } = useTranslation();
   const [animatedWidth, setAnimatedWidth] = useState(0);
+  const [animatedCompleted, setAnimatedCompleted] = useState(0);
+  const [animatedPlanned, setAnimatedPlanned] = useState(0);
   const clamped = Math.min(100, Math.max(0, percent));
+  const hasSegments = completedPercent != null && plannedPercent != null;
 
   useEffect(() => {
-    const timer = setTimeout(() => setAnimatedWidth(clamped), 50);
+    const timer = setTimeout(() => {
+      setAnimatedWidth(clamped);
+      if (hasSegments) {
+        setAnimatedCompleted(Math.min(100, Math.max(0, completedPercent!)));
+        setAnimatedPlanned(Math.min(100, Math.max(0, plannedPercent!)));
+      }
+    }, 50);
     return () => clearTimeout(timer);
-  }, [clamped]);
+  }, [clamped, hasSegments, completedPercent, plannedPercent]);
+
+  if (hasSegments) {
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div
+          role="progressbar"
+          aria-valuenow={Math.round(clamped)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={t("requirements.progressLabel", { value: String(Math.round(clamped)) })}
+          style={{
+            flex: 1,
+            height,
+            backgroundColor: "var(--border-default)",
+            borderRadius: height / 2,
+            overflow: "hidden",
+            display: "flex",
+          }}
+        >
+          {animatedCompleted > 0 && (
+            <div
+              style={{
+                width: `${animatedCompleted}%`,
+                height: "100%",
+                backgroundColor: "#275D38",
+                transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
+            />
+          )}
+          {animatedPlanned > 0 && (
+            <div
+              style={{
+                width: `${animatedPlanned}%`,
+                height: "100%",
+                backgroundColor: "#ECBA2B",
+                transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
+            />
+          )}
+        </div>
+        {showLabel && (
+          <span
+            style={{
+              fontSize: "13px",
+              fontWeight: 400,
+              color: "var(--text-secondary)",
+              minWidth: "42px",
+              textAlign: "right",
+            }}
+          >
+            {Math.round(clamped)}%
+          </span>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>

@@ -3,9 +3,12 @@
 import React from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AuthStatus } from "@/components/auth/AuthStatus";
+import { useTranslation } from "@/context/I18nContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 
 export default function ProfilePage(): React.ReactElement {
+  const { t } = useTranslation();
+
   return (
     <ProtectedRoute>
       <ResponsivePage>
@@ -17,7 +20,7 @@ export default function ProfilePage(): React.ReactElement {
             color: "var(--text-primary)",
           }}
         >
-          Your Profile
+          {t("profile.heading")}
         </h1>
         <p
           style={{
@@ -26,8 +29,7 @@ export default function ProfilePage(): React.ReactElement {
             color: "var(--text-secondary)",
           }}
         >
-          This page is only visible to signed-in users. More account settings
-          will be added here once user accounts are persisted in the database.
+          {t("profile.description")}
         </p>
         <AuthStatus />
       </ResponsivePage>

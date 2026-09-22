@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import { getSummerCourses, type SummerCourse } from "@/lib/summerCourse";
 import { normalizeSummerCourseForCatalog } from "@/lib/summerCatalog";
 import { CourseCard } from "@/components/catalog/CourseCard";
@@ -15,7 +16,7 @@ type SummerCoursePickerProps = {
   onSelect: (summerCourse: SummerCourse, semester: number) => void;
 };
 
-const SESSION_LABEL: Record<number, string> = { 3: "Session 1", 4: "Session 2" };
+const SESSION_LABELS: Record<number, string> = { 3: "plannerSummerPicker.session1", 4: "plannerSummerPicker.session2" };
 
 export function SummerCoursePicker({
   semester,
@@ -26,6 +27,7 @@ export function SummerCoursePicker({
   onClose,
   onSelect,
 }: SummerCoursePickerProps): React.ReactElement {
+  const { t } = useTranslation();
   const [allCourses, setAllCourses] = React.useState<SummerCourse[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -33,7 +35,9 @@ export function SummerCoursePicker({
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const targetGrade = grade;
-  const session = SESSION_LABEL[semester] ?? "Session 1";
+  const sessionKey = SESSION_LABELS[semester] ?? "plannerSummerPicker.session1";
+  const session = t(sessionKey);
+  const sessionForFilter = sessionKey === "plannerSummerPicker.session1" ? "session 1" : "session 2";
 
   React.useEffect(() => {
     let active = true;
@@ -42,7 +46,7 @@ export function SummerCoursePicker({
         if (active) setAllCourses(courses);
       })
       .catch(() => {
-        if (active) setError("Failed to load Summer School courses.");
+        if (active) setError(t("plannerSummerPicker.failedToLoad"));
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -117,7 +121,7 @@ export function SummerCoursePicker({
           sessions.length === 0 ||
           (isFullSummer
             ? sessions.includes("session 1") && sessions.includes("session 2")
-            : sessions.includes(session.toLowerCase()));
+            : sessions.includes(sessionForFilter));
         const alreadyAdded = plannedIds.has(course.id);
         const regularId = course.regularCourseId;
         const regularEquivalentDuplicate =
@@ -128,17 +132,17 @@ export function SummerCoursePicker({
           regularId != null && regularCompletedDuplicateIds.has(course.id);
         const disabled = !eligibleGrade || !offeredHere || alreadyAdded || regularEquivalentDuplicate || completedRegularDuplicate;
         let disabledReason: string | null = null;
-        if (alreadyAdded) disabledReason = "Already planned in your schedule";
+        if (alreadyAdded) disabledReason = t("plannerSummerPicker.alreadyPlanned");
         else if (regularEquivalentDuplicate)
           disabledReason = plannedRegularSet.has(regularId ?? -1)
-            ? "The regular equivalent of this course is already planned"
-            : "The regular equivalent of this course is already completed";
-        else if (!eligibleGrade) disabledReason = `Open to ${(course.gradeLevels ?? []).join("-")}`;
+            ? t("plannerSummerPicker.regularEquivalentPlanned")
+            : t("plannerSummerPicker.regularEquivalentCompleted");
+        else if (!eligibleGrade) disabledReason = t("plannerSummerPicker.openToGrades", { grades: (course.gradeLevels ?? []).join("-") });
         else if (!offeredHere)
           disabledReason = isFullSummer
-            ? "Not offered for the full summer"
-            : `Not offered in ${session}`;
-        else if (completedRegularDuplicate) disabledReason = "The regular equivalent is already completed";
+            ? t("plannerSummerPicker.notOfferedFullSummer")
+            : t("plannerSummerPicker.notOfferedInSession", { session });
+        else if (completedRegularDuplicate) disabledReason = t("plannerSummerPicker.regularEquivalentCompleted");
         return { course, disabled, disabledReason };
       })
       .filter((entry) => {
@@ -196,10 +200,10 @@ export function SummerCoursePicker({
           >
             <div>
               <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 700, color: "#ffffff" }}>
-                Add a Summer Course
+                {t("plannerSummerPicker.addSummerCourse")}
               </h2>
               <p style={{ margin: "4px 0 0", fontSize: "13px", color: "#9ca3af" }}>
-                {session} · the summer between grade {grade - 1} and grade {grade}
+                {t("plannerSummerPicker.sessionSubtitle", { session, gradePrev: String(grade - 1), gradeNext: String(grade) })}
               </p>
             </div>
             <button
@@ -214,7 +218,7 @@ export function SummerCoursePicker({
                 padding: "4px",
                 lineHeight: 1,
               }}
-              aria-label="Close"
+              aria-label={t("planner.cancel")}
             >
               x
             </button>
@@ -224,8 +228,8 @@ export function SummerCoursePicker({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search summer courses..."
-            aria-label="Search summer courses"
+            placeholder={t("plannerSummerPicker.searchPlaceholder")}
+            aria-label={t("plannerSummerPicker.searchAriaLabel")}
             style={{
               width: "100%",
               boxSizing: "border-box",
@@ -241,12 +245,12 @@ export function SummerCoursePicker({
 
         <div style={{ flex: 1, overflowY: "auto", padding: "16px 24px 24px" }}>
           {loading ? (
-            <p style={{ color: "#9ca3af", fontSize: "14px" }}>Loading summer courses...</p>
+            <p style={{ color: "#9ca3af", fontSize: "14px" }}>{t("plannerSummerPicker.loadingSummerCourses")}</p>
           ) : error ? (
             <p style={{ color: "#f87171", fontSize: "14px" }}>{error}</p>
           ) : results.length === 0 ? (
             <p style={{ color: "#9ca3af", fontSize: "14px" }}>
-              {query ? "No summer courses match your search." : "No summer courses available for this session."}
+              {query ? t("plannerSummerPicker.noMatchSearch") : t("plannerSummerPicker.noSummerCoursesAvailable")}
             </p>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -278,12 +282,12 @@ export function SummerCoursePicker({
                     )}
                     {course.prerequisites.length > 0 && (
                       <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#fcd34d" }}>
-                        Prerequisites: {course.prerequisites.join(", ")}
+                        {t("plannerSummerPicker.prerequisites")}: {course.prerequisites.join(", ")}
                       </div>
                     )}
                     {(course.corequisites ?? []).length > 0 && (
                       <div style={{ padding: "0 20px 16px", fontSize: "12px", color: "#fcd34d" }}>
-                        Corequisites: {(course.corequisites ?? []).join(", ")}
+                        {t("plannerSummerPicker.corequisites")}: {(course.corequisites ?? []).join(", ")}
                       </div>
                     )}
                   </div>

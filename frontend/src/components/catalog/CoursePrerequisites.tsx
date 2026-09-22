@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatPrerequisiteForDisplay } from "@/lib/catalog";
@@ -154,6 +155,7 @@ function PrereqChip({
 }
 
 export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesProps): React.ReactElement {
+  const { t } = useTranslation();
   const prereqStrings = collectPrereqStrings(course);
   const groups = parsePrereqGroups(prereqStrings, allCourses);
 
@@ -178,7 +180,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
           color: "var(--text-primary)",
         }}
       >
-        Prerequisites
+        {t("coursePrerequisites.prerequisites")}
       </h2>
 
       <style>{`
@@ -195,7 +197,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
             color: "var(--text-muted)",
           }}
         >
-          None
+          {t("coursePrerequisites.none")}
         </p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

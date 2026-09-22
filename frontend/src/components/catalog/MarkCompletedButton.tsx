@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import type { Course } from "@/types/course";
+import { useTranslation } from "@/context/I18nContext";
 import { useCompletedCoursesService } from "@/services/ServiceContext";
 import { courseToPlannerDetails } from "@/lib/planner";
 import { defaultGradeForContext, getAcademicPeriodLabel, gradeOptionsForContext } from "@/lib/completedCoursePeriods";
@@ -16,6 +17,7 @@ export function MarkCompletedButton({
   course,
 }: MarkCompletedButtonProps): React.ReactElement {
   const completedService = useCompletedCoursesService();
+  const { t } = useTranslation();
   const { isMobile } = useBreakpoint();
   const [completedIds, setCompletedIds] = useState<Set<number>>(new Set());
   const [modalOpen, setModalOpen] = useState(false);
@@ -69,7 +71,7 @@ export function MarkCompletedButton({
       await completedService.addCompletedCourse(course.id, grade, courseToPlannerDetails(course));
       setModalOpen(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to mark course as completed");
+      setError(err instanceof Error ? err.message : t("markCompletedButton.failedToMark"));
     } finally {
       setLoading(false);
     }
@@ -81,7 +83,7 @@ export function MarkCompletedButton({
         type="button"
         onClick={handleClick}
         aria-pressed={isCompleted}
-        title={isCompleted ? "View completed courses" : undefined}
+        title={isCompleted ? t("markCompletedButton.viewCompletedCourses") : undefined}
         style={{
           height: "36px",
           padding: "0 16px",
@@ -94,14 +96,14 @@ export function MarkCompletedButton({
           cursor: "pointer",
         }}
       >
-        {isCompleted ? "Completed ✓" : "Mark as Completed"}
+        {isCompleted ? t("markCompletedButton.completed") : t("markCompletedButton.markAsCompleted")}
       </button>
 
       {modalOpen && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Mark as completed"
+          aria-label={t("markCompletedButton.markAsCompletedAria")}
           style={{
             position: "fixed",
             inset: 0,
@@ -137,7 +139,7 @@ export function MarkCompletedButton({
                 color: "var(--text-primary)",
               }}
             >
-              Mark as completed
+              {t("markCompletedButton.markAsCompleted")}
             </h2>
             <p style={{ margin: "0 0 20px", fontSize: "15px", color: "var(--text-secondary)" }}>
               {course.title}
@@ -153,7 +155,7 @@ export function MarkCompletedButton({
                 color: "var(--text-secondary)",
               }}
             >
-              Grade Level
+              {t("markCompletedButton.gradeLevel")}
             </label>
             <select
               id="catalog-completed-grade"
@@ -198,7 +200,7 @@ export function MarkCompletedButton({
                   cursor: loading ? "not-allowed" : "pointer",
                 }}
               >
-                Cancel
+                {t("markCompletedButton.cancel")}
               </button>
               <button
                 type="button"
@@ -216,7 +218,7 @@ export function MarkCompletedButton({
                   opacity: loading ? 0.7 : 1,
                 }}
               >
-                {loading ? "Saving…" : "Mark Completed"}
+                {loading ? t("markCompletedButton.saving") : t("markCompletedButton.markCompleted")}
               </button>
             </div>
           </div>

@@ -62,11 +62,11 @@ import {
 import type { SummerCourse } from "@/lib/summerCourse";
 import { SummerCoursePicker } from "@/components/planner/SummerCoursePicker";
 import { CourseLoadRequirements } from "@/components/planner/CourseLoadRequirements";
-import { GraduationRequirements } from "@/components/planner/GraduationRequirements";
 import { WaiverSection } from "@/components/planner/WaiverSection";
 import { getCreditBearingCount, computeAthleticVariantEligibility, computeWaiverEligibility, courseFulfillsDriverEducation, findDriverEdExternalResolution, hasDriverEducationCourse } from "@/lib/plannerWaivers";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { useSearchSubmit } from "@/hooks/useSearchSubmit";
+import { useTranslation } from "@/context/I18nContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import type { RequirementResolution } from "@/lib/api";
 import type { PeWaiver } from "@/lib/plannerWaivers";
@@ -141,6 +141,7 @@ type ToastState = {
 function PlannerYearContent(): React.ReactElement {
   const params = useParams();
   const year = Number(params.year);
+  const { t } = useTranslation();
   const [planner, setPlanner] = useState<Planner | null>(null);
   const [allPlanners, setAllPlanners] = useState<Planner[]>([]);
   const [loading, setLoading] = useState(true);
@@ -319,10 +320,10 @@ function PlannerYearContent(): React.ReactElement {
     (course: PlannerCourseDetails | null | undefined): boolean => {
       if (!course || !hasDriverEdExternal) return false;
       if (!courseFulfillsDriverEducation(course)) return false;
-      showToast(
-        "Driver Education is already marked as completed outside of school. Undo that first to add it to your planner.",
-        "warning"
-      );
+        showToast(
+          t("plannerToasts.driverEdExternalConflict"),
+          "warning"
+        );
       return true;
     },
     [hasDriverEdExternal, showToast]
@@ -387,7 +388,7 @@ function PlannerYearContent(): React.ReactElement {
         await completedService.addCompletedCourse(courseId, gradeCompleted);
         setCompletedCoursePicker({ open: false });
         await loadCompletedCourses();
-        showToast("Course marked as completed.", "success");
+        showToast(t("plannerToasts.courseMarkedCompleted"), "success");
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to mark course as completed";
         showToast(message, "warning");
@@ -525,7 +526,7 @@ function PlannerYearContent(): React.ReactElement {
           buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
         );
         handleCloseModal();
-        showToast("Summer course added.", "success", handleUndo);
+        showToast(t("plannerToasts.summerCourseAdded"), "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to add summer course";
         showToast(message, "warning");
@@ -558,7 +559,7 @@ function PlannerYearContent(): React.ReactElement {
         );
         setAllPlanners(newPlanners);
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
-        showToast("Prerequisite added.", "success", handleUndo);
+        showToast(t("plannerToasts.prerequisiteAdded"), "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to add prerequisite";
         showToast(message, "warning");
@@ -619,7 +620,7 @@ function PlannerYearContent(): React.ReactElement {
         });
         setAllPlanners(newPlanners);
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
-        showToast("Course moved and prerequisite added.", "success", handleUndo);
+        showToast(t("plannerToasts.courseMovedAndPrerequisiteAdded"), "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to adjust schedule";
         showToast(message, "warning");
@@ -738,7 +739,7 @@ function PlannerYearContent(): React.ReactElement {
           }
           undoRestoredPlannerRef.current = restoredPlanner;
         });
-        showToast("Course removed.", "success", handleUndo);
+        showToast(t("plannerToasts.courseRemoved"), "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to remove course";
         showToast(message, "warning");
@@ -781,7 +782,7 @@ function PlannerYearContent(): React.ReactElement {
           await plannerService.updateEarlyBird(planned.id, !isEarlyBird);
         });
         showToast(
-          isEarlyBird ? "Course marked as Early Bird." : "Early Bird removed.",
+          isEarlyBird ? t("plannerToasts.earlyBirdMarked") : t("plannerToasts.earlyBirdRemoved"),
           "success",
           handleUndo
         );
@@ -824,7 +825,7 @@ function PlannerYearContent(): React.ReactElement {
         });
         setAllPlanners(newPlanners);
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
-        showToast("Course replaced.", "success", handleUndo);
+        showToast(t("plannerToasts.courseReplaced"), "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to replace course";
         showToast(message, "warning");
@@ -849,7 +850,7 @@ function PlannerYearContent(): React.ReactElement {
         pushHistory(newPlanners, async () => {
           await plannerService.movePlannedCourse(plannedCourseId, source.semester, source.slot);
         });
-        showToast("Course moved.", "success", handleUndo);
+        showToast(t("plannerToasts.courseMoved"), "success", handleUndo);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to move course";
         showToast(message, "warning");
@@ -1006,7 +1007,7 @@ function PlannerYearContent(): React.ReactElement {
     if (isCompleted) {
       return (
         <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)" }}>
-          No {sectionName} course in Semester {subIndex}.
+          No {sectionName} {t("planner.courseInSemester", { semester: String(subIndex) })}.
         </p>
       );
     }
@@ -1049,7 +1050,7 @@ function PlannerYearContent(): React.ReactElement {
           e.currentTarget.style.transform = "translateY(0)";
         }}
       >
-        + Add Course to {sectionName} Semester {subIndex}
+        + {t("planner.addCourseToSection", { section: sectionName, semester: String(subIndex) })}
       </button>
     );
   };
@@ -1164,7 +1165,7 @@ function PlannerYearContent(): React.ReactElement {
 
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
         <div className="mob-planner-header">
-          <h1>{YEAR_LABELS[year] ?? "Year"} Planner</h1>
+          <h1>{t("planner.yearPlanner", { yearLabel: YEAR_LABELS[year] ?? t("planner.year") })}</h1>
         </div>
 
         {isCompleted && (
@@ -1192,9 +1193,9 @@ function PlannerYearContent(): React.ReactElement {
                 whiteSpace: "nowrap",
               }}
             >
-              ✓ Completed
+              ✓ {t("planner.completedBadge")}
             </span>
-            This planner is in view-only mode.
+            {t("planner.viewOnlyMode")}
           </div>
         )}
 
@@ -1235,17 +1236,17 @@ function PlannerYearContent(): React.ReactElement {
               marginBottom: "12px",
             }}
           >
-            ← Back to Planner
+            ← {t("planner.backToPlanner")}
           </Link>
 
           <GuestUpgradePrompt />
 
           {loading ? (
-            <p style={{ color: "var(--text-muted)" }}>Loading planner...</p>
+            <p style={{ color: "var(--text-muted)" }}>{t("planner.loading")}</p>
           ) : error ? (
             <p style={{ color: "var(--status-error)" }}>{error}</p>
           ) : !planner ? (
-            <p style={{ color: "var(--text-muted)" }}>Planner not found.</p>
+            <p style={{ color: "var(--text-muted)" }}>{t("planner.notFound")}</p>
           ) : (
             mobileContent
           )}
@@ -1359,7 +1360,7 @@ function PlannerYearContent(): React.ReactElement {
           fontWeight: 500,
         }}
       >
-        ← Back to Planner
+        ← {t("planner.backToPlanner")}
       </Link>
 
       <GuestUpgradePrompt />
@@ -1382,7 +1383,7 @@ function PlannerYearContent(): React.ReactElement {
               lineHeight: 1.2,
             }}
           >
-            {YEAR_LABELS[year] ?? "Year"} Planner
+            {t("planner.yearPlanner", { yearLabel: YEAR_LABELS[year] ?? t("planner.year") })}
           </h1>
 
           {isCompleted && (
@@ -1411,18 +1412,18 @@ function PlannerYearContent(): React.ReactElement {
                   whiteSpace: "nowrap",
                 }}
               >
-                ✓ Completed
+                ✓ {t("planner.completedBadge")}
               </span>
-              This planner is in view-only mode.
+              {t("planner.viewOnlyMode")}
             </div>
           )}
 
           {loading ? (
-            <p style={{ color: "var(--text-muted)" }}>Loading planner...</p>
+            <p style={{ color: "var(--text-muted)" }}>{t("planner.loading")}</p>
           ) : error ? (
             <p style={{ color: "var(--status-error)" }}>{error}</p>
           ) : !planner ? (
-            <p style={{ color: "var(--text-muted)" }}>Planner not found.</p>
+            <p style={{ color: "var(--text-muted)" }}>{t("planner.notFound")}</p>
           ) : (
             <div
               style={{
@@ -1450,7 +1451,7 @@ function PlannerYearContent(): React.ReactElement {
                       color: "var(--text-primary)",
                     }}
                   >
-                    Semester {semester}
+                    {t("planner.semesterLabel", { semester: String(semester) })}
                   </h2>
                   <div
                     style={{
@@ -1472,30 +1473,30 @@ function PlannerYearContent(): React.ReactElement {
             <div style={{ display: "flex", gap: "32px", flexWrap: "wrap", marginTop: "32px", alignItems: "stretch" }}>
               {SUMMER_SCHOOL_YEARS.has(year) && (
                 <section style={{ flex: "1 1 340px", minWidth: 0 }}>
-                  <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
-                    Summer School
+                   <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
+                   {t("planner.summerSchool")}
                   </h2>
                   {[SUMMER_SEMESTER, SUMMER_SEMESTER_2].map((subSemester, i) => (
                     <div key={subSemester} style={{ marginBottom: i === 0 ? "20px" : 0 }}>
                       <h3 style={{ margin: "0 0 10px", fontSize: "15px", fontWeight: 700, color: "var(--text-secondary)" }}>
-                        Semester {i + 1}
-                      </h3>
-                      {renderOutOfSemesterSemester(planner, subSemester, "Summer School", i + 1)}
+                    {t("planner.semesterLabel", { semester: String(i + 1) })}
+                       </h3>
+                       {renderOutOfSemesterSemester(planner, subSemester, t("planner.summerSchool"), i + 1)}
                     </div>
                   ))}
                 </section>
               )}
 
               <section style={{ flex: "1 1 340px", minWidth: 0 }}>
-                <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
-                  Online Courses
+                   <h2 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: 700, color: "var(--text-primary)" }}>
+                   {t("planner.onlineCourses")}
                 </h2>
                 {[ONLINE_SEMESTER, ONLINE_SEMESTER_2].map((subSemester, i) => (
                   <div key={subSemester} style={{ marginBottom: i === 0 ? 20 : 0 }}>
                     <h3 style={{ margin: "0 0 10px", fontSize: "15px", fontWeight: 700, color: "var(--text-secondary)" }}>
-                      Semester {i + 1}
-                    </h3>
-                    {renderOutOfSemesterSemester(planner, subSemester, "Online", i + 1)}
+                       {t("planner.semesterLabel", { semester: String(i + 1) })}
+                       </h3>
+                     {renderOutOfSemesterSemester(planner, subSemester, t("planner.onlineCourses"), i + 1)}
                   </div>
                 ))}
               </section>
@@ -1578,10 +1579,10 @@ function PlannerYearContent(): React.ReactElement {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 style={{ margin: "0 0 12px", fontSize: "20px", color: "var(--text-primary)" }}>
-              Remove Course?
+              {t("plannerDialogs.removeCourseTitle")}
             </h2>
             <p style={{ margin: "0 0 8px", fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-              Are you sure you want to remove <strong style={{ color: "var(--text-primary)" }}>{pendingRemoval.planned.course.title}</strong> from Semester {pendingRemoval.planned.semester}?
+              {t("plannerDialogs.removeCourseBody", { title: pendingRemoval.planned.course.title, semester: String(pendingRemoval.planned.semester) })}
             </p>
             {pendingRemoval.waiverWarning && (
               <p style={{ margin: "0 0 20px", padding: "12px", backgroundColor: "#7c2d12", borderRadius: "8px", fontSize: "14px", color: "#fca5a5", lineHeight: 1.5 }}>
@@ -1687,7 +1688,7 @@ function PlannerYearContent(): React.ReactElement {
                   buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
                 );
                 handleCloseModal();
-                showToast("Course added.", "success", handleUndo);
+        showToast(t("plannerToasts.courseAdded"), "success", handleUndo);
               } catch (err) {
                 const message = err instanceof Error ? err.message : "Failed to add course";
                 showToast(message, "warning");
@@ -1770,6 +1771,7 @@ function SummarySidebar({
   onAddResolution: (data: { type: string; courseId?: number; metadata?: Record<string, unknown> }) => void;
   onRemoveResolution: (id: number) => void;
 }): React.ReactElement {
+  const { t } = useTranslation();
   const currentPlanner = planners.find((p) => p.schoolYear === currentYear);
   const allCourses = planners.flatMap((p) => p.plannedCourses);
 
@@ -1805,15 +1807,15 @@ function SummarySidebar({
           color: "var(--text-primary)",
         }}
       >
-        Planner Summary
+        {t("planner.summaryTitle")}
       </h2>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        <SummaryRow label="Total Credits" value={formatCredits(currentCredits)} />
-        <SummaryRow label="Planned Courses" value={String(currentCourseCount)} />
-        <SummaryRow label="Full-Year Courses" value={String(fullYearCount)} />
-        <SummaryRow label="Semester Courses" value={String(semesterCount)} />
-        <SummaryRow label="Overall Credits" value={formatCredits(totalCredits)} />
+        <SummaryRow label={t("planner.totalCredits")} value={formatCredits(currentCredits)} />
+        <SummaryRow label={t("planner.plannedCourses")} value={String(currentCourseCount)} />
+        <SummaryRow label={t("planner.fullYearCourses")} value={String(fullYearCount)} />
+        <SummaryRow label={t("planner.semesterCourses")} value={String(semesterCount)} />
+        <SummaryRow label={t("planner.overallCredits")} value={formatCredits(totalCredits)} />
       </div>
 
       <GradeRequirements
@@ -1870,61 +1872,61 @@ function SummarySidebar({
         );
         return (
           <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--border-default)" }}>
-            <h3 style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
-              Driver Education
-            </h3>
-            {driverEdExternal ? (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                <span style={{ fontSize: "13px", color: "#166534", fontWeight: 600 }}>
-                  ✓ Completed outside school
-                </span>
-                <button
-                  type="button"
-                  onClick={() => onRemoveResolution(driverEdExternal.id)}
-                  style={{
-                    background: "transparent",
-                    border: "1px solid var(--border-default)",
-                    borderRadius: "6px",
-                    color: "var(--text-secondary)",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    padding: "4px 10px",
-                    cursor: "pointer",
-                    minHeight: "32px",
-                  }}
-                >
-                  Undo
-                </button>
-              </div>
-            ) : driverEdInPlanner ? (
-              <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
-                Driver Education is already in your planner, so it will be completed through that course.
-              </p>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external", year: currentYear } })}
-                  style={{
-                    width: "100%",
-                    minHeight: "44px",
-                    padding: "8px 14px",
-                    border: "1px solid #166534",
-                    borderRadius: "8px",
-                    backgroundColor: "#166534",
-                    color: "#ffffff",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                  }}
-                >
-                  Mark completed outside school
-                </button>
-                <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
-                  If you completed Driver Education at a commercial school or obtained your license before age 18.
+              <h3 style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>
+                {t("plannerDriverEd.title")}
+              </h3>
+              {driverEdExternal ? (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+                  <span style={{ fontSize: "13px", color: "#166534", fontWeight: 600 }}>
+                    {t("plannerDriverEd.completedOutside")}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => onRemoveResolution(driverEdExternal.id)}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid var(--border-default)",
+                      borderRadius: "6px",
+                      color: "var(--text-secondary)",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      padding: "4px 10px",
+                      cursor: "pointer",
+                      minHeight: "32px",
+                    }}
+                  >
+                    {t("plannerDriverEd.undo")}
+                  </button>
+                </div>
+              ) : driverEdInPlanner ? (
+                <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                  {t("plannerDriverEd.inPlanner")}
                 </p>
-              </>
-            )}
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => onAddResolution({ type: "pe_waiver", metadata: { variant: "driver_ed_external", year: currentYear } })}
+                    style={{
+                      width: "100%",
+                      minHeight: "44px",
+                      padding: "8px 14px",
+                      border: "1px solid #166534",
+                      borderRadius: "8px",
+                      backgroundColor: "#166534",
+                      color: "#ffffff",
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {t("plannerDriverEd.markCompleted")}
+                  </button>
+                  <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
+                    {t("plannerDriverEd.description")}
+                  </p>
+                </>
+              )}
           </div>
         );
       })()}
@@ -1957,7 +1959,7 @@ function SummarySidebar({
             color: "var(--text-secondary)",
           }}
         >
-          <span>Course Slots Filled</span>
+          <span>{t("planner.courseSlotsFilled")}</span>
           <span>
             {filledSlots} / {totalSlots}
           </span>
@@ -1981,11 +1983,6 @@ function SummarySidebar({
           />
         </div>
       </div>
-
-      <GraduationRequirements
-        plannerAnalysis={plannerAnalysis}
-        currentYear={currentYear}
-      />
     </aside>
   );
 }
@@ -2011,6 +2008,7 @@ function LunchLengthSection({
 }: {
   plannedCourses: PlannedCourse[];
 }): React.ReactElement {
+  const { t } = useTranslation();
   const { semesters } = computeLunchLength(plannedCourses);
 
   return (
@@ -2029,7 +2027,7 @@ function LunchLengthSection({
           color: "var(--text-primary)",
         }}
       >
-        Lunch Length
+        {t("planner.lunchLength")}
       </h3>
       <div
         style={{
@@ -2077,6 +2075,7 @@ function AddCourseCard({
   onClick: () => void;
   isTablet?: boolean;
 }): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
@@ -2119,7 +2118,7 @@ function AddCourseCard({
           letterSpacing: "0.02em",
         }}
       >
-        Slot {slot}
+        {t("planner.slotLabel")} {slot}
       </div>
       <div
         style={{
@@ -2127,7 +2126,7 @@ function AddCourseCard({
           fontWeight: 500,
         }}
       >
-        + Add Course
+        {t("planner.addCourse")}
       </div>
     </button>
   );
@@ -2567,6 +2566,7 @@ function CourseSearchModal({
   onlineOnly?: boolean;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
+  const { t } = useTranslation();
   const [selectedDivision, setSelectedDivision] = useState("All Divisions");
   const inputRef = useRef<HTMLInputElement>(null);
   const { draft, setDraft, submitted, hasChanged, submit, handleKeyDown, clearAll } = useSearchSubmit();
@@ -2684,7 +2684,7 @@ function CourseSearchModal({
                   color: "#ffffff",
                 }}
               >
-                {onlineOnly ? "Add an Online Course" : "Add a Course"}
+                {onlineOnly ? t("plannerSearch.addOnlineCourse") : t("plannerSearch.addCourse")}
               </h2>
               <button
                 type="button"
@@ -2714,7 +2714,7 @@ function CourseSearchModal({
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Search by course title..."
+                placeholder={t("plannerSearch.searchPlaceholder")}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -2810,7 +2810,7 @@ function CourseSearchModal({
               cursor: "pointer",
             }}
           >
-            <option value="All Divisions">All Divisions</option>
+            <option value="All Divisions">{t("plannerSearch.allDivisions")}</option>
             {divisions.map((division) => (
               <option key={division} value={division}>
                 {division}
@@ -2827,22 +2827,22 @@ function CourseSearchModal({
           }}
         >
           {loading ? (
-            <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading courses...</p>
+            <p style={{ color: "#9ca3af", textAlign: "center" }}>{t("plannerSearch.loading")}</p>
           ) : sortedResults.length === 0 ? (
             <p style={{ color: "#9ca3af", textAlign: "center" }}>
               {(() => {
                 const hasQuery = submitted.trim().length > 0;
                 const hasDivision = selectedDivision !== "All Divisions";
                 if (hasQuery && hasDivision) {
-                  return "No courses match your search and division filter.";
+                  return t("plannerSearch.noMatchSearchAndDivision");
                 }
                 if (hasQuery) {
-                  return "No courses match your search.";
+                  return t("plannerSearch.noMatchSearch");
                 }
                 if (hasDivision) {
-                  return "No courses match the selected division.";
+                  return t("plannerSearch.noMatchDivision");
                 }
-                return "No courses available.";
+                return t("plannerSearch.noCoursesAvailable");
               })()}
             </p>
           ) : (
@@ -2991,7 +2991,7 @@ function CourseSearchModal({
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {isDuplicate ? "Already planned" : "Add →"}
+                    {isDuplicate ? t("plannerSearch.alreadyPlanned") : t("plannerSearch.addButton")}
                   </span>
                 </button>
               );
@@ -3029,6 +3029,7 @@ function DuplicateCourseDialog({
   onClose: () => void;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
+  const { t } = useTranslation();
   return (
     <>
       {mobile && <style>{`@keyframes dc-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>}
@@ -3066,19 +3067,19 @@ function DuplicateCourseDialog({
               fontWeight: 700,
             }}
           >
-            This course is already planned
+            {t("plannerDialogs.duplicateCourseTitle")}
           </h3>
           <div style={{ marginBottom: "24px", lineHeight: 1.5, color: "#d1d5db" }}>
             <p style={{ margin: "0 0 12px", fontWeight: 500, color: "#ffffff" }}>{course.title}</p>
             <div style={{ fontSize: "14px", color: "#9ca3af" }}>
               <div>
-                Location: <strong style={{ color: "#ffffff" }}>{location.label}</strong>
+                {t("plannerDialogs.duplicateLocation")}: <strong style={{ color: "#ffffff" }}>{location.label}</strong>
               </div>
               <div>
-                Semester: <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
+                {t("plannerDialogs.duplicateSemester")}: <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
               </div>
               <div>
-                Slot: <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
+                {t("plannerDialogs.duplicateSlot")}: <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
               </div>
             </div>
           </div>
@@ -3098,7 +3099,7 @@ function DuplicateCourseDialog({
                 cursor: "pointer",
               }}
             >
-              Cancel
+              {t("plannerDialogs.cancel")}
             </button>
             <button
               type="button"
@@ -3115,7 +3116,7 @@ function DuplicateCourseDialog({
                 cursor: "pointer",
               }}
             >
-              Go to Course
+              {t("plannerDialogs.goToCourse")}
             </button>
           </div>
         </div>
@@ -3240,6 +3241,7 @@ function MobilePlanner({
   onRemoveResolution: (id: number) => void;
 }): React.ReactElement {
   const [showSummary, setShowSummary] = useState(false);
+  const { t } = useTranslation();
 
   const currentPlanner = allPlanners.find((p) => p.schoolYear === year);
   const totalCredits = sumPlannedCredits(allPlanners.flatMap((p) => p.plannedCourses));
@@ -3410,11 +3412,11 @@ function MobilePlanner({
     return (
       <div key={semester} className="mob-semester-section">
         <div className="mob-planner-semester">
-          <h2>Semester {semester}</h2>
+          <h2>{t("planner.semesterLabel", { semester: String(semester) })}</h2>
         </div>
         {courses.length === 0 ? (
           <p style={{ fontSize: "14px", color: "var(--text-tertiary, #999)", margin: 0, padding: "8px 0" }}>
-            No courses planned.
+            {t("planner.noCoursesPlanned")}
           </p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -3427,7 +3429,7 @@ function MobilePlanner({
             className="mob-add-btn"
             onClick={() => onOpenModal(semester)}
           >
-            + Add Course to Semester {semester}
+            + {t("planner.addCourseToSemester", { semester: String(semester) })}
           </button>
         )}
       </div>
@@ -3476,12 +3478,12 @@ function MobilePlanner({
             <div key={semesterNum} style={{ marginTop: "12px" }}>
               <div className="mob-planner-semester">
                 <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#111827" }}>
-                  Semester {subIndex}
+                  {t("planner.semesterLabel", { semester: String(subIndex) })}
                 </h3>
               </div>
               {renderOutOfSemesterMobileBlock(
                 semesterNum,
-                `+ Add Course to ${title} Semester ${subIndex}`
+                t("planner.addCourseToSectionMobile", { section: title, semester: String(subIndex) })
               )}
             </div>
           );
@@ -3498,7 +3500,7 @@ function MobilePlanner({
           className="mob-summary-toggle"
           onClick={() => setShowSummary((s) => !s)}
         >
-          <span>Planner Summary</span>
+          <span>{t("planner.summaryTitle")}</span>
           <span style={{ fontSize: "18px", transition: "transform 0.2s", transform: showSummary ? "rotate(180deg)" : "rotate(0deg)" }}>
             ▼
           </span>
@@ -3522,10 +3524,10 @@ function MobilePlanner({
       {renderSemester(2, 1)}
 
       {!isCompleted && SUMMER_SCHOOL_YEARS.has(year) && (
-        renderMobileSectionWithSubsemesters("Summer School", [SUMMER_SEMESTER, SUMMER_SEMESTER_2])
+        renderMobileSectionWithSubsemesters(t("planner.summerSchool"), [SUMMER_SEMESTER, SUMMER_SEMESTER_2])
       )}
 
-      {renderMobileSectionWithSubsemesters("Online Courses", [ONLINE_SEMESTER, ONLINE_SEMESTER_2])}
+      {renderMobileSectionWithSubsemesters(t("planner.onlineCourses"), [ONLINE_SEMESTER, ONLINE_SEMESTER_2])}
 
     </>
   );
@@ -3836,6 +3838,7 @@ function WarningActionModal({
   showToast: (message: string, type?: ToastType, onUndo?: () => void) => void;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
+  const { t } = useTranslation();
   const { completedCourses: modalCompletedService } = useServices();
   const [loading, setLoading] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -4773,7 +4776,7 @@ function WarningActionModal({
                   color: "#ffffff",
                 }}
               >
-                {resolveStep === "verify" ? "Verify Changes" : "Resolve Warning"}
+                {resolveStep === "verify" ? t("plannerReplace.verifyChanges") : t("plannerReplace.resolveWarning")}
               </h2>
               <button
                 type="button"
@@ -4826,7 +4829,7 @@ function WarningActionModal({
             )}
 
             {loading ? (
-              <p style={{ color: "#9ca3af", textAlign: "center" }}>Loading...</p>
+              <p style={{ color: "#9ca3af", textAlign: "center" }}>{t("planner.loading")}</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {resolveStep === "verify" && (
@@ -4877,8 +4880,8 @@ function WarningActionModal({
                 )}
 
                 {matchedCourses.length === 0 && (
-                  <p style={{ margin: 0, fontSize: "14px", color: "#9ca3af", textAlign: "center" }}>
-                    No matching course was found for this prerequisite.
+                    <p style={{ margin: 0, fontSize: "14px", color: "#9ca3af", textAlign: "center" }}>
+                      {t("plannerSearch.noMatchingCourse")}
                   </p>
                 )}
 
@@ -4898,7 +4901,7 @@ function WarningActionModal({
                 {showConfirmReplace && (
                   <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
                     <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#ffffff" }}>
-                      Replace course?
+                      {t("plannerReplace.replaceCourseTitle")}
                     </p>
                     <div style={{ fontSize: "14px", color: "#d1d5db", lineHeight: 1.5 }}>
                       <div style={{ padding: "8px 12px", backgroundColor: "#374151", borderRadius: "6px", marginBottom: "8px" }}>
@@ -4910,7 +4913,7 @@ function WarningActionModal({
                       </div>
                     </div>
                     <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
-                      This will keep the same semester and remove the current course.
+                      {t("plannerReplace.replaceCourseDescription")}
                     </p>
                     <div style={{ display: "flex", gap: "12px" }}>
                       <button type="button" onClick={cancelReplace} disabled={loading} className="wa-btn wa-btn-secondary" style={{ flex: 1 }}>
@@ -5184,7 +5187,7 @@ function WarningActionModal({
                             letterSpacing: "0.02em",
                           }}
                         >
-                          Add to Planner
+                           {t("plannerAddPrereq.addToPlanner")}
                         </p>
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                           {plannerActions.map((action) => (
@@ -5223,7 +5226,7 @@ function WarningActionModal({
                             letterSpacing: "0.02em",
                           }}
                         >
-                          Mark as Previously Completed
+                           {t("plannerMarkCompleted.sectionTitle")}
                         </p>
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -5235,7 +5238,7 @@ function WarningActionModal({
                                 whiteSpace: "nowrap",
                               }}
                             >
-                              Completed in:
+                              {t("plannerMarkCompleted.completedIn")}
                             </label>
                             <select
                               id="completed-grade-select"
@@ -5266,7 +5269,7 @@ function WarningActionModal({
                             className="wa-btn wa-btn-primary"
                             style={{ width: "100%" }}
                           >
-                            Mark {selectedCourse?.title ?? "this course"} as previously completed
+                             {t("plannerMarkCompleted.markButton", { title: selectedCourse?.title ?? t("plannerMarkCompleted.thisCourse") })}
                           </button>
                         </div>
                       </div>
@@ -5449,7 +5452,7 @@ function WarningActionModal({
                     className="wa-btn wa-btn-secondary"
                     style={{ width: "100%" }}
                   >
-                    Ignore Warning
+                    {t("plannerWarnings.ignoreWarning")}
                   </button>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -5461,7 +5464,7 @@ function WarningActionModal({
                         textAlign: "center",
                       }}
                     >
-                      Are you sure you want to ignore this warning?
+                      {t("plannerWarnings.confirmIgnoreBody")}
                     </p>
                     <div style={{ display: "flex", gap: "12px" }}>
                       <button
@@ -5471,7 +5474,7 @@ function WarningActionModal({
                         className="wa-btn wa-btn-danger"
                         style={{ flex: 1 }}
                       >
-                        Yes, ignore
+                        {t("plannerWarnings.yesIgnore")}
                       </button>
                       <button
                         type="button"
@@ -5530,7 +5533,7 @@ function WarningActionModal({
               }}
             >
               <h2 style={{ margin: 0, fontSize: mobile ? "20px" : "22px", fontWeight: 700, color: "#ffffff" }}>
-                Review Proposed Schedule Changes
+                {t("plannerScheduleChanges.reviewTitle")}
               </h2>
             </div>
 
@@ -5587,26 +5590,26 @@ function WarningActionModal({
 
               <div style={{ padding: "16px", backgroundColor: "rgba(59, 130, 246, 0.08)", border: "1px solid rgba(59, 130, 246, 0.2)", borderRadius: "8px" }}>
                 <p style={{ margin: "0 0 8px", fontSize: "14px", fontWeight: 700, color: "#60a5fa" }}>
-                  Important
+                  {t("plannerScheduleChanges.important")}
                 </p>
                 <p style={{ margin: 0, fontSize: "13px", color: "#d1d5db", lineHeight: 1.6 }}>
-                  This planner provides scheduling suggestions based on the Stevenson High School Course Guide and your current academic plan.
+                  {t("plannerScheduleChanges.description")}
                 </p>
                 <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#d1d5db", lineHeight: 1.6 }}>
-                  Recommendations may not account for every situation, including:
+                  {t("plannerScheduleChanges.exceptionsIntro")}
                 </p>
                 <ul style={{ margin: "4px 0 0", paddingLeft: "18px", fontSize: "12px", color: "#9ca3af", lineHeight: 1.7 }}>
-                  <li>counselor approvals or waivers</li>
-                  <li>placement tests</li>
-                  <li>future course availability</li>
-                  <li>schedule conflicts outside this planner</li>
-                  <li>individual graduation exceptions</li>
+                  <li>{t("plannerScheduleChanges.exceptionCounselor")}</li>
+                  <li>{t("plannerScheduleChanges.exceptionPlacement")}</li>
+                  <li>{t("plannerScheduleChanges.exceptionAvailability")}</li>
+                  <li>{t("plannerScheduleChanges.exceptionConflicts")}</li>
+                  <li>{t("plannerScheduleChanges.exceptionExceptions")}</li>
                 </ul>
                 <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#d1d5db", lineHeight: 1.6 }}>
-                  Please review these changes carefully before applying them. If you are unsure, consult your school counselor.
+                  {t("plannerScheduleChanges.reviewCarefully")}
                 </p>
                 <p style={{ margin: "12px 0 0", fontSize: "11px", color: "#6b7280", lineHeight: 1.4, fontStyle: "italic" }}>
-                  This planner is designed to help you explore possible schedules. Your official schedule, graduation status, and course eligibility are determined by Stevenson High School and your school counselor.
+                  {t("plannerScheduleChanges.officialDisclaimer")}
                 </p>
               </div>
 
@@ -5630,7 +5633,7 @@ function WarningActionModal({
                   onChange={(e) => setAcknowledged(e.target.checked)}
                   style={{ marginTop: "2px", width: "18px", height: "18px", accentColor: "var(--brand-accent)", flexShrink: 0 }}
                 />
-                <span>I have reviewed these proposed schedule changes.</span>
+                <span>{t("plannerScheduleChanges.acknowledgeLabel")}</span>
               </label>
 
               <div style={{ display: "flex", gap: "12px" }}>
@@ -5661,7 +5664,7 @@ function WarningActionModal({
                     backgroundColor: acknowledged ? "var(--brand-accent)" : "#374151",
                   }}
                 >
-                  Apply Changes
+                  {t("plannerScheduleChanges.applyButton")}
                 </button>
               </div>
             </div>

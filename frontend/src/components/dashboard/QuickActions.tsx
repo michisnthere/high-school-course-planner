@@ -1,8 +1,9 @@
 import React from "react";
-
-const actions = ["Browse Courses", "Build My Planner", "View Requirements"];
+import { useTranslation } from "@/context/I18nContext";
 
 export function QuickActions(): React.ReactElement {
+  const { t } = useTranslation();
+  const actions = [t("dashboard.browseCourses"), t("dashboard.buildMyPlanner"), t("dashboard.viewRequirements")];
   return (
     <div style={{ marginTop: "32px" }}>
       <h2
@@ -13,7 +14,7 @@ export function QuickActions(): React.ReactElement {
           color: "var(--text-primary)",
         }}
       >
-        Quick Actions
+        {t("dashboard.quickActions")}
       </h2>
       <div
         style={{

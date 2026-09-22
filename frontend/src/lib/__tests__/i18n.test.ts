@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { translate, isValidLocale, AVAILABLE_LOCALES } from "@/lib/i18n";
 import en from "@/locales/en.json";
+import es from "@/locales/es.json";
+import zhCN from "@/locales/zh-CN.json";
+import ru from "@/locales/ru.json";
+import ko from "@/locales/ko.json";
 
 describe("i18n translate()", () => {
   it("returns English text for English locale", () => {
@@ -53,9 +57,9 @@ describe("isValidLocale()", () => {
 });
 
 describe("AVAILABLE_LOCALES", () => {
-  it("includes all three supported locales", () => {
-    expect(AVAILABLE_LOCALES).toHaveLength(3);
-    expect(AVAILABLE_LOCALES.map((l) => l.code)).toEqual(["en", "es", "zh-CN"]);
+  it("includes all five supported locales", () => {
+    expect(AVAILABLE_LOCALES).toHaveLength(5);
+    expect(AVAILABLE_LOCALES.map((l) => l.code)).toEqual(["en", "es", "zh-CN", "ru", "ko"]);
   });
 });
 
@@ -117,4 +121,35 @@ describe("en.json nav keys for migrated components", () => {
       expect(value).not.toBe(key);
     }
   });
+});
+
+function getLeafKeys(obj: Record<string, unknown>, prefix = ""): string[] {
+  const keys: string[] = [];
+  for (const k in obj) {
+    const path = prefix ? `${prefix}.${k}` : k;
+    if (typeof obj[k] === "object" && obj[k] !== null) {
+      keys.push(...getLeafKeys(obj[k] as Record<string, unknown>, path));
+    } else {
+      keys.push(path);
+    }
+  }
+  return keys;
+}
+
+describe("Translation completeness", () => {
+  const enKeys = getLeafKeys(en as Record<string, unknown>);
+  const locales: Record<string, Record<string, unknown>> = {
+    es: es as Record<string, unknown>,
+    "zh-CN": zhCN as Record<string, unknown>,
+    ru: ru as Record<string, unknown>,
+    ko: ko as Record<string, unknown>,
+  };
+
+  for (const [localeCode, localeData] of Object.entries(locales)) {
+    it(`${localeCode} has all en.json keys (${enKeys.length} keys)`, () => {
+      const localeKeys = new Set(getLeafKeys(localeData));
+      const missing = enKeys.filter((k) => !localeKeys.has(k));
+      expect(missing).toEqual([]);
+    });
+  }
 });

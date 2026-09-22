@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties, ReactElement } from "react";
+import { useTranslation } from "@/context/I18nContext";
 import type { SummerCourse } from "@/lib/summerCourse";
 import {
   formatSummerCreditType,
@@ -103,20 +104,21 @@ function SummerCourseDetailHeader({
   course: SummerCourse;
   returnUrl?: string;
 }): ReactElement {
+  const { t } = useTranslation();
   const backHref = returnUrl && returnUrl.startsWith("/") ? returnUrl : "/catalog?source=summer";
 
-  let backLabel = "← Back to Summer Catalog";
+  let backLabel = t("summerCourseDetail.backToSummerCatalog");
   if (returnUrl === "/") {
-    backLabel = "← Back to Dashboard";
+    backLabel = t("summerCourseDetail.backToDashboard");
   } else if (returnUrl?.startsWith("/catalog")) {
-    backLabel = returnUrl.includes("source=summer") ? "← Back to Summer Catalog" : "← Back to Catalog";
+    backLabel = returnUrl.includes("source=summer") ? t("summerCourseDetail.backToSummerCatalog") : t("summerCourseDetail.backToCatalog");
   } else if (returnUrl?.startsWith("/requirements")) {
-    backLabel = "← Back to Graduation Requirements";
+    backLabel = t("summerCourseDetail.backToRequirements");
   } else if (returnUrl) {
-    backLabel = "← Back";
+    backLabel = t("summerCourseDetail.back");
   }
 
-  const division = course.division ?? "Summer School";
+  const division = course.division ?? t("summerCourseDetail.summerSchool");
 
   return (
     <div style={{ marginBottom: "32px" }}>
@@ -154,11 +156,11 @@ function SummerCourseDetailHeader({
   );
 }
 
-function additionalInformationRows(course: SummerCourse): DetailRowData[] {
+function additionalInformationRows(course: SummerCourse, t: (key: string, params?: Record<string, string>) => string): DetailRowData[] {
   const cost = getSummerCost(course);
   const passFail = getSummerPassFail(course);
   const sessions = formatSummerSessionsRaw(course);
-  const duration = course.durationNote || (course.duration === "full_summer" ? "Full Summer" : null);
+  const duration = course.durationNote || (course.duration === "full_summer" ? t("summerCourseDetail.fullSummer") : null);
   const dates = formatSummerDates(course);
   const times = formatSummerTimes(course);
   const openTo = formatSummerGrades(course);
@@ -167,20 +169,20 @@ function additionalInformationRows(course: SummerCourse): DetailRowData[] {
   const requirements = course.fulfillsRequirements ?? [];
 
   const rows: Array<DetailRowData | null> = [
-    course.courseCode ? { label: "Course Code", value: course.courseCode } : null,
-    sessions ? { label: "Session", value: sessions } : null,
-    duration ? { label: "Duration", value: duration } : null,
-    dates ? { label: "Dates", value: dates } : null,
-    times ? { label: "Time", value: times } : null,
-    openTo ? { label: "Open To", value: openTo } : null,
-    { label: "Credit", value: formatSummerCredits(course) },
-    passFail ? { label: "Grading", value: "Pass/Fail" } : null,
-    cost ? { label: "Cost", value: cost } : null,
+    course.courseCode ? { label: t("summerCourseDetail.courseCode"), value: course.courseCode } : null,
+    sessions ? { label: t("summerCourseDetail.session"), value: sessions } : null,
+    duration ? { label: t("summerCourseDetail.duration"), value: duration } : null,
+    dates ? { label: t("summerCourseDetail.dates"), value: dates } : null,
+    times ? { label: t("summerCourseDetail.time"), value: times } : null,
+    openTo ? { label: t("summerCourseDetail.openTo"), value: openTo } : null,
+    { label: t("summerCourseDetail.credit"), value: formatSummerCredits(course) },
+    passFail ? { label: t("summerCourseDetail.grading"), value: t("summerCourseDetail.passFail") } : null,
+    cost ? { label: t("summerCourseDetail.cost"), value: cost } : null,
     prereqs.length > 0
-      ? { label: "Prerequisite", value: prereqs.join("; ") }
-      : { label: "Prerequisite", value: "None" },
-    coreqs.length > 0 ? { label: "Corequisite", value: coreqs.join("; ") } : null,
-    requirements.length > 0 ? { label: "Graduation Requirement", value: requirements.join(", ") } : null,
+      ? { label: t("summerCourseDetail.prerequisite"), value: prereqs.join("; ") }
+      : { label: t("summerCourseDetail.prerequisite"), value: t("coursePrerequisites.none") },
+    coreqs.length > 0 ? { label: t("summerCourseDetail.corequisite"), value: coreqs.join("; ") } : null,
+    requirements.length > 0 ? { label: t("summerCourseDetail.graduationRequirement"), value: requirements.join(", ") } : null,
   ];
 
   return rows.filter((row): row is DetailRowData => row !== null);
@@ -190,10 +192,11 @@ export function SummerCourseDetailPage({
   course,
   returnUrl,
 }: SummerCourseDetailPageProps): ReactElement {
+  const { t } = useTranslation();
   const notes = (course.notes ?? []).filter(
     (note): note is string => typeof note === "string" && note.trim().length > 0
   );
-  const additionalInformation = additionalInformationRows(course);
+  const additionalInformation = additionalInformationRows(course, t);
 
   return (
     <div
@@ -210,7 +213,7 @@ export function SummerCourseDetailPage({
       </div>
 
       <div style={cardStyle}>
-        <h2 style={cardHeadingStyle}>Description</h2>
+        <h2 style={cardHeadingStyle}>{t("summerCourseDetail.description")}</h2>
         {course.description ? (
           <p
             style={{
@@ -224,7 +227,7 @@ export function SummerCourseDetailPage({
           </p>
         ) : (
           <p style={{ margin: 0, fontSize: "15px", color: "var(--text-muted)" }}>
-            No description available.
+            {t("summerCourseDetail.noDescription")}
           </p>
         )}
         {notes.length > 0 && (
@@ -237,7 +240,7 @@ export function SummerCourseDetailPage({
                 color: "var(--text-primary)",
               }}
             >
-              Notes
+              {t("summerCourseDetail.notes")}
             </h3>
             <ul
               style={{
@@ -258,7 +261,7 @@ export function SummerCourseDetailPage({
 
       {additionalInformation.length > 0 && (
         <div className="rs-additional-info" style={additionalInfoCardStyle}>
-          <h2 style={cardHeadingStyle}>Additional Information</h2>
+          <h2 style={cardHeadingStyle}>{t("summerCourseDetail.additionalInfo")}</h2>
           <div className="rs-detail-rows">
             {additionalInformation.map((row) => (
               <DetailRow key={row.label} label={row.label} value={row.value} />

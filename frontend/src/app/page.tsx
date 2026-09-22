@@ -134,7 +134,7 @@ export default function Home() {
                   color: "var(--text-primary)",
                 }}
               >
-                Quick Actions
+                {t("dashboard.quickActions")}
               </h2>
               <div
                 className="dash-actions-grid"
@@ -160,7 +160,7 @@ export default function Home() {
                   color: "var(--text-primary)",
                 }}
               >
-                Graduation Progress
+                {t("dashboard.graduationProgress")}
               </h2>
               <div
                 className="dash-progress-grid"
@@ -190,7 +190,7 @@ export default function Home() {
                   color: "var(--text-primary)",
                 }}
               >
-                Planner Completion
+                {t("dashboard.plannerCompletionSection")}
               </h2>
               <div
                 className="dash-year-grid"

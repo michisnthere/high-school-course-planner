@@ -1,10 +1,13 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 type EmptyStateProps = {
   message?: string;
 };
 
-export function EmptyState({ message = "No courses found." }: EmptyStateProps): React.ReactElement {
+export function EmptyState({ message }: EmptyStateProps): React.ReactElement {
+  const { t } = useTranslation();
+  const text = message ?? t("emptyState.noCoursesFound");
   return (
     <div
       style={{

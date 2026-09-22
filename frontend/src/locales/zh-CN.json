@@ -71,7 +71,25 @@
     "recentActivity": "最近活动",
     "studentFallback": "学生",
     "openPlanner": "打开计划 →",
-    "progressLabel": "进度：{value}%"
+    "progressLabel": "进度：{value}%",
+    "dashboardTitle": "仪表板",
+    "dashboardSubtitle": "在一个地方探索课程、规划课程表并跟踪毕业要求。",
+    "browseCourses": "浏览课程",
+    "buildMyPlanner": "制定我的计划",
+    "viewRequirements": "查看要求",
+    "exploreCourses": "探索课程",
+    "recentCourses": "最近课程",
+    "noCoursesAvailable": "暂无课程。",
+    "noRequirementsFound": "未找到毕业要求。",
+    "requirementProgress": "要求进度",
+    "loadingGpa": "正在加载 GPA 预测...",
+    "gpaProjection": "GPA 预测",
+    "currentGpa": "当前 GPA",
+    "creditsCompleted": "已完成学分",
+    "projectedGpa": "预计 GPA",
+    "gpaDescription": "你的预计 GPA 基于已完成的课程和计划中的课程进行计算。随着你调整四年计划（包括课程选择和难度级别），预测会相应更新。",
+    "weighted": "加权",
+    "unweighted": "非加权"
   },
   "year": {
     "9": "九年级",
@@ -95,28 +113,783 @@
     "confirm": "确认",
     "markActiveTitle": "将 {yearLabel} 年标记为活跃？",
     "markActiveDescription": "这将解锁计划以进行编辑。此年份自动生成的已完成课程将被删除。手动添加的已完成课程将保留。",
-    "restore": "恢复"
+    "restore": "恢复",
+    "invalidSchoolYear": "无效学年。",
+    "plannerNotFound": "未找到计划。",
+    "plannerSummary": "计划摘要",
+    "totalCredits": "总学分",
+    "plannedCourses": "已计划课程",
+    "fullYearCourses": "全年课程",
+    "semesterCourses": "单学期课程",
+    "overallCredits": "总学分",
+    "courseSlotsFilled": "课程位置已填充",
+    "lunchLength": "午餐时长",
+    "removeCourse": "移除课程？",
+    "removeCourseBody": "确定要从学期 {semester} 中移除 ... 吗？",
+    "emptySlot": "空位 - 编辑已禁用",
+    "slotLabel": "位置 {slot}",
+    "addCourseTo": "+ 添加课程到 {sectionName} 学期 {subIndex}",
+    "noCourseInSemester": "学期 {subIndex} 中没有 {sectionName} 课程。",
+    "semesterLabel": "学期 {semester}",
+    "summerSchoolSection": "暑期学校",
+    "onlineCoursesSection": "在线课程",
+    "subSemesterLabel": "学期 {i}",
+    "completedBadge": "✓ 已完成",
+    "viewOnlyMode": "此计划处于只读模式。",
+    "backToPlanner": "← 返回计划",
+    "loadingPlanner": "正在加载计划...",
+    "mobilePlannerTitle": "{yearLabel} 计划",
+    "desktopPlannerTitle": "{yearLabel} 计划",
+    "noCoursesPlanned": "暂无已计划课程。",
+    "addCourseToSemester": "+ 添加课程到学期 {semester}",
+    "noCourseAdded": "暂无已添加课程。",
+    "plannerSummaryToggle": "计划摘要"
+  },
+  "plannerCourseCard": {
+    "removeCourse": "移除课程",
+    "earlyBird": "早鸟课",
+    "earlyBirdBadge": "🐤 早鸟课",
+    "summerBadge": "☀ 暑期",
+    "fullSummer": "全暑期",
+    "fullYear": "全年",
+    "oneSemester": "一学期",
+    "credits": "学分",
+    "consecutivePeriods": "连续课时",
+    "graduationRequirementFulfilled": "满足毕业要求",
+    "alreadyPlanned": "已计划",
+    "addToPlanner": "添加 →",
+    "slotRange": "位置 {start}-{end}",
+    "singleSlot": "位置 {slot}"
+  },
+  "plannerDialogs": {
+    "thisCourseIsAlreadyPlanned": "此课程已计划",
+    "location": "位置：",
+    "semester": "学期：",
+    "slot": "位置：",
+    "goToCourse": "前往课程",
+    "undo": "撤销",
+    "dismiss": "关闭"
+  },
+  "plannerSearch": {
+    "addOnlineCourse": "添加在线课程",
+    "addCourse": "添加课程",
+    "searchPlaceholder": "按课程标题搜索...",
+    "searchAriaLabel": "搜索课程",
+    "clearSearch": "清除搜索",
+    "filterByDivision": "按分部筛选",
+    "allDivisions": "所有分部",
+    "loadingCourses": "正在加载课程...",
+    "noMatchSearchAndFilter": "没有课程匹配你的搜索和分部筛选。",
+    "noMatchSearch": "没有课程匹配你的搜索。",
+    "noMatchDivision": "没有课程匹配所选分部。",
+    "noCoursesAvailable": "暂无课程。",
+    "saved": "已保存"
+  },
+  "plannerWarnings": {
+    "prerequisiteNotScheduled": "通常需要先修 {prereq} 才能学习 {courseTitle}。",
+    "prerequisiteNotScheduledGeneric": "此课程的一个先决条件未安排在其之前。",
+    "onlyOneEarlyBird": "每学期只能修一门早鸟课。",
+    "twoApScienceWarning": "两门 1.5 课时的 AP 科学课程只能在其中一门安排为早鸟课时一起修读。",
+    "driverEdCompletedOutside": "驾驶教育已标记为在校外完成。请先撤销该标记。",
+    "removeAcademicWaiverWarning": "移除此课程将使你不符合学术体育豁免资格。如果你继续，豁免将被撤销。",
+    "removeAthleticWaiverWarning": "移除此课程将使你不符合竞技体育豁免资格。如果你继续，豁免将被撤销。",
+    "removeMarchingBandWaiverWarning": "移除此课程将撤销行进乐队体育豁免。",
+    "ignoreWarning": "忽略警告",
+    "ignoreWarningConfirm": "确定要忽略此警告吗？",
+    "yesIgnore": "是，忽略"
+  },
+  "plannerToasts": {
+    "courseAdded": "课程已添加。",
+    "failedToAddCourse": "添加课程失败",
+    "summerCourseAdded": "暑期课程已添加。",
+    "failedToAddSummerCourse": "添加暑期课程失败",
+    "prerequisiteAdded": "先决条件已添加。",
+    "failedToAddPrerequisite": "添加先决条件失败",
+    "courseMovedAndPrereqAdded": "课程已移动且先决条件已添加。",
+    "failedToAdjustSchedule": "调整课程表失败",
+    "courseRemoved": "课程已移除。",
+    "failedToRemoveCourse": "移除课程失败",
+    "courseMarkedEarlyBird": "课程已标记为早鸟课。",
+    "earlyBirdRemoved": "早鸟课已移除。",
+    "failedToUpdateEarlyBird": "更新早鸟课失败",
+    "courseReplaced": "课程已替换。",
+    "failedToReplaceCourse": "替换课程失败",
+    "courseMoved": "课程已移动。",
+    "failedToMoveCourse": "移动课程失败",
+    "courseMarkedCompleted": "课程已标记为完成。",
+    "failedToMarkCompleted": "标记课程完成失败",
+    "failedToAddResolution": "添加解决方案失败",
+    "failedToRemoveResolution": "移除解决方案失败",
+    "driverEdAlreadyCompleted": "驾驶教育已标记为在校外完成。请先撤销该标记，然后才能添加到计划中。",
+    "markedAsCompleted": "已标记为完成。",
+    "failedToMarkCompletedGeneral": "标记完成失败",
+    "placementTestRecorded": "分班测试已记录。",
+    "failedToRecordPlacementTest": "记录分班测试失败",
+    "markedMiddleSchool": "已标记为在初中完成。",
+    "failedToRecordMiddleSchool": "记录初中完成失败",
+    "markedSummerSchool": "已标记为在暑期学校完成。",
+    "failedToRecordSummerSchool": "记录暑期学校完成失败",
+    "noRoomToSwap": "没有空间交换学期。",
+    "failedToSwapSemesters": "交换学期失败",
+    "cannotRestoreCourse": "无法恢复已计划课程：缺少 courseId 和 plannerOptionId"
+  },
+  "plannerEarlyBird": {
+    "takeEarlyBird": "选择此课程作为早鸟课？",
+    "earlyBirdClassesMeet": "早鸟课上课时间：",
+    "mwf": "• 周一、周三、周五",
+    "mwfTime": "上午 7:45",
+    "tt": "• 周二、周四",
+    "ttTime": "正常上学时间",
+    "pleaseNote": "请注意：",
+    "noBus": "• Stevenson 不为早鸟课提供校车接送服务。",
+    "transportation": "• 学生需自行安排周一、周三和周五的交通。",
+    "regularSection": "普通班",
+    "earlyBirdButton": "🐤 早鸟课",
+    "onlyOneEarlyBirdPerSemester": "每学期只能修一门早鸟课。",
+    "twoApScienceWarning": "两门 1.5 课时的 AP 科学课程只能在其中一门安排为早鸟课时一起修读。"
+  },
+  "plannerDuplicate": {
+    "thisCourseIsAlreadyPlanned": "此课程已计划",
+    "location": "位置：",
+    "semester": "学期：",
+    "slot": "位置：",
+    "goToCourse": "前往课程",
+    "cancel": "取消"
+  },
+  "plannerReplace": {
+    "replaceCourse": "替换课程？",
+    "replaceCourseBody": "这将保持相同学期并移除当前课程。",
+    "replacing": "正在替换...",
+    "replaceCourseButton": "替换课程",
+    "replaceWith": "将 {currentTitle} 替换为 {newTitle}",
+    "addToPreviousYear": "将 {courseTitle} 添加到上一年",
+    "addToLocation": "将 {courseTitle} 添加到 {location}。",
+    "moveAndAdd": "将 {courseA} 移动到学期 2 并将 {courseB} 添加到学期 1 位置 {slot}。",
+    "swapSemesters": "交换学期",
+    "verifyChanges": "确认更改",
+    "resolveWarning": "解决警告",
+    "requirementImpactWarning": "要求影响警告",
+    "replacingWillAffect": "替换 {courseTitle} 将影响：",
+    "mayNoLongerSatisfy": "你可能不再满足这些要求。",
+    "noGraduationRequirementsAffected": "不会影响任何毕业要求。"
+  },
+  "plannerAddPrereq": {
+    "addPrereqTitle": "添加先决条件课程",
+    "selectPrereqCourse": "选择先决条件课程",
+    "selectCoursePlaceholder": "选择一个先决条件课程",
+    "noMatchingCourse": "未找到此先决条件的匹配课程。",
+    "recording": "正在记录...",
+    "markPlacementTestCompleted": "标记分班测试已完成"
+  },
+  "plannerScheduleChanges": {
+    "reviewProposedChanges": "审查建议的课程表更改",
+    "added": "已添加",
+    "moved": "已移动",
+    "replaced": "已替换",
+    "removed": "已移除",
+    "important": "重要",
+    "disclaimerText": "此规划器根据 Stevenson High School 课程指南和你当前的学术计划提供课程表建议。",
+    "recommendationsMayNotAccount": "建议可能未考虑所有情况，包括：",
+    "counselorApprovals": "辅导员批准或豁免",
+    "placementTests": "分班测试",
+    "futureCourseAvailability": "未来课程可用性",
+    "scheduleConflicts": "此规划器之外的课程表冲突",
+    "individualGraduationExceptions": "个人毕业例外",
+    "reviewChangesCarefully": "请在应用这些更改之前仔细审查。如果不确定，请咨询学校辅导员。",
+    "officialScheduleInfo": "此规划器旨在帮助你探索可能的课程表。你的正式课程表、毕业状态和课程资格由 Stevenson High School 和你的学校辅导员决定。",
+    "reviewedChanges": "我已审查这些建议的课程表更改。",
+    "applyChanges": "应用更改",
+    "before": "更改前",
+    "after": "更改后",
+    "noCourses": "无课程",
+    "slotDisplay": "位置 {slot}：{title}",
+    "newBadge": "新增",
+    "movedBadge": "已移动",
+    "willMove": "（将移动）",
+    "semester1Short": "S1",
+    "semester2Short": "S2",
+    "bestPlacement": "最佳安排：{yearLabel} 年，学期 {semester} 位置 {slot}（推荐）",
+    "chooseAnotherYear": "或选择其他年份",
+    "noOpenSlots": "没有空闲位置",
+    "foundAvailableSlot": "✓ 已找到可用位置。",
+    "locationText": "{yearLabel} 年，学期 {semester} 位置 {slot}",
+    "noAvailableSlotFound": "未找到可用的计划位置。",
+    "selectCourseToReplace": "选择要替换的课程",
+    "noCoursesToReplace": "此年份中没有可替换的课程。",
+    "yearSemesterLabel": "{yearLabel} 学期 {semester}",
+    "recommendedBadge": "（推荐）",
+    "chooseDifferentYear": "选择其他年份",
+    "back": "← 返回",
+    "addCourseToPlanner": "添加到计划",
+    "markAsPreviouslyCompleted": "标记为之前已完成",
+    "completedIn": "完成于：",
+    "markAsCompleted": "将 {courseTitle} 标记为之前已完成",
+    "autoReorganize": "这将自动重新组织你的课程表以满足先决条件，同时进行尽可能少的更改。",
+    "loading": "加载中...",
+    "adding": "正在添加...",
+    "addCourseButton": "添加课程"
+  },
+  "plannerDriverEd": {
+    "driverEducation": "驾驶教育",
+    "completedOutsideSchool": "✓ 已在校外完成",
+    "undo": "撤销",
+    "alreadyInPlanner": "驾驶教育已在你的计划中，因此将通过该课程完成。",
+    "markCompletedOutside": "标记为在校外完成",
+    "driverEdDescription": "如果你在商业驾驶学校完成了驾驶教育，或在 18 岁之前获得了驾照。"
+  },
+  "plannerWaivers": {
+    "peWaivers": "体育豁免",
+    "academicWaiver": "学术体育豁免",
+    "academicWaiverSubtitle": "仅适用于有 6 门学分课程的十二年级学生",
+    "athleticWaiver": "竞技体育豁免",
+    "athleticWaiverSubtitle": "适用于十一年级和十二年级学生",
+    "marchingBandWaiver": "行进乐队体育豁免",
+    "marchingBandWaiverSubtitle": "适用于 9-12 年级",
+    "creditLabel": "（学分）",
+    "nonCreditLabel": "（非学分）",
+    "remove": "移除",
+    "apply": "申请",
+    "marchingBandTitle": "行进乐队体育豁免",
+    "marchingBandDescription": "任何 9-12 年级注册以下课程之一并为行进乐队成员的学生，可以在第一学期免除体育教育要求。",
+    "eligibleCourses": "符合条件的课程：",
+    "freshmanBand": "新生乐队",
+    "windEnsemble": "管乐合奏团",
+    "symphonicBand": "交响乐队",
+    "windSymphony": "管乐交响乐团",
+    "colorGuard": "仪仗队",
+    "close": "关闭",
+    "applyWaiver": "申请豁免",
+    "learnMore": "了解更多",
+    "ok": "确定",
+    "participatingInSport": "你是否参加 JV 或校队运动？",
+    "yes": "是",
+    "no": "否",
+    "howManySports": "你参加多少 JV/校队运动？",
+    "oneSport": "一项运动",
+    "twoOrMoreSports": "两项或以上运动"
+  },
+  "plannerSummerPicker": {
+    "addSummerCourse": "添加暑期课程",
+    "sessionSubtitle": "{session} · {gradePrev} 和 {gradeNext} 年级之间的暑期",
+    "searchPlaceholder": "搜索暑期课程...",
+    "searchAriaLabel": "搜索暑期课程",
+    "loadingSummerCourses": "正在加载暑期课程...",
+    "noMatchSearch": "没有暑期课程匹配你的搜索。",
+    "noSummerCoursesAvailable": "此课程没有可用的暑期课程。",
+    "prerequisites": "先决条件：",
+    "corequisites": "同步课程：",
+    "alreadyPlanned": "已计划在你的课程表中",
+    "regularEquivalentPlanned": "此课程的常规等效课程已计划",
+    "regularEquivalentCompleted": "此课程的常规等效课程已完成",
+    "openToGrades": "对 {grades} 开放",
+    "notOfferedFullSummer": "不提供全暑期课程",
+    "notOfferedInSession": "不在 {session} 开设",
+    "session1": "课程 1",
+    "session2": "课程 2",
+    "failedToLoad": "加载暑期学校课程失败。"
+  },
+  "plannerCompletedPicker": {
+    "markCourseCompleted": "将课程标记为已完成",
+    "regularCourses": "常规课程",
+    "summerCourses": "暑期课程",
+    "gradeLevel": "年级：",
+    "loadingSummerCourses": "正在加载暑期课程...",
+    "searchPlaceholder": "搜索暑期课程...",
+    "searchAriaLabel": "搜索暑期课程",
+    "clearSearch": "清除搜索",
+    "noMatchSearch": "没有暑期课程匹配你的搜索。",
+    "noSummerCoursesAvailable": "暂无暑期课程。",
+    "alreadyRecorded": "已记录为完成",
+    "select": "选择",
+    "save": "保存"
+  },
+  "plannerCoursePicker": {
+    "select": "选择",
+    "searchPlaceholder": "按课程标题搜索...",
+    "searchAriaLabel": "按课程标题搜索",
+    "clearSearch": "清除搜索",
+    "searchButton": "搜索",
+    "loadingCourses": "正在加载课程...",
+    "noCoursesAvailable": "暂无课程。",
+    "noMatchSearch": "没有课程匹配你的搜索。",
+    "creditsTag": "{credits} 学分",
+    "fullYearTag": "全年",
+    "oneSemesterTag": "一学期"
+  },
+  "plannerCourseLoad": {
+    "courseLoadRequirements": "课程负荷要求",
+    "progressAriaLabel": "进度：已获 {earned} / 要求 {required} 学分",
+    "progressDisplay": "{earned} / {required}",
+    "atLeastFiveCredits": "至少五学分的课程",
+    "semesterPrefix": "学期 ",
+    "sixthSupervisedPeriod": "第六个监督课时",
+    "periodStatus": "学期 {semester}：已填充 {filled} / 要求 {required} 课时"
+  },
+  "plannerGradeRequirements": {
+    "gradeRequirements": "{grade} 年级要求",
+    "physicalEducation": "体育教育",
+    "semesterPrefix": "学期 ",
+    "waiverSuffix": "（豁免）"
   },
   "requirements": {
-    "heading": "毕业要求",
-    "subtitle": "查看你的毕业要求进度。",
-    "yearLevel": "年级要求",
-    "graduation": "毕业要求",
+    "heading": "毕业进度",
+    "loading": "正在加载毕业要求...",
+    "loadError": "加载毕业要求失败",
+    "empty": "未找到毕业要求。要求从课程目录中填充。",
+    "creditsCompleted": "/ {total} 已完成学分",
+    "projectedCredits": "当前计划预计：{earned} / {total}",
+    "yearLevelRequirements": "年级要求",
+    "yearLevelSubtitle": "我是否满足本年要求？",
+    "requirementsMet": "已满足 {satisfiedCount}/{totalCount} 项要求",
     "satisfied": "已满足",
     "partial": "部分满足",
-    "notStarted": "未开始",
-    "onTrack": "进行中",
-    "onTrackSubtitle": "查看下方每个要求的进度。",
-    "loading": "正在加载要求..."
+    "itemSatisfied": "已满足",
+    "itemMissing": "缺失",
+    "creditRatio": "{earned} / {required} 学分",
+    "graduationRequirementsSection": "毕业要求",
+    "onTrackSubtitle": "我是否能按时毕业？",
+    "statusSatisfied": "已满足",
+    "statusPartial": "部分满足",
+    "statusNotStarted": "未开始",
+    "statusPlanned": "已计划",
+    "earned": "已获：",
+    "required": "要求：",
+    "remaining": "剩余：",
+    "requirementBody": "此要求需要 {required} 学分。你已获得 {earned} 学分。",
+    "peBodyText": "每个学期都要求体育教育。每个学期通过体育课程或批准的豁免来满足。",
+    "peRequiredEachSemester": "每学期要求",
+    "physicalEducation": "体育教育",
+    "waived": "（已豁免）",
+    "waiver": "（豁免）",
+    "recommendedCourses": "推荐课程",
+    "viewAll": "查看全部 ({totalMatching})",
+    "helpfulInformation": "有用信息",
+    "completedOutsideSchool": "在校外完成",
+    "completedOutsideStatus": "✓ 已在校外完成",
+    "undo": "撤销",
+    "driverEdInPlanner": "驾驶教育已在你的计划中，因此将通过该课程完成。",
+    "markCompletedOutside": "标记为在校外完成",
+    "driverEdDescription": "在商业驾驶学校完成了驾驶教育或在 18 岁之前获得了驾照。",
+    "source": "来源：{sourceReference}",
+    "close": "关闭",
+    "progressLabel": "进度：{value}%",
+    "guestTitle": "毕业要求",
+    "guestDescription": "登录以跟踪你的毕业进度和要求完成情况。你的进度将被安全存储并跨设备同步。",
+    "completedLabel": "已完成：",
+    "plannedLabel": "已计划：",
+    "remainingLabel": "剩余：",
+    "creditsUnit": "学分"
+  },
+  "gradReq": {
+    "satisfied": "已满足",
+    "inProgress": "进行中",
+    "missing": "缺失",
+    "heading": "毕业要求",
+    "allOnTrack": "✓ 所有毕业要求进度正常"
+  },
+  "yearOverview": {
+    "yearFallback": "第 {year} 年",
+    "badgeCompleted": "✓ 已完成",
+    "badgeNotPlanned": "未计划",
+    "badgeOnTrack": "进度正常",
+    "badgeNeedsAttention": "需要关注",
+    "viewPlanner": "查看计划 →",
+    "editPlanner": "编辑计划 →",
+    "yearCompleted": "✓ 年份已完成",
+    "needsAttention": "需要关注：",
+    "missingWithCredits": "缺失 {category}（{earned} / {required} 学分）",
+    "missing": "缺失 {category}",
+    "summerSchool": "暑期学校",
+    "online": "在线",
+    "coursesPlanned": "已计划 {filled} / {total} 门课程",
+    "markCompleted": "标记年份已完成",
+    "marking": "正在标记...",
+    "markActive": "标记为活跃",
+    "restoring": "正在恢复...",
+    "semester": "学期 {n}",
+    "summerSemester": "暑期学校",
+    "onlineSemester": "在线",
+    "empty": "空"
+  },
+  "about": {
+    "heading": "关于",
+    "introParagraph1": "Stevenson Course Planner 是一个非官方的规划工具，旨在帮助学生在与辅导员会面之前了解毕业要求、先决条件和课程选项。它提供了一种可视化方式来探索不同的课程选择如何影响各学科领域的毕业进度。",
+    "introParagraph2": "正式的课程申请仍在与学校辅导员的预约选课期间进行。此工具旨在为该对话做准备，而不是取代它。",
+    "introParagraph3": "课程设置、先决条件和毕业要求可能会更改。请始终与辅导员或官方课程目录核实当前信息。",
+    "howItWorks": "工作原理",
+    "howItWorksParagraph1": "浏览课程目录以探索可用课程及其先决条件。将课程添加到你的计划中，跟踪已完成的课程，并监控所有要求领域的毕业进度。规划器为你提供你的选择如何契合在一起的实时视图。",
+    "howItWorksParagraph2": "你可以尝试不同的四年计划，查看哪些要求已满足，并在与辅导员会面之前识别差距。",
+    "projectStatus": "项目状态",
+    "beta": "Beta",
+    "activeDevelopment": "活跃开发中 — 功能和数据仍在完善中",
+    "builtBy": "由 Stevenson 学生作为辅助项目构建，旨在帮助同学导航课程选择。此工具旨在支持 — 而非取代 — 学校辅导员提供的指导。",
+    "feedbackPrompt": "如果你遇到问题或有建议，请使用反馈页面报告。你的输入有助于为每个人改进规划器。"
+  },
+  "privacy": {
+    "heading": "隐私",
+    "intro": "本页面解释 Stevenson Course Planner 存储哪些数据以及如何使用这些数据。",
+    "signedInUsers": "登录用户",
+    "signedInDescription": "当你使用 Google 登录时，以下数据存储在服务器上并关联到你的账户：",
+    "signedInItem1": "你的 Google 账户名称、电子邮件地址和 Google ID（身份验证所需）",
+    "signedInItem2": "你已保存到计划中的课程",
+    "signedInItem3": "你已标记为完成的课程",
+    "signedInItem4": "你在所有要求领域的毕业进度",
+    "signedInNote": "这些数据仅用于提供规划器功能。不会收集或分享成绩、成绩单或个人学业记录。",
+    "guestUsers": "访客用户",
+    "guestDescription": "如果你在未登录的情况下使用规划器，所有数据仅存在于浏览器内存中。刷新或关闭标签页将清除所有访客数据。服务器上不会存储任何访客信息。",
+    "dataSharing": "数据共享",
+    "dataSharingDescription": "你的数据仅用于提供此应用程序内的课程规划功能。不会与第三方、学校或学区共享任何规划器数据、课程选择或毕业信息。",
+    "dataSharingNote": "此工具与学区无关或未获学区认可。它是一个独立的规划辅助工具，旨在帮助学生为辅导员会议做准备。"
+  },
+  "login": {
+    "siteTitle": "Stevenson Course Planner",
+    "description": "使用 Google 账户登录以规划你的课程、跟踪要求并探索 Stevenson 课程目录。",
+    "signInWithGoogle": "使用 Google 登录",
+    "continueAsGuest": "以访客身份继续",
+    "guestMode": "访客模式",
+    "guestWarning": "离开此会话后，你的更改将不会保存。"
+  },
+  "auth": {
+    "loading": "加载中...",
+    "signIn": "登录",
+    "guestMode": "访客模式",
+    "guestModeTooltip": "离开此会话后，你的更改将不会保存。",
+    "signOut": "退出登录"
+  },
+  "authToast": {
+    "signedIn": "已登录为 {name}",
+    "guestMode": "继续以访客模式。你的进度仅在离开或刷新此页面前保存。"
+  },
+  "guestUpgrade": {
+    "message": "你正在使用访客模式。离开后你的课程和计划将不会保存。使用 Google 登录以保留你的进度。",
+    "signIn": "登录",
+    "dismiss": "关闭"
+  },
+  "guestEmptyState": {
+    "signIn": "登录"
+  },
+  "catalog": {
+    "heading": "课程目录",
+    "description": "浏览 Stevenson High School 所有可用课程。",
+    "viewSavedCourses": "查看已保存课程",
+    "regularCoursebook": "常规课程手册",
+    "summerCoursebook": "暑期学校课程手册",
+    "noMatchSearchAndFilter": "没有课程匹配你的搜索和筛选。",
+    "noMatchSearch": "没有课程匹配你的搜索。",
+    "noMatchFilter": "没有课程匹配你的筛选。",
+    "noCoursesFound": "未找到课程。",
+    "loadingSummerCourses": "正在加载暑期学校课程...",
+    "retry": "重试",
+    "sourceRegular": "常规课程",
+    "sourceSummer": "暑期学校",
+    "viewSaved": "查看已保存课程"
+  },
+  "catalogHeader": {
+    "courseCatalog": "课程目录",
+    "browseDescription": "浏览 Stevenson High School 所有可用课程。",
+    "viewSavedCourses": "查看已保存课程"
+  },
+  "courseSearch": {
+    "searchAriaLabel": "搜索课程",
+    "searchPlaceholder": "搜索课程...",
+    "clearSearch": "清除搜索",
+    "searchButtonAriaLabel": "搜索",
+    "searchButton": "搜索"
+  },
+  "courseFilters": {
+    "creditType": "学分类型",
+    "semester": "学期",
+    "division": "分部",
+    "department": "系别",
+    "gradeLevel": "年级",
+    "gradeLabel": "{grade} 年级",
+    "graduationRequirement": "毕业要求",
+    "activeFilters": "活跃筛选",
+    "clearAll": "全部清除"
+  },
+  "courseDetail": {
+    "backToCatalog": "← 返回目录",
+    "backToDashboard": "← 返回仪表板",
+    "backToRequirements": "← 返回毕业要求",
+    "back": "← 返回",
+    "recommendedFor": "推荐用于：",
+    "description": "描述",
+    "noDescription": "暂无描述。",
+    "notes": "备注",
+    "prerequisites": "先决条件",
+    "none": "无",
+    "corequisites": "同步课程",
+    "graduationRequirement": "毕业要求",
+    "additionalInfo": "附加信息",
+    "fulfills": "满足",
+    "graduationRequirements": "毕业要求",
+    "attributes": "属性",
+    "openFullCatalogPage": "打开完整目录页面",
+    "courseCode": "课程代码",
+    "session": "课程",
+    "duration": "时长",
+    "dates": "日期",
+    "time": "时间",
+    "openTo": "开放对象",
+    "credit": "学分",
+    "grading": "评分",
+    "passFail": "通过/未通过",
+    "cost": "费用"
+  },
+  "courseOfferings": {
+    "oneSemester": "一学期",
+    "fullYear": "全年",
+    "semesters": "{count} 个学期",
+    "other": "其他",
+    "grades": "年级",
+    "mathNote": "提前完成先决课程的学生可以更早注册此课程。",
+    "totalCredits": "总学分",
+    "courseCodes": "课程代码"
+  },
+  "courseAttributes": {
+    "fulfills": "满足",
+    "graduationRequirements": "毕业要求",
+    "attributes": "属性"
+  },
+  "courseRequiredFor": {
+    "requiredFor": "被要求于",
+    "noCoursesRequire": "目前没有课程将此课程作为先决条件。"
+  },
+  "coursePrerequisites": {
+    "prerequisites": "先决条件",
+    "none": "无"
+  },
+  "savedCoursesContent": {
+    "recentlySaved": "最近保存",
+    "alphabetical": "按字母顺序 (A–Z)",
+    "department": "系别",
+    "gradeAvailability": "年级可用性",
+    "allDepartments": "所有系别",
+    "savedCoursesTitle": "已保存课程",
+    "savedCoursesDescription": "登录以保存感兴趣的课程并稍后查看。你的已保存课程将被安全存储并跨设备同步。",
+    "heading": "已保存课程",
+    "loading": "正在加载已保存课程...",
+    "empty": "暂无已保存课程。",
+    "searchPlaceholder": "按标题或课程代码搜索...",
+    "searchAriaLabel": "搜索已保存课程",
+    "clearSearch": "清除搜索",
+    "searchButton": "搜索",
+    "filterByDepartment": "按系别筛选",
+    "sortBy": "排序方式：",
+    "sortByAriaLabel": "排序方式",
+    "noMatchesFound": "未找到匹配项",
+    "tryAdjustingSearch": "尝试调整搜索或系别筛选。",
+    "tryDifferentSearch": "尝试不同的搜索词。",
+    "tryDifferentDepartment": "尝试选择不同的系别。",
+    "viewCourse": "查看课程",
+    "addToPlanner": "添加到计划",
+    "remove": "移除"
+  },
+  "saveCourseButton": {
+    "saved": "已保存",
+    "saveCourse": "保存课程"
+  },
+  "markCompletedButton": {
+    "failedToMark": "标记课程完成失败",
+    "viewCompletedCourses": "查看已完成课程",
+    "completed": "已完成 ✓",
+    "markAsCompleted": "标记为已完成",
+    "markAsCompletedAria": "标记为已完成",
+    "gradeLevel": "年级",
+    "cancel": "取消",
+    "saving": "正在保存...",
+    "markCompleted": "标记完成"
+  },
+  "summerCourseDetail": {
+    "backToSummerCatalog": "← 返回暑期目录",
+    "backToDashboard": "← 返回仪表板",
+    "backToCatalog": "← 返回目录",
+    "backToRequirements": "← 返回毕业要求",
+    "back": "← 返回",
+    "summerSchool": "暑期学校",
+    "fullSummer": "全暑期",
+    "courseCode": "课程代码",
+    "session": "课程",
+    "duration": "时长",
+    "dates": "日期",
+    "time": "时间",
+    "openTo": "开放对象",
+    "credit": "学分",
+    "grading": "评分",
+    "passFail": "通过/未通过",
+    "cost": "费用",
+    "prerequisite": "先决条件",
+    "none": "无",
+    "corequisite": "同步课程",
+    "graduationRequirement": "毕业要求",
+    "description": "描述",
+    "noDescription": "暂无描述。",
+    "notes": "备注",
+    "additionalInfo": "附加信息"
+  },
+  "savedToPlannerModal": {
+    "freshmanGrade9": "九年级 (Grade 9)",
+    "sophomoreGrade10": "十年级 (Grade 10)",
+    "juniorGrade11": "十一年级 (Grade 11)",
+    "seniorGrade12": "十二年级 (Grade 12)",
+    "semester1": "学期 1",
+    "semester2": "学期 2",
+    "slotLabel": "位置 {n}",
+    "plannerNotFound": "未找到所选年份的计划。",
+    "failedToAdd": "添加课程到计划失败",
+    "addToPlanner": "添加到计划",
+    "close": "关闭",
+    "courseAddedSuccess": "课程已添加到你的计划！",
+    "goToPlanner": "前往计划",
+    "schoolYear": "学年",
+    "semester": "学期",
+    "slot": "位置",
+    "cancel": "取消",
+    "adding": "正在添加...",
+    "addButton": "添加到计划"
+  },
+  "emptyState": {
+    "noCoursesFound": "未找到课程。"
+  },
+  "a11y": {
+    "dialogTitle": "辅助功能和偏好设置",
+    "dialogDescription": "自定义课程规划器的外观和行为。这些设置是可选的，可以随时更改。",
+    "close": "关闭",
+    "closeAriaLabel": "关闭辅助功能和偏好设置",
+    "keyboardShortcuts": "键盘快捷键",
+    "keyboardShortcutsDescription": "使用键盘快捷键进行更快的导航和操作。",
+    "keyboardShortcutsNote": "当前没有激活的应用级字符键快捷键。此偏好设置已保存以备将来使用。",
+    "largerText": "更大文本",
+    "largerTextDescription": "增大整个网站的文本大小。",
+    "reduceMotion": "减少动画",
+    "reduceMotionDescription": "减少整个网站的动画和过渡效果。",
+    "reduceMotionLegend": "减少动画",
+    "followSystem": "跟随系统",
+    "onOption": "开启",
+    "offOption": "关闭",
+    "howSettingsHelp": "这些设置如何提供帮助",
+    "infoText": "课程规划器旨在让所有用户都能访问。这些可选偏好允许用户自定义体验的某些方面。",
+    "dtKeyboardShortcuts": "键盘快捷键",
+    "ddKeyboardShortcuts": "WCAG 2.2 2.1.4 字符键快捷键，A 级：如果使用单字符应用快捷键，用户必须能够关闭、重新映射或将它们限制在相关组件内。",
+    "dtLargerText": "更大文本",
+    "ddLargerText": "WCAG 2.2 1.4.4 调整文本大小和 1.4.10 重排，AA 级：文本放大后内容应保持可用。此设置是可选的大文本显示，不替代浏览器缩放。",
+    "dtReduceMotion": "减少动画",
+    "ddReduceMotion": "WCAG 2.2 2.3.3 交互动画，AAA 级：减少不必要的动画可以提高舒适度。网站也遵循系统减少动画设置。",
+    "wcagDisclaimer": "这些设置支持无障碍访问，但本身不构成 WCAG 2.2 合规。",
+    "iconAttribution": "图标归属",
+    "iconAttributionText": "辅助功能图标：Dave Braunschweig, Accessibility.svg。使用 CC BY-SA 4.0 许可。未经修改使用。",
+    "buttonLabel": "辅助功能和偏好设置"
+  },
+  "language": {
+    "label": "语言",
+    "description": "选择应用程序的显示语言。",
+    "dialogTitle": "语言设置",
+    "dialogDescription": "选择界面语言。你的偏好将被保存并应用于整个应用程序。"
   },
   "completedCourses": {
+    "guestTitle": "已完成课程",
+    "guestDescription": "登录以查看你的已完成课程和先决条件历史。你的已完成课程将被安全存储并跨设备同步。",
     "heading": "已完成课程",
-    "subtitle": "管理你的已完成课程和毕业进度。",
-    "addCourse": "添加课程",
-    "empty": "暂无已完成课程。",
-    "filterAll": "全部",
-    "filterSummer": "暑期学校",
-    "loading": "正在加载已完成课程..."
+    "loadError": "加载已完成课程失败",
+    "addError": "添加已完成课程失败",
+    "updateError": "更新已完成课程失败",
+    "removeError": "移除已完成课程失败",
+    "addButton": "+ 添加已完成课程",
+    "emptyHeading": "暂无已完成课程",
+    "emptyDescription": "添加你已完成的课程以改善规划器警告并跟踪毕业进度。",
+    "noFilterResults": "没有已完成课程匹配此筛选。",
+    "course": "门课程",
+    "courses": "门课程",
+    "noCoursesRecorded": "暂无已记录课程。",
+    "summer": "暑期",
+    "save": "保存",
+    "cancel": "取消",
+    "edit": "编辑",
+    "editTitle": "编辑",
+    "remove": "移除",
+    "unknownCourse": "未知课程",
+    "editGradeLabel": "编辑年级",
+    "credits": "学分",
+    "filter": {
+      "all": "全部",
+      "middleSchool": "初中",
+      "freshman": "九年级",
+      "sophomore": "十年级",
+      "junior": "十一年级",
+      "senior": "十二年级",
+      "summerSchool": "暑期学校"
+    },
+    "period": {
+      "middleSchool": "初中",
+      "freshman": "九年级",
+      "freshmanSummer": "九年级暑期（初中 → 九年级）",
+      "sophomore": "十年级",
+      "sophomoreSummer": "十年级暑期（九年级 → 十年级）",
+      "junior": "十一年级",
+      "juniorSummer": "十一年级暑期（十年级 → 十一年级）",
+      "senior": "十二年级",
+      "seniorSummer": "十二年级暑期（十一年级 → 十二年级）",
+      "summerSchoolLegacy": "暑期学校"
+    },
+    "grade": {
+      "middleSchool": "初中",
+      "summerSchool": "暑期学校",
+      "freshman9": "九年级 (9)",
+      "freshmanSummer": "九年级暑期",
+      "sophomore10": "十年级 (10)",
+      "sophomoreSummer": "十年级暑期",
+      "junior11": "十一年级 (11)",
+      "juniorSummer": "十一年级暑期",
+      "senior12": "十二年级 (12)",
+      "seniorSummer": "十二年级暑期"
+    }
+  },
+  "errors": {
+    "fetchCompletedCourses": "获取已完成课程失败",
+    "addCompletedCourse": "添加已完成课程失败",
+    "updateCompletedCourse": "更新已完成课程失败",
+    "removeCompletedCourse": "移除已完成课程失败",
+    "fetchPlannerAnalysis": "获取计划分析失败",
+    "fetchCourses": "获取课程失败",
+    "fetchResolutions": "获取解决方案失败",
+    "createResolution": "创建解决方案失败",
+    "deleteResolution": "删除解决方案失败",
+    "fetchSession": "获取会话失败",
+    "logout": "退出登录失败",
+    "fetchSavedCourses": "获取已保存课程失败",
+    "saveCourse": "保存课程失败",
+    "removeSavedCourse": "移除已保存课程失败",
+    "fetchSummerCourses": "获取暑期课程失败",
+    "fetchPlanners": "获取计划失败",
+    "plannerNotFound": "未找到第 {year} 年的计划",
+    "fetchPlannerOptions": "获取计划选项失败",
+    "searchCourses": "搜索课程失败",
+    "addPlannedCourse": "添加课程失败",
+    "removePlannedCourse": "移除课程失败",
+    "updateEarlyBird": "更新早鸟课失败",
+    "movePlannedCourse": "移动课程失败",
+    "markYearCompleted": "标记年份完成失败",
+    "unmarkYearCompleted": "取消标记年份完成失败",
+    "fetchPlannerAnalysisApi": "获取计划分析失败",
+    "fetchGpaProjection": "获取 GPA 预测失败",
+    "failedToLoad": "加载数据失败。",
+    "tryAgain": "重试",
+    "notFound": "未找到。",
+    "goHome": "返回首页",
+    "networkError": "网络错误。请检查你的连接。",
+    "unknownError": "发生意外错误。"
+  },
+  "errorPage": {
+    "somethingWentWrong": "出现问题。",
+    "errorDescription": "发生意外错误。请尝试刷新页面。如果问题持续存在，你可以报告此问题。",
+    "refresh": "刷新",
+    "returnToDashboard": "返回仪表板",
+    "reportBug": "报告问题"
+  },
+  "catalogNotFound": {
+    "courseNotFound": "未找到课程",
+    "courseNotFoundDescription": "我们无法找到与该链接匹配的课程。它可能已被移除或重命名。",
+    "backToCatalog": "返回目录"
   },
   "savedCourses": {
     "recentlySaved": "最近保存的课程",
@@ -127,58 +900,8 @@
   "status": {
     "satisfied": "已满足",
     "partial": "部分满足",
-    "notStarted": "未开始"
-  },
-  "language": {
-    "label": "语言",
-    "description": "选择应用程序的显示语言。",
-    "dialogTitle": "语言设置",
-    "dialogDescription": "选择界面语言。你的偏好将被保存并应用于整个应用程序。"
-  },
-  "a11y": {
-    "title": "辅助功能和偏好设置",
-    "description": "自定义课程规划器的外观和行为。这些设置是可选的，可以随时更改。",
-    "close": "关闭",
-    "keyboardShortcuts": "键盘快捷键",
-    "keyboardShortcutsDesc": "使用键盘快捷键进行更快的导航和操作。",
-    "keyboardShortcutsNote": "当前没有激活的应用级字符键快捷键。此偏好设置已保存以备将来使用。",
-    "largerText": "更大文本",
-    "largerTextDesc": "增大整个网站的文本大小。",
-    "reduceMotion": "减少动画",
-    "reduceMotionDesc": "减少整个网站的动画和过渡效果。",
-    "followSystem": "跟随系统",
-    "on": "开启",
-    "off": "关闭",
-    "howTheseHelp": "这些设置如何提供帮助",
-    "howTheseHelpIntro": "课程规划器旨在让所有用户都能访问。这些可选偏好允许用户自定义体验的某些方面。",
-    "iconAttribution": "图标归属",
-    "languageLabel": "语言",
-    "languageDescription": "选择应用程序的显示语言。"
-  },
-  "catalog": {
-    "sourceRegular": "常规课程",
-    "sourceSummer": "暑期学校",
-    "viewSaved": "查看已保存课程"
-  },
-  "errors": {
-    "failedToLoad": "加载数据失败。",
-    "tryAgain": "重试",
-    "notFound": "未找到。",
-    "goHome": "返回首页",
-    "networkError": "网络错误。请检查你的连接。",
-    "unknownError": "发生意外错误。"
-  },
-  "guestUpgrade": {
-    "title": "保存你的进度",
-    "description": "登录以将你的计划和已完成课程保存到你的账户。",
-    "signIn": "使用 Google 登录"
-  },
-  "guestEmptyState": {
-    "message": "登录以访问此功能。"
-  },
-  "authToast": {
-    "signedIn": "已登录为 {name}",
-    "guestMode": "继续以访客模式..."
+    "notStarted": "未开始",
+    "planned": "已计划"
   },
   "tutorial": {
     "actions": {
@@ -199,92 +922,138 @@
     "steps": {
       "welcomeIntro": {
         "title": "欢迎使用 Stevenson Course Planner",
-        "description": "Stevenson Course Planner (SCP) 是一个免费的规划工具，旨在帮助 Stevenson High School 的学生探索课程、制定四年学术计划并跟踪毕业进度。"
+        "description": "Stevenson Course Planner (SCP) 是一个免费的规划工具，旨在帮助 Stevenson High School 的学生探索课程、制定四年学术计划并跟踪毕业进度。使用它来组织你的课程选择、检查先决条件并可视化你的毕业之路。请记住：这是一个规划资源，不应替代官方学校信息或与辅导员的对话。"
       },
       "catalogIntro": {
         "title": "课程目录",
-        "description": "课程目录是您在决定将什么添加到计划之前探索所有可用课程的地方。"
+        "description": "课程目录是你在决定将什么添加到计划之前探索所有可用课程的地方。按系别、分部或年级浏览以找到你感兴趣的课程。每张课程卡片显示标题、学分、描述、先决条件以及它可能满足的毕业要求。"
       },
       "searchVsFilters": {
         "title": "搜索：搜索栏与筛选器",
-        "description": "使用搜索栏按名称或课程代码查找特定课程。使用筛选器按部门、年级或其他类别缩小目录范围。"
+        "description": "使用搜索栏按名称或课程代码查找特定课程。使用下方的筛选器按系别、分部、学分类型、年级资格或学期缩小目录范围。你可以组合搜索和筛选以找到你需要的内容。"
       },
       "courseCards": {
         "title": "了解课程卡片",
-        "description": "每张课程卡片显示课程标题、学分、简要描述、先决条件和推荐信息。"
+        "description": "每张课程卡片显示课程标题、课程代码、学分和简要描述。查找先决条件（你必须先修的课程）、推荐（建议的准备）以及指示课程可能满足哪些要求的毕业要求徽标。单击卡片查看完整详情。"
       },
       "plannerIntro": {
         "title": "我的计划",
-        "description": "我的计划是您将潜在课程组织到四年计划中的地方。"
+        "description": "我的计划是你将潜在课程组织到四年计划中的地方。将课程添加到计划中代表未来的已计划课程，而非已完成的。你的计划帮助你可视化课程表并确保你满足毕业要求。"
       },
       "fourYearsSemesters": {
         "title": "了解四年和学期",
-        "description": "您的计划按年级组织：九年级、十年级、十一年级和十二年级。每年有两个学期。"
+        "description": "你的计划按年级组织：九年级 (9)、十年级 (10)、十一年级 (11) 和十二年级 (12)。每年有两个学期。使用此结构来规划你高中期间每个学期要修的课程。"
       },
       "addingCourses": {
         "title": "添加课程",
-        "description": "要添加课程，请打开计划年份并在任何学期插槽中单击「+ 添加课程」按钮。"
+        "description": "要添加课程，打开计划年份并单击任何学期位置中的「+ 添加课程」按钮。按名称或代码搜索课程，然后将其添加到你的计划中。由于资格规则，并非所有课程都适用于每个年级。"
       },
       "courseEligibility": {
         "title": "课程资格",
-        "description": "某些课程有年级限制或先决条件，必须在计划之前满足。"
+        "description": "某些课程有年级限制或必须满足的先决条件。如果你的计划中没有出现某门课程，请查看课程目录中的信息以了解资格要求。先决条件可能包括已完成的课程或分班成绩。"
       },
       "movingCourses": {
         "title": "移动课程",
-        "description": "您可以通过拖放在不同学期之间移动课程。移动课程可能影响您的学期平衡。"
+        "description": "你可以通过拖放将课程在不同学期之间移动。移动课程可能影响你的学期平衡、先决条件时间和毕业进度。在进行更改后查看你的计划，以确保一切仍然对齐。"
       },
       "removingCourses": {
         "title": "移除课程",
-        "description": "要从计划中移除课程，请单击课程卡片并使用移除选项。"
+        "description": "要从计划中移除课程，单击课程卡片并使用移除选项。移除课程可能影响你的学分总数、毕业进度和先决条件关系。规划器将相应更新警告和建议。"
       },
       "waivers": {
         "title": "豁免",
-        "description": "某些毕业要求（如体育）在特定条件下可以豁免。"
+        "description": "某些毕业要求（如体育教育）在特定条件下可以豁免。规划器显示豁免状态并指出哪些要求已被豁免。查看计划摘要中的豁免部分以获取你具体情况的详细信息。"
       },
       "needsAttention": {
         "title": "需要关注",
-        "description": "需要关注部分突出显示您计划中应审查的潜在问题。"
+        "description": "需要关注部分突出显示你计划中应审查的潜在问题。此处的项不一定是错误 — 它们是帮助你验证计划是否满足所有要求的提示。每项建议一个你可能考虑采取的操作。"
       },
       "understandingWarnings": {
         "title": "理解警告",
-        "description": "当规划器显示警告时，请问三个问题：规划器识别了什么问题？为什么重要？下一步应该调查什么？"
+        "description": "当规划器显示警告时，问三个问题：规划器识别了什么问题？为什么这对你的毕业可能重要？接下来你应该调查什么？警告帮助你在潜在问题变成实际问题之前发现它们。"
       },
       "resolvingWarnings": {
         "title": "解决警告",
-        "description": "您可以通过添加缺失课程、标记先决条件为已完成或移动课程来解决警告。"
+        "description": "你可以通过采取操作来解决警告，如添加缺失课程、将先决条件标记为已完成、将课程移动到不同学期或完成分班操作。在应用建议操作之前，请查看以确保它适合你的计划。"
       },
       "creditProgress": {
         "title": "学分进度",
-        "description": "计划摘要显示您的计划学分以及与毕业要求的比较。"
+        "description": "计划摘要显示你的计划学分以及它们与毕业要求的比较。计划学分代表你打算修的课程，而已完成学分是你已经完成的课程。更改计划将更新这些总数。"
       },
       "graduationRequirements": {
         "title": "毕业要求",
-        "description": "毕业要求页面显示您需要满足的所有毕业要求。"
+        "description": "毕业要求页面显示你需要满足的所有毕业要求。审查每项要求以了解哪些课程可以满足它。该页面跟踪已完成的课程和计划中的课程对每项要求的贡献。"
       },
       "requirementProgress": {
         "title": "了解要求进度",
-        "description": "每张要求卡片显示您的进度：已完成的课程和计划中的课程。"
+        "description": "每张要求卡片显示你的进度：满足要求的已完成课程和可能贡献的计划中的课程。进度条区分已完成的课程和计划中的课程。查看每项要求背后的详细信息，而不是仅依赖进度指标。"
       },
       "completedCourses": {
         "title": "已完成课程",
-        "description": "记录您已完成的课程，以便规划器准确跟踪您的毕业进度。"
+        "description": "记录你已完成的课程，以便规划器准确跟踪你的毕业进度。已完成课程与已计划课程不同 — 它们代表你已经完成的工作。你可以按学年组织它们并包含暑期学校记录。"
       },
       "savedCourses": {
         "title": "已保存课程",
-        "description": "已保存课程是您感兴趣但尚未放入计划的课程。"
+        "description": "已保存课程是你感兴趣但尚未放入计划中的课程。在决定计划什么时使用已保存课程作为候选列表。当你准备好时，你可以将已保存课程直接添加到四年计划中。"
       },
       "language": {
         "title": "语言设置",
-        "description": "您可以使用语言选择器更改界面语言。您的语言偏好将被保存。"
+        "description": "你可以使用辅助功能和偏好设置中的语言选择器更改界面语言。你的语言偏好将被保存并应用于整个应用程序。可用语言包括英语、西班牙语和简体中文。"
       },
       "accessibility": {
         "title": "辅助功能设置",
-        "description": "辅助功能和偏好设置面板包括更大文本、减少动画和键盘快捷键选项。"
+        "description": "辅助功能和偏好设置面板包括更大文本、减少动画和键盘快捷键选项。这些设置使应用程序对每个人来说都舒适可用。你的偏好设置将自动保存。"
       },
       "accountGuest": {
         "title": "账户和访客模式",
-        "description": "您可以以访客身份使用 Stevenson Course Planner，或使用 Google 帐户登录。"
+        "description": "你可以以访客身份使用 Stevenson Course Planner，或使用 Google 账户登录。访客模式将你的数据本地存储在浏览器中 — 如果你清除数据或切换浏览器，数据将丢失。登录可将你的计划和已完成课程保存到你的账户中，可从任何设备访问。"
       }
     }
+  },
+  "helpfulInformation": {
+    "heading": "有用信息",
+    "subtitle": "关于政策、程序和毕业要求的重要信息。",
+    "empty": "暂无有用信息。",
+    "guestTitle": "有用信息",
+    "guestDescription": "登录以查看有关政策和毕业要求的有用信息。",
+    "close": "关闭"
+  },
+  "semester": {
+    "session1": "课程 1",
+    "session2": "课程 2"
+  },
+  "feedback": {
+    "heading": "反馈",
+    "body": "发现了问题？有建议？你的反馈有助于为每个人改进规划器。",
+    "reportBug": "报告问题",
+    "sendFeedback": "发送反馈"
+  },
+  "profile": {
+    "heading": "你的个人资料",
+    "description": "此页面仅对登录用户可见。更多账户设置将在未来添加。"
+  },
+  "errorPagePlanner": {
+    "refresh": "刷新",
+    "returnToPlanner": "返回计划",
+    "dashboard": "仪表板",
+    "reportBug": "报告问题"
+  },
+  "errorPageRequirements": {
+    "refresh": "刷新",
+    "reloadPage": "重新加载页面",
+    "dashboard": "仪表板",
+    "reportBug": "报告问题"
+  },
+  "common": {
+    "close": "关闭",
+    "cancel": "取消",
+    "remove": "移除",
+    "search": "搜索",
+    "clearSearch": "清除搜索",
+    "dismiss": "关闭",
+    "undo": "撤销",
+    "back": "返回",
+    "refresh": "刷新",
+    "uncategorized": "未分类"
   }
 }

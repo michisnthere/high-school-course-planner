@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { usePreferences } from "@/context/PreferencesContext";
+import { useTranslation } from "@/context/I18nContext";
 
 const focusableSelector = [
   "a[href]",
@@ -34,6 +35,7 @@ function SwitchControl({
   labelId,
   onChange,
 }: SwitchControlProps): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
@@ -45,7 +47,7 @@ function SwitchControl({
       onClick={() => onChange(!checked)}
     >
       <span className="rs-a11y-switch-state" aria-hidden="true">
-        {checked ? "On" : "Off"}
+        {checked ? t("a11y.onOption") : t("a11y.offOption")}
       </span>
       <span className="rs-a11y-switch-track" aria-hidden="true">
         <span className="rs-a11y-switch-thumb" />
@@ -114,6 +116,7 @@ function AccessibilityDialog({
     setLargerText,
     setReducedMotion,
   } = usePreferences();
+  const { t } = useTranslation();
   const dialogRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -205,14 +208,13 @@ function AccessibilityDialog({
         <div className="rs-a11y-dialog-header">
           <div>
             <h2 id="rs-a11y-dialog-title" className="rs-a11y-dialog-title">
-              Accessibility &amp; Preferences
+              {t("a11y.dialogTitle")}
             </h2>
             <p
               id="rs-a11y-dialog-description"
               className="rs-a11y-dialog-intro"
             >
-              Customize how the Course Planner looks and behaves. These
-              settings are optional and can be changed at any time.
+              {t("a11y.dialogDescription")}
             </p>
           </div>
           <button
@@ -220,20 +222,20 @@ function AccessibilityDialog({
             type="button"
             className="rs-a11y-close"
             onClick={closeDialog}
-            aria-label="Close Accessibility & Preferences"
-            title="Close"
+            aria-label={t("a11y.closeAriaLabel")}
+            title={t("a11y.close")}
           >
-            Close
+            {t("a11y.close")}
           </button>
         </div>
 
         <div className="rs-a11y-settings">
           <SettingRow
-            label="Keyboard shortcuts"
+            label={t("a11y.keyboardShortcuts")}
             labelId="rs-a11y-keyboard-label"
-            description="Use keyboard shortcuts for faster navigation and actions."
+            description={t("a11y.keyboardShortcutsDescription")}
             descriptionId="rs-a11y-keyboard-desc"
-            note="No application-level character-key shortcuts are currently active. This preference is saved for any future application shortcuts."
+            note={t("a11y.keyboardShortcutsNote")}
           >
             <SwitchControl
               checked={preferences.keyboardShortcuts}
@@ -244,9 +246,9 @@ function AccessibilityDialog({
           </SettingRow>
 
           <SettingRow
-            label="Larger text"
+            label={t("a11y.largerText")}
             labelId="rs-a11y-text-label"
-            description="Increase text size throughout the website."
+            description={t("a11y.largerTextDescription")}
             descriptionId="rs-a11y-text-desc"
           >
             <SwitchControl
@@ -258,9 +260,9 @@ function AccessibilityDialog({
           </SettingRow>
 
           <SettingRow
-            label="Reduce motion"
+            label={t("a11y.reduceMotion")}
             labelId="rs-a11y-motion-label"
-            description="Reduce animations and transitions throughout the website."
+            description={t("a11y.reduceMotionDescription")}
             descriptionId="rs-a11y-motion-desc"
           >
             <fieldset
@@ -268,11 +270,11 @@ function AccessibilityDialog({
               aria-labelledby="rs-a11y-motion-label"
               aria-describedby="rs-a11y-motion-desc"
             >
-              <legend className="rs-visually-hidden">Reduce motion</legend>
+              <legend className="rs-visually-hidden">{t("a11y.reduceMotionLegend")}</legend>
               {[
-                ["system", "Follow system"],
-                ["on", "On"],
-                ["off", "Off"],
+                ["system", t("a11y.followSystem")],
+                ["on", t("a11y.onOption")],
+                ["off", t("a11y.offOption")],
               ].map(([value, label]) => (
                 <label
                   key={value}
@@ -302,43 +304,32 @@ function AccessibilityDialog({
           className="rs-a11y-info"
           aria-labelledby="rs-a11y-info-title"
         >
-          <h3 id="rs-a11y-info-title">How these settings help</h3>
+          <h3 id="rs-a11y-info-title">{t("a11y.howSettingsHelp")}</h3>
           <p>
-            The Course Planner is designed to be accessible to all users. These
-            optional preferences allow users to customize certain aspects of the
-            experience.
+            {t("a11y.infoText")}
           </p>
           <dl>
             <div>
-              <dt>Keyboard shortcuts</dt>
+              <dt>{t("a11y.dtKeyboardShortcuts")}</dt>
               <dd>
-                WCAG 2.2 2.1.4 Character Key Shortcuts, Level A: if
-                single-character application shortcuts are used, users must be
-                able to turn them off, remap them, or restrict them to a
-                relevant component.
+                {t("a11y.ddKeyboardShortcuts")}
               </dd>
             </div>
             <div>
-              <dt>Larger text</dt>
+              <dt>{t("a11y.dtLargerText")}</dt>
               <dd>
-                WCAG 2.2 1.4.4 Resize Text and 1.4.10 Reflow, Level AA:
-                content should remain usable when text is enlarged. This
-                setting is an optional larger-text presentation and does not
-                replace browser zoom.
+                {t("a11y.ddLargerText")}
               </dd>
             </div>
             <div>
-              <dt>Reduce motion</dt>
+              <dt>{t("a11y.dtReduceMotion")}</dt>
               <dd>
-                WCAG 2.2 2.3.3 Animation from Interactions, Level AAA: reducing
-                unnecessary motion can improve comfort. The site also respects
-                the system prefers-reduced-motion setting.
+                {t("a11y.ddReduceMotion")}
               </dd>
             </div>
           </dl>
           <p>
-            These settings support accessibility but do not by themselves
-            establish WCAG 2.2 conformance.
+            {t("a11y.wcagDisclaimer")}
           </p>
         </section>
 
@@ -346,25 +337,9 @@ function AccessibilityDialog({
           className="rs-a11y-icon-attribution"
           aria-labelledby="rs-a11y-icon-attribution-title"
         >
-          <h3 id="rs-a11y-icon-attribution-title">Icon attribution</h3>
+          <h3 id="rs-a11y-icon-attribution-title">{t("a11y.iconAttribution")}</h3>
           <p>
-            Accessibility icon: Dave Braunschweig,{" "}
-            <a
-              href="https://commons.wikimedia.org/wiki/File:Accessibility.svg"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Accessibility.svg
-            </a>
-            . Licensed under{" "}
-            <a
-              href="https://creativecommons.org/licenses/by-sa/4.0/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CC BY-SA 4.0
-            </a>
-            . Used without modification.
+            {t("a11y.iconAttributionText")}
           </p>
         </section>
       </div>
@@ -376,6 +351,7 @@ function AccessibilityDialog({
 export function AccessibilitySettingsButton(): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -384,8 +360,8 @@ export function AccessibilitySettingsButton(): React.ReactElement {
         type="button"
         className="rs-a11y-button"
         data-tour="a11y-settings"
-        aria-label="Accessibility & Preferences"
-        title="Accessibility & Preferences"
+        aria-label={t("a11y.buttonLabel")}
+        title={t("a11y.buttonLabel")}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         aria-controls={isOpen ? "rs-a11y-dialog" : undefined}

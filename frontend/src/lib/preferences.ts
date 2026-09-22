@@ -4,7 +4,7 @@ export const PREFERENCES_STORAGE_KEY = "stevenson-preferences";
 
 export type ReducedMotionOption = "system" | "on" | "off";
 
-export type Locale = "en" | "es" | "zh-CN";
+export type Locale = "en" | "es" | "zh-CN" | "ru" | "ko";
 
 export const CURRENT_TUTORIAL_VERSION = 1;
 
@@ -30,7 +30,7 @@ export function normalizePreferences(value: unknown): Preferences {
   if (!value || typeof value !== "object") return DEFAULT_PREFERENCES;
 
   const parsed = value as Partial<Preferences>;
-  const validLocales: Locale[] = ["en", "es", "zh-CN"];
+  const validLocales: Locale[] = ["en", "es", "zh-CN", "ru", "ko"];
   return {
     keyboardShortcuts:
       typeof parsed.keyboardShortcuts === "boolean"

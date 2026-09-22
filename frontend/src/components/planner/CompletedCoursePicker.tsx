@@ -14,6 +14,7 @@ import { summerPickerCardDetails } from "@/lib/summerCatalog";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { pickerCardPalette, pickerSearchInputStyle } from "./pickerStyles";
 import { PickerCourseCard } from "./PickerCourseCard";
+import { useTranslation } from "@/context/I18nContext";
 
 export type CompletedCourseSelection =
   | { courseId: number; gradeCompleted: GradeCompleted }
@@ -42,6 +43,7 @@ export function CompletedCoursePicker({
   const [summerError, setSummerError] = useState<string | null>(null);
   const [gradeCompleted, setGradeCompleted] = useState<GradeCompleted>(defaultGrade);
   const [query, setQuery] = useState("");
+  const { t } = useTranslation();
   const { isMobile } = useBreakpoint();
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export function CompletedCoursePicker({
     setSummerLoading(true);
     getSummerCourses()
       .then(setSummerCourses)
-      .catch(() => setSummerError("Failed to load Summer School courses."))
+      .catch(() => setSummerError(t("plannerSummerPicker.failedToLoad")))
       .finally(() => setSummerLoading(false));
   };
 
@@ -149,7 +151,7 @@ export function CompletedCoursePicker({
                   color: "var(--text-primary)",
                 }}
               >
-                Mark a course as completed
+                {t("plannerCompletedPicker.markCourseCompleted")}
               </h2>
               <button
                 type="button"
@@ -168,36 +170,36 @@ export function CompletedCoursePicker({
                   lineHeight: 1,
                   borderRadius: "8px",
                 }}
-                aria-label="Close"
+                aria-label={t("planner.cancel")}
               >
                 ×
               </button>
             </div>
             <div style={{ display: "flex", gap: "8px", marginBottom: "14px" }}>
-              {(["regular", "summer"] as const).map((t) => (
+              {(["regular", "summer"] as const).map((tabType) => (
                 <button
-                  key={t}
+                  key={tabType}
                   type="button"
                   onClick={() => {
-                    setTab(t);
+                    setTab(tabType);
                     setSelectedSummer(null);
                     setSelectedCourseId(null);
                     setQuery("");
-                    setGradeCompleted(defaultGradeForContext(t === "summer", defaultGrade));
-                    if (t === "summer") loadSummerCourses();
+                    setGradeCompleted(defaultGradeForContext(tabType === "summer", defaultGrade));
+                    if (tabType === "summer") loadSummerCourses();
                   }}
                   style={{
                     padding: "8px 16px",
                     fontSize: "14px",
                     fontWeight: 600,
-                    color: tab === t ? "#ffffff" : "var(--text-secondary)",
-                    backgroundColor: tab === t ? "var(--brand-accent)" : "var(--bg-input)",
-                    border: tab === t ? "1px solid var(--brand-accent)" : "1px solid var(--border-default)",
+                    color: tab === tabType ? "#ffffff" : "var(--text-secondary)",
+                    backgroundColor: tab === tabType ? "var(--brand-accent)" : "var(--bg-input)",
+                    border: tab === tabType ? "1px solid var(--brand-accent)" : "1px solid var(--border-default)",
                     borderRadius: "9999px",
                     cursor: "pointer",
                   }}
                 >
-                  {t === "regular" ? "Regular Courses" : "Summer Courses"}
+                  {tabType === "regular" ? t("plannerCompletedPicker.regularCourses") : t("plannerCompletedPicker.summerCourses")}
                 </button>
               ))}
             </div>
@@ -206,7 +208,7 @@ export function CompletedCoursePicker({
                 htmlFor="completed-grade"
                 style={{ color: "var(--text-secondary)", fontSize: isMobile ? "13px" : "14px", fontWeight: 600, whiteSpace: "nowrap" }}
               >
-                Grade Level:
+                {t("plannerCompletedPicker.gradeLevel")}
               </label>
               <select
                 id="completed-grade"
@@ -237,13 +239,13 @@ export function CompletedCoursePicker({
                 onSelect={setSelectedCourseId}
                 excludeCourseIds={excludeCourseIds}
                 selectedCourseId={selectedCourseId}
-                actionLabel="Select"
+                actionLabel={t("plannerCoursePicker.select")}
                 simple
                 tone="light"
               />
             ) : summerLoading ? (
               <div style={{ padding: "24px", color: "var(--text-muted)", fontSize: "14px" }}>
-                Loading summer courses...
+                {t("plannerCompletedPicker.loadingSummerCourses")}
               </div>
             ) : summerError ? (
               <div style={{ padding: "24px", color: "var(--status-error)", fontSize: "14px" }}>
@@ -255,18 +257,18 @@ export function CompletedCoursePicker({
                   <div style={{ position: "relative" }}>
                     <input
                       type="text"
-                      placeholder="Search summer courses..."
+                      placeholder={t("plannerCompletedPicker.searchPlaceholder")}
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       className="rs-picker-search"
                       style={{ ...pickerSearchInputStyle, paddingRight: query ? "40px" : "16px", paddingLeft: "16px" }}
-                      aria-label="Search summer courses"
+                      aria-label={t("plannerCompletedPicker.searchAriaLabel")}
                     />
                     {query && (
                       <button
                         type="button"
                         onClick={() => setQuery("")}
-                        aria-label="Clear search"
+                        aria-label={t("plannerCompletedPicker.clearSearch")}
                         style={{
                           position: "absolute",
                           right: "4px",
@@ -295,8 +297,8 @@ export function CompletedCoursePicker({
                   {filteredSummerCourses.length === 0 ? (
                     <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "14px" }}>
                       {query.trim() !== ""
-                        ? "No summer courses match your search."
-                        : "No summer courses available."}
+                        ? t("plannerCompletedPicker.noMatchSearch")
+                        : t("plannerCompletedPicker.noSummerCoursesAvailable")}
                     </p>
                   ) : (
                     filteredSummerCourses.map((sc) => {
@@ -309,9 +311,9 @@ export function CompletedCoursePicker({
                           tags={card.tags}
                           selected={selectedSummer?.id === sc.id}
                           disabled={disabled}
-                          disabledNote={disabled ? "Already recorded as completed" : undefined}
+                          disabledNote={disabled ? t("plannerCompletedPicker.alreadyRecorded") : undefined}
                           onSelect={() => setSelectedSummer(sc)}
-                          actionLabel="Select"
+                          actionLabel={t("plannerCompletedPicker.select")}
                           tone="light"
                         />
                       );
@@ -350,7 +352,7 @@ export function CompletedCoursePicker({
                 width: isMobile ? "100%" : undefined,
               }}
             >
-              Save
+              {t("plannerCompletedPicker.save")}
             </button>
           </div>
         </div>

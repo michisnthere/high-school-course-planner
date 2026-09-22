@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import { formatCreditType } from "@/lib/catalog";
 import { SaveCourseButton } from "./SaveCourseButton";
@@ -12,21 +13,22 @@ type CourseDetailHeaderProps = {
 };
 
 export function CourseDetailHeader({ course, returnUrl, fromRequirement }: CourseDetailHeaderProps): React.ReactElement {
+  const { t } = useTranslation();
   const creditType = course.options?.[0]?.creditType ?? null;
   const division = course.department?.division?.name;
   const department = course.department?.name;
   const showDepartment = department && division && department.trim().toLowerCase() !== division.trim().toLowerCase();
 
   const backHref = returnUrl && returnUrl.startsWith("/") ? returnUrl : "/catalog";
-  let backLabel = "← Back to Catalog";
+  let backLabel = t("courseDetail.backToCatalog");
   if (returnUrl === "/") {
-    backLabel = "← Back to Dashboard";
+    backLabel = t("courseDetail.backToDashboard");
   } else if (returnUrl?.startsWith("/catalog/")) {
-    backLabel = "← Back";
+    backLabel = t("courseDetail.back");
   } else if (returnUrl?.startsWith("/requirements")) {
-    backLabel = "← Back to Graduation Requirements";
+    backLabel = t("courseDetail.backToRequirements");
   } else if (returnUrl) {
-    backLabel = "← Back";
+    backLabel = t("courseDetail.back");
   }
 
   return (
@@ -72,7 +74,7 @@ export function CourseDetailHeader({ course, returnUrl, fromRequirement }: Cours
               color: "#111827",
             }}
           >
-            Recommended for: {fromRequirement}
+            {t("courseDetail.recommendedFor")}{fromRequirement}
           </span>
         </div>
       )}

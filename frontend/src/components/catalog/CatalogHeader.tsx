@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "@/context/I18nContext";
 
 export function CatalogHeader(): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -22,7 +24,7 @@ export function CatalogHeader(): React.ReactElement {
             lineHeight: 1.2,
           }}
         >
-          Course Catalog
+          {t("catalogHeader.courseCatalog")}
         </h1>
         <p
           style={{
@@ -31,7 +33,7 @@ export function CatalogHeader(): React.ReactElement {
             color: "var(--text-secondary)",
           }}
         >
-          Browse every course available at Stevenson High School.
+          {t("catalogHeader.browseDescription")}
         </p>
       </div>
 
@@ -51,7 +53,7 @@ export function CatalogHeader(): React.ReactElement {
           textDecoration: "none",
         }}
       >
-        View Saved Courses
+        {t("catalogHeader.viewSavedCourses")}
       </Link>
     </div>
   );

@@ -267,7 +267,7 @@ function CompletedCoursesContent(): React.ReactElement {
                   whiteSpace: "nowrap",
                 }}
               >
-                + Add Completed Course
+                + {t("completedCourses.addButton")}
               </button>
             </div>
 
@@ -298,7 +298,7 @@ function CompletedCoursesContent(): React.ReactElement {
                     color: "var(--text-primary)",
                   }}
                 >
-                  No completed courses yet
+                  {t("completedCourses.emptyHeading")}
                 </h3>
                 <p
                   style={{
@@ -311,8 +311,7 @@ function CompletedCoursesContent(): React.ReactElement {
                     marginRight: "auto",
                   }}
                 >
-                  Add courses you have already finished to improve your planner warnings and
-                  track your graduation progress.
+                  {t("completedCourses.emptyDescription")}
                 </p>
               </div>
             ) : filteredCourses.length === 0 ? (
@@ -326,7 +325,7 @@ function CompletedCoursesContent(): React.ReactElement {
                   borderRadius: "12px",
                 }}
               >
-                No completed courses match this filter.
+                {t("completedCourses.noFilterResults")}
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -376,7 +375,7 @@ function CompletedCoursesContent(): React.ReactElement {
                               {group.label}
                             </h2>
                             <p style={{ margin: "4px 0 0", fontSize: "13px", color: "var(--text-muted)" }}>
-                              {group.courses.length} {group.courses.length === 1 ? "course" : "courses"}
+                              {group.courses.length} {group.courses.length === 1 ? t("completedCourses.course") : t("completedCourses.courses")}
                             </p>
                           </div>
                           <span
@@ -425,7 +424,7 @@ function CompletedCoursesContent(): React.ReactElement {
                                         {sub.yearLabel}
                                       </h3>
                                       <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-                                        {sub.courses.length} {sub.courses.length === 1 ? "course" : "courses"}
+                                        {sub.courses.length} {sub.courses.length === 1 ? t("completedCourses.course") : t("completedCourses.courses")}
                                       </span>
                                     </div>
                                     {sub.courses.map((cc) => (
@@ -449,7 +448,7 @@ function CompletedCoursesContent(): React.ReactElement {
                               : group.courses.length === 0
                               ? (
                                 <p style={{ margin: 0, padding: "4px 0", fontSize: "14px", color: "var(--text-muted)" }}>
-                                  No courses recorded.
+                                  {t("completedCourses.noCoursesRecorded")}
                                 </p>
                               )
                               : group.courses.map((cc) => (
@@ -516,7 +515,8 @@ function CompletedCourseCard({
   onSave,
   onRemove,
 }: CompletedCourseCardProps): React.ReactElement {
-  const courseTitle = cc.course?.title ?? cc.summerCourse?.title ?? "Unknown Course";
+  const { t } = useTranslation();
+  const courseTitle = cc.course?.title ?? cc.summerCourse?.title ?? t("completedCourses.unknownCourse");
   const division = cc.course?.division ?? null;
   const credits = cc.credits ?? cc.course?.credits ?? null;
   const accentColor = getDivisionColor(division);
@@ -587,7 +587,7 @@ function CompletedCourseCard({
                 whiteSpace: "nowrap",
               }}
             >
-              Summer
+              {t("completedCourses.summer")}
             </span>
           )}
         </h3>
@@ -596,7 +596,7 @@ function CompletedCourseCard({
             <select
               value={editGrade}
               onChange={(e) => onEditGrade(e.target.value as GradeCompleted)}
-              aria-label="Edit grade level"
+              aria-label={t("completedCourses.editGradeLabel")}
               style={{
                 padding: "4px 8px",
                 fontSize: "13px",
@@ -614,7 +614,7 @@ function CompletedCourseCard({
           ) : (
             periodLabel
           )}
-          {credits != null && ` • ${formatCredits(credits)} credits`}
+          {credits != null && ` • ${formatCredits(credits)} ${t("completedCourses.credits")}`}
           {division && ` • ${division}`}
         </p>
       </div>
@@ -635,7 +635,7 @@ function CompletedCourseCard({
                 cursor: "pointer",
               }}
             >
-              Save
+              {t("completedCourses.save")}
             </button>
             <button
               type="button"
@@ -651,7 +651,7 @@ function CompletedCourseCard({
                 cursor: "pointer",
               }}
             >
-              Cancel
+              {t("completedCourses.cancel")}
             </button>
           </>
         ) : (
@@ -659,7 +659,7 @@ function CompletedCourseCard({
             <button
               type="button"
               onClick={onStartEdit}
-              title="Edit"
+              title={t("completedCourses.editTitle")}
               style={{
                 padding: "6px 12px",
                 fontSize: "13px",
@@ -671,7 +671,7 @@ function CompletedCourseCard({
                 cursor: "pointer",
               }}
             >
-              Edit
+              {t("completedCourses.edit")}
             </button>
             <button
               type="button"
@@ -687,7 +687,7 @@ function CompletedCourseCard({
                 cursor: "pointer",
               }}
             >
-              Remove
+              {t("completedCourses.remove")}
             </button>
           </>
         )}

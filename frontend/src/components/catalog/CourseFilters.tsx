@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
+import { useTranslation } from "@/context/I18nContext";
 import { formatCreditType, formatSemesterLabel } from "@/lib/catalog";
 
 const formatCreditTypeFilter = (value: string) => formatCreditType(value) ?? value;
@@ -121,10 +122,13 @@ export function CourseFilters({
   requirementValues = [],
   showCourseFiltersWhenDivisionSelected = false,
   showCourseFiltersImmediately = false,
-  creditTypeLabel = "Credit Type",
-  semesterLabel = "Semester",
+  creditTypeLabel,
+  semesterLabel,
   creditTypeFormatter = formatCreditTypeFilter,
 }: CourseFiltersProps): React.ReactElement {
+  const { t } = useTranslation();
+  const effectiveCreditTypeLabel = creditTypeLabel ?? t("courseFilters.creditType");
+  const effectiveSemesterLabel = semesterLabel ?? t("courseFilters.semester");
   const hasActiveFilters = useMemo(
     () =>
       filters.requirement.length > 0 ||
@@ -208,7 +212,7 @@ export function CourseFilters({
         }}
       >
         <ToggleGroup
-          label="Division"
+          label={t("courseFilters.division")}
           values={divisions}
           selected={filters.division}
           onToggle={(value) => toggleFilter("division", value)}
@@ -216,7 +220,7 @@ export function CourseFilters({
         />
         {showDepartmentFilter && (
           <ToggleGroup
-            label="Department"
+            label={t("courseFilters.department")}
             values={visibleDepartments}
             selected={filters.department}
             onToggle={(value) => toggleFilter("department", value)}
@@ -225,21 +229,21 @@ export function CourseFilters({
         {showCourseFilters && (
           <>
             <ToggleGroup
-              label={creditTypeLabel}
+              label={effectiveCreditTypeLabel}
               values={creditTypes}
               selected={filters.creditType}
               onToggle={(value) => toggleFilter("creditType", value)}
               formatLabel={creditTypeFormatter}
             />
             <ToggleGroup
-              label="Grade Level"
+              label={t("courseFilters.gradeLevel")}
               values={gradeLevels.map(String)}
               selected={filters.gradeLevel}
               onToggle={(value) => toggleFilter("gradeLevel", value)}
-              formatLabel={(v) => `Grade ${v}`}
+              formatLabel={(v) => t("courseFilters.gradeLabel", { grade: v })}
             />
             <ToggleGroup
-              label={semesterLabel}
+              label={effectiveSemesterLabel}
               values={semesters}
               selected={filters.semester}
               onToggle={(value) => toggleFilter("semester", value)}
@@ -247,7 +251,7 @@ export function CourseFilters({
             />
             {requirementValues.length > 0 && (
               <ToggleGroup
-                label="Graduation Requirement"
+                label={t("courseFilters.graduationRequirement")}
                 values={requirementValues}
                 selected={filters.requirement}
                 onToggle={(value) => toggleFilter("requirement", value)}
@@ -270,11 +274,11 @@ export function CourseFilters({
           }}
         >
           <span style={{ fontSize: "14px", color: "var(--text-muted)" }}>
-            Active filters ({activeCount})
+            {t("courseFilters.activeFilters")} ({activeCount})
           </span>
           <span style={{ color: "var(--border-default)" }}>|</span>
           <button type="button" onClick={clearAll} style={clearButtonStyle}>
-            Clear all
+            {t("courseFilters.clearAll")}
           </button>
         </div>
       )}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 type Requirement = {
   name: string;
@@ -12,6 +13,7 @@ type GraduationRequirementsSummaryProps = {
 export function GraduationRequirementsSummary({
   requirements,
 }: GraduationRequirementsSummaryProps): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -31,7 +33,7 @@ export function GraduationRequirementsSummary({
         color: "var(--text-primary)",
       }}
     >
-      Graduation Requirements
+      {t("dashboard.graduationProgress")}
       </h2>
 
       {requirements.length === 0 ? (
@@ -42,7 +44,7 @@ export function GraduationRequirementsSummary({
             color: "var(--text-muted)",
           }}
         >
-          No graduation requirements found.
+          {t("dashboard.noRequirementsFound")}
         </p>
       ) : (
         <ul
@@ -82,7 +84,7 @@ export function GraduationRequirementsSummary({
                   color: "var(--text-muted)",
                 }}
               >
-                {requirement.count} course{requirement.count === 1 ? "" : "s"}
+                {requirement.count} {requirement.count === 1 ? t("completedCourses.course") : t("completedCourses.courses")}
               </span>
             </li>
           ))}

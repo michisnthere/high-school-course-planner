@@ -205,12 +205,12 @@ export function MobileNav() {
                 </a>
             </div>
             <p style={{ margin: "8px 0 0", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.4 }}>
-              Stevenson Course Planner
+              {t("mobileNav.productName")}
               <br />
-              Beta v1.0
+              {t("mobileNav.version")}
             </p>
             <p style={{ margin: "4px 0 0", fontSize: "11px", color: "var(--text-muted)", lineHeight: 1.4 }}>
-              Unofficial planning resource for Stevenson High School.
+              {t("mobileNav.disclaimer")}
             </p>
           </div>
 

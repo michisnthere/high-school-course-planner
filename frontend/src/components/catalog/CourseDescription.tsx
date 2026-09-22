@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 
 type CourseDescriptionProps = {
@@ -11,6 +12,7 @@ function toStringArray(value: unknown): string[] {
 }
 
 export function CourseDescription({ course }: CourseDescriptionProps): React.ReactElement {
+  const { t } = useTranslation();
   const notes = toStringArray(course.notes);
   const hasContent = Boolean(course.description) || notes.length > 0;
 
@@ -32,7 +34,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
             color: "var(--text-muted)",
           }}
         >
-          No description available.
+          {t("courseDetail.noDescription")}
         </p>
       </div>
     );
@@ -56,7 +58,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
           color: "var(--text-primary)",
         }}
       >
-        Description
+        {t("courseDetail.description")}
       </h2>
 
       {course.description && (
@@ -82,7 +84,7 @@ export function CourseDescription({ course }: CourseDescriptionProps): React.Rea
               color: "var(--text-primary)",
             }}
           >
-            Notes
+            {t("courseDetail.notes")}
           </h3>
           <ul
             style={{

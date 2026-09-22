@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
+import { useTranslation } from "@/context/I18nContext";
 import { breakpoints } from "@/lib/responsive";
 
 const cardStyle: React.CSSProperties = {
@@ -37,6 +40,8 @@ const btnStyle: React.CSSProperties = {
 const FEEDBACK_FORM_URL = "https://forms.gle/gPebJ41P8r8sUEsW6";
 
 export default function FeedbackPage(): React.ReactElement {
+  const { t } = useTranslation();
+
   return (
     <>
       <style>{`
@@ -67,14 +72,12 @@ export default function FeedbackPage(): React.ReactElement {
             textAlign: "center",
           }}
         >
-          Feedback
+          {t("feedback.heading")}
         </h1>
 
         <div style={cardStyle}>
           <p style={bodyStyle}>
-            Found a bug? Have a suggestion? Your feedback helps improve the planner for
-            everyone. Use the buttons below to share details about what you encountered
-            or what you would like to see added.
+            {t("feedback.body")}
           </p>
 
           <div
@@ -97,7 +100,7 @@ export default function FeedbackPage(): React.ReactElement {
               }}
               className="rs-feedback-btn--bug"
             >
-              Report a Bug
+              {t("feedback.reportBug")}
             </a>
             <a
               href={FEEDBACK_FORM_URL}
@@ -111,7 +114,7 @@ export default function FeedbackPage(): React.ReactElement {
               }}
               className="rs-feedback-btn--feedback"
             >
-              Send Feedback
+              {t("feedback.sendFeedback")}
             </a>
           </div>
         </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/context/I18nContext";
+
 export default function RequirementsError({
   error,
   reset,
@@ -7,6 +9,8 @@ export default function RequirementsError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -85,7 +89,7 @@ export default function RequirementsError({
               cursor: "pointer",
             }}
           >
-            Refresh
+            {t("errorPageRequirements.refresh")}
           </button>
           <a
             href="/requirements"
@@ -101,7 +105,7 @@ export default function RequirementsError({
               textDecoration: "none",
             }}
           >
-            Reload Page
+            {t("errorPageRequirements.reloadPage")}
           </a>
           <a
             href="/"
@@ -117,7 +121,7 @@ export default function RequirementsError({
               textDecoration: "none",
             }}
           >
-            Dashboard
+            {t("errorPageRequirements.dashboard")}
           </a>
           <a
             href="https://forms.gle/gPebJ41P8r8sUEsW6"
@@ -135,7 +139,7 @@ export default function RequirementsError({
               textDecoration: "none",
             }}
           >
-            Report a Bug
+            {t("errorPageRequirements.reportBug")}
           </a>
         </div>
       </div>

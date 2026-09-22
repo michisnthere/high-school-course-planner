@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePlannerService } from "@/services/ServiceContext";
+import { useTranslation } from "@/context/I18nContext";
 import type { Planner } from "@/lib/planner";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
@@ -11,23 +12,6 @@ type SavedToPlannerModalProps = {
   courseTitle: string;
   onClose: () => void;
 };
-
-const YEAR_OPTIONS = [
-  { value: 9, label: "Freshman (Grade 9)" },
-  { value: 10, label: "Sophomore (Grade 10)" },
-  { value: 11, label: "Junior (Grade 11)" },
-  { value: 12, label: "Senior (Grade 12)" },
-];
-
-const SEMESTER_OPTIONS = [
-  { value: 1, label: "Semester 1" },
-  { value: 2, label: "Semester 2" },
-];
-
-const SLOT_OPTIONS = Array.from({ length: 7 }, (_, i) => ({
-  value: i + 1,
-  label: `Slot ${i + 1}`,
-}));
 
 const selectStyle: React.CSSProperties = {
   padding: "10px 14px",
@@ -57,7 +41,25 @@ export function SavedToPlannerModal({
 }: SavedToPlannerModalProps): React.ReactElement {
   const router = useRouter();
   const plannerService = usePlannerService();
+  const { t } = useTranslation();
   const { isMobile } = useBreakpoint();
+
+  const YEAR_OPTIONS = useMemo(() => [
+    { value: 9, label: t("savedToPlannerModal.freshmanGrade9") },
+    { value: 10, label: t("savedToPlannerModal.sophomoreGrade10") },
+    { value: 11, label: t("savedToPlannerModal.juniorGrade11") },
+    { value: 12, label: t("savedToPlannerModal.seniorGrade12") },
+  ], [t]);
+
+  const SEMESTER_OPTIONS = useMemo(() => [
+    { value: 1, label: t("savedToPlannerModal.semester1") },
+    { value: 2, label: t("savedToPlannerModal.semester2") },
+  ], [t]);
+
+  const SLOT_OPTIONS = useMemo(() => Array.from({ length: 7 }, (_, i) => ({
+    value: i + 1,
+    label: t("savedToPlannerModal.slot", { number: String(i + 1) }),
+  })), [t]);
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const previousFocusRef = React.useRef<HTMLElement | null>(null);
 
@@ -88,7 +90,7 @@ export function SavedToPlannerModal({
 
   const handleSubmit = useCallback(async () => {
     if (!targetPlanner) {
-      setError("Planner not found for the selected year.");
+      setError(t("savedToPlannerModal.plannerNotFound"));
       return;
     }
     setLoading(true);
@@ -102,7 +104,7 @@ export function SavedToPlannerModal({
       );
       setSuccess(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add course to planner");
+      setError(err instanceof Error ? err.message : t("savedToPlannerModal.failedToAdd"));
     } finally {
       setLoading(false);
     }
@@ -200,7 +202,7 @@ export function SavedToPlannerModal({
                 color: "var(--text-primary)",
               }}
             >
-              Add to Planner
+              {t("savedToPlannerModal.addToPlanner")}
             </h2>
             <button
               type="button"
@@ -219,7 +221,7 @@ export function SavedToPlannerModal({
                 lineHeight: 1,
                 borderRadius: "8px",
               }}
-              aria-label="Close"
+              aria-label={t("savedToPlannerModal.close")}
             >
               ×
             </button>
@@ -264,7 +266,7 @@ export function SavedToPlannerModal({
                   color: "var(--status-success, #059669)",
                 }}
               >
-                Course added to your planner!
+                {t("savedToPlannerModal.courseAddedSuccess")}
               </p>
               <button
                 type="button"
@@ -280,14 +282,14 @@ export function SavedToPlannerModal({
                   cursor: "pointer",
                 }}
               >
-                Go to Planner
+                {t("savedToPlannerModal.goToPlanner")}
               </button>
             </div>
           ) : (
             <>
               <div>
                 <label htmlFor="saved-planner-year" style={labelStyle}>
-                  School Year
+                  {t("savedToPlannerModal.schoolYear")}
                 </label>
                 <select
                   id="saved-planner-year"
@@ -305,7 +307,7 @@ export function SavedToPlannerModal({
 
               <div>
                 <label htmlFor="saved-planner-semester" style={labelStyle}>
-                  Semester
+                  {t("savedToPlannerModal.semester")}
                 </label>
                 <select
                   id="saved-planner-semester"
@@ -323,7 +325,7 @@ export function SavedToPlannerModal({
 
               <div>
                 <label htmlFor="saved-planner-slot" style={labelStyle}>
-                  Slot
+                  {t("savedToPlannerModal.slotLabel")}
                 </label>
                 <select
                   id="saved-planner-slot"
@@ -386,7 +388,7 @@ export function SavedToPlannerModal({
                 cursor: "pointer",
               }}
             >
-              Cancel
+              {t("savedToPlannerModal.cancel")}
             </button>
             <button
               type="button"
@@ -403,7 +405,7 @@ export function SavedToPlannerModal({
                 cursor: loading ? "not-allowed" : "pointer",
               }}
             >
-              {loading ? "Adding..." : "Add to Planner"}
+              {loading ? t("savedToPlannerModal.adding") : t("savedToPlannerModal.addButton")}
             </button>
           </div>
         )}

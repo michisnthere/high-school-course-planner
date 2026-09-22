@@ -7,6 +7,7 @@ import {
   pickerCardPalette,
   pickerCardRadius,
 } from "./pickerStyles";
+import { useTranslation } from "@/context/I18nContext";
 
 /**
  * Shared picker course card. The regular course card is the canonical design;
@@ -57,6 +58,7 @@ export function PickerCourseCard({
   tone = "dark",
 }: PickerCourseCardProps): React.ReactElement {
   const isLight = tone === "light";
+  const { t } = useTranslation();
   const frame = isLight ? pickerCardFrame(selected) : undefined;
 
   return (
@@ -120,7 +122,7 @@ export function PickerCourseCard({
             {title}
           </span>
           {isSaved && (
-            <span style={{ fontSize: "18px", color: "var(--brand-accent)" }} aria-label="Saved">
+            <span style={{ fontSize: "18px", color: "var(--brand-accent)" }} aria-label={t("plannerSearch.saved")}>
               ★
             </span>
           )}
@@ -183,7 +185,7 @@ export function PickerCourseCard({
             whiteSpace: "nowrap",
           }}
         >
-          {selected ? "Selected" : actionLabel}
+          {selected ? t("plannerSearch.selected") : actionLabel}
         </span>
       </div>
     </button>

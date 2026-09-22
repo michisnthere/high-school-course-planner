@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useCallback } from "react";
+import { useTranslation } from "@/context/I18nContext";
 
 type MobileDrawerProps = {
   isOpen: boolean;
@@ -10,6 +11,7 @@ type MobileDrawerProps = {
 };
 
 export function MobileDrawer({ isOpen, onClose, children, side = "left" }: MobileDrawerProps) {
+  const { t } = useTranslation();
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -78,7 +80,7 @@ export function MobileDrawer({ isOpen, onClose, children, side = "left" }: Mobil
         className="rs-drawer-panel"
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label={t("aria.navigationMenu")}
         style={panelStyle}
       >
         {children}

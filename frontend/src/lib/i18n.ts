@@ -1,13 +1,17 @@
 import en from "@/locales/en.json";
 import es from "@/locales/es.json";
 import zhCN from "@/locales/zh-CN.json";
+import ru from "@/locales/ru.json";
+import ko from "@/locales/ko.json";
 
-export type Locale = "en" | "es" | "zh-CN";
+export type Locale = "en" | "es" | "zh-CN" | "ru" | "ko";
 
 export const AVAILABLE_LOCALES: { code: Locale; name: string }[] = [
   { code: "en", name: "English" },
   { code: "es", name: "Español" },
   { code: "zh-CN", name: "简体中文" },
+  { code: "ru", name: "Русский" },
+  { code: "ko", name: "한국어" },
 ];
 
 // The JSON files have nested objects with string leaves.
@@ -23,6 +27,8 @@ const localeModules: Record<Locale, { default: TranslationDict }> = {
   en: { default: en as unknown as TranslationDict },
   es: { default: es as unknown as TranslationDict },
   "zh-CN": { default: zhCN as unknown as TranslationDict },
+  ru: { default: ru as unknown as TranslationDict },
+  ko: { default: ko as unknown as TranslationDict },
 };
 
 function getNestedValue(

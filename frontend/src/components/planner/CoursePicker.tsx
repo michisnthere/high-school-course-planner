@@ -13,6 +13,7 @@ import { useSearchSubmit } from "@/hooks/useSearchSubmit";
 import { CourseFilters, type ActiveFilters } from "@/components/catalog/CourseFilters";
 import { pickerCardPalette, pickerSearchInputStyle } from "./pickerStyles";
 import { PickerCourseCard } from "./PickerCourseCard";
+import { useTranslation } from "@/context/I18nContext";
 
 const searchBtnStyle: React.CSSProperties = {
   display: "inline-flex",
@@ -59,6 +60,7 @@ export function CoursePicker({
   simple = false,
   tone = "dark",
 }: CoursePickerProps): React.ReactElement {
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [allCourses, setAllCourses] = useState<PlannerCourseDetails[]>([]);
   const [loading, setLoading] = useState(true);
@@ -135,12 +137,12 @@ export function CoursePicker({
             <input
               ref={inputRef}
               type="text"
-              placeholder="Search by course title..."
+              placeholder={t("plannerCoursePicker.searchPlaceholder")}
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={handleKeyDown}
               autoFocus
-              aria-label="Search by course title"
+              aria-label={t("plannerCoursePicker.searchAriaLabel")}
               className={tone === "light" ? "rs-picker-search" : undefined}
               style={
                 tone === "light"
@@ -163,7 +165,7 @@ export function CoursePicker({
               <button
                 type="button"
                 onClick={handleClear}
-                aria-label="Clear search"
+                aria-label={t("plannerCoursePicker.clearSearch")}
                 style={{
                   position: "absolute",
                   right: "4px",
@@ -191,7 +193,7 @@ export function CoursePicker({
             type="button"
             onClick={handleSearchSubmit}
             disabled={!hasChanged}
-            aria-label="Search"
+            aria-label={t("plannerCoursePicker.searchButton")}
             style={{
               ...searchBtnStyle,
               opacity: !hasChanged ? 0.5 : 1,
@@ -202,7 +204,7 @@ export function CoursePicker({
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
-            Search
+            {t("plannerCoursePicker.searchButton")}
           </button>
         </div>
         {!simple && (
@@ -221,12 +223,12 @@ export function CoursePicker({
 
       <div style={{ flex: "1 1 0%", minHeight: 0, overflowY: "auto", padding: "0 24px 24px" }}>
         {loading ? (
-          <p style={{ color: tone === "light" ? pickerCardPalette.muted : "#9ca3af", textAlign: "center" }}>Loading courses...</p>
+          <p style={{ color: tone === "light" ? pickerCardPalette.muted : "#9ca3af", textAlign: "center" }}>{t("plannerCoursePicker.loadingCourses")}</p>
         ) : filtered.length === 0 ? (
           <p style={{ color: tone === "light" ? pickerCardPalette.muted : "#9ca3af", textAlign: "center" }}>
             {submitted.trim() === "" && filters.division.length === 0
-              ? "No courses available."
-              : "No courses match your search."}
+              ? t("plannerCoursePicker.noCoursesAvailable")
+              : t("plannerCoursePicker.noMatchSearch")}
           </p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -236,9 +238,9 @@ export function CoursePicker({
                 const creditType = formatCreditType(course.creditType, course.title);
                 if (creditType) tags.push(creditType);
               }
-              if (course.credits != null) tags.push(`${formatCredits(course.credits)} credits`);
-              if (course.duration === 2) tags.push("Full Year");
-              if (course.duration === 1) tags.push("One Semester");
+              if (course.credits != null) tags.push(t("plannerCoursePicker.creditsTag", { credits: formatCredits(course.credits) }));
+              if (course.duration === 2) tags.push(t("plannerCoursePicker.fullYearTag"));
+              if (course.duration === 1) tags.push(t("plannerCoursePicker.oneSemesterTag"));
               return (
                 <PickerCourseCard
                   key={course.id}

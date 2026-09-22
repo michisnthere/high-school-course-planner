@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Course } from "@/types/course";
 import { formatCreditType } from "@/lib/catalog";
 import { getCourseSlug } from "@/lib/normalize";
+import { useTranslation } from "@/context/I18nContext";
 
 type ExploreCoursesSectionProps = {
   courses: Course[];
@@ -13,6 +14,7 @@ export function ExploreCoursesSection({
   courses,
   limit = 8,
 }: ExploreCoursesSectionProps): React.ReactElement {
+  const { t } = useTranslation();
   const preview = courses.slice(0, limit);
 
   return (
@@ -34,7 +36,7 @@ export function ExploreCoursesSection({
         color: "var(--text-primary)",
       }}
     >
-      Explore Courses
+      {t("dashboard.exploreCourses")}
       </h2>
 
       <style>{`
@@ -51,7 +53,7 @@ export function ExploreCoursesSection({
             color: "var(--text-muted)",
           }}
         >
-          No courses available.
+          {t("dashboard.noCoursesAvailable")}
         </p>
       ) : (
         <div

@@ -3,12 +3,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { getGpaProjection, type GpaProjection } from "@/lib/gpaProjection";
 import { formatCredits } from "@/lib/courseCredits";
+import { useTranslation } from "@/context/I18nContext";
 
 function formatGpa(value: number): string {
   return value.toFixed(2);
 }
 
 export function AcademicSnapshot(): React.ReactElement {
+  const { t } = useTranslation();
   const [projection, setProjection] = useState<GpaProjection | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -59,22 +61,22 @@ export function AcademicSnapshot(): React.ReactElement {
         color: "var(--text-primary)",
         }}
       >
-        GPA Projection
+        {t("dashboard.gpaProjection")}
       </h2>
 
       {loading && !projection ? (
-        <p style={{ margin: 0, fontSize: "15px", color: "var(--text-muted)" }}>Loading GPA projection...</p>
+        <p style={{ margin: 0, fontSize: "15px", color: "var(--text-muted)" }}>{t("dashboard.loadingGpa")}</p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <ProjectionBlock
-            title="Current GPA"
+            title={t("dashboard.currentGpa")}
             weighted={current.weighted}
             unweighted={current.unweighted}
-            creditsLabel="Credits Completed"
+            creditsLabel={t("dashboard.creditsCompleted")}
             credits={current.credits}
           />
           <ProjectionBlock
-            title="Projected GPA"
+            title={t("dashboard.projectedGpa")}
             weighted={projected.weighted}
             unweighted={projected.unweighted}
           />
@@ -88,9 +90,7 @@ export function AcademicSnapshot(): React.ReactElement {
           color: "var(--text-muted)",
         }}
       >
-        Your projected GPA is calculated using your completed courses and planned coursework. The
-        projection updates as you adjust your four-year plan, including course selection and
-        difficulty level.
+        {t("dashboard.gpaDescription")}
       </p>
     </div>
   );
@@ -109,11 +109,12 @@ function ProjectionBlock({
   creditsLabel?: string;
   credits?: number;
 }): React.ReactElement {
+  const { t } = useTranslation();
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "var(--text-secondary)" }}>{title}</p>
-      <MetricRow label="Weighted" value={formatGpa(weighted)} />
-      <MetricRow label="Unweighted" value={formatGpa(unweighted)} />
+      <MetricRow label={t("dashboard.weighted")} value={formatGpa(weighted)} />
+      <MetricRow label={t("dashboard.unweighted")} value={formatGpa(unweighted)} />
       {creditsLabel !== undefined && credits !== undefined && (
         <MetricRow label={creditsLabel} value={formatCredits(credits)} />
       )}

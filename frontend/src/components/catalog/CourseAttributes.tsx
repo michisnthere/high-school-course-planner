@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 
 type CourseAttributesProps = {
@@ -53,6 +54,7 @@ function TagList({ title, items }: { title: string; items: string[] }): React.Re
 }
 
 export function CourseAttributes({ course }: CourseAttributesProps): React.ReactElement | null {
+  const { t } = useTranslation();
   const graduationRequirements = toStringArray(course.fulfillsRequirements);
   const attributes = toStringArray(course.attributes);
 
@@ -78,11 +80,11 @@ export function CourseAttributes({ course }: CourseAttributesProps): React.React
           color: "var(--text-primary)",
         }}
       >
-        Fulfills
+        {t("courseAttributes.fulfills")}
       </h2>
 
-      <TagList title="Graduation Requirements" items={graduationRequirements} />
-      <TagList title="Attributes" items={attributes} />
+      <TagList title={t("courseAttributes.graduationRequirements")} items={graduationRequirements} />
+      <TagList title={t("courseAttributes.attributes")} items={attributes} />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import type { SummerCourse } from "@/lib/summerCourse";
 import { useSummerCatalog } from "@/lib/summerCatalogLoader";
@@ -286,9 +287,10 @@ function CatalogSourceToggle({
   value: CatalogSource;
   onChange: (value: CatalogSource) => void;
 }): React.ReactElement {
-  const options: Array<{ value: CatalogSource; label: string }> = [
-    { value: "regular", label: "Regular Coursebook" },
-    { value: "summer", label: "Summer School Coursebook" },
+  const { t } = useTranslation();
+  const options: Array<{ value: CatalogSource; labelKey: string }> = [
+    { value: "regular", labelKey: "catalog.regularCoursebook" },
+    { value: "summer", labelKey: "catalog.summerCoursebook" },
   ];
   return (
     <div style={{ display: "inline-flex", padding: "4px", backgroundColor: "var(--bg-card)", border: "1px solid var(--border-default)", borderRadius: "10px", marginBottom: "20px" }}>
@@ -312,7 +314,7 @@ function CatalogSourceToggle({
               cursor: "pointer",
             }}
           >
-            {option.label}
+            {t(option.labelKey)}
           </button>
         );
       })}
@@ -320,20 +322,20 @@ function CatalogSourceToggle({
   );
 }
 
-function getEmptyStateMessage(query: string, filters: ActiveFilters): string {
+function getEmptyStateMessage(query: string, filters: ActiveFilters, t: (key: string) => string): string {
   const hasQuery = query.trim().length > 0;
   const hasFilters = Object.values(filters).some((values) => values.length > 0);
 
   if (hasQuery && hasFilters) {
-    return "No courses match your search and filters.";
+    return t("catalog.noMatchSearchAndFilter");
   }
   if (hasQuery) {
-    return "No courses match your search.";
+    return t("catalog.noMatchSearch");
   }
   if (hasFilters) {
-    return "No courses match your filters.";
+    return t("catalog.noMatchFilter");
   }
-  return "No courses found.";
+  return t("catalog.noCoursesFound");
 }
 
 function parseSearchParams(sp: URLSearchParams): { query: string; filters: ActiveFilters; source: CatalogSource } {
@@ -368,6 +370,7 @@ function buildSearchParams(query: string, filters: ActiveFilters, source: Catalo
 export function CatalogContent({ courses }: CatalogContentProps): React.ReactElement {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const { query: initialQuery, filters, source } = useMemo(
     () => parseSearchParams(searchParams),
@@ -552,7 +555,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
           />
 
           {sortedCourses.length === 0 ? (
-            <EmptyState message={getEmptyStateMessage(submitted, filters)} />
+            <EmptyState message={getEmptyStateMessage(submitted, filters, t)} />
           ) : (
             <CourseGrid courses={sortedCourses} />
           )}
@@ -573,7 +576,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
           />
 
 {summerLoading ? (
-            <p style={{ color: "var(--text-muted)" }}>Loading Summer School courses...</p>
+            <p style={{ color: "var(--text-muted)" }}>{t("catalog.loadingSummerCourses")}</p>
           ) : summerError ? (
             <div
               style={{
@@ -602,11 +605,11 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
                   fontFamily: "inherit",
                 }}
               >
-                Retry
+                {t("catalog.retry")}
               </button>
             </div>
           ) : filteredSummerCourses.length === 0 ? (
-            <EmptyState message={getEmptyStateMessage(submitted, filters)} />
+            <EmptyState message={getEmptyStateMessage(submitted, filters, t)} />
           ) : (
             <CourseGrid
               courses={summerCatalogCourses}

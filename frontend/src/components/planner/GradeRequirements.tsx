@@ -2,6 +2,7 @@ import React from "react";
 import type { RequirementStatus, PeSemesterStatus } from "@/lib/gradeRequirements";
 import type { PeWaiver } from "@/lib/plannerWaivers";
 import { computeEffectivePeStatus } from "@/lib/gradeRequirements";
+import { useTranslation } from "@/context/I18nContext";
 
 type GradeRequirementsProps = {
   grade: number;
@@ -16,6 +17,7 @@ export function GradeRequirements({
   pePerSemester,
   peWaivers,
 }: GradeRequirementsProps): React.ReactElement | null {
+  const { t } = useTranslation();
   const showPeSection = pePerSemester && pePerSemester.length > 0;
   const effectivePe = showPeSection
     ? computeEffectivePeStatus(pePerSemester!, peWaivers ?? [])
@@ -40,7 +42,7 @@ export function GradeRequirements({
           color: "#275D38",
       }}
     >
-      Grade {grade} Requirements
+      {t("plannerGradeRequirements.gradeRequirements", { grade: String(grade) })}
       </h3>
 
       <ul
@@ -85,7 +87,7 @@ export function GradeRequirements({
             <span style={{ fontSize: "16px" }}>
               {allSemestersMet ? "✓" : "⚠"}
             </span>
-            <span>Physical Education</span>
+            <span>{t("plannerGradeRequirements.physicalEducation")}</span>
           </div>
           <div style={{ paddingLeft: "24px", display: "flex", flexDirection: "column", gap: "2px" }}>
             {effectivePe!.map((s) => (
@@ -96,9 +98,9 @@ export function GradeRequirements({
                   color: s.isMet ? "var(--brand-primary-hover)" : "var(--brand-accent)",
                 }}
               >
-                Semester {s.semester}: {s.isMet ? "✓ " : "⚠ "}
+                {t("plannerGradeRequirements.semesterPrefix")}{s.semester}: {s.isMet ? "✓ " : "⚠ "}
                 {s.courseTitle ?? s.requiredLabel}
-                {!s.courseTitle && s.isMet && (peWaivers ?? []).length > 0 && " (waiver)"}
+                {!s.courseTitle && s.isMet && (peWaivers ?? []).length > 0 && t("plannerGradeRequirements.waiverSuffix")}
               </div>
             ))}
           </div>

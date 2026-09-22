@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "@/context/I18nContext";
 import type { PlannerCourseDetails } from "@/lib/planner";
 import { formatCredits } from "@/lib/courseCredits";
 import { getCourseSlug } from "@/lib/normalize";
@@ -42,6 +43,7 @@ export function CourseDetailPopover({
   returnUrl,
   onClose,
 }: CourseDetailPopoverProps): React.ReactElement {
+  const { t } = useTranslation();
   const { isMobile: mobile } = useBreakpoint();
   const slug = getCourseSlug({ title: course.title, normalizedTitle: course.normalizedTitle });
   const dialogRef = React.useRef<HTMLDivElement>(null);
@@ -149,7 +151,7 @@ export function CourseDetailPopover({
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Close"
+                aria-label={t("courseDetail.close")}
                 style={{
                   flex: "0 0 auto",
                   width: mobile ? "44px" : "36px",
@@ -203,7 +205,7 @@ export function CourseDetailPopover({
                   color: "var(--text-primary)",
                 }}
               >
-                {formatCredits(course.credits)} credits
+                {formatCredits(course.credits)} {t("plannerCourseCard.credits")}
               </span>
             )}
             {course.duration && (
@@ -240,7 +242,7 @@ export function CourseDetailPopover({
               color: "var(--text-primary)",
             }}
           >
-            Description
+            {t("courseDetail.description")}
               </h3>
               <p
                 style={{
@@ -265,7 +267,7 @@ export function CourseDetailPopover({
                 color: "var(--text-primary)",
               }}
             >
-              Prerequisites
+              {t("courseDetail.prerequisites")}
               </h3>
               <ul
                 style={{
@@ -293,7 +295,7 @@ export function CourseDetailPopover({
                 color: "var(--text-primary)",
               }}
             >
-              Fulfills Graduation Requirements
+              {t("courseDetail.graduationRequirements")}
               </h3>
               <TagList items={course.fulfillsRequirements} />
             </div>
@@ -331,7 +333,7 @@ export function CourseDetailPopover({
               e.currentTarget.style.backgroundColor = "var(--brand-accent)";
             }}
           >
-            Open Full Catalog Page
+            {t("courseDetail.openFullCatalogPage")}
           </Link>
         </div>
       </div>

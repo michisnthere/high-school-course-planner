@@ -14,6 +14,7 @@ import {
   isSummerSemester,
   isOnlineSemester,
 } from "@/lib/plannerSemesters";
+import { useTranslation } from "@/context/I18nContext";
 
 const YEAR_LABELS: Record<number, string> = {
   9: "Freshman",
@@ -50,7 +51,8 @@ export function YearOverviewCard({
   onMarkActive,
   markingActive = false,
 }: YearOverviewCardProps): React.ReactElement {
-  const label = YEAR_LABELS[planner.schoolYear] ?? `Year ${planner.schoolYear}`;
+  const { t } = useTranslation();
+  const label = t(`year.${planner.schoolYear}`) || t("yearOverview.yearFallback", { year: String(planner.schoolYear) });
 
   const sem1Courses = planner.plannedCourses
     .filter((pc) => pc.semester === 1)
@@ -89,16 +91,16 @@ export function YearOverviewCard({
   let badgeStyle: React.CSSProperties;
 
   if (isCompleted) {
-    badgeLabel = "✓ Completed";
+    badgeLabel = t("yearOverview.badgeCompleted");
     badgeStyle = successBadge;
   } else if (!isPlanned) {
-    badgeLabel = "Not Planned";
+    badgeLabel = t("yearOverview.badgeNotPlanned");
     badgeStyle = neutralBadge;
   } else if (allMet) {
-    badgeLabel = "On Track";
+    badgeLabel = t("yearOverview.badgeOnTrack");
     badgeStyle = successBadge;
   } else {
-    badgeLabel = "Needs Attention";
+    badgeLabel = t("yearOverview.badgeNeedsAttention");
     badgeStyle = warningBadge;
   }
 
@@ -205,7 +207,7 @@ export function YearOverviewCard({
                 gap: "4px",
               }}
             >
-              View Planner →
+              {t("yearOverview.viewPlanner")}
             </Link>
           ) : (
             <Link
@@ -228,13 +230,13 @@ export function YearOverviewCard({
                 gap: "4px",
               }}
             >
-              Edit Planner →
+              {t("yearOverview.editPlanner")}
             </Link>
           )}
         </div>
         <div className="yoc-badge-row">
           {isCompleted ? (
-            <span style={successBadge}>✓ Year Completed</span>
+            <span style={successBadge}>{t("yearOverview.yearCompleted")}</span>
           ) : (
             <span style={badgeStyle}>{badgeLabel}</span>
           )}
@@ -260,7 +262,7 @@ export function YearOverviewCard({
               color: "var(--warning-text, #854d0e)",
             }}
           >
-            Needs attention:
+            {t("yearOverview.needsAttention")}
           </p>
           <ul
             style={{
@@ -281,8 +283,8 @@ export function YearOverviewCard({
                 }}
               >
                 {item.requiredCredits > 1
-                  ? `Missing ${item.category} (${formatCredits(item.earnedCredits)} / ${formatCredits(item.requiredCredits)} credits)`
-                  : `Missing ${item.category}`}
+                  ? t("yearOverview.missingWithCredits", { category: item.category, earned: formatCredits(item.earnedCredits), required: formatCredits(item.requiredCredits) })
+                  : t("yearOverview.missing", { category: item.category })}
               </li>
             ))}
           </ul>
@@ -300,8 +302,8 @@ export function YearOverviewCard({
       >
         <SemesterBlock semester={1} courses={sem1Courses} />
         <SemesterBlock semester={2} courses={sem2Courses} />
-        {summerCourses.length > 0 && <CourseListBlock label="Summer School" courses={summerCourses} nested />}
-        {onlineCourses.length > 0 && <CourseListBlock label="Online" courses={onlineCourses} />}
+        {summerCourses.length > 0 && <CourseListBlock label={t("yearOverview.summerSchool")} courses={summerCourses} nested />}
+        {onlineCourses.length > 0 && <CourseListBlock label={t("yearOverview.online")} courses={onlineCourses} />}
       </div>
 
       {/* Course count */}
@@ -313,7 +315,7 @@ export function YearOverviewCard({
           color: "var(--text-muted)",
         }}
       >
-        {filledSlots} / {occupancy.totalSlots} courses planned
+        {t("yearOverview.coursesPlanned", { filled: String(filledSlots), total: String(occupancy.totalSlots) })}
       </p>
 
       {isPlanned && !isCompleted && (
@@ -334,7 +336,7 @@ export function YearOverviewCard({
             cursor: markingCompleted || !onMarkCompleted ? "default" : "pointer",
           }}
         >
-          {markingCompleted ? "Marking..." : "Mark Year Completed"}
+          {markingCompleted ? t("yearOverview.marking") : t("yearOverview.markCompleted")}
         </button>
       )}
 
@@ -356,7 +358,7 @@ export function YearOverviewCard({
             cursor: markingActive || !onMarkActive ? "default" : "pointer",
           }}
         >
-          {markingActive ? "Restoring..." : "Mark as Active"}
+          {markingActive ? t("yearOverview.restoring") : t("yearOverview.markActive")}
         </button>
       )}
     </div>
@@ -396,6 +398,7 @@ function SemesterBlock({
   semester: number;
   courses: ({ slot: number; slotSpan?: number | null; course: { title: string; courseCode: string | null; courseCodeS1: string | null; courseCodeS2: string | null } })[];
 }): React.ReactElement {
+  const { t } = useTranslation();
   const isOut = isSummerSemester(semester) || isOnlineSemester(semester);
   // Out-of-semester sections (Summer School / Online) have exactly ONE course
   // position per semester — never a 7-slot grid.
@@ -417,10 +420,10 @@ function SemesterBlock({
         }}
       >
         {isSummerSemester(semester)
-          ? `Summer School${semester === SUMMER_SEMESTER_2 ? " 2" : ""}`
+          ? `${t("yearOverview.summerSchool")}${semester === SUMMER_SEMESTER_2 ? " 2" : ""}`
           : isOnlineSemester(semester)
-            ? `Online ${semester === ONLINE_SEMESTER_2 ? "2" : "1"}`
-            : `Semester ${semester}`}
+            ? `${t("yearOverview.online")} ${semester === ONLINE_SEMESTER_2 ? "2" : "1"}`
+            : t("yearOverview.semester", { n: String(semester) })}
       </p>
       <div
         style={{
@@ -456,7 +459,7 @@ function SemesterBlock({
                   <span style={{ lineHeight: 1.3, wordBreak: "break-word", overflowWrap: "break-word" }}>{course.course.title}</span>
                 </div>
               ) : (
-                "Empty"
+                t("yearOverview.empty")
               )}
             </div>
           );

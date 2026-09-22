@@ -3,6 +3,7 @@
 import React, { useMemo, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";
 import { getCourseSlug } from "@/lib/normalize";
 import { formatCreditType } from "@/lib/catalog";
@@ -125,6 +126,7 @@ function getMinGrade(course: Course): number {
 export function SavedCoursesContent({
   courses,
 }: SavedCoursesContentProps): React.ReactElement {
+  const { t } = useTranslation();
   const { savedIds, loading, isAuthenticated, toggle } = useSavedCourses();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -234,8 +236,8 @@ export function SavedCoursesContent({
   if (!isAuthenticated) {
     return (
       <GuestEmptyState
-        title="Saved Courses"
-        description="Sign in to save interesting courses and review them later. Your saved courses will be stored securely and synced across devices."
+        title={t("savedCoursesContent.savedCoursesTitle")}
+        description={t("savedCoursesContent.savedCoursesDescription")}
       />
     );
   }
@@ -251,7 +253,7 @@ export function SavedCoursesContent({
           lineHeight: 1.2,
         }}
       >
-        Saved Courses
+        {t("savedCoursesContent.heading")}
       </h1>
       {loading ? (
         <p
@@ -261,7 +263,7 @@ export function SavedCoursesContent({
             color: "var(--text-muted)",
           }}
         >
-          Loading saved courses...
+          {t("savedCoursesContent.loading")}
         </p>
       ) : savedCourses.length === 0 ? (
         <p
@@ -271,7 +273,7 @@ export function SavedCoursesContent({
             color: "var(--text-muted)",
           }}
         >
-          No saved courses yet.
+          {t("savedCoursesContent.empty")}
         </p>
       ) : (
         <>
@@ -372,18 +374,18 @@ export function SavedCoursesContent({
               ref={inputRef}
               type="text"
               className="sc-search"
-              placeholder="Search by title or course code..."
+              placeholder={t("savedCoursesContent.searchPlaceholder")}
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={handleKeyDown}
-              aria-label="Search saved courses"
+              aria-label={t("savedCoursesContent.searchAriaLabel")}
             />
             {draft && (
               <button
                 type="button"
                 className="sc-search-clear"
                 onClick={handleClear}
-                aria-label="Clear search"
+                aria-label={t("savedCoursesContent.clearSearch")}
               >
                 ✕
               </button>
@@ -393,7 +395,7 @@ export function SavedCoursesContent({
             type="button"
             onClick={handleSearchSubmit}
             disabled={!hasChanged}
-            aria-label="Search"
+            aria-label={t("savedCoursesContent.searchButton")}
             style={{
               ...searchBtnStyle,
               opacity: !hasChanged ? 0.5 : 1,
@@ -404,7 +406,7 @@ export function SavedCoursesContent({
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
-            Search
+            {t("savedCoursesContent.searchButton")}
           </button>
         </div>
         <div className="sc-filters">
@@ -413,15 +415,15 @@ export function SavedCoursesContent({
             value={department}
             onChange={(e) => handleDepartmentChange(e.target.value)}
             style={selectStyle}
-            aria-label="Filter by department"
+            aria-label={t("savedCoursesContent.filterByDepartment")}
           >
-            <option value="All Departments">All Departments</option>
+            <option value="All Departments">{t("savedCoursesContent.allDepartments")}</option>
             {departments.map((dept) => (
               <option key={dept} value={dept}>{dept}</option>
             ))}
           </select>
           <label htmlFor="saved-sort-select" className="sc-filter-label">
-            Sort by:
+            {t("savedCoursesContent.sortBy")}
           </label>
           <select
             id="saved-sort-select"
@@ -429,7 +431,7 @@ export function SavedCoursesContent({
             value={sort}
             onChange={(e) => handleSortChange(e.target.value)}
             style={selectStyle}
-            aria-label="Sort by"
+            aria-label={t("savedCoursesContent.sortByAriaLabel")}
           >
             {SORT_OPTIONS.map((opt) => (
               <option key={opt} value={opt}>{opt}</option>
@@ -456,7 +458,7 @@ export function SavedCoursesContent({
               color: "var(--text-primary)",
             }}
           >
-            No matches found
+            {t("savedCoursesContent.noMatchesFound")}
           </p>
           <p
             style={{
@@ -466,10 +468,10 @@ export function SavedCoursesContent({
             }}
           >
             {submitted.trim() && department !== "All Departments"
-              ? "Try adjusting your search or department filter."
+              ? t("savedCoursesContent.tryAdjustingSearch")
               : submitted.trim()
-              ? "Try a different search term."
-              : "Try selecting a different department."}
+              ? t("savedCoursesContent.tryDifferentSearch")
+              : t("savedCoursesContent.tryDifferentDepartment")}
           </p>
         </div>
       ) : (
@@ -513,7 +515,7 @@ export function SavedCoursesContent({
 
                 <div style={{ display: "flex", gap: "12px" }}>
                   <Link href={courseUrl} style={viewLinkStyle}>
-                    View Course
+                    {t("savedCoursesContent.viewCourse")}
                   </Link>
                   <button
                     type="button"
@@ -523,14 +525,14 @@ export function SavedCoursesContent({
                       backgroundColor: "var(--status-success, #059669)",
                     }}
                   >
-                    Add to Planner
+                    {t("savedCoursesContent.addToPlanner")}
                   </button>
                   <button
                     type="button"
                     onClick={() => toggle(course.id)}
                     style={removeButtonStyle}
                   >
-                    Remove
+                    {t("savedCoursesContent.remove")}
                   </button>
                 </div>
               </div>

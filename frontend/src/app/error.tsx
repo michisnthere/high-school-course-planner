@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/context/I18nContext";
+
 export default function GlobalError({
   error,
   reset,
@@ -7,6 +9,7 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -50,7 +53,7 @@ export default function GlobalError({
             color: "var(--text-primary)",
           }}
         >
-          Something went wrong.
+          {t("errorPage.somethingWentWrong")}
         </h1>
         <p
           style={{
@@ -60,8 +63,7 @@ export default function GlobalError({
             lineHeight: 1.5,
           }}
         >
-          An unexpected error occurred. Please try refreshing the page. If the
-          problem persists, you can report the issue.
+          {t("errorPage.errorDescription")}
         </p>
         <div
           style={{
@@ -86,7 +88,7 @@ export default function GlobalError({
               cursor: "pointer",
             }}
           >
-            Refresh
+            {t("errorPage.refresh")}
           </button>
           <a
             href="/"
@@ -102,7 +104,7 @@ export default function GlobalError({
               textDecoration: "none",
             }}
           >
-            Return to Dashboard
+            {t("errorPage.returnToDashboard")}
           </a>
           <a
             href="https://forms.gle/gPebJ41P8r8sUEsW6"
@@ -120,7 +122,7 @@ export default function GlobalError({
               textDecoration: "none",
             }}
           >
-            Report a Bug
+            {t("errorPage.reportBug")}
           </a>
         </div>
       </div>

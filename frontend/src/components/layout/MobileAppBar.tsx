@@ -105,7 +105,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
 
         <Image
           src="/stevensonlogo.png"
-          alt="Stevenson High School"
+          alt={t("aria.stevensonHighSchool")}
           width={28}
           height={28}
           style={{ flexShrink: 0 }}

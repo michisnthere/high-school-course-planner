@@ -6,10 +6,12 @@ import { YearOverviewCard } from "./YearOverviewCard";
 import { breakpoints } from "@/lib/responsive";
 import type { Planner } from "@/lib/planner";
 import type { PlannerAnalysis } from "@/lib/plannerAnalysis";
+import { useTranslation } from "@/context/I18nContext";
 
 const ALL_YEARS = [9, 10, 11, 12];
 
 export function DashboardOverview(): React.ReactElement {
+  const { t } = useTranslation();
   const services = useServices();
   const [planners, setPlanners] = useState<Planner[]>([]);
   const [analysis, setAnalysis] = useState<PlannerAnalysis | null>(null);
@@ -49,7 +51,7 @@ export function DashboardOverview(): React.ReactElement {
   if (loading) {
     return (
       <p style={{ color: "var(--text-muted)", fontSize: "15px" }}>
-        Loading your four-year plan...
+        {t("planner.loading")}
       </p>
     );
   }

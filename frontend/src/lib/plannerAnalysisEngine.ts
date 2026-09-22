@@ -581,6 +581,8 @@ function computeGraduationRequirements(
       requirementType: req.requirementType,
       requiredValue: req.requiredValue,
       earnedValue: earned,
+      completedValue: 0,
+      plannedValue: 0,
       remainingValue: Math.max(0, effectiveRequired - earned),
       status: getRequirementStatus(earned, effectiveRequired),
       recommendedCourses: [] as RecommendedCourse[],
@@ -992,6 +994,27 @@ export function computePlannerAnalysis(data: StudentPlanningData): PlannerAnalys
     if (recs) {
       req.recommendedCourses = recs;
     }
+  }
+
+  // Merge completed vs planned breakdown into each graduation requirement.
+  // `earnedGraduationRequirements` was computed with empty placements (completed
+  // courses only). Its `earnedValue` represents actual completed credits.
+  // The projected `graduationRequirements` includes planned courses. The
+  // difference between projected and completed is the planned-but-incomplete
+  // portion.
+  const earnedReqByName = new Map(
+    earnedGraduationRequirements.map((r) => [r.name, r])
+  );
+  for (const req of graduationRequirements) {
+    const earnedReq = earnedReqByName.get(req.name);
+    const completed = earnedReq?.earnedValue ?? 0;
+    const planned = Math.max(0, req.earnedValue - completed);
+    req.completedValue = completed;
+    req.plannedValue = planned;
+  }
+  for (const req of earnedGraduationRequirements) {
+    req.completedValue = req.earnedValue;
+    req.plannedValue = 0;
   }
 
   return {

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "@/context/I18nContext";
 
 const TOAST_DURATION = 2800;
 
@@ -12,6 +13,7 @@ type ToastData = {
 
 export function AuthToast(): React.ReactElement | null {
   const { user, mode } = useAuth();
+  const { t } = useTranslation();
   const [toast, setToast] = useState<ToastData | null>(null);
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export function AuthToast(): React.ReactElement | null {
       const data = JSON.parse(stored);
       sessionStorage.removeItem("authToast");
       if (data.type === "signIn" && mode === "authenticated" && user) {
-        setToast({ message: `Signed in as ${user.name || user.email}`, type: "success" });
+        setToast({ message: t("authToast.signedIn", { name: user.name || user.email }), type: "success" });
       } else if (data.type === "guest" && mode === "guest") {
-        setToast({ message: "Continuing in Guest Mode. Your progress will only be saved until you leave or refresh this page.", type: "info" });
+        setToast({ message: t("authToast.guestMode"), type: "info" });
       }
     } catch {
       // Ignore parse errors

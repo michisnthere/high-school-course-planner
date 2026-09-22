@@ -116,8 +116,8 @@ export default function RootLayout({
                 </main>
               </div>
             </ServiceProvider>
+            <AuthToast />
           </ClientProviders>
-          <AuthToast />
         </AuthProvider>
       </body>
     </html>

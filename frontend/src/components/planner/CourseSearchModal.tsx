@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "@/context/I18nContext";
 import { CoursePicker } from "./CoursePicker";
 
 type CourseSearchModalProps = {
@@ -14,6 +15,7 @@ export function CourseSearchModal({
   onSelect,
   isSaved,
 }: CourseSearchModalProps): React.ReactElement {
+  const { t } = useTranslation();
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const previousFocusRef = React.useRef<HTMLElement | null>(null);
 
@@ -108,7 +110,7 @@ export function CourseSearchModal({
                 color: "#ffffff",
               }}
             >
-              Add a Course
+              {t("plannerSearch.addCourse")}
             </h2>
             <button
               type="button"
@@ -122,14 +124,14 @@ export function CourseSearchModal({
                 padding: "4px",
                 lineHeight: 1,
               }}
-              aria-label="Close"
+              aria-label={t("planner.cancel")}
             >
               ×
             </button>
           </div>
         </div>
         <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
-          <CoursePicker onSelect={onSelect} isSaved={isSaved} actionLabel="Add →" />
+          <CoursePicker onSelect={onSelect} isSaved={isSaved} actionLabel={t("plannerCourseCard.addToPlanner")} />
         </div>
       </div>
     </div>
