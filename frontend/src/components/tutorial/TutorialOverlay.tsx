@@ -274,15 +274,12 @@ export function TutorialOverlay(): React.ReactElement | null {
     }
   }, [isOpen, currentStepIndex]);
 
-  // Keyboard navigation.
+  // Keyboard navigation — only Back/Next via arrow keys.
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!isOpen) return;
 
-      if (e.key === "Escape") {
-        e.preventDefault();
-        skipTutorial();
-      } else if (e.key === "ArrowRight" || e.key === "Enter") {
+      if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
         if (isNavigationStep && !navigationReady) return;
         if (isLastStep) {
@@ -297,7 +294,7 @@ export function TutorialOverlay(): React.ReactElement | null {
         }
       }
     },
-    [isOpen, isFirstStep, isLastStep, isNavigationStep, navigationReady, nextStep, prevStep, skipTutorial, completeTutorial]
+    [isOpen, isFirstStep, isLastStep, isNavigationStep, navigationReady, nextStep, prevStep, completeTutorial]
   );
 
   useEffect(() => {
@@ -306,17 +303,6 @@ export function TutorialOverlay(): React.ReactElement | null {
       return () => document.removeEventListener("keydown", handleKeyDown);
     }
   }, [isOpen, handleKeyDown]);
-
-  // Prevent body scroll when tutorial is open.
-  useEffect(() => {
-    if (isOpen) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
-  }, [isOpen]);
 
   if (!isOpen || !currentStep) return null;
 
@@ -334,7 +320,7 @@ export function TutorialOverlay(): React.ReactElement | null {
 
   return (
     <>
-      {/* Overlay */}
+      {/* Overlay — pointer-events:none lets sidebar/app clicks pass through */}
       <div
         aria-hidden="true"
         style={{
@@ -342,9 +328,9 @@ export function TutorialOverlay(): React.ReactElement | null {
           inset: 0,
           backgroundColor: "rgba(0, 0, 0, 0.6)",
           zIndex: 10000,
+          pointerEvents: "none",
           ...overlayTransition,
         }}
-        onClick={skipTutorial}
       />
 
       {/* Spotlight cutout */}
@@ -499,7 +485,7 @@ export function TutorialOverlay(): React.ReactElement | null {
               fontWeight: 500,
             }}
           >
-            {t("tutorial.actions.skip")}
+            {t("tutorial.actions.closeTutorial")}
           </button>
 
           <div style={{ display: "flex", gap: "8px" }}>
@@ -520,26 +506,7 @@ export function TutorialOverlay(): React.ReactElement | null {
                 {t("tutorial.actions.back")}
               </button>
             )}
-            {isNavigationStep && !navigationReady ? (
-              <button
-                disabled
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  color: "#FFFFFF",
-                  backgroundColor: "var(--brand-accent)",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "8px 20px",
-                  cursor: "not-allowed",
-                  opacity: 0.7,
-                }}
-              >
-                {currentStep.navigationLabelKey
-                  ? t(currentStep.navigationLabelKey)
-                  : t("tutorial.actions.next")}
-              </button>
-            ) : (
+            {!isNavigationStep && (
               <button
                 onClick={isLastStep ? completeTutorial : nextStep}
                 style={{

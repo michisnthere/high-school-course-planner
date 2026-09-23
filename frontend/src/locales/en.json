@@ -909,6 +909,7 @@
     "buttonLabel": "Open Tutorial",
     "actions": {
       "skip": "Skip Tutorial",
+      "closeTutorial": "Close Tutorial",
       "back": "Back",
       "next": "Next",
       "finish": "Finish",

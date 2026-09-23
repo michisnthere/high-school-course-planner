@@ -909,6 +909,7 @@
     "buttonLabel": "Abrir Tutorial",
     "actions": {
       "skip": "Omitir Tutorial",
+      "closeTutorial": "Cerrar Tutorial",
       "back": "Atrás",
       "next": "Siguiente",
       "finish": "Finalizar",

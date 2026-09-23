@@ -289,3 +289,53 @@ describe("Tutorial navigation steps", () => {
     expect(result!.step.navigationLabelKey).toBeUndefined();
   });
 });
+
+describe("Tutorial guided walkthrough", () => {
+  it("all navigation steps have requiredPath set", () => {
+    const navStepIds = [
+      "catalog-intro",
+      "planner-intro",
+      "graduation-requirements",
+      "completed-courses",
+      "saved-courses",
+    ];
+    for (const id of navStepIds) {
+      const result = findStepById(id);
+      expect(result).not.toBeNull();
+      expect(result!.step.requiredPath).toBeTruthy();
+    }
+  });
+
+  it("navigation steps still have navigationLabelKey in definitions", () => {
+    const navStepIds = [
+      "catalog-intro",
+      "planner-intro",
+      "graduation-requirements",
+      "completed-courses",
+      "saved-courses",
+    ];
+    for (const id of navStepIds) {
+      const result = findStepById(id);
+      expect(result).not.toBeNull();
+      expect(result!.step.navigationLabelKey).toBeTruthy();
+    }
+  });
+
+  it("welcome-intro has no requiredPath (non-navigation step)", () => {
+    const result = findStepById("welcome-intro");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBeUndefined();
+  });
+
+  it("all requiredPath values are valid routes", () => {
+    const validPrefixes = ["/catalog", "/planner", "/requirements", "/completed-courses", "/saved"];
+    for (const chapter of TUTORIAL_CHAPTERS) {
+      for (const step of chapter.steps) {
+        if (step.requiredPath) {
+          const matchesValid = validPrefixes.some((p) => step.requiredPath!.startsWith(p));
+          expect(matchesValid).toBe(true);
+        }
+      }
+    }
+  });
+});
