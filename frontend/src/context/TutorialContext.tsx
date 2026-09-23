@@ -120,8 +120,8 @@ export function TutorialProvider({
   const [flatIndex, setFlatIndex] = useState(0);
   const [hasTarget, setHasTarget] = useState(false);
   const stepCheckRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const autoAdvanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const hasAutoAdvancedRef = useRef(false);
+  const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const userInitiatedNavRef = useRef(false);
 
   const flatSteps = getFlatSteps();
   const totalSteps = flatSteps.length;
@@ -161,11 +161,6 @@ export function TutorialProvider({
     const el = document.querySelector(currentStep.target.selector);
     setHasTarget(el !== null);
   }, [currentStep]);
-
-  // Reset auto-advance flag when step changes.
-  useEffect(() => {
-    hasAutoAdvancedRef.current = false;
-  }, [flatIndex]);
 
   useEffect(() => {
     if (isOpen && currentStep) {
@@ -214,22 +209,48 @@ export function TutorialProvider({
     }
   }, [flatIndex, totalSteps]);
 
-  // Auto-advance when the user navigates to the required route.
+  // Detect user clicks on navigation targets for navigation-required steps.
+  // This runs before Next.js navigation and sets a flag so the pathname effect
+  // knows the route change was caused by the user's required navigation action.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClick = (e: MouseEvent) => {
+      if (!isNavigationStep || !currentStep?.target?.selector) return;
+
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+
+      // Walk up from the click target to find a matching data-tour element.
+      const selector = currentStep.target.selector;
+      const match = target.closest(selector);
+      if (match) {
+        userInitiatedNavRef.current = true;
+      }
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, [isOpen, isNavigationStep, currentStep]);
+
+  // After a user-initiated navigation, advance once the route settles.
+  // This effect does NOT advance on pathname matching alone — only when
+  // userInitiatedNavRef was set by the click handler above.
   useEffect(() => {
     if (!isOpen || !currentStep?.requiredPath) return;
-    if (isPathMatch(pathname, currentStep.requiredPath)) {
-      if (hasAutoAdvancedRef.current) return;
-      hasAutoAdvancedRef.current = true;
-      // Small delay to let the new page render its elements, then advance.
-      if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
-      autoAdvanceRef.current = setTimeout(() => {
-        nextStep();
-      }, 400);
-      return () => {
-        if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
-      };
-    }
-  }, [isOpen, currentStep, pathname, nextStep]);
+    if (!userInitiatedNavRef.current) return;
+    if (!isPathMatch(pathname, currentStep.requiredPath)) return;
+
+    userInitiatedNavRef.current = false;
+
+    if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+    advanceTimerRef.current = setTimeout(() => {
+      nextStep();
+    }, 400);
+    return () => {
+      if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+    };
+  }, [pathname, isOpen, currentStep, nextStep]);
 
   const prevStep = useCallback(() => {
     if (flatIndex > 0) {

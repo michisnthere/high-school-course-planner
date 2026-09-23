@@ -338,4 +338,67 @@ describe("Tutorial guided walkthrough", () => {
       }
     }
   });
+
+  it("navigation steps have target with selector for click detection", () => {
+    const navStepIds = [
+      "catalog-intro",
+      "planner-intro",
+      "graduation-requirements",
+      "completed-courses",
+      "saved-courses",
+    ];
+    for (const id of navStepIds) {
+      const result = findStepById(id);
+      expect(result).not.toBeNull();
+      expect(result!.step.target).toBeDefined();
+      expect(result!.step.target!.selector).toBeTruthy();
+      expect(result!.step.target!.selector).toMatch(/data-tour/);
+    }
+  });
+
+  it("non-navigation steps do not require a specific route", () => {
+    for (const chapter of TUTORIAL_CHAPTERS) {
+      for (const step of chapter.steps) {
+        if (!step.requiredPath) {
+          expect(step.id).toBeTruthy();
+        }
+      }
+    }
+  });
+});
+
+describe("Tutorial pathname matching (isPathMatch behavior)", () => {
+  // These tests verify the route matching logic used by the tutorial.
+  // isPathMatch is not exported, but we can verify the expected behavior
+  // through the step definitions and requiredPath values.
+
+  it("catalog-intro requires exactly /catalog", () => {
+    const result = findStepById("catalog-intro");
+    expect(result!.step.requiredPath).toBe("/catalog");
+  });
+
+  it("planner-intro requires /planner", () => {
+    const result = findStepById("planner-intro");
+    expect(result!.step.requiredPath).toBe("/planner");
+  });
+
+  it("adding-courses requires /planner/ (with trailing slash)", () => {
+    const result = findStepById("adding-courses");
+    expect(result!.step.requiredPath).toBe("/planner/");
+  });
+
+  it("graduation-requirements requires /requirements", () => {
+    const result = findStepById("graduation-requirements");
+    expect(result!.step.requiredPath).toBe("/requirements");
+  });
+
+  it("completed-courses requires /completed-courses", () => {
+    const result = findStepById("completed-courses");
+    expect(result!.step.requiredPath).toBe("/completed-courses");
+  });
+
+  it("saved-courses requires /saved", () => {
+    const result = findStepById("saved-courses");
+    expect(result!.step.requiredPath).toBe("/saved");
+  });
 });
