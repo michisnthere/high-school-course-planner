@@ -8,8 +8,17 @@ import type { Course } from "@/types/course";
 
 export const dynamic = "force-dynamic";
 
+async function loadCourses(): Promise<Course[]> {
+  try {
+    return await getCourses();
+  } catch (err) {
+    console.error("Failed to load courses for catalog:", err);
+    return [];
+  }
+}
+
 export default async function CatalogPage() {
-  const courses: Course[] = await getCourses();
+  const courses = await loadCourses();
 
   return (
     <>

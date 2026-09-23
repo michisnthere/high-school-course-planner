@@ -31,7 +31,13 @@ export const dynamic = "force-dynamic";
 export default async function CatalogDetailPage({ params, searchParams }: CatalogDetailPageProps) {
   const { slug } = await params;
   const { return: returnUrl, fromRequirement } = await searchParams;
-  const courses: Course[] = await getCourses();
+  let courses: Course[];
+  try {
+    courses = await getCourses();
+  } catch (err) {
+    console.error("Failed to load courses for catalog detail:", err);
+    courses = [];
+  }
   const course = findCourseBySlug(courses, slug);
 
   if (!course) {

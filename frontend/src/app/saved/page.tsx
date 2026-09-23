@@ -5,8 +5,17 @@ import { breakpoints } from "@/lib/responsive";
 
 export const dynamic = "force-dynamic";
 
+async function loadCourses(): Promise<Course[]> {
+  try {
+    return await getCourses();
+  } catch (err) {
+    console.error("Failed to load courses for saved page:", err);
+    return [];
+  }
+}
+
 export default async function SavedCoursesPage() {
-  const courses: Course[] = await getCourses();
+  const courses = await loadCourses();
 
   return (
     <>
