@@ -45,6 +45,8 @@ type TutorialContextType = {
   hasTarget: boolean;
   /** Whether the current step requires navigation to a specific route. */
   isNavigationStep: boolean;
+  /** Whether the current step requires authentication. */
+  isAuthStep: boolean;
   /** Whether the user has navigated to the required route (or the step has no required path). */
   navigationReady: boolean;
   /** Open the tutorial from the beginning. */
@@ -61,6 +63,8 @@ type TutorialContextType = {
   completeTutorial: () => void;
   /** Force-show the tutorial (for re-triggering). */
   forceShow: () => void;
+  /** Initiate sign-in while preserving tutorial state. */
+  signInWithTutorial: () => void;
 };
 
 const TutorialContext = createContext<TutorialContextType | undefined>(
@@ -148,6 +152,8 @@ export function TutorialProvider({
 
   // Determine if the current step requires the user to click an actual navigation element.
   const isNavigationStep = Boolean(currentStep?.requiresNavigation);
+  // Determine if the current step requires authentication.
+  const isAuthStep = Boolean(currentStep?.requiresAuth);
   const navigationReady = currentStep?.requiredPath
     ? isPathMatch(pathname, currentStep.requiredPath)
     : true;
@@ -278,6 +284,32 @@ export function TutorialProvider({
     setIsOpen(true);
   }, []);
 
+  const signInWithTutorial = useCallback(() => {
+    localStorage.setItem(
+      "stevenson-tutorial-restore",
+      JSON.stringify({ flatIndex, isOpen: true })
+    );
+    const redirect = encodeURIComponent(window.location.pathname + window.location.search);
+    window.location.href = `/auth/google?redirect=${redirect}`;
+  }, [flatIndex]);
+
+  // Restore tutorial state after OAuth redirect (full page reload).
+  useEffect(() => {
+    const stored = localStorage.getItem("stevenson-tutorial-restore");
+    if (stored) {
+      localStorage.removeItem("stevenson-tutorial-restore");
+      try {
+        const { flatIndex: restoredIndex, isOpen: restoredOpen } = JSON.parse(stored);
+        if (restoredOpen && typeof restoredIndex === "number" && restoredIndex >= 0 && restoredIndex < totalSteps) {
+          setFlatIndex(restoredIndex);
+          setIsOpen(true);
+        }
+      } catch {
+        // Ignore malformed data.
+      }
+    }
+  }, [totalSteps]);
+
   const value: TutorialContextType = {
     isOpen,
     isCompleted,
@@ -291,6 +323,7 @@ export function TutorialProvider({
     stepInChapter: stepInChapter + 1,
     hasTarget,
     isNavigationStep,
+    isAuthStep,
     navigationReady,
     startTutorial,
     goToStep,
@@ -299,6 +332,7 @@ export function TutorialProvider({
     skipTutorial,
     completeTutorial,
     forceShow,
+    signInWithTutorial,
   };
 
   return (

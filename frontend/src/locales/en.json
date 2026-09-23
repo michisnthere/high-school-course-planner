@@ -949,6 +949,10 @@
         "title": "My Planner",
         "description": "My Planner is where you organize potential courses into a four-year plan. Adding a course to the planner represents a planned future course, not a completed one. Your planner helps you visualize your schedule and ensures you meet graduation requirements."
       },
+      "plannerAuth": {
+        "title": "Sign In Required",
+        "description": "To use My Planner, you'll need to sign in first so your plan can be saved. Signing in also lets you access your planner from any device. Your tutorial progress will be preserved."
+      },
       "fourYearsSemesters": {
         "title": "Understanding Four Years and Semesters",
         "description": "Your planner is organized by grade level: Freshman (9), Sophomore (10), Junior (11), and Senior (12). Each year has two semesters. Use this structure to plan which courses you want to take each semester across your high school career."

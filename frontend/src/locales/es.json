@@ -949,6 +949,10 @@
         "title": "Mi Planificador",
         "description": "Mi Planificador es donde organizas cursos potenciales en un plan de cuatro años. Agregar un curso al planificador representa un curso futuro planificado, no uno completado. Tu planificador te ayuda a visualizar tu horario y asegura que cumplas los requisitos de graduación."
       },
+      "plannerAuth": {
+        "title": "Inicio de Sesión Requerido",
+        "description": "Para usar Mi Planificador, necesitarás iniciar sesión primero para que tu plan se guarde. Iniciar sesión también te permite acceder a tu planificador desde cualquier dispositivo. Tu progreso en el tutorial se preservará."
+      },
       "fourYearsSemesters": {
         "title": "Entendiendo Cuatro Años y Semestres",
         "description": "Tu planificador está organizado por nivel de grado: Primer Año (9), Segundo Año (10), Tercer Año (11) y Cuarto Año (12). Cada año tiene dos semestres. Usa esta estructura para planificar qué cursos quieres tomar cada semestre a lo largo de tu carrera de preparatoria."

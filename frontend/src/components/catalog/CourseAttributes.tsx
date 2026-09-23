@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useTranslation } from "@/context/I18nContext";
 import type { Course } from "@/types/course";

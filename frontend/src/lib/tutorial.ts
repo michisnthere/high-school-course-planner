@@ -24,6 +24,8 @@ export type TutorialStep = {
   navigationLabelKey?: string;
   /** Whether the user must click an actual website navigation element to advance. */
   requiresNavigation?: boolean;
+  /** Whether this step requires the user to be authenticated. */
+  requiresAuth?: boolean;
 };
 
 export type TutorialChapter = {
@@ -78,7 +80,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         titleKey: "tutorial.steps.courseCards.title",
         descriptionKey: "tutorial.steps.courseCards.description",
         target: {
-          selector: "[data-tour='catalog-grid']",
+          selector: "[data-course-slug='algebra-1']",
           position: "top",
         },
         requiredPath: "/catalog",
@@ -89,6 +91,12 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
     id: "build-plan",
     nameKey: "tutorial.chapters.buildPlan",
     steps: [
+      {
+        id: "planner-auth",
+        titleKey: "tutorial.steps.plannerAuth.title",
+        descriptionKey: "tutorial.steps.plannerAuth.description",
+        requiresAuth: true,
+      },
       {
         id: "planner-intro",
         titleKey: "tutorial.steps.plannerIntro.title",

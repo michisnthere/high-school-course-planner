@@ -219,8 +219,8 @@ describe("Tutorial chapter structure", () => {
     expect(TUTORIAL_CHAPTERS[1].steps).toHaveLength(3);
   });
 
-  it("build-plan chapter has 7 steps", () => {
-    expect(TUTORIAL_CHAPTERS[2].steps).toHaveLength(7);
+  it("build-plan chapter has 8 steps", () => {
+    expect(TUTORIAL_CHAPTERS[2].steps).toHaveLength(8);
   });
 
   it("check-plan chapter has 4 steps", () => {
@@ -493,5 +493,64 @@ describe("Tutorial step classification (requiresNavigation)", () => {
         }
       }
     }
+  });
+});
+
+describe("Tutorial auth-required steps", () => {
+  it("planner-auth is the only auth-required step", () => {
+    const authSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps).filter(
+      (s) => s.requiresAuth
+    );
+    expect(authSteps).toHaveLength(1);
+    expect(authSteps[0].id).toBe("planner-auth");
+  });
+
+  it("planner-auth has no target (centered popup)", () => {
+    const result = findStepById("planner-auth");
+    expect(result).not.toBeNull();
+    expect(result!.step.target).toBeUndefined();
+  });
+
+  it("planner-auth has no requiredPath", () => {
+    const result = findStepById("planner-auth");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBeUndefined();
+  });
+
+  it("planner-auth is not a navigation step", () => {
+    const result = findStepById("planner-auth");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+  });
+
+  it("planner-auth comes before planner-intro in the step list", () => {
+    const flatSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    const authIdx = flatSteps.findIndex((s) => s.id === "planner-auth");
+    const introIdx = flatSteps.findIndex((s) => s.id === "planner-intro");
+    expect(authIdx).toBeGreaterThanOrEqual(0);
+    expect(introIdx).toBeGreaterThanOrEqual(0);
+    expect(authIdx).toBeLessThan(introIdx);
+  });
+});
+
+describe("Tutorial Algebra 1 course-card targeting", () => {
+  it("course-cards step targets the Algebra 1 card via data-course-slug", () => {
+    const result = findStepById("course-cards");
+    expect(result).not.toBeNull();
+    expect(result!.step.target).toBeDefined();
+    expect(result!.step.target!.selector).toBe("[data-course-slug='algebra-1']");
+  });
+
+  it("course-cards step is informational (not navigation-required)", () => {
+    const result = findStepById("course-cards");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+    expect(result!.step.requiresAuth).toBeUndefined();
+  });
+
+  it("course-cards step has requiredPath for /catalog", () => {
+    const result = findStepById("course-cards");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/catalog");
   });
 });

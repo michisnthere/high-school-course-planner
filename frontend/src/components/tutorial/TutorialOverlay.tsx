@@ -134,11 +134,13 @@ export function TutorialOverlay(): React.ReactElement | null {
     stepInChapter,
     hasTarget,
     isNavigationStep,
+    isAuthStep,
     navigationReady,
     nextStep,
     prevStep,
     skipTutorial,
     completeTutorial,
+    signInWithTutorial,
   } = useTutorial();
   const { t } = useTranslation();
   const { preferences } = usePreferences();
@@ -329,29 +331,17 @@ export function TutorialOverlay(): React.ReactElement | null {
           backgroundColor: "rgba(0, 0, 0, 0.6)",
           zIndex: 10000,
           pointerEvents: "none",
+          ...(spotlightRect
+            ? {
+                clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, ${spotlightRect.left}px ${spotlightRect.top}px, ${spotlightRect.left}px ${spotlightRect.top + spotlightRect.height}px, ${spotlightRect.left + spotlightRect.width}px ${spotlightRect.top + spotlightRect.height}px, ${spotlightRect.left + spotlightRect.width}px ${spotlightRect.top}px, ${spotlightRect.left}px ${spotlightRect.top}px)`,
+                WebkitClipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, ${spotlightRect.left}px ${spotlightRect.top}px, ${spotlightRect.left}px ${spotlightRect.top + spotlightRect.height}px, ${spotlightRect.left + spotlightRect.width}px ${spotlightRect.top + spotlightRect.height}px, ${spotlightRect.left + spotlightRect.width}px ${spotlightRect.top}px, ${spotlightRect.left}px ${spotlightRect.top}px)`,
+              }
+            : {}),
           ...overlayTransition,
         }}
       />
 
-      {/* Spotlight cutout */}
-      {spotlightRect && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 10001,
-            pointerEvents: "none",
-            boxShadow: `0 0 0 9999px rgba(0, 0, 0, 0.6)`,
-            borderRadius: "8px",
-            top: `${spotlightRect.top}px`,
-            left: `${spotlightRect.left}px`,
-            width: `${spotlightRect.width}px`,
-            height: `${spotlightRect.height}px`,
-            ...overlayTransition,
-          }}
-        />
-      )}
+      {/* Spotlight cutout — removed; overlay clip-path handles the spotlight */}
 
       {/* Popup */}
       <div
@@ -489,7 +479,7 @@ export function TutorialOverlay(): React.ReactElement | null {
           </button>
 
           <div style={{ display: "flex", gap: "8px" }}>
-            {!isFirstStep && (
+            {!isFirstStep && !isAuthStep && (
               <button
                 onClick={prevStep}
                 style={{
@@ -506,7 +496,23 @@ export function TutorialOverlay(): React.ReactElement | null {
                 {t("tutorial.actions.back")}
               </button>
             )}
-            {!isNavigationStep && (
+            {isAuthStep ? (
+              <button
+                onClick={signInWithTutorial}
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#FFFFFF",
+                  backgroundColor: "var(--brand-accent)",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "8px 20px",
+                  cursor: "pointer",
+                }}
+              >
+                {t("auth.signIn")}
+              </button>
+            ) : !isNavigationStep ? (
               <button
                 onClick={isLastStep ? completeTutorial : nextStep}
                 style={{
@@ -524,7 +530,7 @@ export function TutorialOverlay(): React.ReactElement | null {
                   ? t("tutorial.actions.finish")
                   : t("tutorial.actions.next")}
               </button>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
