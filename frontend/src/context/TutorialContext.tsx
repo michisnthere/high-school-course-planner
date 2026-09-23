@@ -121,6 +121,7 @@ export function TutorialProvider({
   const [hasTarget, setHasTarget] = useState(false);
   const stepCheckRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const autoAdvanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasAutoAdvancedRef = useRef(false);
 
   const flatSteps = getFlatSteps();
   const totalSteps = flatSteps.length;
@@ -161,6 +162,11 @@ export function TutorialProvider({
     setHasTarget(el !== null);
   }, [currentStep]);
 
+  // Reset auto-advance flag when step changes.
+  useEffect(() => {
+    hasAutoAdvancedRef.current = false;
+  }, [flatIndex]);
+
   useEffect(() => {
     if (isOpen && currentStep) {
       // Delay slightly to allow DOM to render after navigation.
@@ -171,21 +177,6 @@ export function TutorialProvider({
       };
     }
   }, [isOpen, currentStep, checkTarget]);
-
-  // Auto-advance when the user navigates to the required route.
-  useEffect(() => {
-    if (!isOpen || !currentStep?.requiredPath) return;
-    if (isPathMatch(pathname, currentStep.requiredPath)) {
-      // Small delay to let the new page render its elements.
-      if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
-      autoAdvanceRef.current = setTimeout(() => {
-        checkTarget();
-      }, 400);
-      return () => {
-        if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
-      };
-    }
-  }, [isOpen, currentStep, pathname, checkTarget]);
 
   // Auto-show for first-time users.
   useEffect(() => {
@@ -222,6 +213,23 @@ export function TutorialProvider({
       setFlatIndex((i) => i + 1);
     }
   }, [flatIndex, totalSteps]);
+
+  // Auto-advance when the user navigates to the required route.
+  useEffect(() => {
+    if (!isOpen || !currentStep?.requiredPath) return;
+    if (isPathMatch(pathname, currentStep.requiredPath)) {
+      if (hasAutoAdvancedRef.current) return;
+      hasAutoAdvancedRef.current = true;
+      // Small delay to let the new page render its elements, then advance.
+      if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+      autoAdvanceRef.current = setTimeout(() => {
+        nextStep();
+      }, 400);
+      return () => {
+        if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+      };
+    }
+  }, [isOpen, currentStep, pathname, nextStep]);
 
   const prevStep = useCallback(() => {
     if (flatIndex > 0) {
