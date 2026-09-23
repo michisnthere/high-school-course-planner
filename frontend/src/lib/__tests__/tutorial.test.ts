@@ -402,3 +402,96 @@ describe("Tutorial pathname matching (isPathMatch behavior)", () => {
     expect(result!.step.requiredPath).toBe("/saved");
   });
 });
+
+describe("Tutorial step classification (requiresNavigation)", () => {
+  const navigationStepIds = [
+    "catalog-intro",
+    "planner-intro",
+    "graduation-requirements",
+    "completed-courses",
+    "saved-courses",
+  ];
+
+  it("exactly 5 steps are classified as navigation-required", () => {
+    const navSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps).filter(
+      (s) => s.requiresNavigation
+    );
+    expect(navSteps).toHaveLength(5);
+  });
+
+  it("all navigation-required steps have requiresNavigation: true", () => {
+    for (const id of navigationStepIds) {
+      const result = findStepById(id);
+      expect(result).not.toBeNull();
+      expect(result!.step.requiresNavigation).toBe(true);
+    }
+  });
+
+  it("all navigation-required steps have a target selector", () => {
+    for (const id of navigationStepIds) {
+      const result = findStepById(id);
+      expect(result).not.toBeNull();
+      expect(result!.step.target).toBeDefined();
+      expect(result!.step.target!.selector).toMatch(/data-tour/);
+    }
+  });
+
+  it("informational steps with requiredPath do NOT have requiresNavigation", () => {
+    const informationalWithRoute = [
+      "search-vs-filters",
+      "course-cards",
+      "four-years-semesters",
+      "adding-courses",
+      "needs-attention",
+      "credit-progress",
+      "requirement-progress",
+    ];
+    for (const id of informationalWithRoute) {
+      const result = findStepById(id);
+      expect(result).not.toBeNull();
+      expect(result!.step.requiresNavigation).toBeUndefined();
+      expect(result!.step.requiredPath).toBeTruthy();
+    }
+  });
+
+  it("search-vs-filters is informational (has Next) despite being on /catalog", () => {
+    const result = findStepById("search-vs-filters");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+    expect(result!.step.requiredPath).toBe("/catalog");
+    expect(result!.step.target).toBeDefined();
+  });
+
+  it("course-cards is informational (has Next) despite having a spotlight target", () => {
+    const result = findStepById("course-cards");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+    expect(result!.step.target).toBeDefined();
+  });
+
+  it("welcome-intro is informational (has Next)", () => {
+    const result = findStepById("welcome-intro");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+  });
+
+  it("steps without requiredPath are always informational", () => {
+    for (const chapter of TUTORIAL_CHAPTERS) {
+      for (const step of chapter.steps) {
+        if (!step.requiredPath) {
+          expect(step.requiresNavigation).toBeUndefined();
+        }
+      }
+    }
+  });
+
+  it("only steps with navigationLabelKey have requiresNavigation", () => {
+    for (const chapter of TUTORIAL_CHAPTERS) {
+      for (const step of chapter.steps) {
+        if (step.requiresNavigation) {
+          expect(step.navigationLabelKey).toBeTruthy();
+        }
+      }
+    }
+  });
+});

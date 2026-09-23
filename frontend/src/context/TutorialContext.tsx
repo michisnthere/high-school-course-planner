@@ -146,8 +146,8 @@ export function TutorialProvider({
 
   const chapterStepCount = currentChapter?.steps.length ?? 0;
 
-  // Determine if the current step is a navigation step and if the route is satisfied.
-  const isNavigationStep = Boolean(currentStep?.requiredPath);
+  // Determine if the current step requires the user to click an actual navigation element.
+  const isNavigationStep = Boolean(currentStep?.requiresNavigation);
   const navigationReady = currentStep?.requiredPath
     ? isPathMatch(pathname, currentStep.requiredPath)
     : true;

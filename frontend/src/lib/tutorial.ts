@@ -22,6 +22,8 @@ export type TutorialStep = {
   requiredPath?: string;
   /** Translation key for the navigation action button label (e.g., "Go to Course Catalog"). */
   navigationLabelKey?: string;
+  /** Whether the user must click an actual website navigation element to advance. */
+  requiresNavigation?: boolean;
 };
 
 export type TutorialChapter = {
@@ -59,6 +61,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         },
         requiredPath: "/catalog",
         navigationLabelKey: "tutorial.actions.goToCourseCatalog",
+        requiresNavigation: true,
       },
       {
         id: "search-vs-filters",
@@ -96,6 +99,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         },
         requiredPath: "/planner",
         navigationLabelKey: "tutorial.actions.goToMyPlanner",
+        requiresNavigation: true,
       },
       {
         id: "four-years-semesters",
@@ -189,6 +193,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         },
         requiredPath: "/requirements",
         navigationLabelKey: "tutorial.actions.goToGraduationRequirements",
+        requiresNavigation: true,
       },
       {
         id: "requirement-progress",
@@ -216,6 +221,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         },
         requiredPath: "/completed-courses",
         navigationLabelKey: "tutorial.actions.goToCompletedCourses",
+        requiresNavigation: true,
       },
       {
         id: "saved-courses",
@@ -227,6 +233,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         },
         requiredPath: "/saved",
         navigationLabelKey: "tutorial.actions.goToSavedCourses",
+        requiresNavigation: true,
       },
     ],
   },
