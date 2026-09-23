@@ -96,6 +96,10 @@ describe("en.json nav keys for migrated components", () => {
     "aria.myProfile",
   ];
 
+  const requiredTutorialKeys = [
+    "tutorial.buttonLabel",
+  ];
+
   it("has all required nav keys", () => {
     for (const key of requiredNavKeys) {
       const value = translate("en", key);
@@ -119,6 +123,13 @@ describe("en.json nav keys for migrated components", () => {
 
   it("has all required aria keys", () => {
     for (const key of requiredAriaKeys) {
+      const value = translate("en", key);
+      expect(value).not.toBe(key);
+    }
+  });
+
+  it("has all required tutorial keys", () => {
+    for (const key of requiredTutorialKeys) {
       const value = translate("en", key);
       expect(value).not.toBe(key);
     }

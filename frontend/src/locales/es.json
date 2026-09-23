@@ -906,6 +906,7 @@
     "planned": "Planificado"
   },
   "tutorial": {
+    "buttonLabel": "Abrir Tutorial",
     "actions": {
       "skip": "Omitir Tutorial",
       "back": "Atrás",

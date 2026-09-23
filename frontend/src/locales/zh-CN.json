@@ -906,6 +906,7 @@
     "planned": "已计划"
   },
   "tutorial": {
+    "buttonLabel": "打开教程",
     "actions": {
       "skip": "跳过教程",
       "back": "返回",

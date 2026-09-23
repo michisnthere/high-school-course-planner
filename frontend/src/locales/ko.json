@@ -906,6 +906,7 @@
     "planned": "계획됨"
   },
   "tutorial": {
+    "buttonLabel": "튜토리얼 열기",
     "actions": {
       "skip": "튜토리얼 건너뛰기",
       "back": "뒤로",

@@ -10,6 +10,7 @@ import { useTranslation } from "@/context/I18nContext";
 import { breakpoints } from "@/lib/responsive";
 import { AccessibilitySettingsButton } from "@/components/settings/AccessibilitySettings";
 import { LanguageSettingsButton } from "@/components/settings/LanguageSettings";
+import { TutorialButton } from "@/components/tutorial/TutorialButton";
 
 type MobileAppBarProps = {
   onMenuClick: () => void;
@@ -116,6 +117,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
         <span className="rs-mobile-appbar-title">{title}</span>
 
         <div className="rs-mobile-appbar-right">
+          <TutorialButton />
           <LanguageSettingsButton />
           <AccessibilitySettingsButton />
           {(user || isGuest) && (
