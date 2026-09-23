@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useCallback, useRef, useState } from "react";
 import { useTutorial } from "@/context/TutorialContext";
 import { useTranslation } from "@/context/I18nContext";
 import { usePreferences } from "@/context/PreferencesContext";
@@ -17,33 +17,33 @@ const POPUP_MAX_WIDTH = 400;
 const TARGET_GAP = 12;
 const POPUP_PADDING = 24;
 
-function computePopupPosition(
+export function computePopupPosition(
   targetRect: DOMRect,
   preferredPosition: "top" | "bottom" | "left" | "right",
-  popupHeight: number
+  popupHeight: number,
+  popupWidth: number,
+  viewportWidth: number,
+  viewportHeight: number
 ): { top: number; left: number; transform: string; position: string } {
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const popupWidth = Math.min(POPUP_MAX_WIDTH, vw - EDGE_MARGIN * 2);
+  const vw = viewportWidth;
+  const vh = viewportHeight;
+  const pw = Math.min(popupWidth, vw - EDGE_MARGIN * 2);
+  const ph = popupHeight;
 
-  // Available space in each direction from the target.
   const spaceAbove = targetRect.top - EDGE_MARGIN;
   const spaceBelow = vh - targetRect.bottom - EDGE_MARGIN;
   const spaceLeft = targetRect.left - EDGE_MARGIN;
   const spaceRight = vw - targetRect.right - EDGE_MARGIN;
 
-  // Determine which positions can fit the popup.
-  const canFitTop = spaceAbove >= popupHeight;
-  const canFitBottom = spaceBelow >= popupHeight;
-  const canFitLeft = spaceLeft >= popupWidth;
-  const canFitRight = spaceRight >= popupWidth;
+  const canFitTop = spaceAbove >= ph;
+  const canFitBottom = spaceBelow >= ph;
+  const canFitLeft = spaceLeft >= pw;
+  const canFitRight = spaceRight >= pw;
 
-  // On small screens, prefer centered placement if no side fits well.
   const isSmallScreen = vw < 640;
 
   let position: "top" | "bottom" | "left" | "right" | "centered" = preferredPosition;
 
-  // If the preferred position doesn't fit, try alternatives.
   if (position === "top" && !canFitTop) {
     position = canFitBottom ? "bottom" : canFitRight ? "right" : canFitLeft ? "left" : "centered";
   } else if (position === "bottom" && !canFitBottom) {
@@ -54,7 +54,6 @@ function computePopupPosition(
     position = canFitLeft ? "left" : canFitTop ? "top" : canFitBottom ? "bottom" : "centered";
   }
 
-  // On small screens, prefer centered placement over cramped side placement.
   if (isSmallScreen && position !== "top" && position !== "bottom") {
     if (!canFitLeft && !canFitRight) {
       position = "centered";
@@ -62,12 +61,11 @@ function computePopupPosition(
   }
 
   if (position === "centered") {
-    return {
-      top: Math.max(EDGE_MARGIN, (vh - popupHeight) / 2),
-      left: Math.max(EDGE_MARGIN, (vw - popupWidth) / 2),
-      transform: "",
-      position: "centered",
-    };
+    const maxTop = Math.max(EDGE_MARGIN, vh - EDGE_MARGIN - ph);
+    const maxLeft = Math.max(EDGE_MARGIN, vw - EDGE_MARGIN - pw);
+    const top = Math.min(Math.max(EDGE_MARGIN, (vh - ph) / 2), maxTop);
+    const left = Math.min(Math.max(EDGE_MARGIN, (vw - pw) / 2), maxLeft);
+    return { top, left, transform: "", position: "centered" };
   }
 
   let top: number;
@@ -76,7 +74,7 @@ function computePopupPosition(
 
   switch (position) {
     case "top":
-      top = targetRect.top - TARGET_GAP - popupHeight;
+      top = targetRect.top - TARGET_GAP - ph;
       left = targetRect.left + targetRect.width / 2;
       transform = "translate(-50%, 0)";
       break;
@@ -87,7 +85,7 @@ function computePopupPosition(
       break;
     case "left":
       top = targetRect.top + targetRect.height / 2;
-      left = targetRect.left - TARGET_GAP - popupWidth;
+      left = targetRect.left - TARGET_GAP - pw;
       transform = "translate(0, -50%)";
       break;
     case "right":
@@ -98,36 +96,30 @@ function computePopupPosition(
       break;
   }
 
-  // Clamp horizontally.
-  if (left < EDGE_MARGIN) {
-    if (transform.includes("translate(-50%")) {
-      // Shift right to stay in view.
-      left = EDGE_MARGIN;
-      // Remove the -50% horizontal shift since we're anchored to left edge.
-      transform = transform.replace("translate(-50%,", "translate(0,");
-    } else {
-      left = EDGE_MARGIN;
-    }
-  } else if (left + popupWidth > vw - EDGE_MARGIN) {
-    if (transform.includes("translate(-50%")) {
-      left = vw - EDGE_MARGIN - popupWidth;
-    } else {
-      left = vw - EDGE_MARGIN - popupWidth;
-    }
+  const hasCenterX = transform.includes("translate(-50%");
+  const hasCenterY = transform.includes(", -50%)");
+
+  if (hasCenterX) {
+    const minLeft = pw / 2 + EDGE_MARGIN;
+    const maxLeft = vw - pw / 2 - EDGE_MARGIN;
+    left = Math.max(minLeft, Math.min(left, maxLeft));
+  } else {
+    left = Math.max(EDGE_MARGIN, Math.min(left, vw - EDGE_MARGIN - pw));
   }
 
-  // Clamp vertically.
-  if (top < EDGE_MARGIN) {
-    top = EDGE_MARGIN;
-  } else if (top + popupHeight > vh - EDGE_MARGIN) {
-    top = vh - EDGE_MARGIN - popupHeight;
+  if (hasCenterY) {
+    const minTop = ph / 2 + EDGE_MARGIN;
+    const maxTop = vh - ph / 2 - EDGE_MARGIN;
+    top = Math.max(minTop, Math.min(top, maxTop));
+  } else {
+    top = Math.max(EDGE_MARGIN, Math.min(top, vh - EDGE_MARGIN - ph));
   }
-
-  // Final safety clamp.
-  top = Math.max(EDGE_MARGIN, Math.min(top, vh - EDGE_MARGIN - popupHeight));
-  left = Math.max(EDGE_MARGIN, Math.min(left, vw - EDGE_MARGIN - popupWidth));
 
   return { top, left, transform, position };
+}
+
+function getPopupMaxWidth() {
+  return Math.min(POPUP_MAX_WIDTH, window.innerWidth - EDGE_MARGIN * 2);
 }
 
 export function TutorialOverlay(): React.ReactElement | null {
@@ -154,11 +146,14 @@ export function TutorialOverlay(): React.ReactElement | null {
   const [popupStyle, setPopupStyle] = useState<React.CSSProperties>({});
   const popupRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const stepKeyRef = useRef<string>("");
 
   const isLastStep = currentStepIndex === totalSteps - 1;
   const isFirstStep = currentStepIndex === 0;
 
-  // Compute spotlight and popup position when step changes.
+  const isNoTarget = !currentStep?.target || !hasTarget;
+
+  // Phase 1: Set spotlight and initial popup position when step changes.
   useEffect(() => {
     if (!isOpen || !currentStep) {
       setSpotlightRect(null);
@@ -166,7 +161,7 @@ export function TutorialOverlay(): React.ReactElement | null {
       return;
     }
 
-    if (!currentStep.target || !hasTarget) {
+    if (isNoTarget) {
       setSpotlightRect(null);
       setPopupStyle({
         position: "fixed",
@@ -174,11 +169,12 @@ export function TutorialOverlay(): React.ReactElement | null {
         left: "50%",
         transform: "translate(-50%, -50%)",
         zIndex: 10002,
+        pointerEvents: "auto",
       });
       return;
     }
 
-    const el = document.querySelector(currentStep.target.selector);
+    const el = document.querySelector(currentStep.target!.selector);
     if (!el) {
       setSpotlightRect(null);
       setPopupStyle({
@@ -187,6 +183,7 @@ export function TutorialOverlay(): React.ReactElement | null {
         left: "50%",
         transform: "translate(-50%, -50%)",
         zIndex: 10002,
+        pointerEvents: "auto",
       });
       return;
     }
@@ -200,29 +197,51 @@ export function TutorialOverlay(): React.ReactElement | null {
       height: rect.height + padding * 2,
     });
 
-    // Scroll element into view if needed.
-    if (currentStep.target.scrollIntoView !== false) {
+    if (currentStep.target!.scrollIntoView !== false) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    // Measure popup height by temporarily making it visible off-screen.
+    const key = `${currentStepIndex}-${currentStep.target!.selector}`;
+    stepKeyRef.current = key;
+
+    setPopupStyle({
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      zIndex: 10002,
+      pointerEvents: "auto",
+    });
+  }, [isOpen, currentStep, hasTarget, isNoTarget, currentStepIndex]);
+
+  // Phase 2: After popup renders, measure actual dimensions and reposition.
+  useLayoutEffect(() => {
+    if (!isOpen || !currentStep || isNoTarget) return;
+
     const popupEl = popupRef.current;
-    let popupHeight = 200; // fallback
-    if (popupEl) {
-      popupEl.style.position = "fixed";
-      popupEl.style.top = "-9999px";
-      popupEl.style.left = "-9999px";
-      popupEl.style.visibility = "hidden";
-      popupEl.style.zIndex = "-1";
-      popupHeight = popupEl.scrollHeight;
-      popupEl.style.visibility = "";
-      popupEl.style.zIndex = "";
-    }
+    if (!popupEl) return;
 
-    const preferredPosition = currentStep.target.position ?? "bottom";
-    const { top, left, transform } = computePopupPosition(rect, preferredPosition, popupHeight);
+    const actualRect = popupEl.getBoundingClientRect();
+    if (actualRect.height === 0 || actualRect.width === 0) return;
 
-    const popupMaxWidth = Math.min(POPUP_MAX_WIDTH, window.innerWidth - EDGE_MARGIN * 2);
+    const el = document.querySelector(currentStep.target!.selector);
+    if (!el) return;
+
+    const targetRect = el.getBoundingClientRect();
+    const preferredPosition = currentStep.target!.position ?? "bottom";
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const { top, left, transform } = computePopupPosition(
+      targetRect,
+      preferredPosition,
+      actualRect.height,
+      actualRect.width,
+      vw,
+      vh
+    );
+
+    const popupMaxWidth = Math.min(POPUP_MAX_WIDTH, vw - EDGE_MARGIN * 2);
 
     setPopupStyle({
       position: "fixed",
@@ -232,15 +251,15 @@ export function TutorialOverlay(): React.ReactElement | null {
       width: `${popupMaxWidth}px`,
       maxWidth: `${popupMaxWidth}px`,
       zIndex: 10002,
+      pointerEvents: "auto",
     });
-  }, [isOpen, currentStep, hasTarget]);
+  }, [isOpen, currentStep, isNoTarget, currentStepIndex, spotlightRect]);
 
   // Recalculate on window resize.
   useEffect(() => {
     if (!isOpen) return;
 
     const handleResize = () => {
-      // Force re-render to recalculate position.
       setPopupStyle((prev) => ({ ...prev }));
     };
 
@@ -265,7 +284,6 @@ export function TutorialOverlay(): React.ReactElement | null {
         skipTutorial();
       } else if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
-        // Don't allow keyboard advance on navigation steps (user must click the nav item).
         if (isNavigationStep && !navigationReady) return;
         if (isLastStep) {
           completeTutorial();
@@ -312,16 +330,7 @@ export function TutorialOverlay(): React.ReactElement | null {
     ? {}
     : { transition: "opacity 0.2s ease" };
 
-  // Spotlight cutout SVG mask.
-  const spotlightClipPath = spotlightRect
-    ? `polygon(
-        0% 0%, 0% 100%, 100% 100%, 100% 0%,
-        ${spotlightRect.left}px ${spotlightRect.top}%,
-        ${spotlightRect.left}px ${(spotlightRect.top + spotlightRect.height)}px,
-        ${(spotlightRect.left + spotlightRect.width)}px ${(spotlightRect.top + spotlightRect.height)}px,
-        ${(spotlightRect.left + spotlightRect.width)}px ${spotlightRect.top}%
-      )`
-    : undefined;
+  const popupMaxWidth = getPopupMaxWidth();
 
   return (
     <>
@@ -371,7 +380,7 @@ export function TutorialOverlay(): React.ReactElement | null {
           borderRadius: "16px",
           padding: `${POPUP_PADDING}px`,
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
-          maxWidth: `${Math.min(POPUP_MAX_WIDTH, window.innerWidth - EDGE_MARGIN * 2)}px`,
+          maxWidth: `${popupMaxWidth}px`,
           width: "100%",
           maxHeight: `calc(100vh - ${EDGE_MARGIN * 2}px)`,
           overflowY: "auto",
