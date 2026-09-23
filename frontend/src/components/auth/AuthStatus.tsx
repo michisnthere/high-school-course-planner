@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "@/context/I18nContext";
 
@@ -58,6 +60,34 @@ export function AuthStatus(): React.ReactElement {
 
   const isGuest = mode === "guest";
 
+  // Authenticated user: show circular profile icon linking to /profile
+  if (!isGuest) {
+    return (
+      <Link
+        href="/profile"
+        aria-label={t("aria.myProfile")}
+        title={t("aria.myProfile")}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "40px",
+          height: "40px",
+          borderRadius: "50%",
+          backgroundColor: "var(--a11y-button-bg)",
+          border: "none",
+          cursor: "pointer",
+          textDecoration: "none",
+          flexShrink: 0,
+          transition: "background-color 0.15s",
+        }}
+      >
+        <User size={20} color="var(--a11y-icon-color)" strokeWidth={1.8} />
+      </Link>
+    );
+  }
+
+  // Guest: show guest mode label and sign out
   return (
     <div
       style={{
@@ -83,19 +113,17 @@ export function AuthStatus(): React.ReactElement {
         >
           {user?.name || user?.email}
         </span>
-        {isGuest && (
-          <span
-            style={{
-              fontSize: "0.6875rem",
-              color: "var(--brand-accent)",
-              opacity: 0.8,
-              lineHeight: 1.2,
-            }}
-            title="Your changes will not be saved after leaving this session."
-          >
+        <span
+          style={{
+            fontSize: "0.6875rem",
+            color: "var(--brand-accent)",
+            opacity: 0.8,
+            lineHeight: 1.2,
+          }}
+          title={t("auth.guestModeTooltip")}
+        >
           {t("auth.guestMode")}
-          </span>
-        )}
+        </span>
       </div>
       <button
         type="button"

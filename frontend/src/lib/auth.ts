@@ -8,6 +8,11 @@ export interface AuthUser {
   email: string;
   name: string | null;
   picture: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  preferredName: string | null;
+  grade: string | null;
+  graduationYear: number | null;
 }
 
 export const GUEST_USER: AuthUser = {
@@ -16,7 +21,20 @@ export const GUEST_USER: AuthUser = {
   email: "guest@local",
   name: "Guest",
   picture: null,
+  firstName: null,
+  lastName: null,
+  preferredName: null,
+  grade: null,
+  graduationYear: null,
 };
+
+export interface ProfileUpdateData {
+  firstName: string;
+  lastName: string;
+  preferredName?: string;
+  grade?: string;
+  graduationYear?: number | null;
+}
 
 export interface SessionResponse {
   authenticated: boolean;
@@ -45,6 +63,23 @@ export async function logout(): Promise<SessionResponse> {
 
   if (!response.ok) {
     throw new Error("Failed to logout");
+  }
+
+  return response.json();
+}
+
+export async function updateProfile(data: ProfileUpdateData): Promise<{ user: AuthUser }> {
+  const url = `${API_URL}/auth/profile`;
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ error: "Failed to update profile" }));
+    throw new Error(error.error || "Failed to update profile");
   }
 
   return response.json();

@@ -12,6 +12,11 @@ export interface SessionUser {
   email: string;
   name: string | null;
   picture: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  preferredName: string | null;
+  grade: string | null;
+  graduationYear: number | null;
 }
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -100,6 +105,11 @@ export function createGoogleStrategy(callbackURL: string, redirectPath?: string)
             email: user.email,
             name: user.name,
             picture: user.picture,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            preferredName: user.preferredName,
+            grade: user.grade,
+            graduationYear: user.graduationYear,
           };
           return done(null, sessionUser);
         })
@@ -126,6 +136,11 @@ passport.deserializeUser((id: number, done) => {
         email: user.email,
         name: user.name,
         picture: user.picture,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        preferredName: user.preferredName,
+        grade: user.grade,
+        graduationYear: user.graduationYear,
       };
       return done(null, sessionUser);
     })

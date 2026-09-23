@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { createGoogleStrategy, parseOAuthState, type SessionUser } from "../lib/auth.js";
 import { prisma } from "../lib/prisma.js";
+import { requireAuth } from "../lib/auth.js";
 
 const RAW_FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 const FRONTEND_URL = RAW_FRONTEND_URL.replace(/\/$/, "");
@@ -97,6 +98,69 @@ router.post("/logout", (req, res, next) => {
   });
 });
 
+router.patch("/profile", requireAuth, async (req, res) => {
+  try {
+    const userId = (req.user as SessionUser).id;
+    const { firstName, lastName, preferredName, grade, graduationYear } = req.body;
+
+    if (!firstName || typeof firstName !== "string" || !firstName.trim()) {
+      res.status(400).json({ error: "First name is required" });
+      return;
+    }
+    if (!lastName || typeof lastName !== "string" || !lastName.trim()) {
+      res.status(400).json({ error: "Last name is required" });
+      return;
+    }
+
+    const validGrades = ["9", "10", "11", "12", "other"];
+    if (grade && !validGrades.includes(grade)) {
+      res.status(400).json({ error: "Invalid grade value" });
+      return;
+    }
+
+    const gradYear = graduationYear != null ? Number(graduationYear) : null;
+    if (gradYear !== null && (isNaN(gradYear) || gradYear < 2020 || gradYear > 2035)) {
+      res.status(400).json({ error: "Invalid graduation year" });
+      return;
+    }
+
+    const updated = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        preferredName: preferredName && typeof preferredName === "string" ? preferredName.trim() || null : null,
+        grade: grade || null,
+        graduationYear: gradYear,
+      },
+    });
+
+    const sessionUser: SessionUser = {
+      id: updated.id,
+      googleId: updated.googleId,
+      email: updated.email,
+      name: updated.name,
+      picture: updated.picture,
+      firstName: updated.firstName,
+      lastName: updated.lastName,
+      preferredName: updated.preferredName,
+      grade: updated.grade,
+      graduationYear: updated.graduationYear,
+    };
+
+    req.login(sessionUser, (loginErr) => {
+      if (loginErr) {
+        res.status(500).json({ error: "Failed to update session" });
+        return;
+      }
+      res.json({ user: sessionUser });
+    });
+  } catch (err) {
+    console.error("Profile update error:", err);
+    res.status(500).json({ error: "Failed to update profile" });
+  }
+});
+
 if (NODE_ENV !== "production") {
   // Dev-only login for testing when Google OAuth is not configured or for
   // quick local verification. Not available in production.
@@ -117,6 +181,11 @@ if (NODE_ENV !== "production") {
         email: user.email,
         name: user.name,
         picture: null,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        preferredName: user.preferredName,
+        grade: user.grade,
+        graduationYear: user.graduationYear,
       };
       req.logIn(sessionUser, (loginErr) => {
         if (loginErr) {

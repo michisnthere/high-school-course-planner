@@ -66,6 +66,7 @@ describe("AVAILABLE_LOCALES", () => {
 describe("en.json nav keys for migrated components", () => {
   const requiredNavKeys = [
     "nav.dashboard",
+    "nav.myProfile",
     "nav.courseCatalog",
     "nav.myPlanner",
     "nav.graduationRequirements",
@@ -92,6 +93,7 @@ describe("en.json nav keys for migrated components", () => {
   const requiredAriaKeys = [
     "aria.openNavigationMenu",
     "aria.profile",
+    "aria.myProfile",
   ];
 
   it("has all required nav keys", () => {

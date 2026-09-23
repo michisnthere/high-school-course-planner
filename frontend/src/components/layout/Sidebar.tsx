@@ -24,7 +24,7 @@ export function Sidebar(): React.ReactElement {
   const { t } = useTranslation();
 
   const navItems = [
-    { label: t("nav.dashboard"), href: "/", tourId: "nav-dashboard" },
+    { label: t("nav.myProfile"), href: "/profile", tourId: "nav-profile" },
     { label: t("nav.courseCatalog"), href: "/catalog", tourId: "nav-catalog" },
     { label: t("nav.myPlanner"), href: "/planner", tourId: "nav-planner" },
     { label: t("nav.graduationRequirements"), href: "/requirements", tourId: "nav-requirements" },

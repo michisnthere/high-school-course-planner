@@ -2,7 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "@/context/I18nContext";
 import { breakpoints } from "@/lib/responsive";
@@ -19,7 +21,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
   const { t } = useTranslation();
 
   const pageTitles: Record<string, string> = {
-    "/": t("nav.dashboard"),
+    "/": t("nav.myProfile"),
     "/catalog": t("nav.courseCatalog"),
     "/saved": t("nav.savedCourses"),
     "/completed-courses": t("nav.completedCourses"),
@@ -117,17 +119,14 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
           <LanguageSettingsButton />
           <AccessibilitySettingsButton />
           {(user || isGuest) && (
-            <button
-              type="button"
+            <Link
+              href="/profile"
               className="rs-mobile-appbar-btn"
-              onClick={() => { window.location.href = "/profile"; }}
-              aria-label={t("aria.profile")}
+              aria-label={t("aria.myProfile")}
+              title={t("aria.myProfile")}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M20 21c0-4.418-3.582-8-8-8s-8 3.582-8 8" />
-              </svg>
-            </button>
+              <User size={22} color="var(--a11y-icon-color)" strokeWidth={1.8} />
+            </Link>
           )}
         </div>
       </div>

@@ -226,13 +226,18 @@ model CourseRequirement {
 // =========================
 //
 model User {
-  id        Int      @id @default(autoincrement())
-  googleId  String   @unique
-  email     String   @unique
-  name      String?
-  picture   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  googleId       String   @unique
+  email          String   @unique
+  name           String?
+  picture        String?
+  firstName      String?
+  lastName       String?
+  preferredName  String?
+  grade          String?
+  graduationYear Int?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   savedCourses           SavedCourse[]
   planners               Planner[]

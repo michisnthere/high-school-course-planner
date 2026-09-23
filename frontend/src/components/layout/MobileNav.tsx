@@ -20,7 +20,7 @@ export function MobileNav() {
   const handleClose = useCallback(() => setIsOpen(false), []);
 
   const navItems = [
-    { label: t("nav.dashboard"), href: "/" },
+    { label: t("nav.myProfile"), href: "/profile" },
     { label: t("nav.courseCatalog"), href: "/catalog" },
     { label: t("nav.myPlanner"), href: "/planner" },
     { label: t("nav.graduationRequirements"), href: "/requirements" },

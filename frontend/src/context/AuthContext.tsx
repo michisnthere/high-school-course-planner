@@ -9,7 +9,15 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { getSession, logout, type AuthUser, type AuthMode, GUEST_USER } from "@/lib/auth";
+import {
+  getSession,
+  logout,
+  updateProfile,
+  type AuthUser,
+  type AuthMode,
+  type ProfileUpdateData,
+  GUEST_USER,
+} from "@/lib/auth";
 
 const AUTH_MODE_KEY = "authMode";
 
@@ -22,6 +30,7 @@ type AuthContextType = {
   refresh: () => Promise<void>;
   logout: () => Promise<void>;
   loginAsGuest: () => void;
+  updateProfile: (data: ProfileUpdateData) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -129,6 +138,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     window.location.href = "/";
   }, []);
 
+  const handleUpdateProfile = useCallback(async (data: ProfileUpdateData) => {
+    const result = await updateProfile(data);
+    setUser(result.user);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -140,6 +154,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         refresh,
         logout: handleLogout,
         loginAsGuest: handleLoginAsGuest,
+        updateProfile: handleUpdateProfile,
       }}
     >
       {children}
