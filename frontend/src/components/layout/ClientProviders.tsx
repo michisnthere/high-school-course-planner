@@ -6,6 +6,7 @@ import { PreferencesProvider, usePreferences } from "@/context/PreferencesContex
 import { I18nProvider } from "@/context/I18nContext";
 import { TutorialProvider } from "@/context/TutorialContext";
 import { TutorialOverlay } from "@/components/tutorial/TutorialOverlay";
+import { useAuth } from "@/context/AuthContext";
 
 function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
   const { preferences, setLocale } = usePreferences();
@@ -19,11 +20,13 @@ function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
 function TutorialBridge({ children }: { children: ReactNode }): React.ReactElement {
   const { preferences, markTutorialCompleted } = usePreferences();
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
   return (
     <TutorialProvider
       preferences={preferences}
       onMarkCompleted={markTutorialCompleted}
       pathname={pathname}
+      isAuthenticated={isAuthenticated}
     >
       {children}
       <TutorialOverlay />

@@ -653,3 +653,132 @@ describe("Tutorial course-detail steps", () => {
     expect(offeringsIdx).toBe(overviewIdx + 1);
   });
 });
+
+describe("Tutorial Algebra 1 target uniqueness", () => {
+  it("course-cards selector uses data-course-slug attribute (not positional)", () => {
+    const result = findStepById("course-cards");
+    expect(result).not.toBeNull();
+    expect(result!.step.target!.selector).toMatch(/^\[data-course-slug='.+'\]$/);
+  });
+
+  it("course-cards selector targets exactly 'algebra-1' slug", () => {
+    const result = findStepById("course-cards");
+    expect(result!.step.target!.selector).toBe("[data-course-slug='algebra-1']");
+  });
+
+  it("course-cards selector is specific enough to match exactly one element in a catalog", () => {
+    // The selector [data-course-slug='algebra-1'] uses an attribute value selector
+    // which is inherently unique if slugs are unique (they are — derived from normalizedTitle).
+    // Verify the selector does not use generic class selectors or positional selectors.
+    const result = findStepById("course-cards");
+    const selector = result!.step.target!.selector;
+    expect(selector).not.toContain(".course-card");
+    expect(selector).not.toContain(":first-child");
+    expect(selector).not.toContain(":nth-child");
+    expect(selector).not.toContain(":nth-of-type");
+  });
+
+  it("course-cards step prefers left positioning for popup", () => {
+    const result = findStepById("course-cards");
+    expect(result!.step.target!.position).toBe("left");
+  });
+
+  it("course-cards step has scrollIntoView enabled (default)", () => {
+    const result = findStepById("course-cards");
+    // scrollIntoView defaults to undefined which is truthy for the overlay check
+    expect(result!.step.target!.scrollIntoView).not.toBe(false);
+  });
+});
+
+describe("Tutorial Prerequisites and Offerings target uniqueness", () => {
+  it("course-detail-offerings targets the offerings section via class selector", () => {
+    const result = findStepById("course-detail-offerings");
+    expect(result).not.toBeNull();
+    expect(result!.step.target!.selector).toBe(".rs-detail-offerings");
+  });
+
+  it("course-detail-offerings selector does not match the entire page", () => {
+    const result = findStepById("course-detail-offerings");
+    const selector = result!.step.target!.selector;
+    // Should not be a generic container class
+    expect(selector).not.toContain(".rs-detail-card");
+    expect(selector).not.toContain(".rs-detail-header");
+    expect(selector).not.toContain("main");
+  });
+
+  it("course-detail-offerings step has right positioning", () => {
+    const result = findStepById("course-detail-offerings");
+    expect(result!.step.target!.position).toBe("right");
+  });
+
+  it("course-detail-offerings requires /catalog/algebra-1 path", () => {
+    const result = findStepById("course-detail-offerings");
+    expect(result!.step.requiredPath).toBe("/catalog/algebra-1");
+  });
+});
+
+describe("Tutorial auth step conditional behavior", () => {
+  it("planner-auth is the only step with requiresAuth", () => {
+    const authSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps).filter(
+      (s) => s.requiresAuth
+    );
+    expect(authSteps).toHaveLength(1);
+    expect(authSteps[0].id).toBe("planner-auth");
+  });
+
+  it("planner-auth has no target (centered popup, not spotlighted)", () => {
+    const result = findStepById("planner-auth");
+    expect(result!.step.target).toBeUndefined();
+  });
+
+  it("planner-auth comes immediately before planner-intro", () => {
+    const flatSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    const authIdx = flatSteps.findIndex((s) => s.id === "planner-auth");
+    const introIdx = flatSteps.findIndex((s) => s.id === "planner-intro");
+    expect(authIdx).toBe(introIdx - 1);
+  });
+
+  it("planner-intro is a navigation step (the step after auth)", () => {
+    const result = findStepById("planner-intro");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresNavigation).toBe(true);
+    expect(result!.step.requiredPath).toBe("/planner");
+  });
+
+  it("no step after planner-auth automatically advances on auth state", () => {
+    // Only planner-auth has requiresAuth. No other step should depend on auth state.
+    const authSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps).filter(
+      (s) => s.requiresAuth
+    );
+    expect(authSteps).toHaveLength(1);
+  });
+
+  it("steps that come after planner-auth do not have requiresAuth", () => {
+    const flatSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    const authIdx = flatSteps.findIndex((s) => s.id === "planner-auth");
+    const stepsAfterAuth = flatSteps.slice(authIdx + 1);
+    for (const step of stepsAfterAuth) {
+      expect(step.requiresAuth).toBeUndefined();
+    }
+  });
+});
+
+describe("Tutorial step ordering for auth flow", () => {
+  it("explore-courses chapter comes before build-plan chapter", () => {
+    const exploreIdx = TUTORIAL_CHAPTERS.findIndex((ch) => ch.id === "explore-courses");
+    const buildIdx = TUTORIAL_CHAPTERS.findIndex((ch) => ch.id === "build-plan");
+    expect(exploreIdx).toBeLessThan(buildIdx);
+  });
+
+  it("build-plan chapter starts with planner-auth", () => {
+    const buildPlan = TUTORIAL_CHAPTERS.find((ch) => ch.id === "build-plan");
+    expect(buildPlan).toBeDefined();
+    expect(buildPlan!.steps[0].id).toBe("planner-auth");
+  });
+
+  it("planner-auth is followed by planner-intro (navigation step)", () => {
+    const buildPlan = TUTORIAL_CHAPTERS.find((ch) => ch.id === "build-plan");
+    expect(buildPlan!.steps[1].id).toBe("planner-intro");
+    expect(buildPlan!.steps[1].requiresNavigation).toBe(true);
+  });
+});

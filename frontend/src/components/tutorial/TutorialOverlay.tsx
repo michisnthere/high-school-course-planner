@@ -191,18 +191,22 @@ export function TutorialOverlay(): React.ReactElement | null {
       return;
     }
 
-    const rect = el.getBoundingClientRect();
     const padding = 8;
-    setSpotlightRect({
-      top: rect.top - padding,
-      left: rect.left - padding,
-      width: rect.width + padding * 2,
-      height: rect.height + padding * 2,
-    });
 
-    if (currentStep.target!.scrollIntoView !== false) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    const updateSpotlight = () => {
+      const currentEl = document.querySelector(currentStep!.target!.selector);
+      if (!currentEl) return;
+      const rect = currentEl.getBoundingClientRect();
+      setSpotlightRect({
+        top: rect.top - padding,
+        left: rect.left - padding,
+        width: rect.width + padding * 2,
+        height: rect.height + padding * 2,
+      });
+    };
+
+    // Set initial spotlight immediately so the overlay appears without delay.
+    updateSpotlight();
 
     const key = `${currentStepIndex}-${currentStep.target!.selector}`;
     stepKeyRef.current = key;
@@ -215,6 +219,37 @@ export function TutorialOverlay(): React.ReactElement | null {
       zIndex: 10002,
       pointerEvents: "auto",
     });
+
+    if (currentStep.target!.scrollIntoView !== false) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Recalculate spotlight after scrolling settles so coordinates are not stale.
+      let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+      let rafId = 0;
+      let lastScrollY = window.scrollY;
+
+      const onScroll = () => {
+        lastScrollY = window.scrollY;
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          rafId = requestAnimationFrame(updateSpotlight);
+        }, 80);
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      // Fallback: if no scroll events fire (element already in view) or scroll
+      // finishes before the first event, ensure we still recalculate.
+      scrollTimeout = setTimeout(() => {
+        rafId = requestAnimationFrame(updateSpotlight);
+      }, 150);
+
+      return () => {
+        window.removeEventListener("scroll", onScroll);
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        cancelAnimationFrame(rafId);
+      };
+    }
   }, [isOpen, currentStep, hasTarget, isNoTarget, currentStepIndex]);
 
   // Phase 2: After popup renders, measure actual dimensions and reposition.

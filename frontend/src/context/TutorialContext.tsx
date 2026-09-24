@@ -115,11 +115,13 @@ export function TutorialProvider({
   preferences,
   onMarkCompleted,
   pathname,
+  isAuthenticated,
   children,
 }: {
   preferences: Preferences;
   onMarkCompleted: () => void;
   pathname: string;
+  isAuthenticated: boolean;
   children: ReactNode;
 }): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
@@ -314,6 +316,22 @@ export function TutorialProvider({
       }
     }
   }, [totalSteps]);
+
+  // Auto-advance past the auth step if the user is already authenticated.
+  // This handles: (a) a signed-in user reaching the auth step, and
+  // (b) a signed-out user returning from OAuth with an active session.
+  useEffect(() => {
+    if (!isOpen || !currentStep) return;
+    if (currentStep.id !== "planner-auth") return;
+    if (!isAuthenticated) return;
+
+    // Advance to the next step (planner-intro) after a brief delay so the
+    // transition feels natural rather than instant.
+    const timer = setTimeout(() => {
+      nextStep();
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [isOpen, currentStep, isAuthenticated, nextStep]);
 
   const value: TutorialContextType = {
     isOpen,
