@@ -146,7 +146,7 @@ export default function Home() {
                 <ActionCard label={t("dashboard.actionPlanner")} href="/planner" />
                 <ActionCard label={t("dashboard.actionExploreCourses")} href="/catalog" />
                 <ActionCard label={t("dashboard.actionGraduationRequirements")} href="/requirements" />
-                <ActionCard label={t("dashboard.actionCompletedCourses")} href="/completed-courses" />
+                <ActionCard label={t("dashboard.actionCompletedCourses")} href="/completed" />
                 <ActionCard label={t("dashboard.actionSavedCourses")} href="/saved" />
               </div>
             </section>

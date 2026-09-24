@@ -29,7 +29,7 @@ export function Sidebar(): React.ReactElement {
     { label: t("nav.myPlanner"), href: "/planner", tourId: "nav-planner" },
     { label: t("nav.graduationRequirements"), href: "/requirements", tourId: "nav-requirements" },
     { label: t("nav.savedCourses"), href: "/saved", tourId: "nav-saved" },
-    { label: t("nav.completedCourses"), href: "/completed-courses", tourId: "nav-completed" },
+    { label: t("nav.completedCourses"), href: "/completed", tourId: "nav-completed" },
   ];
 
   return (

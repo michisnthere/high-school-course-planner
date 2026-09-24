@@ -25,7 +25,7 @@ export function MobileNav() {
     { label: t("nav.myPlanner"), href: "/planner" },
     { label: t("nav.graduationRequirements"), href: "/requirements" },
     { label: t("nav.savedCourses"), href: "/saved" },
-    { label: t("nav.completedCourses"), href: "/completed-courses" },
+    { label: t("nav.completedCourses"), href: "/completed" },
   ];
 
   return (

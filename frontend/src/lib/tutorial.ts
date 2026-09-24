@@ -255,7 +255,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
           selector: "[data-tour='nav-completed']",
           position: "right",
         },
-        requiredPath: "/completed-courses",
+        requiredPath: "/completed",
         navigationLabelKey: "tutorial.actions.goToCompletedCourses",
         requiresNavigation: true,
       },

@@ -25,7 +25,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
     "/": t("mobileAppBar.dashboard"),
     "/catalog": t("nav.courseCatalog"),
     "/saved": t("nav.savedCourses"),
-    "/completed-courses": t("nav.completedCourses"),
+    "/completed": t("nav.completedCourses"),
     "/planner": t("nav.myPlanner"),
     "/requirements": t("nav.graduationRequirements"),
     "/profile": t("mobileAppBar.profile"),

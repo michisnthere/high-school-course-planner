@@ -276,10 +276,10 @@ describe("Tutorial navigation steps", () => {
     expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToGraduationRequirements");
   });
 
-  it("completed-courses is a navigation step requiring /completed-courses", () => {
+  it("completed-courses is a navigation step requiring /completed", () => {
     const result = findStepById("completed-courses");
     expect(result).not.toBeNull();
-    expect(result!.step.requiredPath).toBe("/completed-courses");
+    expect(result!.step.requiredPath).toBe("/completed");
     expect(result!.step.navigationLabelKey).toBe("tutorial.actions.goToCompletedCourses");
   });
 
@@ -342,7 +342,7 @@ describe("Tutorial guided walkthrough", () => {
   });
 
   it("all requiredPath values are valid routes", () => {
-    const validPrefixes = ["/catalog", "/planner", "/requirements", "/completed-courses", "/saved"];
+    const validPrefixes = ["/catalog", "/planner", "/requirements", "/completed", "/saved"];
     for (const chapter of TUTORIAL_CHAPTERS) {
       for (const step of chapter.steps) {
         if (step.requiredPath) {
@@ -406,9 +406,9 @@ describe("Tutorial pathname matching (isPathMatch behavior)", () => {
     expect(result!.step.requiredPath).toBe("/requirements");
   });
 
-  it("completed-courses requires /completed-courses", () => {
+  it("completed-courses requires /completed", () => {
     const result = findStepById("completed-courses");
-    expect(result!.step.requiredPath).toBe("/completed-courses");
+    expect(result!.step.requiredPath).toBe("/completed");
   });
 
   it("saved-courses requires /saved", () => {

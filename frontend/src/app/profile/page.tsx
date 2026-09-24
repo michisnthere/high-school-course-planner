@@ -676,7 +676,7 @@ export default function ProfilePage(): React.ReactElement {
             {t("profile.savedCourses")}
           </Link>
           <Link
-            href="/completed-courses"
+            href="/completed"
             style={{
               display: "block",
               padding: "16px",
