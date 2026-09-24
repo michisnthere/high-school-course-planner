@@ -106,6 +106,8 @@ export type RequirementStatus = {
   requirementType: string | null;
   requiredValue: number | null;
   earnedValue: number;
+  completedValue: number;
+  plannedValue: number;
   remainingValue: number;
   status: "satisfied" | "partial" | "notStarted";
   recommendedCourses: RecommendedCourse[];
@@ -869,6 +871,8 @@ function computeGraduationRequirements(
       requirementType: req.requirementType,
       requiredValue: req.requiredValue,
       earnedValue: earned,
+      completedValue: 0,
+      plannedValue: 0,
       remainingValue: Math.max(0, effectiveRequired - earned),
       status: getRequirementStatus(earned, effectiveRequired),
       recommendedCourses: [],
@@ -1479,6 +1483,24 @@ export async function analyzePlanners(userId: number): Promise<PlannerAnalysis> 
     if (recs) {
       req.recommendedCourses = recs;
     }
+  }
+
+  // Merge completed vs planned breakdown into each graduation requirement.
+  // `earnedRequirements` was computed with empty placements (completed courses
+  // only), so its `earnedValue` is actual completed credits. The projected
+  // `graduationRequirements` includes planned courses; the difference is the
+  // planned-but-incomplete portion. Mirrors the guest-mode analysis engine.
+  const earnedReqByName = new Map(earnedRequirements.map((r) => [r.name, r]));
+  for (const req of graduationRequirements) {
+    const earnedReq = earnedReqByName.get(req.name);
+    const completed = earnedReq?.earnedValue ?? 0;
+    const planned = Math.max(0, req.earnedValue - completed);
+    req.completedValue = completed;
+    req.plannedValue = planned;
+  }
+  for (const req of earnedRequirements) {
+    req.completedValue = req.earnedValue;
+    req.plannedValue = 0;
   }
 
   return {

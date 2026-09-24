@@ -145,7 +145,9 @@
     "noCoursesPlanned": "暂无已计划课程。",
     "addCourseToSemester": "+ 添加课程到学期 {semester}",
     "noCourseAdded": "暂无已添加课程。",
-    "plannerSummaryToggle": "计划摘要"
+    "plannerSummaryToggle": "计划摘要",
+    "year": "年级",
+    "coursesThatSatisfy": "满足 {requirement} 的课程"
   },
   "plannerCourseCard": {
     "removeCourse": "移除课程",
@@ -170,7 +172,9 @@
     "slot": "位置：",
     "goToCourse": "前往课程",
     "undo": "撤销",
-    "dismiss": "关闭"
+    "dismiss": "关闭",
+    "cancel": "取消",
+    "removeCourseBody": "确定要从学期 {semester} 中移除 {title} 吗？"
   },
   "plannerSearch": {
     "addOnlineCourse": "添加在线课程",
@@ -185,7 +189,9 @@
     "noMatchSearch": "没有课程匹配你的搜索。",
     "noMatchDivision": "没有课程匹配所选分部。",
     "noCoursesAvailable": "暂无课程。",
-    "saved": "已保存"
+    "saved": "已保存",
+    "addButton": "添加",
+    "selected": "已选择"
   },
   "plannerWarnings": {
     "prerequisiteNotScheduled": "通常需要先修 {prereq} 才能学习 {courseTitle}。",
@@ -258,6 +264,12 @@
     "goToCourse": "前往课程",
     "cancel": "取消"
   },
+  "plannerMarkCompleted": {
+    "sectionTitle": "标记为之前已完成",
+    "completedIn": "完成于：",
+    "markButton": "将 {title} 标记为之前已完成",
+    "thisCourse": "此课程"
+  },
   "plannerReplace": {
     "replaceCourse": "替换课程？",
     "replaceCourseBody": "这将保持相同学期并移除当前课程。",
@@ -281,7 +293,8 @@
     "selectCoursePlaceholder": "选择一个先决条件课程",
     "noMatchingCourse": "未找到此先决条件的匹配课程。",
     "recording": "正在记录...",
-    "markPlacementTestCompleted": "标记分班测试已完成"
+    "markPlacementTestCompleted": "标记分班测试已完成",
+    "addToPlanner": "添加到计划"
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "审查建议的课程表更改",
@@ -636,7 +649,8 @@
     "credit": "学分",
     "grading": "评分",
     "passFail": "通过/未通过",
-    "cost": "费用"
+    "cost": "费用",
+    "close": "关闭"
   },
   "courseOfferings": {
     "oneSemester": "一学期",

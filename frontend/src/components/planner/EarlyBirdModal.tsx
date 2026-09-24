@@ -128,7 +128,7 @@ export function EarlyBirdModal({ courseTitle, onSelect, onClose }: EarlyBirdModa
             {t("plannerEarlyBird.noBus")}
           </p>
           <p style={{ margin: 0 }}>
-            {t("plannerEarlyBird.transportationNote")}
+            {t("plannerEarlyBird.transportation")}
           </p>
         </div>
 

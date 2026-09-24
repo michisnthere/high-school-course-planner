@@ -145,7 +145,9 @@
     "noCoursesPlanned": "계획된 과정이 없습니다.",
     "addCourseToSemester": "+ 학기 {semester}에 과정 추가",
     "noCourseAdded": "추가된 과정이 없습니다.",
-    "plannerSummaryToggle": "플래너 요약"
+    "plannerSummaryToggle": "플래너 요약",
+    "year": "학년",
+    "coursesThatSatisfy": "{requirement}을 충족하는 과정"
   },
   "plannerCourseCard": {
     "removeCourse": "과정 제거",
@@ -170,7 +172,9 @@
     "slot": "슬롯:",
     "goToCourse": "과정으로 이동",
     "undo": "실행 취소",
-    "dismiss": "닫기"
+    "dismiss": "닫기",
+    "cancel": "취소",
+    "removeCourseBody": "학기 {semester}에서 {title}을(를) 제거하시겠습니까?"
   },
   "plannerSearch": {
     "addOnlineCourse": "온라인 과정 추가",
@@ -185,7 +189,9 @@
     "noMatchSearch": "검색에 맞는 과정이 없습니다.",
     "noMatchDivision": "선택한 학부에 맞는 과정이 없습니다.",
     "noCoursesAvailable": "등록 가능한 과정이 없습니다.",
-    "saved": "저장됨"
+    "saved": "저장됨",
+    "addButton": "추가",
+    "selected": "선택됨"
   },
   "plannerWarnings": {
     "prerequisiteNotScheduled": "{courseTitle}는 보통 {prereq}을(를) 먼저 이수해야 합니다.",
@@ -258,6 +264,12 @@
     "goToCourse": "과정으로 이동",
     "cancel": "취소"
   },
+  "plannerMarkCompleted": {
+    "sectionTitle": "이전에 완료한 것으로 표시",
+    "completedIn": "완료 학기:",
+    "markButton": "{title}을(를) 이전에 완료한 것으로 표시",
+    "thisCourse": "이 과정"
+  },
   "plannerReplace": {
     "replaceCourse": "과정을 교체하시겠습니까?",
     "replaceCourseBody": "같은 학기를 유지하고 현재 과정을 제거합니다.",
@@ -281,7 +293,8 @@
     "selectCoursePlaceholder": "선수 과정을 선택하세요",
     "noMatchingCourse": "이 선수 과정에 맞는 과정을 찾을 수 없습니다.",
     "recording": "기록 중...",
-    "markPlacementTestCompleted": "배치 테스트 완료로 표시"
+    "markPlacementTestCompleted": "배치 테스트 완료로 표시",
+    "addToPlanner": "플래너에 추가"
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "제안된 일정 변경 사항 검토",
@@ -636,7 +649,8 @@
     "credit": "학점",
     "grading": "성적 방식",
     "passFail": "Pass/Fail",
-    "cost": "수업료"
+    "cost": "수업료",
+    "close": "닫기"
   },
   "courseOfferings": {
     "oneSemester": "1학기",

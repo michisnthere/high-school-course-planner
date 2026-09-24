@@ -703,7 +703,7 @@ function YearLevelCardView({ year, pePerSemester, defaultExpanded = false }: Yea
                   whiteSpace: "nowrap",
                 }}
               >
-                {item.met ? t("requirements.statusSatisfied") : t("requirements.statusMissing")}
+                {item.met ? t("requirements.itemSatisfied") : t("requirements.itemMissing")}
               </span>
             </div>
           ))}
@@ -771,7 +771,7 @@ function RequirementCard({
       : peNoneMet
       ? STATUS_CONFIG.notStarted
       : STATUS_CONFIG.partial
-    : req.plannedValue > 0
+    : (req.plannedValue ?? 0) > 0
     ? STATUS_CONFIG.planned
     : STATUS_CONFIG[req.status];
   const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
@@ -799,7 +799,7 @@ function RequirementCard({
   const bodyText = showPeGrid
     ? t("requirements.peBodyText")
     : req.requiredValue != null
-    ? `This requirement requires ${formatNumber(req.requiredValue)} credits. You have earned ${formatNumber(req.earnedValue)} credits so far.`
+    ? t("requirements.requirementBody", { required: formatNumber(req.requiredValue), earned: formatNumber(req.earnedValue) })
     : null;
 
   return (
@@ -934,12 +934,12 @@ function RequirementCard({
             >
               <span>
                 {t("requirements.completedLabel")}{" "}
-                <strong style={{ color: "#275D38" }}>{formatNumber(req.completedValue)}</strong>
+                <strong style={{ color: "#275D38" }}>{formatNumber(req.completedValue ?? 0)}</strong>
               </span>
-              {req.plannedValue > 0 && (
+              {(req.plannedValue ?? 0) > 0 && (
                 <span>
                   {t("requirements.plannedLabel")}{" "}
-                  <strong style={{ color: "#ECBA2B" }}>{formatNumber(req.plannedValue)}</strong>
+                  <strong style={{ color: "#ECBA2B" }}>{formatNumber(req.plannedValue ?? 0)}</strong>
                 </span>
               )}
               <span>
@@ -949,8 +949,8 @@ function RequirementCard({
             </div>
             <ProgressBar
               percent={percent}
-              completedPercent={effectiveRequired > 0 ? Math.min(100, (req.completedValue / effectiveRequired) * 100) : 0}
-              plannedPercent={effectiveRequired > 0 ? Math.min(100, (req.plannedValue / effectiveRequired) * 100) : 0}
+              completedPercent={effectiveRequired > 0 ? Math.min(100, ((req.completedValue ?? 0) / effectiveRequired) * 100) : 0}
+              plannedPercent={effectiveRequired > 0 ? Math.min(100, ((req.plannedValue ?? 0) / effectiveRequired) * 100) : 0}
               showLabel
             />
           </>

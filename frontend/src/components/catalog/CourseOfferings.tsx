@@ -113,7 +113,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
           color: "var(--text-primary)",
         }}
       >
-        {t("courseOfferings.additionalInformation")}
+        {t("courseDetail.additionalInfo")}
       </h2>
 
       <div
@@ -149,7 +149,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
 
         {durationLabel && (
           <>
-            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>{t("courseOfferings.duration")}</div>
+            <div style={{ color: "var(--text-muted)", fontWeight: 600 }}>{t("courseDetail.duration")}</div>
             <div style={{ color: "var(--text-primary)", fontWeight: 400 }}>{durationLabel}</div>
           </>
         )}

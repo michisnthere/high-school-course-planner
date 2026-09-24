@@ -145,7 +145,9 @@
     "noCoursesPlanned": "Нет запланированных курсов.",
     "addCourseToSemester": "+ Добавить курс в семестр {semester}",
     "noCourseAdded": "Курс не добавлен.",
-    "plannerSummaryToggle": "Сводка планировщика"
+    "plannerSummaryToggle": "Сводка планировщика",
+    "year": "Год",
+    "coursesThatSatisfy": "Курсы, соответствующие {requirement}"
   },
   "plannerCourseCard": {
     "removeCourse": "Удалить курс",
@@ -170,7 +172,9 @@
     "slot": "Слот:",
     "goToCourse": "Перейти к курсу",
     "undo": "Отменить",
-    "dismiss": "Закрыть"
+    "dismiss": "Закрыть",
+    "cancel": "Отмена",
+    "removeCourseBody": "Вы уверены, что хотите удалить {title} из семестра {semester}?"
   },
   "plannerSearch": {
     "addOnlineCourse": "Добавить онлайн-курс",
@@ -185,7 +189,9 @@
     "noMatchSearch": "Нет курсов, соответствующих вашему поиску.",
     "noMatchDivision": "Нет курсов, соответствующих выбранному разделу.",
     "noCoursesAvailable": "Нет доступных курсов.",
-    "saved": "Сохранено"
+    "saved": "Сохранено",
+    "addButton": "Добавить",
+    "selected": "Выбрано"
   },
   "plannerWarnings": {
     "prerequisiteNotScheduled": "Для {courseTitle} обычно требуется сначала пройти {prereq}.",
@@ -258,6 +264,12 @@
     "goToCourse": "Перейти к курсу",
     "cancel": "Отмена"
   },
+  "plannerMarkCompleted": {
+    "sectionTitle": "Отметить как ранее завершённый",
+    "completedIn": "Завершён в:",
+    "markButton": "Отметить {title} как ранее завершённый",
+    "thisCourse": "этот курс"
+  },
   "plannerReplace": {
     "replaceCourse": "Заменить курс?",
     "replaceCourseBody": "Это сохранит тот же семестр и удалит текущий курс.",
@@ -281,7 +293,8 @@
     "selectCoursePlaceholder": "Выберите предварительный курс",
     "noMatchingCourse": "Не удалось найти подходящий курс для этого предварительного требования.",
     "recording": "Запись...",
-    "markPlacementTestCompleted": "Отметить тест на размещение как завершённый"
+    "markPlacementTestCompleted": "Отметить тест на размещение как завершённый",
+    "addToPlanner": "Добавить в планировщик"
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "Просмотрите предложенные изменения расписания",
@@ -636,7 +649,8 @@
     "credit": "Кредит",
     "grading": "Оценивание",
     "passFail": "Зачёт/Незачёт",
-    "cost": "Стоимость"
+    "cost": "Стоимость",
+    "close": "Закрыть"
   },
   "courseOfferings": {
     "oneSemester": "Один семестр",

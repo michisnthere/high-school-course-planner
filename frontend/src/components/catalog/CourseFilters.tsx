@@ -6,6 +6,24 @@ import { formatCreditType, formatSemesterLabel } from "@/lib/catalog";
 
 const formatCreditTypeFilter = (value: string) => formatCreditType(value) ?? value;
 
+export function getVisibleDepartments(
+  divisions: string[],
+  divisionDepartments: Map<string, string[]>,
+  departments: string[]
+): string[] {
+  if (divisions.length === 0) return departments;
+  const normalize = (value: string) => value.trim().toLowerCase();
+  const selectedDivisionNames = new Set(divisions.map(normalize));
+  const deptSet = new Set<string>();
+  for (const div of divisions) {
+    const depts = divisionDepartments.get(div);
+    if (depts) depts.forEach((d) => deptSet.add(d));
+  }
+  return Array.from(deptSet)
+    .filter((d) => !selectedDivisionNames.has(normalize(d)))
+    .sort();
+}
+
 export type ActiveFilters = {
   division: string[];
   department: string[];
@@ -174,15 +192,10 @@ export function CourseFilters({
     filters.gradeLevel.length +
     filters.semester.length;
 
-  const visibleDepartments = useMemo(() => {
-    if (filters.division.length === 0) return departments;
-    const deptSet = new Set<string>();
-    for (const div of filters.division) {
-      const depts = divisionDepartments.get(div);
-      if (depts) depts.forEach((d) => deptSet.add(d));
-    }
-    return Array.from(deptSet).sort();
-  }, [filters.division, divisionDepartments, departments]);
+  const visibleDepartments = useMemo(
+    () => getVisibleDepartments(filters.division, divisionDepartments, departments),
+    [filters.division, divisionDepartments, departments]
+  );
 
   const showDepartmentFilter = useMemo(() => {
     return filters.division.length > 0 && visibleDepartments.length > 0;

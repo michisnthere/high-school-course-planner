@@ -267,7 +267,7 @@ function CompletedCoursesContent(): React.ReactElement {
                   whiteSpace: "nowrap",
                 }}
               >
-                + {t("completedCourses.addButton")}
+                {t("completedCourses.addButton")}
               </button>
             </div>
 

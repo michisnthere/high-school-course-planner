@@ -145,7 +145,9 @@
     "noCoursesPlanned": "No courses planned.",
     "addCourseToSemester": "+ Add Course to Semester {semester}",
     "noCourseAdded": "No course added.",
-    "plannerSummaryToggle": "Planner Summary"
+    "plannerSummaryToggle": "Planner Summary",
+    "year": "Year",
+    "coursesThatSatisfy": "Courses that satisfy {requirement}"
   },
   "plannerCourseCard": {
     "removeCourse": "Remove course",
@@ -170,7 +172,9 @@
     "slot": "Slot:",
     "goToCourse": "Go to Course",
     "undo": "Undo",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "cancel": "Cancel",
+    "removeCourseBody": "Are you sure you want to remove {title} from Semester {semester}?"
   },
   "plannerSearch": {
     "addOnlineCourse": "Add an Online Course",
@@ -185,7 +189,9 @@
     "noMatchSearch": "No courses match your search.",
     "noMatchDivision": "No courses match the selected division.",
     "noCoursesAvailable": "No courses available.",
-    "saved": "Saved"
+    "saved": "Saved",
+    "addButton": "Add",
+    "selected": "Selected"
   },
   "plannerWarnings": {
     "prerequisiteNotScheduled": "{courseTitle} usually requires {prereq} first.",
@@ -258,6 +264,12 @@
     "goToCourse": "Go to Course",
     "cancel": "Cancel"
   },
+  "plannerMarkCompleted": {
+    "sectionTitle": "Mark as Previously Completed",
+    "completedIn": "Completed in:",
+    "markButton": "Mark {title} as previously completed",
+    "thisCourse": "this course"
+  },
   "plannerReplace": {
     "replaceCourse": "Replace course?",
     "replaceCourseBody": "This will keep the same semester and remove the current course.",
@@ -281,7 +293,8 @@
     "selectCoursePlaceholder": "Select a prerequisite course",
     "noMatchingCourse": "No matching course was found for this prerequisite.",
     "recording": "Recording...",
-    "markPlacementTestCompleted": "Mark Placement Test Completed"
+    "markPlacementTestCompleted": "Mark Placement Test Completed",
+    "addToPlanner": "Add to Planner"
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "Review Proposed Schedule Changes",
@@ -636,7 +649,8 @@
     "credit": "Credit",
     "grading": "Grading",
     "passFail": "Pass/Fail",
-    "cost": "Cost"
+    "cost": "Cost",
+    "close": "Close"
   },
   "courseOfferings": {
     "oneSemester": "One Semester",
