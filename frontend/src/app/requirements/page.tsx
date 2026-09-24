@@ -1203,6 +1203,8 @@ function ProgressBar({
               width: `${animatedCompleted}%`,
               height: "100%",
               backgroundColor: "#275D38",
+              borderRight: "1px solid rgba(255, 255, 255, 0.6)",
+              boxSizing: "border-box",
               transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
@@ -1213,6 +1215,8 @@ function ProgressBar({
               width: `${animatedPlanned}%`,
               height: "100%",
               backgroundColor: "#ECBA2B",
+              borderRight: "1px solid rgba(255, 255, 255, 0.5)",
+              boxSizing: "border-box",
               transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
@@ -1223,6 +1227,7 @@ function ProgressBar({
               width: `${animatedRemaining}%`,
               height: "100%",
               backgroundColor: "#D1D5DB",
+              boxSizing: "border-box",
               transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
@@ -1233,6 +1238,7 @@ function ProgressBar({
               width: "100%",
               height: "100%",
               backgroundColor: "#D1D5DB",
+              boxSizing: "border-box",
             }}
           />
         )}
