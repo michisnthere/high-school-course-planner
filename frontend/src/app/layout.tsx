@@ -8,6 +8,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ClientProviders } from "@/components/layout/ClientProviders";
 import { ServiceProvider } from "@/services/ServiceContext";
 import { AuthToast } from "@/components/auth/AuthToast";
+import { SkipLink } from "@/components/layout/SkipLink";
 import { breakpoints } from "@/lib/responsive";
 
 const inter = Inter({
@@ -92,12 +93,7 @@ export default function RootLayout({
         <AuthProvider>
           <ClientProviders>
             <ServiceProvider>
-              <a
-                href="#main-content"
-                className="rs-skip-link"
-              >
-                Skip to main content
-              </a>
+              <SkipLink />
               <div className="rs-layout-header">
                 <Header />
               </div>

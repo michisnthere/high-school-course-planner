@@ -44,6 +44,13 @@ describe("Profile i18n keys", () => {
     "profile.savedCourses",
     "profile.completedCourses",
     "profile.courseCatalog",
+    "profile.deleteAccount",
+    "profile.deleteAccountDescription",
+    "profile.deleteAccountConfirmTitle",
+    "profile.deleteAccountConfirmBody",
+    "profile.deleteAccountConfirmButton",
+    "profile.deleteAccountDeleting",
+    "profile.deleteAccountError",
   ];
 
   it("has all required profile keys in en.json", () => {

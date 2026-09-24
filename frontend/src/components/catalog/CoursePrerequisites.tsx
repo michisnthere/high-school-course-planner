@@ -166,6 +166,7 @@ export function CoursePrerequisites({ course, allCourses }: CoursePrerequisitesP
 
   return (
     <div
+      data-tutorial-target="course-prerequisites"
       style={{
         padding: "24px",
         backgroundColor: "var(--bg-card)",

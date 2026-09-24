@@ -726,6 +726,60 @@ describe("computePlannerAnalysis", () => {
     expect(result.peSemesterBreakdown.every((p) => p.met === false)).toBe(true);
   });
 
+  it("driver_ed_external does not zero the Physical Education requirement", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const resolutions: RequirementResolution[] = [
+      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "driver_ed_external" }, createdAt: "", updatedAt: "" },
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions, allCourses });
+
+    const peReq = result.graduationRequirements.find((r) => r.name === "Physical Education")!;
+    // Regression: driver_ed_external is a Driver Ed credit, not a PE waiver.
+    // Before the fix, any pe_waiver zeroed PE's requiredValue.
+    expect(peReq.requiredValue).toBeGreaterThan(0);
+    expect(peReq.remainingValue).toBe(peReq.requiredValue);
+    expect(peReq.status).not.toBe("satisfied");
+
+    // Driver Ed is still satisfied by the external resolution.
+    const driverReq = result.graduationRequirements.find((r) => r.name === "Driver Education")!;
+    expect(driverReq.earnedValue).toBe(1);
+    expect(driverReq.status).toBe("satisfied");
+  });
+
+  it("driver_ed_external with a year attached does not waive that year's PE semesters", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const resolutions: RequirementResolution[] = [
+      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "driver_ed_external", year: 12 }, createdAt: "", updatedAt: "" },
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions, allCourses });
+
+    // Year-bearing regression: waivedYears must exclude driver_ed_external,
+    // so grade-12 PE semesters (indices 6-7) stay unmet.
+    expect(result.peSemesterBreakdown[6].met).toBe(false);
+    expect(result.peSemesterBreakdown[7].met).toBe(false);
+    expect(result.peSemesterBreakdown.every((p) => p.met === false)).toBe(true);
+
+    const peReq = result.graduationRequirements.find((r) => r.name === "Physical Education")!;
+    expect(peReq.requiredValue).toBeGreaterThan(0);
+  });
+
+  it("a real PE waiver still zeroes the Physical Education requirement", () => {
+    const planners = [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)];
+    const resolutions: RequirementResolution[] = [
+      { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "academic", year: 12 }, createdAt: "", updatedAt: "" },
+    ];
+    const result = computePlannerAnalysis({ planners, completedCourses: [], resolutions, allCourses });
+
+    const peReq = result.graduationRequirements.find((r) => r.name === "Physical Education")!;
+    expect(peReq.remainingValue).toBe(0);
+    expect(peReq.status).toBe("satisfied");
+    // Grade-12 PE semesters are waived by the academic PE waiver.
+    expect(result.peSemesterBreakdown[6].met).toBe(true);
+    expect(result.peSemesterBreakdown[7].met).toBe(true);
+    // Earlier years are not.
+    expect(result.peSemesterBreakdown[0].met).toBe(false);
+  });
+
   it("a full-year PE course satisfies both PE semesters of that year", () => {
     const fullYearPe: PlannerCourseDetails = {
       id: 1401, title: "Alternative Physical Education", normalizedTitle: "alternative physical education", duration: 2,

@@ -13,6 +13,7 @@ import {
   getSession,
   logout,
   updateProfile,
+  deleteAccount,
   type AuthUser,
   type AuthMode,
   type ProfileUpdateData,
@@ -31,6 +32,7 @@ type AuthContextType = {
   logout: () => Promise<void>;
   loginAsGuest: () => void;
   updateProfile: (data: ProfileUpdateData) => Promise<void>;
+  deleteAccount: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -143,6 +145,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(result.user);
   }, []);
 
+  const handleDeleteAccount = useCallback(async () => {
+    await deleteAccount();
+    sessionStorage.removeItem(AUTH_MODE_KEY);
+    setMode(null);
+    setUser(null);
+    window.location.href = "/";
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -155,6 +165,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout: handleLogout,
         loginAsGuest: handleLoginAsGuest,
         updateProfile: handleUpdateProfile,
+        deleteAccount: handleDeleteAccount,
       }}
     >
       {children}

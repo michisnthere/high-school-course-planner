@@ -7,7 +7,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "@/context/I18nContext";
 import { usePreferences } from "@/context/PreferencesContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
+import { DeleteAccountSection } from "@/components/profile/DeleteAccountSection";
 import { breakpoints } from "@/lib/responsive";
+import { findTutorialTarget } from "@/lib/tutorial";
 import type { ProfileUpdateData } from "@/lib/auth";
 
 type ProfileFormData = {
@@ -553,6 +555,7 @@ export default function ProfilePage(): React.ReactElement {
           <>
             <InfoRow label={t("profile.email")} value={user.email} />
             <InfoRow label={t("profile.name")} value={user.name} />
+            <DeleteAccountSection />
           </>
         ) : isGuest ? (
           <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)" }}>
@@ -568,7 +571,7 @@ export default function ProfilePage(): React.ReactElement {
             href="/profile"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector<HTMLElement>("[data-settings-language]")?.click();
+              (findTutorialTarget("[data-tour='language-settings']") as HTMLElement | null)?.click();
             }}
             style={{
               display: "flex",
@@ -591,7 +594,7 @@ export default function ProfilePage(): React.ReactElement {
             href="/profile"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector<HTMLElement>("[data-settings-accessibility]")?.click();
+              (findTutorialTarget("[data-tour='a11y-settings']") as HTMLElement | null)?.click();
             }}
             style={{
               display: "flex",

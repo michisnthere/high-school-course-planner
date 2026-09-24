@@ -27,7 +27,7 @@ export function EmptyState({ message }: EmptyStateProps): React.ReactElement {
           color: "#6b7280",
         }}
       >
-        {message}
+        {text}
       </p>
     </div>
   );

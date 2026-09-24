@@ -97,6 +97,7 @@ export function CourseOfferings({ course }: CourseAdditionalInfoProps): React.Re
 
   return (
     <div
+      data-tutorial-target="course-offerings"
       style={{
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",

@@ -844,10 +844,14 @@ function computeGraduationRequirements(
       }
     }
 
-    // Check for PE waiver resolution
+    // Check for PE waiver resolution (driver_ed_external is a Driver Ed credit,
+    // not a PE waiver — exclude it so it cannot zero out Physical Education).
     let effectiveRequired = required;
     const hasPeWaiver = resolutions.some(
-      (r) => r.type === "pe_waiver" && canonicalName === "Physical Education"
+      (r) =>
+        r.type === "pe_waiver" &&
+        canonicalName === "Physical Education" &&
+        r.metadata?.variant !== "driver_ed_external"
     );
     if (hasPeWaiver) {
       effectiveRequired = 0;
@@ -1196,7 +1200,7 @@ const PE_SEMESTER_DEFS: PeSemesterMatcher[] = [
 function computePeSemesterBreakdown(placements: CoursePlacement[], resolutions: ResolutionInfo[]): PeSemesterBreakdown[] {
   const waivedYears = new Set<number>();
   for (const r of resolutions) {
-    if (r.type === "pe_waiver") {
+    if (r.type === "pe_waiver" && r.metadata?.variant !== "driver_ed_external") {
       const year = r.metadata?.year as number | undefined;
       if (year != null) waivedYears.add(year);
     }

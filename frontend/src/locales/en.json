@@ -26,7 +26,8 @@
     "myProfile": "My Profile",
     "mainNavigation": "Main navigation",
     "navigationMenu": "Navigation menu",
-    "dialog": "Dialog"
+    "dialog": "Dialog",
+    "skipToContent": "Skip to main content"
   },
   "header": {
     "siteTitle": "Stevenson Course Planner"
@@ -72,7 +73,7 @@
     "plannerCompletionSection": "Planner Completion",
     "recentActivity": "Recent Activity",
     "studentFallback": "Student",
-    "openPlanner": "Open Planner →",
+    "openPlanner": "Open Planner",
     "progressLabel": "Progress: {value}%",
     "dashboardTitle": "Dashboard",
     "dashboardSubtitle": "Explore courses, plan your schedule, and track graduation requirements all in one place.",
@@ -136,9 +137,9 @@
     "summerSchoolSection": "Summer School",
     "onlineCoursesSection": "Online Courses",
     "subSemesterLabel": "Semester {i}",
-    "completedBadge": "✓ Completed",
+    "completedBadge": "Completed",
     "viewOnlyMode": "This planner is in view-only mode.",
-    "backToPlanner": "← Back to Planner",
+    "backToPlanner": "Back to Planner",
     "loadingPlanner": "Loading planner...",
     "mobilePlannerTitle": "{yearLabel} Planner",
     "desktopPlannerTitle": "{yearLabel} Planner",
@@ -163,7 +164,11 @@
     "alreadyPlanned": "Already planned",
     "addToPlanner": "Add →",
     "slotRange": "Slots {start}-{end}",
-    "singleSlot": "Slot {slot}"
+    "singleSlot": "Slot {slot}",
+    "summerFullTitle": "Summer School · Full Summer",
+    "summerSessions": "Summer School · {sessions}",
+    "earlyBirdAria": "Early Bird",
+    "earlyBirdTooltip": "Early Bird class (meets before school)"
   },
   "plannerDialogs": {
     "thisCourseIsAlreadyPlanned": "This course is already planned",
@@ -239,7 +244,8 @@
     "failedToRecordSummerSchool": "Failed to record summer school completion",
     "noRoomToSwap": "No room to swap semesters.",
     "failedToSwapSemesters": "Failed to swap semesters",
-    "cannotRestoreCourse": "Cannot restore planned course: missing courseId and plannerOptionId"
+    "cannotRestoreCourse": "Cannot restore planned course: missing courseId and plannerOptionId",
+    "failedToUndo": "Failed to undo"
   },
   "plannerEarlyBird": {
     "takeEarlyBird": "Take this course as Early Bird?",
@@ -285,7 +291,9 @@
     "requirementImpactWarning": "Requirement Impact Warning",
     "replacingWillAffect": "Replacing {courseTitle} will affect:",
     "mayNoLongerSatisfy": "You may no longer satisfy these requirements.",
-    "noGraduationRequirementsAffected": "No graduation requirements will be affected."
+    "noGraduationRequirementsAffected": "No graduation requirements will be affected.",
+    "addPrereqToSlot": "Add {courseTitle} to {yearLabel} Year Semester {semester} Slot {slot}",
+    "moveAndAddNoSlot": "Move {courseA} to Semester 2 and add {courseB}"
   },
   "plannerAddPrereq": {
     "addPrereqTitle": "Add prerequisite course",
@@ -294,7 +302,11 @@
     "noMatchingCourse": "No matching course was found for this prerequisite.",
     "recording": "Recording...",
     "markPlacementTestCompleted": "Mark Placement Test Completed",
-    "addToPlanner": "Add to Planner"
+    "addToPlanner": "Add to Planner",
+    "thePrerequisite": "the prerequisite",
+    "prerequisiteFallback": "prerequisite",
+    "addingToPreviousYear": "You're adding {courseTitle} to a previous year.",
+    "addingToLocation": "You're adding {courseTitle} to {location}."
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "Review Proposed Schedule Changes",
@@ -342,7 +354,12 @@
     "autoReorganize": "This will automatically reorganize your schedule to satisfy the prerequisite while making the fewest possible changes.",
     "loading": "Loading...",
     "adding": "Adding...",
-    "addCourseButton": "Add Course"
+    "addCourseButton": "Add Course",
+    "applying": "Applying...",
+    "apply": "Apply",
+    "yearSemesterShort": "{yearLabel} S{semester}",
+    "yearOnly": "{yearLabel} Year",
+    "semesterSlotShort": "S{semester} Slot {slot}"
   },
   "plannerDriverEd": {
     "driverEducation": "Driver Education",
@@ -381,7 +398,18 @@
     "no": "No",
     "howManySports": "How many JV/Varsity sports do you participate in?",
     "oneSport": "One sport",
-    "twoOrMoreSports": "Two or more sports"
+    "twoOrMoreSports": "Two or more sports",
+    "reasonOnlySeniors": "Only available to Seniors",
+    "reasonSixCreditBearing": "Requires six credit-bearing classes per semester",
+    "reasonAcademicMayBeAvailable": "Academic PE Waiver may be available.",
+    "reasonJuniorsSeniors": "Only available to Juniors and Seniors",
+    "reasonAthleticMayBeAvailable": "Athletic PE Waiver may be available.",
+    "reasonMarchingBandFound": "Marching Band course found.",
+    "reasonMarchingBandNotFound": "Marching Band course not found in planner.",
+    "reasonAthleticNonCreditEligible": "Non-credit athletic waiver based on one sport and six credit-bearing classes.",
+    "reasonAthleticOneSport": "One sport requires six credit-bearing classes.",
+    "reasonAthleticCreditEligible": "Credit athletic waiver based on two or more sports and five credit-bearing classes.",
+    "reasonAthleticTwoSports": "Two or more sports requires five credit-bearing classes."
   },
   "plannerSummerPicker": {
     "addSummerCourse": "Add a Summer Course",
@@ -542,19 +570,57 @@
   },
   "privacy": {
     "heading": "Privacy",
-    "intro": "This page explains what data the Stevenson Course Planner stores and how it is used.",
-    "signedInUsers": "Signed-In Users",
-    "signedInDescription": "When you sign in with Google, the following data is stored on the server and associated with your account:",
-    "signedInItem1": "Your Google account name, email address, and Google ID (required for authentication)",
-    "signedInItem2": "Courses you have saved to your planner",
-    "signedInItem3": "Courses you have marked as completed",
-    "signedInItem4": "Your graduation progress across all requirement areas",
-    "signedInNote": "This data is used only to provide planner functionality. No grades, transcripts, or personal academic records are collected or shared.",
-    "guestUsers": "Guest Users",
-    "guestDescription": "If you use the planner without signing in, all data exists only in your browser's memory. Refreshing or closing the tab clears all guest data. No guest information is stored on the server.",
+    "lastUpdated": "Last updated: September 23, 2026",
+    "intro": "This page explains what information the Stevenson Course Planner (\"Course Planner\") stores, how it is used, and the choices you have. Course Planner is an independent, student-created planning tool. It is not an official Stevenson High School or school-district system, and it is not affiliated with, endorsed by, or operated by the school or the school district.",
+    "signedInUsers": "Information We Store for Signed-In Users",
+    "signedInDescription": "When you sign in with Google, Course Planner stores the following information in its database, associated with your account:",
+    "signedInItem1": "Your Google account name, email address, Google account ID, and profile photo (received from Google to sign you in)",
+    "signedInItem2": "Profile information you choose to enter: first name, last name, preferred name, grade, and expected graduation year",
+    "signedInItem3": "Your four-year planner: planned courses, semester and period placements, early-bird selections, and which school years you have marked completed",
+    "signedInItem4": "Completed courses you record, including the period you select and any letter grade you enter",
+    "signedInItem5": "Courses you save",
+    "signedInItem6": "Requirement resolutions you create (for example, PE waivers or middle-school credit acknowledgments)",
+    "signedInItem7": "Sign-in session information: a random session identifier stored on our server, which expires automatically",
+    "signedInNote": "This information is used only to provide planner functionality. Course Planner does not receive or store official school records, transcripts, grades, or schedules from Stevenson.",
+    "guestUsers": "Guest Mode",
+    "guestIntro": "You can use Course Planner without signing in. Guest information is never sent to our servers and never creates a database record. Different kinds of guest data are stored differently in your browser:",
+    "guestMemory": "Your guest four-year plan, completed courses, and requirement resolutions are kept only in the memory of the current browser tab. Refreshing the page or closing the tab or browser clears them.",
+    "guestSaved": "Courses you save as a guest are stored in your browser's session storage for that tab. They survive a page refresh, but are cleared when you close the tab or browser, are not shared with other tabs or devices, and are never sent to the server.",
+    "guestLocal": "A guest profile you enter on the My Profile page (name, grade, graduation year), and preferences such as language, accessibility, and tutorial settings, are stored in your browser's local storage on that device. This information persists across browser sessions until you clear your site data.",
+    "guestSignIn": "Guests do not have a server-side account. When you sign in, guest data is not migrated to your account; your account starts with the server-side data for that Google account, which is empty for a brand-new account.",
     "dataSharing": "Data Sharing",
-    "dataSharingDescription": "Your data is used solely to provide the course planning functionality within this application. No planner data, course selections, or graduation information is shared with third parties, the school, or the school district.",
-    "dataSharingNote": "This tool is not affiliated with or endorsed by the school district. It is an independent planning aid built to help students prepare for counselor meetings."
+    "dataSharingDescription": "Your data is used solely to provide the course planning functionality within this application. Other than the infrastructure providers described below, Course Planner does not share your planner data, course selections, or graduation information with the school, the school district, counselors, teachers, administrators, or other Course Planner users.",
+    "dataSharingNote": "This tool is not affiliated with or endorsed by the school district. It is an independent planning aid built to help students prepare for counselor meetings.",
+    "howWeUse": "How Information Is Used",
+    "howWeUseDescription": "We use the information described above only to operate Course Planner: to sign you in, save your plan, show your graduation progress, and remember your preferences. We do not sell or rent your information, do not use it for targeted advertising, and do not use it to build marketing profiles.",
+    "notCollected": "Information We Do Not Intentionally Collect",
+    "notCollectedDescription": "Course Planner does not receive official school records, transcripts, grades, schedules, or course requests from Stevenson High School or the school district. The app does not process payments and does not collect payment information, precise location, contacts, or advertising identifiers. Please avoid entering sensitive information you do not need in order to use the planner.",
+    "cookies": "Cookies and Local Storage",
+    "cookiesDescription": "When you sign in, Course Planner sets one first-party cookie: a session cookie containing only a random session identifier. The session itself is stored on our server and linked to your account; the cookie does not contain your personal information. Session cookies expire after about 24 hours, and signing out destroys the session. Guest Mode does not set a session cookie. Course Planner does not set analytics or advertising cookies. As described above, the app also uses browser session storage and local storage for guest data and preferences.",
+    "thirdParty": "Third-Party Services",
+    "thirdPartyIntro": "Course Planner uses the following third-party services in production:",
+    "thirdPartyGoogleAuth": "Google (sign-in): Google OAuth is used to authenticate you. Google provides your name, email address, profile photo, and Google account ID to Course Planner as part of sign-in. Course Planner does not send your course planning data to Google.",
+    "thirdPartyVercel": "Vercel: hosts the Course Planner website. Like any web host, it processes ordinary request data (such as your IP address and the pages you request) when you load the site.",
+    "thirdPartyRender": "Render: hosts the Course Planner application server, which processes the data described above to provide the app.",
+    "thirdPartyNeon": "Neon: provides the PostgreSQL database where signed-in account and planner data and server-side sessions are stored.",
+    "thirdPartyForms": "Google Forms (optional): the Feedback links open a Google Form. Anything you submit there is provided by you directly to that form and is subject to Google's and the form owner's practices. The app does not automatically send your planner data to it.",
+    "thirdPartyNote": "Fonts are self-hosted with the application, translations are bundled with the app, and there is no analytics or advertising SDK. Development and data-pipeline tools used to build the app do not receive student information during normal use of the app.",
+    "security": "Data Security",
+    "securityDescription": "We use reasonable technical measures, including HTTPS, authentication requirements on API endpoints, and server-side sessions. No method of transmission or storage is completely secure, and we cannot guarantee absolute security.",
+    "retention": "Data Retention",
+    "retentionDescription": "Signed-in account and planner data is kept as long as your account exists. Signing out only ends your session; it does not delete your data. Sessions expire automatically after about 24 hours. You can delete your account and its data at any time (see below). We do not otherwise apply a fixed deletion schedule.",
+    "accountDeletion": "Account Deletion",
+    "accountDeletionDescription": "Signed-in users can delete their account directly from the My Profile page under Account. Deletion permanently removes your account and the associated saved courses, four-year plan, completed courses, and requirement resolutions from our database, and signs you out. Signing in again later with the same Google account creates a new, empty account; previously deleted data does not reappear. If you have trouble deleting your account, contact us using the address below.",
+    "userChoices": "Your Choices",
+    "userChoicesDescription": "You can edit your profile information from My Profile; use Guest Mode instead of signing in; clear guest and preference data by clearing your site data in your browser; choose your language and accessibility settings; and sign out at any time.",
+    "childrenUnder13": "Students Under 13",
+    "childrenUnder13Description": "Course Planner is designed for high school students. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe a child under 13 has provided personal information through Course Planner, contact us using the address below and we will remove it.",
+    "schoolRecords": "School Records and FERPA Context",
+    "schoolRecordsDescription": "Course Planner is an independent tool and is not part of any school system. It does not receive or import your official school records, transcripts, grades, or schedules; anything you enter here is not an official school record and is not shared with the school or district. Course Planner is not a substitute for official school records or registration systems.",
+    "changes": "Changes to This Policy",
+    "changesDescription": "We may update this policy as the application changes. The \"Last updated\" date at the top shows when it was most recently revised.",
+    "contact": "Contact",
+    "contactDescription": "For privacy questions or problems with account deletion, contact: m.xu711@gmail.com"
   },
   "login": {
     "siteTitle": "Stevenson Course Planner",
@@ -597,7 +663,8 @@
     "retry": "Retry",
     "sourceRegular": "Cursos Regulares",
     "sourceSummer": "Escuela de Verano",
-    "viewSaved": "Ver Cursos Guardados"
+    "viewSaved": "Ver Cursos Guardados",
+    "summerLoadError": "Failed to load Summer School courses."
   },
   "catalogHeader": {
     "courseCatalog": "Course Catalog",
@@ -741,7 +808,9 @@
     "description": "Description",
     "noDescription": "No description available.",
     "notes": "Notes",
-    "additionalInfo": "Additional Information"
+    "additionalInfo": "Additional Information",
+    "notFoundDescription": "We could not find a Summer School course matching that link. It may have been removed or renamed.",
+    "backToSummerCatalogButton": "Back to Summer Catalog"
   },
   "savedToPlannerModal": {
     "freshmanGrade9": "Freshman (Grade 9)",
@@ -964,8 +1033,12 @@
         "description": "This page gives you more information about the course, including its title, department, division, credit type, and a full description with any additional notes. You can also save the course or mark it as completed from here."
       },
       "courseDetailOfferings": {
-        "title": "Offerings and Prerequisites",
-        "description": "This section shows grade eligibility, duration, total credits, and course codes for each semester. Below that, you can see prerequisites (courses you must take first), courses that require this one, and graduation requirements the course fulfills."
+        "title": "Course Offerings",
+        "description": "This section shows grade eligibility, duration, total credits, and course codes for each semester."
+      },
+      "courseDetailPrerequisites": {
+        "title": "Prerequisites",
+        "description": "This section shows prerequisites (courses you must take first). Below that, you can see courses that require this one and graduation requirements the course fulfills."
       },
       "plannerIntro": {
         "title": "My Planner",
@@ -986,10 +1059,6 @@
       "courseEligibility": {
         "title": "Course Eligibility",
         "description": "Some courses have grade-level restrictions or prerequisites that must be met before you can plan them. If a course doesn't appear in your planner, check its information in the Course Catalog to understand the eligibility requirements. Prerequisites may include completed courses or placement scores."
-      },
-      "movingCourses": {
-        "title": "Moving Courses",
-        "description": "You can move courses between semesters by dragging and dropping them to a different slot. Moving a course may affect your semester balance, prerequisite timing, and graduation progress. Review your plan after making changes to ensure everything still aligns."
       },
       "removingCourses": {
         "title": "Removing Courses",
@@ -1043,7 +1112,8 @@
         "title": "Account & Guest Mode",
         "description": "You can use Stevenson Course Planner as a guest or sign in with a Google account. Guest mode stores your data locally in your browser—it will be lost if you clear your data or switch browsers. Signing in saves your planner and completed courses to your account, accessible from any device."
       }
-    }
+    },
+    "progressInChapter": "Step {step} of {total} in chapter"
   },
   "helpfulInformation": {
     "heading": "Helpful Information",
@@ -1098,6 +1168,13 @@
     "errorLastNameRequired": "Last name is required.",
     "errorInvalidYear": "Please enter a valid year (2020\u20132035).",
     "guestAccountDescription": "You are using Guest Mode. Sign in with Google to save your profile information across sessions.",
+    "deleteAccount": "Delete Account",
+    "deleteAccountDescription": "Permanently delete your Course Planner account and the saved, planned, and completed planning information associated with it. Signing in again later will create a new, empty account.",
+    "deleteAccountConfirmTitle": "Delete your account?",
+    "deleteAccountConfirmBody": "This will permanently remove your Course Planner account and the saved courses, four-year plan, completed courses, and requirement resolutions stored with it. This action cannot be undone.",
+    "deleteAccountConfirmButton": "Delete my account",
+    "deleteAccountDeleting": "Deleting...",
+    "deleteAccountError": "Failed to delete your account. Please try again.",
     "language": "Language",
     "accessibility": "Accessibility",
     "tutorial": "Tutorial",
@@ -1116,7 +1193,8 @@
     "refresh": "Refresh",
     "reloadPage": "Reload Page",
     "dashboard": "Dashboard",
-    "reportBug": "Report a Bug"
+    "reportBug": "Report a Bug",
+    "description": "Unable to load graduation requirements. Please try refreshing."
   },
   "common": {
     "close": "Close",

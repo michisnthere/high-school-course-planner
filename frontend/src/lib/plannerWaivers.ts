@@ -96,26 +96,26 @@ export function computeWaiverEligibility(
     eligible: grade >= 12 && minCreditBearing >= 6,
     reason:
       grade < 12
-        ? "Only available to Seniors"
+        ? "plannerWaivers.reasonOnlySeniors"
         : minCreditBearing < 6
-        ? "Requires six credit-bearing classes per semester"
-        : "Academic PE Waiver may be available.",
+        ? "plannerWaivers.reasonSixCreditBearing"
+        : "plannerWaivers.reasonAcademicMayBeAvailable",
   };
 
   const athletic = {
     eligible: grade >= 11,
     reason:
       grade < 11
-        ? "Only available to Juniors and Seniors"
-        : "Athletic PE Waiver may be available.",
+        ? "plannerWaivers.reasonJuniorsSeniors"
+        : "plannerWaivers.reasonAthleticMayBeAvailable",
   };
 
   const mb = plannedCourses ? findMarchingBandCourse(plannedCourses) : { found: false, matchedTitle: null };
   const marchingBand = {
     eligible: mb.found,
     reason: mb.found
-      ? "Marching Band course found."
-      : "Marching Band course not found in planner.",
+      ? "plannerWaivers.reasonMarchingBandFound"
+      : "plannerWaivers.reasonMarchingBandNotFound",
     matchedCourse: mb.matchedTitle,
   };
 
@@ -142,13 +142,13 @@ export function computeAthleticVariantEligibility(
       return {
         eligible: true,
         variant: "non-credit",
-        reason: "Non-credit athletic waiver based on one sport and six credit-bearing classes.",
+        reason: "plannerWaivers.reasonAthleticNonCreditEligible",
       };
     }
     return {
       eligible: false,
       variant: null,
-      reason: "One sport requires six credit-bearing classes.",
+      reason: "plannerWaivers.reasonAthleticOneSport",
     };
   }
 
@@ -156,13 +156,13 @@ export function computeAthleticVariantEligibility(
     return {
       eligible: true,
       variant: "credit",
-      reason: "Credit athletic waiver based on two or more sports and five credit-bearing classes.",
+      reason: "plannerWaivers.reasonAthleticCreditEligible",
     };
   }
   return {
     eligible: false,
     variant: null,
-    reason: "Two or more sports requires five credit-bearing classes.",
+    reason: "plannerWaivers.reasonAthleticTwoSports",
   };
 }
 

@@ -586,7 +586,7 @@ export function CatalogContent({ courses }: CatalogContentProps): React.ReactEle
                 gap: "16px",
               }}
             >
-              <EmptyState message={summerError} />
+              <EmptyState message={t("catalog.summerLoadError")} />
               <button
                 type="button"
                 onClick={retrySummerLoad}

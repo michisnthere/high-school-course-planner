@@ -218,7 +218,10 @@ function RequirementsContent(): React.ReactElement {
     router.push(buildCourseDetailsHref(course, requirementName, includeViewAll));
   }, [buildCourseDetailsHref, router]);
 
-  const hasPeWaiver = analysis?.resolutions?.some((r) => r.type === "pe_waiver") ?? false;
+  const hasPeWaiver =
+    analysis?.resolutions?.some(
+      (r) => r.type === "pe_waiver" && r.metadata?.variant !== "driver_ed_external"
+    ) ?? false;
   const peYearRows = useMemo(
     () => analysis ? computePeYearRows(analysis.peSemesterBreakdown, analysis.resolutions) : undefined,
     [analysis]
@@ -415,7 +418,7 @@ function RequirementsContent(): React.ReactElement {
                 <strong style={{ fontSize: "28px", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
                   {formatNumber(earnedCreditsTotal)}{" "}
                   <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
-                    / {TOTAL_REQUIRED_CREDITS} {t("requirements.creditsCompleted", { total: String(TOTAL_REQUIRED_CREDITS) })}
+                    {t("requirements.creditsCompleted", { total: String(TOTAL_REQUIRED_CREDITS) })}
                   </span>
                 </strong>
               </div>
@@ -431,7 +434,7 @@ function RequirementsContent(): React.ReactElement {
               >
                 {formatNumber(earnedCreditsTotal)}{" "}
                 <span style={{ fontSize: "22px", fontWeight: 400, color: "var(--text-muted)" }}>
-                  / {TOTAL_REQUIRED_CREDITS} {t("requirements.creditsCompleted", { total: String(TOTAL_REQUIRED_CREDITS) })}
+                  {t("requirements.creditsCompleted", { total: String(TOTAL_REQUIRED_CREDITS) })}
                 </span>
               </p>
             ) : null}

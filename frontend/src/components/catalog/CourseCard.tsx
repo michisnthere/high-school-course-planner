@@ -49,6 +49,7 @@ const CourseCardInner = React.memo(function CourseCardInner({
     <div
       className="rs-catalog-card"
       data-course-slug={slug}
+      data-tutorial-target={slug === "algebra-1" ? "course-algebra-1" : undefined}
       style={{
         backgroundColor: "var(--bg-card)",
         border: "1px solid var(--border-default)",

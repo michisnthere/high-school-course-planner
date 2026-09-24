@@ -63,6 +63,7 @@ The catalog and course detail pages (`/catalog`, `/catalog/[slug]`) remain publi
 - `GOOGLE_CLIENT_SECRET` — Google OAuth client secret (secret)
 - `SESSION_SECRET` — Secret used to sign session cookies (secret)
 - `FRONTEND_URL` — Frontend origin for OAuth redirects (defaults to `http://localhost:3000`)
+- `BACKEND_URL` — Backend origin for Next.js API proxy rewrites (required for `next build`; dev: `http://localhost:10000`)
 - `OPENAI_API_KEY` — Optional; only needed for AI-powered extraction scripts
 
 ## User Preferences

@@ -22,7 +22,7 @@ export function MobileAppBar({ onMenuClick }: MobileAppBarProps) {
   const { t } = useTranslation();
 
   const pageTitles: Record<string, string> = {
-    "/": t("nav.myProfile"),
+    "/": t("mobileAppBar.dashboard"),
     "/catalog": t("nav.courseCatalog"),
     "/saved": t("nav.savedCourses"),
     "/completed-courses": t("nav.completedCourses"),

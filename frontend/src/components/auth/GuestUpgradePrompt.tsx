@@ -132,7 +132,7 @@ export function GuestUpgradePrompt() {
       `}</style>
       <div className="guest-upgrade" role="alert">
         <div className="guest-upgrade-message">
-          <strong>You&apos;re in Guest Mode.</strong> Your courses and plans won&apos;t be saved after you leave. Sign in with Google to keep your progress.
+          {t("guestUpgrade.message")}
         </div>
         <button type="button" className="guest-upgrade-btn" onClick={handleSignIn}>
           {t("auth.signIn")}

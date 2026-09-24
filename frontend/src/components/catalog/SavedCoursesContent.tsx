@@ -434,7 +434,15 @@ export function SavedCoursesContent({
             aria-label={t("savedCoursesContent.sortByAriaLabel")}
           >
             {SORT_OPTIONS.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
+              <option key={opt} value={opt}>
+                {opt === "Recently Saved"
+                  ? t("savedCoursesContent.recentlySaved")
+                  : opt === "Alphabetical (A–Z)"
+                  ? t("savedCoursesContent.alphabetical")
+                  : opt === "Department"
+                  ? t("savedCoursesContent.department")
+                  : t("savedCoursesContent.gradeAvailability")}
+              </option>
             ))}
           </select>
         </div>

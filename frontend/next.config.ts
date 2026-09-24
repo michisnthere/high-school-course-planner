@@ -7,6 +7,16 @@ const backendUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_URL;
 
 const replitDevDomain = process.env.REPLIT_DEV_DOMAIN;
 
+// Fail production builds loudly instead of shipping a frontend with zero rewrites.
+// Dev servers may warn and continue so local DX is not blocked.
+if (process.argv.includes("build") && !backendUrl) {
+  throw new Error(
+    "BACKEND_URL is not set. API proxy rewrites will not be configured, " +
+      "which produces 404s for /api, /auth, /courses, and /saved-courses. " +
+      "Set BACKEND_URL (or NEXT_PUBLIC_API_URL) before running `next build`."
+  );
+}
+
 if (backendUrl) {
   console.log(`[NEXT] API proxy configured: ${backendUrl}`);
 } else {

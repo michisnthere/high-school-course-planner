@@ -132,6 +132,7 @@ export function MobileNav() {
                 onClick={() => {
                   const currentPath = window.location.pathname + window.location.search;
                   const redirectParam = currentPath !== "/login" ? `?redirect=${encodeURIComponent(currentPath)}` : "";
+                  sessionStorage.setItem("authToast", JSON.stringify({ type: "signIn" }));
                   window.location.href = `/auth/google${redirectParam}`;
                 }}
                 style={{

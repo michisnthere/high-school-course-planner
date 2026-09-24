@@ -54,7 +54,7 @@ export default function RequirementsError({
             color: "var(--text-primary)",
           }}
         >
-          Something went wrong.
+          {t("errorPage.somethingWentWrong")}
         </h1>
         <p
           style={{
@@ -64,7 +64,7 @@ export default function RequirementsError({
             lineHeight: 1.5,
           }}
         >
-          Unable to load graduation requirements. Please try refreshing.
+          {t("errorPageRequirements.description")}
         </p>
         <div
           style={{

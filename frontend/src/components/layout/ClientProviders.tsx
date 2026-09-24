@@ -7,6 +7,7 @@ import { I18nProvider } from "@/context/I18nContext";
 import { TutorialProvider } from "@/context/TutorialContext";
 import { TutorialOverlay } from "@/components/tutorial/TutorialOverlay";
 import { useAuth } from "@/context/AuthContext";
+import { resolveTutorialAuthState } from "@/lib/tutorial";
 
 function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
   const { preferences, setLocale } = usePreferences();
@@ -20,13 +21,17 @@ function I18nBridge({ children }: { children: ReactNode }): React.ReactElement {
 function TutorialBridge({ children }: { children: ReactNode }): React.ReactElement {
   const { preferences, markTutorialCompleted } = usePreferences();
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+  // Tri-state: loading must never be collapsed into unauthenticated, otherwise
+  // the tutorial would briefly treat a signed-in user as signed out and show
+  // the sign-in prerequisite.
+  const authState = resolveTutorialAuthState(loading, isAuthenticated);
   return (
     <TutorialProvider
       preferences={preferences}
       onMarkCompleted={markTutorialCompleted}
       pathname={pathname}
-      isAuthenticated={isAuthenticated}
+      authState={authState}
     >
       {children}
       <TutorialOverlay />

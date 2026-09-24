@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useEffect, useLayoutEffect, useCallback, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useTutorial } from "@/context/TutorialContext";
 import { useTranslation } from "@/context/I18nContext";
 import { usePreferences } from "@/context/PreferencesContext";
+import { findTutorialTarget } from "@/lib/tutorial";
 
 type SpotlightRect = {
   top: number;
@@ -123,6 +125,7 @@ function getPopupMaxWidth() {
 }
 
 export function TutorialOverlay(): React.ReactElement | null {
+  const pathname = usePathname();
   const {
     isOpen,
     currentStep,
@@ -177,7 +180,7 @@ export function TutorialOverlay(): React.ReactElement | null {
       return;
     }
 
-    const el = document.querySelector(currentStep.target!.selector);
+    const el = findTutorialTarget(currentStep.target!.selector);
     if (!el) {
       setSpotlightRect(null);
       setPopupStyle({
@@ -194,7 +197,7 @@ export function TutorialOverlay(): React.ReactElement | null {
     const padding = 8;
 
     const updateSpotlight = () => {
-      const currentEl = document.querySelector(currentStep!.target!.selector);
+      const currentEl = findTutorialTarget(currentStep!.target!.selector);
       if (!currentEl) return;
       const rect = currentEl.getBoundingClientRect();
       setSpotlightRect({
@@ -262,7 +265,7 @@ export function TutorialOverlay(): React.ReactElement | null {
     const actualRect = popupEl.getBoundingClientRect();
     if (actualRect.height === 0 || actualRect.width === 0) return;
 
-    const el = document.querySelector(currentStep.target!.selector);
+    const el = findTutorialTarget(currentStep.target!.selector);
     if (!el) return;
 
     const targetRect = el.getBoundingClientRect();
@@ -293,17 +296,47 @@ export function TutorialOverlay(): React.ReactElement | null {
     });
   }, [isOpen, currentStep, isNoTarget, currentStepIndex, spotlightRect]);
 
-  // Recalculate on window resize.
+  // Recalculate on window resize so the spotlight and popup track layout changes.
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !currentStep?.target || !hasTarget) return;
 
     const handleResize = () => {
+      const el = findTutorialTarget(currentStep.target!.selector);
+      if (!el) return;
+      const padding = 8;
+      const rect = el.getBoundingClientRect();
+      setSpotlightRect({
+        top: rect.top - padding,
+        left: rect.left - padding,
+        width: rect.width + padding * 2,
+        height: rect.height + padding * 2,
+      });
       setPopupStyle((prev) => ({ ...prev }));
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
+  }, [isOpen, currentStep, hasTarget]);
+
+  // Recalculate when the route changes (target may have moved or remounted).
+  // Defer via rAF so setState is not synchronous in the effect body.
+  useEffect(() => {
+    if (!isOpen || !currentStep?.target || !hasTarget) return;
+    const rafId = requestAnimationFrame(() => {
+      const el = findTutorialTarget(currentStep.target!.selector);
+      if (!el) return;
+      const padding = 8;
+      const rect = el.getBoundingClientRect();
+      setSpotlightRect({
+        top: rect.top - padding,
+        left: rect.left - padding,
+        width: rect.width + padding * 2,
+        height: rect.height + padding * 2,
+      });
+      setPopupStyle((prev) => ({ ...prev }));
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [isOpen, currentStep, hasTarget, pathname]);
 
   // Focus the close button when step changes.
   useEffect(() => {
@@ -456,7 +489,7 @@ export function TutorialOverlay(): React.ReactElement | null {
               color: "var(--text-muted)",
             }}
           >
-            Step {stepInChapter} of {chapterStepCount} in chapter
+            {t("tutorial.progressInChapter", { step: String(stepInChapter), total: String(chapterStepCount) })}
           </div>
           <div
             style={{

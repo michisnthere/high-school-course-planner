@@ -82,7 +82,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         titleKey: "tutorial.steps.courseCards.title",
         descriptionKey: "tutorial.steps.courseCards.description",
         target: {
-          selector: "[data-course-slug='algebra-1']",
+          selector: "[data-tutorial-target='course-algebra-1']",
           position: "left",
         },
         requiredPath: "/catalog/algebra-1",
@@ -103,7 +103,17 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         titleKey: "tutorial.steps.courseDetailOfferings.title",
         descriptionKey: "tutorial.steps.courseDetailOfferings.description",
         target: {
-          selector: ".rs-detail-offerings",
+          selector: "[data-tutorial-target='course-offerings']",
+          position: "right",
+        },
+        requiredPath: "/catalog/algebra-1",
+      },
+      {
+        id: "course-detail-prerequisites",
+        titleKey: "tutorial.steps.courseDetailPrerequisites.title",
+        descriptionKey: "tutorial.steps.courseDetailPrerequisites.description",
+        target: {
+          selector: "[data-tutorial-target='course-prerequisites']",
           position: "right",
         },
         requiredPath: "/catalog/algebra-1",
@@ -156,11 +166,6 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         id: "course-eligibility",
         titleKey: "tutorial.steps.courseEligibility.title",
         descriptionKey: "tutorial.steps.courseEligibility.description",
-      },
-      {
-        id: "moving-courses",
-        titleKey: "tutorial.steps.movingCourses.title",
-        descriptionKey: "tutorial.steps.movingCourses.description",
       },
       {
         id: "removing-courses",
@@ -277,7 +282,7 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         titleKey: "tutorial.steps.language.title",
         descriptionKey: "tutorial.steps.language.description",
         target: {
-          selector: "[data-tour='a11y-settings']",
+          selector: "[data-tour='language-settings']",
           position: "bottom",
         },
       },
@@ -306,6 +311,24 @@ export function getTotalSteps(): number {
   );
 }
 
+/**
+ * Resolve a tutorial target selector to a single visible element.
+ *
+ * Both Header and MobileAppBar render LanguageSettingsButton and
+ * AccessibilitySettingsButton, so data-tour selectors can match two nodes —
+ * one of which is always display:none. querySelector would return the hidden
+ * first match (zero rect), producing a spotlight on the wrong control.
+ * Prefer the first match that actually occupies layout space.
+ */
+export function findTutorialTarget(selector: string): Element | null {
+  if (typeof document === "undefined") return null;
+  const matches = document.querySelectorAll(selector);
+  for (const el of matches) {
+    if (el.getClientRects().length > 0) return el;
+  }
+  return null;
+}
+
 export function getChapterStartIndex(chapterIndex: number): number {
   let index = 0;
   for (let i = 0; i < chapterIndex; i++) {
@@ -326,4 +349,59 @@ export function findStepById(
     }
   }
   return null;
+}
+
+/**
+ * The three authentication states the tutorial distinguishes when deciding
+ * whether the sign-in prerequisite step exists.
+ *
+ * "loading" must NEVER be treated as "unauthenticated": while authentication
+ * is still resolving we do not know whether the user is signed in, so the
+ * sign-in prerequisite must not be part of the active step sequence.
+ */
+export type TutorialAuthState = "loading" | "authenticated" | "unauthenticated";
+
+/**
+ * Map the application's auth provider flags onto the tutorial's tri-state
+ * auth state. Loading/unknown wins over the (default-false) isAuthenticated
+ * flag so a loading session is never classified as signed out.
+ */
+export function resolveTutorialAuthState(
+  loading: boolean,
+  isAuthenticated: boolean
+): TutorialAuthState {
+  if (loading) return "loading";
+  return isAuthenticated ? "authenticated" : "unauthenticated";
+}
+
+/**
+ * Chapters for the given auth state, with auth-gated prerequisite steps
+ * excluded unless the user is definitively unauthenticated.
+ *
+ * The sign-in prerequisite (`requiresAuth`) is excluded while authentication
+ * is loading AND while authenticated, so an authenticated user can never
+ * select — and therefore never render — that step, not even transiently.
+ * There is no delayed cleanup: exclusion happens at selection time.
+ */
+export function getActiveTutorialChapters(
+  authState: TutorialAuthState
+): TutorialChapter[] {
+  return TUTORIAL_CHAPTERS.map((chapter) => ({
+    ...chapter,
+    steps: chapter.steps.filter(
+      (step) => !step.requiresAuth || authState === "unauthenticated"
+    ),
+  })).filter((chapter) => chapter.steps.length > 0);
+}
+
+/**
+ * Flat active step sequence for the given auth state. This is the sequence
+ * the tutorial's index-based step selection operates on.
+ */
+export function getActiveTutorialSteps(
+  authState: TutorialAuthState
+): TutorialStep[] {
+  return getActiveTutorialChapters(authState).flatMap(
+    (chapter) => chapter.steps
+  );
 }

@@ -310,7 +310,7 @@ function InfoModal({
                 color: "var(--text-muted)",
               }}
             >
-              Source: {item.sourceReference}
+              {t("requirements.source", { sourceReference: item.sourceReference })}
             </p>
           )}
         </div>

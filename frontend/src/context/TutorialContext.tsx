@@ -5,13 +5,15 @@ import React, {
   useContext,
   useCallback,
   useState,
+  useMemo,
   useRef,
   useEffect,
   type ReactNode,
 } from "react";
 import {
-  TUTORIAL_CHAPTERS,
-  getTotalSteps,
+  getActiveTutorialChapters,
+  findTutorialTarget,
+  type TutorialAuthState,
   type TutorialStep,
   type TutorialChapter,
 } from "@/lib/tutorial";
@@ -73,16 +75,13 @@ const TutorialContext = createContext<TutorialContextType | undefined>(
   undefined
 );
 
-function getFlatSteps(): TutorialStep[] {
-  return TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
-}
-
 function findChapterForStepIndex(
-  flatIndex: number
+  flatIndex: number,
+  chapters: TutorialChapter[]
 ): { chapter: TutorialChapter; chapterIndex: number; stepIndex: number } {
   let accumulated = 0;
-  for (let ci = 0; ci < TUTORIAL_CHAPTERS.length; ci++) {
-    const chapter = TUTORIAL_CHAPTERS[ci];
+  for (let ci = 0; ci < chapters.length; ci++) {
+    const chapter = chapters[ci];
     if (flatIndex < accumulated + chapter.steps.length) {
       return {
         chapter,
@@ -92,11 +91,11 @@ function findChapterForStepIndex(
     }
     accumulated += chapter.steps.length;
   }
-  const last = TUTORIAL_CHAPTERS[TUTORIAL_CHAPTERS.length - 1];
+  const last = chapters[chapters.length - 1];
   return {
     chapter: last,
-    chapterIndex: TUTORIAL_CHAPTERS.length - 1,
-    stepIndex: last.steps.length - 1,
+    chapterIndex: chapters.length - 1,
+    stepIndex: Math.max(0, last.steps.length - 1),
   };
 }
 
@@ -115,13 +114,18 @@ export function TutorialProvider({
   preferences,
   onMarkCompleted,
   pathname,
-  isAuthenticated,
+  authState,
   children,
 }: {
   preferences: Preferences;
   onMarkCompleted: () => void;
   pathname: string;
-  isAuthenticated: boolean;
+  /**
+   * Tri-state authentication state. "loading" is intentionally distinct from
+   * "unauthenticated" — the sign-in prerequisite only exists when the user is
+   * definitively signed out, so a loading session never exposes that step.
+   */
+  authState: TutorialAuthState;
   children: ReactNode;
 }): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
@@ -131,22 +135,41 @@ export function TutorialProvider({
   const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const userInitiatedNavRef = useRef(false);
 
-  const flatSteps = getFlatSteps();
+  // Active chapters/steps for the current auth state. Auth-gated prerequisite
+  // steps (e.g. "planner-auth") are filtered OUT of this sequence while
+  // authentication is loading or the user is authenticated, so they can never
+  // be selected as the current step — and therefore never rendered — for an
+  // authenticated user. Selection is derived; there is no render-then-remove.
+  const activeChapters = useMemo(
+    () => getActiveTutorialChapters(authState),
+    [authState]
+  );
+  const flatSteps = useMemo(
+    () => activeChapters.flatMap((ch) => ch.steps),
+    [activeChapters]
+  );
   const totalSteps = flatSteps.length;
-  const currentStep = isOpen ? flatSteps[flatIndex] ?? null : null;
+
+  // If the active sequence shrinks (the prerequisite is removed when auth
+  // becomes known), keep a stored out-of-range index within bounds so the
+  // current step stays valid. This only clamps; it never advances past the
+  // user's current step.
+  const clampedFlatIndex =
+    flatIndex < totalSteps ? flatIndex : Math.max(0, totalSteps - 1);
+  const currentStep = isOpen ? flatSteps[clampedFlatIndex] ?? null : null;
 
   const isCompleted =
     preferences.tutorialCompleted &&
     preferences.tutorialVersion >= CURRENT_TUTORIAL_VERSION;
 
-  // Compute chapter/step info from flat index.
+  // Compute chapter/step info from the flat index within the active sequence.
   const { chapter: currentChapter, chapterIndex: currentChapterIndex, stepIndex: stepInChapter } =
     currentStep
-      ? findChapterForStepIndex(flatIndex)
+      ? findChapterForStepIndex(clampedFlatIndex, activeChapters)
       : { chapter: null, chapterIndex: 0, stepIndex: 0 };
 
   const chapterStartIndex = currentChapter
-    ? TUTORIAL_CHAPTERS.slice(0, currentChapterIndex).reduce(
+    ? activeChapters.slice(0, currentChapterIndex).reduce(
         (s, ch) => s + ch.steps.length,
         0
       )
@@ -164,26 +187,41 @@ export function TutorialProvider({
     ? isPathMatch(pathname, currentStep.requiredPath)
     : true;
 
-  // Check if the current step's target element exists in the DOM.
-  const checkTarget = useCallback(() => {
-    if (!currentStep?.target) {
-      setHasTarget(false);
-      return;
-    }
-    const el = document.querySelector(currentStep.target.selector);
-    setHasTarget(el !== null);
-  }, [currentStep]);
-
+  // Check on step change AND on route change (target may remount after navigation).
+  // Poll briefly if the target is not yet in the DOM (async render after navigation).
   useEffect(() => {
-    if (isOpen && currentStep) {
-      // Delay slightly to allow DOM to render after navigation.
+    if (!isOpen || !currentStep) return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 10;
+    const intervalMs = 150;
+
+    const probe = () => {
+      if (cancelled) return;
+      if (!currentStep?.target) {
+        setHasTarget(false);
+        return;
+      }
+      const el = findTutorialTarget(currentStep.target.selector);
+      if (el) {
+        setHasTarget(true);
+        return;
+      }
+      attempts += 1;
+      if (attempts >= maxAttempts) {
+        setHasTarget(false);
+        return;
+      }
+      stepCheckRef.current = setTimeout(probe, intervalMs);
+    };
+
+    stepCheckRef.current = setTimeout(probe, 300);
+    return () => {
+      cancelled = true;
       if (stepCheckRef.current) clearTimeout(stepCheckRef.current);
-      stepCheckRef.current = setTimeout(checkTarget, 300);
-      return () => {
-        if (stepCheckRef.current) clearTimeout(stepCheckRef.current);
-      };
-    }
-  }, [isOpen, currentStep, checkTarget]);
+    };
+  }, [isOpen, currentStep, pathname]);
 
   // Auto-show for first-time users.
   useEffect(() => {
@@ -216,10 +254,10 @@ export function TutorialProvider({
   );
 
   const nextStep = useCallback(() => {
-    if (flatIndex < totalSteps - 1) {
-      setFlatIndex((i) => i + 1);
+    if (clampedFlatIndex < totalSteps - 1) {
+      setFlatIndex(clampedFlatIndex + 1);
     }
-  }, [flatIndex, totalSteps]);
+  }, [clampedFlatIndex, totalSteps]);
 
   // Detect user clicks on navigation or interaction targets for steps that require
   // user action to advance. This runs before Next.js navigation and sets a flag
@@ -266,10 +304,10 @@ export function TutorialProvider({
   }, [pathname, isOpen, currentStep, nextStep]);
 
   const prevStep = useCallback(() => {
-    if (flatIndex > 0) {
-      setFlatIndex((i) => i - 1);
+    if (clampedFlatIndex > 0) {
+      setFlatIndex(clampedFlatIndex - 1);
     }
-  }, [flatIndex]);
+  }, [clampedFlatIndex]);
 
   const closeTutorial = useCallback(() => {
     setIsOpen(false);
@@ -294,11 +332,11 @@ export function TutorialProvider({
   const signInWithTutorial = useCallback(() => {
     localStorage.setItem(
       "stevenson-tutorial-restore",
-      JSON.stringify({ flatIndex, isOpen: true })
+      JSON.stringify({ flatIndex: clampedFlatIndex, isOpen: true })
     );
     const redirect = encodeURIComponent(window.location.pathname + window.location.search);
     window.location.href = `/auth/google?redirect=${redirect}`;
-  }, [flatIndex]);
+  }, [clampedFlatIndex]);
 
   // Restore tutorial state after OAuth redirect (full page reload).
   useEffect(() => {
@@ -317,28 +355,19 @@ export function TutorialProvider({
     }
   }, [totalSteps]);
 
-  // Auto-advance past the auth step if the user is already authenticated.
-  // This handles: (a) a signed-in user reaching the auth step, and
-  // (b) a signed-out user returning from OAuth with an active session.
-  useEffect(() => {
-    if (!isOpen || !currentStep) return;
-    if (currentStep.id !== "planner-auth") return;
-    if (!isAuthenticated) return;
-
-    // Advance to the next step (planner-intro) after a brief delay so the
-    // transition feels natural rather than instant.
-    const timer = setTimeout(() => {
-      nextStep();
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [isOpen, currentStep, isAuthenticated, nextStep]);
+  // Note: when the active sequence shrinks (the sign-in prerequisite is
+  // removed once authentication resolves), clampedFlatIndex keeps the current
+  // step in range without an effect — every consumer (currentStep, chapter
+  // info, next/prev) derives from it, and the first navigation write-back
+  // stores an in-range index. Authentication state never triggers tutorial
+  // advancement by itself.
 
   const value: TutorialContextType = {
     isOpen,
     isCompleted,
     currentStep,
     currentChapter: currentChapter ?? null,
-    currentStepIndex: flatIndex,
+    currentStepIndex: clampedFlatIndex,
     currentChapterIndex,
     totalSteps,
     chapterStartIndex,

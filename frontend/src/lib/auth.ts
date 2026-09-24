@@ -84,3 +84,18 @@ export async function updateProfile(data: ProfileUpdateData): Promise<{ user: Au
 
   return response.json();
 }
+
+export async function deleteAccount(): Promise<{ deleted: boolean }> {
+  const url = `${API_URL}/auth/account`;
+  const response = await fetch(url, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ error: "Failed to delete account" }));
+    throw new Error(error.error || "Failed to delete account");
+  }
+
+  return response.json();
+}

@@ -26,7 +26,8 @@
     "myProfile": "我的资料",
     "mainNavigation": "主导航",
     "navigationMenu": "导航菜单",
-    "dialog": "对话框"
+    "dialog": "对话框",
+    "skipToContent": "跳转到主要内容"
   },
   "header": {
     "siteTitle": "Stevenson Course Planner"
@@ -72,7 +73,7 @@
     "plannerCompletionSection": "计划完成度",
     "recentActivity": "最近活动",
     "studentFallback": "学生",
-    "openPlanner": "打开计划 →",
+    "openPlanner": "打开计划",
     "progressLabel": "进度：{value}%",
     "dashboardTitle": "仪表板",
     "dashboardSubtitle": "在一个地方探索课程、规划课程表并跟踪毕业要求。",
@@ -136,9 +137,9 @@
     "summerSchoolSection": "暑期学校",
     "onlineCoursesSection": "在线课程",
     "subSemesterLabel": "学期 {i}",
-    "completedBadge": "✓ 已完成",
+    "completedBadge": "已完成",
     "viewOnlyMode": "此计划处于只读模式。",
-    "backToPlanner": "← 返回计划",
+    "backToPlanner": "返回计划",
     "loadingPlanner": "正在加载计划...",
     "mobilePlannerTitle": "{yearLabel} 计划",
     "desktopPlannerTitle": "{yearLabel} 计划",
@@ -163,7 +164,11 @@
     "alreadyPlanned": "已计划",
     "addToPlanner": "添加 →",
     "slotRange": "位置 {start}-{end}",
-    "singleSlot": "位置 {slot}"
+    "singleSlot": "位置 {slot}",
+    "summerFullTitle": "暑期学校 · 全程",
+    "summerSessions": "暑期学校 · {sessions}",
+    "earlyBirdAria": "Early Bird",
+    "earlyBirdTooltip": "Early Bird 课程（课前上课）"
   },
   "plannerDialogs": {
     "thisCourseIsAlreadyPlanned": "此课程已计划",
@@ -239,7 +244,8 @@
     "failedToRecordSummerSchool": "记录暑期学校完成失败",
     "noRoomToSwap": "没有空间交换学期。",
     "failedToSwapSemesters": "交换学期失败",
-    "cannotRestoreCourse": "无法恢复已计划课程：缺少 courseId 和 plannerOptionId"
+    "cannotRestoreCourse": "无法恢复已计划课程：缺少 courseId 和 plannerOptionId",
+    "failedToUndo": "撤销失败"
   },
   "plannerEarlyBird": {
     "takeEarlyBird": "选择此课程作为早鸟课？",
@@ -285,7 +291,9 @@
     "requirementImpactWarning": "要求影响警告",
     "replacingWillAffect": "替换 {courseTitle} 将影响：",
     "mayNoLongerSatisfy": "你可能不再满足这些要求。",
-    "noGraduationRequirementsAffected": "不会影响任何毕业要求。"
+    "noGraduationRequirementsAffected": "不会影响任何毕业要求。",
+    "addPrereqToSlot": "将 {courseTitle} 添加到{yearLabel}年级 第{semester}学期 第{slot}时段",
+    "moveAndAddNoSlot": "将 {courseA} 移至第2学期并添加 {courseB}"
   },
   "plannerAddPrereq": {
     "addPrereqTitle": "添加先决条件课程",
@@ -294,7 +302,11 @@
     "noMatchingCourse": "未找到此先决条件的匹配课程。",
     "recording": "正在记录...",
     "markPlacementTestCompleted": "标记分班测试已完成",
-    "addToPlanner": "添加到计划"
+    "addToPlanner": "添加到计划",
+    "thePrerequisite": "先修课程",
+    "prerequisiteFallback": "先修课程",
+    "addingToPreviousYear": "您正在将 {courseTitle} 添加到上一学年。",
+    "addingToLocation": "您正在将 {courseTitle} 添加到 {location}。"
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "审查建议的课程表更改",
@@ -342,7 +354,12 @@
     "autoReorganize": "这将自动重新组织你的课程表以满足先决条件，同时进行尽可能少的更改。",
     "loading": "加载中...",
     "adding": "正在添加...",
-    "addCourseButton": "添加课程"
+    "addCourseButton": "添加课程",
+    "applying": "正在应用...",
+    "apply": "应用",
+    "yearSemesterShort": "{yearLabel} S{semester}",
+    "yearOnly": "{yearLabel}年级",
+    "semesterSlotShort": "S{semester} 时段 {slot}"
   },
   "plannerDriverEd": {
     "driverEducation": "驾驶教育",
@@ -381,7 +398,18 @@
     "no": "否",
     "howManySports": "你参加多少 JV/校队运动？",
     "oneSport": "一项运动",
-    "twoOrMoreSports": "两项或以上运动"
+    "twoOrMoreSports": "两项或以上运动",
+    "reasonOnlySeniors": "仅限高三学生",
+    "reasonSixCreditBearing": "每学期需要六门计学分课程",
+    "reasonAcademicMayBeAvailable": "可能可获得学术体育豁免。",
+    "reasonJuniorsSeniors": "仅限高二和高三学生",
+    "reasonAthleticMayBeAvailable": "可能可获得运动体育豁免。",
+    "reasonMarchingBandFound": "已找到行进乐队课程。",
+    "reasonMarchingBandNotFound": "在计划中未找到行进乐队课程。",
+    "reasonAthleticNonCreditEligible": "基于一项运动和六门计学分课程的无学分运动豁免。",
+    "reasonAthleticOneSport": "一项运动需要六门计学分课程。",
+    "reasonAthleticCreditEligible": "基于两项及以上运动和五门计学分课程的计学分运动豁免。",
+    "reasonAthleticTwoSports": "两项及以上运动需要五门计学分课程。"
   },
   "plannerSummerPicker": {
     "addSummerCourse": "添加暑期课程",
@@ -542,19 +570,57 @@
   },
   "privacy": {
     "heading": "隐私",
-    "intro": "本页面解释 Stevenson Course Planner 存储哪些数据以及如何使用这些数据。",
-    "signedInUsers": "登录用户",
-    "signedInDescription": "当你使用 Google 登录时，以下数据存储在服务器上并关联到你的账户：",
-    "signedInItem1": "你的 Google 账户名称、电子邮件地址和 Google ID（身份验证所需）",
-    "signedInItem2": "你已保存到计划中的课程",
-    "signedInItem3": "你已标记为完成的课程",
-    "signedInItem4": "你在所有要求领域的毕业进度",
-    "signedInNote": "这些数据仅用于提供规划器功能。不会收集或分享成绩、成绩单或个人学业记录。",
-    "guestUsers": "访客用户",
-    "guestDescription": "如果你在未登录的情况下使用规划器，所有数据仅存在于浏览器内存中。刷新或关闭标签页将清除所有访客数据。服务器上不会存储任何访客信息。",
+    "lastUpdated": "最后更新：2026年9月23日",
+    "intro": "本页面解释 Stevenson Course Planner（\"Course Planner\"）存储哪些信息、如何使用这些信息，以及你拥有的选择。Course Planner 是一个独立的、由学生创建的规划工具。它不是 Stevenson 高中学区或学校学区的官方系统，也不隶属于、未获学校或学区认可，也不由其运营。",
+    "signedInUsers": "我们为登录用户存储的信息",
+    "signedInDescription": "当你使用 Google 登录时，Course Planner 会在数据库中存储以下与你账户关联的信息：",
+    "signedInItem1": "你的 Google 账户名称、电子邮件地址、Google 账户 ID 和头像（由 Google 提供，用于登录）",
+    "signedInItem2": "你选择填写的个人资料信息：名、姓、首选姓名、年级和预计毕业年份",
+    "signedInItem3": "你的四年计划：已选课程、学期和课时段安排、Early Bird 选择，以及你标记为已完成的学年",
+    "signedInItem4": "你记录的已完成课程，包括你选择的时段和你填写的任何字母等级",
+    "signedInItem5": "你收藏的课程",
+    "signedInItem6": "你创建的要求处理记录（例如，体育豁免或初中学分确认）",
+    "signedInItem7": "登录会话信息：存储在我们服务器上的随机会话标识符，会自动过期",
+    "signedInNote": "这些信息仅用于提供规划器功能。Course Planner 不接收也不存储 Stevenson 的官方学校记录、成绩单、成绩或课程表。",
+    "guestUsers": "访客模式",
+    "guestIntro": "你无需登录即可使用 Course Planner。访客信息永远不会发送到我们的服务器，也不会创建数据库记录。不同类型的访客数据在你的浏览器中以不同方式存储：",
+    "guestMemory": "你的访客四年计划、已完成课程和要求处理记录仅保存在当前浏览器标签页的内存中。刷新页面或关闭标签页或浏览器会清除它们。",
+    "guestSaved": "你以访客身份收藏的课程存储在该标签页的浏览器会话存储中。它们能在页面刷新后保留，但在你关闭标签页或浏览器时会被清除，不会与其他标签页或设备共享，也永远不会发送到服务器。",
+    "guestLocal": "你在“我的个人资料”页面填写的访客资料（姓名、年级、毕业年份）以及语言、无障碍和教程设置等偏好项，会存储在该设备浏览器的本地存储中。这些信息会在浏览器会话之间保留，直到你清除网站数据为止。",
+    "guestSignIn": "访客没有服务器端账户。当你登录时，访客数据不会迁移到你的账户；你的账户以该 Google 账户的服务器端数据开始，全新账户的数据为空。",
     "dataSharing": "数据共享",
-    "dataSharingDescription": "你的数据仅用于提供此应用程序内的课程规划功能。不会与第三方、学校或学区共享任何规划器数据、课程选择或毕业信息。",
-    "dataSharingNote": "此工具与学区无关或未获学区认可。它是一个独立的规划辅助工具，旨在帮助学生为辅导员会议做准备。"
+    "dataSharingDescription": "你的数据仅用于提供此应用程序内的课程规划功能。除下述基础设施提供商外，Course Planner 不会与学校、学区、辅导员、教师、管理员或其他 Course Planner 用户共享你的规划数据、课程选择或毕业信息。",
+    "dataSharingNote": "此工具与学区无关或未获学区认可。它是一个独立的规划辅助工具，旨在帮助学生为辅导员会议做准备。",
+    "howWeUse": "信息的使用方式",
+    "howWeUseDescription": "我们仅使用上述信息来运营 Course Planner：为你登录、保存你的计划、显示你的毕业进度并记住你的偏好。我们不出售或出租你的信息，不将其用于定向广告，也不将其用于构建营销档案。",
+    "notCollected": "我们无意收集的信息",
+    "notCollectedDescription": "Course Planner 不从 Stevenson 高中或学区接收官方学校记录、成绩单、成绩、课程表或选课申请。该应用不处理付款，也不收集付款信息、精确位置、联系人或广告标识符。请避免输入使用规划器时不需要的敏感信息。",
+    "cookies": "Cookie 与本地存储",
+    "cookiesDescription": "登录时，Course Planner 会设置一个第一方 cookie：仅包含随机会话标识符的会话 cookie。会话本身存储在我们的服务器上并与你的账户关联；cookie 中不包含你的个人信息。会话 cookie 约在 24 小时后过期，退出登录会销毁会话。访客模式不会设置会话 cookie。Course Planner 不设置分析或广告 cookie。如上所述，该应用还使用浏览器会话存储和本地存储来保存访客数据和偏好设置。",
+    "thirdParty": "第三方服务",
+    "thirdPartyIntro": "Course Planner 在生产环境中使用以下第三方服务：",
+    "thirdPartyGoogleAuth": "Google（登录）：使用 Google OAuth 对你进行身份验证。登录时，Google 会向 Course Planner 提供你的姓名、电子邮件地址、头像和 Google 账户 ID。Course Planner 不会将你的课程规划数据发送给 Google。",
+    "thirdPartyVercel": "Vercel：托管 Course Planner 网站。与任何网络托管服务一样，当你加载站点时，它会处理常规请求数据（例如你的 IP 地址和你请求的页面）。",
+    "thirdPartyRender": "Render：托管 Course Planner 应用服务器，该服务器处理上述数据以提供应用。",
+    "thirdPartyNeon": "Neon：提供 PostgreSQL 数据库，登录用户的账户和规划数据以及服务器端会话都存储在那里。",
+    "thirdPartyForms": "Google Forms（可选）：反馈链接会打开一个 Google 表单。你在其中提交的内容由你直接提供给该表单，受 Google 和表单所有者的做法约束。该应用不会自动将你的规划数据发送到那里。",
+    "thirdPartyNote": "字体随应用自行托管，翻译打包在应用中，没有分析或广告 SDK。用于构建该应用的开发和数据处理工具在正常使用应用时不会接收学生信息。",
+    "security": "数据安全",
+    "securityDescription": "我们使用合理的技术措施，包括 HTTPS、API 端点的身份验证要求和服务器端会话。没有一种传输或存储方法是完全安全的，我们无法保证绝对安全。",
+    "retention": "数据保留",
+    "retentionDescription": "登录用户的账户和规划数据在你的账户存在期间保留。退出登录仅结束你的会话，不会删除你的数据。会话约在 24 小时后自动过期。你可以随时删除账户及其数据（见下文）。除此之外，我们不适用固定的删除时间表。",
+    "accountDeletion": "账户删除",
+    "accountDeletionDescription": "登录用户可以直接在“我的个人资料”页面的“账户”部分删除账户。删除会从我们的数据库中永久移除你的账户及相关的收藏课程、四年计划、已完成课程和要求处理记录，并让你退出登录。之后使用同一 Google 账户登录会创建一个全新的空账户；之前已删除的数据不会重新出现。如果删除账户时遇到问题，请使用下方地址联系我们。",
+    "userChoices": "你的选择",
+    "userChoicesDescription": "你可以在“我的个人资料”中编辑个人资料信息；使用访客模式代替登录；通过清除浏览器中的网站数据来清除访客和偏好数据；选择语言和无障碍设置；并随时退出登录。",
+    "childrenUnder13": "13岁以下学生",
+    "childrenUnder13Description": "Course Planner 面向高中生设计。我们不会故意收集 13 岁以下儿童的个人信息。如果你是家长或监护人，并认为 13 岁以下的儿童通过 Course Planner 提供了个人信息，请使用下方地址联系我们，我们会将其删除。",
+    "schoolRecords": "学校记录与 FERPA 背景",
+    "schoolRecordsDescription": "Course Planner 是一个独立工具，不属于任何学校系统。它不接收或导入你的官方学校记录、成绩单、成绩或课程表；你在此输入的内容不是官方学校记录，也不会与学校或学区共享。Course Planner 不能替代官方学校记录或选课系统。",
+    "changes": "政策变更",
+    "changesDescription": "我们可能会随着应用的变化更新本政策。顶部的“最后更新”日期显示最近一次修订的时间。",
+    "contact": "联系方式",
+    "contactDescription": "如有隐私问题或账户删除问题，请联系：m.xu711@gmail.com"
   },
   "login": {
     "siteTitle": "Stevenson Course Planner",
@@ -597,7 +663,8 @@
     "retry": "重试",
     "sourceRegular": "常规课程",
     "sourceSummer": "暑期学校",
-    "viewSaved": "查看已保存课程"
+    "viewSaved": "查看已保存课程",
+    "summerLoadError": "加载暑期学校课程失败。"
   },
   "catalogHeader": {
     "courseCatalog": "课程目录",
@@ -741,7 +808,9 @@
     "description": "描述",
     "noDescription": "暂无描述。",
     "notes": "备注",
-    "additionalInfo": "附加信息"
+    "additionalInfo": "附加信息",
+    "notFoundDescription": "未找到与此链接匹配的暑期学校课程。它可能已被删除或重命名。",
+    "backToSummerCatalogButton": "返回暑期课程目录"
   },
   "savedToPlannerModal": {
     "freshmanGrade9": "九年级 (Grade 9)",
@@ -964,8 +1033,12 @@
         "description": "此页面为您提供有关课程的更多信息，包括其标题、系别、分部、学分类型以及包含任何附加说明的完整描述。您还可以在此处保存课程或将其标记为已完成。"
       },
       "courseDetailOfferings": {
-        "title": "课程安排与先决条件",
-        "description": "此部分显示年级资格、持续时间、总学分和每个学期的课程代码。在下方，您可以看到先决条件（您必须先修的课程）、需要此课程的课程以及此课程满足的毕业要求。"
+        "title": "课程安排",
+        "description": "此部分显示年级资格、持续时间、总学分和每个学期的课程代码。"
+      },
+      "courseDetailPrerequisites": {
+        "title": "先决条件",
+        "description": "此部分显示先决条件（您必须先修的课程）。在下方，您可以看到需要此课程的课程以及此课程满足的毕业要求。"
       },
       "plannerIntro": {
         "title": "我的计划",
@@ -986,10 +1059,6 @@
       "courseEligibility": {
         "title": "课程资格",
         "description": "某些课程有年级限制或必须满足的先决条件。如果你的计划中没有出现某门课程，请查看课程目录中的信息以了解资格要求。先决条件可能包括已完成的课程或分班成绩。"
-      },
-      "movingCourses": {
-        "title": "移动课程",
-        "description": "你可以通过拖放将课程在不同学期之间移动。移动课程可能影响你的学期平衡、先决条件时间和毕业进度。在进行更改后查看你的计划，以确保一切仍然对齐。"
       },
       "removingCourses": {
         "title": "移除课程",
@@ -1043,7 +1112,8 @@
         "title": "账户和访客模式",
         "description": "你可以以访客身份使用 Stevenson Course Planner，或使用 Google 账户登录。访客模式将你的数据本地存储在浏览器中 — 如果你清除数据或切换浏览器，数据将丢失。登录可将你的计划和已完成课程保存到你的账户中，可从任何设备访问。"
       }
-    }
+    },
+    "progressInChapter": "本章第 {step}/{total} 步"
   },
   "helpfulInformation": {
     "heading": "有用信息",
@@ -1098,6 +1168,13 @@
     "errorLastNameRequired": "姓不能为空。",
     "errorInvalidYear": "请输入有效的年份（2020-2035）。",
     "guestAccountDescription": "您正在使用访客模式。登录Google账户以在不同会话间保存您的个人资料信息。",
+    "deleteAccount": "删除账户",
+    "deleteAccountDescription": "永久删除你的 Course Planner 账户及与之关联的已保存、已规划和已完成的规划信息。之后重新登录将创建一个全新的空账户。",
+    "deleteAccountConfirmTitle": "确定要删除你的账户吗？",
+    "deleteAccountConfirmBody": "这将永久删除你的 Course Planner 账户，以及与之关联的收藏课程、四年计划、已完成课程和要求处理记录。此操作无法撤销。",
+    "deleteAccountConfirmButton": "删除我的账户",
+    "deleteAccountDeleting": "正在删除...",
+    "deleteAccountError": "删除账户失败，请重试。",
     "language": "语言",
     "accessibility": "无障碍设置",
     "tutorial": "教程",
@@ -1116,7 +1193,8 @@
     "refresh": "刷新",
     "reloadPage": "重新加载页面",
     "dashboard": "仪表板",
-    "reportBug": "报告问题"
+    "reportBug": "报告问题",
+    "description": "无法加载毕业要求。请尝试刷新页面。"
   },
   "common": {
     "close": "关闭",

@@ -41,6 +41,26 @@ const listItemStyle: React.CSSProperties = {
   position: "relative",
 };
 
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}): React.ReactElement {
+  return (
+    <div style={cardStyle}>
+      <h2 style={headingStyle}>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+function Paragraph({ textKey }: { textKey: string }): React.ReactElement {
+  const { t } = useTranslation();
+  return <p style={bodyStyle}>{t(textKey)}</p>;
+}
+
 export default function PrivacyPage(): React.ReactElement {
   const { t } = useTranslation();
 
@@ -66,11 +86,20 @@ export default function PrivacyPage(): React.ReactElement {
             fontSize: "28px",
             fontWeight: 700,
             color: "var(--text-primary)",
-            margin: "0 0 28px",
+            margin: "0 0 8px",
           }}
         >
           {t("privacy.heading")}
         </h1>
+        <p
+          style={{
+            ...bodyStyle,
+            marginBottom: "24px",
+            fontSize: "13px",
+          }}
+        >
+          {t("privacy.lastUpdated")}
+        </p>
 
         <p
           style={{
@@ -81,11 +110,8 @@ export default function PrivacyPage(): React.ReactElement {
           {t("privacy.intro")}
         </p>
 
-        <div style={cardStyle}>
-          <h2 style={headingStyle}>{t("privacy.signedInUsers")}</h2>
-          <p style={bodyStyle}>
-            {t("privacy.signedInDescription")}
-          </p>
+        <Section title={t("privacy.signedInUsers")}>
+          <Paragraph textKey="privacy.signedInDescription" />
           <ul style={listStyle}>
             <li className="rs-privacy-list-item" style={listItemStyle}>
               {t("privacy.signedInItem1")}
@@ -99,28 +125,97 @@ export default function PrivacyPage(): React.ReactElement {
             <li className="rs-privacy-list-item" style={listItemStyle}>
               {t("privacy.signedInItem4")}
             </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.signedInItem5")}
+            </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.signedInItem6")}
+            </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.signedInItem7")}
+            </li>
           </ul>
-          <p style={bodyStyle}>
-            {t("privacy.signedInNote")}
-          </p>
-        </div>
+          <Paragraph textKey="privacy.signedInNote" />
+        </Section>
 
-        <div style={cardStyle}>
-          <h2 style={headingStyle}>{t("privacy.guestUsers")}</h2>
-          <p style={bodyStyle}>
-            {t("privacy.guestDescription")}
-          </p>
-        </div>
+        <Section title={t("privacy.guestUsers")}>
+          <Paragraph textKey="privacy.guestIntro" />
+          <Paragraph textKey="privacy.guestMemory" />
+          <Paragraph textKey="privacy.guestSaved" />
+          <Paragraph textKey="privacy.guestLocal" />
+          <Paragraph textKey="privacy.guestSignIn" />
+        </Section>
 
-        <div style={cardStyle}>
-          <h2 style={headingStyle}>{t("privacy.dataSharing")}</h2>
-          <p style={bodyStyle}>
-            {t("privacy.dataSharingDescription")}
-          </p>
-          <p style={bodyStyle}>
-            {t("privacy.dataSharingNote")}
-          </p>
-        </div>
+        <Section title={t("privacy.howWeUse")}>
+          <Paragraph textKey="privacy.howWeUseDescription" />
+        </Section>
+
+        <Section title={t("privacy.notCollected")}>
+          <Paragraph textKey="privacy.notCollectedDescription" />
+        </Section>
+
+        <Section title={t("privacy.cookies")}>
+          <Paragraph textKey="privacy.cookiesDescription" />
+        </Section>
+
+        <Section title={t("privacy.thirdParty")}>
+          <Paragraph textKey="privacy.thirdPartyIntro" />
+          <ul style={listStyle}>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.thirdPartyGoogleAuth")}
+            </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.thirdPartyVercel")}
+            </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.thirdPartyRender")}
+            </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.thirdPartyNeon")}
+            </li>
+            <li className="rs-privacy-list-item" style={listItemStyle}>
+              {t("privacy.thirdPartyForms")}
+            </li>
+          </ul>
+          <Paragraph textKey="privacy.thirdPartyNote" />
+        </Section>
+
+        <Section title={t("privacy.dataSharing")}>
+          <Paragraph textKey="privacy.dataSharingDescription" />
+          <Paragraph textKey="privacy.dataSharingNote" />
+        </Section>
+
+        <Section title={t("privacy.security")}>
+          <Paragraph textKey="privacy.securityDescription" />
+        </Section>
+
+        <Section title={t("privacy.retention")}>
+          <Paragraph textKey="privacy.retentionDescription" />
+        </Section>
+
+        <Section title={t("privacy.accountDeletion")}>
+          <Paragraph textKey="privacy.accountDeletionDescription" />
+        </Section>
+
+        <Section title={t("privacy.userChoices")}>
+          <Paragraph textKey="privacy.userChoicesDescription" />
+        </Section>
+
+        <Section title={t("privacy.childrenUnder13")}>
+          <Paragraph textKey="privacy.childrenUnder13Description" />
+        </Section>
+
+        <Section title={t("privacy.schoolRecords")}>
+          <Paragraph textKey="privacy.schoolRecordsDescription" />
+        </Section>
+
+        <Section title={t("privacy.changes")}>
+          <Paragraph textKey="privacy.changesDescription" />
+        </Section>
+
+        <Section title={t("privacy.contact")}>
+          <Paragraph textKey="privacy.contactDescription" />
+        </Section>
       </ResponsivePage>
     </>
   );

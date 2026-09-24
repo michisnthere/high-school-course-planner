@@ -81,7 +81,7 @@ function findVariant(r: RequirementResolution): WaiverVariant | null {
 
 function athleticSubLabel(r: RequirementResolution): string {
   const sub = r.metadata?.athleticVariant as string;
-  return sub === "credit" ? " (Credit)" : " (Non-Credit)";
+  return sub === "credit" ? "plannerWaivers.creditLabel" : "plannerWaivers.nonCreditLabel";
 }
 
 export function WaiverSection({
@@ -178,7 +178,7 @@ export function WaiverSection({
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
                   <div>
                     <span style={{ fontSize: "13px", fontWeight: 700, color: "#111827" }}>
-                      ✓ {info.label}{variant === "athletic" ? athleticSubLabel(yearWaivers.find((r) => findVariant(r) === "athletic")!) : ""}
+                      ✓ {info.label}{variant === "athletic" ? ` ${t(athleticSubLabel(yearWaivers.find((r) => findVariant(r) === "athletic")!))}` : ""}
                     </span>
                   </div>
                   <button
@@ -214,7 +214,7 @@ export function WaiverSection({
                   <div>
                     <div style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>{info.label}</div>
                     <div style={{ fontSize: "11px", color: elig.eligible ? "#4B5563" : "#9CA3AF", marginTop: "2px" }}>
-                      {elig.reason}
+                      {t(elig.reason)}
                     </div>
                   </div>
                   <button
@@ -306,7 +306,7 @@ function AddVariantFlow({
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <div style={{ fontSize: "12px", color: elig.eligible ? "#4B5563" : "#9CA3AF" }}>
-          {elig.reason}
+          {t(elig.reason)}
         </div>
         {elig.eligible && (
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -329,7 +329,7 @@ function AddVariantFlow({
     if (confirmMessage) {
       return (
         <div>
-          <p style={{ margin: "0 0 8px", fontSize: "12px", color: "#4B5563" }}>{confirmMessage}</p>
+          <p style={{ margin: "0 0 8px", fontSize: "12px", color: "#4B5563" }}>{t(confirmMessage)}</p>
           <button type="button" onClick={onCancel} style={secondaryButtonStyle()}>
             {t("plannerWaivers.ok")}
           </button>

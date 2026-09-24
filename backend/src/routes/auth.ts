@@ -180,6 +180,52 @@ router.patch("/profile", requireAuth, async (req, res) => {
   }
 });
 
+router.delete("/account", requireAuth, async (req, res) => {
+  const userId = (req.user as SessionUser).id;
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Remove every server-side session belonging to this user (including the
+      // current one) so no stale session can re-authenticate the deleted
+      // account. connect-pg-simple stores passport's serialized user id under
+      // sess.passport.user.
+      await tx.$executeRaw`DELETE FROM "session" WHERE sess->'passport'->>'user' = ${String(userId)}`;
+      // Deleting the User cascades (via existing ON DELETE CASCADE foreign
+      // keys) to SavedCourse, Planner -> PlannedCourse, CompletedCourse, and
+      // RequirementResolution. Shared catalog data (Course, CourseOption,
+      // PlannerOption, GraduationRequirement, ...) is not touched.
+      await tx.user.delete({ where: { id: userId } });
+    });
+  } catch (err) {
+    const code = (err as { code?: string } | null)?.code;
+    if (code !== "P2025") {
+      console.error("[AUTH] Account deletion failed:", {
+        userId,
+        code,
+        message: err instanceof Error ? err.message : "Unknown error",
+      });
+      res.status(500).json({ error: "Failed to delete account" });
+      return;
+    }
+    // User row already gone (e.g. concurrent deletion) — still fall through so
+    // this session is invalidated. Deletion stays idempotent and safe.
+  }
+
+  req.session.destroy((sessionErr) => {
+    if (sessionErr) {
+      // The user rows are already deleted and the session rows were purged in
+      // the transaction, so a destroy failure only leaves this cookie behind;
+      // passport can no longer resolve it to a user.
+      console.error("[AUTH] Account deletion session destroy failed:", sessionErr.message);
+    }
+    res.clearCookie("courseplanner.sid", {
+      secure: NODE_ENV === "production",
+      sameSite: "lax",
+    });
+    res.json({ deleted: true });
+  });
+});
+
 if (NODE_ENV !== "production") {
   // Dev-only login for testing when Google OAuth is not configured or for
   // quick local verification. Not available in production.

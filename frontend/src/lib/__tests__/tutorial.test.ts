@@ -4,7 +4,9 @@ import {
   getTotalSteps,
   getChapterStartIndex,
   findStepById,
-  CURRENT_TUTORIAL_VERSION,
+  resolveTutorialAuthState,
+  getActiveTutorialChapters,
+  getActiveTutorialSteps,
 } from "@/lib/tutorial";
 import {
   DEFAULT_PREFERENCES,
@@ -215,12 +217,12 @@ describe("Tutorial chapter structure", () => {
     expect(TUTORIAL_CHAPTERS[0].steps).toHaveLength(1);
   });
 
-  it("explore-courses chapter has 5 steps", () => {
-    expect(TUTORIAL_CHAPTERS[1].steps).toHaveLength(5);
+  it("explore-courses chapter has 6 steps", () => {
+    expect(TUTORIAL_CHAPTERS[1].steps).toHaveLength(6);
   });
 
-  it("build-plan chapter has 8 steps", () => {
-    expect(TUTORIAL_CHAPTERS[2].steps).toHaveLength(8);
+  it("build-plan chapter has 7 steps", () => {
+    expect(TUTORIAL_CHAPTERS[2].steps).toHaveLength(7);
   });
 
   it("check-plan chapter has 4 steps", () => {
@@ -237,6 +239,18 @@ describe("Tutorial chapter structure", () => {
 
   it("personalize chapter has 3 steps", () => {
     expect(TUTORIAL_CHAPTERS[6].steps).toHaveLength(3);
+  });
+
+  it("language step targets language-settings, not a11y-settings", () => {
+    const result = findStepById("language");
+    expect(result).not.toBeNull();
+    expect(result!.step.target!.selector).toBe("[data-tour='language-settings']");
+  });
+
+  it("accessibility step targets a11y-settings", () => {
+    const result = findStepById("accessibility");
+    expect(result).not.toBeNull();
+    expect(result!.step.target!.selector).toBe("[data-tour='a11y-settings']");
   });
 });
 
@@ -441,6 +455,7 @@ describe("Tutorial step classification (requiresNavigation)", () => {
       "search-vs-filters",
       "course-detail-overview",
       "course-detail-offerings",
+      "course-detail-prerequisites",
       "four-years-semesters",
       "adding-courses",
       "needs-attention",
@@ -564,11 +579,11 @@ describe("Tutorial auth-required steps", () => {
 });
 
 describe("Tutorial Algebra 1 course-card targeting", () => {
-  it("course-cards step targets the Algebra 1 card via data-course-slug", () => {
+  it("course-cards step targets the Algebra 1 card via data-tutorial-target", () => {
     const result = findStepById("course-cards");
     expect(result).not.toBeNull();
     expect(result!.step.target).toBeDefined();
-    expect(result!.step.target!.selector).toBe("[data-course-slug='algebra-1']");
+    expect(result!.step.target!.selector).toBe("[data-tutorial-target='course-algebra-1']");
   });
 
   it("course-cards step is an interaction step (not navigation-required)", () => {
@@ -629,7 +644,7 @@ describe("Tutorial course-detail steps", () => {
     const result = findStepById("course-detail-offerings");
     expect(result).not.toBeNull();
     expect(result!.step.target).toBeDefined();
-    expect(result!.step.target!.selector).toBe(".rs-detail-offerings");
+    expect(result!.step.target!.selector).toBe("[data-tutorial-target='course-offerings']");
   });
 
   it("course-detail-offerings step is informational (has Next)", () => {
@@ -652,23 +667,53 @@ describe("Tutorial course-detail steps", () => {
     const offeringsIdx = flatSteps.findIndex((s) => s.id === "course-detail-offerings");
     expect(offeringsIdx).toBe(overviewIdx + 1);
   });
+
+  it("course-detail-prerequisites step exists after course-detail-offerings", () => {
+    const result = findStepById("course-detail-prerequisites");
+    expect(result).not.toBeNull();
+    expect(result!.chapter.id).toBe("explore-courses");
+    const flatSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    const offeringsIdx = flatSteps.findIndex((s) => s.id === "course-detail-offerings");
+    const prereqIdx = flatSteps.findIndex((s) => s.id === "course-detail-prerequisites");
+    expect(prereqIdx).toBe(offeringsIdx + 1);
+  });
+
+  it("course-detail-prerequisites step targets the prerequisites section", () => {
+    const result = findStepById("course-detail-prerequisites");
+    expect(result).not.toBeNull();
+    expect(result!.step.target).toBeDefined();
+    expect(result!.step.target!.selector).toBe("[data-tutorial-target='course-prerequisites']");
+  });
+
+  it("course-detail-prerequisites step is informational (has Next)", () => {
+    const result = findStepById("course-detail-prerequisites");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresInteraction).toBeUndefined();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+  });
+
+  it("course-detail-prerequisites requires /catalog/algebra-1 path", () => {
+    const result = findStepById("course-detail-prerequisites");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/catalog/algebra-1");
+  });
 });
 
 describe("Tutorial Algebra 1 target uniqueness", () => {
-  it("course-cards selector uses data-course-slug attribute (not positional)", () => {
+  it("course-cards selector uses data-tutorial-target attribute (not positional)", () => {
     const result = findStepById("course-cards");
     expect(result).not.toBeNull();
-    expect(result!.step.target!.selector).toMatch(/^\[data-course-slug='.+'\]$/);
+    expect(result!.step.target!.selector).toMatch(/^\[data-tutorial-target='.+'\]$/);
   });
 
-  it("course-cards selector targets exactly 'algebra-1' slug", () => {
+  it("course-cards selector targets exactly the course-algebra-1 target", () => {
     const result = findStepById("course-cards");
-    expect(result!.step.target!.selector).toBe("[data-course-slug='algebra-1']");
+    expect(result!.step.target!.selector).toBe("[data-tutorial-target='course-algebra-1']");
   });
 
   it("course-cards selector is specific enough to match exactly one element in a catalog", () => {
-    // The selector [data-course-slug='algebra-1'] uses an attribute value selector
-    // which is inherently unique if slugs are unique (they are — derived from normalizedTitle).
+    // The selector [data-tutorial-target='course-algebra-1'] uses an attribute
+    // value selector that only CourseCard sets, and only when slug === 'algebra-1'.
     // Verify the selector does not use generic class selectors or positional selectors.
     const result = findStepById("course-cards");
     const selector = result!.step.target!.selector;
@@ -676,6 +721,15 @@ describe("Tutorial Algebra 1 target uniqueness", () => {
     expect(selector).not.toContain(":first-child");
     expect(selector).not.toContain(":nth-child");
     expect(selector).not.toContain(":nth-of-type");
+  });
+
+  it("no other step reuses the course-algebra-1 target selector", () => {
+    const algebraSelector = "[data-tutorial-target='course-algebra-1']";
+    const matches = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps).filter(
+      (s) => s.target?.selector === algebraSelector
+    );
+    expect(matches).toHaveLength(1);
+    expect(matches[0].id).toBe("course-cards");
   });
 
   it("course-cards step prefers left positioning for popup", () => {
@@ -691,10 +745,26 @@ describe("Tutorial Algebra 1 target uniqueness", () => {
 });
 
 describe("Tutorial Prerequisites and Offerings target uniqueness", () => {
-  it("course-detail-offerings targets the offerings section via class selector", () => {
+  it("course-detail-offerings targets the offerings section via data-tutorial-target", () => {
     const result = findStepById("course-detail-offerings");
     expect(result).not.toBeNull();
-    expect(result!.step.target!.selector).toBe(".rs-detail-offerings");
+    expect(result!.step.target!.selector).toBe("[data-tutorial-target='course-offerings']");
+  });
+
+  it("course-detail-prerequisites targets the prerequisites section via data-tutorial-target", () => {
+    const result = findStepById("course-detail-prerequisites");
+    expect(result).not.toBeNull();
+    expect(result!.step.target!.selector).toBe("[data-tutorial-target='course-prerequisites']");
+  });
+
+  it("offerings and prerequisites use two distinct targets", () => {
+    const offerings = findStepById("course-detail-offerings");
+    const prerequisites = findStepById("course-detail-prerequisites");
+    expect(offerings).not.toBeNull();
+    expect(prerequisites).not.toBeNull();
+    expect(offerings!.step.target!.selector).not.toBe(prerequisites!.step.target!.selector);
+    expect(offerings!.step.target!.selector).toBe("[data-tutorial-target='course-offerings']");
+    expect(prerequisites!.step.target!.selector).toBe("[data-tutorial-target='course-prerequisites']");
   });
 
   it("course-detail-offerings selector does not match the entire page", () => {
@@ -714,6 +784,36 @@ describe("Tutorial Prerequisites and Offerings target uniqueness", () => {
   it("course-detail-offerings requires /catalog/algebra-1 path", () => {
     const result = findStepById("course-detail-offerings");
     expect(result!.step.requiredPath).toBe("/catalog/algebra-1");
+  });
+
+  it("course-detail-prerequisites step has right positioning", () => {
+    const result = findStepById("course-detail-prerequisites");
+    expect(result!.step.target!.position).toBe("right");
+  });
+});
+
+describe("Tutorial moving-courses step removal", () => {
+  it("moving-courses step is not present", () => {
+    expect(findStepById("moving-courses")).toBeNull();
+  });
+
+  it("no step references movingCourses locale keys", () => {
+    const steps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    for (const step of steps) {
+      expect(step.titleKey).not.toBe("tutorial.steps.movingCourses.title");
+      expect(step.descriptionKey).not.toBe("tutorial.steps.movingCourses.description");
+    }
+  });
+
+  it("removing-courses step is still present", () => {
+    expect(findStepById("removing-courses")).not.toBeNull();
+  });
+});
+
+describe("findTutorialTarget", () => {
+  it("returns null when document is undefined (node environment)", async () => {
+    const { findTutorialTarget } = await import("@/lib/tutorial");
+    expect(findTutorialTarget("[data-tour='language-settings']")).toBeNull();
   });
 });
 
@@ -780,5 +880,118 @@ describe("Tutorial step ordering for auth flow", () => {
     const buildPlan = TUTORIAL_CHAPTERS.find((ch) => ch.id === "build-plan");
     expect(buildPlan!.steps[1].id).toBe("planner-intro");
     expect(buildPlan!.steps[1].requiresNavigation).toBe(true);
+  });
+});
+
+describe("Tutorial sign-in prerequisite selection by auth state (flash regression)", () => {
+  const AUTH_STEP_ID = "planner-auth";
+
+  describe("resolveTutorialAuthState", () => {
+    it("classifies still-loading auth as 'loading', even when isAuthenticated is false", () => {
+      expect(resolveTutorialAuthState(true, false)).toBe("loading");
+      expect(resolveTutorialAuthState(true, true)).toBe("loading");
+    });
+
+    it("never maps loading to unauthenticated", () => {
+      expect(resolveTutorialAuthState(true, false)).not.toBe("unauthenticated");
+      expect(resolveTutorialAuthState(true, true)).not.toBe("unauthenticated");
+    });
+
+    it("classifies resolved auth correctly", () => {
+      expect(resolveTutorialAuthState(false, true)).toBe("authenticated");
+      expect(resolveTutorialAuthState(false, false)).toBe("unauthenticated");
+    });
+  });
+
+  // Test 1 — Authenticated user never receives the sign-in step.
+  it("Test 1: authenticated active sequence never contains the sign-in prerequisite", () => {
+    const steps = getActiveTutorialSteps("authenticated");
+    expect(steps.map((s) => s.id)).not.toContain(AUTH_STEP_ID);
+    expect(steps.some((s) => s.requiresAuth)).toBe(false);
+  });
+
+  // Test 2 — Authentication loading must not be treated as signed out.
+  it("Test 2: loading active sequence does not contain the sign-in prerequisite", () => {
+    const steps = getActiveTutorialSteps("loading");
+    expect(steps.map((s) => s.id)).not.toContain(AUTH_STEP_ID);
+    expect(steps.some((s) => s.requiresAuth)).toBe(false);
+  });
+
+  // Test 3 — Loading resolving to authenticated never introduces the step.
+  it("Test 3: loading → authenticated never introduces the sign-in step at any selectable index", () => {
+    const loadingIds = getActiveTutorialSteps("loading").map((s) => s.id);
+    const authenticatedIds = getActiveTutorialSteps("authenticated").map((s) => s.id);
+    expect(loadingIds).toEqual(authenticatedIds);
+    for (let i = 0; i < loadingIds.length; i++) {
+      expect(loadingIds[i]).not.toBe(AUTH_STEP_ID);
+    }
+  });
+
+  // Test 4 — Signed-out user still gets the prerequisite.
+  it("Test 4: unauthenticated sequence keeps the sign-in prerequisite immediately before planner-intro", () => {
+    const ids = getActiveTutorialSteps("unauthenticated").map((s) => s.id);
+    expect(ids).toContain(AUTH_STEP_ID);
+    expect(ids.indexOf(AUTH_STEP_ID)).toBe(ids.indexOf("planner-intro") - 1);
+  });
+
+  // Test 5 — Signing in only removes/skips the prerequisite; no unrelated step advances.
+  it("Test 5: authenticated sequence differs from unauthenticated ONLY by the sign-in prerequisite", () => {
+    const unauthenticated = getActiveTutorialSteps("unauthenticated");
+    const authenticated = getActiveTutorialSteps("authenticated");
+    expect(authenticated).toEqual(
+      unauthenticated.filter((s) => s.id !== AUTH_STEP_ID)
+    );
+    // The step the tutorial lands on after the prerequisite is removed still
+    // requires the user's own navigation action — authentication alone cannot
+    // advance it.
+    const intro = authenticated.find((s) => s.id === "planner-intro");
+    expect(intro).toBeDefined();
+    expect(intro!.requiresNavigation).toBe(true);
+    expect(intro!.requiredPath).toBe("/planner");
+    // Loading → authenticated changes nothing either.
+    expect(getActiveTutorialSteps("loading")).toEqual(authenticated);
+  });
+
+  // Test 6 — No flash: no selectable index while auth is loading can resolve
+  // to the sign-in prerequisite (same holds once authenticated).
+  it("Test 6: no selectable index while auth is loading (or authenticated) resolves to the sign-in prerequisite", () => {
+    for (const state of ["loading", "authenticated"] as const) {
+      const steps = getActiveTutorialSteps(state);
+      for (let i = 0; i < steps.length; i++) {
+        expect(steps[i].id).not.toBe(AUTH_STEP_ID);
+        expect(steps[i].requiresAuth).toBeUndefined();
+      }
+    }
+  });
+
+  it("build-plan chapter drops only the sign-in step for loading/authenticated users", () => {
+    const unauthBuild = getActiveTutorialChapters("unauthenticated").find(
+      (ch) => ch.id === "build-plan"
+    );
+    expect(unauthBuild).toBeDefined();
+    expect(unauthBuild!.steps[0].id).toBe(AUTH_STEP_ID);
+    expect(unauthBuild!.steps[1].id).toBe("planner-intro");
+
+    for (const state of ["loading", "authenticated"] as const) {
+      const build = getActiveTutorialChapters(state).find(
+        (ch) => ch.id === "build-plan"
+      );
+      expect(build).toBeDefined();
+      expect(build!.steps[0].id).toBe("planner-intro");
+      expect(build!.steps.map((s) => s.id)).not.toContain(AUTH_STEP_ID);
+    }
+  });
+
+  it("all chapters other than build-plan are identical regardless of auth state", () => {
+    const unauth = getActiveTutorialChapters("unauthenticated");
+    const authenticated = getActiveTutorialChapters("authenticated");
+    const loading = getActiveTutorialChapters("loading");
+    expect(unauth.map((ch) => ch.id)).toEqual(authenticated.map((ch) => ch.id));
+    expect(loading.map((ch) => ch.id)).toEqual(authenticated.map((ch) => ch.id));
+    for (let i = 0; i < unauth.length; i++) {
+      if (unauth[i].id === "build-plan") continue;
+      expect(authenticated[i].steps).toEqual(unauth[i].steps);
+      expect(loading[i].steps).toEqual(unauth[i].steps);
+    }
   });
 });

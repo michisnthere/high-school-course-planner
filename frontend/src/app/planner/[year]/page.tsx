@@ -276,7 +276,7 @@ function PlannerYearContent(): React.ReactElement {
 
   useEffect(() => {
     if (!year || !YEAR_LABELS[year]) {
-      setError("Invalid school year.");
+      setError(t("planner.invalidSchoolYear"));
       setLoading(false);
       return;
     }
@@ -346,7 +346,7 @@ function PlannerYearContent(): React.ReactElement {
     try {
       await entry.undo();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to undo";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToUndo");
       showToast(message, "warning");
       return;
     }
@@ -390,7 +390,7 @@ function PlannerYearContent(): React.ReactElement {
         await loadCompletedCourses();
         showToast(t("plannerToasts.courseMarkedCompleted"), "success");
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to mark course as completed";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToMarkCompleted");
         showToast(message, "warning");
       }
     },
@@ -404,7 +404,7 @@ function PlannerYearContent(): React.ReactElement {
         const updated = await resolutionsService.getResolutions();
         setResolutions(updated);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to add resolution";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToAddResolution");
         showToast(message, "warning");
       }
     },
@@ -416,7 +416,7 @@ function PlannerYearContent(): React.ReactElement {
       await resolutionsService.deleteResolution(id);
       setResolutions((prev) => prev.filter((r) => r.id !== id));
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to remove resolution";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToRemoveResolution");
       showToast(message, "warning");
     }
   }, [resolutionsService]);
@@ -471,7 +471,7 @@ function PlannerYearContent(): React.ReactElement {
           (pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird
         );
         if (existingApScience.length > 0) {
-          showToast("Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.", "warning");
+          showToast(t("plannerWarnings.twoApScienceWarning"), "warning");
           return;
         }
       }
@@ -499,9 +499,9 @@ function PlannerYearContent(): React.ReactElement {
           buildAddCourseUndo(beforePlanners, updatedPlanner, plannerService.removePlannedCourse)
         );
         handleCloseModal();
-        showToast("Course added.", "success", handleUndo);
+        showToast(t("plannerToasts.courseAdded"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to add course";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToAddCourse");
         showToast(message, "warning");
       }
     },
@@ -528,7 +528,7 @@ function PlannerYearContent(): React.ReactElement {
         handleCloseModal();
         showToast(t("plannerToasts.summerCourseAdded"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to add summer course";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToAddSummerCourse");
         showToast(message, "warning");
       }
     },
@@ -561,7 +561,7 @@ function PlannerYearContent(): React.ReactElement {
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
         showToast(t("plannerToasts.prerequisiteAdded"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to add prerequisite";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToAddPrerequisite");
         showToast(message, "warning");
         throw err;
       }
@@ -622,7 +622,7 @@ function PlannerYearContent(): React.ReactElement {
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
         showToast(t("plannerToasts.courseMovedAndPrereqAdded"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to adjust schedule";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToAdjustSchedule");
         showToast(message, "warning");
       }
     },
@@ -654,18 +654,18 @@ function PlannerYearContent(): React.ReactElement {
         if (variant === "academic") {
           const simEligibility = computeWaiverEligibility(year, simulatedCreditBearing, simulatedCourses);
           if (!simEligibility.academic.eligible) {
-            return "Removing this course will make you ineligible for the Academic PE Waiver. The waiver will be revoked if you continue.";
+            return t("plannerWarnings.removeAcademicWaiverWarning");
           }
         } else if (variant === "athletic") {
           const athleticVariant = res.metadata?.athleticVariant as string | undefined;
           const sportCount = athleticVariant === "credit" ? "two-or-more" : "one";
           const result = computeAthleticVariantEligibility(sportCount, simulatedCreditBearing);
           if (!result.eligible) {
-            return "Removing this course will make you ineligible for the Athletic PE Waiver. The waiver will be revoked if you continue.";
+            return t("plannerWarnings.removeAthleticWaiverWarning");
           }
         } else if (variant === "marching-band") {
           if (planned.course.isMarchingBand) {
-            return "Removing this course will revoke the Marching Band PE Waiver.";
+            return t("plannerWarnings.removeMarchingBandWaiverWarning");
           }
         }
       }
@@ -735,13 +735,13 @@ function PlannerYearContent(): React.ReactElement {
               slot: planned.slot,
             });
           } else {
-            throw new Error("Cannot restore planned course: missing courseId and plannerOptionId");
+            throw new Error(t("plannerToasts.cannotRestoreCourse"));
           }
           undoRestoredPlannerRef.current = restoredPlanner;
         });
         showToast(t("plannerToasts.courseRemoved"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to remove course";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToRemoveCourse");
         showToast(message, "warning");
       }
     },
@@ -787,7 +787,7 @@ function PlannerYearContent(): React.ReactElement {
           handleUndo
         );
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to update Early Bird";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToUpdateEarlyBird");
         showToast(message, "warning");
       }
     },
@@ -827,8 +827,9 @@ function PlannerYearContent(): React.ReactElement {
         setPlanner(newPlanners.find((p) => p.schoolYear === year) || null);
         showToast(t("plannerToasts.courseReplaced"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to replace course";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToReplaceCourse");
         showToast(message, "warning");
+        throw err;
       }
     },
     [allPlanners, year, plannerService, showToast, pushHistory, handleUndo]
@@ -852,7 +853,7 @@ function PlannerYearContent(): React.ReactElement {
         });
         showToast(t("plannerToasts.courseMoved"), "success", handleUndo);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to move course";
+        const message = err instanceof Error ? err.message : t("plannerToasts.failedToMoveCourse");
         showToast(message, "warning");
       }
     },
@@ -942,8 +943,8 @@ function PlannerYearContent(): React.ReactElement {
         if (isCompleted) {
           items.push(
             <div key={`completed-${semester}-${slot}`} style={{ gridRow: `${slot} / span 1`, width: "100%", boxSizing: "border-box", padding: "20px", minHeight: "120px", backgroundColor: "#1f2937", border: "1px dashed #4b5563", borderRadius: "12px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px", color: "#6b7280", fontSize: "14px", textAlign: "center", opacity: 0.6 }}>
-              <div style={{ fontSize: "13px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.02em" }}>Slot {slot}</div>
-              <div>Empty - editing disabled</div>
+              <div style={{ fontSize: "13px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.02em" }}>{t("planner.slotLabel", { slot: String(slot) })}</div>
+              <div>{t("planner.emptySlot")}</div>
             </div>
           );
         } else {
@@ -1165,7 +1166,7 @@ function PlannerYearContent(): React.ReactElement {
 
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
         <div className="mob-planner-header">
-          <h1>{t("planner.mobilePlannerTitle", { yearLabel: YEAR_LABELS[year] ?? t("planner.year") })}</h1>
+          <h1>{t("planner.mobilePlannerTitle", { yearLabel: t(`year.${year}`) })}</h1>
         </div>
 
         {isCompleted && (
@@ -1383,7 +1384,7 @@ function PlannerYearContent(): React.ReactElement {
               lineHeight: 1.2,
             }}
           >
-            {t("planner.desktopPlannerTitle", { yearLabel: YEAR_LABELS[year] ?? t("planner.year") })}
+            {t("planner.desktopPlannerTitle", { yearLabel: t(`year.${year}`) })}
           </h1>
 
           {isCompleted && (
@@ -1618,7 +1619,7 @@ function PlannerYearContent(): React.ReactElement {
                   fontWeight: 700,
                 }}
               >
-                Remove
+                {t("common.remove")}
               </button>
             </div>
           </div>
@@ -1633,7 +1634,7 @@ function PlannerYearContent(): React.ReactElement {
         );
         return (
           <EarlyBirdModal
-            courseTitle={course?.title ?? "this course"}
+            courseTitle={course?.title ?? t("plannerMarkCompleted.thisCourse")}
             onSelect={async (isEarlyBird) => {
               const pending = earlyBirdPending;
               setEarlyBirdPending(null);
@@ -1647,7 +1648,7 @@ function PlannerYearContent(): React.ReactElement {
                       (pc) => pc.semester === semester && pc.isEarlyBird
                     ) ?? [];
                   if (existingEB.length > 0) {
-                    showToast("You may only take one Early Bird course each semester.", "warning");
+                    showToast(t("plannerWarnings.onlyOneEarlyBird"), "warning");
                     return;
                   }
                 }
@@ -1662,7 +1663,7 @@ function PlannerYearContent(): React.ReactElement {
                       (pc) => pc.semester === semester && isApScience(pc.course) && !pc.isEarlyBird
                     ) ?? [];
                   if (existingApScience.length > 0) {
-                    showToast("Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.", "warning");
+                    showToast(t("plannerWarnings.twoApScienceWarning"), "warning");
                     return;
                   }
                 }
@@ -1690,7 +1691,7 @@ function PlannerYearContent(): React.ReactElement {
                 handleCloseModal();
         showToast(t("plannerToasts.courseAdded"), "success", handleUndo);
               } catch (err) {
-                const message = err instanceof Error ? err.message : "Failed to add course";
+                const message = err instanceof Error ? err.message : t("plannerToasts.failedToAddCourse");
                 showToast(message, "warning");
               }
             }}
@@ -2047,7 +2048,7 @@ function LunchLengthSection({
             }}
           >
             <span style={{ color: "var(--text-secondary)" }}>
-              Semester {s.semester}
+              {t("planner.semesterLabel", { semester: String(s.semester) })}
             </span>
             <span
               style={{
@@ -2118,7 +2119,7 @@ function AddCourseCard({
           letterSpacing: "0.02em",
         }}
       >
-        {t("planner.slotLabel")} {slot}
+        {t("planner.slotLabel", { slot: String(slot) })}
       </div>
       <div
         style={{
@@ -2141,17 +2142,18 @@ function EarlyBirdToggle({
   onChange: (isEarlyBird: boolean) => void;
   height?: number;
 }): React.ReactElement {
+  const { t } = useTranslation();
   const thumbSize = Math.max(16, height - 10);
 
   return (
     <div
       role="group"
-      aria-label="Early Bird"
-      title="Early Bird class (meets before school)"
+      aria-label={t("plannerCourseCard.earlyBirdAria")}
+      title={t("plannerCourseCard.earlyBirdTooltip")}
       style={{ display: "flex", alignItems: "center", gap: "6px", flex: "0 0 auto" }}
     >
       <span style={{ fontSize: "12px", fontWeight: 700, color: "#9ca3af", whiteSpace: "nowrap" }}>
-        🐤 Early Bird
+        {t("plannerCourseCard.earlyBirdBadge")}
       </span>
       <button
         type="button"
@@ -2211,14 +2213,15 @@ function PlannedCourseCard({
   onClick: () => void;
   onWarningClick: (warning: PlannerWarning) => void;
 }): React.ReactElement {
+  const { t } = useTranslation();
   const { course } = planned;
   const accentColor = getDivisionColor(course.division);
   const bgTint = getDivisionBackgroundColor(course.division);
   const visualSpan = effectiveSlotSpan(planned);
   const multiSlot = isMultiSlot ?? visualSpan > 1;
   const slotLabel = multiSlot
-    ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
-    : `Slot ${planned.slot}`;
+    ? t("plannerCourseCard.slotRange", { start: String(planned.slot), end: String(planned.slot + visualSpan - 1) })
+    : t("plannerCourseCard.singleSlot", { slot: String(planned.slot) });
   const isReadOnly = onRemove == null;
 
   return (
@@ -2302,7 +2305,7 @@ function PlannedCourseCard({
                 onRemove();
               }}
               draggable={false}
-              aria-label="Remove course"
+              aria-label={t("plannerCourseCard.removeCourse")}
               style={{
                 width: "28px",
                 height: "28px",
@@ -2365,9 +2368,15 @@ function PlannedCourseCard({
               borderRadius: "9999px",
               fontWeight: 700,
             }}
-            title={planned.summerCourse.duration === "full_summer" ? "Summer School · Full Summer" : `Summer School · ${planned.summerCourse.sessions?.join(", ") ?? (planned.semester === 4 ? "Session 2" : "Session 1")}`}
+            title={planned.summerCourse.duration === "full_summer"
+              ? t("plannerCourseCard.summerFullTitle")
+              : t("plannerCourseCard.summerSessions", {
+                  sessions:
+                    planned.summerCourse.sessions?.join(", ") ??
+                    (planned.semester === 4 ? t("semester.session2") : t("semester.session1")),
+                })}
           >
-            ☀ Summer
+            {t("plannerCourseCard.summerBadge")}
           </span>
         )}
         {planned.isEarlyBird && (
@@ -2380,7 +2389,7 @@ function PlannedCourseCard({
               fontWeight: 700,
             }}
           >
-            🐤 Early Bird
+            {t("plannerCourseCard.earlyBirdBadge")}
           </span>
         )}
         {course.creditType && (
@@ -2404,7 +2413,7 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            {formatCredits(course.credits)} credits
+            {formatCredits(course.credits)} {t("plannerCourseCard.credits")}
           </span>
         )}
         {course.duration === 2 && (
@@ -2416,7 +2425,7 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            {planned.summerCourse?.duration === "full_summer" ? "Full Summer" : "Full Year"}
+            {planned.summerCourse?.duration === "full_summer" ? t("plannerCourseCard.fullSummer") : t("plannerCourseCard.fullYear")}
           </span>
         )}
         {planned.summerCourse?.fulfillsRequirements.length
@@ -2429,7 +2438,7 @@ function PlannedCourseCard({
                   borderRadius: "9999px",
                   fontWeight: 600,
                 }}
-                title="Graduation requirement fulfilled"
+                title={t("plannerCourseCard.graduationRequirementFulfilled")}
               >
                 ✓ {req}
               </span>
@@ -2444,7 +2453,7 @@ function PlannedCourseCard({
               fontWeight: 600,
             }}
           >
-            {planned.course.slotsPerSemester} consecutive periods
+            {planned.course.slotsPerSemester} {t("plannerCourseCard.consecutivePeriods")}
           </span>
         )}
       </div>
@@ -2483,7 +2492,7 @@ function PlannedCourseCard({
                 e.currentTarget.style.textDecoration = "none";
               }}
             >
-              ⚠ {w.message}
+              ⚠ {formatWarningMessage(w, t, course.title)}
             </div>
           ))}
         </div>
@@ -2703,7 +2712,7 @@ function CourseSearchModal({
                   borderRadius: "8px",
                   lineHeight: 1,
                 }}
-                aria-label="Close"
+                aria-label={t("common.close")}
               >
                 ×
               </button>
@@ -2731,13 +2740,13 @@ function CourseSearchModal({
                   outline: "none",
                   boxSizing: "border-box",
                 }}
-                aria-label="Search courses"
+                aria-label={t("plannerSearch.searchAriaLabel")}
               />
               {draft && (
                 <button
                   type="button"
                   onClick={() => { clearAll(); inputRef.current?.focus(); }}
-                  aria-label="Clear search"
+                  aria-label={t("plannerSearch.clearSearch")}
                   style={{
                     position: "absolute",
                     right: "4px",
@@ -2765,7 +2774,7 @@ function CourseSearchModal({
               type="button"
               onClick={submit}
               disabled={!hasChanged}
-              aria-label="Search"
+              aria-label={t("common.search")}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -2789,14 +2798,14 @@ function CourseSearchModal({
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.35-4.35" />
               </svg>
-              Search
+              {t("common.search")}
             </button>
           </div>
 
           <select
             value={selectedDivision}
             onChange={(e) => setSelectedDivision(e.target.value)}
-            aria-label="Filter by division"
+            aria-label={t("plannerSearch.filterByDivision")}
             style={{
               width: "100%",
               marginTop: "12px",
@@ -2911,7 +2920,7 @@ function CourseSearchModal({
                             fontSize: "18px",
                             color: "var(--brand-accent)",
                           }}
-                          aria-label="Saved"
+                          aria-label={t("plannerSearch.saved")}
                         >
                           ★
                         </span>
@@ -2945,7 +2954,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          {formatCredits(course.credits)} credits
+                          {formatCredits(course.credits)} {t("plannerCourseCard.credits")}
                         </span>
                       )}
                       {course.duration === 2 && (
@@ -2956,7 +2965,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          Full Year
+                          {t("plannerCourseCard.fullYear")}
                         </span>
                       )}
                       {course.slotsPerSemester > 1 && (
@@ -2967,7 +2976,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          {course.slotsPerSemester} consecutive periods
+                          {course.slotsPerSemester} {t("plannerCourseCard.consecutivePeriods")}
                         </span>
                       )}
                       {course.duration === 1 && (
@@ -2978,7 +2987,7 @@ function CourseSearchModal({
                             borderRadius: "9999px",
                           }}
                         >
-                          One Semester
+                          {t("plannerCourseCard.oneSemester")}
                         </span>
                       )}
                     </div>
@@ -3076,7 +3085,7 @@ function DuplicateCourseDialog({
                 {t("plannerDialogs.location")} <strong style={{ color: "#ffffff" }}>{location.label}</strong>
               </div>
               <div>
-                {t("plannerDialogs.semester")} <strong style={{ color: "#ffffff" }}>{location.semester}</strong>
+                {t("plannerDialogs.semester")} <strong style={{ color: "#ffffff" }}>{location.semester === "Full Year" ? t("plannerCourseCard.fullYear") : location.semester}</strong>
               </div>
               <div>
                 {t("plannerDialogs.slot")} <strong style={{ color: "#ffffff" }}>{location.slot}</strong>
@@ -3138,6 +3147,7 @@ function Toast({
   onClose: () => void;
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -3178,13 +3188,13 @@ function Toast({
             boxSizing: "border-box",
           }}
         >
-          Undo
+          {t("common.undo")}
         </button>
       )}
       <button
         type="button"
         onClick={onClose}
-        aria-label="Dismiss"
+        aria-label={t("common.dismiss")}
         style={{
           width: "36px",
           height: "36px",
@@ -3272,8 +3282,8 @@ function MobilePlanner({
     const isMultiSlot = visualSpan > 1;
     const slotRange =
       isMultiSlot
-        ? `Slots ${planned.slot}-${planned.slot + visualSpan - 1}`
-        : `Slot ${planned.slot}`;
+        ? t("plannerCourseCard.slotRange", { start: String(planned.slot), end: String(planned.slot + visualSpan - 1) })
+        : t("plannerCourseCard.singleSlot", { slot: String(planned.slot) });
 
     return (
       <div
@@ -3304,7 +3314,7 @@ function MobilePlanner({
                   e.stopPropagation();
                   onRemoveCourse(planned);
                 }}
-                aria-label="Remove course"
+                aria-label={t("plannerCourseCard.removeCourse")}
                 style={{
                   width: "44px",
                   height: "44px",
@@ -3332,7 +3342,7 @@ function MobilePlanner({
         <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", fontSize: "12px", color: "var(--text-secondary)" }}>
           {planned.isEarlyBird && (
             <span style={{ padding: "3px 8px", background: "var(--brand-accent)", color: "#111827", borderRadius: "9999px", fontWeight: 700 }}>
-              🐤 Early Bird
+              {t("plannerCourseCard.earlyBirdBadge")}
             </span>
           )}
           {planned.course.creditType && (
@@ -3342,17 +3352,17 @@ function MobilePlanner({
           )}
           {planned.course.credits != null && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              {formatCredits(planned.course.credits)} credits
+              {formatCredits(planned.course.credits)} {t("plannerCourseCard.credits")}
             </span>
           )}
           {planned.course.duration === 2 && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              Full Year
+              {t("plannerCourseCard.fullYear")}
             </span>
           )}
           {(planned.course.slotsPerSemester ?? 1) > 1 && (
             <span style={{ padding: "3px 8px", background: "rgba(0,0,0,0.2)", borderRadius: "9999px", fontWeight: 600 }}>
-              {planned.course.slotsPerSemester} consecutive periods
+              {planned.course.slotsPerSemester} {t("plannerCourseCard.consecutivePeriods")}
             </span>
           )}
         </div>
@@ -3396,7 +3406,7 @@ function MobilePlanner({
                 }}
                 style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
               >
-                ⚠ {w.message}
+                ⚠ {formatWarningMessage(w, t, planned.course.title)}
               </div>
             ))}
           </div>
@@ -3564,6 +3574,28 @@ function getCourseIdentityKey(planned: PlannedCourse): string {
 
 function makeWarningKey(planned: PlannedCourse, warning: PlannerWarning): string {
   return `${getCourseIdentityKey(planned)}-${warning.type}-${warning.prerequisite}`;
+}
+
+function formatWarningMessage(
+  warning: PlannerWarning,
+  t: (key: string, params?: Record<string, string>) => string,
+  courseTitle: string
+): string {
+  switch (warning.type) {
+    case "missing_prerequisite":
+      return t("plannerWarnings.prerequisiteNotScheduled", {
+        courseTitle,
+        prereq: formatPrerequisiteForDisplay(warning.prerequisite),
+      });
+    case "later_prerequisite":
+      return t("plannerWarnings.prerequisiteNotScheduledGeneric");
+    case "multiple_early_bird":
+      return t("plannerWarnings.onlyOneEarlyBird");
+    case "ap_science_conflict":
+      return t("plannerWarnings.twoApScienceWarning");
+    default:
+      return warning.message;
+  }
 }
 
 function getWarnings(
@@ -3839,6 +3871,7 @@ function WarningActionModal({
 }): React.ReactElement {
   const { isMobile: mobile } = useBreakpoint();
   const { t } = useTranslation();
+  const yearLabel = (y: number) => t(`year.${y}`);
   const { completedCourses: modalCompletedService } = useServices();
   const [loading, setLoading] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -4073,7 +4106,7 @@ function WarningActionModal({
         : null;
       if (external) {
         showToast(
-          "Driver Education is already marked as completed outside of school. Undo that first.",
+          t("plannerWarnings.driverEdCompletedOutside"),
           "warning"
         );
         return;
@@ -4083,10 +4116,10 @@ function WarningActionModal({
     try {
       const completed = await modalCompletedService.addCompletedCourse(selectedCourse.id, completedGrade);
       onMarkCompleted(completed);
-      showToast("Marked as completed.", "success");
+      showToast(t("plannerToasts.markedAsCompleted"), "success");
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to mark completed";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToMarkCompletedGeneral");
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -4098,10 +4131,10 @@ function WarningActionModal({
     setLoading(true);
     try {
       await onPlacementTest(planned.courseId, warning.prerequisite);
-      showToast("Placement test recorded.", "success");
+      showToast(t("plannerToasts.placementTestRecorded"), "success");
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to record placement test";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToRecordPlacementTest");
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -4113,10 +4146,10 @@ function WarningActionModal({
     setLoading(true);
     try {
       await onMiddleSchool(selectedCourse.id, middleSchoolCompletedPeriod);
-      showToast("Marked as completed in middle school.", "success");
+      showToast(t("plannerToasts.markedMiddleSchool"), "success");
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to record middle school completion";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToRecordMiddleSchool");
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -4128,10 +4161,10 @@ function WarningActionModal({
     setLoading(true);
     try {
       await onSummerSchool(selectedCourse.id, getGradeCompleted());
-      showToast("Marked as completed in summer school.", "success");
+      showToast(t("plannerToasts.markedSummerSchool"), "success");
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to record summer school completion";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToRecordSummerSchool");
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -4157,7 +4190,7 @@ function WarningActionModal({
       await onAddToPlanner(targetPlanner.id, selectedCourse.id, targetSlot.semester, targetSlot.slot);
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to add prerequisite";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToAddPrerequisite");
       console.error(`[TRACE handleAddPrerequisite] ERROR: ${message}`);
       showToast(message, "warning");
     } finally {
@@ -4207,13 +4240,13 @@ function WarningActionModal({
         new Set([planned.id, prerequisitePlacement.id]),
         swapTempExcludedPositions
       );
-      if (!temp) throw new Error("No room to swap semesters.");
+      if (!temp) throw new Error(t("plannerToasts.noRoomToSwap"));
       await onSwapSemesters(planned.id, temp.semester, temp.slot);
       await onSwapSemesters(prerequisitePlacement.id, planned.semester, planned.slot);
       await onSwapSemesters(planned.id, prerequisitePlacement.semester, prerequisitePlacement.slot);
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to swap semesters";
+      const message = err instanceof Error ? err.message : t("plannerToasts.failedToSwapSemesters");
       showToast(message, "warning");
     } finally {
       setLoading(false);
@@ -4251,9 +4284,8 @@ function WarningActionModal({
     try {
       await onReplaceCourse(planned, selectedCourse.id);
       onClose();
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to replace course";
-      showToast(message, "warning");
+    } catch {
+      // Page-level handler already toasted the failure; keep the modal open.
     } finally {
       setLoading(false);
       setShowConfirmReplace(false);
@@ -4308,8 +4340,8 @@ function WarningActionModal({
     if (!onReplaceCourse || !selectedCourse) return;
     const { affected } = computeCourseImpact(course);
     const gradMsg = affected.length > 0
-      ? `⚠ Replacing ${course.course.title} affects: ${affected.join(", ")}`
-      : "No graduation requirements will be affected.";
+      ? `${t("plannerReplace.replacingWillAffect", { courseTitle: course.course.title })} ${affected.join(", ")}`
+      : t("plannerReplace.noGraduationRequirementsAffected");
     setPendingPlan({
       changes: [
         {
@@ -4323,9 +4355,6 @@ function WarningActionModal({
         setLoading(true);
         try {
           await onReplaceCourse!(course, selectedCourse.id);
-        } catch (err) {
-          const message = err instanceof Error ? err.message : "Failed to replace course";
-          showToast(message, "warning");
         } finally {
           setLoading(false);
           setSelectedReplacement(null);
@@ -4535,18 +4564,18 @@ function WarningActionModal({
         {
           type: "moved" as const,
           courseTitle: semesterAdjustmentPlan.courseATitle,
-          fromLocation: `${YEAR_LABELS[currentYear]} Semester 1`,
-          toLocation: `${YEAR_LABELS[currentYear]} Semester ${semesterAdjustmentPlan.moveTo.semester}`,
+          fromLocation: t("plannerScheduleChanges.yearSemesterLabel", { yearLabel: yearLabel(currentYear), semester: "1" }),
+          toLocation: t("plannerScheduleChanges.yearSemesterLabel", { yearLabel: yearLabel(currentYear), semester: String(semesterAdjustmentPlan.moveTo.semester) }),
         },
         {
           type: "added" as const,
           courseTitle: semesterAdjustmentPlan.prereqTitle,
-          location: `${YEAR_LABELS[currentYear]} • Semester ${semesterAdjustmentPlan.addPrereq!.semester} • Slot ${semesterAdjustmentPlan.addPrereq!.slot}`,
+          location: t("plannerScheduleChanges.locationText", { yearLabel: yearLabel(currentYear), semester: String(semesterAdjustmentPlan.addPrereq!.semester), slot: String(semesterAdjustmentPlan.addPrereq!.slot) }),
         },
       ];
       setPendingPlan({
         changes,
-        gradImpact: { type: "none", message: "No graduation requirements will be affected." },
+        gradImpact: { type: "none", message: t("plannerReplace.noGraduationRequirementsAffected") },
         execute: async () => {
           await onMoveAndAddPrerequisite(
             planned.id,
@@ -4566,12 +4595,12 @@ function WarningActionModal({
         {
           type: "added" as const,
           courseTitle: semesterAdjustmentPlan.prereqTitle,
-          location: `${YEAR_LABELS[yr]} • Semester ${semesterAdjustmentPlan.addPrereq.semester} • Slot ${semesterAdjustmentPlan.addPrereq.slot}`,
+          location: t("plannerScheduleChanges.locationText", { yearLabel: yearLabel(yr), semester: String(semesterAdjustmentPlan.addPrereq.semester), slot: String(semesterAdjustmentPlan.addPrereq.slot) }),
         },
       ];
       setPendingPlan({
         changes,
-        gradImpact: { type: "none", message: "No graduation requirements will be affected." },
+        gradImpact: { type: "none", message: t("plannerReplace.noGraduationRequirementsAffected") },
         execute: async () => {
           await onAddToPlanner(
             targetPlanner.id,
@@ -4608,14 +4637,14 @@ function WarningActionModal({
   if (canReplace && !showConfirmReplace) {
     plannerActions.push({
       key: "replace",
-      label: `Replace ${planned.course.title} with ${selectedCourse?.title ?? "prerequisite"}`,
+      label: t("plannerReplace.replaceWith", { currentTitle: planned.course.title, newTitle: selectedCourse?.title ?? t("plannerAddPrereq.prerequisiteFallback") }),
       onClick: handleReplaceClick,
     });
   }
   if (hasPreviousYears && warning.type === "missing_prerequisite" && selectedCourse) {
     plannerActions.push({
       key: "add-to-previous-year",
-      label: `Add ${selectedCourse.title} to a previous year`,
+      label: t("plannerReplace.addToPreviousYear", { courseTitle: selectedCourse.title }),
       onClick: handleAddToYearClick,
     });
   }
@@ -4624,22 +4653,22 @@ function WarningActionModal({
       key: "semester-adjustment",
       label:
         semesterAdjustmentPlan.action === "add_only"
-          ? `Add ${semesterAdjustmentPlan.prereqTitle} to ${YEAR_LABELS[semesterAdjustmentPlan.addPrereq!.year]} Year Semester ${semesterAdjustmentPlan.addPrereq!.semester} Slot ${semesterAdjustmentPlan.addPrereq!.slot}`
-          : `Move ${semesterAdjustmentPlan.courseATitle} to Semester 2 and add ${semesterAdjustmentPlan.prereqTitle} to Semester 1 Slot ${semesterAdjustmentPlan.addPrereq!.slot}`,
+          ? t("plannerReplace.addPrereqToSlot", { courseTitle: semesterAdjustmentPlan.prereqTitle, yearLabel: yearLabel(semesterAdjustmentPlan.addPrereq!.year), semester: String(semesterAdjustmentPlan.addPrereq!.semester), slot: String(semesterAdjustmentPlan.addPrereq!.slot) })
+          : t("plannerReplace.moveAndAdd", { courseA: semesterAdjustmentPlan.courseATitle, courseB: semesterAdjustmentPlan.prereqTitle, slot: String(semesterAdjustmentPlan.addPrereq!.slot) }),
       onClick: () => setShowAdjustConfirm(true),
     });
   }
   if (semesterAdjustmentPlan && semesterAdjustmentPlan.action === "replacement" && !showAdjustConfirm && hasPreviousYears) {
     plannerActions.push({
       key: "semester-adjustment-replacement",
-      label: `Move ${semesterAdjustmentPlan.courseATitle} to Semester 2 and add ${semesterAdjustmentPlan.prereqTitle}`,
+      label: t("plannerReplace.moveAndAddNoSlot", { courseA: semesterAdjustmentPlan.courseATitle, courseB: semesterAdjustmentPlan.prereqTitle }),
       onClick: () => handleAdjustmentReplace(currentYear),
     });
   }
   if (canSwapSemesters) {
     plannerActions.push({
       key: "swap-semesters",
-      label: "Swap semesters",
+      label: t("plannerReplace.swapSemesters"),
       onClick: handleSwapSemesters,
     });
   }
@@ -4650,15 +4679,15 @@ function WarningActionModal({
   // Summary shown at the top of the Verify Changes screen. Reuses the existing
   // best-slot calculation rather than recomputing schedule info in the UI.
   const verifyIntro = useMemo(() => {
-    const courseTitle = selectedCourse?.title ?? "the prerequisite";
+    const courseTitle = selectedCourse?.title ?? t("plannerAddPrereq.thePrerequisite");
     if (selectedYear == null) {
-      return `You're adding ${courseTitle} to a previous year.`;
+      return t("plannerAddPrereq.addingToPreviousYear", { courseTitle });
     }
     const slot = findBestSlotForYear(selectedYear, planned.slot);
     const location = slot
-      ? `${YEAR_LABELS[selectedYear]} Year, Semester ${slot.semester} Slot ${slot.slot}`
-      : `${YEAR_LABELS[selectedYear]} Year`;
-    return `You're adding ${courseTitle} to ${location}.`;
+      ? t("plannerScheduleChanges.locationText", { yearLabel: yearLabel(selectedYear), semester: String(slot.semester), slot: String(slot.slot) })
+      : t("plannerScheduleChanges.yearOnly", { yearLabel: yearLabel(selectedYear) });
+    return t("plannerAddPrereq.addingToLocation", { courseTitle, location });
   }, [selectedCourse, selectedYear, findBestSlotForYear, planned.slot]);
 
   return (
@@ -4795,7 +4824,7 @@ function WarningActionModal({
                   borderRadius: "8px",
                   lineHeight: 1,
                 }}
-                aria-label="Close"
+                aria-label={t("common.close")}
               >
                 ×
               </button>
@@ -4824,7 +4853,7 @@ function WarningActionModal({
                   lineHeight: 1.5,
                 }}
               >
-                ⚠ {warning.message}
+                ⚠ {formatWarningMessage(warning, t, planned.course.title)}
               </div>
             )}
 
@@ -4909,7 +4938,7 @@ function WarningActionModal({
                       </div>
                       <div style={{ textAlign: "center", color: "#9ca3af", fontSize: "18px" }}>↓</div>
                       <div style={{ padding: "8px 12px", backgroundColor: "var(--brand-accent)", borderRadius: "6px", color: "#ffffff", marginTop: "8px" }}>
-                        {selectedCourse?.title ?? "prerequisite"}
+                        {selectedCourse?.title ?? t("plannerAddPrereq.prerequisiteFallback")}
                       </div>
                     </div>
                     <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
@@ -4942,12 +4971,12 @@ function WarningActionModal({
                             className="wa-btn wa-btn-primary"
                             style={{ width: "100%" }}
                           >
-                            {t("plannerScheduleChanges.bestPlacement", { yearLabel: YEAR_LABELS[bestPlacement.year], semester: String(bestPlacement.semester), slot: String(bestPlacement.slot) })}
+                            {t("plannerScheduleChanges.bestPlacement", { yearLabel: yearLabel(bestPlacement.year), semester: String(bestPlacement.semester), slot: String(bestPlacement.slot) })}
                           </button>
                         )}
 
                         <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af", textAlign: "center" }}>
-                          Or choose another year
+                          {t("plannerScheduleChanges.chooseAnotherYear")}
                         </p>
 
                         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -4980,10 +5009,10 @@ function WarningActionModal({
                                   opacity: slot ? 1 : 0.5,
                                 }}
                               >
-                                {YEAR_LABELS[y]}
+                                {yearLabel(y)}
                                 {slot
-                                  ? <div style={{ fontSize: "11px", color: "#9ca3af" }}>S{slot.semester} Slot {slot.slot}</div>
-                                  : <div style={{ fontSize: "11px", color: "#6b7280" }}>No open slots</div>}
+                                  ? <div style={{ fontSize: "11px", color: "#9ca3af" }}>{t("plannerScheduleChanges.semesterSlotShort", { semester: String(slot.semester), slot: String(slot.slot) })}</div>
+                                  : <div style={{ fontSize: "11px", color: "#6b7280" }}>{t("plannerScheduleChanges.noOpenSlots")}</div>}
                               </button>
                             );
                           })}
@@ -4995,7 +5024,7 @@ function WarningActionModal({
                           className="wa-btn wa-btn-secondary"
                           style={{ width: "100%" }}
                         >
-                          ← Back
+                          {t("plannerScheduleChanges.back")}
                         </button>
                       </div>
                     )}
@@ -5006,10 +5035,10 @@ function WarningActionModal({
                       return (
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
                           <p style={{ margin: 0, fontSize: "14px", color: "#34d399", fontWeight: 600 }}>
-                            ✓ Found an available slot.
+                            {t("plannerScheduleChanges.foundAvailableSlot")}
                           </p>
                           <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db" }}>
-                            {YEAR_LABELS[selectedYear]} Year Semester {foundSlot.semester} Slot {foundSlot.slot}
+                            {t("plannerScheduleChanges.locationText", { yearLabel: yearLabel(selectedYear), semester: String(foundSlot.semester), slot: String(foundSlot.slot) })}
                           </p>
                           <div style={{ display: "flex", gap: "12px" }}>
                             <button
@@ -5019,7 +5048,7 @@ function WarningActionModal({
                               className="wa-btn wa-btn-secondary"
                               style={{ flex: 1 }}
                             >
-                              Back
+                              {t("common.back")}
                             </button>
                             <button
                               type="button"
@@ -5028,7 +5057,7 @@ function WarningActionModal({
                               className="wa-btn wa-btn-primary"
                               style={{ flex: 1 }}
                             >
-                              {loading ? "Adding..." : "Add Course"}
+                              {loading ? t("plannerScheduleChanges.adding") : t("plannerScheduleChanges.addCourseButton")}
                             </button>
                           </div>
                         </div>
@@ -5038,15 +5067,15 @@ function WarningActionModal({
                     {step === "selectReplacement" && selectedYear && (
                       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                         <p style={{ margin: 0, fontSize: "14px", color: "#f59e0b", fontWeight: 600 }}>
-                          No available planner slot was found.
+                          {t("plannerScheduleChanges.noAvailableSlotFound")}
                         </p>
                         <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af" }}>
-                          Select a course to replace
+                          {t("plannerScheduleChanges.selectCourseToReplace")}
                         </p>
 
                         {coursesInSelectedYear.length === 0 ? (
                           <p style={{ margin: 0, fontSize: "13px", color: "#6b7280" }}>
-                            No courses in this year to replace.
+                            {t("plannerScheduleChanges.noCoursesToReplace")}
                           </p>
                         ) : (
                           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -5059,7 +5088,7 @@ function WarningActionModal({
                                 grouped[sem].length > 0 ? (
                                   <div key={sem}>
                                     <p style={{ margin: "0 0 4px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.02em" }}>
-                                      {YEAR_LABELS[selectedYear]} Semester {sem}
+                                      {t("plannerScheduleChanges.yearSemesterLabel", { yearLabel: yearLabel(selectedYear), semester: String(sem) })}
                                     </p>
                                     {grouped[sem].map((c) => {
                                       const { isRecommended, affected } = computeCourseImpact(c);
@@ -5090,7 +5119,7 @@ function WarningActionModal({
                                           <span>{c.course.title}</span>
                                           {isRecommended && (
                                             <span style={{ fontSize: "12px", color: "#34d399", fontWeight: 600, marginLeft: "8px", whiteSpace: "nowrap" }}>
-                                              (Recommended)
+                                              {t("plannerScheduleChanges.recommendedBadge")}
                                             </span>
                                           )}
                                         </button>
@@ -5109,7 +5138,7 @@ function WarningActionModal({
                           className="wa-btn wa-btn-secondary"
                           style={{ width: "100%" }}
                         >
-                          Choose a different year
+                          {t("plannerScheduleChanges.chooseDifferentYear")}
                         </button>
 
                         <button
@@ -5118,7 +5147,7 @@ function WarningActionModal({
                           className="wa-btn wa-btn-secondary"
                           style={{ width: "100%" }}
                         >
-                          ← Back
+                          {t("plannerScheduleChanges.back")}
                         </button>
                       </div>
                     )}
@@ -5126,10 +5155,10 @@ function WarningActionModal({
                     {step === "confirmImpact" && selectedReplacement && (
                       <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px", backgroundColor: "#1f2937", borderRadius: "8px" }}>
                         <p style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#f59e0b" }}>
-                          Requirement Impact Warning
+                          {t("plannerReplace.requirementImpactWarning")}
                         </p>
                         <p style={{ margin: 0, fontSize: "14px", color: "#d1d5db", lineHeight: 1.5 }}>
-                          Replacing {selectedReplacement.course.title} will affect:
+                          {t("plannerReplace.replacingWillAffect", { courseTitle: selectedReplacement.course.title })}
                         </p>
                         <ul style={{ margin: "4px 0", paddingLeft: "20px", fontSize: "13px", color: "#f59e0b", lineHeight: 1.6 }}>
                           {(() => {
@@ -5138,7 +5167,7 @@ function WarningActionModal({
                           })()}
                         </ul>
                         <p style={{ margin: 0, fontSize: "13px", color: "#9ca3af" }}>
-                          You may no longer satisfy these requirements.
+                          {t("plannerReplace.mayNoLongerSatisfy")}
                         </p>
                         <div style={{ display: "flex", gap: "12px" }}>
                           <button
@@ -5296,18 +5325,18 @@ function WarningActionModal({
                                 <>
                                   <div style={{ flex: 1 }}>
                                     <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
-                                      Before
+                                      {t("plannerScheduleChanges.before")}
                                     </p>
                                     <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
                                       <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
-                                        {YEAR_LABELS[yr]} S{plan.addPrereq.semester}
+                                        {t("plannerScheduleChanges.yearSemesterShort", { yearLabel: yearLabel(yr), semester: String(plan.addPrereq.semester) })}
                                       </p>
                                       {beforeCourses.length === 0 ? (
-                                        <p style={{ margin: 0, fontSize: "12px", color: "#6b7280", fontStyle: "italic" }}>No courses</p>
+                                        <p style={{ margin: 0, fontSize: "12px", color: "#6b7280", fontStyle: "italic" }}>{t("plannerScheduleChanges.noCourses")}</p>
                                       ) : (
                                         beforeCourses.map((c) => (
                                           <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
-                                            Slot {c.slot}: {c.title}
+                                            {t("plannerScheduleChanges.slotDisplay", { slot: String(c.slot), title: c.title })}
                                           </div>
                                         ))
                                       )}
@@ -5316,20 +5345,20 @@ function WarningActionModal({
                                   <div style={{ display: "flex", alignItems: "center", color: "#6b7280", fontSize: "20px" }}>→</div>
                                   <div style={{ flex: 1 }}>
                                     <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
-                                      After
+                                      {t("plannerScheduleChanges.after")}
                                     </p>
                                     <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
                                       <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
-                                        {YEAR_LABELS[yr]} S{plan.addPrereq.semester}
+                                        {t("plannerScheduleChanges.yearSemesterShort", { yearLabel: yearLabel(yr), semester: String(plan.addPrereq.semester) })}
                                       </p>
                                       {beforeCourses.map((c) => (
                                         <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
-                                          Slot {c.slot}: {c.title}
+                                          {t("plannerScheduleChanges.slotDisplay", { slot: String(c.slot), title: c.title })}
                                         </div>
                                       ))}
                                       <div style={{ padding: "4px 8px", backgroundColor: "rgba(52, 211, 153, 0.15)", border: "1px solid #34d399", borderRadius: "4px", fontSize: "12px", color: "#34d399", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <span>Slot {plan.addPrereq.slot}: {plan.prereqTitle}</span>
-                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#34d399", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>New</span>
+                                        <span>{t("plannerScheduleChanges.slotDisplay", { slot: String(plan.addPrereq.slot), title: plan.prereqTitle })}</span>
+                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#34d399", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>{t("plannerScheduleChanges.newBadge")}</span>
                                       </div>
                                     </div>
                                   </div>
@@ -5353,24 +5382,24 @@ function WarningActionModal({
                                 <>
                                   <div style={{ flex: 1 }}>
                                     <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
-                                      Before
+                                      {t("plannerScheduleChanges.before")}
                                     </p>
                                     <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
                                       <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
-                                        S1
+                                        {t("plannerScheduleChanges.semester1Short")}
                                       </p>
                                       {s1Before.map((c) => (
                                         <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: c.id === plan.courseAPlannedId ? "rgba(251, 191, 36, 0.15)" : "#374151", border: c.id === plan.courseAPlannedId ? "1px solid #fbbf24" : "none", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
-                                          Slot {c.slot}: {c.title}
-                                          {c.id === plan.courseAPlannedId && <span style={{ marginLeft: "6px", fontSize: "10px", color: "#fbbf24" }}>(will move)</span>}
+                                          {t("plannerScheduleChanges.slotDisplay", { slot: String(c.slot), title: c.title })}
+                                          {c.id === plan.courseAPlannedId && <span style={{ marginLeft: "6px", fontSize: "10px", color: "#fbbf24" }}>{t("plannerScheduleChanges.willMove")}</span>}
                                         </div>
                                       ))}
                                       <p style={{ margin: "12px 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
-                                        S2
+                                        {t("plannerScheduleChanges.semester2Short")}
                                       </p>
                                       {s2Before.map((c) => (
                                         <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
-                                          Slot {c.slot}: {c.title}
+                                          {t("plannerScheduleChanges.slotDisplay", { slot: String(c.slot), title: c.title })}
                                         </div>
                                       ))}
                                     </div>
@@ -5378,32 +5407,32 @@ function WarningActionModal({
                                   <div style={{ display: "flex", alignItems: "center", color: "#6b7280", fontSize: "20px" }}>→</div>
                                   <div style={{ flex: 1 }}>
                                     <p style={{ margin: "0 0 8px", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
-                                      After
+                                      {t("plannerScheduleChanges.after")}
                                     </p>
                                     <div style={{ padding: "8px", backgroundColor: "#111827", borderRadius: "6px", minHeight: "60px" }}>
                                       <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
-                                        S1
+                                        {t("plannerScheduleChanges.semester1Short")}
                                       </p>
                                       {s1Before.filter((c) => c.id !== plan.courseAPlannedId).map((c) => (
                                         <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
-                                          Slot {c.slot}: {c.title}
+                                          {t("plannerScheduleChanges.slotDisplay", { slot: String(c.slot), title: c.title })}
                                         </div>
                                       ))}
                                       <div style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "rgba(52, 211, 153, 0.15)", border: "1px solid #34d399", borderRadius: "4px", fontSize: "12px", color: "#34d399", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <span>Slot {plan.addPrereq!.slot}: {plan.prereqTitle}</span>
-                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#34d399", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>New</span>
+                                        <span>{t("plannerScheduleChanges.slotDisplay", { slot: String(plan.addPrereq!.slot), title: plan.prereqTitle })}</span>
+                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#34d399", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>{t("plannerScheduleChanges.newBadge")}</span>
                                       </div>
                                       <p style={{ margin: "12px 0 6px", fontSize: "11px", fontWeight: 600, color: "#9ca3af" }}>
-                                        S2
+                                        {t("plannerScheduleChanges.semester2Short")}
                                       </p>
                                       {s2Before.map((c) => (
                                         <div key={c.id} style={{ padding: "4px 8px", marginBottom: "4px", backgroundColor: "#374151", borderRadius: "4px", fontSize: "12px", color: "#d1d5db" }}>
-                                          Slot {c.slot}: {c.title}
+                                          {t("plannerScheduleChanges.slotDisplay", { slot: String(c.slot), title: c.title })}
                                         </div>
                                       ))}
                                       <div style={{ padding: "4px 8px", backgroundColor: "rgba(251, 191, 36, 0.15)", border: "1px solid #fbbf24", borderRadius: "4px", fontSize: "12px", color: "#fbbf24", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <span>Slot {plan.moveTo!.slot}: {plan.courseATitle}</span>
-                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#fbbf24", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>Moved</span>
+                                        <span>{t("plannerScheduleChanges.slotDisplay", { slot: String(plan.moveTo!.slot), title: plan.courseATitle })}</span>
+                                        <span style={{ fontSize: "10px", padding: "1px 6px", backgroundColor: "#fbbf24", color: "#111827", borderRadius: "4px", fontWeight: 600 }}>{t("plannerScheduleChanges.movedBadge")}</span>
                                       </div>
                                     </div>
                                   </div>
@@ -5430,7 +5459,7 @@ function WarningActionModal({
                             className="wa-btn wa-btn-primary"
                             style={{ flex: 1 }}
                           >
-                            {loading ? "Applying..." : "Apply"}
+                            {loading ? t("plannerScheduleChanges.applying") : t("plannerScheduleChanges.apply")}
                           </button>
                         </div>
                       </div>

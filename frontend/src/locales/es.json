@@ -26,7 +26,8 @@
     "myProfile": "Mi Perfil",
     "mainNavigation": "Navegación principal",
     "navigationMenu": "Menú de navegación",
-    "dialog": "Diálogo"
+    "dialog": "Diálogo",
+    "skipToContent": "Saltar al contenido principal"
   },
   "header": {
     "siteTitle": "Stevenson Course Planner"
@@ -72,7 +73,7 @@
     "plannerCompletionSection": "Completitud del Planificador",
     "recentActivity": "Actividad Reciente",
     "studentFallback": "Estudiante",
-    "openPlanner": "Abrir Planificador →",
+    "openPlanner": "Abrir Planificador",
     "progressLabel": "Progreso: {value}%",
     "dashboardTitle": "Panel",
     "dashboardSubtitle": "Explora cursos, planifica tu horario y rastrea los requisitos de graduación, todo en un solo lugar.",
@@ -136,9 +137,9 @@
     "summerSchoolSection": "Escuela de Verano",
     "onlineCoursesSection": "Cursos en Línea",
     "subSemesterLabel": "Semestre {i}",
-    "completedBadge": "✓ Completado",
+    "completedBadge": "Completado",
     "viewOnlyMode": "Este planificador está en modo de solo vista.",
-    "backToPlanner": "← Volver al Planificador",
+    "backToPlanner": "Volver al Planificador",
     "loadingPlanner": "Cargando planificador...",
     "mobilePlannerTitle": "Planificador {yearLabel}",
     "desktopPlannerTitle": "Planificador {yearLabel}",
@@ -163,7 +164,11 @@
     "alreadyPlanned": "Ya planificado",
     "addToPlanner": "Agregar →",
     "slotRange": "Ranuras {start}-{end}",
-    "singleSlot": "Ranura {slot}"
+    "singleSlot": "Ranura {slot}",
+    "summerFullTitle": "Escuela de Verano · Verano Completo",
+    "summerSessions": "Escuela de Verano · {sessions}",
+    "earlyBirdAria": "Early Bird",
+    "earlyBirdTooltip": "Clase Early Bird (antes de la escuela)"
   },
   "plannerDialogs": {
     "thisCourseIsAlreadyPlanned": "Este curso ya está planificado",
@@ -239,7 +244,8 @@
     "failedToRecordSummerSchool": "Error al registrar finalización de escuela de verano",
     "noRoomToSwap": "No hay espacio para intercambiar semestres.",
     "failedToSwapSemesters": "Error al intercambiar semestres",
-    "cannotRestoreCourse": "No se puede restaurar el curso planificado: falta courseId y plannerOptionId"
+    "cannotRestoreCourse": "No se puede restaurar el curso planificado: falta courseId y plannerOptionId",
+    "failedToUndo": "Error al deshacer"
   },
   "plannerEarlyBird": {
     "takeEarlyBird": "¿Tomar este curso como Early Bird?",
@@ -285,7 +291,9 @@
     "requirementImpactWarning": "Advertencia de Impacto en Requisitos",
     "replacingWillAffect": "Reemplazar {courseTitle} afectará:",
     "mayNoLongerSatisfy": "Puede que ya no satisfaga estos requisitos.",
-    "noGraduationRequirementsAffected": "Ningún requisito de graduación será afectado."
+    "noGraduationRequirementsAffected": "Ningún requisito de graduación será afectado.",
+    "addPrereqToSlot": "Agregar {courseTitle} al Año {yearLabel}, Semestre {semester}, Ranura {slot}",
+    "moveAndAddNoSlot": "Mover {courseA} al Semestre 2 y agregar {courseB}"
   },
   "plannerAddPrereq": {
     "addPrereqTitle": "Agregar curso prerrequisito",
@@ -294,7 +302,11 @@
     "noMatchingCourse": "No se encontró ningún curso coincidente para este prerrequisito.",
     "recording": "Registrando...",
     "markPlacementTestCompleted": "Marcar Examen de Ubicación como Completado",
-    "addToPlanner": "Agregar al Planificador"
+    "addToPlanner": "Agregar al Planificador",
+    "thePrerequisite": "el prerrequisito",
+    "prerequisiteFallback": "prerrequisito",
+    "addingToPreviousYear": "Estás agregando {courseTitle} a un año anterior.",
+    "addingToLocation": "Estás agregando {courseTitle} a {location}."
   },
   "plannerScheduleChanges": {
     "reviewProposedChanges": "Revisar Cambios de Horario Propuestos",
@@ -342,7 +354,12 @@
     "autoReorganize": "Esto reorganizará automáticamente su horario para satisfacer el prerrequisito con la menor cantidad de cambios posible.",
     "loading": "Cargando...",
     "adding": "Agregando...",
-    "addCourseButton": "Agregar Curso"
+    "addCourseButton": "Agregar Curso",
+    "applying": "Aplicando...",
+    "apply": "Aplicar",
+    "yearSemesterShort": "{yearLabel} S{semester}",
+    "yearOnly": "Año {yearLabel}",
+    "semesterSlotShort": "S{semester} Ranura {slot}"
   },
   "plannerDriverEd": {
     "driverEducation": "Educación Vehicular",
@@ -381,7 +398,18 @@
     "no": "No",
     "howManySports": "¿En cuántos deportes JV/Varsity participa?",
     "oneSport": "Un deporte",
-    "twoOrMoreSports": "Dos o más deportes"
+    "twoOrMoreSports": "Dos o más deportes",
+    "reasonOnlySeniors": "Solo disponible para estudiantes de último año",
+    "reasonSixCreditBearing": "Requiere seis clases con crédito por semestre",
+    "reasonAcademicMayBeAvailable": "La exención de ED académica puede estar disponible.",
+    "reasonJuniorsSeniors": "Solo disponible para penúltimo y último año",
+    "reasonAthleticMayBeAvailable": "La exención de ED atlética puede estar disponible.",
+    "reasonMarchingBandFound": "Curso de Marching Band encontrado.",
+    "reasonMarchingBandNotFound": "Curso de Marching Band no encontrado en el planificador.",
+    "reasonAthleticNonCreditEligible": "Exención atlética sin crédito basada en un deporte y seis clases con crédito.",
+    "reasonAthleticOneSport": "Un deporte requiere seis clases con crédito.",
+    "reasonAthleticCreditEligible": "Exención atlética con crédito basada en dos o más deportes y cinco clases con crédito.",
+    "reasonAthleticTwoSports": "Dos o más deportes requieren cinco clases con crédito."
   },
   "plannerSummerPicker": {
     "addSummerCourse": "Agregar un Curso de Verano",
@@ -542,19 +570,57 @@
   },
   "privacy": {
     "heading": "Privacidad",
-    "intro": "Esta página explica qué datos almacena el Stevenson Course Planner y cómo se utilizan.",
-    "signedInUsers": "Usuarios Registrados",
-    "signedInDescription": "Cuando inicia sesión con Google, los siguientes datos se almacenan en el servidor y se asocian con su cuenta:",
-    "signedInItem1": "Su nombre de cuenta de Google, dirección de correo electrónico y ID de Google (requerido para la autenticación)",
-    "signedInItem2": "Los cursos que ha guardado en su planificador",
-    "signedInItem3": "Los cursos que ha marcado como completados",
-    "signedInItem4": "Su progreso de graduación en todas las áreas de requisitos",
-    "signedInNote": "Estos datos se utilizan únicamente para proporcionar la funcionalidad del planificador. No se recopilan ni comparten calificaciones, transcripciones ni registros académicos personales.",
-    "guestUsers": "Usuarios Invitados",
-    "guestDescription": "Si usa el planificador sin iniciar sesión, todos los datos existen solo en la memoria de su navegador. Al actualizar o cerrar la pestaña se eliminan todos los datos de invitado. No se almacena ninguna información de invitado en el servidor.",
+    "lastUpdated": "Última actualización: 23 de septiembre de 2026",
+    "intro": "Esta página explica qué información almacena el Stevenson Course Planner (\"Course Planner\"), cómo se utiliza y qué opciones tiene. Course Planner es una herramienta de planificación independiente creada por un estudiante. No es un sistema oficial de Stevenson High School ni del distrito escolar, y no está afiliada a, respaldada ni operada por la escuela o el distrito escolar.",
+    "signedInUsers": "Información que almacenamos para usuarios registrados",
+    "signedInDescription": "Cuando inicia sesión con Google, Course Planner almacena la siguiente información en su base de datos, asociada a su cuenta:",
+    "signedInItem1": "Su nombre de cuenta de Google, dirección de correo electrónico, ID de cuenta de Google y foto de perfil (recibidos de Google para iniciar sesión)",
+    "signedInItem2": "La información de perfil que usted elige ingresar: nombre, apellido, nombre preferido, grado escolar y año de graduación esperado",
+    "signedInItem3": "Su plan de cuatro años: cursos planificados, semestre y período asignados, selecciones de Early Bird y los años escolares que marcó como completados",
+    "signedInItem4": "Los cursos completados que registra, incluido el período que selecciona y cualquier calificación con letra que ingrese",
+    "signedInItem5": "Los cursos que guarda",
+    "signedInItem6": "Las resoluciones de requisitos que crea (por ejemplo, exenciones de Educación Física o reconocimientos de créditos de escuela intermedia)",
+    "signedInItem7": "Información de sesión de inicio de sesión: un identificador de sesión aleatorio almacenado en nuestro servidor, que expira automáticamente",
+    "signedInNote": "Esta información se utiliza únicamente para proporcionar la funcionalidad del planificador. Course Planner no recibe ni almacena registros escolares oficiales, transcripciones, calificaciones ni horarios de Stevenson.",
+    "guestUsers": "Modo Invitado",
+    "guestIntro": "Puede usar Course Planner sin iniciar sesión. La información de invitado nunca se envía a nuestros servidores y nunca crea un registro en la base de datos. Los distintos tipos de datos de invitado se almacenan de forma diferente en su navegador:",
+    "guestMemory": "Su plan de cuatro años de invitado, cursos completados y resoluciones de requisitos se conservan solo en la memoria de la pestaña actual del navegador. Al actualizar la página o cerrar la pestaña o el navegador, se borran.",
+    "guestSaved": "Los cursos que guarda como invitado se almacenan en el almacenamiento de sesión de su navegador para esa pestaña. Sobreviven a una actualización de página, pero se borran cuando cierra la pestaña o el navegador, no se comparten con otras pestañas o dispositivos y nunca se envían al servidor.",
+    "guestLocal": "Un perfil de invitado que ingrese en la página Mi Perfil (nombre, grado, año de graduación) y las preferencias como idioma, accesibilidad y configuración del tutorial se almacenan en el almacenamiento local de su navegador en ese dispositivo. Esta información persiste entre sesiones del navegador hasta que borre los datos del sitio.",
+    "guestSignIn": "Los invitados no tienen una cuenta en el servidor. Cuando inicia sesión, los datos de invitado no se migran a su cuenta; su cuenta comienza con los datos del servidor de esa cuenta de Google, que está vacía para una cuenta nueva.",
     "dataSharing": "Intercambio de Datos",
-    "dataSharingDescription": "Sus datos se utilizan únicamente para proporcionar la funcionalidad de planificación de cursos dentro de esta aplicación. No se comparten datos del planificador, selecciones de cursos ni información de graduación con terceros, la escuela o el distrito escolar.",
-    "dataSharingNote": "Esta herramienta no está afiliada ni respaldada por el distrito escolar. Es una herramienta de planificación independiente creada para ayudar a los estudiantes a prepararse para las reuniones con los consejeros."
+    "dataSharingDescription": "Sus datos se utilizan únicamente para proporcionar la funcionalidad de planificación de cursos dentro de esta aplicación. Además de los proveedores de infraestructura descritos más abajo, Course Planner no comparte sus datos del planificador, selecciones de cursos ni información de graduación con la escuela, el distrito escolar, consejeros, maestros, administradores ni otros usuarios de Course Planner.",
+    "dataSharingNote": "Esta herramienta no está afiliada ni respaldada por el distrito escolar. Es una herramienta de planificación independiente creada para ayudar a los estudiantes a prepararse para las reuniones con los consejeros.",
+    "howWeUse": "Cómo se utiliza la información",
+    "howWeUseDescription": "Usamos la información descrita anteriormente solo para operar Course Planner: para iniciar su sesión, guardar su plan, mostrar su progreso de graduación y recordar sus preferencias. No vendemos ni alquilamos su información, no la usamos para publicidad dirigida y no la usamos para crear perfiles de marketing.",
+    "notCollected": "Información que no recopilamos intencionalmente",
+    "notCollectedDescription": "Course Planner no recibe registros escolares oficiales, transcripciones, calificaciones, horarios ni solicitudes de cursos de Stevenson High School ni del distrito escolar. La aplicación no procesa pagos y no recopila información de pago, ubicación precisa, contactos ni identificadores publicitarios. Por favor, evite ingresar información sensible que no necesite para usar el planificador.",
+    "cookies": "Cookies y almacenamiento local",
+    "cookiesDescription": "Al iniciar sesión, Course Planner establece una cookie de primer partido: una cookie de sesión que contiene solo un identificador de sesión aleatorio. La sesión en sí se almacena en nuestro servidor y se vincula a su cuenta; la cookie no contiene su información personal. Las cookies de sesión caducan después de aproximadamente 24 horas, y al cerrar sesión la sesión se destruye. El Modo Invitado no establece una cookie de sesión. Course Planner no establece cookies de analítica ni publicitarias. Como se describió arriba, la aplicación también usa el almacenamiento de sesión y el almacenamiento local del navegador para los datos de invitado y las preferencias.",
+    "thirdParty": "Servicios de terceros",
+    "thirdPartyIntro": "Course Planner usa los siguientes servicios de terceros en producción:",
+    "thirdPartyGoogleAuth": "Google (inicio de sesión): se usa Google OAuth para autenticarle. Google proporciona a Course Planner su nombre, dirección de correo electrónico, foto de perfil y ID de cuenta de Google como parte del inicio de sesión. Course Planner no envía sus datos de planificación de cursos a Google.",
+    "thirdPartyVercel": "Vercel: aloja el sitio web de Course Planner. Como cualquier proveedor de alojamiento, procesa datos ordinarios de solicitud (como su dirección IP y las páginas que solicita) cuando carga el sitio.",
+    "thirdPartyRender": "Render: aloja el servidor de aplicaciones de Course Planner, que procesa la información descrita anteriormente para proporcionar la aplicación.",
+    "thirdPartyNeon": "Neon: proporciona la base de datos PostgreSQL donde se almacenan los datos de cuenta y de planificador de los usuarios registrados y las sesiones del servidor.",
+    "thirdPartyForms": "Google Forms (opcional): los enlaces de Comentarios abren un Google Form. Todo lo que envíe allí lo proporciona usted directamente a ese formulario y está sujeto a las prácticas de Google y del propietario del formulario. La aplicación no envía automáticamente sus datos del planificador.",
+    "thirdPartyNote": "Las fuentes se alojan junto con la aplicación, las traducciones están incluidas en la aplicación y no hay SDK de analítica ni publicidad. Las herramientas de desarrollo y de extracción de datos utilizadas para crear la aplicación no reciben información de estudiantes durante el uso normal de la aplicación.",
+    "security": "Seguridad de los datos",
+    "securityDescription": "Usamos medidas técnicas razonables, incluido HTTPS, requisitos de autenticación en los puntos de acceso de la API y sesiones en el servidor. Ningún método de transmisión o almacenamiento es completamente seguro, y no podemos garantizar una seguridad absoluta.",
+    "retention": "Retención de datos",
+    "retentionDescription": "La información de cuenta y del planificador de los usuarios registrados se conserva mientras su cuenta exista. Cerrar sesión solo termina su sesión; no elimina sus datos. Las sesiones expiran automáticamente después de aproximadamente 24 horas. Puede eliminar su cuenta y sus datos en cualquier momento (vea más abajo). No aplicamos de otro modo un calendario fijo de eliminación.",
+    "accountDeletion": "Eliminación de cuenta",
+    "accountDeletionDescription": "Los usuarios registrados pueden eliminar su cuenta directamente desde la página Mi Perfil, en la sección Cuenta. La eliminación elimina de forma permanente su cuenta y los cursos guardados, el plan de cuatro años, los cursos completados y las resoluciones de requisitos asociados de nuestra base de datos, y cierra su sesión. Si más tarde vuelve a iniciar sesión con la misma cuenta de Google, se crea una cuenta nueva y vacía; los datos eliminados anteriormente no reaparecen. Si tiene problemas para eliminar su cuenta, contáctenos usando la dirección que aparece más abajo.",
+    "userChoices": "Sus opciones",
+    "userChoicesDescription": "Puede editar la información de su perfil desde Mi Perfil; usar el Modo Invitado en lugar de iniciar sesión; borrar los datos de invitado y las preferencias borrando los datos del sitio en su navegador; elegir su idioma y configuración de accesibilidad; y cerrar sesión en cualquier momento.",
+    "childrenUnder13": "Estudiantes menores de 13 años",
+    "childrenUnder13Description": "Course Planner está diseñado para estudiantes de secundaria. No recopilamos intencionalmente información personal de niños menores de 13 años. Si es padre, madre o tutor y cree que un menor de 13 años ha proporcionado información personal a través de Course Planner, contáctenos usando la dirección que aparece más abajo y la eliminaremos.",
+    "schoolRecords": "Registros escolares y contexto de FERPA",
+    "schoolRecordsDescription": "Course Planner es una herramienta independiente y no forma parte de ningún sistema escolar. No recibe ni importa sus registros escolares oficiales, transcripciones, calificaciones ni horarios; todo lo que ingrese aquí no es un registro escolar oficial y no se comparte con la escuela o el distrito. Course Planner no es un sustituto de los registros escolares oficiales ni de los sistemas de registro.",
+    "changes": "Cambios en esta política",
+    "changesDescription": "Podemos actualizar esta política a medida que cambia la aplicación. La fecha \"Última actualización\" de la parte superior indica cuándo se revisó por última vez.",
+    "contact": "Contacto",
+    "contactDescription": "Para preguntas sobre privacidad o problemas con la eliminación de la cuenta, contacte a: m.xu711@gmail.com"
   },
   "login": {
     "siteTitle": "Stevenson Course Planner",
@@ -597,7 +663,8 @@
     "retry": "Reintentar",
     "sourceRegular": "Cursos Regulares",
     "sourceSummer": "Escuela de Verano",
-    "viewSaved": "Ver Cursos Guardados"
+    "viewSaved": "Ver Cursos Guardados",
+    "summerLoadError": "Error al cargar los cursos de la Escuela de Verano."
   },
   "catalogHeader": {
     "courseCatalog": "Catálogo de Cursos",
@@ -741,7 +808,9 @@
     "description": "Descripción",
     "noDescription": "No hay descripción disponible.",
     "notes": "Notas",
-    "additionalInfo": "Información Adicional"
+    "additionalInfo": "Información Adicional",
+    "notFoundDescription": "No pudimos encontrar un curso de Escuela de Verano que coincida con ese enlace. Puede que se haya eliminado o renombrado.",
+    "backToSummerCatalogButton": "Volver al Catálogo de Verano"
   },
   "savedToPlannerModal": {
     "freshmanGrade9": "Primer Año (Grado 9)",
@@ -964,8 +1033,12 @@
         "description": "Esta página te brinda más información sobre el curso, incluyendo su título, departamento, división, tipo de crédito y una descripción completa con notas adicionales. También puedes guardar el curso o marcarlo como completado desde aquí."
       },
       "courseDetailOfferings": {
-        "title": "Ofertas y Prerrequisitos",
-        "description": "Esta sección muestra la elegibilidad por grado, duración, créditos totales y códigos de curso para cada semestre. Debajo, puedes ver prerrequisitos (cursos que debes tomar primero), cursos que requieren este y requisitos de graduación que el curso cumple."
+        "title": "Ofertas del Curso",
+        "description": "Esta sección muestra la elegibilidad por grado, duración, créditos totales y códigos de curso para cada semestre."
+      },
+      "courseDetailPrerequisites": {
+        "title": "Prerrequisitos",
+        "description": "Esta sección muestra prerrequisitos (cursos que debes tomar primero). Debajo, puedes ver cursos que requieren este y requisitos de graduación que el curso cumple."
       },
       "plannerIntro": {
         "title": "Mi Planificador",
@@ -986,10 +1059,6 @@
       "courseEligibility": {
         "title": "Elegibilidad de Cursos",
         "description": "Algunos cursos tienen restricciones de nivel de grado o prerrequisitos que deben cumplirse antes de poder planificarlos. Si un curso no aparece en tu planificador, revisa su información en el Catálogo de Cursos para comprender los requisitos de elegibilidad. Los prerrequisitos pueden incluir cursos completados o puntajes de ubicación."
-      },
-      "movingCourses": {
-        "title": "Mover Cursos",
-        "description": "Puedes mover cursos entre semestres arrastrándolos y soltándolos en una ranura diferente. Mover un curso puede afectar tu balance de semestres, el tiempo de prerrequisitos y el progreso de graduación. Revisa tu plan después de hacer cambios para asegurar que todo siga alineado."
       },
       "removingCourses": {
         "title": "Eliminar Cursos",
@@ -1043,7 +1112,8 @@
         "title": "Cuenta y Modo Invitado",
         "description": "Puedes usar Stevenson Course Planner como invitado o iniciar sesión con una cuenta de Google. El modo invitado almacena tus datos localmente en tu navegador—se perderá si borras tus datos o cambias de navegador. Iniciar sesión guarda tu planificador y cursos completados en tu cuenta, accesibles desde cualquier dispositivo."
       }
-    }
+    },
+    "progressInChapter": "Paso {step} de {total} en el capítulo"
   },
   "helpfulInformation": {
     "heading": "Información Útil",
@@ -1098,6 +1168,13 @@
     "errorLastNameRequired": "El apellido es obligatorio.",
     "errorInvalidYear": "Por favor, ingresa un año válido (2020-2035).",
     "guestAccountDescription": "Estás usando el Modo Invitado. Inicia sesión con Google para guardar tu información de perfil entre sesiones.",
+    "deleteAccount": "Eliminar cuenta",
+    "deleteAccountDescription": "Elimina permanentemente tu cuenta de Course Planner y la información de planificación guardada, planificada y completada asociada a ella. Si vuelves a iniciar sesión más tarde, se creará una cuenta nueva y vacía.",
+    "deleteAccountConfirmTitle": "¿Eliminar tu cuenta?",
+    "deleteAccountConfirmBody": "Esto eliminará permanentemente tu cuenta de Course Planner y los cursos guardados, el plan de cuatro años, los cursos completados y las resoluciones de requisitos almacenados con ella. Esta acción no se puede deshacer.",
+    "deleteAccountConfirmButton": "Eliminar mi cuenta",
+    "deleteAccountDeleting": "Eliminando...",
+    "deleteAccountError": "No se pudo eliminar tu cuenta. Inténtalo de nuevo.",
     "language": "Idioma",
     "accessibility": "Accesibilidad",
     "tutorial": "Tutorial",
@@ -1116,7 +1193,8 @@
     "refresh": "Actualizar",
     "reloadPage": "Recargar Página",
     "dashboard": "Panel",
-    "reportBug": "Reportar un Error"
+    "reportBug": "Reportar un Error",
+    "description": "No se pudieron cargar los requisitos de graduación. Intente actualizar la página."
   },
   "common": {
     "close": "Cerrar",
