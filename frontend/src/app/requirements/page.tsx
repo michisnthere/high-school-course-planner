@@ -52,6 +52,37 @@ function makeCourseSlug(course: PlannerCourseDetails): string {
   return course.normalizedTitle || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+export function computeRequirementSegments(
+  totalValue: number | null | undefined,
+  completedValue: number | null | undefined,
+  plannedValue: number | null | undefined,
+): {
+  completedValue: number;
+  plannedValue: number;
+  remainingValue: number;
+  green: number;
+  yellow: number;
+  gray: number;
+} {
+  const total = Math.max(0, Number.isFinite(totalValue ?? 0) ? Number(totalValue ?? 0) : 0);
+  const completed = Math.min(Math.max(0, Number.isFinite(completedValue ?? 0) ? Number(completedValue ?? 0) : 0), total);
+  const remainingAfterCompleted = Math.max(0, total - completed);
+  const planned = Math.min(
+    Math.max(0, Number.isFinite(plannedValue ?? 0) ? Number(plannedValue ?? 0) : 0),
+    remainingAfterCompleted,
+  );
+  const remaining = Math.max(0, total - completed - planned);
+
+  return {
+    completedValue: completed,
+    plannedValue: planned,
+    remainingValue: remaining,
+    green: completed,
+    yellow: planned,
+    gray: remaining,
+  };
+}
+
 export default function RequirementsPage(): React.ReactElement {
   return (
     <ServiceProvider>
@@ -804,6 +835,11 @@ function RequirementCard({
     : req.requiredValue != null
     ? t("requirements.requirementBody", { required: formatNumber(req.requiredValue), earned: formatNumber(req.earnedValue) })
     : null;
+  const requirementSegments = computeRequirementSegments(
+    effectiveRequired,
+    req.completedValue ?? 0,
+    req.plannedValue ?? 0,
+  );
 
   return (
     <div
@@ -951,9 +987,9 @@ function RequirementCard({
               </span>
             </div>
             <ProgressBar
-              percent={percent}
-              completedPercent={effectiveRequired > 0 ? Math.min(100, ((req.completedValue ?? 0) / effectiveRequired) * 100) : 0}
-              plannedPercent={effectiveRequired > 0 ? Math.min(100, ((req.plannedValue ?? 0) / effectiveRequired) * 100) : 0}
+              totalValue={effectiveRequired}
+              completedValue={requirementSegments.completedValue}
+              plannedValue={requirementSegments.plannedValue}
               showLabel
             />
           </>
@@ -1106,119 +1142,100 @@ function PeSemesterCell({ cell }: { cell: PeSemesterCell }): React.ReactElement 
 }
 
 function ProgressBar({
-  percent,
-  completedPercent,
-  plannedPercent,
+  totalValue = 0,
+  completedValue = 0,
+  plannedValue = 0,
   color = "var(--brand-accent)",
   height = 8,
   showLabel = false,
 }: {
-  percent: number;
-  completedPercent?: number;
-  plannedPercent?: number;
+  totalValue?: number;
+  completedValue?: number;
+  plannedValue?: number;
   color?: string;
   height?: number;
   showLabel?: boolean;
 }): React.ReactElement {
   const { t } = useTranslation();
+  const safeTotal = Math.max(0, Number.isFinite(totalValue) ? Number(totalValue) : 0);
+  const safeCompleted = Math.min(Math.max(0, Number.isFinite(completedValue) ? Number(completedValue) : 0), safeTotal);
+  const safePlanned = Math.min(
+    Math.max(0, Number.isFinite(plannedValue) ? Number(plannedValue) : 0),
+    Math.max(0, safeTotal - safeCompleted),
+  );
+  const safeRemaining = Math.max(0, safeTotal - safeCompleted - safePlanned);
+  const projectedPercent = safeTotal > 0 ? ((safeCompleted + safePlanned) / safeTotal) * 100 : 0;
   const [animatedWidth, setAnimatedWidth] = useState(0);
   const [animatedCompleted, setAnimatedCompleted] = useState(0);
   const [animatedPlanned, setAnimatedPlanned] = useState(0);
-  const clamped = Math.min(100, Math.max(0, percent));
-  const hasSegments = completedPercent != null && plannedPercent != null;
+  const [animatedRemaining, setAnimatedRemaining] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setAnimatedWidth(clamped);
-      if (hasSegments) {
-        setAnimatedCompleted(Math.min(100, Math.max(0, completedPercent!)));
-        setAnimatedPlanned(Math.min(100, Math.max(0, plannedPercent!)));
-      }
+      setAnimatedWidth(Math.min(100, Math.max(0, projectedPercent)));
+      setAnimatedCompleted(safeTotal > 0 ? (safeCompleted / safeTotal) * 100 : 0);
+      setAnimatedPlanned(safeTotal > 0 ? (safePlanned / safeTotal) * 100 : 0);
+      setAnimatedRemaining(safeTotal > 0 ? (safeRemaining / safeTotal) * 100 : 0);
     }, 50);
     return () => clearTimeout(timer);
-  }, [clamped, hasSegments, completedPercent, plannedPercent]);
-
-  if (hasSegments) {
-    return (
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <div
-          role="progressbar"
-          aria-valuenow={Math.round(clamped)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label={t("requirements.progressLabel", { value: String(Math.round(clamped)) })}
-          style={{
-            flex: 1,
-            height,
-            backgroundColor: "var(--border-default)",
-            borderRadius: height / 2,
-            overflow: "hidden",
-            display: "flex",
-          }}
-        >
-          {animatedCompleted > 0 && (
-            <div
-              style={{
-                width: `${animatedCompleted}%`,
-                height: "100%",
-                backgroundColor: "#275D38",
-                transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            />
-          )}
-          {animatedPlanned > 0 && (
-            <div
-              style={{
-                width: `${animatedPlanned}%`,
-                height: "100%",
-                backgroundColor: "#ECBA2B",
-                transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            />
-          )}
-        </div>
-        {showLabel && (
-          <span
-            style={{
-              fontSize: "13px",
-              fontWeight: 400,
-              color: "var(--text-secondary)",
-              minWidth: "42px",
-              textAlign: "right",
-            }}
-          >
-            {Math.round(clamped)}%
-          </span>
-        )}
-      </div>
-    );
-  }
+  }, [projectedPercent, safeCompleted, safePlanned, safeRemaining, safeTotal]);
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <div
         role="progressbar"
-        aria-valuenow={Math.round(clamped)}
+        aria-valuenow={Math.round(projectedPercent)}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`Progress: ${Math.round(clamped)}%`}
+        aria-label={t("requirements.progressLabel", { value: String(Math.round(projectedPercent)) })}
         style={{
           flex: 1,
           height,
           backgroundColor: "var(--border-default)",
           borderRadius: height / 2,
           overflow: "hidden",
+          display: "flex",
         }}
       >
-        <div
-          style={{
-            width: `${animatedWidth}%`,
-            height: "100%",
-            backgroundColor: color,
-            borderRadius: height / 2,
-            transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        />
+        {animatedCompleted > 0 && (
+          <div
+            style={{
+              width: `${animatedCompleted}%`,
+              height: "100%",
+              backgroundColor: "#275D38",
+              transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          />
+        )}
+        {animatedPlanned > 0 && (
+          <div
+            style={{
+              width: `${animatedPlanned}%`,
+              height: "100%",
+              backgroundColor: "#ECBA2B",
+              transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          />
+        )}
+        {animatedRemaining > 0 && (
+          <div
+            style={{
+              width: `${animatedRemaining}%`,
+              height: "100%",
+              backgroundColor: "#D1D5DB",
+              transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          />
+        )}
+        {safeTotal === 0 && projectedPercent === 0 && (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#D1D5DB",
+            }}
+          />
+        )}
       </div>
       {showLabel && (
         <span
@@ -1230,7 +1247,7 @@ function ProgressBar({
             textAlign: "right",
           }}
         >
-          {Math.round(clamped)}%
+          {Math.round(projectedPercent)}%
         </span>
       )}
     </div>

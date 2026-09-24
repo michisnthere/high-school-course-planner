@@ -97,6 +97,26 @@ describe("DeleteAccountSection on the profile page", () => {
     ).toBeTruthy();
   });
 
+  it("removes the personalization and academic overview sections", () => {
+    setAuthState();
+    render(<ProfilePage />);
+    expect(screen.queryByText("profile.personalization")).toBeNull();
+    expect(screen.queryByText("profile.academicOverview")).toBeNull();
+    expect(screen.queryByText("profile.language")).toBeNull();
+    expect(screen.queryByText("profile.courseCatalog")).toBeNull();
+  });
+
+  it("renders a sign out button for authenticated users at the bottom of the page", async () => {
+    const logout = vi.fn().mockResolvedValue(undefined);
+    setAuthState({ logout });
+    render(<ProfilePage />);
+
+    const button = screen.getByRole("button", { name: "auth.signOut" });
+    expect(button).toBeTruthy();
+    fireEvent.click(button);
+    await waitFor(() => expect(logout).toHaveBeenCalledTimes(1));
+  });
+
   it("is hidden for guests", () => {
     setAuthState({
       user: null,

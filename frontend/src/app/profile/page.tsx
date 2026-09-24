@@ -5,11 +5,9 @@ import Link from "next/link";
 import { User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "@/context/I18nContext";
-import { usePreferences } from "@/context/PreferencesContext";
 import { ResponsivePage } from "@/components/responsive/ResponsivePage";
 import { DeleteAccountSection } from "@/components/profile/DeleteAccountSection";
 import { breakpoints } from "@/lib/responsive";
-import { findTutorialTarget } from "@/lib/tutorial";
 import type { ProfileUpdateData } from "@/lib/auth";
 
 type ProfileFormData = {
@@ -46,9 +44,8 @@ function getDisplayYear(user: { graduationYear: number | null; grade: string | n
 }
 
 export default function ProfilePage(): React.ReactElement {
-  const { user, mode, loading, isAuthenticated, isGuest, updateProfile } = useAuth();
+  const { user, mode, loading, isAuthenticated, isGuest, updateProfile, logout } = useAuth();
   const { t } = useTranslation();
-  const { resetTutorial } = usePreferences();
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<ProfileFormData>({
@@ -564,151 +561,27 @@ export default function ProfilePage(): React.ReactElement {
         ) : null}
       </Section>
 
-      {/* Personalization Card */}
-      <Section title={t("profile.personalization")}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <Link
-            href="/profile"
-            onClick={(e) => {
-              e.preventDefault();
-              (findTutorialTarget("[data-tour='language-settings']") as HTMLElement | null)?.click();
-            }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "12px 16px",
-              fontSize: "14px",
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-page)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            <span>{t("profile.language")}</span>
-            <span style={{ color: "var(--text-muted)" }}>&rsaquo;</span>
-          </Link>
-          <Link
-            href="/profile"
-            onClick={(e) => {
-              e.preventDefault();
-              (findTutorialTarget("[data-tour='a11y-settings']") as HTMLElement | null)?.click();
-            }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "12px 16px",
-              fontSize: "14px",
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-page)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            <span>{t("profile.accessibility")}</span>
-            <span style={{ color: "var(--text-muted)" }}>&rsaquo;</span>
-          </Link>
+      {isAuthenticated && !isGuest && (
+        <div style={{ marginTop: "16px", display: "flex", justifyContent: "flex-end" }}>
           <button
             type="button"
-            onClick={() => {
-              resetTutorial();
-              window.location.href = "/";
-            }}
+            onClick={() => logout()}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "12px 16px",
+              padding: "10px 20px",
               fontSize: "14px",
+              fontWeight: 600,
               color: "var(--text-primary)",
               backgroundColor: "var(--bg-page)",
               border: "1px solid var(--border-default)",
               borderRadius: "8px",
               cursor: "pointer",
-              textAlign: "left",
-              width: "100%",
+              minHeight: "44px",
             }}
           >
-            <span>{t("profile.tutorial")}</span>
-            <span style={{ color: "var(--text-muted)" }}>&rsaquo;</span>
+            {t("auth.signOut")}
           </button>
         </div>
-      </Section>
-
-      {/* Academic Overview Card */}
-      <Section title={t("profile.academicOverview")}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "12px" }}>
-          <Link
-            href="/planner"
-            style={{
-              display: "block",
-              padding: "16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-page)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              textDecoration: "none",
-            }}
-          >
-            {t("profile.myPlanner")}
-          </Link>
-          <Link
-            href="/saved"
-            style={{
-              display: "block",
-              padding: "16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-page)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              textDecoration: "none",
-            }}
-          >
-            {t("profile.savedCourses")}
-          </Link>
-          <Link
-            href="/completed"
-            style={{
-              display: "block",
-              padding: "16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-page)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              textDecoration: "none",
-            }}
-          >
-            {t("profile.completedCourses")}
-          </Link>
-          <Link
-            href="/catalog"
-            style={{
-              display: "block",
-              padding: "16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-page)",
-              border: "1px solid var(--border-default)",
-              borderRadius: "8px",
-              textDecoration: "none",
-            }}
-          >
-            {t("profile.courseCatalog")}
-          </Link>
-        </div>
-      </Section>
+      )}
     </ResponsivePage>
   );
 }
