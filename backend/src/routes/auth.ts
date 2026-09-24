@@ -14,6 +14,14 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 // that mobile browsers will accept.
 const CALLBACK_URL = `${FRONTEND_URL}/auth/google/callback`;
 
+if (NODE_ENV === "production") {
+  console.log(`[AUTH] FRONTEND_URL: ${FRONTEND_URL}`);
+  console.log(`[AUTH] CALLBACK_URL: ${CALLBACK_URL}`);
+  if (FRONTEND_URL.startsWith("http://localhost")) {
+    console.error("[AUTH] WARNING: FRONTEND_URL appears to be localhost in production. Set FRONTEND_URL environment variable to your production frontend URL (e.g. https://stevensoncourseplanner.vercel.app)");
+  }
+}
+
 const router = Router();
 
 /** Reject external URLs, protocol-relative URLs, and malformed paths. */
@@ -51,13 +59,24 @@ router.get("/google/callback", (req, res, next) => {
     },
     (err: unknown, user: Express.User | false | null) => {
       if (err) {
+        console.error("[AUTH] Google OAuth callback error:", {
+          message: err instanceof Error ? err.message : String(err),
+          name: err instanceof Error ? err.name : undefined,
+          stack: err instanceof Error ? err.stack : undefined,
+        });
         return next(err);
       }
       if (!user) {
+        console.error("[AUTH] Google OAuth callback: no user returned");
         return res.redirect(`${FRONTEND_URL}/login`);
       }
       req.logIn(user, (loginErr) => {
         if (loginErr) {
+          console.error("[AUTH] Google OAuth login/session error:", {
+            message: loginErr instanceof Error ? loginErr.message : String(loginErr),
+            name: loginErr instanceof Error ? loginErr.name : undefined,
+            stack: loginErr instanceof Error ? loginErr.stack : undefined,
+          });
           return next(loginErr);
         }
 

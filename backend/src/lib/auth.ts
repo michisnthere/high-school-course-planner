@@ -113,7 +113,15 @@ export function createGoogleStrategy(callbackURL: string, redirectPath?: string)
           };
           return done(null, sessionUser);
         })
-        .catch((err) => done(err));
+        .catch((err) => {
+          console.error("[AUTH] Prisma upsert error:", {
+            message: err?.message,
+            code: err?.code,
+            meta: err?.meta,
+            stack: err?.stack,
+          });
+          return done(err);
+        });
     }
   );
 }
@@ -151,6 +159,7 @@ const PgStore = connectPgSimple(session);
 
 const pgStore = new PgStore({
   conString: process.env.DATABASE_URL,
+  createTableIfMissing: true,
 });
 
 export const sessionMiddleware = session({

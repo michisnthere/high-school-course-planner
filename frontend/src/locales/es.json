@@ -943,7 +943,15 @@
       },
       "courseCards": {
         "title": "Entendiendo las Tarjetas de Curso",
-        "description": "Cada tarjeta de curso muestra el título del curso, código del curso, créditos y una breve descripción. Busca prerrequisitos (cursos que debes tomar primero), recomendaciones (preparación sugerida) e insignias de requisitos de graduación que indican qué requisitos puede cumplir un curso. Haz clic en una tarjeta para ver los detalles completos."
+        "description": "Haz clic en la tarjeta del curso Algebra 1 para continuar."
+      },
+      "courseDetailOverview": {
+        "title": "Detalles del Curso",
+        "description": "Esta página te brinda más información sobre el curso, incluyendo su título, departamento, división, tipo de crédito y una descripción completa con notas adicionales. También puedes guardar el curso o marcarlo como completado desde aquí."
+      },
+      "courseDetailOfferings": {
+        "title": "Ofertas y Prerrequisitos",
+        "description": "Esta sección muestra la elegibilidad por grado, duración, créditos totales y códigos de curso para cada semestre. Debajo, puedes ver prerrequisitos (cursos que debes tomar primero), cursos que requieren este y requisitos de graduación que el curso cumple."
       },
       "plannerIntro": {
         "title": "Mi Planificador",

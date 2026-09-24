@@ -134,6 +134,7 @@ export function TutorialOverlay(): React.ReactElement | null {
     stepInChapter,
     hasTarget,
     isNavigationStep,
+    isInteractionStep,
     isAuthStep,
     navigationReady,
     nextStep,
@@ -284,6 +285,7 @@ export function TutorialOverlay(): React.ReactElement | null {
       if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
         if (isNavigationStep && !navigationReady) return;
+        if (isInteractionStep) return;
         if (isLastStep) {
           completeTutorial();
         } else {
@@ -296,7 +298,7 @@ export function TutorialOverlay(): React.ReactElement | null {
         }
       }
     },
-    [isOpen, isFirstStep, isLastStep, isNavigationStep, navigationReady, nextStep, prevStep, completeTutorial]
+    [isOpen, isFirstStep, isLastStep, isNavigationStep, isInteractionStep, navigationReady, nextStep, prevStep, completeTutorial]
   );
 
   useEffect(() => {
@@ -512,7 +514,7 @@ export function TutorialOverlay(): React.ReactElement | null {
               >
                 {t("auth.signIn")}
               </button>
-            ) : !isNavigationStep ? (
+            ) : !isNavigationStep && !isInteractionStep ? (
               <button
                 onClick={isLastStep ? completeTutorial : nextStep}
                 style={{

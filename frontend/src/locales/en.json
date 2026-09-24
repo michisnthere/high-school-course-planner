@@ -943,7 +943,15 @@
       },
       "courseCards": {
         "title": "Understanding Course Cards",
-        "description": "Each course card shows the course title, course code, credits, and a brief description. Look for prerequisites (courses you must take first), recommendations (suggested preparation), and graduation requirement badges that indicate which requirements a course may fulfill. Click a card for full details."
+        "description": "Click the Algebra 1 course card to continue."
+      },
+      "courseDetailOverview": {
+        "title": "Course Details",
+        "description": "This page gives you more information about the course, including its title, department, division, credit type, and a full description with any additional notes. You can also save the course or mark it as completed from here."
+      },
+      "courseDetailOfferings": {
+        "title": "Offerings and Prerequisites",
+        "description": "This section shows grade eligibility, duration, total credits, and course codes for each semester. Below that, you can see prerequisites (courses you must take first), courses that require this one, and graduation requirements the course fulfills."
       },
       "plannerIntro": {
         "title": "My Planner",

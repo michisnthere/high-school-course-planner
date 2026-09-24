@@ -45,6 +45,8 @@ type TutorialContextType = {
   hasTarget: boolean;
   /** Whether the current step requires navigation to a specific route. */
   isNavigationStep: boolean;
+  /** Whether the current step requires the user to click the target element. */
+  isInteractionStep: boolean;
   /** Whether the current step requires authentication. */
   isAuthStep: boolean;
   /** Whether the user has navigated to the required route (or the step has no required path). */
@@ -152,6 +154,8 @@ export function TutorialProvider({
 
   // Determine if the current step requires the user to click an actual navigation element.
   const isNavigationStep = Boolean(currentStep?.requiresNavigation);
+  // Determine if the current step requires the user to click the target element.
+  const isInteractionStep = Boolean(currentStep?.requiresInteraction);
   // Determine if the current step requires authentication.
   const isAuthStep = Boolean(currentStep?.requiresAuth);
   const navigationReady = currentStep?.requiredPath
@@ -215,19 +219,20 @@ export function TutorialProvider({
     }
   }, [flatIndex, totalSteps]);
 
-  // Detect user clicks on navigation targets for navigation-required steps.
-  // This runs before Next.js navigation and sets a flag so the pathname effect
-  // knows the route change was caused by the user's required navigation action.
+  // Detect user clicks on navigation or interaction targets for steps that require
+  // user action to advance. This runs before Next.js navigation and sets a flag
+  // so the pathname effect knows the route change was caused by the user's action.
   useEffect(() => {
     if (!isOpen) return;
 
     const handleClick = (e: MouseEvent) => {
-      if (!isNavigationStep || !currentStep?.target?.selector) return;
+      if (!currentStep?.target?.selector) return;
+      if (!isNavigationStep && !isInteractionStep) return;
 
       const target = e.target;
       if (!(target instanceof Element)) return;
 
-      // Walk up from the click target to find a matching data-tour element.
+      // Walk up from the click target to find a matching element.
       const selector = currentStep.target.selector;
       const match = target.closest(selector);
       if (match) {
@@ -237,7 +242,7 @@ export function TutorialProvider({
 
     document.addEventListener("click", handleClick, true);
     return () => document.removeEventListener("click", handleClick, true);
-  }, [isOpen, isNavigationStep, currentStep]);
+  }, [isOpen, isNavigationStep, isInteractionStep, currentStep]);
 
   // After a user-initiated navigation, advance once the route settles.
   // This effect does NOT advance on pathname matching alone — only when
@@ -323,6 +328,7 @@ export function TutorialProvider({
     stepInChapter: stepInChapter + 1,
     hasTarget,
     isNavigationStep,
+    isInteractionStep,
     isAuthStep,
     navigationReady,
     startTutorial,

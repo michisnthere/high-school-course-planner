@@ -24,6 +24,8 @@ export type TutorialStep = {
   navigationLabelKey?: string;
   /** Whether the user must click an actual website navigation element to advance. */
   requiresNavigation?: boolean;
+  /** Whether the user must click the target element to advance (no Next button). */
+  requiresInteraction?: boolean;
   /** Whether this step requires the user to be authenticated. */
   requiresAuth?: boolean;
 };
@@ -81,9 +83,30 @@ export const TUTORIAL_CHAPTERS: TutorialChapter[] = [
         descriptionKey: "tutorial.steps.courseCards.description",
         target: {
           selector: "[data-course-slug='algebra-1']",
-          position: "top",
+          position: "left",
         },
-        requiredPath: "/catalog",
+        requiredPath: "/catalog/algebra-1",
+        requiresInteraction: true,
+      },
+      {
+        id: "course-detail-overview",
+        titleKey: "tutorial.steps.courseDetailOverview.title",
+        descriptionKey: "tutorial.steps.courseDetailOverview.description",
+        target: {
+          selector: ".rs-detail-header",
+          position: "right",
+        },
+        requiredPath: "/catalog/algebra-1",
+      },
+      {
+        id: "course-detail-offerings",
+        titleKey: "tutorial.steps.courseDetailOfferings.title",
+        descriptionKey: "tutorial.steps.courseDetailOfferings.description",
+        target: {
+          selector: ".rs-detail-offerings",
+          position: "right",
+        },
+        requiredPath: "/catalog/algebra-1",
       },
     ],
   },

@@ -189,7 +189,7 @@ describe("Tutorial required paths", () => {
     const steps = TUTORIAL_CHAPTERS[1].steps;
     const catalogSteps = steps.filter((s) => s.requiredPath);
     for (const step of catalogSteps) {
-      expect(step.requiredPath).toBe("/catalog");
+      expect(step.requiredPath).toMatch(/^\/catalog/);
     }
   });
 
@@ -215,8 +215,8 @@ describe("Tutorial chapter structure", () => {
     expect(TUTORIAL_CHAPTERS[0].steps).toHaveLength(1);
   });
 
-  it("explore-courses chapter has 3 steps", () => {
-    expect(TUTORIAL_CHAPTERS[1].steps).toHaveLength(3);
+  it("explore-courses chapter has 5 steps", () => {
+    expect(TUTORIAL_CHAPTERS[1].steps).toHaveLength(5);
   });
 
   it("build-plan chapter has 8 steps", () => {
@@ -439,7 +439,8 @@ describe("Tutorial step classification (requiresNavigation)", () => {
   it("informational steps with requiredPath do NOT have requiresNavigation", () => {
     const informationalWithRoute = [
       "search-vs-filters",
-      "course-cards",
+      "course-detail-overview",
+      "course-detail-offerings",
       "four-years-semesters",
       "adding-courses",
       "needs-attention",
@@ -462,10 +463,10 @@ describe("Tutorial step classification (requiresNavigation)", () => {
     expect(result!.step.target).toBeDefined();
   });
 
-  it("course-cards is informational (has Next) despite having a spotlight target", () => {
+  it("course-cards is an interaction step (no Next) with a spotlight target", () => {
     const result = findStepById("course-cards");
     expect(result).not.toBeNull();
-    expect(result!.step.requiresNavigation).toBeUndefined();
+    expect(result!.step.requiresInteraction).toBe(true);
     expect(result!.step.target).toBeDefined();
   });
 
@@ -490,6 +491,35 @@ describe("Tutorial step classification (requiresNavigation)", () => {
       for (const step of chapter.steps) {
         if (step.requiresNavigation) {
           expect(step.navigationLabelKey).toBeTruthy();
+        }
+      }
+    }
+  });
+
+  it("exactly 1 step is classified as interaction-required", () => {
+    const interactionSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps).filter(
+      (s) => s.requiresInteraction
+    );
+    expect(interactionSteps).toHaveLength(1);
+    expect(interactionSteps[0].id).toBe("course-cards");
+  });
+
+  it("interaction-required steps do NOT have requiresNavigation", () => {
+    for (const chapter of TUTORIAL_CHAPTERS) {
+      for (const step of chapter.steps) {
+        if (step.requiresInteraction) {
+          expect(step.requiresNavigation).toBeUndefined();
+        }
+      }
+    }
+  });
+
+  it("interaction-required steps have a target selector", () => {
+    for (const chapter of TUTORIAL_CHAPTERS) {
+      for (const step of chapter.steps) {
+        if (step.requiresInteraction) {
+          expect(step.target).toBeDefined();
+          expect(step.target!.selector).toBeTruthy();
         }
       }
     }
@@ -541,16 +571,85 @@ describe("Tutorial Algebra 1 course-card targeting", () => {
     expect(result!.step.target!.selector).toBe("[data-course-slug='algebra-1']");
   });
 
-  it("course-cards step is informational (not navigation-required)", () => {
+  it("course-cards step is an interaction step (not navigation-required)", () => {
     const result = findStepById("course-cards");
     expect(result).not.toBeNull();
     expect(result!.step.requiresNavigation).toBeUndefined();
+    expect(result!.step.requiresInteraction).toBe(true);
     expect(result!.step.requiresAuth).toBeUndefined();
   });
 
-  it("course-cards step has requiredPath for /catalog", () => {
+  it("course-cards step has requiredPath for /catalog/algebra-1", () => {
     const result = findStepById("course-cards");
     expect(result).not.toBeNull();
-    expect(result!.step.requiredPath).toBe("/catalog");
+    expect(result!.step.requiredPath).toBe("/catalog/algebra-1");
+  });
+
+  it("course-cards step prefers left positioning", () => {
+    const result = findStepById("course-cards");
+    expect(result).not.toBeNull();
+    expect(result!.step.target!.position).toBe("left");
+  });
+});
+
+describe("Tutorial course-detail steps", () => {
+  it("course-detail-overview step exists after course-cards", () => {
+    const result = findStepById("course-detail-overview");
+    expect(result).not.toBeNull();
+    expect(result!.chapter.id).toBe("explore-courses");
+  });
+
+  it("course-detail-overview step has a target on the detail header", () => {
+    const result = findStepById("course-detail-overview");
+    expect(result).not.toBeNull();
+    expect(result!.step.target).toBeDefined();
+    expect(result!.step.target!.selector).toBe(".rs-detail-header");
+  });
+
+  it("course-detail-overview step is informational (has Next, not interaction)", () => {
+    const result = findStepById("course-detail-overview");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresInteraction).toBeUndefined();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+  });
+
+  it("course-detail-overview step requires /catalog/algebra-1 path", () => {
+    const result = findStepById("course-detail-overview");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiredPath).toBe("/catalog/algebra-1");
+  });
+
+  it("course-detail-offerings step exists", () => {
+    const result = findStepById("course-detail-offerings");
+    expect(result).not.toBeNull();
+    expect(result!.chapter.id).toBe("explore-courses");
+  });
+
+  it("course-detail-offerings step targets the offerings section", () => {
+    const result = findStepById("course-detail-offerings");
+    expect(result).not.toBeNull();
+    expect(result!.step.target).toBeDefined();
+    expect(result!.step.target!.selector).toBe(".rs-detail-offerings");
+  });
+
+  it("course-detail-offerings step is informational (has Next)", () => {
+    const result = findStepById("course-detail-offerings");
+    expect(result).not.toBeNull();
+    expect(result!.step.requiresInteraction).toBeUndefined();
+    expect(result!.step.requiresNavigation).toBeUndefined();
+  });
+
+  it("course-detail-overview comes immediately after course-cards in the flat step list", () => {
+    const flatSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    const cardsIdx = flatSteps.findIndex((s) => s.id === "course-cards");
+    const overviewIdx = flatSteps.findIndex((s) => s.id === "course-detail-overview");
+    expect(overviewIdx).toBe(cardsIdx + 1);
+  });
+
+  it("course-detail-offerings comes after course-detail-overview", () => {
+    const flatSteps = TUTORIAL_CHAPTERS.flatMap((ch) => ch.steps);
+    const overviewIdx = flatSteps.findIndex((s) => s.id === "course-detail-overview");
+    const offeringsIdx = flatSteps.findIndex((s) => s.id === "course-detail-offerings");
+    expect(offeringsIdx).toBe(overviewIdx + 1);
   });
 });
