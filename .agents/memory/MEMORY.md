@@ -7,3 +7,4 @@
 - [Graduation-requirement cleanup](graduation-requirement-cleanup.md) — canonicalize duplicated requirements after import, sync values, and restore `CourseRequirement` links from source data so recommendations resolve to the seeded canonical records.
 - [Development database migration ledger](dev-database-migration-ledger.md) — an old live schema may lack `_prisma_migrations`; establish the baseline explicitly before recovery.
 - [AP/Honors credit type split](ap-honors-credit-type-split.md) — the catalog stores all AP courses under `creditType: "Honors"`; effective credit type is derived from the `AP ` title prefix so the filter and badges split into independent AP vs Honors buckets without touching extraction data.
+- [Frontend test runtime compatibility](frontend-test-runtime-compatibility.md) — Node 20 needs a compatible local jsdom install for DOM tests; declared newer packages can break both tests and the dev server.
