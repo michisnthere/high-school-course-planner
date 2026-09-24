@@ -37,10 +37,10 @@ export function computePopupPosition(
   const spaceLeft = targetRect.left - EDGE_MARGIN;
   const spaceRight = vw - targetRect.right - EDGE_MARGIN;
 
-  const canFitTop = spaceAbove >= ph;
-  const canFitBottom = spaceBelow >= ph;
-  const canFitLeft = spaceLeft >= pw;
-  const canFitRight = spaceRight >= pw;
+  const canFitTop = spaceAbove >= ph + TARGET_GAP;
+  const canFitBottom = spaceBelow >= ph + TARGET_GAP;
+  const canFitLeft = spaceLeft >= pw + TARGET_GAP;
+  const canFitRight = spaceRight >= pw + TARGET_GAP;
 
   const isSmallScreen = vw < 640;
 
@@ -146,10 +146,11 @@ export function TutorialOverlay(): React.ReactElement | null {
     completeTutorial,
     signInWithTutorial,
   } = useTutorial();
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const { preferences } = usePreferences();
   const [spotlightRect, setSpotlightRect] = useState<SpotlightRect>(null);
   const [popupStyle, setPopupStyle] = useState<React.CSSProperties>({});
+  const [layoutVersion, setLayoutVersion] = useState(0);
   const popupRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const stepKeyRef = useRef<string>("");
@@ -294,28 +295,48 @@ export function TutorialOverlay(): React.ReactElement | null {
       zIndex: 10002,
       pointerEvents: "auto",
     });
-  }, [isOpen, currentStep, isNoTarget, currentStepIndex, spotlightRect]);
+  }, [isOpen, currentStep, isNoTarget, currentStepIndex, spotlightRect, layoutVersion, locale]);
 
-  // Recalculate on window resize so the spotlight and popup track layout changes.
+  // Track viewport, nested scrolling, and resized targets/popups. Responsive
+  // navigation can swap the visible target without changing the step.
   useEffect(() => {
     if (!isOpen || !currentStep?.target || !hasTarget) return;
 
-    const handleResize = () => {
+    let frame = 0;
+    const update = () => {
       const el = findTutorialTarget(currentStep.target!.selector);
       if (!el) return;
       const padding = 8;
       const rect = el.getBoundingClientRect();
-      setSpotlightRect({
+      const next = {
         top: rect.top - padding,
         left: rect.left - padding,
         width: rect.width + padding * 2,
         height: rect.height + padding * 2,
-      });
-      setPopupStyle((prev) => ({ ...prev }));
+      };
+      setSpotlightRect((prev) =>
+        prev && prev.top === next.top && prev.left === next.left &&
+        prev.width === next.width && prev.height === next.height ? prev : next
+      );
+      setLayoutVersion((version) => version + 1);
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule);
+    const target = findTutorialTarget(currentStep.target.selector);
+    if (target) observer?.observe(target);
+    if (popupRef.current) observer?.observe(popupRef.current);
+    window.addEventListener("resize", schedule);
+    document.addEventListener("scroll", schedule, true);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      window.removeEventListener("resize", schedule);
+      document.removeEventListener("scroll", schedule, true);
+    };
   }, [isOpen, currentStep, hasTarget]);
 
   // Recalculate when the route changes (target may have moved or remounted).

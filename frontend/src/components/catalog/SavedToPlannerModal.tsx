@@ -58,7 +58,7 @@ export function SavedToPlannerModal({
 
   const SLOT_OPTIONS = useMemo(() => Array.from({ length: 7 }, (_, i) => ({
     value: i + 1,
-    label: t("savedToPlannerModal.slot", { number: String(i + 1) }),
+    label: t("savedToPlannerModal.slotLabel", { n: String(i + 1) }),
   })), [t]);
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const previousFocusRef = React.useRef<HTMLElement | null>(null);
@@ -325,7 +325,7 @@ export function SavedToPlannerModal({
 
               <div>
                 <label htmlFor="saved-planner-slot" style={labelStyle}>
-                  {t("savedToPlannerModal.slotLabel")}
+                  {t("savedToPlannerModal.slot")}
                 </label>
                 <select
                   id="saved-planner-slot"

@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { AVAILABLE_LOCALES, translate } from "@/lib/i18n";
 
 const PAGE_PATH = join(__dirname, "..", "page.tsx");
 
@@ -37,5 +38,17 @@ describe("Graduation Progress credits denominator", () => {
     expect(source).toContain(
       't("requirements.projectedCredits", { earned: formatNumber(projectedCreditsTotal), total: String(TOTAL_REQUIRED_CREDITS) })'
     );
+  });
+
+  it("renders one total across example requirements in every locale", () => {
+    for (const { code } of AVAILABLE_LOCALES) {
+      for (const [earned, total] of [[36, 45], [2, 4], [3, 6], [0, 5], [5, 5]]) {
+        const label = `${earned} ${translate(code, "requirements.creditsCompleted", { total: String(total) })}`;
+        expect(label.match(new RegExp(`/\\s*${total}\\b`, "g"))).toHaveLength(1);
+        expect(label).not.toContain("{total}");
+      }
+    }
+    expect(`36 ${translate("en", "requirements.creditsCompleted", { total: "45" })}`)
+      .toBe("36 / 45 Credits Completed");
   });
 });

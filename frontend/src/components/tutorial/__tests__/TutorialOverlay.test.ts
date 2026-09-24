@@ -24,6 +24,16 @@ describe("computePopupPosition", () => {
   const popupHeight = 200;
   const popupWidth = 360;
 
+  it("keeps a 375px mobile popup inside 16px margins and off an Algebra card when there is room above", () => {
+    const card = makeTargetRect(400, 16, 343, 170);
+    const result = computePopupPosition(card, "left", 240, 343, 375, 812);
+    expect(result.position).toBe("top");
+    expect(result.left - 343 / 2).toBeGreaterThanOrEqual(16);
+    expect(result.left + 343 / 2).toBeLessThanOrEqual(359);
+    expect(result.top).toBeGreaterThanOrEqual(16);
+    expect(result.top + 240).toBeLessThanOrEqual(card.top - 12);
+  });
+
   describe("viewport clamping", () => {
     it("clamps popup above viewport when target is near top", () => {
       const target = makeTargetRect(10, 400, 100, 40);
