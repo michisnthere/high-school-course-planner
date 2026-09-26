@@ -23,6 +23,8 @@ import {
 } from "@/lib/gradeRequirements";
 import { RecommendedCourseCard } from "@/components/requirements/RecommendedCourseCard";
 import { CourseListModal } from "@/components/requirements/CourseListModal";
+import { ProgressBar } from "@/components/requirements/ProgressBar";
+import { computeRequirementDisplayStatus, computeRequirementSegments } from "@/lib/requirementProgress";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { breakpoints } from "@/lib/responsive";
 import { GuestEmptyState } from "@/components/auth/GuestEmptyState";
@@ -52,36 +54,9 @@ function makeCourseSlug(course: PlannerCourseDetails): string {
   return course.normalizedTitle || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-export function computeRequirementSegments(
-  totalValue: number | null | undefined,
-  completedValue: number | null | undefined,
-  plannedValue: number | null | undefined,
-): {
-  completedValue: number;
-  plannedValue: number;
-  remainingValue: number;
-  green: number;
-  yellow: number;
-  gray: number;
-} {
-  const total = Math.max(0, Number.isFinite(totalValue ?? 0) ? Number(totalValue ?? 0) : 0);
-  const completed = Math.min(Math.max(0, Number.isFinite(completedValue ?? 0) ? Number(completedValue ?? 0) : 0), total);
-  const remainingAfterCompleted = Math.max(0, total - completed);
-  const planned = Math.min(
-    Math.max(0, Number.isFinite(plannedValue ?? 0) ? Number(plannedValue ?? 0) : 0),
-    remainingAfterCompleted,
-  );
-  const remaining = Math.max(0, total - completed - planned);
-
-  return {
-    completedValue: completed,
-    plannedValue: planned,
-    remainingValue: remaining,
-    green: completed,
-    yellow: planned,
-    gray: remaining,
-  };
-}
+// Segment/status math lives in `@/lib/requirementProgress` so the page and the
+// progress bar share a single implementation. Re-exported for existing callers.
+export { computeRequirementSegments };
 
 export default function RequirementsPage(): React.ReactElement {
   return (
@@ -257,14 +232,18 @@ function RequirementsContent(): React.ReactElement {
     () => analysis ? computePeYearRows(analysis.peSemesterBreakdown, analysis.resolutions) : undefined,
     [analysis]
   );
-  // "Completed / earned" values must reflect only actual completed coursework,
-  // never planned courses from incomplete future years. The engine exposes this
-  // via `earned.credits` / `earned.graduationRequirements` (projected values
-  // remain available under `credits` / `graduationRequirements`).
+  // Header credit totals stay on the earned view: they must reflect only actual
+  // completed coursework, never planned courses from incomplete future years.
   const earnedCreditsTotal = analysis?.earned?.credits.total ?? analysis?.credits.total ?? 0;
   const projectedCreditsTotal = analysis?.credits.total ?? 0;
-  const earnedRequirements = analysis?.earned?.graduationRequirements ?? analysis?.graduationRequirements ?? [];
-  const visibleRequirements = earnedRequirements.filter(
+  // Requirement cards need both sides of the breakdown, so they render the
+  // projected list: the analysis populates `completedValue` (completed
+  // coursework only) and `plannedValue` (planned-but-incomplete portion) there,
+  // while the earned view forces `plannedValue` to 0. Completed coursework can
+  // therefore never be shown as planned.
+  const requirementCards =
+    analysis?.graduationRequirements ?? analysis?.earned?.graduationRequirements ?? [];
+  const visibleRequirements = requirementCards.filter(
     (req) => !REQUIREMENTS_TO_HIDE.has(req.name)
   );
   if (authLoading) {
@@ -799,25 +778,20 @@ function RequirementCard({
   const peTotalCount = peYearRows ? peYearRows.length * 2 : 0;
   const peAllMet = peTotalCount > 0 && peMetCount === peTotalCount;
   const peNoneMet = peMetCount === 0;
+  const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
+  const completedValue = req.completedValue ?? 0;
+  const plannedValue = req.plannedValue ?? 0;
+  // Segments are derived once and drive the status tag, the stats row, and the
+  // bar, so those three can never disagree or exceed the requirement total.
+  const requirementSegments = computeRequirementSegments(effectiveRequired, completedValue, plannedValue);
+  const displayStatus = computeRequirementDisplayStatus(effectiveRequired, completedValue, plannedValue);
   const config = showPeGrid
     ? peAllMet
       ? STATUS_CONFIG.satisfied
       : peNoneMet
       ? STATUS_CONFIG.notStarted
       : STATUS_CONFIG.partial
-    : (req.plannedValue ?? 0) > 0
-    ? STATUS_CONFIG.planned
-    : STATUS_CONFIG[req.status];
-  const effectiveRequired = isPe && hasPeWaiver ? 0 : (req.requiredValue ?? 0);
-  const effectiveEarned = isPe && hasPeWaiver ? effectiveRequired : req.earnedValue;
-  const percent =
-    effectiveRequired > 0
-      ? Math.min(100, (effectiveEarned / effectiveRequired) * 100)
-      : effectiveRequired === 0 && isPe && hasPeWaiver
-      ? 100
-      : req.status === "satisfied"
-      ? 100
-      : 0;
+    : STATUS_CONFIG[displayStatus];
 
   const recommended = req.recommendedCourses ?? [];
   const resolvedRecs = recommended
@@ -833,13 +807,8 @@ function RequirementCard({
   const bodyText = showPeGrid
     ? t("requirements.peBodyText")
     : req.requiredValue != null
-    ? t("requirements.requirementBody", { required: formatNumber(req.requiredValue), earned: formatNumber(req.earnedValue) })
+    ? t("requirements.requirementBody", { required: formatNumber(req.requiredValue), earned: formatNumber(completedValue) })
     : null;
-  const requirementSegments = computeRequirementSegments(
-    effectiveRequired,
-    req.completedValue ?? 0,
-    req.plannedValue ?? 0,
-  );
 
   return (
     <div
@@ -973,17 +942,17 @@ function RequirementCard({
             >
               <span>
                 {t("requirements.completedLabel")}{" "}
-                <strong style={{ color: "#275D38" }}>{formatNumber(req.completedValue ?? 0)}</strong>
+                <strong style={{ color: "#275D38" }}>{formatNumber(requirementSegments.completedValue)}</strong>
               </span>
-              {(req.plannedValue ?? 0) > 0 && (
+              {requirementSegments.plannedValue > 0 && (
                 <span>
                   {t("requirements.plannedLabel")}{" "}
-                  <strong style={{ color: "#ECBA2B" }}>{formatNumber(req.plannedValue ?? 0)}</strong>
+                  <strong style={{ color: "#ECBA2B" }}>{formatNumber(requirementSegments.plannedValue)}</strong>
                 </span>
               )}
               <span>
                 {t("requirements.remainingLabel")}{" "}
-                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(Math.max(0, effectiveRequired - effectiveEarned))}</strong>
+                <strong style={{ color: "var(--text-primary)" }}>{formatNumber(requirementSegments.remainingValue)}</strong>
               </span>
             </div>
             <ProgressBar
@@ -1138,124 +1107,5 @@ function PeSemesterCell({ cell }: { cell: PeSemesterCell }): React.ReactElement 
         <span style={{ fontSize: "12px", color: "var(--status-success)" }}>{t("requirements.waiver")}</span>
       )}
     </span>
-  );
-}
-
-function ProgressBar({
-  totalValue = 0,
-  completedValue = 0,
-  plannedValue = 0,
-  color = "var(--brand-accent)",
-  height = 8,
-  showLabel = false,
-}: {
-  totalValue?: number;
-  completedValue?: number;
-  plannedValue?: number;
-  color?: string;
-  height?: number;
-  showLabel?: boolean;
-}): React.ReactElement {
-  const { t } = useTranslation();
-  const safeTotal = Math.max(0, Number.isFinite(totalValue) ? Number(totalValue) : 0);
-  const safeCompleted = Math.min(Math.max(0, Number.isFinite(completedValue) ? Number(completedValue) : 0), safeTotal);
-  const safePlanned = Math.min(
-    Math.max(0, Number.isFinite(plannedValue) ? Number(plannedValue) : 0),
-    Math.max(0, safeTotal - safeCompleted),
-  );
-  const safeRemaining = Math.max(0, safeTotal - safeCompleted - safePlanned);
-  const projectedPercent = safeTotal > 0 ? ((safeCompleted + safePlanned) / safeTotal) * 100 : 0;
-  const [animatedWidth, setAnimatedWidth] = useState(0);
-  const [animatedCompleted, setAnimatedCompleted] = useState(0);
-  const [animatedPlanned, setAnimatedPlanned] = useState(0);
-  const [animatedRemaining, setAnimatedRemaining] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimatedWidth(Math.min(100, Math.max(0, projectedPercent)));
-      setAnimatedCompleted(safeTotal > 0 ? (safeCompleted / safeTotal) * 100 : 0);
-      setAnimatedPlanned(safeTotal > 0 ? (safePlanned / safeTotal) * 100 : 0);
-      setAnimatedRemaining(safeTotal > 0 ? (safeRemaining / safeTotal) * 100 : 0);
-    }, 50);
-    return () => clearTimeout(timer);
-  }, [projectedPercent, safeCompleted, safePlanned, safeRemaining, safeTotal]);
-
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-      <div
-        role="progressbar"
-        aria-valuenow={Math.round(projectedPercent)}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={t("requirements.progressLabel", { value: String(Math.round(projectedPercent)) })}
-        style={{
-          flex: 1,
-          height,
-          backgroundColor: "var(--border-default)",
-          borderRadius: height / 2,
-          overflow: "hidden",
-          display: "flex",
-        }}
-      >
-        {animatedCompleted > 0 && (
-          <div
-            style={{
-              width: `${animatedCompleted}%`,
-              height: "100%",
-              backgroundColor: "#275D38",
-              borderRight: "1px solid rgba(255, 255, 255, 0.6)",
-              boxSizing: "border-box",
-              transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-          />
-        )}
-        {animatedPlanned > 0 && (
-          <div
-            style={{
-              width: `${animatedPlanned}%`,
-              height: "100%",
-              backgroundColor: "#ECBA2B",
-              borderRight: "1px solid rgba(255, 255, 255, 0.5)",
-              boxSizing: "border-box",
-              transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-          />
-        )}
-        {animatedRemaining > 0 && (
-          <div
-            style={{
-              width: `${animatedRemaining}%`,
-              height: "100%",
-              backgroundColor: "#D1D5DB",
-              boxSizing: "border-box",
-              transition: "width 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-          />
-        )}
-        {safeTotal === 0 && projectedPercent === 0 && (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#D1D5DB",
-              boxSizing: "border-box",
-            }}
-          />
-        )}
-      </div>
-      {showLabel && (
-        <span
-          style={{
-            fontSize: "13px",
-            fontWeight: 400,
-            color: "var(--text-secondary)",
-            minWidth: "42px",
-            textAlign: "right",
-          }}
-        >
-          {Math.round(projectedPercent)}%
-        </span>
-      )}
-    </div>
   );
 }

@@ -1032,5 +1032,134 @@ describe("computePlannerAnalysis", () => {
         expect(req.completedValue).toBe(req.earnedValue);
       }
     });
+
+    it("does not count a completed course twice when it also stays in an incomplete planner year", () => {
+      // Semester-length courses get a distinct placement key per planner seat,
+      // so this is the regression case for completed/planned double counting.
+      const planners = [
+        makePlanner(9),
+        makePlanner(10),
+        makePlanner(11),
+        makePlanner(12, [makePlanned(government, 1, 1)]),
+      ];
+      const completed = [makeCompleted(government, "Senior (12)")];
+      const result = computePlannerAnalysis({ planners, completedCourses: completed, resolutions: [], allCourses });
+
+      const gov = result.graduationRequirements.find((r) => r.name === "Government")!;
+      expect(gov.completedValue).toBe(1);
+      expect(gov.plannedValue).toBe(0);
+      expect(gov.earnedValue).toBe(1);
+      expect(result.credits.total).toBe(1);
+      expect(result.credits.byRequirementCategory["Government"]).toBe(1);
+    });
+
+    it("keeps American Studies requirement-credit allocation in the completed/planned split", () => {
+      const americanStudies: PlannerCourseDetails = {
+        id: 1405, title: "American Studies", normalizedTitle: "american studies", duration: 2,
+        slotsPerSemester: 1, creditType: "regular", credits: 4, division: "Social Studies",
+        department: "Social Studies", description: null,
+        fulfillsRequirements: ["English", "U.S. History"],
+        requirementCredits: { "English": 2, "U.S. History": 2 },
+        prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "AMST261", gradeMin: 11, gradeMax: 11,
+        isNonAcademic: false, isMarchingBand: false, attributes: [],
+      };
+      const planners = [
+        makePlanner(9),
+        makePlanner(10),
+        makePlanner(11),
+        makePlanner(12, [makePlanned(english10, 1, 1)]),
+      ];
+      const completed = [makeCompleted(americanStudies, "Junior (11)")];
+      const result = computePlannerAnalysis({
+        planners,
+        completedCourses: completed,
+        resolutions: [],
+        allCourses: [...allCourses, americanStudies],
+      });
+
+      // American Studies' 4 credits stay split 2 / 2 — never duplicated into
+      // both requirements — and the planned English course adds only yellow.
+      const eng = result.graduationRequirements.find((r) => r.name === "English")!;
+      expect(eng.completedValue).toBe(2);
+      expect(eng.plannedValue).toBe(2);
+
+      const ush = result.graduationRequirements.find((r) => r.name === "U.S. History")!;
+      expect(ush.completedValue).toBe(2);
+      expect(ush.plannedValue).toBe(0);
+      expect(ush.status).toBe("satisfied");
+    });
+
+    it("PE waiver keeps Physical Education satisfied while completed and planned PE stay separate", () => {
+      const peTwo: PlannerCourseDetails = {
+        id: 502, title: "Physical Education II", normalizedTitle: "physical education ii", duration: 1,
+        slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Physical Education",
+        department: "Physical Education", description: null, fulfillsRequirements: ["Physical Education"],
+        prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "PE102", gradeMin: 9, gradeMax: 12,
+        isNonAcademic: false, isMarchingBand: false, attributes: [],
+      };
+      const planners = [
+        makePlanner(9),
+        makePlanner(10),
+        makePlanner(11, [makePlanned(peTwo, 1, 1)]),
+        makePlanner(12),
+      ];
+      const completed = [makeCompleted(peCourse, "Sophomore (10)")];
+      const resolutions: RequirementResolution[] = [
+        { id: 1, userId: -1, type: "pe_waiver", courseId: null, metadata: { variant: "academic", year: 12 }, createdAt: "", updatedAt: "" },
+      ];
+      const result = computePlannerAnalysis({
+        planners,
+        completedCourses: completed,
+        resolutions,
+        allCourses: [...allCourses, peTwo],
+      });
+
+      const pe = result.graduationRequirements.find((r) => r.name === "Physical Education")!;
+      expect(pe.completedValue).toBe(1);
+      expect(pe.plannedValue).toBe(1);
+      // Waived requirement: satisfied with nothing left to complete.
+      expect(pe.status).toBe("satisfied");
+      expect(pe.remainingValue).toBe(0);
+
+      const peEarned = result.earned!.graduationRequirements.find((r) => r.name === "Physical Education")!;
+      expect(peEarned.completedValue).toBe(1);
+      expect(peEarned.plannedValue).toBe(0);
+    });
+
+    it("Driver Education contributes to its own requirement with a completed/planned split", () => {
+      const driverEd: PlannerCourseDetails = {
+        id: 1301, title: "Driver Education", normalizedTitle: "driver education", duration: 1,
+        slotsPerSemester: 1, creditType: "regular", credits: 1, division: "Applied Arts",
+        department: "Driver Education", description: null,
+        fulfillsRequirements: ["Driver Education"],
+        prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "DE231", gradeMin: 10, gradeMax: 12,
+        isNonAcademic: false, isMarchingBand: false, attributes: [],
+      };
+      const planners = [makePlanner(9), makePlanner(10, [makePlanned(driverEd, 2, 1, 1)]), makePlanner(11), makePlanner(12)];
+
+      const plannedResult = computePlannerAnalysis({
+        planners,
+        completedCourses: [],
+        resolutions: [],
+        allCourses: [...allCourses, driverEd],
+      });
+      const plannedReq = plannedResult.graduationRequirements.find((r) => r.name === "Driver Education")!;
+      expect(plannedReq.completedValue).toBe(0);
+      expect(plannedReq.plannedValue).toBe(1);
+      expect(plannedReq.earnedValue).toBe(1);
+
+      const completedResult = computePlannerAnalysis({
+        planners,
+        completedCourses: [makeCompleted(driverEd, "Sophomore (10)")],
+        resolutions: [],
+        allCourses: [...allCourses, driverEd],
+      });
+      const completedReq = completedResult.graduationRequirements.find((r) => r.name === "Driver Education")!;
+      expect(completedReq.completedValue).toBe(1);
+      expect(completedReq.plannedValue).toBe(0);
+      expect(completedReq.status).toBe("satisfied");
+      // Driver Ed still lands on its own requirement, never on Health.
+      expect(completedResult.graduationRequirements.find((r) => r.name === "Health")!.earnedValue).toBe(0);
+    });
   });
 });

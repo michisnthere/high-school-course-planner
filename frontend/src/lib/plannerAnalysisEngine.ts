@@ -433,6 +433,26 @@ function buildPlacements(planners: Planner[], allCourses: PlannerCourseDetails[]
   return placements;
 }
 
+// Completed coursework takes precedence over planner placements. When the same
+// course is both planned in an incomplete year and recorded as completed, only
+// the completed record contributes: the completed (green) portion must never
+// also appear as planned (yellow), and credits must not be counted twice.
+// Full-year courses were already deduplicated by placement key; semester-length
+// courses are deduplicated here by course id.
+function dropPlacementsAlreadyCompleted(
+  placements: CoursePlacement[],
+  completedSources: CoursePlacement[]
+): CoursePlacement[] {
+  const completedIds = new Set<number>();
+  for (const source of completedSources) {
+    if (source.course) completedIds.add(source.course.id);
+  }
+  if (completedIds.size === 0) return placements;
+  return placements.filter(
+    (placement) => placement.course == null || !completedIds.has(placement.course.id)
+  );
+}
+
 // Completed courses (including summer school / middle school) are coursework the
 // student has already finished. They count toward graduation requirements and
 // overall credits, but must NOT influence year-specific planner requirements
@@ -476,7 +496,11 @@ function dropEquivalentSummerDuplicates(sources: CoursePlacement[]): CoursePlace
 }
 
 function computeCredits(placements: CoursePlacement[], completedCourses: CompletedCourse[] = []) {
-  const creditSources = dropEquivalentSummerDuplicates([...placements, ...buildCompletedCoursePlacements(completedCourses)]);
+  const completedSources = buildCompletedCoursePlacements(completedCourses);
+  const creditSources = dropEquivalentSummerDuplicates([
+    ...dropPlacementsAlreadyCompleted(placements, completedSources),
+    ...completedSources,
+  ]);
   let total = 0;
   const byRequirementCategory: Record<string, number> = {};
   const byDivision: Record<string, number> = {};
@@ -504,9 +528,10 @@ function computeGraduationRequirements(
   completedCourses: CompletedCourse[] = [],
   resolutions: ResolutionInfo[] = []
 ): PlannerAnalysis["graduationRequirements"] {
+  const completedSources = buildCompletedCoursePlacements(completedCourses);
   const creditSources = dropEquivalentSummerDuplicates([
-    ...placements,
-    ...buildCompletedCoursePlacements(completedCourses),
+    ...dropPlacementsAlreadyCompleted(placements, completedSources),
+    ...completedSources,
   ]);
   const courseIdToCredits = new Map<number, number>();
   const seen = new Set<string>();
