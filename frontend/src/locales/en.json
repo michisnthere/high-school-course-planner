@@ -203,6 +203,7 @@
     "prerequisiteNotScheduledGeneric": "A prerequisite for this course is not scheduled before it.",
     "onlyOneEarlyBird": "You may only take one Early Bird course each semester.",
     "twoApScienceWarning": "Two 1.5-period AP science courses may only be taken together if one is scheduled as an Early Bird section.",
+    "gradeLevelConflict": "{courseTitle} is not offered to students in your {yearLabel} year.",
     "driverEdCompletedOutside": "Driver Education is already marked as completed outside of school. Undo that first.",
     "removeAcademicWaiverWarning": "Removing this course will make you ineligible for the Academic PE Waiver. The waiver will be revoked if you continue.",
     "removeAthleticWaiverWarning": "Removing this course will make you ineligible for the Athletic PE Waiver. The waiver will be revoked if you continue.",

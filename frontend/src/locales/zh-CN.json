@@ -203,6 +203,7 @@
     "prerequisiteNotScheduledGeneric": "此课程的一个先决条件未安排在其之前。",
     "onlyOneEarlyBird": "每学期只能修一门早鸟课。",
     "twoApScienceWarning": "两门 1.5 课时的 AP 科学课程只能在其中一门安排为早鸟课时一起修读。",
+    "gradeLevelConflict": "{courseTitle} 不向{yearLabel}的学生开设。",
     "driverEdCompletedOutside": "驾驶教育已标记为在校外完成。请先撤销该标记。",
     "removeAcademicWaiverWarning": "移除此课程将使你不符合学术体育豁免资格。如果你继续，豁免将被撤销。",
     "removeAthleticWaiverWarning": "移除此课程将使你不符合竞技体育豁免资格。如果你继续，豁免将被撤销。",

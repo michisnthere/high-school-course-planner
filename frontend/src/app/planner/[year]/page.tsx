@@ -3545,8 +3545,16 @@ function MobilePlanner({
 
 type PlannerWarning = {
   message: string;
-  type: "missing_prerequisite" | "later_prerequisite" | "multiple_early_bird" | "ap_science_conflict";
+  type:
+    | "missing_prerequisite"
+    | "later_prerequisite"
+    | "multiple_early_bird"
+    | "ap_science_conflict"
+    | "grade_level_conflict";
   prerequisite: string;
+  // For grade_level_conflict: the planner year (== grade) the course is
+  // planned in, used to interpolate the year label in the translated message.
+  plannerYear?: number;
   prerequisitePlacement?: {
     id: number;
     plannerId: number;
@@ -3576,7 +3584,9 @@ function makeWarningKey(planned: PlannedCourse, warning: PlannerWarning): string
   return `${getCourseIdentityKey(planned)}-${warning.type}-${warning.prerequisite}`;
 }
 
-function formatWarningMessage(
+// Exported for tests: the i18n bridge used by every warning render site
+// (desktop card, mobile card, resolution modal).
+export function formatWarningMessage(
   warning: PlannerWarning,
   t: (key: string, params?: Record<string, string>) => string,
   courseTitle: string
@@ -3593,13 +3603,20 @@ function formatWarningMessage(
       return t("plannerWarnings.onlyOneEarlyBird");
     case "ap_science_conflict":
       return t("plannerWarnings.twoApScienceWarning");
+    case "grade_level_conflict":
+      return t("plannerWarnings.gradeLevelConflict", {
+        courseTitle,
+        yearLabel: t(`year.${warning.plannerYear ?? ""}`),
+        gradeLabel: t(`profile.grade${warning.plannerYear ?? ""}`),
+      });
     default:
       return warning.message;
   }
 }
 
 // Exported for tests: this is the warning source rendered on planner course
-// cards (missing/later prerequisites, early-bird, AP science conflicts).
+// cards (missing/later prerequisites, early-bird, AP science conflicts,
+// grade-level eligibility).
 export function getWarnings(
   planned: PlannedCourse,
   allPlanners: Planner[],
@@ -3611,6 +3628,31 @@ export function getWarnings(
 ): PlannerWarning[] {
   const warnings: PlannerWarning[] = [];
   const { course } = planned;
+
+  // Grade-level eligibility: a planner year IS the grade it represents
+  // (Planner.schoolYear is 9-12; see YEAR_LABELS above), compared against the
+  // course's offering grade range carried on PlannerCourseDetails
+  // (gradeMin/gradeMax aggregated from CourseOffering rows by
+  // courseToPlannerDetails). Defaults mirror the catalog grade filter in
+  // CatalogContent.tsx: min = gradeMin ?? 9, max = gradeMax ?? 12, so a course
+  // without grade restrictions never warns. Completed coursework (including
+  // summer school) never exempts a placement: only the placement's year and
+  // the course's own offering data decide.
+  const plannerYear = allPlanners.find((p) => p.id === planned.plannerId)?.schoolYear ?? null;
+  if (plannerYear != null) {
+    const minGrade = course.gradeMin ?? 9;
+    const maxGrade = course.gradeMax ?? 12;
+    if (plannerYear < minGrade || plannerYear > maxGrade) {
+      warnings.push({
+        message: `${course.title} is not offered to students in your ${YEAR_LABELS[plannerYear] ?? `Grade ${plannerYear}`} year.`,
+        type: "grade_level_conflict",
+        // Not a prerequisite warning: empty keeps matchedCourses empty so the
+        // resolution modal offers no prerequisite-specific actions.
+        prerequisite: "",
+        plannerYear,
+      });
+    }
+  }
 
   if (!course.prerequisites || course.prerequisites.length === 0) {
     return warnings;
@@ -4676,7 +4718,9 @@ function WarningActionModal({
   }
 
   // The "Mark as Previously Completed" section is only actionable when a matching course is selected.
-  const hasCompletedAction = selectedCourse != null;
+  // A grade-level conflict is never resolved by marking the course completed
+  // (the planned placement stays in the ineligible year), so it never shows.
+  const hasCompletedAction = warning.type !== "grade_level_conflict" && selectedCourse != null;
 
   // Summary shown at the top of the Verify Changes screen. Reuses the existing
   // best-slot calculation rather than recomputing schedule info in the UI.
@@ -4910,7 +4954,7 @@ function WarningActionModal({
                   </select>
                 )}
 
-                {matchedCourses.length === 0 && (
+                {matchedCourses.length === 0 && warning.type !== "grade_level_conflict" && (
                     <p style={{ margin: 0, fontSize: "14px", color: "#9ca3af", textAlign: "center" }}>
                       {t("plannerAddPrereq.noMatchingCourse")}
                   </p>

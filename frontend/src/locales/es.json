@@ -203,6 +203,7 @@
     "prerequisiteNotScheduledGeneric": "Un prerrequisito de este curso no está programado antes de él.",
     "onlyOneEarlyBird": "Solo puede tomar un curso Early Bird por semestre.",
     "twoApScienceWarning": "Dos cursos de ciencias AP de 1.5 períodos solo pueden tomarse juntos si uno está programado como sección Early Bird.",
+    "gradeLevelConflict": "El curso {courseTitle} no se ofrece a los estudiantes de {gradeLabel}.",
     "driverEdCompletedOutside": "La Educación Vehicular ya está marcada como completada fuera de la escuela. Deshaga eso primero.",
     "removeAcademicWaiverWarning": "Eliminar este curso lo hará inelegible para la Exención de ED Académica. La exención será revocada si continúa.",
     "removeAthleticWaiverWarning": "Eliminar este curso lo hará inelegible para la Exención de ED Atlética. La exención será revocada si continúa.",
