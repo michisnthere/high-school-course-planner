@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // Planner Analysis Engine
 //
-// Analyzes all planners (grades 9–12) for a student and produces a single
+// Analyzes all planners (grades 9â€“12) for a student and produces a single
 // structured object containing graduation progress, yearly requirements,
 // duplicate detection, prerequisite status, and planner statistics.
 //
@@ -30,6 +30,7 @@ import {
   type InformationItem,
 } from "./requirementsCleanup.js";
 import { normalizePrerequisite } from "./prerequisiteNormalization.js";
+import { isMiddleSchoolGrade } from "./completedCourses.js";
 import { deriveCourseDuration, calculateTotalCredits, effectiveSlotsPerSemester } from "./courseCredits.js";
 import { GRADE_LEVEL_REQUIREMENTS } from "./gradeLevelRequirements.js";
 
@@ -687,28 +688,39 @@ function dropPlacementsAlreadyCompleted(
   );
 }
 
-// Completed courses (including summer school / middle school) are coursework the
-// student has already finished. They count toward graduation requirements and
-// overall credits, but must NOT influence year-specific planner requirements
-// (course load, PE breakdown, grade 9-12 checks), so they are only merged into
-// the credit-source lists used by graduation/credit math.
+// Completed coursework is the source for graduation requirements and overall
+// graduation credits. Two rules shape which records are eligible:
+//
+//   * Middle-school completions are EXCLUDED here, before they can reach any
+//     requirement, credit total, or progress bar (they still satisfy
+//     prerequisites, which read `completedCourses` directly).
+//   * Completed courses must NOT influence year-specific planner requirements
+//     (course load, PE breakdown, grade 9-12 checks), so the placements built
+//     here carry year 0 and are only merged into the credit-source lists used
+//     by graduation/credit math.
+//
+// This function is therefore the single funnel for "completed coursework that
+// counts toward graduation"; every graduation calculation downstream goes
+// through it.
 function buildCompletedCoursePlacements(completedCourses: CompletedCourseWithCourse[]): CoursePlacement[] {
-  return completedCourses.map((cc, index) => {
-    const course = cc.course
-      ? toAnalysisCourse(cc.course)
-      : cc.summerCourse
-        ? toAnalysisSummerCourse(cc.summerCourse)
-        : null;
-    return {
-      plannedCourseId: -(cc.id || index + 1),
-      year: 0,
-      semester: 0,
-      slot: -1,
-      course,
-      plannerOption: null,
-      credits: cc.credits ?? course?.credits ?? 0,
-    };
-  });
+  return completedCourses
+    .filter((cc) => !isMiddleSchoolGrade(cc.gradeCompleted))
+    .map((cc, index) => {
+      const course = cc.course
+        ? toAnalysisCourse(cc.course)
+        : cc.summerCourse
+          ? toAnalysisSummerCourse(cc.summerCourse)
+          : null;
+      return {
+        plannedCourseId: -(cc.id || index + 1),
+        year: 0,
+        semester: 0,
+        slot: -1,
+        course,
+        plannerOption: null,
+        credits: cc.credits ?? course?.credits ?? 0,
+      };
+    });
 }
 
 function computeCredits(placements: CoursePlacement[], completedCourses: CompletedCourseWithCourse[] = []) {
@@ -822,7 +834,7 @@ function computeGraduationRequirements(
     }
   }
 
-  // Build courseId → fulfills canonical names
+  // Build courseId â†’ fulfills canonical names
   const courseFulfillsMap = new Map<number, Set<string>>();
   for (const placement of creditSources) {
     if (!placement.course) continue;
@@ -870,7 +882,7 @@ function computeGraduationRequirements(
     }
 
     // Check for PE waiver resolution (driver_ed_external is a Driver Ed credit,
-    // not a PE waiver — exclude it so it cannot zero out Physical Education).
+    // not a PE waiver â€” exclude it so it cannot zero out Physical Education).
     let effectiveRequired = required;
     const hasPeWaiver = resolutions.some(
       (r) =>

@@ -66,6 +66,7 @@ const english9: PlannerCourseDetails = {
   department: "English", description: null, fulfillsRequirements: ["English"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG101", gradeMin: 9, gradeMax: 9,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
+  supportsEarlyBird: false, isRepeatable: false, isOnline: false,
 };
 
 const english10: PlannerCourseDetails = {
@@ -74,6 +75,7 @@ const english10: PlannerCourseDetails = {
   department: "English", description: null, fulfillsRequirements: ["English"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG102", gradeMin: 10, gradeMax: 10,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
+  supportsEarlyBird: false, isRepeatable: false, isOnline: false,
 };
 
 const english11: PlannerCourseDetails = {
@@ -82,6 +84,7 @@ const english11: PlannerCourseDetails = {
   department: "English", description: null, fulfillsRequirements: ["English"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG103", gradeMin: 11, gradeMax: 11,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
+  supportsEarlyBird: false, isRepeatable: false, isOnline: false,
 };
 
 const english12: PlannerCourseDetails = {
@@ -90,6 +93,7 @@ const english12: PlannerCourseDetails = {
   department: "English", description: null, fulfillsRequirements: ["English"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "ENG104", gradeMin: 12, gradeMax: 12,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
+  supportsEarlyBird: false, isRepeatable: false, isOnline: false,
 };
 
 const biology: PlannerCourseDetails = {
@@ -98,6 +102,7 @@ const biology: PlannerCourseDetails = {
   department: "Science", description: null, fulfillsRequirements: ["Biology", "Science"],
   prerequisites: [], courseCodeS1: null, courseCodeS2: null, courseCode: "BIO101", gradeMin: 9, gradeMax: 9,
   isNonAcademic: false, isMarchingBand: false, attributes: [],
+  supportsEarlyBird: false, isRepeatable: false, isOnline: false,
 };
 
 function makePlanner(year: number, planned: Planner["plannedCourses"] = []): Planner {
@@ -113,6 +118,7 @@ function makePlanned(course: PlannerCourseDetails, semester: number, slot: numbe
     semester,
     slot,
     slotSpan: 1,
+    isEarlyBird: false,
     course: { ...course },
   };
 }
@@ -181,8 +187,8 @@ describe("Requirements page progress bars", () => {
       return card;
     }, { timeout: 2000 });
 
-    const englishCompleted = english.querySelector('[data-segment="completed"]')!;
-    const englishPlanned = english.querySelector('[data-segment="planned"]')!;
+    const englishCompleted = english.querySelector('[data-segment="completed"]') as HTMLElement;
+    const englishPlanned = english.querySelector('[data-segment="planned"]') as HTMLElement;
     expect(englishCompleted.style.width).toBe("50%");
     expect(englishPlanned.style.width).toBe("50%");
     expect(english.querySelector('[data-segment="remaining"]')).toBeNull();
@@ -194,7 +200,7 @@ describe("Requirements page progress bars", () => {
       expect(card.querySelector('[data-segment="completed"]')).not.toBeNull();
       return card;
     }, { timeout: 2000 });
-    expect(biologyCard.querySelector('[data-segment="completed"]')!.style.width).toBe("100%");
+    expect((biologyCard.querySelector('[data-segment="completed"]') as HTMLElement).style.width).toBe("100%");
     expect(biologyCard.querySelector('[data-segment="planned"]')).toBeNull();
     expect(within(biologyCard).getByText("Satisfied")).toBeTruthy();
 
@@ -213,5 +219,52 @@ describe("Requirements page progress bars", () => {
 
     // The denominator appears exactly once in the textual progress display.
     expect(screen.getAllByText("/ 45 Credits Completed")).toHaveLength(1);
+  });
+
+  it("never counts middle-school completions in the green segment or the earned total", async () => {
+    // English (8 credits total):
+    //   middle-school completed = 2 (must contribute nothing)
+    //   high-school completed   = 2
+    //   planned                 = 2
+    //   remaining               = 4
+    // -> Completed 2 / Planned 2 / Remaining 4, the 1 : 1 : 2 shape of the
+    //    spec's 1 / 1 / 2 of 4 example.
+    const planners: Planner[] = [
+      makePlanner(9),
+      makePlanner(10),
+      makePlanner(11, [makePlanned(english11, 1, 1)]),
+      makePlanner(12),
+    ];
+    const completedCourses = [
+      makeCompleted(english9, "Middle School"),
+      makeCompleted(english10, "Freshman (9)"),
+      makeCompleted(biology, "Freshman (9)"),
+    ];
+
+    mocks.getPlanners.mockResolvedValue(planners);
+    mocks.getCompletedCourses.mockResolvedValue(completedCourses);
+    mocks.getResolutions.mockResolvedValue([]);
+    mocks.getCourses.mockResolvedValue([]);
+    mocks.getAnalysis.mockImplementation(async (data) => computePlannerAnalysis(data));
+
+    await renderRequirementsPage();
+
+    const english = await waitFor(() => {
+      const card = cardFor("English");
+      expect(card.querySelector('[data-segment="planned"]')).not.toBeNull();
+      return card;
+    }, { timeout: 2000 });
+
+    // The 2 middle-school credits fall into the gray remainder, not the green bar.
+    expect((english.querySelector('[data-segment="completed"]') as HTMLElement).style.width).toBe("25%");
+    expect((english.querySelector('[data-segment="planned"]') as HTMLElement).style.width).toBe("25%");
+    expect((english.querySelector('[data-segment="remaining"]') as HTMLElement).style.width).toBe("50%");
+    expect(within(english).getByText(/You have earned 2 credits so far/)).toBeTruthy();
+    expect(within(english).getByText("Planned")).toBeTruthy();
+
+    // The earned-credits header counts only high school: 2 English + 2 Biology = 4
+    // (6 if the middle-school completion were wrongly included).
+    const earnedLabel = screen.getByText("/ 45 Credits Completed");
+    expect(earnedLabel.parentElement?.textContent?.startsWith("4")).toBe(true);
   });
 });

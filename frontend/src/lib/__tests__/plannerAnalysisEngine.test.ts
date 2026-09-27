@@ -1162,4 +1162,189 @@ describe("computePlannerAnalysis", () => {
       expect(completedResult.graduationRequirements.find((r) => r.name === "Health")!.earnedValue).toBe(0);
     });
   });
+
+  // Middle-school completion is identified ONLY by `gradeCompleted ===
+  // "Middle School"` on the completed-course record -- never by course name,
+  // department, id, or the course's own grade range. These records must never
+  // reach graduation math, but they stay in `completedCourses` for
+  // prerequisite checking.
+  describe("middle school completed courses", () => {
+    // Offered in middle school AND high school: eligibility metadata must not
+    // decide anything either way (see "does not care about grade range").
+    const geometry: PlannerCourseDetails = {
+      id: 202, title: "Geometry", normalizedTitle: "geometry", duration: 2,
+      slotsPerSemester: 1, creditType: "regular", credits: 2, division: "Mathematics",
+      department: "Mathematics", description: null, fulfillsRequirements: ["Mathematics"],
+      prerequisites: ["Algebra I"], courseCodeS1: null, courseCodeS2: null, courseCode: "MATH102",
+      gradeMin: 9, gradeMax: 12,
+      isNonAcademic: false, isMarchingBand: false, attributes: [], isRepeatable: false,
+    };
+    const allWithGeometry = [...allCourses, geometry];
+
+    function requirement(result: ReturnType<typeof computePlannerAnalysis>, name: string) {
+      const req = result.graduationRequirements.find((r) => r.name === name);
+      expect(req).toBeDefined();
+      return req!;
+    }
+
+    it("middle school only: completedValue = 0 and plannedValue = 0", () => {
+      const result = computePlannerAnalysis({
+        planners: [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)],
+        completedCourses: [makeCompleted(algebra, "Middle School")],
+        resolutions: [],
+        allCourses,
+      });
+
+      const math = requirement(result, "Mathematics");
+      expect(math.completedValue).toBe(0);
+      expect(math.plannedValue).toBe(0);
+      expect(math.earnedValue).toBe(0);
+      expect(math.remainingValue).toBe(math.requiredValue);
+      expect(math.status).not.toBe("satisfied");
+
+      // The completed-only view agrees: no green progress at all.
+      const mathEarned = result.earned!.graduationRequirements.find((r) => r.name === "Mathematics")!;
+      expect(mathEarned.completedValue).toBe(0);
+      expect(mathEarned.earnedValue).toBe(0);
+    });
+
+    it("middle + high school: completedValue counts only the high-school credits", () => {
+      const result = computePlannerAnalysis({
+        planners: [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)],
+        completedCourses: [
+          makeCompleted(geometry, "Middle School"),
+          makeCompleted(algebra, "Freshman (9)"),
+        ],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+
+      // 2 credits from middle school + 2 credits from high school -> 2, not 4.
+      const math = requirement(result, "Mathematics");
+      expect(math.completedValue).toBe(2);
+      expect(math.earnedValue).toBe(2);
+      expect(result.earned!.credits.total).toBe(2);
+      expect(result.credits.total).toBe(2);
+    });
+
+    it("middle + planned: the middle-school course is never green progress", () => {
+      const result = computePlannerAnalysis({
+        planners: [
+          makePlanner(9, [makePlanned(algebra, 1, 1)]),
+          makePlanner(10),
+          makePlanner(11),
+          makePlanner(12),
+        ],
+        completedCourses: [makeCompleted(geometry, "Middle School")],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+
+      const math = requirement(result, "Mathematics");
+      expect(math.completedValue).toBe(0);
+      expect(math.plannedValue).toBe(2);
+      expect(math.earnedValue).toBe(2);
+      // The planned course still contributes on its own (planned logic untouched).
+      expect(result.earned!.graduationRequirements.find((r) => r.name === "Mathematics")!.earnedValue).toBe(0);
+    });
+
+    it("excludes middle-school completions from the overall graduation credit total", () => {
+      // 8 credits completed in middle school + 5 credits in high school.
+      const middleSchoolCredits = [chemistry, english10, usHistory, government, peCourse]; // 8
+      const highSchoolCredits = [algebra, english9, health]; // 5
+      const completedCourses = [
+        ...middleSchoolCredits.map((c) => makeCompleted(c, "Middle School")),
+        ...highSchoolCredits.map((c) => makeCompleted(c, "Freshman (9)")),
+      ];
+
+      const result = computePlannerAnalysis({
+        planners: [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)],
+        completedCourses,
+        resolutions: [],
+        allCourses,
+      });
+
+      expect(result.credits.total).toBe(5);
+      expect(result.earned!.credits.total).toBe(5);
+      // Not the 13 the naive sum would produce.
+      expect(result.credits.total).not.toBe(13);
+    });
+
+    it("does not care about the course's own grade range", () => {
+      // The same high-school course counts when completed in high school and
+      // is ignored when completed in middle school -- the record's period is
+      // the only signal.
+      const asHighSchool = computePlannerAnalysis({
+        planners: [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)],
+        completedCourses: [makeCompleted(geometry, "Junior (11)")],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+      expect(requirement(asHighSchool, "Mathematics").completedValue).toBe(2);
+
+      const asMiddleSchool = computePlannerAnalysis({
+        planners: [makePlanner(9), makePlanner(10), makePlanner(11), makePlanner(12)],
+        completedCourses: [makeCompleted(geometry, "Middle School")],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+      expect(requirement(asMiddleSchool, "Mathematics").completedValue).toBe(0);
+    });
+
+    it("middle-school Algebra I still satisfies the Geometry prerequisite", () => {
+      const result = computePlannerAnalysis({
+        planners: [
+          makePlanner(9),
+          makePlanner(10, [makePlanned(geometry, 1, 1)]),
+          makePlanner(11),
+          makePlanner(12),
+        ],
+        completedCourses: [makeCompleted(algebra, "Middle School")],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+
+      expect(result.missingPrerequisites.filter((m) => m.courseTitle === "Geometry")).toEqual([]);
+
+      // Core distinction (same run): zero graduation progress for that course.
+      expect(requirement(result, "Mathematics").completedValue).toBe(0);
+      expect(result.earned!.credits.total).toBe(0);
+    });
+
+    it("still reports the prerequisite when it is not completed", () => {
+      const result = computePlannerAnalysis({
+        planners: [
+          makePlanner(9),
+          makePlanner(10, [makePlanned(geometry, 1, 1)]),
+          makePlanner(11),
+          makePlanner(12),
+        ],
+        completedCourses: [],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+
+      const missing = result.missingPrerequisites.filter((m) => m.courseTitle === "Geometry");
+      expect(missing).toHaveLength(1);
+      expect(missing[0].missingPrerequisite).toBe("Algebra I");
+      expect(missing[0].reason).toBe("notPlanned");
+    });
+
+    it("high-school Algebra I satisfies the prerequisite and still counts for graduation", () => {
+      const result = computePlannerAnalysis({
+        planners: [
+          makePlanner(9),
+          makePlanner(10, [makePlanned(geometry, 1, 1)]),
+          makePlanner(11),
+          makePlanner(12),
+        ],
+        completedCourses: [makeCompleted(algebra, "Freshman (9)")],
+        resolutions: [],
+        allCourses: allWithGeometry,
+      });
+
+      expect(result.missingPrerequisites.filter((m) => m.courseTitle === "Geometry")).toEqual([]);
+      expect(requirement(result, "Mathematics").completedValue).toBe(2);
+    });
+  });
 });

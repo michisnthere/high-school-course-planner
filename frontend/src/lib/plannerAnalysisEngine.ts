@@ -1,5 +1,6 @@
 import type { Planner, PlannerCourseDetails, PlannedCourse } from "./planner";
 import type { CompletedCourse } from "./completedCourses";
+import { isMiddleSchoolGrade } from "./completedCourses";
 import type { SummerCourse } from "./summerCourse";
 import type { RequirementResolution } from "./api";
 import type { StudentPlanningData } from "./studentData";
@@ -453,28 +454,39 @@ function dropPlacementsAlreadyCompleted(
   );
 }
 
-// Completed courses (including summer school / middle school) are coursework the
-// student has already finished. They count toward graduation requirements and
-// overall credits, but must NOT influence year-specific planner requirements
-// (course load, PE breakdown, grade 9-12 checks), so they are only merged into
-// the credit-source lists used by graduation/credit math.
+// Completed coursework is the source for graduation requirements and overall
+// graduation credits. Two rules shape which records are eligible:
+//
+//   * Middle-school completions are EXCLUDED here, before they can reach any
+//     requirement, credit total, or progress bar (they still satisfy
+//     prerequisites, which read `completedCourses` directly).
+//   * Completed courses must NOT influence year-specific planner requirements
+//     (course load, PE breakdown, grade 9-12 checks), so the placements built
+//     here carry year 0 and are only merged into the credit-source lists used
+//     by graduation/credit math.
+//
+// This function is therefore the single funnel for "completed coursework that
+// counts toward graduation"; every graduation calculation downstream goes
+// through it.
 function buildCompletedCoursePlacements(completedCourses: CompletedCourse[]): CoursePlacement[] {
-  return completedCourses.map((cc, index) => {
-    const course = cc.course
-      ? toAnalysisCourse(cc.course)
-      : cc.summerCourse
-        ? toAnalysisSummerCourse(cc.summerCourse)
-        : null;
-    return {
-      plannedCourseId: -(cc.id || index + 1),
-      year: 0,
-      semester: 0,
-      slot: -1,
-      course,
-      credits: cc.credits ?? course?.credits ?? 0,
-      isNonAcademic: false,
-    };
-  });
+  return completedCourses
+    .filter((cc) => !isMiddleSchoolGrade(cc.gradeCompleted))
+    .map((cc, index) => {
+      const course = cc.course
+        ? toAnalysisCourse(cc.course)
+        : cc.summerCourse
+          ? toAnalysisSummerCourse(cc.summerCourse)
+          : null;
+      return {
+        plannedCourseId: -(cc.id || index + 1),
+        year: 0,
+        semester: 0,
+        slot: -1,
+        course,
+        credits: cc.credits ?? course?.credits ?? 0,
+        isNonAcademic: false,
+      };
+    });
 }
 
 // A matched summer course (duplicateGroupId set) is equivalent to its regular

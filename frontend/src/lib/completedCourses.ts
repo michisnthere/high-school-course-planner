@@ -16,6 +16,18 @@ export const GRADE_COMPLETED_OPTIONS = [
 
 export type GradeCompleted = (typeof GRADE_COMPLETED_OPTIONS)[number];
 
+// The completed-course schema stores the academic period in `gradeCompleted`
+// and has no separate school-level column, so this exact value is the canonical
+// discriminator for a course finished before high school.
+export const MIDDLE_SCHOOL_GRADE: GradeCompleted = "Middle School";
+
+// True when a completed-course record represents middle-school completion.
+// Middle-school completions still satisfy prerequisites, but they must never
+// contribute to graduation requirements or graduation credit totals.
+export function isMiddleSchoolGrade(gradeCompleted: string): boolean {
+  return gradeCompleted === MIDDLE_SCHOOL_GRADE;
+}
+
 const ACADEMIC_GRADE_BY_YEAR: Record<number, GradeCompleted> = {
   9: "Freshman (9)",
   10: "Sophomore (10)",

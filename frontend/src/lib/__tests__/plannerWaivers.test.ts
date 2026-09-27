@@ -51,6 +51,31 @@ describe("hasDriverEducationCourse", () => {
     const completed = [{ course: { fulfillsRequirements: ["Science"] } }];
     expect(hasDriverEducationCourse(planned, completed)).toBe(false);
   });
+
+  it("ignores Driver Education completed in middle school", () => {
+    // A middle-school completion never counts toward graduation, so it must
+    // not be treated as "already handled" (it would hide the only remaining
+    // way to satisfy the requirement: marking it completed outside school).
+    const completed = [
+      { course: { fulfillsRequirements: ["Driver Education"] }, gradeCompleted: "Middle School" },
+    ];
+    expect(hasDriverEducationCourse([], completed)).toBe(false);
+  });
+
+  it("keeps Driver Education completed in high school", () => {
+    const completed = [
+      { course: { fulfillsRequirements: ["Driver Education"] }, gradeCompleted: "Freshman (9)" },
+    ];
+    expect(hasDriverEducationCourse([], completed)).toBe(true);
+  });
+
+  it("still counts Driver Education planned in the planner next to a middle-school record", () => {
+    const planned = [{ course: { fulfillsRequirements: ["Driver Education"] } }];
+    const completed = [
+      { course: { fulfillsRequirements: ["Driver Education"] }, gradeCompleted: "Middle School" },
+    ];
+    expect(hasDriverEducationCourse(planned, completed)).toBe(true);
+  });
 });
 
 describe("isDriverEdExternalResolution", () => {

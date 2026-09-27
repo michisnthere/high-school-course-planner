@@ -1,6 +1,7 @@
 import type { PlannedCourse } from "./planner";
 import { effectiveSlotSpan, getCourseCredits, getPlacementKey } from "./courseCredits";
 import { isOutOfSemester } from "./plannerSemesters";
+import { isMiddleSchoolGrade } from "./completedCourses";
 
 export type WaiverVariant = "academic" | "athletic" | "marching-band";
 
@@ -193,12 +194,26 @@ export function findDriverEdExternalResolution<
   return resolutions.find(isDriverEdExternalResolution) ?? null;
 }
 
+// Driver Education that counts toward graduation is either planned in the
+// planner or completed in high school. A middle-school completion never counts
+// toward graduation, so it must not be treated as "already handled" here --
+// otherwise it would hide the only remaining way to satisfy the requirement.
+// `gradeCompleted` is optional so structural call sites without it keep their
+// existing behavior.
 export function hasDriverEducationCourse(
   plannedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } }>,
-  completedCourses: Array<{ course: { fulfillsRequirements?: string[] | null } | null }>
+  completedCourses: Array<{
+    course: { fulfillsRequirements?: string[] | null } | null;
+    gradeCompleted?: string;
+  }>
 ): boolean {
   return (
     plannedCourses.some((pc) => courseFulfillsDriverEducation(pc.course)) ||
-    completedCourses.some((cc) => (cc.course ? courseFulfillsDriverEducation(cc.course) : false))
+    completedCourses.some(
+      (cc) =>
+        cc.course != null &&
+        !isMiddleSchoolGrade(cc.gradeCompleted ?? "") &&
+        courseFulfillsDriverEducation(cc.course)
+    )
   );
 }

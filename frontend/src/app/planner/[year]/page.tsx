@@ -3598,7 +3598,9 @@ function formatWarningMessage(
   }
 }
 
-function getWarnings(
+// Exported for tests: this is the warning source rendered on planner course
+// cards (missing/later prerequisites, early-bird, AP science conflicts).
+export function getWarnings(
   planned: PlannedCourse,
   allPlanners: Planner[],
   completedCourses: CompletedCourse[],
